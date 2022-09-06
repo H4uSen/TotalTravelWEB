@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewData["Title"] = "AccountInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-inner w-100">
+    <!-- Page Header-->
+    <header class="bg-white shadow-sm px-4 py-3 z-index-20">
+        <div class="container-fluid px-0">
+            <h2 class="mb-0 p-1">Mi Cuenta</h2>
+        </div>
+    </header>
+    <!-- Breadcrumb-->
+    <section>
+        <div class="card text-center ms-5 me-5">
+            <div class="card-header bg-primary rounded-top  ">
+            </div>
+            <div class="card-body">
+                <div class="container bgcolor rounded-3">
+
+                    <div class="row ps-md-4 pe-md-4 pt-2">
+
+                        <div class="col-md-9">
+                            <div class="col-md-3">
+                                <img class="shadow-0 img-thumbnail img-fluid rounded-3 mt-4 " src="../assets/img/avatar-1.jpg" alt="Imagen del usuario" width="60%">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <button type="button" class="btn btn-primary ms-5 ps-md-3 pe-md-3 mt-4 ">
+                                    <span class="material-symbols-outlined">
+                                        border_color
+                                    </span>
+                                </button>
+                            </div>
+                            <div>
+                                <label class="ms-5">Editar</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="col-md-2">
+                                <label class="">Nombre:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" disabled value="Mark">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="col-md-2">
+                                <label class="">Apellido:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" disabled value="Stephen">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="">Correo electrónico:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" disabled value="Stephen@examples.com">
+                            </div>
+                        </div>
+                        <hr class="bg-primary">
+                        <div class="col-md-6 mt-2">
+                            <div class="col-md-3">
+                                <label class="">Nº Identidad:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" disabled value="0501-2004-10339">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="col-md-4">
+                                <label class="">Fecha de nacimiento:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" disabled value="21-02-2021">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <div class="col-md-2">
+                                <label class="">Teléfono:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" disabled value="+504 89332227">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mb-5">
+                            <div class="col-md-2">
+                                <label class="">Sexo:</label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <label>Masculino</label>
+                                    <input class=" ms-4 form-check-input selected" type="radio" value="M" checked="checked" disabled name="RbMasculino" id="RbMasculino">
+                                    <label class="ms-4">Femenino</label>
+                                    <input class=" ms-4 form-check-input selected" type="radio" value="F" name="RbFemenino" disabled id="RbFemenino">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+            </div>
+        </div>
+
+    </section>
+    <!-- Page Footer-->
+    <footer class="position-absolute bottom-0 bg-darkBlue text-white text-center py-3 w-100 text-xs" id="footer">
+        <div class="container-fluid">
+            <div class="row gy-2">
+                <div class="col-sm-6 text-sm-start">
+                    <p class="mb-0">Your company &copy; 2017-2021</p>
+                </div>
+                <div class="col-sm-6 text-sm-end">
+                    <p class="mb-0">
+                        Design by <a href="https://bootstrapious.com/p/admin-template"
+                                     class="text-white text-decoration-none">Bootstrapious</a>
+                    </p>
+                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                </div>
+            </div>
+        </div>
+    </footer>
+
