@@ -1,0 +1,594 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <script src="https://kit.fontawesome.com/bdd89edb33.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+          rel="stylesheet" />
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="assets/vendor/choices.js/public/assets/styles/choices.min.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        .u-center-text {
+            text-align: center !important;
+        }
+
+        .u-margin-bottom-small {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .u-margin-bottom-medium {
+            margin-bottom: 4rem !important;
+        }
+
+        .u-margin-top-big {
+            margin-top: 5rem !important;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #fff;
+        }
+
+        .heading-primary {
+            color: rgb(8, 8, 8);
+            text-transform: uppercase;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            margin-bottom: 6rem;
+        }
+
+        .heading-primary--main {
+            display: block;
+            font-size: 6rem;
+            font-weight: 400;
+            letter-spacing: 3.5rem;
+            -webkit-animation-name: moveInLeft;
+            animation-name: moveInLeft;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+            /*
+        animation-delay: 3s;
+        animation-iteration-count: 3;
+        */
+        }
+
+        .heading-primary--sub {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1.75rem;
+            -webkit-animation: moveInRight 1s ease-out;
+            animation: moveInRight 1s ease-out;
+        }
+
+        .heading-secondary {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: transparent;
+            letter-spacing: 0.2rem;
+            line-height: 1;
+            -webkit-transition: all 0.2s;
+            transition: all 0.2s;
+            color: black;
+        }
+
+        .heading-vista {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: transparent;
+            letter-spacing: 0.2rem;
+            line-height: 1;
+            -webkit-transition: all 0.2s;
+            transition: all 0.2s;
+            color: #ffffff;
+        }
+
+        .btn, .btn:link, .btn:visited {
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 1.5rem 4rem;
+            display: inline-block;
+            border-radius: 0.5rem;
+            -webkit-transition: all 0.2s;
+            transition: all 0.2s;
+            position: relative;
+            font-size: 1.6rem;
+            border: none;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                -webkit-transform: translateY(-3px);
+                transform: translateY(-3px);
+                -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+                box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+            }
+
+                .btn:hover::after {
+                    -webkit-transform: scaleX(1.4) scaleY(1.6);
+                    transform: scaleX(1.4) scaleY(1.6);
+                    opacity: 0;
+                }
+
+            .btn:active, .btn:focus {
+                outline: none;
+                -webkit-transform: translateY(-1px);
+                transform: translateY(-1px);
+                -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+            }
+
+        .btn--white {
+            background-color: #fff;
+            color: #777;
+        }
+
+            .btn--white::after {
+                background-color: #fff;
+            }
+
+        .btn--green {
+            background: -webkit-gradient(linear, left top, right top, from(#fc466b), to(#3f5efb));
+            background: linear-gradient(to right, #fc466b, #3f5efb);
+            color: #fff;
+        }
+
+            .btn--green::after {
+                background-color: #55c57a;
+            }
+
+        *,
+        *::after,
+        *::before {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: inherit;
+            box-sizing: inherit;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .section-plans {
+            padding: 4rem 0 4rem 0;
+        }
+
+        .card {
+            -webkit-perspective: 150rem;
+            perspective: 150rem;
+            -moz-perspective: 150rem;
+            position: relative;
+            height: 52rem;
+        }
+
+        .card__side {
+            height: 52rem;
+            -webkit-transition: all 0.8s ease;
+            transition: all 0.8s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 3px;
+            overflow: hidden;
+            -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+        }
+
+        .card__side--front {
+            background-color: #fff;
+        }
+
+        .card__side--front-1 {
+            background: linear-gradient(-45deg, #f403d1, #64b5f6);
+        }
+
+        .card__side--front-2 {
+            background: linear-gradient(-45deg, #f321d7, #ffec61);
+        }
+
+        .card__side--front-3 {
+            background: linear-gradient(-45deg, #24ff72, #9a4eff);
+        }
+
+        .card__side--back {
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+
+        .card__side--back-1 {
+            background: linear-gradient(-45deg, #64b5f6, #f403d1);
+        }
+
+        .card__side--back-2 {
+            background: linear-gradient(-45deg, #ffec61, #f321d7);
+        }
+
+        .card__side--back-3 {
+            background: linear-gradient(-45deg, #9a4eff, #24ff72);
+        }
+
+        .card:hover .card__side--front-1,
+        .card:hover .card__side--front-2,
+        .card:hover .card__side--front-3 {
+            -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+
+        .card:hover .card__side--back {
+            -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+        }
+
+        .card__title {
+            height: 20rem;
+            padding: 4rem 2rem 2rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        .card__title--1 .fas {
+            font-size: 5rem;
+        }
+
+        .card__title--2 .fas {
+            font-size: 5rem;
+        }
+
+        .card__title--3 .fas {
+            font-size: 5rem;
+        }
+
+        .card__heading {
+            font-size: 4rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            text-align: center;
+            color: #fff;
+            width: 75%;
+        }
+
+        .card__heading-span {
+            padding: 1rem 1.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
+        .card__details {
+            padding: 0 2rem 2rem;
+        }
+
+            .card__details ul {
+                list-style: none;
+                width: 80%;
+                margin: 0 auto;
+            }
+
+                .card__details ul li {
+                    text-align: center;
+                    font-size: 1.5rem;
+                    padding: 1rem;
+                }
+
+                    .card__details ul li:not(:last-child) {
+                        border-bottom: 1px solid #eee;
+                    }
+
+        .card__cta {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 90%;
+            text-align: center;
+        }
+
+        .card__price-box {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 8rem;
+        }
+
+        .card__price-only {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+
+        .card__price-value {
+            font-size: 6rem;
+            font-weight: 100;
+        }
+
+        .row {
+            max-width: 114rem;
+            margin: 0 auto;
+        }
+
+            .row:not(:last-child) {
+                margin-bottom: 5rem;
+                margin-top: 5rem;
+            }
+
+            .row::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            .row [class^="col-"] {
+                float: left;
+            }
+
+                .row [class^="col-"]:not(:last-child) {
+                    margin-right: 6rem;
+                }
+
+            .row .col-1-of-3 {
+                width: calc((100% - 2 * 6rem) / 3);
+            }
+
+        #logo {
+            background-color: hsl(272deg 48% 37%);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header z-index-50">
+            <nav class="navbar py-3 px-0 shadow-sm text-white position-relative">
+                <!-- Search Box-->
+                <div class="search-box shadow-sm">
+                    <button class="dismiss d-flex align-items-center">
+                        <svg class="svg-icon svg-icon-heavy">
+                            <use xlink:href="#close-1"> </use>
+                        </svg>
+                    </button>
+                    <form id="searchForm" action="#" role="search">
+                        <input class="form-control shadow-0" type="text" placeholder="What are you looking for...">
+                    </form>
+                </div>
+                <div class="container-fluid w-100">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Toggle Button--><a class="" id="toggle-btn" href="#"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <!-- Search-->
+                            <li class="nav-item d-flex align-items-center">
+                                <a id="search" href="#">
+                                    <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                        <use xlink:href="#find-1"> </use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <!-- Logout    -->
+                            <h2>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="/Home/Login">
+                                    <span class="d-none d-sm-inline">Iniciar Sesion</span>
+                                    <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                        <use xlink:href="#security-1"> </use>
+                                    </svg>
+                                </a>
+                            </li></h2>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <section class="section-plans" id="section-plans">
+            <div class="u-center-text u-margin-bottom-big" id="logo">
+                <img src="assets/img/AHM-Fondo-Nombre.png" width="33%" height="150px">
+                <h3 class="heading-vista">
+                    Ofertas de tus webs de reserva favoritas
+                    <p id="p-text">Prueba a buscar una ciudad, un hotel ¡o un punto de interés!</p>
+                </h3>
+                <br>
+            </div>
+            <div class="u-center-text u-margin-bottom-big">
+                <h2 class="heading-secondary">
+                    <br> Paquetes más comprados
+                </h2>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-1-of-3">
+                    <div class="card">
+                        <div class="card__side card__side--front-1">
+                            <div class="card__title card__title--1">
+                                <i class="fas fa-paper-plane"></i>
+                                <h4 class="card__heading">Básico</h4>
+                            </div>
+
+                            <div class="card__details">
+                                <ul>
+                                    <li>Hotel 3 estrellas</li>
+                                    <li>Desayuno | Almuerzo | Cena</li>
+                                    <li>Realización de actividades básicas</li>
+                                    <li>Atención al dormitorio</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card__side card__side--back card__side--back-1">
+                            <div class="card__cta">
+                                <div class="card__price-box">
+                                    <p class="card__price-only">Solo por:</p>
+                                    <p class="card__price-value">Lps. 5600</p>
+                                </div>
+                                <a href="#popup" class="btn btn--white">Elegir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-1-of-3">
+                    <div class="card">
+                        <div class="card__side card__side--front-2">
+                            <div class="card__title card__title--2">
+                                <i class="fas fa-plane"></i>
+                                <h4 class="card__heading">Plus</h4>
+                            </div>
+
+                            <div class="card__details">
+                                <ul>
+                                    <li>Hotel 4 estrellas</li>
+                                    <li>Desayuno | Almuerzo | Cena</li>
+                                    <li>Realización de actividades Turísticas</li>
+                                    <li>Atención al dormitorio</li>
+                                    <li>Acceso a piscina | Uso del gimnasio </li>
+                                    <li>Surfear</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card__side card__side--back card__side--back-2">
+                            <div class="card__cta">
+                                <div class="card__price-box">
+                                    <p class="card__price-only">Solo por:</p>
+                                    <p class="card__price-value">Lps. 7250</p>
+                                </div>
+                                <a href="#popup" class="btn btn--white">Elegir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-1-of-3">
+                    <div class="card">
+                        <div class="card__side card__side--front-3">
+                            <div class="card__title card__title--3">
+                                <i class="fas fa-rocket"></i>
+                                <h4 class="card__heading">Pro</h4>
+                            </div>
+
+                            <div class="card__details">
+                                <ul>
+                                    <li>Hotel 5 estrellas</li>
+                                    <li>Desayuno | Almuerzo | Cena</li>
+                                    <li>Realización de actividades Turisticas</li>
+                                    <li>Atención al dormitorio</li>
+                                    <li>Acceso a piscina | Uso del gimnasio | Uso del Spa </li>
+                                    <li>Surfear</li>
+                                    <li>Escalar montaña</li>
+                                    <li>Busear | Nadar con delfines</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card__side card__side--back card__side--back-3">
+                            <div class="card__cta">
+                                <div class="card__price-box">
+                                    <p class="card__price-only">Solo por:</p>
+                                    <p class="card__price-value">Lps. 8900</p>
+                                </div>
+                                <a href="#popup" class="btn btn--white">Elegir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <!-- Page Footer-->
+        <footer class="position-absolute bg-darkBlue text-white text-center w-100 text-xs" id="footer">
+            <div class="container-fluid">
+                <div class="row gy-2">
+                    <div class="col-sm-6 text-sm-start">
+                        <h2><p class="mb-0">Your company &copy; 2017-2021</p></h2>
+                    </div>
+                    <div class="col-sm-6 text-sm-end">
+                        <h2><p class="mb-0">Design by <a href="https://bootstrapious.com/p/admin-template" class="text-white text-decoration-none">Bootstrapious</a></p></h2>
+                        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- JavaScript files-->
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/chart.js/Chart.min.js"></script>
+        <script src="vendor/just-validate/js/just-validate.min.js"></script>
+        <script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+        <script src="js/charts-home.js"></script>
+        <!-- Main File-->
+        <script src="js/front.js"></script>
+        <script>
+// ------------------------------------------------------- //
+      //   Inject SVG Sprite -
+      //   see more here
+      //   https://css-tricks.com/ajaxing-svg-sprite/
+      // ------------------------------------------------------ //
+      function injectSvgSprite(path) {
+
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", path, true);
+          ajax.send();
+          ajax.onload = function(e) {
+          var div = document.createElement("div");
+          div.className = 'd-none';
+          div.innerHTML = ajax.responseText;
+          document.body.insertBefore(div, document.body.childNodes[0]);
+          }
+      }
+      // this is set to BootstrapTemple website as you cannot
+      // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+      // while using file:// protocol
+      // pls don't forget to change to your domain :)
+      injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');</script>
+        <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</body>
+</html>

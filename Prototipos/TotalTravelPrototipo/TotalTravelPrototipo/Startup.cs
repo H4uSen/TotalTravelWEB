@@ -50,7 +50,7 @@ namespace TotalTravelPrototipo
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Login}/{id?}");
+                    pattern: "{controller=LandingPage}/{action=Index}/{id?}");
             });
         }
     }
