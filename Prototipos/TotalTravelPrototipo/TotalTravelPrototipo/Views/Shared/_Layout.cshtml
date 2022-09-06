@@ -21,6 +21,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    @RenderSection("CSS", required: false);
 </head>
 <body>
     <div class="page">
@@ -189,18 +190,10 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="tables.html">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#portfolio-grid-1"> </use>
-                            </svg>Tables
-                        </a>
+
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="charts.html">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#sales-up-1"> </use>
-                            </svg>Charts
-                        </a>
+                        <a id="personalizados_index" class="dropdown-item sidebar-link" asp-area="" asp-controller="Personalizados" asp-action="Index">Crear paquete de viaje</a>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="forms.html">
@@ -271,6 +264,11 @@
     <script src="../assets/vendor/just-validate/js/just-validate.min.js"></script>
     <script src="../assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="../assets/js/charts-home.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     @RenderSection("Scripts", required: false)
     <!-- Main File-->
     <script src="js/front.js"></script>
