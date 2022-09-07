@@ -13263,6 +13263,55 @@ nav.navbar .search-box form input {
 }
 
 /*
+* ==========================================================
+*     Register PAGE
+* ==========================================================
+*/
+.register-base {
+    background-color:lightgray;
+}
+.c-base {
+    background-color: white;
+}
+.register-page {
+    position: relative;
+}
+
+    .register-page::before {
+        content: '';
+        display: block;
+        z-index: -1;
+        background-size: cover;
+        -webkit-filter: blur(10px);
+        filter: blur(10px);
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .register-page .container {
+        min-height: 100vh;
+    }
+
+    .register-page .card {
+        z-index: 999;
+    }
+
+    .register-page .info {
+        background-color: rgba(101, 45, 144, 0.9);
+        color: #fff;
+    }
+
+@media (min-width: 992px) {
+    .register-page .info {
+        min-height: 70vh;
+    }
+}
+
+/*
 * ===================================================
 *    Custom Bootstrapious Utils
 * ===================================================
