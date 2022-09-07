@@ -13231,7 +13231,6 @@ nav.navbar .search-box form input {
   content: '';
   display: block;
   z-index: -1;
-  background: url(../img/bg.jpg);
   background-size: cover;
   -webkit-filter: blur(10px);
   filter: blur(10px);
