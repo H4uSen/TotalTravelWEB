@@ -37,7 +37,7 @@
         }
 
         .u-margin-bottom-small {
-            margin-bottom: 1.5rem !important;
+            margin-bottom: 2rem !important;
         }
 
         .u-margin-bottom-medium {
@@ -209,24 +209,24 @@
             backface-visibility: hidden;
             border-radius: 3px;
             overflow: hidden;
-            -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
-            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0);
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0);
         }
 
         .card__side--front {
-            background-color: #fff;
+            background-color: #f321d7;
         }
 
         .card__side--front-1 {
-            background: linear-gradient(-45deg, #f403d1, #64b5f6);
+            background: linear-gradient(#652D90, #652D90 );
         }
 
         .card__side--front-2 {
-            background: linear-gradient(-45deg, #f321d7, #ffec61);
+            background: linear-gradient(#652D90, #652D90 );
         }
 
         .card__side--front-3 {
-            background: linear-gradient(-45deg, #24ff72, #9a4eff);
+            background: linear-gradient(-45deg, #652D90, #652D90);
         }
 
         .card__side--back {
@@ -235,15 +235,15 @@
         }
 
         .card__side--back-1 {
-            background: linear-gradient(-45deg, #64b5f6, #f403d1);
+            background: linear-gradient(-40deg, #652D90, #9142cd);
         }
 
         .card__side--back-2 {
-            background: linear-gradient(-45deg, #ffec61, #f321d7);
+            background: linear-gradient(-40deg, #652D90, #9142cd);
         }
 
         .card__side--back-3 {
-            background: linear-gradient(-45deg, #9a4eff, #24ff72);
+            background: linear-gradient(-40deg, #652D90, #9142cd);
         }
 
         .card:hover .card__side--front-1,
@@ -416,14 +416,30 @@
                             </li>
                             <!-- Logout    -->
                             <h2>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/Home/Login">
-                                    <span class="d-none d-sm-inline">Iniciar Sesion</span>
-                                    <svg class="svg-icon svg-icon-xs svg-icon-heavy">
-                                        <use xlink:href="#security-1"> </use>
-                                    </svg>
-                                </a>
-                            </li></h2>
+                                
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="/Home/Login">
+                                            <span class="d-none d-sm-inline">Iniciar Sesion</span>
+                                            <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                                <use xlink:href="#security-1"> </use>
+                                            </svg>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+
+                                        <a class="nav-link text-white" href="/Home/Register">
+                                            <span class="d-none d-sm-inline">Registrar</span>
+                                            <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                                <use xlink:href="#security-1"> </use>
+                                            </svg>
+                                        </a>
+                                    </li>
+
+                                 
+                           
+                            </h2>
                         </ul>
                     </div>
                 </div>
@@ -432,7 +448,7 @@
 
         <section class="section-plans" id="section-plans">
             <div class="u-center-text u-margin-bottom-big" id="logo">
-                <img src="assets/img/AHM-Fondo-Nombre.png" width="33%" height="150px">
+                <img src="assets/img/AHM-Fondo-Nombre.png" width="33%" height="225px">
                 <h3 class="heading-vista">
                     Ofertas de tus webs de reserva favoritas
                     <p id="p-text">Prueba a buscar una ciudad, un hotel ¡o un punto de interés!</p>
