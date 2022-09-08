@@ -102,6 +102,13 @@
                             </svg>Inicio
                         </a>
                     </li>
+                    <li class="sidebar-item" id="paisesb">
+                        <a class="sidebar-link" href="@Url.Action("Index","Especifico")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#portfolio-grid-1"> </use>
+                            </svg>Paquetes Especificos
+                        </a>
+                    </li>
                     <li class="sidebar-item" id="personb">
                         <a class="sidebar-link" href="@Url.Action("Index","Personalizados")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
@@ -109,13 +116,14 @@
                             </svg>Paquete de viaje personalizado
                         </a>
                     </li>
+
                     @*<li class="sidebar-item" id="historialb">
-                        <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#portfolio-grid-1"> </use>
-                            </svg>Historial de compra
-                        </a>
-                    </li>*@
+            <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
+                <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                    <use xlink:href="#portfolio-grid-1"> </use>
+                </svg>Historial de compra
+            </a>
+        </li>*@
                 </ul>
 
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Admin</span>
@@ -138,6 +146,7 @@
 
                         </a>
                     </li>
+                   
                 </ul>
             </nav>
             <div class="content-inner w-100">
