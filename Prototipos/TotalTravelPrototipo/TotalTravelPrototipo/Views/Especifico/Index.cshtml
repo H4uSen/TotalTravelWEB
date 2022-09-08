@@ -67,7 +67,7 @@
 
         .containerPaquetes {
             overflow-y: scroll;
-            max-height: 60vh;
+            max-height: 80vh;
             align-content: center;
             margin-left: 6px;
             scroll-behavior: smooth;
@@ -567,74 +567,78 @@
 <script src="js/front.js"></script>
 <!--Rango de fechas-->
 <script>
-      $(function() {
+    $(function () {
         $('input[name="daterange"]').daterangepicker({
-          opens: 'left'
-        }, function(start, end, label) {
-          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            opens: 'left'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
-      });
+    });
 
 
-      $('#myModal').on('shown.bs.modal', function () {
+    $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
-      })
+    })
 
 </script>
 <script>
-      $("#cbbTransporte a").click(function() {
+    $("#cbbTransporte a").click(function () {
         $("#cbbTransporte a").removeClass("active");
         $(this).addClass("active");
-      });
+    });
 </script>
 <script>
-      //Elegir rango de fechas
+    $("#predetb").addClass("active");
+</script>
+}
+<script>
+    //Elegir rango de fechas
 
 
 
-      //Cambio de pestanas
-      function openCity(evt, cityName) {
+    //Cambio de pestanas
+    function openCity(evt, cityName) {
         // Declare all variables
         var i, tabcontent, tablinks;
 
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
+            tabcontent[i].style.display = "none";
         }
 
         // Get all elements with class="tablinks" and remove the class "active"
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
-      }
-      // ------------------------------------------------------- //
-      //   Inject SVG Sprite -
-      //   see more here
-      //   https://css-tricks.com/ajaxing-svg-sprite/
-      // ------------------------------------------------------ //
-      function injectSvgSprite(path) {
+    }
+    // ------------------------------------------------------- //
+    //   Inject SVG Sprite -
+    //   see more here
+    //   https://css-tricks.com/ajaxing-svg-sprite/
+    // ------------------------------------------------------ //
+    function injectSvgSprite(path) {
 
-          var ajax = new XMLHttpRequest();
-          ajax.open("GET", path, true);
-          ajax.send();
-          ajax.onload = function(e) {
-          var div = document.createElement("div");
-          div.className = 'd-none';
-          div.innerHTML = ajax.responseText;
-          document.body.insertBefore(div, document.body.childNodes[0]);
-          }
-      }
-      // this is set to BootstrapTemple website as you cannot
-      // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-      // while using file:// protocol
-      // pls don't forget to change to your domain :)
-      injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+        var ajax = new XMLHttpRequest();
+        ajax.open("GET", path, true);
+        ajax.send();
+        ajax.onload = function (e) {
+            var div = document.createElement("div");
+            div.className = 'd-none';
+            div.innerHTML = ajax.responseText;
+            document.body.insertBefore(div, document.body.childNodes[0]);
+        }
+    }
+    // this is set to BootstrapTemple website as you cannot
+    // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+    // while using file:// protocol
+    // pls don't forget to change to your domain :)
+    injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
 
 
 </script>
