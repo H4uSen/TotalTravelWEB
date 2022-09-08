@@ -6,7 +6,7 @@
 
 <div class="bg-white shadow-sm px-4 py-3 z-index-20">
     <div class="container-fluid px-0">
-        <h2 class="mb-0 p-1">Países</h2>
+        <h2 class="mb-0 p-1">PAÍSES</h2>
     </div>
 </div>
 
@@ -20,13 +20,13 @@
         <div class="col-lg-12">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table mb-0 table-striped table-sm">
+                    <table class="table table-bordered table-md dataTables-example" id="example">
                         <thead style="font-size: large;">
-                            <tr>
-                                <th>Código</th>
-                                <th>País</th>
-                                <th>Nacionalidad</th>
-                                <th>Acciones</th>
+                            <tr class="btn-dark">
+                                <th scope="col">Código</th>
+                                <th scope="col">País</th>
+                                <th scope="col">Nacionalidad</th>
+                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody style="font-size: medium;">
@@ -35,9 +35,9 @@
                                 <td>Honduras</td>
                                 <td>Hondureño</td>
                                 <td>
-                                    <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</a>
-                                    | <button type="button" class="bx bxs-edit btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal1"> Editar</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"> Editar</button>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
+                                    @*| <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>*@
                                 </td>
                             </tr>
                             <tr>
@@ -45,9 +45,9 @@
                                 <td>Mexico</td>
                                 <td>Mexicano</td>
                                 <td>
-                                    <button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button>
-                                    | <button type="button" class="bx bxs-edit btn btn-info"> Editar</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    @*| <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>*@
                                 </td>
                             </tr>
                             <tr>
@@ -55,9 +55,9 @@
                                 <td class="border-bottom-0">España</td>
                                 <td class="border-bottom-0">Español</td>
                                 <td>
-                                    <button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button>
-                                    | <button type="button" class="bx bxs-edit btn btn-info"> Editar</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    @*| <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>*@
                                 </td>
                             </tr>
                             <tr>
@@ -65,9 +65,9 @@
                                 <td>Canadá</td>
                                 <td>Canadiense</td>
                                 <td>
-                                    <button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button>
-                                    | <button type="button" class="bx bxs-edit btn btn-info"> Editar</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    @*| <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>*@
                                 </td>
                             </tr>
                             <tr>
@@ -75,9 +75,9 @@
                                 <td>Suiza</td>
                                 <td>Suizo</td>
                                 <td>
-                                    <button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button>
-                                    | <button type="button" class="bx bxs-edit btn btn-info"> Editar</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    @*| <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>*@
                                 </td>
                             </tr>
                         </tbody>

@@ -13,10 +13,15 @@
     <link rel="stylesheet" href="../assets/vendor/choices.js/public/assets/styles/choices.min.css">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="../assets/css/style.default.css" id="theme-stylesheet">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
     <!-- Custom stylesheet - for your changes-->
+
     <link rel="stylesheet" href="../assets/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css">
 
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <!-- Tweaks for older IEs-->
@@ -118,12 +123,12 @@
                     </li>
 
                     @*<li class="sidebar-item" id="historialb">
-            <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
-                <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                    <use xlink:href="#portfolio-grid-1"> </use>
-                </svg>Historial de compra
-            </a>
-        </li>*@
+                            <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
+                                <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                    <use xlink:href="#portfolio-grid-1"> </use>
+                                </svg>Historial de compra
+                            </a>
+                        </li>*@
                 </ul>
 
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Admin</span>
@@ -146,7 +151,7 @@
 
                         </a>
                     </li>
-                   
+
                 </ul>
             </nav>
             <div class="content-inner w-100">
@@ -162,6 +167,8 @@
     <script src="../assets/vendor/just-validate/js/just-validate.min.js"></script>
     <script src="../assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="../assets/js/charts-home.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="~/js/site.js"></script>
     <!-- Main File-->
     <script src="../assets/js/front.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
