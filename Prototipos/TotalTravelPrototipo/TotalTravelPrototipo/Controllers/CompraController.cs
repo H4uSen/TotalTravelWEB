@@ -12,5 +12,10 @@ namespace TotalTravelPrototipo.Controllers
         {
             return View();
         }
+
+        public IActionResult Historial()
+        {
+            return View();
+        }
     }
 }

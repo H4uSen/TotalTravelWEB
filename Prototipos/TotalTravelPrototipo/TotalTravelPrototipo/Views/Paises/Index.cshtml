@@ -21,7 +21,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table mb-0 table-striped table-sm">
-                        <thead>
+                        <thead style="font-size: large;">
                             <tr>
                                 <th>Código</th>
                                 <th>País</th>
@@ -29,15 +29,15 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="font-size: medium;">
                             <tr>
                                 <th scope="row">1</th>
                                 <td>Honduras</td>
                                 <td>Hondureño</td>
                                 <td>
-                                    <button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button>
-                                    | <button type="button" class="bx bx-pencil btn btn-info"> Editar</button>
-                                    | <button type="button" class="bx bx-trash btn btn-danger"> Eliminar</button>
+                                    <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</a>
+                                    | <button type="button" class="bx bx-pencil btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal1"> Editar</button>
+                                    | <button type="button" class="bx bx-trash btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
                                 </td>
                             </tr>
                             <tr>
@@ -87,8 +87,8 @@
         </div>
     </div>
 </div>
-<!-- Button trigger modal -->
-<!-- Modal -->
+
+<!-- Modal Crear-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -137,8 +137,87 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal Editar-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">EDITAR PAÍS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-dark">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Código <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-map-alt bx-xl'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="3" required value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">País <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-world bx-xl'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="50" required value="Honduras">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Nacionalidad <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-id-card'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="50" required value="Hondureño">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Eliminar-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">ELIMINAR PAÍS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-dark">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4 class="control-label">¿Estás seguro de eliminar este registro?</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts{
-<script>
-    $("#paisesb").addClass("active");
-</script>
+    <script>
+        $("#paisesb").addClass("active");
+    </script>
 }
