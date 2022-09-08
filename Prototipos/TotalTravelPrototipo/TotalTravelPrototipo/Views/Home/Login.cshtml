@@ -28,30 +28,46 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <body>
-    <div class="login-page">
+    <div class="login-page" style="background-color: #e1e1e169; ">
         <div class="container d-flex align-items-center position-relative py-5">
-            <div class="card shadow-sm w-100 rounded overflow-hidden bg-none">
+            <div class="card shadow-sm w-100 rounded overflow-hidden bg-none" 
+                 style="align-items: center;align-content: flex-start";
+">
                 <div class="card-body p-0">
                     <div class="row gx-0 align-items-stretch">
                         <!-- Logo & Information Panel-->
                         <div class="col-lg-6">
                             <div class="info d-flex justify-content-center flex-column p-4 h-100">
-                                <img src="../assets/img/AHM-FONDO-MORADITO-TRANSPARENTE-UWU.png" width="100%" height="90%" alt="imagen de logo">
+                                <img src="../assets/img/AHM-FONDO-MORADITO-TRANSPARENTE-UWU.png" width="100%" height="80%" alt="imagen de logo">
                             </div>
                         </div>
                         <!-- Form Panel    -->
                         <div class="col-lg-6 bg-white">
                             <div class="d-flex align-items-center px-4 px-lg-5 h-100">
-                                <form class="login-form py-5 w-100" asp-controller="Home" asp-action="Index">
+                                
+                                <form class="login-form py-5 w-100" asp-controller="Home" asp-action="Index" style="font-size: x-large;">
+                                    <div style="margin-bottom: 7vh;"> 
+                                        <h1 style="font-size: revert;">TotalTravel</h1>
+                                        <br />
+                                        <h3>Iniciar Sesion</h3>
+                                    </div>
                                     <div class="input-material-group mb-3">
-                                        <input class="input-material" id="login-username" type="text" name="loginUsername" autocomplete="off">
-                                        <label class="label-material" for="login-username">User Name</label>
+                                        <input class="input-material" 
+                                               id="login-username" 
+                                               style="padding-top: 0px; padding-bottom: 0px;"
+                                               type="text" 
+                                               name="loginUsername" 
+                                               autocomplete="off">
+                                        <label class="label-material" for="login-username" style="font-size: large;">Email</label>
                                     </div>
                                     <div class="input-material-group mb-4">
-                                        <input class="input-material" id="login-password" type="password" name="loginPassword">
-                                        <label class="label-material" for="login-password">Password</label>
+                                        <input class="input-material" id="login-password" type="password" name="loginPassword" style="padding-top: 0px;padding-bottom: 0px;">
+                                        <label class="label-material" for="login-password" style="font-size: large;">Contraseña</label>
                                     </div>
-                                    <button class="btn btn-primary mb-3" id="login" type="submit">Login</button><br><a class="text-sm text-paleBlue" href="#">Forgot Password?</a><br><small class="text-gray-500">Do not have an account? </small><a class="text-sm text-paleBlue" href="register.html">Signup</a>
+                                    <button class="btn btn-primary mb-3" id="login" type="submit">Ingresar</button><br>
+                                    <a class="text-md text-paleBlue" href="#" style="font-size: medium;">Recuperar contraseña</a><br>
+                                    <small class="text-gray-500" style="font-size: medium;">no tiene una cuenta? </small>
+                                    <a class="text-sm text-paleBlue" href="Register">Registrese</a>
                                 </form>
                             </div>
                         </div>

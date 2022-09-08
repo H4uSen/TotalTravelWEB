@@ -19,14 +19,43 @@
                         <div class="row">
                             <div class="col-sm-4">
 
-                                <h4>Desde</h4>
+                                <div class="field">
+                                    <label>Desde</label>
 
-                                <input type="text" class="form-control" name="desde" id="desde" value="Honduras" disabled>
+                                    @*<input type="text" class="form-control" name="desde" id="desde" value="Honduras" disabled>*@
+                                    <div class="ui left corner labeled input">
+                                        <input type="text" placeholder="Desde">
+                                        <div class="ui left corner label">
+                                            <i class="asterisk icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
 
                             </div>
                             <div class="col-sm-4">
 
-                                <h4>Destino</h4>
+                                    <div class="field">
+                                        <label>Destino</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione un destino</option>
+                                            <option value="AF">Afghanistan</option>
+                                            <option value="AX">Åland Islands</option>
+                                            <option value="AL">Albania</option>
+                                            <option value="DZ">Algeria</option>
+                                            <option value="AS">American Samoa</option>
+                                            <option value="AD">Andorra</option>
+                                            <option value="AO">Angola</option>
+                                            <option value="AI">Anguilla</option>
+                                            <option value="AQ">Antarctica</option>
+                                            <option value="AG">Antigua and Barbuda</option>
+                                            <option value="AR">Argentina</option>
+                                            <option value="AM">Armenia</option>
+                                        </select>
+                                    </div>
+
+
+                                @*<h4>Destino</h4>
 
                                 <select class="form-select mb-3" name="account">
                                     <option selected disabled>Seleccione un destino</option>
@@ -34,11 +63,18 @@
                                     <option>Guatemala</option>
                                     <option>El Salvador</option>
                                     <option>Nicaragua</option>
-                                </select>
+                                </select>*@
                             </div>
                             <div class="col-sm-4">
-                                <h4>Fecha de llegada - salida</h4>
-                                <input class="form-control" type="text" name="daterange" />
+                                
+                                    <label>Fecha de llegada - salida</label>
+                                    <div class="ui input focus">
+                                        
+                                        <input class="form-control" type="text" name="daterange">
+                                    </div>
+                                
+                                
+                                @*<input class="form-control" type="text" name="daterange" />*@
                             </div>
                         </div>
                     </div>
@@ -48,7 +84,7 @@
                         <button class="tablinks" onclick="openCity(event, 'Actividades')">Actividades</button>
                         <button class="tablinks" onclick="openCity(event, 'Transporte')">Transporte</button>
                         <button class="tablinks" onclick="openCity(event, 'Restaurante')">Restaurante</button>
-                        <button class="tablinks" style="color:black">Realizar pago</button>
+                        <button class="tablinks"><a id="compras" asp-area="" asp-controller="Compra" asp-action="Index" >Realizar pago</a></button>
 
 
                     </div>
@@ -544,6 +580,9 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+    </script>
+    <script>
+        $("#personb").addClass("active");
     </script>
 }
 @section CSS{

@@ -17,7 +17,7 @@
         <div class="card-body">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo</button>
         </div>
-    <div class="col-lg-12">
+        <div class="col-lg-12">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table mb-0 table-striped table-sm">
@@ -34,9 +34,11 @@
                                 <th scope="row">1</th>
                                 <td>Honduras</td>
                                 <td>Hondureño</td>
-                                <td><button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button> 
-                                | <button type="button" class="bx bx-pencil btn btn-info"> Editar</button> 
-                                | <button type="button" class="bx bx-trash btn btn-danger"> Eliminar</button></td>
+                                <td>
+                                    <button type="button" class="bx bx-detail btn btn-light" style="background-color: #FDB24C; color: white;"> Detalles</button>
+                                    | <button type="button" class="bx bx-pencil btn btn-info"> Editar</button>
+                                    | <button type="button" class="bx bx-trash btn btn-danger"> Eliminar</button>
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
@@ -86,7 +88,6 @@
     </div>
 </div>
 <!-- Button trigger modal -->
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -105,7 +106,7 @@
                                 <span class="input-group-text" id="basic-addon1"><i class='bx bx-map-alt bx-xl'></i></span>
                                 <input type="text" class="form-control bg-white text-dark" maxlength="3" required>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
@@ -136,3 +137,8 @@
         </div>
     </div>
 </div>
+@section Scripts{
+<script>
+    $("#paisesb").addClass("active");
+</script>
+}
