@@ -130,12 +130,12 @@
                     </li>
 
                     @*<li class="sidebar-item" id="historialb">
-            <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
-                <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                    <use xlink:href="#portfolio-grid-1"> </use>
-                </svg>Historial de compra
-            </a>
-        </li>*@
+                <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
+                    <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                        <use xlink:href="#portfolio-grid-1"> </use>
+                    </svg>Historial de compra
+                </a>
+            </li>*@
                 </ul>
 
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Admin</span>
@@ -147,18 +147,6 @@
                             </svg>Gestionar Paises
                         </a>
                     </li>
-
-                    <li class="sidebar-item" id="reportesnb">
-                        <a class="sidebar-link" href="@Url.Action("Index","Reportes")">
-                            <svg class=" svg-icon-heavy me-xl-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
-                                <path d="M21 5c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5zM5 19V5h14l.002 14H5z"></path>
-                                <path d="M7 7h1.998v2H7zm4 0h6v2h-6zm-4 4h1.998v2H7zm4 0h6v2h-6zm-4 4h1.998v2H7zm4 0h6v2h-6z">
-                                </path>
-                            </svg> Generar Reporte
-
-                        </a>
-                    </li>
-
                     <li class="sidebar-item" id="transportesnb">
                         <a class="sidebar-link" href="@Url.Action("Index","Transporte")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
@@ -167,6 +155,23 @@
                         </a>
                     </li>
 
+                </ul>
+                <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Reportes</span>
+                <ul class="list-unstyled py-4">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#exampledropdownDropdown" data-bs-toggle="collapse">
+                            <svg class=" svg-icon-heavy me-xl-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                <path d="M21 5c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5zM5 19V5h14l.002 14H5z"></path>
+                                <path d="M7 7h1.998v2H7zm4 0h6v2h-6zm-4 4h1.998v2H7zm4 0h6v2h-6zm-4 4h1.998v2H7zm4 0h6v2h-6z">
+                                </path>
+                            </svg> Generar Reporte
+                        </a>
+                        <ul class="collapse list-unstyled " id="exampledropdownDropdown">
+                            <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Hoteles</a></li>
+                            <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Actividades</a></li>
+                            <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Restaurantes</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <div class="content-inner w-100">
