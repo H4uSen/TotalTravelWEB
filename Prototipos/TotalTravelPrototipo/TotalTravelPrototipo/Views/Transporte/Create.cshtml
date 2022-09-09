@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Crear un Transporte</h2>
+    </div>
+</div>
+
+<section class="forms">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="mb-0 p-1">Aqui puede ingresar un nuevo transporte</h4>
+                    <div class="border-bottom my-3 border-gray-200"> </div>
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Tipo de Transporte:</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione un tipo de transporte</option>
+                                            <option value="TR">Terrestre</option>
+                                            <option value="AR">Aereo</option>
+                                            <option value="MT">Maritimo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Partners:</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione un partner</option>
+                                            <option value="HA">Hedman Alas</option>
+                                            <option value="CA">Continental Airlines</option>
+                                            <option value="AS">Aerolineas Sosa</option>
+                                            <option value="TC">Transportes Cristina</option>
+                                            <option value="MSC">MSC Cruceros</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Matricula:</label><input type="text" class="form-control" placeholder="Ingrese una matricula" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom my-3 border-gray-200"> </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Ciudad de Salida:</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione una ciudad</option>
+                                            <option value="SPS">San Pedro Sula</option>
+                                            <option value="TG">Tegucigalpa</option>
+                                            <option value="OM">Omoa</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Ciudad de Destino:</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione una ciudad</option>
+                                            <option value="SPS">San Pedro Sula</option>
+                                            <option value="LC">La Ceiba</option>
+                                            <option value="CC">Cancun</option>
+                                            <option value="RT">Roatan</option>
+                                            <option value="SC">Santa Rosa de Copan</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Fecha:</label>
+                                        <input type="date" class="form-control" placeholder="Date" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom my-3 border-gray-200"> </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Hora de Salida:</label>
+                                        <input type="time" class="form-control" placeholder="00:00" required="required">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Hora de Llegada:</label>
+                                        <input type="time" class="form-control" placeholder="00:00" required="required">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Capacidad:</label>
+                                        <input type="number" class="form-control" placeholder="Ingrese una capacidad" min="0" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="inputEmail">Precio de boleto :</label>
+                                <input type="number" class="form-control" placeholder="Ingrese un precio" min="0" step="0.01" required="required">
+                            </div>
+                        </div>
+
+                        <hr />
+                        <div class="form-group mar" style="display: flex;justify-content: center;">
+                            <a class="btn btn-primary btn-block mx-2" href="/Transporte/Index" style="width:15vw;">Guardar Nuevo Transporte</a><a class="btn btn-secondary btn-block mx-2" href="/Transporte/Index" style="width:15vw;">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*@section Scripts{
+    <script>
+        $('#fecha').calendar({
+            type: 'date'
+        });
+    </script>
+}*@
