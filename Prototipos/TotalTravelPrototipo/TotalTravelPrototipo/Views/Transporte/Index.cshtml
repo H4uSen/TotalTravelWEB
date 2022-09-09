@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Listado de Transportes</h2>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <a asp-action="Create" class="btn btn-primary">Nuevo</a>
+        </div>
+        <div class="col-lg-12">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md dataTables-example" id="example">
+                        <thead style="font-size: large;">
+                            <tr class="btn-dark">
+                                <th scope="col">Código</th>
+                                <th scope="col">Tipo de Transporte</th>
+                                <th scope="col">Partner</th>
+                                <th scope="col">Ciudad salida</th>
+                                <th scope="col">Ciudad destino</th>
+                                <th scope="col">Hora Salida</th>
+                                <th scope="col">Hora Llegada</th>
+                                <th scope="col">Capacidad</th>
+                                <th scope="col">Precio Boleto</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: medium;">
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Autobus</td>
+                                <td>Hedman Alas</td>
+                                <td>San Pedro Sula</td>
+                                <td>La Ceiba</td>
+                                <td>08:00AM</td>
+                                <td>12:00PM</td>
+                                <td>40 pasajeros</td>
+                                <td>Lps. 120.00</td>
+                                <td>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"></a>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <a asp-action="Delete" class="bx bx-message-square-x btn btn-danger"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Avion</td>
+                                <td>Continental Airlines</td>
+                                <td>San Pedro Sula</td>
+                                <td>Cancun</td>
+                                <td>08:00AM</td>
+                                <td>14:00PM</td>
+                                <td>140 pasajeros</td>
+                                <td>Lps. 4,000.00</td>
+                                <td>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"></a>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <a asp-action="Delete" class="bx bx-message-square-x btn btn-danger"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Avion</td>
+                                <td>Aerolineas Sosa</td>
+                                <td>Tegucigalpa</td>
+                                <td>San Pedro Sula</td>
+                                <td>09:00AM</td>
+                                <td>11:30PM</td>
+                                <td>120 pasajeros</td>
+                                <td>Lps. 2,320.00</td>
+                                <td>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"></a>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <a asp-action="Delete" class="bx bx-message-square-x btn btn-danger"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>Autobus</td>
+                                <td>Transportes Cristina</td>
+                                <td>San Pedro Sula</td>
+                                <td>Santa Rosa de Copan</td>
+                                <td>08:00AM</td>
+                                <td>14:00PM</td>
+                                <td>50 pasajeros</td>
+                                <td>Lps. 200.00</td>
+                                <td>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"></a>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <a asp-action="Delete" class="bx bx-message-square-x btn btn-danger"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>Yate</td>
+                                <td>MSC Cruceros</td>
+                                <td>Omoa</td>
+                                <td>Roatan</td>
+                                <td>08:00AM</td>
+                                <td>12:00PM</td>
+                                <td>20 pasajeros</td>
+                                <td>Lps. 5,220.00</td>
+                                <td>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"></a>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <a asp-action="Delete" class="bx bx-message-square-x btn btn-danger"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        $("#transportesnb").addClass("active");
+    </script>
+}
