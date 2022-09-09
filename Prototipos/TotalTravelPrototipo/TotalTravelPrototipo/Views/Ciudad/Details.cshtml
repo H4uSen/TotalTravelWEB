@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">DETALLES DE LA CIUDAD</h2>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row text-dark">
+                <div class="col-md-4">
+                    <dl>
+                        <dt class="col-sm-4">
+                            Código
+                        </dt>
+                        <dd class="col-sm-12">
+                            1
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-4">
+                    <dl>
+                        <dt class="col-sm-4">
+                            CIUDAD
+                        </dt>
+                        <dd class="col-sm-12">
+                            TEGUCIGALPA
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="col-md-4">
+                    <dl>
+                        <dt class="col-sm-4">
+                            País
+                        </dt>
+                        <dd class="col-sm-12">
+                            HONDURAS
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="fs-3 text-dark">Auditoría</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-responsive table-hover table-bordered thead-dark">
+                <thead class="text-dark">
+                    <tr>
+                        <th>Acción</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="text-dark">
+                    <tr>
+                        <td>Creado</td>
+                        <td>Claudia</td>
+                        <td>7/9/2022</td>
+                    </tr>
+                    <tr>
+                        <td>Modificado</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div>
+                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+</div>
+
