@@ -91,11 +91,38 @@
             <nav class="side-navbar z-index-40">
                 <!-- Sidebar Header-->
                 <div class="sidebar-header d-flex align-items-center py-4 px-3">
-                    <img class="avatar shadow-0 img-fluid rounded-circle" src="../assets/img/avatar-1.jpg" alt="...">
-                    <div class="ms-3 title">
-                        <h1 class="h4 mb-2">Mark Stephen</h1>
-                        <p class="text-sm text-gray-500 fw-light mb-0 lh-1" sstyle="font-size: large;"><a id="compras" asp-area="" asp-controller="Home" asp-action="AccountInfo">Editar cuenta</a></p>
-                    </div>
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img class="avatar shadow-0 img-fluid rounded-circle" src="../assets/img/avatar-1.jpg" alt="...">
+                        <div class="ms-3 title">
+                            <h1 class="d-none d-md-block dropdown-toggle h4 mb-2">Mark Stephen</h1>
+                        </div>
+                    </a><!-- End Profile Iamge Icon -->
+                  
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" id="compras" asp-area="" asp-controller="Home" asp-action="AccountInfo">
+                                <i class="bi bi-person"></i>
+                                <span>Mi Cuenta</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" id="compras" asp-area="" asp-controller="Home" asp-action="PayHistory">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de compras</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+
                 </div>
                 <!-- Sidebar Navigation Menus-->
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Principal</span>
@@ -111,7 +138,7 @@
                         <a class="sidebar-link" href="@Url.Action("Index","ActividadesController1")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                 <use xlink:href="#portfolio-grid-1"> </use>
-                            </svg>actividades
+                            </svg>Actividades
                         </a>
                     </li>
                     <li class="sidebar-item" id="predetb">
@@ -128,8 +155,8 @@
                             </svg>Haz tu propio paquete de viaje
                         </a>
                     </li>
-
                     @*<li class="sidebar-item" id="historialb">
+<<<<<<< Updated upstream
                 <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
                     <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                         <use xlink:href="#portfolio-grid-1"> </use>
@@ -151,7 +178,7 @@
                         <a class="sidebar-link" href="@Url.Action("Index","Ciudad")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                 <use xlink:href="#sales-up-1"> </use>
-                            </svg>Gestionar Paises
+                            </svg>Gestionar Ciudades
                         </a>
                     </li>
                     <li class="sidebar-item" id="transportesnb">

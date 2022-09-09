@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewData["Title"] = "PayHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-inner w-100">
+    <!-- Page Header-->
+    <header class="bg-white shadow-sm px-4 py-3 z-index-20">
+        <div class="container-fluid px-0">
+            <h2 class="mb-0 p-1">Historial de compras</h2>
+        </div>
+    </header>
+    <!-- Dashboard Counts Section-->
+    <section class="pb-0">
+        <div class="container-fluid">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="container">
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="20%"></th>
+                                        <th class="p-4" width="50%"></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><img src="https://www.resortlaensenada.com/wp-content/uploads/2016/03/unnamed-1180x700.jpg"
+                                                 class="img-fluid" width="256px"
+                                                 alt="Imagen del Hotel rounded-start"></td>
+                                        <td><span class="fw-bold fs-1 pt-5 pe-3">Hotel La Ensenada</span><span class="fs-3">4dias/3noches</span></td>
+                                        <td><span class="fw-bold fs-2 pt-5">$0.00</span></td>
+                                        <td><a href="#" class="pt-5">Ver detalles</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="https://www.caracteristicas.co/wp-content/uploads/2018/09/Inglaterra-1-e1579225431994.jpg"
+                                                 class="img-fluid" width="256px"
+                                                 alt="Imagen del Paquetes"></td>
+                                        <td><span class="fw-bold fs-1 pt-5 pe-3">Paquete Inglaterra</span><span class="fs-3">Hotel Hilton Princess</span></td>
+                                        <td><span class="fw-bold fs-2 pt-5">$0.00</span></td>
+                                        <td><a href="#" class="pt-5">Ver detalles</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="https://images.trvl-media.com/hotels/22000000/21550000/21548700/21548650/8b651962.jpg?impolicy=resizecrop&rw=455&ra=fit"
+                                         class="img-fluid " width="256px"
+                                         alt="Imagen del Hotel"></td>
+                                        <td class="border-bottom-0"><span class="fw-bold fs-1 pt-5 pe-3">Hyatt Place</span><span class="fs-3">3dias/2noches</span> </td>
+                                        <td class="border-bottom-0"><span class="fw-bold fs-2 pt-5">$0.00</span></td>
+                                        <td class="border-bottom-0"><a href="#" class="pt-5">Ver detalles</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+    </section>
+    <!-- Page Footer-->
+    <footer class="position-absolute bottom-0 bg-darkBlue text-white text-center py-3 w-100 text-xs" id="footer">
+        <div class="container-fluid">
+            <div class="row gy-2">
+                <div class="col-sm-6 text-sm-start">
+                    <p class="mb-0">Your company &copy; 2017-2021</p>
+                </div>
+                <div class="col-sm-6 text-sm-end">
+                    <p class="mb-0">Design by <a href="https://bootstrapious.com/p/admin-template" class="text-white text-decoration-none">Bootstrapious</a></p>
+                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+@section Scripts{
+    <script>
+        $(function () {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+            }, function (start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+        });
+
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+
+    </script>
+    <script>
+        $("#cbbTransporte a").click(function () {
+            $("#cbbTransporte a").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        //Cambio de pestanas
+        function openCity(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+}
+
+

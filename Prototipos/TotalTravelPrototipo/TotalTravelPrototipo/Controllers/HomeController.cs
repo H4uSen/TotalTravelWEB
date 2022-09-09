@@ -30,6 +30,10 @@ namespace TotalTravelPrototipo.Controllers
         {
             return View();
         }
+        public IActionResult PayHistory()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
