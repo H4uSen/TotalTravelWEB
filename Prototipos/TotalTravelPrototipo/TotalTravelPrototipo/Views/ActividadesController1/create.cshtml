@@ -1,0 +1,50 @@
+﻿@model TotalTravelPrototipo.Program
+
+@{
+    ViewData["Title"] = "create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Page Header-->
+<header class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Agregar una Actividad</h2>
+    </div>
+</header>
+
+<br />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="fs-3 text-dark">Agregar una Actividad</h1>
+        </div>
+        <div class="card-body">
+            <div class="text-danger"></div>
+            <div class="row text-dark">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Descripcion:</label>
+                        <input class="form-control mt-2 bg-white text-dark" maxlength="3" type="text" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Precio:</label>
+                        <input class="form-control mt-2 bg-white text-dark" maxlength="50" type="text" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">IDHotel:</label>
+                        <input class="form-control mt-2 bg-white text-dark" maxlength="50" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <input type="button" value="Crear" class="btn btn-primary" /> |
+            <a href="#" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</div>
