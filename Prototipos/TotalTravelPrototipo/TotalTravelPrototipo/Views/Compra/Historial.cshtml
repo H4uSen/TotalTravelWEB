@@ -3,21 +3,144 @@
     ViewData["Title"] = "HistorialCompras";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section HeadLinks{
+    <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="//cdn.datatables.net/plug-ins/1.10.19/integration/font-awesome/dataTables.fontAwesome.css" rel="stylesheet" type="text/css" />
 
+}
 <div class="content-inner w-100">
     <!-- Page Header-->
     <header class="bg-white shadow-sm px-4 py-3 z-index-20">
         <div class="container-fluid px-0">
-            <h2 class="mb-0 p-1">Crear paquete personalizado</h2>
+            <h2 class="mb-0 p-1">Historial de transacciones</h2>
         </div>
     </header>
     <!-- Dashboard Counts Section-->
     <section class="pb-0">
-        <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                <div class="field">
+                                    <label>Filtrar por: </label>
+                                    <select class="ui search dropdown">
+                                        <option value="">Todos los años</option>
+                                        <option value="AF">2020</option>
+                                        <option value="AX">2021</option>
+                                        <option value="AX">2022</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="field">
+                                    <select class="ui search dropdown">
+                                        <option value="">Todos los meses</option>
+                                        <option value="AF">Enero</option>
+                                        <option value="AX">Febrero</option>
+                                        <option value="AX">Marzo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
 
+                    </div>
+                    <div class="table-responsive pb-5">
+                        <table id="tbOrderHistory" class="table border ps-table w-100 mb-3">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold py-2 border-0">Codigo de factura</th>
+                                    <th class="font-weight-bold py-2 border-0">Fecha de compra</th>
+                                    <th class="font-weight-bold py-2 border-0 quantity">Nombre del paquete</th>
+                                    <th class="font-weight-bold py-2 border-0 ">Total</th>
+                                    <th class="font-weight-bold py-2 border-0 ">Tipo de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#098213</td>
+                                    <td>20/04/2022</td>
+                                    <td>Paquete personalizado: HN - GT</td>
+                                    <td>L. 25,000</td>
+                                    <td>Transferencia bancaria</td>
+                                </tr>
+                                <tr>
+                                    <td>#90832</td>
+                                    <td>20/10/2022</td>
+                                    <td>Viaje por roatan</td>
+                                    <td>L. 13,000</td>
+                                    <td>Tarjeta de Credito</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
+@section CSS{
+    <style>
+        table.dataTable thead th.sorting:hover:after {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        /* OVERRIDES FOR SORT ICON FROM DATABLES */
+        table.dataTable thead th.sorting:after,
+        table.dataTable thead th.sorting_asc:after,
+        table.dataTable thead th.sorting_desc:after {
+            font-family: FontAwesome;
+            position: relative !important;
+            display: inline-block !important;
+            font-size: 14px !important;
+            top: unset !important;
+            right: unset !important;
+            content: "\f062" !important;
+            transform-origin: center center;
+            transition: 200ms ease-out;
+            padding-top: 0 !important;
+        }
+
+        /* DEFAULT SORT ICON COLOR AND PLACEMENT */
+        table.dataTable thead th.sorting:after {
+            transform: translateY(5px);
+            opacity: 0;
+            color: #b0bec5 !important;
+        }
+
+        table.dataTable thead th.sorting:after,
+        table.dataTable thead th.sorting_asc:after,
+        table.dataTable thead th.sorting_desc:after {
+            margin-left: 10px;
+        }
+
+        table.dataTable thead th.sorting_asc:after,
+        table.dataTable thead th.sorting_desc:after {
+            color: #4285f4;
+        }
+
+        /* SORTING DESC ICON ANIMATION */
+        table.dataTable thead th.sorting_desc:after {
+            transform: rotate(180deg);
+        }
+
+        /* REMOVING STYLES FROM ORDEROPTIONS.CSS THAT WE CAN REMOVE */
+        table.dataTable thead th.sorting_desc:before,
+        table.dataTable thead th.sorting_asc:before {
+            display: none;
+        }
+
+    </style>
+
+}
 @section Scripts{
     <script>
         $("#historialb").addClass("active");
