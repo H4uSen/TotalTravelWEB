@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">PARTNERS</h2>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo</button>
+        </div>
+        <div class="col-lg-12">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md dataTables-example" id="example">
+                        <thead style="font-size: large;">
+                            <tr class="btn-dark">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: medium;">
+                            <tr>
+                                <th scope="row">Business 360</th>
+                                <td>Busineshn@gmail.com</td>
+                                <td>5678-5675</td>
+                                <td>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"> Editar</button>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">AKOS HONDURAS SA DE CV</th>
+                                <td>Akos@gmail.com</td>
+                                <td>3456-4567</td>
+                                <td>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="border-bottom-0" scope="row">OFICINAS TECNOLOGICAS S DE RL DE CV</th>
+                                <td class="border-bottom-0">Tecnologisashn@gmail.com</td>
+                                <td class="border-bottom-0">4566-5656</td>
+                                <td>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Grupo Innova</th>
+                                <td>Innova@gmail.com</td>
+                                <td>3423-6786</td>
+                                <td>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Dual airplanes Services S.A.</th>
+                                <td>Dualair@gmail.com</td>
+                                <td>9876-5678</td>
+                                <td>
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
+                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Crear-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">AGREGAR PARTNERS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-dark">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Nombre <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-id-card'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Telefono <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-map-alt bx-xl'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="8" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Email <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-world bx-xl'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Editar-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">EDITAR PAÍS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-dark">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Código <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-map-alt bx-xl'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="3" required value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">País <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-world bx-xl'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="50" required value="Honduras">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <br />
+                            <label class="control-label">Nacionalidad <label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class='bx bx-id-card'></i></span>
+                                <input type="text" class="form-control bg-white text-dark" maxlength="50" required value="Hondureño">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Eliminar-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">ELIMINAR PAÍS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-dark">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4 class="control-label">¿Estás seguro de eliminar este registro?</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#paisesb").addClass("active");
+    </script>
+}
