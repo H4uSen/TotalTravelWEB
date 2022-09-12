@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Hoteles</h2>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo</button>
+        </div>
+        <div class="col-lg-12">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md dataTables-example" id="example">
+                        <thead style="font-size: large;">
+                            <tr class="btn-dark">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Partners</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: medium;">
+                            <tr>
+                                <th scope="row">Pepito´s Company</th>
+                                <td>Fundado en 1955 por Ronald Mcdonald es uno de los mejores hoteles</td>
+                                <td>Pollos Hermanos</td>
+                                <td>San Pedro Sula</td>
+                                <td style="align-items:flex-start">
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"></button>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Pepito´s Company</th>
+                                <td>Fundado en 1955 por Ronald Mcdonald es uno de los mejores hoteles</td>
+                                <td>Pollos Hermanos</td>
+                                <td>San Pedro Sula</td>
+                                <td style="align-items:flex-start">
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"></button>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Pepito´s Company</th>
+                                <td>Fundado en 1955 por Ronald Mcdonald es uno de los mejores hoteles</td>
+                                <td>Pollos Hermanos</td>
+                                <td>San Pedro Sula</td>
+                                <td style="align-items:flex-start">
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"></button>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Pepito´s Company</th>
+                                <td>Fundado en 1955 por Ronald Mcdonald es uno de los mejores hoteles</td>
+                                <td>Pollos Hermanos</td>
+                                <td>San Pedro Sula</td>
+                                <td style="align-items:flex-start">
+                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"></button>
+                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"></a>
+                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Crear-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">AGREGAR PAÍS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" placeholder="Ingrese un nombre" required="required">
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Descripcion:</label>
+                        <input type="text" class="form-control" placeholder="Añada una descripcion" required="required">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Direccion:</label>
+                                <select class="ui search dropdown">
+                                    <option value="">Seleccione una direccion</option>
+                                    <option value="TR">Terrestre</option>
+                                    <option value="AR">Aereo</option>
+                                    <option value="MT">Maritimo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Partners:</label>
+                                <select class="ui search dropdown">
+                                    <option value="">Seleccione un partner</option>
+                                    <option value="HA">Hedman Alas</option>
+                                    <option value="CA">Continental Airlines</option>
+                                    <option value="AS">Aerolineas Sosa</option>
+                                    <option value="TC">Transportes Cristina</option>
+                                    <option value="MSC">MSC Cruceros</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Editar-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">EDITAR PAÍS</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" placeholder="Ingrese un nombre" required="required">
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Descripcion:</label>
+                        <input type="text" class="form-control" placeholder="Añada una descripcion" required="required">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Direccion:</label>
+                                <select class="ui search dropdown">
+                                    <option value="">Seleccione una direccion</option>
+                                    <option value="TR">Terrestre</option>
+                                    <option value="AR">Aereo</option>
+                                    <option value="MT">Maritimo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Partners:</label>
+                                <select class="ui search dropdown">
+                                    <option value="">Seleccione un partner</option>
+                                    <option value="HA">Hedman Alas</option>
+                                    <option value="CA">Continental Airlines</option>
+                                    <option value="AS">Aerolineas Sosa</option>
+                                    <option value="TC">Transportes Cristina</option>
+                                    <option value="MSC">MSC Cruceros</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Eliminar-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">ELIMINAR HOTELES</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-dark">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4 class="control-label">¿Estás seguro de eliminar este registro?</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#hotelesb").addClass("active");
+    </script>
+}

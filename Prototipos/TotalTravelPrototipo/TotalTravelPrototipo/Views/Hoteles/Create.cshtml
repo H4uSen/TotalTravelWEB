@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Hoteles</h2>
+    </div>
+</div>
+
+<section class="forms">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="mb-0 p-1">Crear Hotel</h4>
+                    <div class="border-bottom my-3 border-gray-200"> </div>
+                    <form>
+                        <div class="border-bottom my-3 border-gray-200"> </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label>Nombre:</label>
+                                <input type="text" class="form-control" placeholder="Ingrese un nombre" required="required">
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Descripcion:</label>
+                                <input type="text" class="form-control" placeholder="Añada una descripcion" required="required">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Direccion:</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione una direccion</option>
+                                            <option value="TR">Terrestre</option>
+                                            <option value="AR">Aereo</option>
+                                            <option value="MT">Maritimo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Partners:</label>
+                                        <select class="ui search dropdown">
+                                            <option value="">Seleccione un partner</option>
+                                            <option value="HA">Hedman Alas</option>
+                                            <option value="CA">Continental Airlines</option>
+                                            <option value="AS">Aerolineas Sosa</option>
+                                            <option value="TC">Transportes Cristina</option>
+                                            <option value="MSC">MSC Cruceros</option>
+                                        </select>
+                                    </div>                                  
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group mar" style="display: flex;justify-content: center;">
+                            <a class="btn btn-primary btn-block mx-2" href="/Hoteles/Index" style="width:15vw;">Guardar Nuevo Transporte</a><a class="btn btn-secondary btn-block mx-2" href="/Hoteles/Index" style="width:15vw;">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

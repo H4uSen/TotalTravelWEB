@@ -31,6 +31,7 @@
     <!--Semantic UI-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    @RenderSection("HeadLinks", required: false)
     @RenderSection("CSS", required: false)
 </head>
 <body>
@@ -120,6 +121,12 @@
                                 <span>Historial de compras</span>
                             </a>
                         </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" id="historial" asp-area="" asp-controller="Compra" asp-action="Historial">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de compras</span>
+                            </a>
+                        </li>
 
                     </ul><!-- End Profile Dropdown Items -->
 
@@ -134,7 +141,7 @@
                             </svg>Inicio
                         </a>
                     </li>
-                  
+
                     <li class="sidebar-item" id="predetb">
                         <a class="sidebar-link" href="@Url.Action("Index","Especifico")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
@@ -149,14 +156,15 @@
                             </svg>Haz tu propio paquete de viaje
                         </a>
                     </li>
+                    
                     @*<li class="sidebar-item" id="historialb">
-<<<<<<< Updated upstream
-                <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
-                    <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                        <use xlink:href="#portfolio-grid-1"> </use>
-                    </svg>Historial de compra
-                </a>
-            </li>*@
+        <<<<<<< Updated upstream
+                        <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#portfolio-grid-1"> </use>
+                            </svg>Historial de compra
+                        </a>
+                    </li>*@
                 </ul>
 
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Admin</span>
@@ -182,7 +190,13 @@
                             </svg>Gestionar Ciudades
                         </a>
                     </li>
-
+                    <li class="sidebar-item" id="hotelesb">
+                        <a class="sidebar-link" href="@Url.Action("Index","Hoteles")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#sales-up-1"> </use>
+                            </svg>Gestionar Hoteles
+                        </a>
+                    </li>
                     <li class="sidebar-item" id="predetbb">
                         <a class="sidebar-link" href="@Url.Action("Index","ActividadesController1")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
@@ -220,6 +234,8 @@
                             <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Hoteles</a></li>
                             <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Actividades</a></li>
                             <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Restaurantes</a></li>
+                            <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Ventas</a></li>
+                            <li><a class="sidebar-link" href="@Url.Action("Index","Reportes")">Clientes</a></li>
                         </ul>
                     </li>
                 </ul>
