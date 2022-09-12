@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">DETALLES DE LOS TRANSPORTE</h2>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row text-dark">
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-9">
+                            Código
+                        </dt>
+                        <dd class="col-sm-12">
+                            1
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-12">
+                            Tipo de Transporte
+                        </dt>
+                        <dd class="col-sm-12">
+                            Autobus
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-9">
+                            Partner
+                        </dt>
+                        <dd class="col-sm-9">
+                            Hedman Alas
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-12">
+                            Matricula
+                        </dt>
+                        <dd class="col-sm-12">
+                            QW675H
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-12">
+                            Ciudad Salida
+                        </dt>
+                        <dd class="col-sm-12">
+                            San Pedro Sula
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-9">
+                            Ciudad Destino
+                        </dt>
+                        <dd class="col-sm-12">
+                            La Ceiba
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-9">
+                            Hora Salida
+                        </dt>
+                        <dd class="col-sm-12">
+                            08:00AM
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-9">
+                            Hora Llegada
+                        </dt>
+                        <dd class="col-sm-12">
+                            12:00PM
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        <dt class="col-sm-9">
+                            Capacidad
+                        </dt>
+                        <dd class="col-sm-12">
+                            40 pasajeros
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-4">
+                    <dl>
+                        <dt class="col-sm-4">
+                            Precio Boletos
+                        </dt>
+                        <dd class="col-sm-12">
+                            Lps. 120.00
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="fs-3 text-dark">Auditoría</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-responsive table-hover table-bordered thead-dark">
+                <thead class="text-dark">
+                    <tr>
+                        <th>Acción</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="text-dark">
+                    <tr>
+                        <td>Creado</td>
+                        <td>Jahdiel</td>
+                        <td>10/9/2022</td>
+                    </tr>
+                    <tr>
+                        <td>Modificado</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div>
+                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+</div>
