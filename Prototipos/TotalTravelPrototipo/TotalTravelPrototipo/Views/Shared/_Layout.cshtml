@@ -89,18 +89,34 @@
         </header>
         <div class="page-content d-flex align-items-stretch">
             <!-- Side Navbar -->
-            <nav class="side-navbar z-index-40">
+            <nav class="side-navbar">
                 <!-- Sidebar Header-->
                 <div class="sidebar-header d-flex align-items-center py-4 px-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="popButton">
                         <img class="avatar shadow-0 img-fluid rounded-circle" src="../assets/img/avatar-1.jpg" alt="...">
                         <div class="ms-3 title">
                             <h1 class="d-none d-md-block dropdown-toggle h4 mb-2">Mark Stephen</h1>
                         </div>
                     </a><!-- End Profile Iamge Icon -->
-                  
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                        <div class="ui vertical menu">
+                            <a class="item" id="miCuentab" asp-area="" asp-controller="Home" asp-action="AccountInfo">
+                                <i class="bi bi-person"></i>
+                                <span>Mi Cuenta</span>
+                            </a>
+                            <a class="item" id="comprasb" asp-area="" asp-controller="Home" asp-action="PayHistory">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de compras</span>
+                            </a>
+                            <a class="item" id="historialb" asp-area="" asp-controller="Compra" asp-action="Historial">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de transacciones</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -128,7 +144,8 @@
                             </a>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
+                    </ul>-->
+                    <!-- End Profile Dropdown Items -->
 
                 </div>
                 <!-- Sidebar Navigation Menus-->
@@ -156,15 +173,15 @@
                             </svg>Haz tu propio paquete de viaje
                         </a>
                     </li>
-                    
+
                     @*<li class="sidebar-item" id="historialb">
-        <<<<<<< Updated upstream
-                        <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#portfolio-grid-1"> </use>
-                            </svg>Historial de compra
-                        </a>
-                    </li>*@
+                        <<<<<<< Updated upstream
+                                        <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
+                                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                                <use xlink:href="#portfolio-grid-1"> </use>
+                                            </svg>Historial de compra
+                                        </a>
+                                    </li>*@
                 </ul>
 
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Admin</span>
@@ -254,12 +271,13 @@
     <script src="../assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="../assets/js/charts-home.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
-    <script src="~/js/site.js"></script>
+
     <!-- Main File-->
     <script src="../assets/js/front.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
     <script>
         // ------------------------------------------------------- //
