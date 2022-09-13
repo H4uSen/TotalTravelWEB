@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHM Boletos</title>
+    <title>AHM Login</title>
     <!-- Google fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- Choices CSS-->
@@ -21,34 +21,31 @@
     <link rel="shortcut icon" href="../assets/img/favicon.ico">
     <!-- Tweaks for older IEs-->
 </head>
-<body style="background-color: #e1e1e169; ">
-    <div class="container-xxl d-flex align-items-center justify-content-md-center position-relative py-5">
-        <div class="pasword-forgot">
+<body>
+    <div class="main">
+        <div class="container-xxl d-flex align-items-center justify-content-md-center position-relative py-5">
             <div class="row justify-content-md-center py-5">
                 <div class="col-md-12 py-5">
-                    <div class="card rounded-bottom">
-                        <div class="card-header align-items-center justify-content-center bg-primary rounded-top">
-                            <h3 class="text-white">Recuperar Contraseña</h3>
-                        </div>
+                    <div class="card rounded-3">
                         <div class="card-body">
-                            <form class="login-form py-2 w-100" method="get" action="/Home/CodeConfirm">
-                                <h4>Ingrese su Correo Electronico</h4>
+                            <h2>Codigo de Verificacion</h2>
+                            <form action="" class="login-form py-2 w-100 justify-content-md-center" method="get">
                                 <div class="input-material-group mb-3">
-                                    <input class="input-material" id="contra-recuperar" type="text" name="contra-recuperar" autocomplete="off" required>
-                                    <label class="label-material" for="contra_recuperar">Email</label>
+                                    <input class="input-material" id="contra-recuperar" type="text" name="contra-recuperar" autocomplete="off">
+                                    <label class="label-material" for="contra_recuperar">XXX-XXX-XXX</label>
                                 </div>
-                                <small class="text-gray-500">Se enviara un Codigo de Verificacion a tu Correo Electronico</small><br><br>
-                                <button type="submit" class="btn btn-primary">
-                                    Enviar
-                                </button><br><small class="text-gray-500">Ya recuerdas tu Contraseña? </small><a class="text-sm text-paleBlue" href="/Home/Login">Ingresa</a>
+                                <small class="text-gray-500">No recibio el Codigo? <a href="" class="text-primary">Reenviar Codigo</a></small><br><br>
+                                <button type="button" class="btn btn-primary">Enviar</button>
                             </form>
-
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
+
 
     <!-- JavaScript files-->
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
