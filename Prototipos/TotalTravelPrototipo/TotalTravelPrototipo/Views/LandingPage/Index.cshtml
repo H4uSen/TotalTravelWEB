@@ -55,7 +55,8 @@
             font-family: "Lato", sans-serif;
             font-weight: 400;
             line-height: 1.7;
-            color: #fff;
+            color: #F0F0F0;
+            background-color: #F0F0F0;
         }
 
         .heading-primary {
@@ -113,7 +114,7 @@
             line-height: 1;
             -webkit-transition: all 0.2s;
             transition: all 0.2s;
-            color: #ffffff;
+            color: white;
         }
 
         .btn, .btn:link, .btn:visited {
@@ -152,8 +153,8 @@
             }
 
         .btn--white {
-            background-color: #fff;
-            color: #777;
+            background-color: #652D90;
+            color: white;
         }
 
             .btn--white::after {
@@ -186,6 +187,7 @@
         body {
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            background-color: #EEF5F9;
         }
 
         .section-plans {
@@ -198,6 +200,8 @@
             -moz-perspective: 150rem;
             position: relative;
             height: 52rem;
+            background-color: #EEF5F9;
+            border-radius: 30px;
         }
 
         .card__side {
@@ -210,7 +214,7 @@
             width: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 3px;
+            border-radius: 30px;
             overflow: hidden;
             -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0);
             box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0);
@@ -221,15 +225,18 @@
         }
 
         .card__side--front-1 {
-            background: linear-gradient(#652D90, #652D90 );
-        }
+            background: linear-gradient( #fff );
+            border:   solid black;
+=        }
 
         .card__side--front-2 {
-            background: linear-gradient(#652D90, #652D90 );
+            background: linear-gradient(#fff );
+            border: solid black;
         }
 
         .card__side--front-3 {
-            background: linear-gradient(-45deg, #652D90, #652D90);
+            background: linear-gradient( #fff );
+            border: solid black;
         }
 
         .card__side--back {
@@ -238,15 +245,18 @@
         }
 
         .card__side--back-1 {
-            background: linear-gradient(-40deg, #652D90, #9142cd);
+            background: linear-gradient(#fff );
+            border: solid black;
         }
 
         .card__side--back-2 {
-            background: linear-gradient(-40deg, #652D90, #9142cd);
+            background: linear-gradient(#fff );
+            border: solid black;
         }
 
         .card__side--back-3 {
-            background: linear-gradient(-40deg, #652D90, #9142cd);
+            background: linear-gradient(#fff );
+            border: solid black;
         }
 
         .card:hover .card__side--front-1,
@@ -254,11 +264,14 @@
         .card:hover .card__side--front-3 {
             -webkit-transform: rotateY(-180deg);
             transform: rotateY(-180deg);
+            color: black;
         }
 
         .card:hover .card__side--back {
             -webkit-transform: rotateY(0);
             transform: rotateY(0);
+            color: black;
+            border-radius: 50px;
         }
 
         .card__title {
@@ -277,18 +290,23 @@
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
+            color: black;
+      
         }
 
         .card__title--1 .fas {
             font-size: 5rem;
+            color: black;
         }
 
         .card__title--2 .fas {
             font-size: 5rem;
+            color: black;
         }
 
         .card__title--3 .fas {
             font-size: 5rem;
+            color: black;
         }
 
         .card__heading {
@@ -296,34 +314,40 @@
             font-weight: 300;
             text-transform: uppercase;
             text-align: center;
-            color: #fff;
+            color: black;
             width: 75%;
+            color: black;
+            border-bottom: 2px solid black;
         }
 
         .card__heading-span {
             padding: 1rem 1.5rem;
             -webkit-box-decoration-break: clone;
             box-decoration-break: clone;
+            color: black;
         }
 
         .card__details {
             padding: 0 2rem 2rem;
+            color: black;
         }
 
             .card__details ul {
                 list-style: none;
                 width: 80%;
                 margin: 0 auto;
+                color: black;
             }
 
                 .card__details ul li {
                     text-align: center;
                     font-size: 1.5rem;
                     padding: 1rem;
+                    color: black;
                 }
 
                     .card__details ul li:not(:last-child) {
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid rgb(8, 8, 8);
                     }
 
         .card__cta {
@@ -334,24 +358,27 @@
             transform: translate(-50%, -50%);
             width: 90%;
             text-align: center;
+            color: black;
         }
 
         .card__price-box {
             text-align: center;
-            color: #fff;
-            margin-bottom: 8rem;
+            color: black;
+            margin-bottom: 9rem;
         }
 
         .card__price-only {
             font-size: 1.4rem;
             text-transform: uppercase;
+            color: black;
         }
 
         .card__price-value {
-            font-size: 6rem;
-            font-weight: 100;
+            font-size: 7rem;
+            font-weight: 120;
+            color: black;
         }
-
+       
         .row {
             max-width: 114rem;
             margin: 0 auto;
@@ -440,7 +467,7 @@
 
 
         <div class="u-center-text u-margin-bottom-big" id="logo">
-            <img src="assets/img/AHM-FONDO-TEXTO.png" alt="Logo de totaltravel" style="width: 70vw;max-width: 40vw;margin-top: 15px;">
+            <img src="assets/img/AHM-FONDO-TEXTO.png" class="mi-imagen" alt="Logo de totaltravel" style="width: 55vw;max-width: 23vw;margin-top: 15px;">
             <h3 class="heading-vista" style="margin-top:15px">
                 Ofertas de tus webs de reserva favoritas <br />
                 Prueba a buscar una ciudad, un hotel ¡o un punto de interés!
@@ -488,7 +515,7 @@
                 <div class="card">
                     <div class="card__side card__side--front-2">
                         <div class="card__title card__title--2">
-                            <i class="fas fa-plane"></i>
+                            <i class="fas fa-paper-plane"></i>
                             <h4 class="card__heading">Plus</h4>
                         </div>
 
@@ -592,4 +619,4 @@
 
 
 </body>
-</html>
+</html> 
