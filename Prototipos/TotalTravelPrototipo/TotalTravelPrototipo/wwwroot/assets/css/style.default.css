@@ -9599,7 +9599,7 @@ fieldset:disabled .btn {
 
 /* rtl:end:remove */
 .text-primary {
-    color: #796AEE !important;
+    color: #652D90 !important;
 }
 
 .text-secondary {
@@ -9687,7 +9687,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-    background-color: #796AEE !important;
+    background-color: #652D90 !important;
 }
 
 .bg-secondary {
@@ -9834,8 +9834,8 @@ fieldset:disabled .btn {
 }
 
 .rounded-bottom {
-    border-bottom-right-radius: 0.25rem !important;
-    border-bottom-left-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.50rem !important;
+    border-bottom-left-radius: 0.50rem !important;
 }
 
 .rounded-start {
