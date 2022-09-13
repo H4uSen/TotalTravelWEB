@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container d-flex align-items-center position-relative py-5">
+    <div class="card shadow-sm w-100 rounded overflow-hidden bg-none">
+        <div class="row">
+
+            <div class="card-header fs-4" style="text-align: center;padding-top: 50px;font-size: 2rem;background-color: #652d90;color: white;font-size: 2rem;display: flex;justify-content: center;align-content: center;"><h1 style="font-size: 2rem;">Editar un usuario</h1></div>
+            <div class="card-body c-base" style="padding-left: 50px; padding-right: 50px; font-size: medium; background-color: white;">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Roles:</label><br />
+                                    <select class="ui search dropdown">
+                                        <option value="">Seleccione un rol</option>
+                                        <option value="Ad">Administrador</option>
+                                        <option selected value="AR">Moderador-Hotel</option>
+                                        <option value="MT">Moderador-Transporte</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Partners:</label>
+                                    <select class="ui search dropdown">
+                                        <option value="">Seleccione un partner</option>
+                                        <option selected value="HA">Hyatt Place</option>
+                                        <option value="CA">Hotel La Ensenada</option>
+                                        <option value="AS">Hilton Princess</option>
+                                        <option value="TC">Royal Fantasy</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-label-group">
+                                        <label for="inputEmail">DNI:</label>
+                                        <input type="number" value="0501200010142" id="inputEmail" class="form-control" placeholder="Ingrese su numero de tarjeta de identidad" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <label for="firstName">Nombres:</label>
+                                        <input type="text" value="Didier" id="firstName" class="form-control" placeholder="Ingresa tu nombre" required="required" autofocus="autofocus">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <label for="lastName">Apellidos:</label>
+                                        <input type="text" value="Bonilla" id="lastName" class="form-control" placeholder="Ingresa tu apellido" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <label for="inputEmail">Fecha de nacimiento:</label>
+                                        <input type="date" value="05-12-2000" id="inputdate" class="form-control" placeholder="Email address" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <label for="inputTel">Telefono:</label>
+                                        <input type="text" value="2034-523464" id="inputTel" class="form-control" placeholder="+(504)" autofocus="autofocus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <div class="col-md-3">
+                                            <div>
+                                                <label>Sexo:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label" for="radio1">
+                                                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Femenino
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label" for="radio2">
+                                                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">Masculino
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="inputEmail">Email :</label>
+                                    <input type="email" value="Php@contacts.com" id="inputEmail" class="form-control" placeholder="Ingrese correo electronico" required="required">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <label for="inputPassword">Contraseña :</label>
+                                        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <label for="inputPassword">Repetir contraseña :</label>
+                                        <input type="password" id="confirmPassword" class="form-control" placeholder="Repetir contraseñaa" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group mar" style="display: flex;justify-content: left;">
+                                <a class="btn btn-primary btn-block" href="/Usuarios"
+                                   style="width:15vw;">Enviar</a>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
