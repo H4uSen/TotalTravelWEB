@@ -6,7 +6,7 @@
 
 <div class="bg-white shadow-sm px-4 py-3 z-index-20">
     <div class="container-fluid px-0">
-        <h2 class="mb-0 p-1">PARTNERS</h2>
+        <h2 class="mb-0 p-1">USUARIOS</h2>
     </div>
 </div>
 
@@ -15,7 +15,7 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo</button>
+            <a asp-action="Create" class="btn btn-primary">Nuevo</a>
         </div>
         <div class="col-lg-12">
             <div class="card-body">
@@ -23,61 +23,71 @@
                     <table class="table table-bordered table-md dataTables-example" id="example">
                         <thead style="font-size: large;">
                             <tr class="btn-dark">
+                                <th scope="col" width="150px">DNI</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Nacimiento</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Telefono</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">Roles</th>
+                                <th scope="col">Partner</th>
+                                <th scope="col" width="100px">Acciones</th>
                             </tr>
                         </thead>
                         <tbody style="font-size: medium;">
                             <tr>
-                                <th scope="row">Business 360</th>
-                                <td>Busineshn@gmail.com</td>
-                                <td>5678-5675</td>
+                                <th scope="row">0502-1996-13122</th>
+                                <td>Julissa Gomez</td>
+                                <td>06-4-1996</td>
+                                <td>juli@bussines.com</td>
+                                <td>56768-56775</td>
+                                <td>Cliente</td>
+                                <td></td>
                                 <td>
-                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;" data-bs-toggle="modal" data-bs-target="#exampleModal1"> Editar</button>
-                                    | <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</a>
+                                    <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
+                                    <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">AKOS HONDURAS SA DE CV</th>
-                                <td>Akos@gmail.com</td>
-                                <td>3456-4567</td>
+                                <th scope="row">0502-2003-13122</th>
+                                <td>Andres Leiva</td>
+                                <td>05-12-2003</td>
+                                <td>Api@deveploper.com</td>
+                                <td>2034-523464</td>
+                                <td>Administrador</td>
+                                <td> </td>
                                 <td>
-                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
-                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</a>
+                                    <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
+                                    <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
                                 </td>
                             </tr>
                             <tr>
-                                <th class="border-bottom-0" scope="row">OFICINAS TECNOLOGICAS S DE RL DE CV</th>
-                                <td class="border-bottom-0">Tecnologisashn@gmail.com</td>
-                                <td class="border-bottom-0">4566-5656</td>
+                                <th scope="row">0501-2000-10142</th>
+                                <td>Didier Bonilla</td>
+                                <td>05-12-2000</td>
+                                <td>Php@contacts.com</td>
+                                <td>2034-523464</td>
+                                <td>Moderador-Hotel</td>
+                                <td>Hyatt Place</td>
                                 <td>
-                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
-                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</a>
+                                    <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
+                                    <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">Grupo Innova</th>
-                                <td>Innova@gmail.com</td>
-                                <td>3423-6786</td>
+                                <th scope="row">0501-2002-10142</th>
+                                <td>Jahdiel Lopez</td>
+                                <td>05-12-2002</td>
+                                <td>Flutter@comunitypartner.com</td>
+                                <td>2034-523464</td>
+                                <td>Moderador-Transporte</td>
+                                <td>Hedman Alas</td>
                                 <td>
-                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
-                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dual airplanes Services S.A.</th>
-                                <td>Dualair@gmail.com</td>
-                                <td>9876-5678</td>
-                                <td>
-                                    <button type="button" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</button>
-                                    | <button type="button" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</button>
-                                    | <button type="button" class="bx bx-message-square-x btn btn-danger"> Eliminar</button>
+                                    <a asp-action="Edit" class="bx bxs-edit btn btn-light" style="background-color: #F7F5F8; border-color: #EFECF2;"> Editar</a>
+                                    <a asp-action="Details" class="bx bx-detail btn btn-light" style="background-color: #E2E3E1;"> Detalles</a>
+                                    <button type="button" class="bx bx-message-square-x btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"> Eliminar</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -219,6 +229,7 @@
 
 @section Scripts{
     <script>
-        $("#partnersb").addClass("active");
+        $("#usuariosb").addClass("active");
     </script>
 }
+

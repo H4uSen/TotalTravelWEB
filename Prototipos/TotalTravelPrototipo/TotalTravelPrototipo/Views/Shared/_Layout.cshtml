@@ -75,7 +75,7 @@
                             <!-- Messages -->
                             <!-- Logout    -->
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="@Url.Action("Login","Home");">
+                                <a class="nav-link text-white" href="@Url.Action("Login","Home")">
                                     <span class="d-none d-sm-inline">Logout</span>
                                     <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                                         <use xlink:href="#security-1"> </use>
@@ -173,19 +173,33 @@
                             </svg>Haz tu propio paquete de viaje
                         </a>
                     </li>
+                    <li class="sidebar-item" id="reservasb">
+                        <a class="sidebar-link" href="@Url.Action("Index","Reservaciones")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#portfolio-grid-1"> </use>
+                            </svg>Ver reservaciones
+                        </a>
+                    </li>
 
                     @*<li class="sidebar-item" id="historialb">
-                        <<<<<<< Updated upstream
-                                        <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
-                                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                                <use xlink:href="#portfolio-grid-1"> </use>
-                                            </svg>Historial de compra
-                                        </a>
-                                    </li>*@
+        <<<<<<< Updated upstream
+                        <a class="sidebar-link" href="@Url.Action("Historial","Compra")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#portfolio-grid-1"> </use>
+                            </svg>Historial de compra
+                        </a>
+                    </li>*@
                 </ul>
 
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Admin</span>
                 <ul class="list-unstyled py-4">
+                    <li class="sidebar-item" id="usuariosb">
+                        <a class="sidebar-link" href="@Url.Action("Index","Usuarios")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#sales-up-1"> </use>
+                            </svg>Gestionar Usuarios
+                        </a>
+                    </li>
                     <li class="sidebar-item" id="paisesb">
                         <a class="sidebar-link" href="@Url.Action("Index","Paises")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
@@ -229,12 +243,21 @@
                             </svg>Gestionar Transportes
                         </a>
                     </li>
-                    <li class="sidebar-item" id="restaurantesnb">
+                   @*<li class="sidebar-item" id="restaurantesnb">
                         <a class="sidebar-link" href="@Url.Action("Restaurantes","Home")">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                 <use xlink:href="#sales-up-1"> </use>
                             </svg>Gestionar Restaurantes
                         </a>
+                    </li>*@
+                    <li class="sidebar-item" id="estadisticasb">
+                        <a class="sidebar-link" href="@Url.Action("Index","Estadisticas")">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                <use xlink:href="#sales-up-1"> </use>
+                            </svg>Estadisticas
+                        </a>
+                    </li>
+
                     </li>
                 </ul>
                 <span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Reportes</span>
