@@ -33,7 +33,11 @@ namespace TotalTravelPrototipo.Controllers
         public IActionResult PayHistory()
         {
             return View();
-        }public IActionResult ForgotPassword()
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }public IActionResult CodeConfirmX()
         {
             return View();
         }
