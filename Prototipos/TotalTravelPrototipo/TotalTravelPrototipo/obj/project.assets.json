@@ -6069,20 +6069,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Angel Macea\\.nuget\\packages\\": {}
+    "C:\\Users\\didier-bonilla\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Angel Macea\\source\\repos\\TotalTravelPrototipo\\TotalTravelPrototipo\\TotalTravelPrototipo.csproj",
+      "projectUniqueName": "C:\\Users\\didier-bonilla\\Documents\\TotalTravelWEB\\Prototipos\\TotalTravelPrototipo\\TotalTravelPrototipo\\TotalTravelPrototipo.csproj",
       "projectName": "TotalTravelPrototipo",
-      "projectPath": "C:\\Users\\Angel Macea\\source\\repos\\TotalTravelPrototipo\\TotalTravelPrototipo\\TotalTravelPrototipo.csproj",
-      "packagesPath": "C:\\Users\\Angel Macea\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Angel Macea\\source\\repos\\TotalTravelPrototipo\\TotalTravelPrototipo\\obj\\",
+      "projectPath": "C:\\Users\\didier-bonilla\\Documents\\TotalTravelWEB\\Prototipos\\TotalTravelPrototipo\\TotalTravelPrototipo\\TotalTravelPrototipo.csproj",
+      "packagesPath": "C:\\Users\\didier-bonilla\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\didier-bonilla\\Documents\\TotalTravelWEB\\Prototipos\\TotalTravelPrototipo\\TotalTravelPrototipo\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Angel Macea\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\didier-bonilla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
