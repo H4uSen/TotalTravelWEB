@@ -26,7 +26,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             try
             {
                 var response = await _api.Post<UserLoginModel, UserLoggedModel>(req => {
-                    req.Path = $"/api/Login";
+                    req.Path = $"/API/Login";
                     req.Content = LogInData;
                 });
 

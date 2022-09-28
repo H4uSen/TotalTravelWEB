@@ -60,6 +60,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
+        [HttpGet]
+        [Route("/read-claims")]
+        public IActionResult ClaimReading(string key)
+        {
+            var customClaim = HttpContext.User.FindFirst(key);
+
+            return Content(customClaim.Value);
+        }
+
         public async Task<IActionResult> LogOut()
         {
             //3.- CONFIGURACION DE LA AUTENTICACION
