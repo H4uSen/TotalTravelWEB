@@ -32,20 +32,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
 
             _httpContext = httpContext;
                 _appSettings = appSettings.Value;
-                _client.BaseAddress = new Uri("https://totaltravel.somee.com/API");
+                _client.BaseAddress = new Uri("https://totaltravel.somee.com");
                 _client.Timeout = TimeSpan.FromSeconds(10);
             }
 
-            public async Task<ApiResult<T>> Get<T>(Action<ApiCallConfiguration<T>> action)
+            public async Task<ApiResult<B>> Get<A,B>(Action<ApiCallConfiguration<A>> action)
             {
-                var config = new ApiCallConfiguration<T>();
-                var result = new ApiResult<T>();
+                var config = new ApiCallConfiguration<A>();
+                var result = new ApiResult<B>();
                 try
                 {
                     action(config);
                     var response = await _client.GetAsync(config.PathWithQueryStrings);
                     var content = await response.Content.ReadAsStringAsync();
-                    result = JsonConvert.DeserializeObject<ApiResult<T>>(content);
+                    result = JsonConvert.DeserializeObject<ApiResult<B>>(content);
                     if (result != null)
                     {
                         result.Path = config.Path;
@@ -60,20 +60,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
                 return result;
             }
 
-            public async Task<ApiResult<T>> Post<T>(Action<ApiCallConfiguration<T>> action)
+            public async Task<ApiResult<B>> Post<A,B>(Action<ApiCallConfiguration<A>> action)
             {
-                var config = new ApiCallConfiguration<T>();
-                var result = new ApiResult<T>();
+                var config = new ApiCallConfiguration<A>();
+                var result = new ApiResult<B>();
                 try
                 {
                     action(config);
-                    var response = await _client.PostAsync(config.PathWithQueryStrings, config.ContentJson);
-                    var content = await response.Content.ReadAsStringAsync();
-                    result = JsonConvert.DeserializeObject<ApiResult<T>>(content);
+                    var responseData = await _client.PostAsync(config.PathWithQueryStrings, config.ContentJson);
+                    var content = await responseData.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<ApiResult<B>>(content);
                     result.Path = config.Path;
-                    result.StatusCode = response.StatusCode;
+                    result.StatusCode = responseData.StatusCode;
 
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    if (responseData.StatusCode == HttpStatusCode.OK)
                         result.Success = true;
                     else
                         result.Success = false;
@@ -86,10 +86,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
                 return result;
             }
 
-            public async Task<ApiResult<T>> Put<T>(Action<ApiCallConfiguration<T>> action)
+            public async Task<ApiResult<B>> Put<A,B>(Action<ApiCallConfiguration<A>> action)
             {
-                var config = new ApiCallConfiguration<T>();
-                var result = new ApiResult<T>();
+                var config = new ApiCallConfiguration<A>();
+                var result = new ApiResult<B>();
                 try
                 {
 
@@ -97,7 +97,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
 
                     var response = await _client.PutAsync(config.PathWithQueryStrings, config.ContentJson);
                     var content = await response.Content.ReadAsStringAsync();
-                    result = JsonConvert.DeserializeObject<ApiResult<T>>(content);
+                    result = JsonConvert.DeserializeObject<ApiResult<B>>(content);
                     result.Path = config.Path;
                     result.StatusCode = response.StatusCode;
                 }
@@ -110,17 +110,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
                 return result;
             }
 
-            public async Task<ApiResult<T>> Delete<T>(Action<ApiCallConfiguration<T>> action)
+            public async Task<ApiResult<B>> Delete<A,B>(Action<ApiCallConfiguration<A>> action)
             {
-                var config = new ApiCallConfiguration<T>();
-                var result = new ApiResult<T>();
+                var config = new ApiCallConfiguration<A>();
+                var result = new ApiResult<B>();
                 try
                 {
                     action(config);
 
                     var response = await _client.DeleteAsync(config.PathWithQueryStrings);
                     var content = await response.Content.ReadAsStringAsync();
-                    result = JsonConvert.DeserializeObject<ApiResult<T>>(content);
+                    result = JsonConvert.DeserializeObject<ApiResult<B>>(content);
                     result.Path = config.Path;
                     result.StatusCode = response.StatusCode;
                 }

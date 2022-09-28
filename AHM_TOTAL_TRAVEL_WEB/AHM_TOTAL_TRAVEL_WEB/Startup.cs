@@ -27,16 +27,16 @@ namespace AHM_TOTAL_TRAVEL_WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(option => {
+                option.LoginPath = "/Access/LogIn";
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                option.AccessDeniedPath = "/Home/Privacy";
+            });
             services.BusinessLogic();
             services.AddMvc();
             services.AddOptions();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(option => {
-                option.LoginPath = "/Acceso/LogIn";
-                option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-                option.AccessDeniedPath = "/Home/Privacy";
-            });
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
         }
 

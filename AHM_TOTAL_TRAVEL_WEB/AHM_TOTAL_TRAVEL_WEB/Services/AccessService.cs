@@ -20,17 +20,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
         #region Access
-        public async Task<ServiceResult> LogIn(UserViewModel LogInData)
+        public async Task<ServiceResult> LogIn(UserLoginModel LogInData)
         {
             var Result = new ServiceResult();
-            var UserList = (IEnumerable<UserListViewModel>)(await UsersList()).Data;
+            try
+            {
+                var response = await _api.Post<UserLoginModel, UserLoggedModel>(req => {
+                    req.Path = $"/api/Login";
+                    req.Content = LogInData;
+                });
 
-            var userData = UserList.Where(user => 
-                user.Email == LogInData.Usua_Email &&
-                user.Password == LogInData.Usua_Password
-            ).FirstOrDefault();
+                if (!response.Success)
+                    return Result.FromApi(response);
+                else
+                    return Result.Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+            }
 
-            return Result.Ok(userData);
         }
         #endregion
 
@@ -41,8 +50,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<IEnumerable<UserListViewModel>>(req => {
-                    req.Path = $"/Users/List";
+                var response = await _api.Get<IEnumerable<UserListViewModel>, IEnumerable<UserListViewModel>>(req => {
+                    req.Path = $"/API/Users/List";
                     req.Content = new List<UserListViewModel>();
                 });
 

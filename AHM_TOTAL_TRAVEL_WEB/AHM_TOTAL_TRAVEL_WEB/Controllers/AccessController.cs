@@ -26,21 +26,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         //USAR REFERENCIAS Models y Data
         [HttpPost]
-        public async Task<IActionResult> LogIn(UserViewModel LogInData)
+        public async Task<IActionResult> LogIn(UserLoginModel LogInData)
         {
 
-            var LogInVerify = (UserViewModel)(await _accessServices.LogIn(LogInData)).Data;
+            var LogInVerify = (UserLoggedModel)(await _accessServices.LogIn(LogInData)).Data;
 
             if (LogInVerify != null)
             {
-
+                
                 //2.- CONFIGURACION DE LA AUTENTICACION
                 #region AUTENTICACTION
                 var claims = new List<Claim>
                 {
-                    new Claim("Name", LogInVerify.Usua_Nombre + LogInVerify.Usua_Apellido),
-                    new Claim("Email", LogInVerify.Usua_Email),
-                    new Claim("Role", LogInVerify.Role_ID.ToString()),
+                    new Claim("User_Id", LogInVerify.ID.ToString()),
+                    new Claim("User_Name", LogInVerify.nombre_completo),
+                    new Claim(ClaimTypes.Role, LogInVerify.Role_ID.ToString()),
+                    new Claim("Token", LogInVerify.Token),
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -53,20 +54,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             else
             {
-                ViewBag["LoginError"] = "Usuario no existente o datos incorrectos";
+                ViewData["LoginError"] = "Usuario no existente o datos incorrectos";
                 return View();
             }
 
         }
 
-        public async Task<IActionResult> Salir()
+        public async Task<IActionResult> LogOut()
         {
             //3.- CONFIGURACION DE LA AUTENTICACION
             #region AUTENTICACTION
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             #endregion
 
-            return RedirectToAction("Index");
+            return RedirectToAction("LogIn");
         }
     }
 }
