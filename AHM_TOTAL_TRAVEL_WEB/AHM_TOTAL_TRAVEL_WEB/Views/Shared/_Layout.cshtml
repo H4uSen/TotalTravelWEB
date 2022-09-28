@@ -1,54 +1,179 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AHM_TOTAL_TRAVEL_WEB</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="~/assets/vendor/choices.js/public/assets/styles/choices.min.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="~/assets/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <!-- Frameworks -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- Frameworks alerts -->
+    <link rel="stylesheet" href="~/assets/css/iziToast.min.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/assets/img/favicon.ico">
+    <!-- icons-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!--js-library css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+    <style>
+        .sidebar-link {
+            font-size: 1.3em !important;
+        }
+    </style>
+    @RenderSection("HeadLinks", required: false)
+    @RenderSection("CSS", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AHM_TOTAL_TRAVEL_WEB</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="LogIn">LogIn</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="LogOut">LogOut</a>
-                        </li>
-                    </ul>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header z-index-50">
+            <nav class="navbar py-3 px-0 shadow-sm text-white position-relative">
+                <!-- Search Box-->
+                <div class="search-box shadow-sm">
+                    <button class="dismiss d-flex align-items-center">
+                        <svg class="svg-icon svg-icon-heavy">
+                            <use xlink:href="#close-1"> </use>
+                        </svg>
+                    </button>
+                    <form id="searchForm" action="#" role="search">
+                        <input class="form-control shadow-0" type="text" placeholder="What are you looking for...">
+                    </form>
                 </div>
+                <div class="container-fluid w-100">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand -->
+                            <a class="navbar-brand d-none d-sm-inline-block" href="@Url.Action("Index","Home")">
+                                <div class="brand-text d-none d-lg-inline-block"><img src="../assets/img/logo-AHM-Fondo-Morao.png" width="90px" height="45px" alt="imagen de logo"><span>Total</span><strong>Travel</strong></div>
+                                <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            </a>
+                            <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" href="#"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <li id="search" class="nav-item d-flex align-items-center">
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="@Url.Action("LogOut","Access")">
+                                    <span class="d-none d-sm-inline">Logout</span>
+                                    <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                        <use xlink:href="#security-1"> </use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center py-4 px-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="popButton">
+                        <img class="avatar shadow-0 img-fluid rounded-circle" src="../assets/img/avatar-1.jpg" alt="...">
+                        <div class="ms-3 title">
+                            <h1 class="d-none d-md-block dropdown-toggle h4 mb-2">Mark Stephen</h1>
+                        </div>
+                    </a><!-- End Profile Iamge Icon -->
+                    <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                        <div class="ui vertical menu">
+                            <a class="item" id="" asp-area="" asp-controller="Home" asp-action="AccountInfo">
+                                <i class="bi bi-person"></i>
+                                <span>Mi Cuenta</span>
+                            </a>
+                            <a class="item" id="" asp-area="" asp-controller="Home" asp-action="PayHistory">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de compras</span>
+                            </a>
+                            <a class="item" id="" asp-area="" asp-controller="Compra" asp-action="Historial">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de transacciones</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Navigation Menus-->
+                <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                    Modulo de Hoteles
+                </span>
+                <ul class="list-unstyled py-4">
+                    <li class="sidebar-item" id="">
+                        <a class="sidebar-link" href="#">
+                            Inicio
+                        </a>
+                    </li>
+                </ul>
+
+
+                <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">Reportes</span>
+                <ul class="list-unstyled py-4">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#exampledropdownDropdown" data-bs-toggle="collapse">
+                            Dropdown menu
+                        </a>
+                        <ul class="collapse list-unstyled " id="exampledropdownDropdown">
+                            <li><a class="sidebar-link" href="#">Item 1</a></li>
+                            <li><a class="sidebar-link" href="#">Item 2</a></li>
+                            <li><a class="sidebar-link" href="#">Item 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="content-inner w-100">
+                <br />
+                @RenderBody()
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - AHM_TOTAL_TRAVEL_WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- frameworks -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- alerts Libraries -->
+    <script src="~/assets/js/iziToast.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="~/assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/assets/vendor/just-validate/js/just-validate.min.js"></script>
+    <script src="~/assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="~/assets/js/charts-home.js"></script>
+
+    <!-- Proyect files -->
+    <script src="~/assets/js/front.js"></script>
+    <script src="~/js/Pagination.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+
+
+

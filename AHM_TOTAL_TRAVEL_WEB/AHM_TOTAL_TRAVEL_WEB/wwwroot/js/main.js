@@ -49,3 +49,23 @@ function sweetAlertconfirm(title = "An error ocurred", message = "", type = "err
         }
     })
 }
+
+//----------------------------- BUSCADOR TABLE JS----------------------------------------
+
+function TableSearchInput(SearchInput, Table, elemPerPage = 10) {
+    $(SearchInput).keyup(function () {
+        _this = this;
+        $.each($(Table).find("tbody tr"), function () {
+            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            }
+        });
+
+        $(Table).paginationTdA({
+            elemPerPage: elemPerPage
+        });
+    });
+}
