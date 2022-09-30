@@ -23,6 +23,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             return View();
         }
+        public IActionResult LandingPage()
+        {
+            return View();
+        }
 
         //USAR REFERENCIAS Models y Data
         [HttpPost]
