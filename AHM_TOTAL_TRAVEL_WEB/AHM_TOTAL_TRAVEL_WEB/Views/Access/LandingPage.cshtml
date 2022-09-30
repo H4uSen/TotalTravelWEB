@@ -20,13 +20,13 @@
     <!-- Google fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- Choices CSS-->
-    <link rel="stylesheet" href="assets/vendor/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/choices.js/public/assets/styles/choices.min.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="assets/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="~/assets/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="~/assets/css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" href="~/assets/img/favicon.ico">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
@@ -39,16 +39,7 @@
     <header class="header z-index-50">
         <nav class="navbar py-3 px-0 shadow-sm text-white position-relative">
             <!-- Search Box-->
-            <div class="search-box shadow-sm">
-                <button class="dismiss d-flex align-items-center">
-                    <svg class="svg-icon svg-icon-heavy">
-                        <use xlink:href="#close-1"> </use>
-                    </svg>
-                </button>
-                <form id="searchForm" action="#" role="search">
-                    <input class="form-control shadow-0" type="text" placeholder="What are you looking for...">
-                </form>
-            </div>
+            
             <div class="container-fluid w-100">
                 <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
                     <!-- Navbar Header-->
@@ -60,7 +51,7 @@
                         <!-- Logout    -->
 
                         <li class="nav-item">
-                            <a class="btn btn-primary nav-link text-white" href="@Url.Action("LogIn","Access")">
+                            <a class="btn btn-primary nav-link text-white boton" href="@Url.Action("LogIn","Access")">
                                 <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                                     <use xlink:href="#security-1"> </use>
                                 </svg>
@@ -71,7 +62,7 @@
                         <li style=" margin:0px, 3px;">|</li>
                         <li class="nav-item">
 
-                            <a class="btn btn-primary nav-link text-white" href="#">
+                            <a class="btn btn-primary nav-link text-white boton" href="#">
                                 <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                                     <use xlink:href="#security-1"> </use>
                                 </svg>
@@ -119,10 +110,6 @@
     <!-- JavaScript files-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/just-validate/js/just-validate.min.js"></script>
-    <script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="js/charts-home.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js'></script>
     <script src="./script.js"></script>
