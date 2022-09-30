@@ -16,7 +16,7 @@ function fillpackage() {
                         <div class="card-text">
                             <h2 style="color:black;font-size:20px">${package.nombre}</h2>
                             <p>${package.descripcion_Paquete}</p>
-                            <h2 style="color:green;font-size:20px">$3500</h2>
+                            <h2 style="color:green;font-size:20px">${package.precio} LPS</h2>
                         </div>
                         <div class="card-stats">
                             <div class="stat">

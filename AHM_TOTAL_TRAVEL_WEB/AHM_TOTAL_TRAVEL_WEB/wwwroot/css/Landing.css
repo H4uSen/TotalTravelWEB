@@ -92,6 +92,7 @@ body {
     font-size: 1.6rem;
     border: none;
     cursor: pointer;
+   background-color: #652D90;
 }
 
     .btn:hover {
@@ -99,12 +100,15 @@ body {
         transform: translateY(-3px);
         -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
         box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+        background-color: #652D90;
     }
 
         .btn:hover::after {
             -webkit-transform: scaleX(1.4) scaleY(1.6);
             transform: scaleX(1.4) scaleY(1.6);
             opacity: 0;
+            background-color: #652D90;
+            
         }
 
     .btn:active, .btn:focus {
