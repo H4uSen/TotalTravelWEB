@@ -2,6 +2,7 @@
 // ----------------------------------- INIZIALIZE ------------------------------------
 FillCities();
 FillPartnerType();
+FillPartners(0);
 
 $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
@@ -11,11 +12,13 @@ $("#frmSelectPartner").hide();
 
 // ----------------------------------- EVENTS ------------------------------------
 
-$("#frmSelectPartner #cbbTipoPartner").change(function () {
-    const PartnerType_ID = $("#frmSelectPartner #cbbTipoPartner").val();
-    FillPartners(PartnerType_ID);
-    $('.ui.dropdown').dropdown();
-});
+//$("#frmSelectPartner #cbbTipoPartner").change(function () {
+//    const PartnerType_ID = $("#frmSelectPartner #cbbTipoPartner").val();
+
+//    $("#frmSelectPartner #cbbPartners").dropdown("destroy");
+//    FillPartners(PartnerType_ID);
+//    $("#frmSelectPartner #cbbPartners").dropdown();
+//});
 
 $("#checkPartner").change(function () {
     if ($("#checkPartner").prop("checked") == true) {
@@ -110,8 +113,9 @@ function FillPartners(ParterType_Id) {
             return Partner.tipoPartner_Id == ParterType_Id;
         });
 
+
         $("#frmSelectPartner #cbbPartners").empty();
-        if (FiltersPartners.length > 0) {
+        if (FiltersPartners.length > 0 && ParterType_Id != 0) {
 
             $("#frmSelectPartner #cbbPartners").append(
                 `<option value="">Select a Partner (required)</option>`
@@ -119,13 +123,25 @@ function FillPartners(ParterType_Id) {
 
             for (let i = 0; i < FiltersPartners.length; i++) {
                 const Partner = FiltersPartners[i];
-                console.log(Partner);
                 const option = `<option value="${Partner.id}">${Partner.nombre}</option>`;
-                console.log(option);
 
                 $("#frmSelectPartner #cbbPartners").append(option);
             }
-        } else {
+
+        } else
+        if (ParterType_Id == 0) {
+            $("#frmSelectPartner #cbbPartners").append(
+               `<option value="">Select a Partner (required)</option>`
+            );
+
+            for (let i = 0; i < Partners.length; i++) {
+                const Partner = Partners[i];
+                const option = `<option value="${Partner.id}">${Partner.nombre}</option>`;
+
+               $("#frmSelectPartner #cbbPartners").append(option);
+            }
+        }
+        else {
             $("#frmSelectPartner #cbbPartners").append(
                 `<option value="">No Partner Are On</option>`
             );
