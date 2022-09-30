@@ -31,6 +31,7 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
     <!-- Tweaks for older IEs-->
     <!--[if lt IE 9]>
@@ -228,12 +229,14 @@
             background: url("https://picsum.photos/seed/picsum/200/200");
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
+            height: 270px;
             background-size: cover;
         }
 
         .card-text {
             grid-area: text;
             margin: 25px;
+            margin-top: 90px;
         }
 
             .card-text .date {
@@ -260,6 +263,7 @@
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
             background-color: #61318C;
+            font-size: 12px;
         }
 
             .card-stats .stat {
@@ -391,122 +395,8 @@
         <br>
         <br>
         <div class="container">
-            <div class="card-slider">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-image"></div>
-                        <div class="card-text">
-                            <h2 style="color:black;font-size:20px">PAQUETE NOMBRE</h2>
-                            <p>paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion </p>
-                        </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">4<sup>m</sup></div>
-                                <div class="type">Hotel</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">Dias y Noches</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">32</div>
-                                <div class="type">Lugar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-image"></div>
-                        <div class="card-text">
-                            <h2 style="color:black;font-size:20px">PAQUETE NOMBRE</h2>
-                            <p>paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion </p>
-                        </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">4<sup>m</sup></div>
-                                <div class="type">Hotel</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">Dias y Noches</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">32</div>
-                                <div class="type">Lugar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-image"></div>
-                        <div class="card-text">
-                            <h2 style="color:black;font-size:20px">PAQUETE NOMBRE</h2>
-                            <p>paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion </p>
-                        </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">4<sup>m</sup></div>
-                                <div class="type">Hotel</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">Dias y Noches</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">32</div>
-                                <div class="type">Lugar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-image"></div>
-                        <div class="card-text">
-                            <h2 style="color:black;font-size:20px">PAQUETE NOMBRE</h2>
-                            <p>paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion </p>
-                        </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">4<sup>m</sup></div>
-                                <div class="type">Hotel</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">Dias y Noches</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">32</div>
-                                <div class="type">Lugar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-image"></div>
-                        <div class="card-text">
-                            <h2 style="color:black;font-size:20px">PAQUETE NOMBRE</h2>
-                            <p>paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion paquete descripcion </p>
-                        </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">4<sup>m</sup></div>
-                                <div class="type">Hotel</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">Dias y Noches</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">32</div>
-                                <div class="type">Lugar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-slider" id="package-slider">
+                
 
             </div>
         </div>
@@ -529,57 +419,10 @@
     <script src="./script.js"></script>
 
     <!-- Main File-->
-    <script src="js/front.js"></script>
-    <script>
-        // ------------------------------------------------------- //
-        //   Inject SVG Sprite -
-        //   see more here
-        //   https://css-tricks.com/ajaxing-svg-sprite/
-        // ------------------------------------------------------ //
-        $(document).ready(function ($) {
-            $('.card-slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                autoplay: false,
-                autoplaySpeed: 2000,
-                arrows: true,
-                responsive: [{
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 400,
-                    settings: {
-                        arrows: false,
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }]
-            });
-        });
-        function injectSvgSprite(path) {
+    <script src="~/js/front.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/Landing.js"></script>
 
-            var ajax = new XMLHttpRequest();
-            ajax.open("GET", path, true);
-            ajax.send();
-            ajax.onload = function (e) {
-                var div = document.createElement("div");
-                div.className = 'd-none';
-                div.innerHTML = ajax.responseText;
-                document.body.insertBefore(div, document.body.childNodes[0]);
-            }
-        }
-        // this is set to BootstrapTemple website as you cannot
-        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-        // while using file:// protocol
-        // pls don't forget to change to your domain :)
-        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');</script>
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
 

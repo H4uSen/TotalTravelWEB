@@ -70,7 +70,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             ServiceResult result = new ServiceResult();
             var customClaim = HttpContext.User.FindFirst(key);
-            result.Data = customClaim.Value;
+            result.Data = customClaim.Value == null ? "" : customClaim.Value;
             result.Success = true;
             result.Type = ServiceResultType.Success;
             return result;
