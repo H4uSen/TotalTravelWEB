@@ -102,9 +102,12 @@ function GetToken() {
     return Token;
 }
 
-function ajaxRequest(url, data, method = "POST") {
+function ajaxRequest(url, data, method = "POST", SendToken = true) {
     var dataResponse = null;
-    const Token = GetToken();
+    const Token = null;
+    if (SendToken == true) {
+        Token = GetToken();
+    }
 
     $.ajax({
         url: url,

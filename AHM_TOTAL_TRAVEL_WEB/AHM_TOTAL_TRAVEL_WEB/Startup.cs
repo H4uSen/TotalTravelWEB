@@ -29,7 +29,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(option => {
-                option.LoginPath = "/Access/LogIn";
+                option.LoginPath = "/Access/LandingPage";
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 option.AccessDeniedPath = "/Home/Privacy";
             });

@@ -3,8 +3,7 @@
 function fillpackage() {
     const request = ajaxRequest(
         "https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List",
-        null,
-        "GET"
+        null, "GET", false
     );
     $("#package-slider").empty();
     for (var i = 0; i < request.data.length; i++) {
@@ -12,9 +11,7 @@ function fillpackage() {
         const card =
             `
                 <div class="col-lg-12">
-                 <div class="ui raised">
-                    <a class="ui red tag label huge">Overview</a>
-                    <div class="card ">
+                    <div class="card">
                         <div class="card-image"></div>
                         <div class="card-text">
                             <h2 style="color:black;font-size:20px">${package.nombre}</h2>
@@ -36,9 +33,8 @@ function fillpackage() {
                             </div>
                         </div>
                     </div>
-                 </div>
-                    
                 </div>`;
+
         $("#package-slider").append(card);
 
     }
