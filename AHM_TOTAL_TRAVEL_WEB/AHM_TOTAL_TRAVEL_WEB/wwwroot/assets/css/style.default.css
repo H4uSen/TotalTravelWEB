@@ -15838,25 +15838,6 @@ a.text-hover-paleBlue {
     z-index: 999 !important;
 }
 
-.icon {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    width: 40px;
-    height: 40px;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-.icon-sm {
-    width: 30px;
-    height: 30px;
-}
 
 /*
 * ===================================================
