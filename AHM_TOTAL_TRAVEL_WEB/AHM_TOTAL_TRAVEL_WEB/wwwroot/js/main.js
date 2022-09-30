@@ -1,5 +1,12 @@
 ﻿
+// ----------------------------------- INIZIALIZE ------------------------------------
 
+$("input[type=text]").prop("autocomplete", "off");
+
+// ----------------------------------- EVENTS ------------------------------------
+
+
+// ----------------------------------- FUNCTIONS ------------------------------------
 
 //se utiliza para alertas de campos vacios
 function iziToastAlert(title = "An error ocurred", message = "", type = "error") {

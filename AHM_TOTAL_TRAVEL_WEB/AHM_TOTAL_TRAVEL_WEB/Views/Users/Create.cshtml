@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="user plus icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        create a new users
+                    </div>
+                    <p class="text-capitalize">create a new user and/or add a partner account.</p>
+                </div>
+            </div>
+
+            <!-- formulario-->
+            <div class="ui form attached fluid segment">
+                <div class="content">
+
+                    <div class="field">
+                        <label>User Info</label>
+                        <div class="three fields">
+                            <div class="field">
+                                <input type="text" id="txtDNI" placeholder="DNI Number (required)">
+                            </div>
+                            <div class="field">
+                                <input type="text" id="txtNombre" placeholder="First Name (required)">
+                            </div>
+                            <div class="field">
+                                <input type="text" id="txtApellido" placeholder="Last Name (required)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="three fields">
+                        <div class="field">
+                            <input type="text" id="txtTelefono" placeholder="Phone Number (required)">
+                        </div>
+                        <div class="field">
+                            <div class="ui calendar" id="standard_calendar">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" placeholder="Birth Date (required)"
+                                           id="txtFechaNacimiento">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Gender (required)</label>
+                            <div class="inline fields">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" name="rbGenero">
+                                        <label>Male</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" name="rbGenero">
+                                        <label>Female</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>User Adress</label>
+                        <div class="two fields">
+                            <div class="five wide field">
+                                <select class="ui search dropdown cbbCiudades" id="cbbCiudades">
+                                    <option value="">Select a City Residence (required)</option>
+                                    <option value="1">san pedro sula</option>
+                                    <option value="2">tegucigalpa</option>
+                                    <option value="3">barcelona</option>
+                                </select>
+                            </div>
+                            <div class="five wide field">
+                                <input type="text" id="txtDireccionExacta"
+                                       placeholder="Detail your Adress (required)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Acount Info</label>
+                        <div class="three fields">
+
+                            <div class="field">
+                                <input type="email" id="txtEmail" placeholder="Email Address (required)">
+                            </div>
+                            <div class="field">
+                                <input type="text" id="txtPassword"
+                                       placeholder="Enter your Password (required)">
+                            </div>
+                            <div class="field">
+                                <input type="text" id="txtPasswordConfirm"
+                                       placeholder="Confirm your Password (required)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui segment">
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
+                                    <label>Administrator User</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
+                                    <label>Partner User</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" id="checkExistingPartner" tabindex="0"
+                                           class="hidden" disabled>
+                                    <label>Existing Partner</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="frmSelectPartner">
+
+                        <div class="field">
+                            <label>Select Partner</label>
+                            <div class="fields">
+                                <div class="six wide field">
+                                    <select class="ui dropdown cbbTipoPartner" id="cbbTipoPartner">
+                                        <option value="">Select a Partner Type (required)</option>
+                                        <option value="1">Hotel Partner</option>
+                                        <option value="2">Turistic Partner</option>
+                                        <option value="3">Transport Partner</option>
+                                    </select>
+                                </div>
+                                <div class="six wide field">
+                                    <select class="ui dropdown" id="cbbPartners">
+                                        <option value="">Select a Partner (required)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="frmCreatePartner">
+                        <div class="field">
+                            <label>Partner Info</label>
+                            <div class="four fields">
+                                <div class="field">
+                                    <select class="ui dropdown cbbTipoPartner" id="cbbTipoPartner">
+                                        <option value="">Select a Partner Type (required)</option>
+                                        <option value="1">Hotel Partner</option>
+                                        <option value="2">Turistic Partner</option>
+                                        <option value="3">Transport Partner</option>
+                                        <option value="3">Restaurant Partner</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <input type="text" id="txtPartnerName"
+                                           placeholder="Partner Company Name (required)">
+                                </div>
+                                <div class="field">
+                                    <input type="text" id="txtPartnerEmail"
+                                           placeholder="Partner Company Email (required)">
+                                </div>
+                                <div class="field">
+                                    <input type="text" id="txtPartnerPhone"
+                                           placeholder="Partner Company Phone (required)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Partner Adress</label>
+                            <div class="two fields">
+                                <div class="five wide field">
+                                    <select class="ui search dropdown cbbCiudades" id="cbbCiudades">
+                                        <option value="">Select a City Residence (required)</option>
+                                        <option value="1">san pedro sula</option>
+                                        <option value="2">tegucigalpa</option>
+                                        <option value="3">barcelona</option>
+                                    </select>
+                                </div>
+                                <div class="five wide field">
+                                    <input type="text" id="txtDireccionExacta"
+                                           placeholder="Detail your Adress (required)">
+                                </div>
+                            </div>
+                        </div><br>
+
+                    </div>
+
+                    <div class="ui positive button" tabindex="0">Create User</div>
+                </div>
+            </div>
+            <!-- fin formulario-->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/UsersJs/Create.js"></script>
+}
