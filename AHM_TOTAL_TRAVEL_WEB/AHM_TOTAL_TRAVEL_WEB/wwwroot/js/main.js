@@ -1,4 +1,7 @@
-﻿//se utiliza para alertas de campos vacios
+﻿
+
+
+//se utiliza para alertas de campos vacios
 function iziToastAlert(title = "An error ocurred", message = "", type = "error") {
     const colors = {
         success: 'green',
@@ -68,4 +71,51 @@ function TableSearchInput(SearchInput, Table, elemPerPage = 10) {
             elemPerPage: elemPerPage
         });
     });
+}
+
+
+//----------------------------- PETICIONES AJAX ----------------------------------------
+
+function GetToken() {
+    var Token = null;
+    $.ajax({
+        url: "https://localhost:44366/read-claims?key=Token",
+        data: {},
+        method: "GET",
+        dataType: "json",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        async: false,
+        success: function (response) {
+            Token = response.data;
+        }
+    });
+
+    return Token;
+}
+
+function ajaxRequest(url, data, method = "POST") {
+    var dataResponse = null;
+    const Token = GetToken();
+
+    $.ajax({
+        url: url,
+        data: data,
+        method: method,
+        dataType: "json",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Bearer ${Token}`
+        },
+        async: false,
+        success: function (response) {
+            dataResponse = response;
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    return dataResponse;
 }

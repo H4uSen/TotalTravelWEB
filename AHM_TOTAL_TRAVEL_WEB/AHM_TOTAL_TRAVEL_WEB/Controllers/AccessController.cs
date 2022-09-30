@@ -62,11 +62,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         [HttpGet]
         [Route("/read-claims")]
-        public IActionResult ClaimReading(string key)
+        public ServiceResult ClaimReading(string key)
         {
+            ServiceResult result = new ServiceResult();
             var customClaim = HttpContext.User.FindFirst(key);
-
-            return Content(customClaim.Value);
+            result.Data = customClaim.Value;
+            result.Success = true;
+            result.Type = ServiceResultType.Success;
+            return result;
         }
 
         public async Task<IActionResult> LogOut()
