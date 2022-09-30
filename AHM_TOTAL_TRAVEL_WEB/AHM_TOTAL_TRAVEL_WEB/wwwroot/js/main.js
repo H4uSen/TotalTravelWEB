@@ -104,7 +104,7 @@ function GetToken() {
 
 function ajaxRequest(url, data, method = "POST", SendToken = true) {
     var dataResponse = null;
-    const Token = null;
+    var Token = null;
     if (SendToken == true) {
         Token = GetToken();
     }
