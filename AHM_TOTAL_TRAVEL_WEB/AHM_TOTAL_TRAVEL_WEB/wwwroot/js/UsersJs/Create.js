@@ -3,7 +3,7 @@
 
 FillCities();
 FillPartnerType();
-FillPartners();
+FillPartners(0);
 
 $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
@@ -13,13 +13,10 @@ $("#frmSelectPartner").hide();
 
 // ----------------------------------- EVENTS ------------------------------------
 
-//$("#frmSelectPartner #cbbTipoPartner").change(function () {
-//    const PartnerType_ID = $("#frmSelectPartner #cbbTipoPartner").val();
-
-//    $("#frmSelectPartner #cbbPartners").dropdown("destroy");
-//    FillPartners(PartnerType_ID);
-//    $("#frmSelectPartner #cbbPartners").dropdown();
-//});
+$("#frmSelectPartner .cbbTipoPartner").change(() => {
+    const TipoPartner_Id = $("#frmSelectPartner .cbbTipoPartner").dropdown('get value');
+    FillPartners(TipoPartner_Id);
+});
 
 $("#checkPartner").change(function () {
     if ($("#checkPartner").prop("checked") == true) {
@@ -99,7 +96,7 @@ function FillPartnerType() {
         }
     }
 }
-function FillPartners() {
+function FillPartners(PartnerType_Id) {
     const request = ajaxRequest(
         "https://totaltravelapi.azurewebsites.net/API/Partners/List",
         null, "GET"
@@ -108,98 +105,59 @@ function FillPartners() {
     if (request.code == 200) {
 
         const Partners = request.data;
-        var elements = { values: [] };
 
-        ClearDropDownItem($("#frmSelectPartner #cbbPartners"));
+        //filter data by ParterType_Id
+        const FiltersPartners = jQuery.grep(Partners, function (Partner, i) {
+            return Partner.tipoPartner_Id == PartnerType_Id;
+        });
+
+        //clear dropdown
+        ClearDropDownItem(
+            $("#frmSelectPartner #cbbPartners")
+        );
         $("#frmSelectPartner #cbbPartners").append(
             `<option value="">Select a Partner (required)</option>`
         );
-
-        for (let i = 0; i < Partners.length; i++) {
-            const Partner = Partners[i];
-
-            //const option = `<option value="${Partner.id}">${Partner.tipoPartner} ${Partner.nombre}</option>`;
-            //$("#frmSelectPartner #cbbPartners").append(option);
-            AddDropDownItem(
+        if (FiltersPartners.length > 0 && PartnerType_Id != 0) {
+            SetDropDownPlaceholder(
                 $("#frmSelectPartner #cbbPartners"),
-                { value: Partner.id, text: `${Partner.tipoPartner} ${Partner.nombre}` }
+                "Select a Partner (required)"
+            );
+
+            for (let i = 0; i < FiltersPartners.length; i++) {
+                const Partner = FiltersPartners[i];
+
+                AddDropDownItem(
+                    $("#frmSelectPartner #cbbPartners"),
+                    { value: Partner.id, text: `${Partner.tipoPartner} - ${Partner.nombre}` }
+                );
+            }
+
+        } else
+        if (PartnerType_Id == 0) {
+            SetDropDownPlaceholder(
+                $("#frmSelectPartner #cbbPartners"),
+                "Select a Partner (required)"
+            );
+
+            for (let i = 0; i < Partners.length; i++) {
+                const Partner = Partners[i];
+
+                AddDropDownItem(
+                    $("#frmSelectPartner #cbbPartners"),
+                    { value: Partner.id, text: `${Partner.tipoPartner} - ${Partner.nombre}` }
+                );
+            }
+        }
+        else {
+            console.log("3");
+            SetDropDownPlaceholder(
+                $("#frmSelectPartner #cbbPartners"),
+                "No Partner Are On"
             );
         }
 
-    } else {
-        console.log("API Http Error:");
-        console.log(request);
+
     }
 }
 
-function AddDropDownItem(DropDown, item = { value: 0, text: "" }) {
-
-    $(DropDown).parent().find(".menu").append(
-        `<div class="item" data-value="${item.value}" data-text="${item.text}"></div>`
-    );
-    $(DropDown).append(
-        `<option value="${item.value}">${item.text}</option>`
-    );
-}
-
-function ClearDropDownItem(DropDown) {
-    $(DropDown).parent().find(".menu").empty();
-    $(DropDown).empty();
-}
-
-function AddDefaultValue(text) {
-
-}
-
-
-
-//function FillPartners(ParterType_Id) {
-//    const request = ajaxRequest(
-//        "https://totaltravelapi.azurewebsites.net/API/Partners/List",
-//        null, "GET"
-//    );
-
-//    if (request.code == 200) {
-
-//        const Partners = request.data;
-
-//        const FiltersPartners = jQuery.grep(Partners, function (Partner, i) {
-//            return Partner.tipoPartner_Id == ParterType_Id;
-//        });
-
-
-//        $("#frmSelectPartner #cbbPartners").empty();
-//        if (FiltersPartners.length > 0 && ParterType_Id != 0) {
-
-//            $("#frmSelectPartner #cbbPartners").append(
-//                `<option value="">Select a Partner (required)</option>`
-//            );
-
-//            for (let i = 0; i < FiltersPartners.length; i++) {
-//                const Partner = FiltersPartners[i];
-//                const option = `<option value="${Partner.id}">${Partner.nombre}</option>`;
-
-//                $("#frmSelectPartner #cbbPartners").append(option);
-//            }
-
-//        } else
-//        if (ParterType_Id == 0) {
-//            $("#frmSelectPartner #cbbPartners").append(
-//               `<option value="">Select a Partner (required)</option>`
-//            );
-
-//            for (let i = 0; i < Partners.length; i++) {
-//                const Partner = Partners[i];
-//                const option = `<option value="${Partner.id}">${Partner.nombre}</option>`;
-
-//               $("#frmSelectPartner #cbbPartners").append(option);
-//            }
-//        }
-//        else {
-//            $("#frmSelectPartner #cbbPartners").append(
-//                `<option value="">No Partner Are On</option>`
-//            );
-//        }
-
-//    }
-}
