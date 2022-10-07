@@ -1,10 +1,16 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
+//varaibles
+const PartnerList = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
+const PartnerTypeList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PartnerType/List");
 
 FillCities();
 FillPartnerType();
 FillPartners(0);
 
+$('#standard_calendar').calendar({
+    type: 'date'
+});
 $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
 
@@ -12,9 +18,10 @@ $("#frmCreatePartner").hide();
 $("#frmSelectPartner").hide();
 
 // ----------------------------------- EVENTS ------------------------------------
+$("#tbnCreateUser").click(CreateUser);
 
 $("#frmSelectPartner .cbbTipoPartner").change(() => {
-    const TipoPartner_Id = $("#frmSelectPartner .cbbTipoPartner").dropdown('get value');
+    const TipoPartner_Id = $("#frmSelectPartner .cbbTipoPartner select").val();
     FillPartners(TipoPartner_Id);
 });
 
@@ -54,10 +61,7 @@ $("#checkExistingPartner").change(function () {
 // ----------------------------------- FUNCTIONS ------------------------------------
 
 function FillCities() {
-    const request = ajaxRequest(
-        "https://totaltravel.somee.com/API/Cities/List",
-        null, "GET"
-    );
+    const request = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 
     if (request.code == 200) {
 
@@ -76,14 +80,10 @@ function FillCities() {
 }
 
 function FillPartnerType() {
-    const request = ajaxRequest(
-        "https://totaltravelapi.azurewebsites.net/API/PartnerType/List",
-        null, "GET"
-    );
 
-    if (request.code == 200) {
+    if (PartnerTypeList.code == 200) {
 
-        const PartnerTypes = request.data;
+        const PartnerTypes = PartnerTypeList.data;
         $(".cbbTipoPartner").empty();
         $(".cbbTipoPartner").append(
             `<option value="">Select a Partner Type (required)</option>`
@@ -96,45 +96,30 @@ function FillPartnerType() {
         }
     }
 }
+
 function FillPartners(PartnerType_Id) {
-    const request = ajaxRequest(
-        "https://totaltravelapi.azurewebsites.net/API/Partners/List",
-        null, "GET"
-    );
 
-    if (request.code == 200) {
+    if (PartnerList.code == 200) {
 
-        const Partners = request.data;
+        var Partners = PartnerList.data;
 
-        //filter data by ParterType_Id
-        const FiltersPartners = jQuery.grep(Partners, function (Partner, i) {
-            return Partner.tipoPartner_Id == PartnerType_Id;
-        });
+        if (PartnerType_Id != 0) {
+            //filter data by ParterType_Id
+            Partners = jQuery.grep(Partners, function (Partner, i) {
+                return Partner.tipoPartner_Id == PartnerType_Id;
+            });
+        }
 
         //clear dropdown
         ClearDropDownItem(
             $("#frmSelectPartner #cbbPartners")
         );
+        // add placeholder
         $("#frmSelectPartner #cbbPartners").append(
             `<option value="">Select a Partner (required)</option>`
         );
-        if (FiltersPartners.length > 0 && PartnerType_Id != 0) {
-            SetDropDownPlaceholder(
-                $("#frmSelectPartner #cbbPartners"),
-                "Select a Partner (required)"
-            );
 
-            for (let i = 0; i < FiltersPartners.length; i++) {
-                const Partner = FiltersPartners[i];
-
-                AddDropDownItem(
-                    $("#frmSelectPartner #cbbPartners"),
-                    { value: Partner.id, text: `${Partner.tipoPartner} - ${Partner.nombre}` }
-                );
-            }
-
-        } else
-        if (PartnerType_Id == 0) {
+        if (Partners.length > 0) {
             SetDropDownPlaceholder(
                 $("#frmSelectPartner #cbbPartners"),
                 "Select a Partner (required)"
@@ -148,16 +133,250 @@ function FillPartners(PartnerType_Id) {
                     { value: Partner.id, text: `${Partner.tipoPartner} - ${Partner.nombre}` }
                 );
             }
+
         }
         else {
-            console.log("3");
             SetDropDownPlaceholder(
                 $("#frmSelectPartner #cbbPartners"),
                 "No Partner Are On"
             );
         }
 
-
     }
 }
 
+
+// create user 
+function CreateUser() {
+    var user = UserViewModel;
+    var Role_success = false;
+    var Address_success = false;
+
+
+    if ($("#frmCreateUser #txtDNI").val() == 0) {
+        iziToastAlert(
+            "Required field: 'User DNI Number' ", "", "error"
+        );
+    }
+    else if ($("#frmCreateUser #txtNombre").val() == 0) {
+        iziToastAlert(
+            "Required field: 'User first Name' ", "", "error"
+        );
+    }
+    else if ($("#frmCreateUser #txtApellido").val() == 0) {
+        iziToastAlert(
+            "Required field: 'User Last Name' ", "", "error"
+        );
+    }
+    else if ($("#frmCreateUser #txtTelefono").val() == 0) {
+        iziToastAlert(
+            "Required field: 'User Phone Number' ", "", "error"
+        );
+    }
+    else if ($("#frmCreateUser #txtFechaNacimiento").val() == 0) {
+        iziToastAlert(
+            "Required field: 'User Birth Date' ", "", "error"
+        );
+    }
+    else if ($('#frmCreateUser input:radio[name=rbGenero]:checked').length == 0) {
+        //$('input:radio[name=rbGenero]:checked').val()
+        iziToastAlert(
+            "Required field: 'User Gender' ", "", "error"
+        );
+    }
+    else if ($('#frmCreateUser #txtEmail').val() == 0) {
+        iziToastAlert(
+            "Required field: 'User Email' ", "", "error"
+        );
+    }
+    else if ($('#frmCreateUser #txtPassword').val() == 0) {
+        iziToastAlert(
+            "Required field: 'User Password' ", "", "error"
+        );
+    }
+    else if ($('#frmCreateUser #txtPassword').val() !== $('#frmCreateUser #txtPasswordConfirm').val()) {
+         iziToastAlert(
+            "Required field: 'Password Confirm' ", "passwords do not match ", "error"
+         );
+    } else{
+
+         //verify rol
+         if ($("#checkAdmin").prop("checked")) {
+             user.role_ID = 1;
+             Role_success = true;
+         }
+         else if ($("#checkPartner").prop("checked")) {
+
+              if ($("#checkExistingPartner").prop("checked")) {
+
+                  // get partner id
+                  user.part_ID = parseInt($("#frmSelectPartner #cbbPartners").val());
+
+                  const PartnerRole = jQuery.grep(PartnerList.data, function (item, i) {
+                      return item.id == user.part_ID;
+                  });
+                  user.role_ID = PartnerRole[0].rol_Id;
+                  Role_success = true;
+
+              } else {
+
+                  //create new partner
+                  var CreatePartnerStatus = CreatePartner();
+                  if (CreatePartnerStatus.success == true) {
+                      user.part_ID = CreatePartnerStatus.part_ID;
+                      user.role_ID = CreatePartnerStatus.role_ID;
+                      Role_success = true;
+                  }
+              }
+
+         } else {
+              iziToastAlert(
+                 "Required field: 'Super User Role' ", "Select a Moderator Role", "error"
+              );
+         }
+
+         // create address
+         if (Role_success) {
+
+            var CreateUserDirectionStatus = CreateUserDirection();
+            if (CreateUserDirectionStatus.success == true) {
+                user.dire_ID = CreateUserDirectionStatus.dire_ID;
+                Address_success = true;
+            }
+
+         }
+
+         // create user
+         if (Address_success) {
+
+            user.usua_DNI = $("#frmCreateUser #txtDNI").val();
+            user.usua_Nombre = $("#frmCreateUser #txtNombre").val();
+            user.usua_Apellido = $("#frmCreateUser #txtApellido").val();
+            user.usua_Telefono = $("#frmCreateUser #txtTelefono").val();
+            user.usua_FechaNaci = getCalendarDate($("#frmCreateUser #txtFechaNacimiento").val());
+            user.usua_Sexo = $('input:radio[name=rbGenero]:checked').val();
+            user.usua_Email = $('#frmCreateUser #txtEmail').val();
+            user.usua_Password = $('#frmCreateUser #txtPassword').val();
+
+            const UserInsertStatus = ajaxRequest(
+                "https://totaltravelapi.azurewebsites.net/API/Users/Insert",
+                user, "POST"
+            );
+
+            if (UserInsertStatus.code == 200) {
+                user.usua_ID = UserInsertStatus.data.codeStatus;
+                iziToastAlert(
+                    "!User Created Successfully! ", "", "success"
+                );
+                location.assign("https://localhost:44366/Users");
+            }
+            else {
+                iziToastAlert(
+                    "Error when performing action: 'Create User' ", UserInsertStatus.message, "error"
+                );
+            }
+         }
+    }
+}
+
+
+function CreatePartner() {
+    var partner = PartnerViewModel;
+    var data = {
+        success: false,
+        role_ID: 0,
+        part_ID: 0
+    };
+
+    //validate partner constructor data
+    if ($("#frmCreatePartner #txtPartnerName").val() == 0) {
+        iziToastAlert(
+            "Required field: 'Partner Name' ", "", "error"
+        );
+    }
+    else if ($("#frmCreatePartner #txtPartnerEmail").val() == 0) {
+        iziToastAlert(
+            "Required field: 'Partner Email' ", "", "error"
+        );
+    }
+    else if ($("#frmCreatePartner #txtPartnerPhone").val() == 0) {
+        iziToastAlert(
+            "Required field: 'Partner Phone' ", "", "error"
+        );
+    }
+    else if ($("#frmCreatePartner .cbbTipoPartner select").val() == 0) {
+         iziToastAlert(
+            "Required field: 'Partner Type' ", "", "error"
+         );
+    } else {
+         partner.part_Nombre = $("#frmCreatePartner #txtPartnerName").val();
+         partner.part_Email = $("#frmCreatePartner #txtPartnerEmail").val();
+         partner.part_Telefono = $("#frmCreatePartner #txtPartnerPhone").val();
+         partner.tiPart_Id = parseInt($("#frmCreatePartner .cbbTipoPartner select").val());
+
+
+         const PartnerInsertStatus = ajaxRequest(
+            "https://totaltravelapi.azurewebsites.net/API/Partners/Insert",
+            partner, "POST"
+         );
+
+         if (PartnerInsertStatus.code == 200) {
+
+            const NewPartnerData = ajaxRequest(
+                "https://totaltravel.somee.com/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
+            );
+
+            // fill data
+            data.role_ID = NewPartnerData.rol_Id;
+            data.part_ID = PartnerInsertStatus.data.codeStatus;
+            data.success = true;
+         }
+         else {
+            iziToastAlert(
+                "Error when performing action: 'Create Partner' ", PartnerInsertStatus.data.messageStatus, "error"
+            );
+         }
+    }
+
+    return data;
+}
+
+function CreateUserDirection() {
+    var userAdress = AdressViewModel;
+    var data = {
+        success: false,
+        dire_ID: 0
+    };
+
+    if ($('#frmCreateUser #cbbCiudades').val() == 0) {
+        iziToastAlert(
+            "Required field: 'User City Residence' ", "", "error"
+        );
+    }
+    else if ($('#frmCreateUser #txtDireccionExacta').val() == 0) {
+        iziToastAlert(
+            "Required field: 'User Address Detail' ", "", "error"
+        );
+    } else {
+        //construct direction json
+        userAdress.Ciud_ID = parseInt($("#frmCreateUser #cbbCiudades").val());
+        userAdress.Dire_Descripcion = $("#frmCreateUser #txtDireccionExacta").val();
+
+        const USerAddressStatus = ajaxRequest(
+            "https://totaltravel.somee.com/API/Address/Insert",
+            userAdress, "POST"
+        );
+
+        if (USerAddressStatus.code == 200) {
+            data.dire_ID = USerAddressStatus.data.codeStatus;
+            data.success = true;
+        }
+        else {
+            iziToastAlert(
+                "Error when performing action: 'Create User Address' ", USerAddressStatus.data.messageStatus, "error"
+            );
+        }
+    }
+
+    return data;
+}

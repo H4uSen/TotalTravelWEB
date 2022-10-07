@@ -2,6 +2,8 @@
 // ----------------------------------- INIZIALIZE ------------------------------------
 
 $("input[type=text]").prop("autocomplete", "off");
+var Client_User_ID = parseInt(GetCookie("User_Id"));
+var Client_User_Name = GetCookie("User_Name");
 
 // ----------------------------------- EVENTS ------------------------------------
 
@@ -83,10 +85,10 @@ $("input[type=text]").prop("autocomplete", "off");
 
     //----------------------------- PETICIONES AJAX ----------------------------------------
 
-    function GetToken() {
-        var Token = null;
+    function GetCookie(value) {
+        var key = null;
         $.ajax({
-            url: "https://localhost:44366/read-claims?key=Token",
+            url: "https://localhost:44366/read-claims?key=" + value,
             data: {},
             method: "GET",
             dataType: "json",
@@ -95,46 +97,81 @@ $("input[type=text]").prop("autocomplete", "off");
             },
             async: false,
             success: function (response) {
-                Token = response.data;
+                key = response.data;
             }
         });
 
-        return Token;
+        return key;
+        console.log("https://localhost:44366/read-claims?key=" + value);
     }
 
-    function ajaxRequest(url, data, method = "POST", SendToken = true) {
+    function ajaxRequest(url, data = {}, method = "GET", SendToken = true) {
+
         var dataResponse = null;
         var Token = null;
+        var HTTPError = {
+            message: '',
+            code: 0,
+            success: false,
+            data: null
+        }
+
         if (SendToken == true) {
-            Token = GetToken();
+            Token = GetCookie("Token");
         }
 
         $.ajax({
             url: url,
-            data: data,
+            data: JSON.stringify(data),
             method: method,
             dataType: "json",
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${Token}`
             },
             async: false,
             success: function (response) {
                 dataResponse = response;
             },
-            error: function (error) {
-                console.log(error);
+            error: function (jqXHR, exception) {
+                HTTPError.code = jqXHR.status;
+                HTTPError.data = jqXHR;
+                HTTPError.message += "Request http Error: " + url + ", Exception: ";
+
+                // http errors 
+                if (jqXHR.status === 0) {
+                    HTTPError.message += 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    HTTPError.message += 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    HTTPError.message += 'Internal Server Error [500].';
+                } else if (jqXHR.status == 401) {
+                    HTTPError.message += 'Unauthorized Server Action [401].';
+                }
+
+                // exception errors
+                else if (exception === 'parsererror') {
+                    HTTPError.message += 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    HTTPError.message += 'Time out error.';
+                } else if (exception === 'abort') {
+                    HTTPError.message += 'Ajax request aborted.';
+                } else {
+                    HTTPError.message += jqXHR.responseText;
+                }
+                dataResponse = HTTPError;
+                console.log(HTTPError);
             }
         });
 
         return dataResponse;
-}
+    }
 
-     //----------------------------- SEMANTIC DROPDOWN HELPERS ----------------------------------------
+     //----------------------------- SEMANTIC FUNCTIONS HELPERS ----------------------------------------
     function AddDropDownItem(DropDown, item = { value: 0, text: "" }) {
 
         $(DropDown).parent().find(".menu").append(
-            `<div class="item" data-value="${item.value}" data-text="${item.text}"></div>`
+            `<div class="item" data-value="${item.value}" data-text="${item.text}">${item.text}</div>`
         );
         $(DropDown).append(
             `<option value="${item.value}">${item.text}</option>`
@@ -152,4 +189,27 @@ $("input[type=text]").prop("autocomplete", "off");
 
     function SetDropDownPlaceholder(DropDown, text) {
         $(DropDown).parent().find(".default.text").html(text);
+        /*
+        if ($(DropDown).parent().find(".default.text").length > 0) {
+            $(DropDown).parent().find(".default.text").html(text);
+        } else {
+            $(DropDown).parent().append(
+                `<div class="default text">${text}</div>`
+            );
+        }*/
+    }
+
+    function getCalendarDate(stringDate) {
+        var date = new Date(stringDate);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return year + '-' + month + '-' + day;
     }

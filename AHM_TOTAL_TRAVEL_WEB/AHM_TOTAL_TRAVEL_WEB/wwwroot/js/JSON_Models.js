@@ -1,5 +1,5 @@
 ﻿
-var user = {
+var UserViewModel = {
     "usua_ID": 0,
     "usua_DNI": "string",
     "usua_Url": "string",
@@ -15,23 +15,30 @@ var user = {
     "role_ID": 0,
     "dire_ID": 0,
     "part_ID": 0,
-    "usua_UsuarioCreacion": 0,
+    "usua_UsuarioCreacion": Client_User_ID,
     "usua_FechaCreacion": "2022-09-29T01:11:34.578Z",
-    "usua_UsuarioModifica": 0,
+    "usua_UsuarioModifica": Client_User_ID,
     "usua_FechaModifica": "2022-09-29T01:11:34.578Z",
     "usua_Estado": true
 }
 
-var partner = {
+var PartnerViewModel = {
     "part_ID": 0,
     "part_Nombre": "string",
     "part_Email": "string",
     "part_Telefono": "string",
     "tiPart_Id": 0,
-    "part_UsuarioCreacion": 0,
+    "part_UsuarioCreacion": Client_User_ID,
     "part_FechaCreacion": "2022-09-29T01:12:08.872Z",
-    "part_UsuarioModifica": 0,
+    "part_UsuarioModifica": Client_User_ID,
     "part_FechaModifica": "2022-09-29T01:12:08.872Z",
     "part_Estado": true,
     "part_Url": "string"
+}
+
+var AdressViewModel = {
+    "Dire_Descripcion": "string",
+    "Ciud_ID": 0,
+    "Dire_UsuarioCreacion": Client_User_ID,
+    "Dire_UsuarioModifica": Client_User_ID,
 }

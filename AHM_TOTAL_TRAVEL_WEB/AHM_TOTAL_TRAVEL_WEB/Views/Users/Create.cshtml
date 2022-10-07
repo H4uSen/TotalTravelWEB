@@ -55,13 +55,13 @@
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" name="rbGenero">
+                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
                                         <label>Male</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" name="rbGenero">
+                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
                                         <label>Female</label>
                                     </div>
                                 </div>
@@ -96,11 +96,11 @@
                                 <input type="email" id="txtEmail" placeholder="Email Address (required)">
                             </div>
                             <div class="field">
-                                <input type="text" id="txtPassword"
+                                <input type="password" id="txtPassword"
                                        placeholder="Enter your Password (required)">
                             </div>
                             <div class="field">
-                                <input type="text" id="txtPasswordConfirm"
+                                <input type="password" id="txtPasswordConfirm"
                                        placeholder="Confirm your Password (required)">
                             </div>
                         </div>
@@ -178,27 +178,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="field">
-                            <label>Partner Adress</label>
-                            <div class="two fields">
-                                <div class="five wide field">
-                                    <select class="ui search dropdown cbbCiudades" id="cbbCiudades">
-                                        <option value="">Select a City Residence (required)</option>
-                                        <option value="1">san pedro sula</option>
-                                        <option value="2">tegucigalpa</option>
-                                        <option value="3">barcelona</option>
-                                    </select>
-                                </div>
-                                <div class="five wide field">
-                                    <input type="text" id="txtDireccionExacta"
-                                           placeholder="Detail your Adress (required)">
-                                </div>
-                            </div>
-                        </div><br>
+                        <br>
 
                     </div>
 
-                    <div class="ui positive button" tabindex="0">Create User</div>
+                    <div class="ui positive button" tabindex="0" id="tbnCreateUser">Create User</div>
                 </div>
             </div>
             <!-- fin formulario-->
