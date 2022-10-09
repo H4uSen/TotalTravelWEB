@@ -1,6 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
-using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Exchange.WebServices.Data;
 using System;
 using System.Collections.Generic;
@@ -66,6 +66,38 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 return Result.Error(Helpers.GetMessage(ex));
             }
 
+        }
+
+        #endregion
+
+        #region Account
+        public async Task<ServiceResult> AccountFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new UserListViewModel();
+
+            try
+            {
+                var response = await _api.Get<UserListViewModel, UserListViewModel>(req => {
+                    req.Path = $"/API/Users/Find?id={id}";
+                    req.Content = cuenta;
+                },
+                token 
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
 
         #endregion
