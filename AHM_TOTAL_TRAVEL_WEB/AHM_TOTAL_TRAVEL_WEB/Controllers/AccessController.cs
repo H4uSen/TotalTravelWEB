@@ -189,7 +189,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     var claims = new List<Claim>
                     {
                     new Claim("User_Id", LogInVerify.ID.ToString()),
-                    new Claim("User_Name", LogInVerify.nombre_completo),
+                    new Claim("User_Name", LogInVerify.Nombre),
                     new Claim(ClaimTypes.Role, LogInVerify.Role_ID.ToString()),
                     new Claim("Token", LogInVerify.Token),
                     };

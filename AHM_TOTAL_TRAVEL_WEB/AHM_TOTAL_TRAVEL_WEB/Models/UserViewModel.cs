@@ -30,6 +30,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public bool? Usua_Estado { get; set; }
     }
 
+    public class UserUpdateViewModel
+    {
+        public int Usua_ID { get; set; }
+        public string Usua_DNI { get; set; }
+        public string Usua_Nombre { get; set; }
+        public string Usua_Apellido { get; set; }
+        public string Usua_Telefono { get; set; }
+        public int? Role_ID { get; set; }
+        public int? Dire_ID { get; set; }
+        public int? Ciu_ID { get; set; }
+        public string Dire_Descripcion { get; set; }
+        public int? Part_ID { get; set; }
+        public int? Usua_UsuarioModifica { get; set; }
+    }
+
     public class UserListViewModel
     {
         public int ID { get; set; }
