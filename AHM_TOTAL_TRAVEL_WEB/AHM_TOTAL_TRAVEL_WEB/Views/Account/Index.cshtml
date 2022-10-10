@@ -89,7 +89,7 @@
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                             <div class="mt-3">
-                                <h4>@Html.DisplayFor(model => model.nombre_completo)</h4>
+                                <h4>@Html.DisplayFor(model => model.Nombre)</h4>
                                 <p class="text-secondary mb-1"> @Html.DisplayFor(model => model.Rol)</p>
                                 <p class="text-muted font-size-sm">Últ. modificación @Html.DisplayFor(model => model.Fecha_Modifica)</p>
                                 <a class="btn btn-primary w-100" href="@Url.Action("EditAccount", "Account")">Editar</a>
@@ -136,7 +136,7 @@
                                 <h6 class="mb-0">Nombre Completo</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(model => model.nombre_completo)
+                                @Html.DisplayFor(model => model.Nombre)
                             </div>
                         </div>
                         <hr>
@@ -172,7 +172,7 @@
                                 <h6 class="mb-0">Sexo</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(model => model.Genero)
+                                @Html.DisplayFor(model => model.Sexo)
                             </div>
                         </div>
                         <hr>
@@ -194,7 +194,7 @@
                                 <h6 class="mb-0">Nombre completo</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" value="@Model.nombre_completo">
+                                <input type="text" class="form-control" value="@Model.Nombre">
                             </div>
                         </div>
                         <div class="row mb-3">
