@@ -91,8 +91,8 @@
                             <div class="mt-3">
                                 <h4>@Html.DisplayFor(model => model.Nombre)</h4>
                                 <p class="text-secondary mb-1"> @Html.DisplayFor(model => model.Rol)</p>
-                                <p class="text-muted font-size-sm">Últ. modificación @Html.DisplayFor(model => model.Fecha_Modifica)</p>
-                                <a class="btn btn-primary w-100" href="@Url.Action("EditAccount", "Account")">Editar</a>
+                                <p class="text-muted font-size-sm">@Html.DisplayFor(model => model.Telefono)</p>
+                                <a class="btn btn-primary w-100" href="#" id="editar">Editar</a>
                                 <!--<button class="btn btn-outline-primary">Message</button>-->
                             </div>
                         </div>
@@ -129,14 +129,14 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="card mb-3">
+                <div class="card mb-3" id="info">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Nombre Completo</h6>
+                                <h6 class="mb-0">Nombre completo</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(model => model.Nombre)
+                                @Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model => model.Apellido)
                             </div>
                         </div>
                         <hr>
@@ -148,7 +148,7 @@
                                 @Html.DisplayFor(model => model.DNI)
                             </div>
                         </div>
-                        <hr>
+                        <hr />
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Fecha de nacimiento</h6>
@@ -187,71 +187,65 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="formedit">
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Nombre completo</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" value="@Model.Nombre">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">DNI</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" value="@Model.DNI">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Fecha de nacimiento</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" value="@Model.Fecha_Nacimiento">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Telefono</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" value="@Model.Telefono">
-                            </div>
-                        </div>
-                        @*<div class="row mb-3">
-            <div class="col-sm-3">
-                <h6 class="mb-0">Sexo</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" readonly value="@Model.Genero">
-            </div>
-        </div>*@
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Dirección</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-sm-6 text-secondary">
-                                        <select asp-items="ViewBag.Ciudades" class="ui dropdown search">
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6 text-secondary">
-                                        <input type="text" class="form-control" value="@Model.Direccion">
-                                    </div>
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Nombre completo</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="Usua_Nombre" value="@Model.Nombre">
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Apellido</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="Usua_Apellido" value="@Model.Apellido">
+                                </div>
                             </div>
-                        </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">DNI</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="Usua_DNI" value="@Model.DNI">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Telefono</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="Usua_Telefono" value="@Model.Telefono">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Dirección</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-sm-6 text-secondary">
+                                            <input type="text" class="form-control" name="Dire_Descripcion" value="@Model.Direccion">
+                                        </div>
+                                        <div class="col-sm-6 text-secondary">
+                                            <select asp-items="ViewBag.Ciudades" class="ui dropdown search">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -318,6 +312,13 @@
 @section Scripts{
     <script>
         $('.ui.dropdown').dropdown();
+        $('#formedit').hide();
+
+
+        $("#editar").click(() => {
+            $("#info").transition('fade');
+            $("#formedit").transition('fade');
+        });
     </script>
 
 }
