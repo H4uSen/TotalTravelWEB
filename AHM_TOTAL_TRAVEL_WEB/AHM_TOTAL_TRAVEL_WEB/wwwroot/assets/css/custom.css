@@ -93,3 +93,8 @@
         opacity: 0;
     }
 }
+
+.labelvalidator {
+    color: darkred;
+    font-size: 12px;
+}

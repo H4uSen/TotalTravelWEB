@@ -44,7 +44,30 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
 
         }
 
-        public class ApiResult : IApiResult
+    public class RequestStatus
+    {
+        public int CodeStatus { get; set; }
+
+        public string MessageStatus { get; set; }
+    }
+    public class RequestCode
+    {
+        public HttpStatusCode StatusCode { get; set; }
+
+        public bool Success { get; set; }
+
+        public ApiResultType Type { get; set; }
+
+        public int Data { get; set; }
+        //public object Data { get; set; }
+
+        public string Path { get; set; }
+
+        public string Message { get; set; }
+    }
+
+
+    public class ApiResult : IApiResult
         {
             public HttpStatusCode StatusCode { get; set; }
 

@@ -55,7 +55,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         {
             return Error("An error has occurred while processing the request. If the problem persists, please contact the system administrator.");
         }
-
+        public ServiceResult Error(object data = null)
+        {
+            Success = false;
+            Data = data;
+            return SetMessage("An error has ocurred.", ServiceResultType.Error);
+        }
         public ServiceResult Error(string message)
         {
             Success = false;
