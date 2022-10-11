@@ -100,7 +100,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             else
             {
-                userRegister changePassword = new userRegister();
+                changePasswordViewModel changePassword = new changePasswordViewModel();
                 changePassword.usua_ID = ID;
                 changePassword.usua_Password = password.passwordConfirm;
                 ServiceResult resultPassword = await _accessServices.ChangePassword(changePassword);

@@ -97,12 +97,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
 
-        public async Task<ServiceResult> ChangePassword(userRegister changePassword)
+        public async Task<ServiceResult> ChangePassword(changePasswordViewModel changePassword)
         {
             var Result = new ServiceResult();
             try
             {
-                var response = await _api.Put<userRegister, RequestStatus>(req => {
+                var response = await _api.Put<changePasswordViewModel, RequestStatus>(req => {
                     req.Path = $"/API/Users/UpdatePassword";
                     req.Content = changePassword;
                 });

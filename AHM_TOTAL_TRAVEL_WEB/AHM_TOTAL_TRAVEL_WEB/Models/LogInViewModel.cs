@@ -16,8 +16,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string userCode { get; set; }
 
     }
-
-    public class userRegister
+    public class changePasswordViewModel
+    {
+        public int usua_ID { get; set; }
+        public string usua_Password { get; set; }
+    }
+        public class userRegister
     {
         public int usua_ID { get; set; }
         public string usua_DNI { get; set; }
