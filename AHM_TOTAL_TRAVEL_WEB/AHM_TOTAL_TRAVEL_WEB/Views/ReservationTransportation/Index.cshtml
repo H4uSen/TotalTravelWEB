@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationRestaurantsListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationTransportationListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -41,23 +41,28 @@
         </style>
 
         <table class="ui compact selectable celled table" id="grdRestaurants">
-
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Numero_Reservacacion)
+                        @Html.DisplayNameFor(model => model.Capacidad)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Restaurante)
+                        @Html.DisplayNameFor(model => model.Precio)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Fecha_Reservacion)
+                        @Html.DisplayNameFor(model => model.Reservacion)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Hora_Reservacion)
+                        @Html.DisplayNameFor(model => model.Asientos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cancelado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Cancelado)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Usuario_Creacion)
@@ -85,16 +90,22 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Numero_Reservacacion)
+                            @Html.DisplayFor(modelItem => item.Capacidad)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Restaurante)
+                            @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Fecha_Reservacion)
+                            @Html.DisplayFor(modelItem => item.Reservacion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Hora_Reservacion)
+                            @Html.DisplayFor(modelItem => item.Asientos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cancelado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Cancelado)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Usuario_Creacion)
@@ -156,3 +167,6 @@
         });
     </script>
 }
+
+
+  

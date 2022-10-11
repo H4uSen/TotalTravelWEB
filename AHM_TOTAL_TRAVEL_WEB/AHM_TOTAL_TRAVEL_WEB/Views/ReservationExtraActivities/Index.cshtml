@@ -1,10 +1,9 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationRestaurantsListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="container card">
     <div class="ui basic segment">
@@ -41,17 +40,22 @@
         </style>
 
         <table class="ui compact selectable celled table" id="grdRestaurants">
-
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Id)
+                        @Html.DisplayNameFor(model => model.ID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Numero_Reservacacion)
+                        @Html.DisplayNameFor(model => model.Reservacion)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Restaurante)
+                        @Html.DisplayNameFor(model => model.Cliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Actividad_Extra)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cantidad)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Fecha_Reservacion)
@@ -82,13 +86,19 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id)
+                            @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Numero_Reservacacion)
+                            @Html.DisplayFor(modelItem => item.Reservacion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Restaurante)
+                            @Html.DisplayFor(modelItem => item.Cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Actividad_Extra)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Fecha_Reservacion)
@@ -113,7 +123,7 @@
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.Id})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
                             @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
                             <button class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>
@@ -156,3 +166,4 @@
         });
     </script>
 }
+
