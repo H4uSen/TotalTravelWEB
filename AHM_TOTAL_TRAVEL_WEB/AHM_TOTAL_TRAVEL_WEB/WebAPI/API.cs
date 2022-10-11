@@ -90,32 +90,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
             return result;
         }
 
-        public async Task<ApiResult<B>> PostFormData<A, B>(Action<ApiCallConfigurationFormData<A>> action, string token = null)
-        {
-            var config = new ApiCallConfigurationFormData<A>();
-            var result = new ApiResult<B>();
-            try
-            {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                action(config);
-                var responseData = await _client.PostAsync(config.PathWithQueryStrings, config.ContentJson);
-                var content = await responseData.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<ApiResult<B>>(content);
-                result.Path = config.Path;
-                result.StatusCode = responseData.StatusCode;
-
-                if (responseData.StatusCode == HttpStatusCode.OK)
-                    result.Success = true;
-                else
-                    result.Success = false;
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = Helpers.GetMessage(ex);
-            }
-            return result;
-        }
         public async Task<ApiResult<B>> Put<A,B>(Action<ApiCallConfiguration<A>> action, string token = null)
         {
             var config = new ApiCallConfiguration<A>();

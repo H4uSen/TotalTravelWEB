@@ -51,7 +51,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.PostFormData<RestaurantViewModel, RequestStatus>(req => {
+                var response = await _api.Post<RestaurantViewModel, RequestStatus>(req => {
                     req.Path = $"/API/Restaurants/Insert";
                     req.Content = restaurant;
                 },
