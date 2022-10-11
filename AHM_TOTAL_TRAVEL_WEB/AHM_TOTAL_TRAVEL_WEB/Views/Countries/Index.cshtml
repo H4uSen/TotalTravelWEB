@@ -1,0 +1,119 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.CountriesListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="user icon"></i>
+            <div class="content">
+                <div class="header">
+                    Paises
+                </div>
+                <p>Crea, Actualiza, Elimina o Busca y Filtra Paises</p>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Countries")">
+                    <i class="user icon"></i> Nuevo
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdRestaurants">
+            <thead>
+                <tr>
+                    <th>
+                         @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Codigo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pais)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nacionalidad)
+                    </th>
+                        <th width="300px">Acciones</th>
+                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pais)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nacionalidad)
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("Update","Countries",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
+                            <button class="ui large icon negative button">
+                                <i class="trash alternate icon"></i>
+                            </button>
+                            <button class="ui large icon yellow button">
+                                <i class="folder open outline icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
+@section Scripts{
+    <script>
+                // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdRestaurants tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdRestaurants").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 5
+        });
+    </script>
+}

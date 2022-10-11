@@ -26,10 +26,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         //[HttpGet]
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult>Index(IEnumerable<CityListViewModel> cityListViewModel)
         {
             var token = HttpContext.User.FindFirst("Token").Value;
-            var CiudadesList = (IEnumerable<CityListViewModel>) (await _generalService.CitiesList(token)).Data;
+            
+            var CiudadesList = (IEnumerable<CityListViewModel>) (await _generalService.CitiesList(cityListViewModel,token)).Data;
             ViewBag.Ciudades = new SelectList(CiudadesList, "ID", "Ciudad");
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
