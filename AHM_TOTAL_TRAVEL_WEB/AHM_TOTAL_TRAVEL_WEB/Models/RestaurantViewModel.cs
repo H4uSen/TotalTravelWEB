@@ -27,6 +27,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Part_ID { get; set; }
         public string Rest_UsuarioCreacion { get; set; }
         public string Rest_UsuarioModifica { get; set; }
-        public IFormFile File { get; set; }
+        public List<IFormFile> File { get; set; }
     }
 }

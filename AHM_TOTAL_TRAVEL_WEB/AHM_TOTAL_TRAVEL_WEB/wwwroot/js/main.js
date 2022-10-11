@@ -167,6 +167,34 @@ var Client_User_Name = GetCookie("User_Name");
         return dataResponse;
     }
 
+        function uploadFile(url, data = new FormData(), method = "GET", SendToken = true) {
+
+
+            var Token = null;
+            if (SendToken == true) {
+                Token = GetCookie("Token");
+            }
+
+            $.ajax({
+                url: url,
+                data: data,
+                mimeType: "multipart/form-data",
+                headers: {
+                    'Authorization': `Bearer ${Token}`
+                },
+                processData: false,
+                contentType: false,
+                type: method,
+                success: function (data) {
+                    return data;
+   
+                },
+                error: function (jqXHR) {
+                    return jqXHR;
+                }
+            });
+        }
+
      //----------------------------- SEMANTIC FUNCTIONS HELPERS ----------------------------------------
     function AddDropDownItem(DropDown, item = { value: 0, text: "" }) {
 
