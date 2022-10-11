@@ -22,11 +22,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
     public class ActivitiesViewModel
     {
-        public int ID { get; set; }
-        public string Actv_Descripcion { get; set; }
-        public int? TiAc_ID { get; set; }
-        public int? Actv_UsuarioCreacion { get; set; }
-        public int? Actv_UsuarioModifica { get; set; }
+        public string actv_Descripcion { get; set; }
+        public int? actv_UsuarioCreacion { get; set; }
+        public int? actv_UsuarioModifica { get; set; }
+        public int? tiAc_ID { get; set; }
+        public bool? Actv_Estado { get; set; }
     }
 
     public class ActivitiesExtrasListViewModel
