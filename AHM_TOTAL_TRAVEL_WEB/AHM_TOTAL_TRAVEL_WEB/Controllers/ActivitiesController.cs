@@ -11,12 +11,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
     public class ActivitiesController : Controller
     {
-        private readonly ActivitiesServices _activitiesServices;
+        ActivitiesServices _activitiesServices;
 
         public ActivitiesController(ActivitiesServices activitiesServices)
         {
             _activitiesServices = activitiesServices;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -24,7 +25,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _activitiesServices.ActivityList(model);
             return View(list.Data);
         }
-
 
         public IActionResult Create()
         {
