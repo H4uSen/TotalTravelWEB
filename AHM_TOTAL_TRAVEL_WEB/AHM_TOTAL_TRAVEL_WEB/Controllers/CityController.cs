@@ -1,7 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +8,28 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    public class TransportDetailsController : Controller
+    [Produces("multipart/form-data")]
+    public class CityController : Controller
     {
-        private readonly TransportService _transportService;
-
-        public TransportDetailsController(TransportService transportService)
+        GeneralService  _generalService;
+        public CityController(GeneralService  generalService)
         {
-            _transportService = transportService;
+            _generalService = generalService;
         }
 
-        //[HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new List<TransportDetailsListViewModel>();
-            var list = await _transportService.TransportDetailsList(model);
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var model = new List<CityListViewModel>();
+            var list = await _generalService.CitiesList(model, token);
             return View(list.Data);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<TransportDetailsViewModel>();
+            var model = new List<CityViewModel>();
 
             //IEnumerable<RestaurantViewModel> model_restaurant = null;
             //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
@@ -41,14 +41,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TransportDetailsViewModel transportdetails)
+        public async Task<IActionResult> Create(CityViewModel restaurant)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioCreacion = HttpContext.User.FindFirst("User_Id").Value;
-                var list = await _transportService.TransportDetailsCreate(transportdetails, token);
+                restaurant.Ciud_UsuarioCreacion = 1.ToString();
+                var list = await _generalService.CitiesCreate(restaurant, token);
                 return RedirectToAction("Index");
             }
             else
