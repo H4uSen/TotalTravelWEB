@@ -81,6 +81,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Direccion
 
+        public async Task<ServiceResult> AddressesList(IEnumerable<AddressListViewModel> model)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<AddressListViewModel>, IEnumerable<AddressListViewModel>>(req => {
+                    req.Path = $"/API/Address/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
         public async Task<ServiceResult> CreateAddress(string token, AddressViewModel data)
         {
             var Result = new ServiceResult();

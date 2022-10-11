@@ -9,24 +9,21 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    public class RestaurantController : Controller {
-
+    public class AddressController : Controller
+    {
         private readonly GeneralService _generalService;
-        private readonly RestaurantService _restaurantServices;
-        public RestaurantController(RestaurantService restaurantServices, GeneralService generalService)
+        public AddressController(GeneralService generalService)
         {
-            _restaurantServices = restaurantServices;
             _generalService = generalService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new List<RestaurantListViewModel>();
-            var list = await _restaurantServices.RestaurantsList(model);
+            var model = new List<AddressListViewModel>();
+            var list = await _generalService.AddressesList(model);
             return View(list.Data);
         }
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -43,24 +40,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
 
-            IEnumerable<PartnersListViewModel> model_Partners = null;
-            var partners = await _generalService.PartnersList(model_Partners);
-            IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
-            ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RestaurantViewModel restaurant)
+        public async Task<IActionResult> Create(AddressViewModel address)
         {
 
             if (ModelState.IsValid)
             {
-                string token =  HttpContext.User.FindFirst("Token").Value;
+                string token = HttpContext.User.FindFirst("Token").Value;
                 string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                restaurant.Rest_UsuarioCreacion = Convert.ToInt32(UserID);
-                var list = await _restaurantServices.RestaurantCreate(restaurant, token);
-                return RedirectToAction("Index");
+                address.Dire_UsuarioCreacion = Convert.ToInt32(UserID);
+                var list = await _generalService.CreateAddress(token,address);
+                if (list.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+                
             }
             else
             {
@@ -68,6 +70,5 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
-
     }
 }
