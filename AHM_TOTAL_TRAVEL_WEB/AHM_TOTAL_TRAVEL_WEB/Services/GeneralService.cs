@@ -110,5 +110,183 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
         #endregion
+
+        #region Partners
+
+        public async Task<ServiceResult> PartnersList(IEnumerable<PartnersListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<PartnersListViewModel>, IEnumerable<PartnersListViewModel>>(req => {
+                    req.Path = $"/API/Partners/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> PartnersCreate(PartnersViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<PartnersViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Partners/Insert";
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PartnersUpdate(PartnersViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<PartnersViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Partners/Update?id=" + actividad.Part_ID;
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
+
+        #region Countries
+
+        public async Task<ServiceResult> CountriesList(IEnumerable<CountriesListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<CountriesListViewModel>, IEnumerable<CountriesListViewModel>>(req => {
+                    req.Path = $"/API/Countries/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> CountriesCreate(CountriesViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<CountriesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Countries/Insert";
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> CountriesUpdate(CountriesViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<CountriesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Countries/Update?id=" + actividad.Pais_ID;
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
     }
 }

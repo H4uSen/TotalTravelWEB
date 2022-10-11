@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ActivitiesListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TypesActivitiesListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,16 +12,16 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Tipos de Actividades
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
+                <p>Crea, Actualiza, Elimina o Busca y Filtra Tipos de Actividades</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Activities")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","TypesActivities")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -48,14 +48,8 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Descripcion)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Tipo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCrea)
-                    </th>
-                    <th width="300px"></th>
-                </tr>
+                        <th width="300px">Acciones</th>
+                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
@@ -67,15 +61,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tipo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
-                        </td>
 
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            <a href="@Url.Action("Update","TypesActivities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
                             @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
                             <button class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>

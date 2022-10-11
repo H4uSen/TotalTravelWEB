@@ -1,6 +1,5 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,52 +7,55 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Services
 {
-    public class TransportService 
+
+    public class SaleServices
     {
+
         private readonly API _api;
 
-        public TransportService(API api)
+        public SaleServices(API api)
         {
             _api = api;
         }
 
-        #region DetallesTransportes
-        public async Task<ServiceResult> TransportDetailsList(IEnumerable<TransportDetailsListViewModel> model)
-        {
-            var Result = new ServiceResult();
+        #region DefaultPackages
 
+        public async Task<ServiceResult> DefaultPackagesList(IEnumerable<DefaultPackagesListViewModel> model)
+        {
+            var result = new ServiceResult();
             try
             {
-                var response = await _api.Get<IEnumerable<TransportDetailsListViewModel>, IEnumerable<TransportDetailsListViewModel>>(req => {
-                    req.Path = $"/API/DetailsTransportation/List";
+                var response = await _api.Get<IEnumerable<DefaultPackagesListViewModel>, IEnumerable<DefaultPackagesListViewModel>>(req => {
+                    req.Path = $"/API/DefaultPackages/List";
                     req.Content = null;
                 }
                 );
                 if (!response.Success)
                 {
-                    return Result.FromApi(response);
+                    return result.FromApi(response);
                 }
                 else
                 {
-                    return Result.Ok(response.Data);
+                    return result.Ok(response.Data);
                 }
             }
             catch (Exception ex)
             {
-                return Result.Error(Helpers.GetMessage(ex));
+                return result.Error(Helpers.GetMessage(ex));
                 throw;
             }
         }
 
-        public async Task<ServiceResult> TransportDetailsCreate(TransportDetailsViewModel transportdetails, string token)
+        public async Task<ServiceResult> DefaultPackagesCreate(DefaultPackagesViewModel actividad, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Post<TransportDetailsViewModel, RequestStatus>(req => {
-                    req.Path = $"/API/DetailsTransportation/Insert";
-                    req.Content = transportdetails;
+                var response = await _api.Post<DefaultPackagesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DefaultPackages/Insert";
+                    req.Content = actividad;
                 },
                 token
                 );
@@ -73,20 +75,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
-        #endregion
 
-
-        #region Transportes
-        public async Task<ServiceResult> TransportList(IEnumerable<TransportListViewModel> model)
+        public async Task<ServiceResult> DefaultPackagesUpdate(DefaultPackagesViewModel actividad, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Get<IEnumerable<TransportListViewModel>, IEnumerable<TransportListViewModel>>(req => {
-                    req.Path = $"/API/Transports/List";
-                    req.Content = null;
-                }
+                var response = await _api.Post<DefaultPackagesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DefaultPackages/Update?id=" + actividad.Paqu_ID;
+                    req.Content = actividad;
+                },
+                token
                 );
                 if (!response.Success)
                 {
@@ -102,6 +103,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 return Result.Error(Helpers.GetMessage(ex));
                 throw;
             }
+
         }
         #endregion
 

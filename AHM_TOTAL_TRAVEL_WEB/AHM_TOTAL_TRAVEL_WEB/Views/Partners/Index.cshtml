@@ -1,9 +1,10 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ActivitiesListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PartnersListViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="container card">
     <div class="ui basic segment">
@@ -12,16 +13,16 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Socios
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
+                <p>Crea, Actualiza, Elimina o Busca y Filtra Socios</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Activities")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Partners")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -46,16 +47,22 @@
                         @Html.DisplayNameFor(model => model.ID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
+                        @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tipo)
+                        @Html.DisplayNameFor(model => model.Email)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCrea)
+                        @Html.DisplayNameFor(model => model.Telefono)
                     </th>
-                    <th width="300px"></th>
-                </tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TipoPartner_Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TipoPartner)
+                    </th>
+                        <th width="300px">Acciones</th>
+                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
@@ -65,17 +72,23 @@
                             @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
+                            @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Tipo)
+                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPartner_Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPartner)
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            <a href="@Url.Action("Update","Partners",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
                             @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
                             <button class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>
