@@ -15,4 +15,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
     }
+
+    public class CityViewModel
+    {
+        public int Ciud_ID { get; set; }
+        public string Ciud_Descripcion { get; set; }
+        public int? Pais_ID { get; set; }
+        public string Ciud_UsuarioCreacion { get; set; }
+        public DateTime? Ciud_FechaCreacion { get; set; }
+        public string Ciud_UsuarioModifica { get; set; }
+        public DateTime? Ciud_FechaModifica { get; set; }
+        public bool? Ciud_Estado { get; set; }
+
+
+    }
+
 }
