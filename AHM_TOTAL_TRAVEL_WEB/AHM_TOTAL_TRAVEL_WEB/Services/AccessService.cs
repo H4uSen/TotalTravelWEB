@@ -201,18 +201,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
         #region Account
-        public async Task<ServiceResult> AccountFind(string id, string token)
+        public async Task<ServiceResult> UserUpdate(UserViewModel data, string token)
         {
             var Result = new ServiceResult();
-            var cuenta = new UserListViewModel();
 
             try
             {
-                var response = await _api.Get<UserListViewModel, UserListViewModel>(req => {
-                    req.Path = $"/API/Users/Find?id={id}";
-                    req.Content = cuenta;
+                var response = await _api.Put<UserViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/Users/Update?id=" + data.Usua_ID;
+                    req.Content = data;
                 },
-                token 
+                token
                 );
                 if (!response.Success)
                 {
@@ -221,13 +220,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 else
                 {
                     return Result.Ok(response.Data);
-                }
+                }                    
             }
             catch (Exception ex)
             {
                 return Result.Error(Helpers.GetMessage(ex));
-                throw;
             }
+
         }
 
         #endregion
