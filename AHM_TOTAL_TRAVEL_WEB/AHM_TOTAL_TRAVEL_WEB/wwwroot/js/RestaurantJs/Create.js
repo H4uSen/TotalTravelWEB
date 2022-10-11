@@ -5,7 +5,6 @@
     data.append("rest_Nombre", $("#Rest_Nombre").val());
     data.append("part_ID", $("#Part_ID").val());
     data.append("rest_UsuarioCreacion", $("#Rest_UsuarioCreacion").val());
-    data.append("rest_UsuarioModifica", $("#Rest_UsuarioModifica").val());
 
     for (let i = 0; i < $('#File').prop('files').length; i++) {
         const file = $('#File').prop('files')[i];
