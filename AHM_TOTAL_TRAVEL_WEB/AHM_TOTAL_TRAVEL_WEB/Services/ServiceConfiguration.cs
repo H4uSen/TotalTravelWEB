@@ -16,6 +16,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public static void BusinessLogic(this IServiceCollection services)
         {
             services.AddTransient<AccessService>();
+            services.AddTransient<ActivitiesServices>();
             services.AddTransient<GeneralService>();
             services.AddTransient<RestaurantService>();
             services.AddTransient<HttpClient>();
