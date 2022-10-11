@@ -108,6 +108,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
 
+        public async Task<ServiceResult> ActivitiesExtraCreate(ActivitiesExtrasViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ActivitiesExtrasViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ActivitiesExtra/Insert";
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         #endregion
     }
 }

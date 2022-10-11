@@ -16,11 +16,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             _activitiesServices = activitiesServices;
         }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var list = await _activitiesServices.ExtraActivitiesList(token);
             return View(list.Data);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ActivitiesExtrasViewModel actividad)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                actividad.AcEx_UsuarioModifica = 1;
+                var list = await _activitiesServices.ActivitiesExtraCreate(actividad, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
         }
     }
 }
