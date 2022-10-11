@@ -75,6 +75,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> ActivitiesUpdate(ActivitiesViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Activities/Update?id="+ actividad.ID;
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         #endregion
 
         #region ActividadesExtras
