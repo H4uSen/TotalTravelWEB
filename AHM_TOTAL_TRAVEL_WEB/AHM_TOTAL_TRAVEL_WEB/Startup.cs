@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using System.Net;
+using AHM_TOTAL_TRAVEL_WEB.Extensions;
 
 namespace AHM_TOTAL_TRAVEL_WEB
 {
@@ -26,6 +27,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(x => x.AddProfile<MappingProfileExtensions>(), AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(option => {

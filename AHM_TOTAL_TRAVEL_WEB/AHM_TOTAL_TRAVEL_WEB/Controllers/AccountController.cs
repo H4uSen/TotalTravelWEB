@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -14,12 +15,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly AccessService _accessService;
         private readonly GeneralService _generalService;
 
+        private readonly IMapper _mapper;
 
 
-        public AccountController(AccessService accessService, GeneralService generalService)
+        public AccountController(AccessService accessService, GeneralService generalService, IMapper mapper)
         {
             _accessService = accessService;
             _generalService = generalService;
+            _mapper = mapper;
         }
 
         //[HttpGet]
@@ -55,7 +58,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (addressStatus.CodeStatus > 0)
             {
                 data.Dire_ID = addressStatus.CodeStatus;
-                var userStatus = (RequestStatus)(await _accessService.UserUpdate(data, token)).Data;
+                var items = _mapper.Map<UserViewModel>(data);
+                var userStatus = (RequestStatus)(await _accessService.UserUpdate(items, token)).Data;
 
                 if (userStatus.CodeStatus <= 0)
                 {
