@@ -34,13 +34,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View(cuenta);
         }
 
-        //public async Task<IActionResult> EditAccount()
-        //{
-        //    var id = HttpContext.User.FindFirst("User_Id").Value;
-        //    var token = HttpContext.User.FindFirst("Token").Value;
-        //    var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateViewModel data)
+        {
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-        //    return View(cuenta);
-        //}
+            return View(cuenta);
+        }
     }
 }

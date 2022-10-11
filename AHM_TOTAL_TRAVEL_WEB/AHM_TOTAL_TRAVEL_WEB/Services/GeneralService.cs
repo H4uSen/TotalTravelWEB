@@ -47,5 +47,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
         #endregion
+
+        #region Direccion
+
+        public async Task<ServiceResult> CreateAddress(string token, AddressViewModel data)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<AddressViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/Address/Insert";
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        #endregion
     }
 }

@@ -44,12 +44,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
 
         }
 
-    public class RequestStatus
-    {
-        public int CodeStatus { get; set; }
-
-        public string MessageStatus { get; set; }
-    }
+    
     public class RequestCode
     {
         public HttpStatusCode StatusCode { get; set; }

@@ -189,10 +189,10 @@
 
                 <div class="card" id="formedit">
                     <div class="card-body">
-                        <form>
+                        <form method="post" action="@Url.Action("Update", "Account")">
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Nombre completo</h6>
+                                    <h6 class="mb-0">Nombre</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" name="Usua_Nombre" value="@Model.Nombre">
@@ -316,8 +316,8 @@
 
 
         $("#editar").click(() => {
-            $("#info").transition('fade');
-            $("#formedit").transition('fade');
+            $("#info").transition('slide down');
+            $("#formedit").transition('slide up');
         });
     </script>
 
