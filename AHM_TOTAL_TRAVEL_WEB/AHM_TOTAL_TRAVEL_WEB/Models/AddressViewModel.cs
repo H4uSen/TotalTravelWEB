@@ -16,4 +16,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? Dire_FechaModifica { get; set; }
         public bool? Dire_Estado { get; set; }
     }
+
+    public class AddressListViewModel
+    {
+        public int ID { get; set; }
+        public string Direccion { get; set; }
+        public string Ciudad { get; set; }
+        public string Pais { get; set; }
+        public string UsuarioCrea { get; set; }
+        public DateTime? FechaCrea { get; set; }
+        public string UsuarioModifica { get; set; }
+        public DateTime? FechaModifica { get; set; }
+    }
 }
