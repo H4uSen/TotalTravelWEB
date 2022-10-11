@@ -12,7 +12,6 @@
     }
 
     data.append("file", images);
-
     var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");
     console.log(response);
 }

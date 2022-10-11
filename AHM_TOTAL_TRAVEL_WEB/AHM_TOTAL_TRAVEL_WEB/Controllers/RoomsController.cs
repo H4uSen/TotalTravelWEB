@@ -10,9 +10,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly hotelsService _hotelsService;
+        private readonly HotelsService _hotelsService;
 
-        public RoomsController(hotelsService hotelsService)
+        public RoomsController(HotelsService hotelsService)
         {
             _hotelsService = hotelsService;
         }
