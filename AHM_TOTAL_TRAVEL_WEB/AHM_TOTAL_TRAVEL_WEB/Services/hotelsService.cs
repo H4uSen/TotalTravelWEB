@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Services
 {
-    public class hotelsService
+    public class HotelsService
     {
         private readonly API _api;
 
-        public hotelsService(API api)
+        public HotelsService(API api)
         {
             _api = api;
         }
