@@ -56,9 +56,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<AddressViewModel, RequestStatus>(req => {
+                var response = await _api.Post<AddressViewModel, RequestStatus>(req => {
                     req.Path = $"/API/Address/Insert";
-                    req.Content = null;
+                    req.Content = data;
                 },
                 token
                 );

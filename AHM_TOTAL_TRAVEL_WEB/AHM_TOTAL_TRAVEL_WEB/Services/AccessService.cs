@@ -173,6 +173,31 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
+        public async Task<ServiceResult> UserUpdate(UserUpdateViewModel data, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<UserUpdateViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/Users/Update?id="+data.Usua_ID;
+                    req.Content = data;
+                },
+                token
+                );
+
+                if (!response.Success)
+                    return Result.FromApi(response);
+                else
+                    return Result.Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+            }
+
+        }
+
         #endregion
 
         #region Account

@@ -232,7 +232,7 @@
                                             <input type="text" class="form-control" name="Dire_Descripcion" value="@Model.Direccion">
                                         </div>
                                         <div class="col-sm-6 text-secondary">
-                                            <select asp-items="ViewBag.Ciudades" class="ui dropdown search">
+                                            <select asp-items="ViewBag.Ciudades" name="Ciu_ID" class="ui dropdown search">
                                             </select>
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                                    <input type="submit" class="btn btn-primary px-4" value="Save Changes">
                                 </div>
                             </div>
                         </form>

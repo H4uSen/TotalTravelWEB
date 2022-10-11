@@ -40,6 +40,32 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var token = HttpContext.User.FindFirst("Token").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+            data.Role_ID = cuenta.Role_ID;
+            data.Part_ID = cuenta.PartnerID;
+            data.Usua_ID = int.Parse(id);
+            data.Usua_UsuarioModifica = int.Parse(id);
+            AddressViewModel addressdata = new AddressViewModel()
+            {
+                Ciud_ID = data.Ciu_ID,
+                Dire_Descripcion = data.Dire_Descripcion,
+                Dire_UsuarioCreacion = int.Parse(id)
+            };
+            var addressStatus = (RequestStatus)(await _generalService.CreateAddress(token, addressdata)).Data;
+
+            if (addressStatus.CodeStatus > 0)
+            {
+                data.Dire_ID = addressStatus.CodeStatus;
+                var userStatus = (RequestStatus)(await _accessService.UserUpdate(data, token)).Data;
+
+                if (userStatus.CodeStatus <= 0)
+                {
+                    ViewData["Error"] = "Error al actualizar el usuario";
+                }                
+            }
+            else
+            {
+                ViewData["Error"] = "Error al actualizar el usuario";
+            }
 
             return View(cuenta);
         }
