@@ -9,17 +9,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int ID { get; set; }
         public string Descripcion { get; set; }
-        public int? TipoActividad { get; set; }
-        public int? UsuarioCreacion { get; set; }
+        public string Tipo { get; set; }
+        public int? ID_Crea { get; set; }
+        public string UsuarioCrea { get; set; }
         public DateTime? FechaCreacion { get; set; }
-        public int? UsuarioModifica { get; set; }
+        public int? ID_Modifca { get; set; }
+        public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
-
     }
 
     public class ActivitiesViewModel
     {
+        public string Actv_Descripcion { get; set; }
+        public int? TiAc_ID { get; set; }
+        public int? Actv_UsuarioCreacion { get; set; }
+        public int? Actv_UsuarioModifica { get; set; }
+    }
 
+    public class ActivitiesExtrasListViewModel
+    {
+        public int ID { get; set; }
+        public string Partner { get; set; }
+        public string Actividad { get; set; }
+        public decimal? Precio { get; set; }
+        public string Descripcion { get; set; }
+        public int? ID_Crea { get; set; }
+        public string UsuarioCrea { get; set; }
+        public DateTime? FechaCreacion { get; set; }
+        public int? ID_Modifica { get; set; }
+        public string UsuarioModifica { get; set; }
+        public DateTime? FechaModifica { get; set; }
+        public bool? Estado { get; set; }
     }
 }

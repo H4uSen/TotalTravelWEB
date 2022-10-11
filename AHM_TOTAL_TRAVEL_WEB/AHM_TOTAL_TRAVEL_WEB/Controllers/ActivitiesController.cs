@@ -26,9 +26,28 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View(list.Data);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ActivitiesViewModel actividad)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                actividad.Actv_UsuarioCreacion = 1;
+                var list = await _activitiesServices.ActivitiesCreate(actividad, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
         }
     }
 }
