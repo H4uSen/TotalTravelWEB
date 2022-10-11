@@ -92,3 +92,28 @@
     </div>
 </div>
 <br>
+
+@section Scripts{
+    <script>
+                // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdRestaurants tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdRestaurants").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 5
+        });
+    </script>
+}
