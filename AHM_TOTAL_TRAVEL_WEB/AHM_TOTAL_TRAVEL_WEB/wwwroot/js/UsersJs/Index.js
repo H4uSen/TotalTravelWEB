@@ -39,7 +39,7 @@ function FillUsers() {
 
             $("#grdUsuarios tbody").append(
                 `<tr>
-                    <td>${user.nombre_completo}</td>
+                    <td>${user.nombre} ${user.apellido}</td>
                     <td>${user.email}</td>
                     <td>${user.rol}</td>
                     <td>${user.partner == null ? "No Partner" : user.partner}</td>
