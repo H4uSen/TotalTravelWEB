@@ -144,7 +144,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region ActividadesExtras
 
-        public async Task<ServiceResult> ExtraActivitiesList(string token)
+        public async Task<ServiceResult> ExtraActivitiesList(IEnumerable<ActivitiesExtrasListViewModel> model, string token)
         {
             var Result = new ServiceResult();
 
@@ -156,7 +156,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                     req.Content = null;
                 },
                 token
-                ); ;
+                );
                 if (!response.Success)
                 {
                     return Result.FromApi(response);

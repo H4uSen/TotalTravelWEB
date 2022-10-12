@@ -4,87 +4,132 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container card">
+    <div class="ui basic segment">
 
-<h1>Index</h1>
+        <div class="ui icon attached message">
+            <i class="user icon"></i>
+            <div class="content">
+                <div class="header">
+                    Restaurantes
+                </div>
+                <p>Create, Update, Delete or Search and Filter Users.</p>
+            </div>
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Partner)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Actividad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCrea)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioModifica)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaModifica)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Partner)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Actividad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCrea)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioModifica)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaModifica)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.ID}, new { @class="btn btn-primary"}) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","ActivitiesExtra")">
+                    <i class="user icon"></i> Nuevo
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdRestaurants">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Partner)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Actividad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Partner)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Actividad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+
+                    <td>
+                        <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                        @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
+                        <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="ui large icon yellow button">
+                            <i class="folder open outline icon"></i>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
+@section Scripts{
+    <script>
+                // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdRestaurants tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdRestaurants").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 5
+        });
+
+        //------------------------------------Funciones------------------------
+
+        function DeleteActividad(id) {
+            const capsula1 = () => {
+                ajaxRequest("/ActivitiesExtra/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+
+        };
+    </script>
 }
-    </tbody>
-</table>

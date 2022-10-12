@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PartnerTypeListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="user icon"></i>
+            <div class="content">
+                <div class="header">
+                    Tipos de Socios
+                </div>
+                <p>Crea, actualiza, elimina o busca y filtra .</p>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","PartnerType")">
+                    <i class="user icon"></i> Nuevo
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+        <table class="ui compact selectable celled table" id="grdRestaurants">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rol_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rol_Descripcion)
+                    </th>
+
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rol_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rol_Descripcion)
+                    </td>
+
+                    <td>
+                        <a href="@Url.Action("Update","PartnerType",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                        <a href="@Url.Action("Delete","PartnerType",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>
+                        <a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+

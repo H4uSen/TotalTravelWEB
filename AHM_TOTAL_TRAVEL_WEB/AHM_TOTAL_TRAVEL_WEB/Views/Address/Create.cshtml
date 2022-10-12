@@ -32,6 +32,7 @@
                                         <label class="control-label">Pais</label>
                                         <select id="Count_ID" class="form-control mt-2 bg-white text-dark" asp-items="ViewBag.Count_ID"></select>
                                     </div>
+                                    <label class="labelvalidator" id="labelvalidatorPais"></label>
                                 </div>
                                 <div class="field">
                                     <div class="form-group">
@@ -39,7 +40,7 @@
                                         <select asp-for="Ciud_ID" class="form-control mt-2 bg-white text-dark" asp-items="ViewBag.City_ID"></select>
                                         <span asp-validation-for="Ciud_ID" class="text-danger"></span>
                                     </div>
-
+                                    <label class="labelvalidator" id="labelvalidatorCiudad"></label>
                                 </div>
                             </div>
                             <div class="field">
@@ -48,9 +49,10 @@
                                     <input asp-for="Dire_Descripcion" class="form-control" />
                                     <span asp-validation-for="Dire_Descripcion" class="text-danger"></span>
                                 </div>
+                                <label class="labelvalidator" id="labelvalidatorDireccion"></label>
                             </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Crear" class="btn btn-primary ui positive button" />
+                                    <input type="button" id="sendAddress" value="Crear" class="btn btn-primary ui positive button" />
                                 </div>
                             </div>
                         </div>

@@ -21,9 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","TypeMenus")">
-                    <i class="user icon"></i> Nuevo
-                </a>
+                <button id="createTypeMenus" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -83,27 +81,33 @@
 </div>
 <br>
 
+<div class="ui modal" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un tipo de menú
+    </div>
+    <form asp-action="Create" asp-controller="TypeMenus" id="createTypeMenusForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+
+                <div class="field">
+                    <div class="form-group">
+                        <label class="control-label">Descripción</label>
+                        <input name="Time_Descripcion" id="Time_Descripcion" class="form-control" />
+                    </div>
+                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeTypeMenus">Cerrar</button>
+        <button class="ui button" id="sendTypeMenus">Guardar</button>
+    </div>
+</div>
+
+
+
 @section Scripts{
-    <script>
-                // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdTypeMenus tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdTypeMenus").paginationTdA({
-                elemPerPage: 5
-            });
-        });
-
-        $("#grdTypeMenus").paginationTdA({
-            elemPerPage: 5
-        });
-    </script>
+    <script src="~/js/TypeMenusJs/Create.js"></script>
 }

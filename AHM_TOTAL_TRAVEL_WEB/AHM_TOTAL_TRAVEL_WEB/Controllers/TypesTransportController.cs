@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,23 +9,21 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    public class ActivitiesExtraController : Controller
+    public class TypesTransportController : Controller
     {
-        ActivitiesServices _activitiesServices;
-
-        public ActivitiesExtraController(ActivitiesServices activitiesServices)
+       
+        private readonly TransportService _transportService;
+        public TypesTransportController(TransportService transportService)
         {
-            _activitiesServices = activitiesServices;
+            _transportService = transportService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var model = new List<ActivitiesExtrasListViewModel>();
-            var list = await _activitiesServices.ExtraActivitiesList(model, token);
+            var model = new List<TypesTransportListViewModel>();
+            var list = await _transportService.TypesTransportList();
             return View(list.Data);
         }
-
         [HttpGet]
         public IActionResult Create()
         {
@@ -32,14 +31,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ActivitiesExtrasViewModel actividad)
+        public async Task<IActionResult> Create(TypesTransportViewModel transporte)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.acEx_UsuarioModifica = 1;
-                var list = await _activitiesServices.ActivitiesExtraCreate(actividad, token);
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                transporte.TiTr_UsuarioCreacion = int.Parse(id);
+                var list = await _transportService.TypesTransportCreate(transporte, token);
                 return RedirectToAction("Index");
             }
             else

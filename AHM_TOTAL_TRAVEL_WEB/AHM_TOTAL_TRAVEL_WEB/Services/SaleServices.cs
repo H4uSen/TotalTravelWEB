@@ -82,9 +82,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Post<DefaultPackagesViewModel, RequestStatus>(req =>
+                var response = await _api.Put<DefaultPackagesViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/DefaultPackages/Update?id=" + actividad.Paqu_ID;
+                    req.Path = $"/API/DefaultPackages/Update?id=" + actividad.paqu_ID;
                     req.Content = actividad;
                 },
                 token

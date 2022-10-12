@@ -9,7 +9,7 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="user icon"></i>
+            <i class="icon car"></i>
             <div class="content">
                 <div class="header">
                     Detalles Transportes
@@ -49,15 +49,6 @@
                         @Html.DisplayNameFor(model => model.Transporte)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Fecha)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Hora_Salida)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Hora_Llegada)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Capacidad)
                     </th>
                     <th>
@@ -80,15 +71,6 @@
                         @Html.DisplayFor(modelItem => item.Transporte)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hora_Salida)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hora_Llegada)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Capacidad)
                     </td>
                     <td>
@@ -100,7 +82,9 @@
 
                     <td>
                         <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                        <a href="@Url.Action("Delete","TransportDetails",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>
+                        <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                            <i class="trash alternate icon"></i>
+                        </button>
                         <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
                     </td>
                 </tr>
@@ -134,5 +118,14 @@
         $("#grdRestaurants").paginationTdA({
             elemPerPage: 5
         });
+
+        function DeleteDetalleTransporte(id) {
+            const capsula1 = () => {
+                ajaxRequest("/DetailsTransportation/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+
+        };
     </script>
 }

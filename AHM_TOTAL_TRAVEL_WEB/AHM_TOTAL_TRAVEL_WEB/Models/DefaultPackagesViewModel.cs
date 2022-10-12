@@ -4,17 +4,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 {
     public class DefaultPackagesViewModel
     {
-        public int Paqu_ID { get; set; }
-        public string Paqu_Nombre { get; set; }
-        public string Paqu_Descripcion { get; set; }
-        public string Paqu_Duracion { get; set; }
-        public int? Hote_ID { get; set; }
-        public int? Rest_ID { get; set; }
-        public int? Paqu_UsuarioCreacion { get; set; }
-        public DateTime? Paqu_FechaCreacion { get; set; }
-        public int? Paqu_UsuarioModifica { get; set; }
-        public DateTime? Paqu_FechaModifica { get; set; }
-        public bool? Paqu_Estado { get; set; }
+        public int paqu_ID { get; set; }
+        public string paqu_Nombre { get; set; }
+        public string paqu_Descripcion { get; set; }
+        public string paqu_Duracion { get; set; }
+        public int? hote_ID { get; set; }
+        public int? rest_ID { get; set; }
+        public int? paqu_UsuarioCreacion { get; set; }
+        public int? paqu_UsuarioModifica { get; set; }
+        public bool? paqu_Estado { get; set; }
+        public decimal? paqu_Precio { get; set; }
     }
     public class DefaultPackagesListViewModel
     {

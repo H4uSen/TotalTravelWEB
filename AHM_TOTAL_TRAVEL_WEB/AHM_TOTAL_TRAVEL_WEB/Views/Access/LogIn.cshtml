@@ -99,7 +99,6 @@
         if (ViewData["LoginErrorEmail"] != null)
         {
             <script>
-            console.log("@ViewData["LoginErrorEmail"]");
             var labelEmail = document.getElementById("labelvalidatorEmail");
             labelEmail.innerHTML = "@ViewData["LoginErrorEmail"]";
             </script>
@@ -116,7 +115,6 @@
         if (ViewData["LoginError"] != null)
         {
             <script>
-            console.log("@ViewData["LoginError"]");
             var labelEmail = document.getElementById("labelvalidatorPass");
             labelEmail.innerHTML = "@ViewData["LoginError"]";
             </script>

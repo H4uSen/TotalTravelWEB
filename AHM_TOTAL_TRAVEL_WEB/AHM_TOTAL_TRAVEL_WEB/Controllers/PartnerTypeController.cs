@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    public class ActivitiesExtraController : Controller
+    public class PartnerTypeController : Controller
     {
-        ActivitiesServices _activitiesServices;
+        GeneralService _generalServices;
 
-        public ActivitiesExtraController(ActivitiesServices activitiesServices)
+        public PartnerTypeController(GeneralService generalServices)
         {
-            _activitiesServices = activitiesServices;
+            _generalServices = generalServices;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var model = new List<ActivitiesExtrasListViewModel>();
-            var list = await _activitiesServices.ExtraActivitiesList(model, token);
+            var model = new List<PartnerTypeListViewModel>();
+            var list = await _generalServices.PartnerTypeList(model);
             return View(list.Data);
         }
 
@@ -32,14 +32,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ActivitiesExtrasViewModel actividad)
+        public async Task<IActionResult> Create(PartnerTypeViewModel TipoPartner)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.acEx_UsuarioModifica = 1;
-                var list = await _activitiesServices.ActivitiesExtraCreate(actividad, token);
+                TipoPartner.TiPar_UsuarioCreacion = 1;
+                var list = await _generalServices.PartnerTypeCreate(TipoPartner, token);
                 return RedirectToAction("Index");
             }
             else
@@ -48,5 +48,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+
     }
 }

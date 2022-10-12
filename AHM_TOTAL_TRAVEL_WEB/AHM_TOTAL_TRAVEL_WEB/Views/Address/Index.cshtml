@@ -5,11 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section CSS{
+    <style>
+        .ui.modal {
+            left: auto !important;
+            top: auto !important;
+            height: auto !important;
+        }
+        table thead tr th {
+            background-color: #2b2b2b;
+            color: white;
+        }
+
+    </style>
+}
+
 <div class="container card">
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="fa fa-address-book"></i>
+            <i class="icon-truck"></i>
             <div class="content">
                 <div class="header">
                     Direcciones
@@ -21,9 +36,11 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Address")">
-                    <i class="user icon"></i> Nuevo
-                </a>
+                @*<a class="ui small primary labeled icon button" href="@Url.Action("Create","Address")">
+                        <i class="user icon"></i> Nuevo
+                    </a>*@
+                <button id="createAddress" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -32,12 +49,6 @@
                 </div>
             </div>
         </div>
-        <style>
-            table thead tr th {
-                background-color: #2b2b2b;
-                color: white;
-            }
-        </style>
 
         <table class="ui compact selectable celled table" id="grdAddress">
             <thead>
@@ -93,27 +104,62 @@
     </div>
 </div>
 <br>
+
+
+<div class="ui modal" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una dirección
+    </div>
+    <form asp-action="Create" id="createAddress">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                <option value="">Seleccione un pais</option>
+                            </select>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
+                        </div>
+                        <div class="field">
+                            <div class="field">
+                                <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <input id="Colonia" class="form-control" placeholder="Colonia" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
+                    </div>
+
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <input id="Calle" class="form-control" placeholder="Calle" />
+                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
+                            </div>
+                            <div class="field">
+                                <input id="Avenida" class="form-control" placeholder="Avenida" />
+                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeAddress">Cerrar</button>
+        <button class="ui button" id="sendAddress">Guardar</button>
+    </div>
+</div>
+
 @section Scripts{
-    <script>
-                // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdAddress tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdAddress").paginationTdA({
-                elemPerPage: 5
-            });
-        });
-
-        $("#grdAddress").paginationTdA({
-            elemPerPage: 5
-        });
-    </script>
+    <script src="~/js/AddressJs/Create.js"></script>
 }
+
+<!-- Modal -->

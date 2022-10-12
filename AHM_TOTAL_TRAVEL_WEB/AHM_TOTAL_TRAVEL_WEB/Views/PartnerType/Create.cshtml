@@ -1,0 +1,50 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PartnerTypeViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="fa-duotone fa-car"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        create a new users
+                    </div>
+                    <p class="text-capitalize">create a new user and/or add a partner account.</p>
+                </div>
+            </div>
+            <form asp-action="Create">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="three fields">
+                           
+                            <div class="field">
+                                <label>Descripcion</label>
+                                <input asp-for="TiPar_Descripcion" />
+                            </div>
+                            <div class="field">
+                                <label>Rol</label>
+                                <input asp-for="Rol_ID" />
+                            </div>
+                        </div>
+                  
+
+                        <input type="button" value="Crear" class="btn btn-primary ui positive button" />
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
