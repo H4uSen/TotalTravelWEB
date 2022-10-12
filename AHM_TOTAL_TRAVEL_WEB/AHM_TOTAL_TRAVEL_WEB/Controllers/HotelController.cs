@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    public class TransportController : Controller
+    public class HotelController : Controller
     {
-        private readonly TransportService _transportService;
+        private readonly HotelsService _hotelService;
 
-        public TransportController(TransportService transportService)
+        public HotelController(HotelsService hotelService)
         {
-            _transportService = transportService;
+            _hotelService = hotelService;
         }
 
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
-            var list = await _transportService.TransportList();
+            var token = HttpContext.User.FindFirst("Token").Value;
+            //var model = new List<HotelListViewModel>();
+            var list = await _hotelService.HotelsList(token);
             return View(list.Data);
         }
     }
