@@ -315,5 +315,94 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
         #endregion
+
+        #region PartnerType
+
+        public async Task<ServiceResult> PartnerTypeList(IEnumerable<PartnerTypeListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<PartnerTypeListViewModel>, IEnumerable<PartnerTypeListViewModel>>(req => {
+                    req.Path = $"/API/PartnerType/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> PartnerTypeCreate(PartnerTypeViewModel TipoPartner, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<PartnerTypeViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PartnerType/Insert";
+                    req.Content = TipoPartner;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PartnerTypeUpdate(PartnerTypeViewModel TipoPartner, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<PartnerTypeViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PartnerType/Update?id=" + TipoPartner.TiPar_ID;
+                    req.Content = TipoPartner;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
     }
 }
