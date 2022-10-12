@@ -1,0 +1,78 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon food"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Crear
+                    </div>
+                    <p class="text-capitalize">Ingresa una nueva Habitacion.</p>
+                </div>
+            </div>
+
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <input id="ID" class="form-control" placeholder="ID (required)" />
+                                </div>
+                                <div class="field">
+                                    <input id="Habitacion" class="form-control" placeholder="Habitacion (required)" />
+                                </div>
+                                <div class="field">
+                                    <input id="Descripcion" class="form-control" placeholder="Descripcion(required)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <input id="Categoria" class="form-control" placeholder="Categoria (required)" />
+                                </div>
+                                <div class="field">
+                                    <input id="Hotel" class="form-control" placeholder="Hotel(required)" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <input id="Precio" class="form-control" placeholder="Precio (required)" />
+                                </div>
+
+                                <div class="field">
+
+                                    <input id="UsuarioCreacion" class="form-control" placeholder="UsuarioCrea (required)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="two fields">
+                            <div class="field">
+                                <label class="control-label">Imagen</label>
+                                <input id="File" type="file" class="form-control" multiple />
+                            </div>
+                        </div>
+                        <input type="button" value="Create" onclick="createRoomst()" class="btn btn-primary ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
+    </div>
+</div>
+<script src="~/js/RoomsJs/Create.js"></script>
