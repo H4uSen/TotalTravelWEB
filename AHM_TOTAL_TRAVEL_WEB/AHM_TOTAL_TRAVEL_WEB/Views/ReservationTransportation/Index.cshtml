@@ -40,7 +40,7 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="grdReservationTransportation">
             <thead>
                 <tr>
                     <th>
@@ -148,7 +148,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#grdReservationTransportation tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -157,12 +157,12 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#grdReservationTransportation").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#grdReservationTransportation").paginationTdA({
             elemPerPage: 5
         });
     </script>

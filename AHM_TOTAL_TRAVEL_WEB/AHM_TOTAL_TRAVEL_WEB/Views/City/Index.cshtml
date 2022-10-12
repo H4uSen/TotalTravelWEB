@@ -12,7 +12,7 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Ciudad
                 </div>
                 <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Activities")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","City")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -39,7 +39,7 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="grdCity">
             <thead>
                 <tr>
                     <th>
@@ -116,7 +116,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#grdCity tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -125,12 +125,12 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#grdCity").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#grdCity").paginationTdA({
             elemPerPage: 5
         });
     </script>

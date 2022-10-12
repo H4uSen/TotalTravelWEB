@@ -1,0 +1,69 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CityViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>CityViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ciud_ID" class="control-label"></label>
+                <input asp-for="Ciud_ID" class="form-control" />
+                <span asp-validation-for="Ciud_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciud_Descripcion" class="control-label"></label>
+                <input asp-for="Ciud_Descripcion" class="form-control" />
+                <span asp-validation-for="Ciud_Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pais_ID" class="control-label"></label>
+                <input asp-for="Pais_ID" class="form-control" />
+                <span asp-validation-for="Pais_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciud_UsuarioCreacion" class="control-label"></label>
+                <input asp-for="Ciud_UsuarioCreacion" class="form-control" />
+                <span asp-validation-for="Ciud_UsuarioCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciud_FechaCreacion" class="control-label"></label>
+                <input asp-for="Ciud_FechaCreacion" class="form-control" />
+                <span asp-validation-for="Ciud_FechaCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciud_UsuarioModifica" class="control-label"></label>
+                <input asp-for="Ciud_UsuarioModifica" class="form-control" />
+                <span asp-validation-for="Ciud_UsuarioModifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciud_FechaModifica" class="control-label"></label>
+                <input asp-for="Ciud_FechaModifica" class="form-control" />
+                <span asp-validation-for="Ciud_FechaModifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciud_Estado" class="control-label"></label>
+                <input asp-for="Ciud_Estado" class="form-control" />
+                <span asp-validation-for="Ciud_Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
