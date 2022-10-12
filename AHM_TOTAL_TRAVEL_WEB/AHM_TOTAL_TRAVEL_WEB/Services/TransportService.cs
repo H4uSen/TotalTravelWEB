@@ -103,6 +103,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+
+        public async Task<ServiceResult> TransportCreate(TransportViewModel transporte, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<TransportViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Transports/Insert";
+                    req.Content = transporte;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         #endregion
 
     }

@@ -286,6 +286,97 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
 
+        public async Task<ServiceResult> HotelCreate(HotelViewModel hotel, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<HotelViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Hotels/Insert";
+                    req.Content = hotel;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        //public async Task<ServiceResult> ActivitiesUpdate(ActivitiesViewModel actividad, int id, string token)
+        //{
+        //    var Result = new ServiceResult();
+
+        //    try
+        //    {
+
+        //        var response = await _api.Put<ActivitiesViewModel, RequestStatus>(req =>
+        //        {
+        //            req.Path = $"/API/Activities/Update?id=" + id;
+        //            req.Content = actividad;
+        //        },
+        //        token
+        //        );
+        //        if (!response.Success)
+        //        {
+        //            return Result.FromApi(response);
+        //        }
+        //        else
+        //        {
+        //            return Result.Ok(response.Data);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Result.Error(Helpers.GetMessage(ex));
+        //        throw;
+        //    }
+
+        //}
+
+        //public async Task<ServiceResult> ActivitiesDelete(ActivitiesViewModel actividad, int id, string token)
+        //{
+        //    var Result = new ServiceResult();
+
+        //    try
+        //    {
+
+        //        var response = await _api.Delete<ActivitiesViewModel, RequestStatus>(req =>
+        //        {
+        //            req.Path = $"/API/Activities/Delete?id=" + id + "&mod=" + actividad.actv_UsuarioModifica;
+        //            req.Content = null;
+        //        },
+        //        token
+        //        );
+        //        if (!response.Success)
+        //        {
+        //            return Result.FromApi(response);
+        //        }
+        //        else
+        //        {
+        //            return Result.Ok(response.Data);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Result.Error(Helpers.GetMessage(ex));
+        //        throw;
+        //    }
+
+        //}
+
         #endregion
     }
 }
