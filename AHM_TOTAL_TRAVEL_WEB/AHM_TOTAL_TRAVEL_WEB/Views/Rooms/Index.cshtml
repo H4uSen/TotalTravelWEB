@@ -42,7 +42,10 @@
         <table class="ui compact selectable celled table" id="grdRestaurants">
             <thead>
                 <tr>
-                 
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Habitacion)
                     </th>
@@ -58,35 +61,50 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Precio)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UsuarioCreacion)
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                @foreach (var item in Model)
                 {
-                    <tr>
-                       
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Habitacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Categoria)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hotel)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Precio)
-                        </td>
-                        <td>
-                            <a href="@Url.Action("Update","Rooms",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            <a href="@Url.Action("Delete","Rooms",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>
-                            <a href="@Url.Action("Details","Rooms",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hotel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+                    </td>
+
+                    <td>
+                        <a href="@Url.Action("Update","Rooms",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>  
+                        <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="ui large icon yellow button">
+                            <i class="folder open outline icon"></i>
+                        </button>
+                    </td>
+                </tr>
+                
                 }
             </tbody>
         </table><br>
@@ -117,5 +135,16 @@
         $("#grdRestaurants").paginationTdA({
             elemPerPage: 5
         });
+
+        //------------------------------------Funciones------------------------
+
+        function DeleteActividad(id) {
+            const capsula1 = () => {
+                ajaxRequest("/Rooms/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+
+        };
     </script>
 }

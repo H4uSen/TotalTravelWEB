@@ -8,7 +8,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class categoryroomsViewModel
     {
         public int CaHa_ID { get; set; }
-        public int? CaHa_Descripcion { get; set; }
+        public string? CaHa_Descripcion { get; set; }
         public int? CaHa_UsuarioCreacion { get; set; }
         public DateTime? CaHa_FechaCreacion { get; set; }
         public int? CaHa_UsuarioModifica { get; set; }
@@ -20,7 +20,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class categoryroomsListViewModel
     {
         public int ID { get; set; }
-        public int? Descripcion { get; set; }
+        public string? Descripcion { get; set; }
         public int? UsuarioCreacionID { get; set; }
         public string UsuarioCreacion { get; set; }
         public DateTime? FechaCreacion { get; set; }
@@ -28,6 +28,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
-
+        public int CaHa_FechaCreacio { get; internal set; }
     }
 }
