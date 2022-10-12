@@ -43,6 +43,8 @@
             <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th><th>
                         @Html.DisplayNameFor(model => model.Hotel)
                     </th>
                     <th>
@@ -62,6 +64,8 @@
                 {
                      <tr>
                          <td>
+                             @Html.DisplayFor(modelItem => item.ID)
+                         </td><td>
                              @Html.DisplayFor(modelItem => item.Hotel)
                          </td>
                          <td>
