@@ -134,6 +134,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
+        public async Task<ServiceResult> TransportUpdate(TransportViewModel transporte, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<TransportViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Transports/Update?id=" + transporte.Tprt_ID;
+                    req.Content = transporte;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+
         #endregion
 
         #region TiposTransportes

@@ -56,8 +56,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
+               @foreach (var item in Model)
+               {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.TipoTransporte)
@@ -70,20 +70,20 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon positive button" id="editar">
+                            <a class="ui large icon positive button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon"></i>
-                            </button>
-                            <button class="ui large icon negative button">
+                            </a>
+                            <a class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
+                            </a>
+                            <a class="ui large icon yellow button">
                                 <i class="folder open outline icon"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 }
             </tbody>
-        </table><br>
+        </table>
 
     </div>
 </div>
