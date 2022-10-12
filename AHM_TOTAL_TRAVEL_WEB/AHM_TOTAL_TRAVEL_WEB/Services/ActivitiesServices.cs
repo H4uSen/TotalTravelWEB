@@ -1,8 +1,11 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Services
@@ -76,16 +79,48 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> ActivitiesUpdate(ActivitiesViewModel actividad, string token)
+        public async Task<ServiceResult> ActivitiesUpdate(ActivitiesViewModel actividad,int id, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Post<ActivitiesViewModel, RequestStatus>(req =>
+
+                var response = await _api.Put<ActivitiesViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/Activities/Update?id="+ actividad.ID;
+                    req.Path = $"/API/Activities/Update?id="+ id;
                     req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> ActivitiesDelete(ActivitiesViewModel actividad,int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<ActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Activities/Delete?id=" + id + "&mod="+ actividad.actv_UsuarioModifica;
+                    req.Content = null;
                 },
                 token
                 );

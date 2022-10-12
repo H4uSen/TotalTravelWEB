@@ -25,14 +25,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? Habi_url { get; set; }
     }
 
-    public partial class RoomsListViewModel
+    public class RoomsListViewModel
     {
         public int ID { get; set; }
-        public int? Habitacion { get; set; }
+        public string Habitacion { get; set; }
         public string Descripcion { get; set; }
-        public int? Categoria { get; set; }
+        public string Categoria { get; set; }
         public string Hotel { get; set; }
-        public int? Precio { get; set; }
+        public decimal? Precio { get; set; }
         public string UsuarioCreacion { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public string UsuarioModifica { get; set; }

@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public bool? Tprt_Estado { get; set; }
     }
 
-    public partial class TransportListViewModel
+    public class TransportListViewModel
     {
         public int ID { get; set; }
         public int? TipoTransporteID { get; set; }

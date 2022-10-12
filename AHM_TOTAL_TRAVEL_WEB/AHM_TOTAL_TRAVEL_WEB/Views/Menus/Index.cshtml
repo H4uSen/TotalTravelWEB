@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.RestaurantListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.MenusListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,7 +12,7 @@
             <i class="icon food"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Menús
                 </div>
                 <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Restaurant")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Menus")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -38,23 +38,28 @@
                 color: white;
             }
         </style>
-
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="grdMenus">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.ID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Partner)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Restaurante)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Direccion)
+                        @Html.DisplayNameFor(model => model.TipoMenu)
                     </th>
-                    <th width="300px"></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Menu)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -65,15 +70,20 @@
                             @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Partner)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Restaurante)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
+                            @Html.DisplayFor(modelItem => item.TipoMenu)
                         </td>
-            
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Menu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
                         <td>
                             <button class="ui large icon positive button">
                                 <i class="pencil alternate icon"></i>
@@ -88,7 +98,8 @@
                     </tr>
                 }
             </tbody>
-        </table><br>
+        </table>
+        <br>
 
     </div>
 </div>
@@ -99,7 +110,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#grdMenus tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -108,12 +119,12 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#grdMenus").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#grdMenus").paginationTdA({
             elemPerPage: 5
         });
     </script>

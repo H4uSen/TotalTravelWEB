@@ -27,9 +27,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var model = new List<TransportDetailsViewModel>();
+           
 
             //IEnumerable<RestaurantViewModel> model_restaurant = null;
             //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
@@ -47,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioCreacion = HttpContext.User.FindFirst("User_Id").Value;
+                transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _transportService.TransportDetailsCreate(transportdetails, token);
                 return RedirectToAction("Index");
             }

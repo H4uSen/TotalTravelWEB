@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.RestaurantListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TypeMenusListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,7 +12,7 @@
             <i class="icon food"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Tipo menús
                 </div>
                 <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Restaurant")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","TypeMenus")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -39,21 +39,16 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="grdTypeMenus">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.ID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Partner)
+                        @Html.DisplayNameFor(model => model.descripcion)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Restaurante)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Direccion)
-                    </th>
+
                     <th width="300px"></th>
                 </tr>
             </thead>
@@ -65,15 +60,8 @@
                             @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Partner)
+                            @Html.DisplayFor(modelItem => item.descripcion)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Restaurante)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-            
                         <td>
                             <button class="ui large icon positive button">
                                 <i class="pencil alternate icon"></i>
@@ -88,7 +76,8 @@
                     </tr>
                 }
             </tbody>
-        </table><br>
+        </table>
+        <br>
 
     </div>
 </div>
@@ -99,7 +88,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#grdTypeMenus tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -108,12 +97,12 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#grdTypeMenus").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#grdTypeMenus").paginationTdA({
             elemPerPage: 5
         });
     </script>

@@ -39,7 +39,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Actv_UsuarioCreacion = 1;
+                actividad.actv_UsuarioCreacion = 1;
                 var list = await _activitiesServices.ActivitiesCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -59,27 +59,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _activitiesServices.ActivityList(model);
             IEnumerable<ActivitiesListViewModel> data = (IEnumerable<ActivitiesListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
-            item.ID = element.ID;
-            item.Actv_Descripcion = element.Descripcion;
+            item.actv_Descripcion = element.Descripcion;
 
-            //IEnumerable<EstablecimientoListViewModel> model_Est = null;
-            //var Establecimiento = await _generalServices.EstablecimientosList(model_Est);
-            //IEnumerable<EstablecimientoListViewModel> data_Establecimiento = (IEnumerable<EstablecimientoListViewModel>)Establecimiento.Data;
-            //ViewBag.Est_ID = new SelectList(data_Establecimiento, "ID", "Descripcion", element.EstablecimientoID);
 
             return View(item);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(ActivitiesViewModel actividad)
+        public async Task<IActionResult> Update(ActivitiesViewModel actividad, int id)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Actv_UsuarioCreacion = 1;
-                var list = await _activitiesServices.ActivitiesUpdate(actividad, token);
+                //actividad.actv_UsuarioModifica = 1;
+                var lista = await _activitiesServices.ActivitiesUpdate(actividad, id, token);
                 return RedirectToAction("Index");
             }
             else
@@ -87,6 +82,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ActivitiesViewModel actividad, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                actividad.actv_UsuarioModifica = 1;
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _activitiesServices.ActivitiesDelete(actividad, id, token);
+                
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

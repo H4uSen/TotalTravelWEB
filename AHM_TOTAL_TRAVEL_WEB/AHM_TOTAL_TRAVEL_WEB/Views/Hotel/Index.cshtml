@@ -1,19 +1,18 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.HotelListViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="container card">
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="bus icon"></i>
+            <i class="building icon"></i>
             <div class="content">
                 <div class="header">
-                    Transportes
+                    Hoteles
                 </div>
                 <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
@@ -44,13 +43,16 @@
             <thead>
                 <tr>
                     <th>
-                        Tipo Transporte
+                        @Html.DisplayNameFor(model => model.Hotel)
                     </th>
                     <th>
-                        Nombre Partner
+                        Descripción
                     </th>
                     <th>
                         Dirección
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Partners)
                     </th>
                     <th width="300px"></th>
                 </tr>
@@ -58,35 +60,39 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoTransporte)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NombrePartner)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-
-                        <td>
-                            <button class="ui large icon positive button">
-                                <i class="pencil alternate icon"></i>
-                            </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
-                        </td>
+                     <tr>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Hotel)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Descripcion)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Direccion)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Partners)
+                         </td>
+                         <td>
+                             <button class="ui large icon positive button">
+                                 <i class="pencil alternate icon"></i>
+                             </button>
+                             <button class="ui large icon negative button">
+                                 <i class="trash alternate icon"></i>
+                             </button>
+                             <button class="ui large icon yellow button">
+                                 <i class="folder open outline icon"></i>
+                             </button>
+                         </td>
                     </tr>
-                }
+                 }
             </tbody>
         </table><br>
 
     </div>
 </div>
+
+
 
 
 @section Scripts{
