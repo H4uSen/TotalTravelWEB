@@ -9,10 +9,10 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="user icon"></i>
+            <i class="building icon"></i>
             <div class="content">
                 <div class="header">
-                    Detalles Transportes
+                    Rooms
                 </div>
                 <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
@@ -42,9 +42,7 @@
         <table class="ui compact selectable celled table" id="grdRestaurants">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
+                 
                     <th>
                         @Html.DisplayNameFor(model => model.Habitacion)
                     </th>
@@ -67,9 +65,7 @@
                @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
+                       
                         <td>
                             @Html.DisplayFor(modelItem => item.Habitacion)
                         </td>

@@ -18,12 +18,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _hotelsServices = hotelsService;
         }
 
-        [HttpGet]
+        //[HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new List<RoomsListViewModel>();
-            var list = await _hotelsServices.RoomsList(model);
-            return View(list.Data);
+         
+            var list = (IEnumerable<RoomsListViewModel>) (await _hotelsServices.RoomsList()).Data;
+            return View(list);
         }
 
         [HttpGet]
