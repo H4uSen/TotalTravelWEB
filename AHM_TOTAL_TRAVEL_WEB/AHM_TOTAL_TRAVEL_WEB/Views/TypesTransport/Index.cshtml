@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TypesTransportListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,7 +22,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create", "Transport")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create", "TypesTransport")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -44,46 +44,33 @@
             <thead>
                 <tr>
                     <th>
-                        Tipo Transporte
+                        Transporte
                     </th>
-                    <th>
-                        Nombre Partner
-                    </th>
-                    <th>
-                        Dirección
-                    </th>
+                
                     <th width="300px"></th>
                 </tr>
             </thead>
             <tbody>
-               @foreach (var item in Model)
-               {
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TipoTransporte)
+                            @Html.DisplayFor(modelItem => item.Trasporte)
                         </td>
+                        
                         <td>
-                            @Html.DisplayFor(modelItem => item.NombrePartner)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-
-                        <td>
-                            <a class="ui large icon positive button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
-                                <i class="pencil alternate icon"></i>
-                            </a>
-                            <a class="ui large icon negative button">
+                           
+                            <button class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>
-                            </a>
-                            <a class="ui large icon yellow button">
+                            </button>
+                            <button class="ui large icon yellow button">
                                 <i class="folder open outline icon"></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 }
             </tbody>
-        </table>
+        </table><br>
 
     </div>
 </div>
@@ -109,7 +96,7 @@
 </div>
 
 
-@section CSS{ 
+@section CSS{
     <style>
         .ui.modal {
             left: auto !important;
@@ -142,11 +129,11 @@
 
         $("#tabla").paginationTdA({
             elemPerPage: 5
-        });              
+        });
 
         $("#editar").click(() => {
-            $(".ui.modal").modal('show');            
+            $(".ui.modal").modal('show');
         });
-        
+
     </script>
 }

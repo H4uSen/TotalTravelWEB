@@ -94,7 +94,17 @@
     }
 }
 
+.sidebar-link {
+    font-size: 1.3em !important;
+}
+
+.ui.modal {
+    left: auto !important;
+    top: auto !important;
+    height: auto !important;
+}
+
 .labelvalidator {
     color: darkred;
-    font-size: 12px;
+    font-size: 16px;
 }

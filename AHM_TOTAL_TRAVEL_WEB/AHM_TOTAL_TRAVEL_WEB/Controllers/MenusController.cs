@@ -36,9 +36,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["UserID"] = HttpContext.User.FindFirst("User_Id").Value;
 
             IEnumerable<RestaurantListViewModel> model_Restaurant= null;
-            var city = await _restaurantServices.RestaurantsList(model_Restaurant);
-            IEnumerable<RestaurantListViewModel> data_Rest = (IEnumerable<RestaurantListViewModel>)city.Data;
+            var rest = await _restaurantServices.RestaurantsList(model_Restaurant);
+            IEnumerable<RestaurantListViewModel> data_Rest = (IEnumerable<RestaurantListViewModel>)rest.Data;
             ViewBag.Rest_ID = new SelectList(data_Rest, "ID", "Restaurante");
+
+            IEnumerable<TypeMenusListViewModel> model_TipoMenus = null;
+            var typeMenus = await _restaurantServices.TypeMenusList(model_TipoMenus);
+            IEnumerable<TypeMenusListViewModel> data_TypeMenus = (IEnumerable<TypeMenusListViewModel>)typeMenus.Data;
+            ViewBag.TiMe_ID = new SelectList(data_TypeMenus, "ID", "descripcion");
 
             return View();
         }

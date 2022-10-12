@@ -4,6 +4,8 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div id="frmCreateUser">
     <div class="container card">
         <div class="ui basic segment">
@@ -28,11 +30,13 @@
                             <div class="two fields">
                                 <div class="field">
                                     <input id="Rest_Nombre" class="form-control" placeholder="Restaurante" />
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurant"></label>
                                 </div>
                                 <div class="field">
                                     <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
                                         <option value="">Seleccione un partner</option>
                                     </select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></label>
                                 </div>
                             </div>
                         </div>
@@ -43,39 +47,44 @@
                                     <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                         <option value="">Seleccione un pais</option>
                                     </select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
                                 </div>
                                 <div class="field">
-
-                                    <select id="City_ID" class="ui dropdown search"></select>
+                                    <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="field">
                             <input id="Colonia" class="form-control" placeholder="Colonia" />
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
                         </div>
 
-                            <div class="field">
-                                <div class="two fields">
-                                    <div class="field">
-                                        <input id="Calle" class="form-control" placeholder="Calle" />
-                                    </div>
-                                    <div class="field">
-                                        <input id="Avenida" class="form-control" placeholder="Avenida" />
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="field">
+                        <div class="field">
+                            <div class="two fields">
                                 <div class="field">
-                                    <label class="control-label">Imagen</label>
-                                    <input id="File" type="file" class="form-control" multiple />
+                                    <input id="Calle" class="form-control" placeholder="Calle" />
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
+                                </div>
+                                <div class="field">
+                                    <input id="Avenida" class="form-control" placeholder="Avenida" />
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
                                 </div>
                             </div>
-
-                            <input type="button" value="Crear" onclick="createRestaurant()" class="btn btn-primary ui positive button" />
                         </div>
+
+
+                        <div class="field">
+                            <div class="field">
+                                <label class="control-label">Imagen</label>
+                                <input  id="File" type="file" class="form-control" multiple />
+                            </div>
+                        </div>
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+
+                        <input type="button" value="Crear" onclick="createRestaurant()" class="btn btn-primary ui positive button" />
                     </div>
+                </div>
 
             </form>
             <!-- fin formulario-->

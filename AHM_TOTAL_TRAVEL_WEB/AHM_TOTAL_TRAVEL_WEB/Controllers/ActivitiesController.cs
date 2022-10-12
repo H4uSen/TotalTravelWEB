@@ -32,6 +32,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            IEnumerable<TypesActivitiesListViewModel> model = null;
+            var type = await _activitiesServices.TypesActivitiesList(model);
+            IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
+            ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
             return View();
         }
 

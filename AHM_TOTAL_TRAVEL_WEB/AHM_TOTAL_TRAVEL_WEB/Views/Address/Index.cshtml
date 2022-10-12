@@ -118,28 +118,36 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
-                            <div class="form-group">
-                                <label class="control-label">Pais</label>
-                                <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID"></select>
-                                <label class="labelvalidator" id="labelvalidatorPais"></label>
-                            </div>
+                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                <option value="">Seleccione un pais</option>
+                            </select>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
                         </div>
                         <div class="field">
-                            <div class="form-group">
-                                <label class="control-label">Ciudad</label>
-                                <select id="Ciud_ID" class="ui dropdown search" asp-items="ViewBag.City_ID"></select>
-                                <label class="labelvalidator" id="labelvalidatorCiudad"></label>
+                            <div class="field">
+                                <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                             </div>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="form-group">
-                            <label class="control-label">Dirección</label>
-                            <input id="Dire_Descripcion" class="form-control" />
-                            <label class="labelvalidator" id="labelvalidatorDireccion"></label>
-                        </div>
+                        <input id="Colonia" class="form-control" placeholder="Colonia" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
                     </div>
 
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <input id="Calle" class="form-control" placeholder="Calle" />
+                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
+                            </div>
+                            <div class="field">
+                                <input id="Avenida" class="form-control" placeholder="Avenida" />
+                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
                 </div>
             </div>
         </div>
@@ -151,62 +159,7 @@
 </div>
 
 @section Scripts{
-    <script>
-
-
-        $("#createAddress").click(() => {
-                $(".ui.modal").modal('show');
-        });
-
-        $("#closeAddress").click(() => {
-            $(".ui.modal").modal('hide');
-        });
-
-        $("#sendAddress").click(() => {
-
-                var PaisID = $("#Count_ID").val();
-                var CiudID = $("#Ciud_ID").val();
-                var Address = $("#Dire_Descripcion").val();
-                var labelPais = document.getElementById("labelvalidatorPais");
-                var labelCiud = document.getElementById("labelvalidatorCiudad");
-                var labelAddres = document.getElementById("labelvalidatorDireccion");
-
-
-                if (PaisID == 0) {
-                    labelPais.innerHTML = "Seleccione un país.";
-                }
-                else if (CiudID == 0) {
-                    labelCiud.innerHTML = "Seleccione una ciudad.";
-                }
-                else if (Address == 0) {
-                    labelAddres.innerHTML = "Rellene este campo.";
-                }
-                else {
-                    console.log("submit");
-                }
-        });
-
-        // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdAddress tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdAddress").paginationTdA({
-                elemPerPage: 5
-            });
-        });
-
-        $("#grdAddress").paginationTdA({
-            elemPerPage: 5
-        });
-    </script>
+    <script src="~/js/AddressJs/Create.js"></script>
 }
 
 <!-- Modal -->

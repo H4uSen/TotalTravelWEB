@@ -20,6 +20,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            IEnumerable<CountriesListViewModel> model_Country = null;
+            var country = await _generalService.CountriesList(model_Country);
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+            string token = HttpContext.User.FindFirst("Token").Value;
+            IEnumerable<CityListViewModel> model_City = null;
+            var city = await _generalService.CitiesList(model_City, token);
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
             var model = new List<AddressListViewModel>();
             var list = await _generalService.AddressesList(model);
             return View(list.Data);
@@ -27,18 +38,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
-            var model = new List<RestaurantViewModel>();
-            string token = HttpContext.User.FindFirst("Token").Value;
-            IEnumerable<CityListViewModel> model_City = null;
-            var city = await _generalService.CitiesList(model_City, token);
-            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
-            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
-
-            IEnumerable<CountriesListViewModel> model_Country = null;
-            var country = await _generalService.CountriesList(model_Country);
-            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
-            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
 
 
             return View();
