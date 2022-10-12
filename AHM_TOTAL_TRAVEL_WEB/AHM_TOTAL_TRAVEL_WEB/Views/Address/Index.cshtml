@@ -5,11 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section CSS{
+    <style>
+        .ui.modal {
+            left: auto !important;
+            top: auto !important;
+            height: auto !important;
+        }
+        table thead tr th {
+            background-color: #2b2b2b;
+            color: white;
+        }
+
+    </style>
+}
+
 <div class="container card">
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="fa fa-address-book"></i>
+            <i class="icon-truck"></i>
             <div class="content">
                 <div class="header">
                     Direcciones
@@ -21,9 +36,11 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Address")">
-                    <i class="user icon"></i> Nuevo
-                </a>
+                @*<a class="ui small primary labeled icon button" href="@Url.Action("Create","Address")">
+                        <i class="user icon"></i> Nuevo
+                    </a>*@
+                <button id="createAddress" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -32,12 +49,6 @@
                 </div>
             </div>
         </div>
-        <style>
-            table thead tr th {
-                background-color: #2b2b2b;
-                color: white;
-            }
-        </style>
 
         <table class="ui compact selectable celled table" id="grdAddress">
             <thead>
@@ -93,9 +104,89 @@
     </div>
 </div>
 <br>
+
+
+<div class="ui modal" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una dirección
+    </div>
+    <form asp-action="Create" id="createAddress">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="form-group">
+                                <label class="control-label">Pais</label>
+                                <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID"></select>
+                                <label class="labelvalidator" id="labelvalidatorPais"></label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="form-group">
+                                <label class="control-label">Ciudad</label>
+                                <select id="Ciud_ID" class="ui dropdown search" asp-items="ViewBag.City_ID"></select>
+                                <label class="labelvalidator" id="labelvalidatorCiudad"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="form-group">
+                            <label class="control-label">Dirección</label>
+                            <input id="Dire_Descripcion" class="form-control" />
+                            <label class="labelvalidator" id="labelvalidatorDireccion"></label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeAddress">Cerrar</button>
+        <button class="ui button" id="sendAddress">Guardar</button>
+    </div>
+</div>
+
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+
+
+        $("#createAddress").click(() => {
+                $(".ui.modal").modal('show');
+        });
+
+        $("#closeAddress").click(() => {
+            $(".ui.modal").modal('hide');
+        });
+
+        $("#sendAddress").click(() => {
+
+                var PaisID = $("#Count_ID").val();
+                var CiudID = $("#Ciud_ID").val();
+                var Address = $("#Dire_Descripcion").val();
+                var labelPais = document.getElementById("labelvalidatorPais");
+                var labelCiud = document.getElementById("labelvalidatorCiudad");
+                var labelAddres = document.getElementById("labelvalidatorDireccion");
+
+
+                if (PaisID == 0) {
+                    labelPais.innerHTML = "Seleccione un país.";
+                }
+                else if (CiudID == 0) {
+                    labelCiud.innerHTML = "Seleccione una ciudad.";
+                }
+                else if (Address == 0) {
+                    labelAddres.innerHTML = "Rellene este campo.";
+                }
+                else {
+                    console.log("submit");
+                }
+        });
+
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdAddress tbody tr"), function () {
@@ -117,3 +208,5 @@
         });
     </script>
 }
+
+<!-- Modal -->
