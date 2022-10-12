@@ -22,10 +22,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
     public class RestaurantViewModel
     {
+        
         public int Dire_ID  { get; set; }
         public string Rest_Nombre { get; set; }
         public string Part_ID { get; set; }
-        public string Rest_UsuarioCreacion { get; set; }
+        public int Rest_UsuarioCreacion { get; set; }
         public string Rest_UsuarioModifica { get; set; }
         public List<IFormFile> File { get; set; }
     }

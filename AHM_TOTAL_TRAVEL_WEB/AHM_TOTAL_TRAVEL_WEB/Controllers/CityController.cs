@@ -41,14 +41,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CityViewModel restaurant)
+        public async Task<IActionResult> Create(CityViewModel  city)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                restaurant.Ciud_UsuarioCreacion = 1.ToString();
-                var list = await _generalService.CitiesCreate(restaurant, token);
+                city.Ciud_UsuarioCreacion = 1.ToString();
+                var list = await _generalService.CitiesCreate(city, token);
                 return RedirectToAction("Index");
             }
             else

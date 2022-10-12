@@ -76,8 +76,8 @@
 
                         <td>
                             <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
-                            <button class="ui large icon negative button">
+                            @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
+                            <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
                             <button class="ui large icon yellow button">
@@ -115,5 +115,16 @@
         $("#grdRestaurants").paginationTdA({
             elemPerPage: 5
         });
+
+        //------------------------------------Funciones------------------------
+
+        function DeleteActividad(id) {
+            const capsula1 = () => {
+                ajaxRequest("/Activities/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+
+        };
     </script>
 }

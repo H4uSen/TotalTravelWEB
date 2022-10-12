@@ -77,5 +77,93 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region Menus
+        public async Task<ServiceResult> MenusList(IEnumerable<MenusListViewModel> model)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<MenusListViewModel>, IEnumerable<MenusListViewModel>>(req => {
+                    req.Path = $"/API/Menus/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region TypeMenus
+        public async Task<ServiceResult> TypeMenusList(IEnumerable<TypeMenusListViewModel> model)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<TypeMenusListViewModel>, IEnumerable<TypeMenusListViewModel>>(req => {
+                    req.Path = $"/API/MenuTypes/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+
+        public async Task<ServiceResult> typeMenusCreate(TypeMenusViewModel typeMenu, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<TypeMenusViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/MenuTypes/Insert";
+                    req.Content = typeMenu;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
     }
 }

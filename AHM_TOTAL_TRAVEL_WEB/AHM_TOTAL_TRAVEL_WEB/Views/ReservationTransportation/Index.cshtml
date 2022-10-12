@@ -1,9 +1,10 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.CityListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationTransportationListViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="container card">
     <div class="ui basic segment">
@@ -12,7 +13,7 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    Ciudad
+                    Restaurantes
                 </div>
                 <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
@@ -21,7 +22,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","City")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Activities")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -39,29 +40,44 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdCity">
+        <table class="ui compact selectable celled table" id="grdReservationTransportation">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Ciudad)
+                        @Html.DisplayNameFor(model => model.Capacidad)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Pais)
+                        @Html.DisplayNameFor(model => model.Precio)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCrea)
+                        @Html.DisplayNameFor(model => model.Reservacion)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaCrea)
+                        @Html.DisplayNameFor(model => model.Asientos)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UsuarioModifica)
+                        @Html.DisplayNameFor(model => model.Cancelado)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaModifica)
+                        @Html.DisplayNameFor(model => model.Fecha_Cancelado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Usuario_Creacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Creacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Usuario_Modifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Modifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
                     </th>
                     <th></th>
                 </tr>
@@ -71,28 +87,44 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
+                            @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad)
+                            @Html.DisplayFor(modelItem => item.Capacidad)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Pais)
+                            @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
+                            @Html.DisplayFor(modelItem => item.Reservacion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaCrea)
+                            @Html.DisplayFor(modelItem => item.Asientos)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioModifica)
+                            @Html.DisplayFor(modelItem => item.Cancelado)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaModifica)
+                            @Html.DisplayFor(modelItem => item.Fecha_Cancelado)
                         </td>
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            @Html.DisplayFor(modelItem => item.Usuario_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario_Modifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Modifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("Update","Activities",new {  id=item.Id})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
                             @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
                             <button class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>
@@ -116,7 +148,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdCity tbody tr"), function () {
+            $.each($("#grdReservationTransportation tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -125,13 +157,16 @@
                 }
             });
 
-            $("#grdCity").paginationTdA({
+            $("#grdReservationTransportation").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdCity").paginationTdA({
+        $("#grdReservationTransportation").paginationTdA({
             elemPerPage: 5
         });
     </script>
 }
+
+
+  

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.CityListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,7 +12,7 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    Ciudad
+                    Restaurantes
                 </div>
                 <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","City")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Activities")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -39,29 +39,44 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdCity">
+        <table class="ui compact selectable celled table" id="grdReservationExtraActivities">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.ID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Ciudad)
+                        @Html.DisplayNameFor(model => model.Reservacion)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Pais)
+                        @Html.DisplayNameFor(model => model.Cliente)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCrea)
+                        @Html.DisplayNameFor(model => model.Actividad_Extra)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaCrea)
+                        @Html.DisplayNameFor(model => model.Cantidad)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UsuarioModifica)
+                        @Html.DisplayNameFor(model => model.Fecha_Reservacion)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaModifica)
+                        @Html.DisplayNameFor(model => model.Hora_Reservacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Usuario_Creacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Creacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Usuario_Modifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Modifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
                     </th>
                     <th></th>
                 </tr>
@@ -74,23 +89,39 @@
                             @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad)
+                            @Html.DisplayFor(modelItem => item.Reservacion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Pais)
+                            @Html.DisplayFor(modelItem => item.Cliente)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
+                            @Html.DisplayFor(modelItem => item.Actividad_Extra)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaCrea)
+                            @Html.DisplayFor(modelItem => item.Cantidad)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioModifica)
+                            @Html.DisplayFor(modelItem => item.Fecha_Reservacion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaModifica)
+                            @Html.DisplayFor(modelItem => item.Hora_Reservacion)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario_Modifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Modifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+
                         <td>
                             <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
                             @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
@@ -116,7 +147,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdCity tbody tr"), function () {
+            $.each($("#grdReservationExtraActivities tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -125,13 +156,14 @@
                 }
             });
 
-            $("#grdCity").paginationTdA({
+            $("#grdReservationExtraActivities").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdCity").paginationTdA({
+        $("#grdReservationExtraActivities").paginationTdA({
             elemPerPage: 5
-        });
+        })  ;
     </script>
 }
+

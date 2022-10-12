@@ -30,8 +30,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int Detr_Capacidad { get; set; }
         public decimal? DeTr_Precio { get; set; }
         public string DeTr_Matricula { get; set; }
-        public string DeTr_UsuarioCreacion { get; set; }
-        public string DeTr_UsuarioModifica { get; set; }
+        public int? DeTr_UsuarioCreacion { get; set; }
+        public int? DeTr_UsuarioModifica { get; set; }
 
     }
 }
