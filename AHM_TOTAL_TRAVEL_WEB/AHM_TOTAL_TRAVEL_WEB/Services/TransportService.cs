@@ -77,7 +77,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
 
         #region Transportes
-        public async Task<ServiceResult> TransportList(IEnumerable<TransportListViewModel> model)
+        public async Task<ServiceResult> TransportList()
         {
             var Result = new ServiceResult();
 
