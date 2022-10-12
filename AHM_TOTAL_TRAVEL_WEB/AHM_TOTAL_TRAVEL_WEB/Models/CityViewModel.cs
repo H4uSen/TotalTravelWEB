@@ -9,6 +9,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int ID { get; set; }
         public string Ciudad { get; set; }
+        public int? PaisID { get; set; }
         public string Pais { get; set; }
         public string UsuarioCrea { get; set; }
         public DateTime? FechaCrea { get; set; }
@@ -16,7 +17,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? FechaModifica { get; set; }
     }
 
-    public class CityViewModel
+        public class CityViewModel
     {
         public int Ciud_ID { get; set; }
         public string Ciud_Descripcion { get; set; }
