@@ -136,5 +136,65 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region TiposTransportes
+        public async Task<ServiceResult> TypesTransportList()
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<TypesTransportListViewModel>, IEnumerable<TypesTransportListViewModel>>(req => {
+                    req.Path = $"/API/TypesTransport/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> TypesTransportCreate(TypesTransportViewModel transporte, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<TypesTransportViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/TypesTransport/Insert";
+                    req.Content = transporte;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        #endregion
+
     }
 }
