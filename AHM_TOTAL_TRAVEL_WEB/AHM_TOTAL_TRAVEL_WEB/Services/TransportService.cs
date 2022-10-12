@@ -73,6 +73,68 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> TransportDetailsUpdate(TransportDetailsViewModel transportdetails, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Put<TransportDetailsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DetailsTransportation/Update?id=" + id;
+                    req.Content = transportdetails;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> TransportDetailsDelete(TransportDetailsViewModel transportdetails, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<TransportDetailsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DetailsTransportation/Delete?id=" + id + "&mod=" + transportdetails.DeTr_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         #endregion
 
 
