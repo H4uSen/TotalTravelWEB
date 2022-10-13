@@ -140,7 +140,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Partners
 
-        public async Task<ServiceResult> PartnersList(IEnumerable<PartnersListViewModel> model)
+        public async Task<ServiceResult> PartnersList()
         {
             var result = new ServiceResult();
             try

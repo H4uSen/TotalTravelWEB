@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="container card">
     <div class="ui basic segment">
 
@@ -56,7 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+               @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -84,55 +83,13 @@
                 }
             </tbody>
         </table>
-
-    </div>
-</div>
-
-<!--MODAL CREATE -->
-<div class="ui modal" id="modalCreate">
-    <i class="close icon"></i>
-    <div class="header">
-        Ingresa un transporte
-    </div>
-    <form asp-action="Create" asp-controller="Transport" id="formCreate">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <div class="two fields">
-                    <div class="field">
-                        <label>Tipo transporte</label>
-                        <input name="TiTr_ID" id="TiTr_ID" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
-                    </div>
-                    <div class="field">
-                        <label>Partner</label>
-                        <input name="Part_ID" id="Part_ID" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <label>Dirección</label>
-                        <input name="Dire_ID" id="Dire_ID" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
-                    </div>
-                    <div class="field">
-                        <label>Ciudad</label>
-                        <select asp-items="ViewBag.Ciudades" name="Ciu_ID" class="ui dropdown search"></select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="actions">
-        <button class="ui button" id="close">Cerrar</button>
-        <button class="ui button" id="save">Guardar</button>
     </div>
 </div>
 
 @section Scripts{
 
     <script>
-    // ----------------------------------- EVENTS ------------------------------------
+    // -------------------------------------- EVENTS ---------------------------------------
 
     $("#txtSearch").keyup(function () {
         _this = this;
@@ -167,6 +124,5 @@
 
     };
 </script>
-    <!--<script src="~/js/TypeMenusJs/Update.js"></script>-->
 
 }

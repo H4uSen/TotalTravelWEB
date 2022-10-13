@@ -30,7 +30,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
             var model = new List<RestaurantViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
             //IEnumerable<CityListViewModel> model_City = null;
@@ -43,8 +42,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
 
-            IEnumerable<PartnersListViewModel> model_Partners = null;
-            var partners = await _generalService.PartnersList(model_Partners);
+            //IEnumerable<PartnersListViewModel> model_Partners = null;
+            var partners = await _generalService.PartnersList();
             IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
             ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
             return View();
