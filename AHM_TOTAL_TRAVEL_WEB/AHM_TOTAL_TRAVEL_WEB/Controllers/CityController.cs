@@ -25,7 +25,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<CountriesListViewModel> model_Country = null;
             var country = await _generalService.CountriesList(model_Country);
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
-            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+            ViewBag.pais_ID = new SelectList(data_Country, "ID", "Pais");
 
 
             var token = HttpContext.User.FindFirst("Token").Value;
