@@ -1,0 +1,45 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PartnerTypeViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="user icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Edit information
+                    </div>
+                    <p class="text-capitalize"> Edit information</p>
+                </div>
+            </div>
+            <form asp-action="Update">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Descripcion</label>
+                                <input asp-for="TiPar_Descripcion" />
+                            </div>
+                            <div class="field">
+                                <label>Rol</label>
+                                <input asp-for="Rol_ID"  />
+                            </div>
+                        </div>
+                        
+
+                        <input type="submit" value="Create" class="btn btn-primary" />
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

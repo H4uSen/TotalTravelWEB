@@ -68,6 +68,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _transportService.TransportDetailsList(model);
             IEnumerable<TransportDetailsListViewModel> data = (IEnumerable<TransportDetailsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
+            item.Tprt_ID = element.ID;
+            item.Detr_Capacidad = element.Capacidad;
+            item.DeTr_Precio = element.Precio;
+            item.DeTr_Matricula = element.Matricula;
 
 
             return View(item);

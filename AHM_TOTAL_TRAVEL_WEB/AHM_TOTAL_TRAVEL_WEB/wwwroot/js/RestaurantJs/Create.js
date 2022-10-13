@@ -107,7 +107,7 @@ function createRestaurant() {
             //    images.push(file); //IFORMFILE
             //}
 
-            data.append("file", $("#File").val());
+            data.append("file", $("#File").prop("files")[0]);
             var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");
 
             if (response.data.codeStatus > 0) {
