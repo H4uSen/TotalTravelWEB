@@ -140,7 +140,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Partners
 
-        public async Task<ServiceResult> PartnersList(IEnumerable<PartnersListViewModel> model)
+        public async Task<ServiceResult> PartnersList()
         {
             var result = new ServiceResult();
             try
@@ -374,15 +374,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> PartnerTypeUpdate(PartnerTypeViewModel TipoPartner, string token)
+        public async Task<ServiceResult> PartnerTypeUpdate(PartnerTypeViewModel TipoPartner, int id, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Post<PartnerTypeViewModel, RequestStatus>(req =>
+                var response = await _api.Put<PartnerTypeViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/PartnerType/Update?id=" + TipoPartner.TiPar_ID;
+                    req.Path = $"/API/PartnerType/Update?id=" + id;
                     req.Content = TipoPartner;
                 },
                 token
@@ -404,7 +404,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> ActivitiesDelete(PartnerTypeViewModel TipoPartner, int id, string token)
+        public async Task<ServiceResult> PartnerTypeDelete(PartnerTypeViewModel TipoPartner, int id, string token)
         {
             var Result = new ServiceResult();
 

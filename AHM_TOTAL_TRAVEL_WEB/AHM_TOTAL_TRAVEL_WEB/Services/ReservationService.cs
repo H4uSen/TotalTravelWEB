@@ -45,7 +45,38 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+
+        public async Task<ServiceResult> RestaurantsReservationCreate(ReservationRestaurantsViewModel reservationRestaurants, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ReservationRestaurantsViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/ReservationRestaurant/Insert";
+                    req.Content = reservationRestaurants;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         #endregion
+
+
 
         #region Reservacion Transporte
 
@@ -75,6 +106,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 return Result.Error(Helpers.GetMessage(ex));
                 throw;
             }
+        }
+
+        public async Task<ServiceResult> transportationReservationCreate(ReservationTransportationViewModel  reservationTransportation, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ReservationTransportationViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/ReservationTransportation/Insert";
+                    req.Content = reservationTransportation;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
         }
         #endregion
 
@@ -107,6 +167,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 return Result.Error(Helpers.GetMessage(ex));
                 throw;
             }
+        }
+
+        public async Task<ServiceResult> ExtraActivitiesReservationCreate(ReservationExtraActivitiesViewModel   reservationExtraActivities, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ReservationExtraActivitiesViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/ReservationActivitiesExtra/Insert";
+                    req.Content = reservationExtraActivities;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
         }
         #endregion
     }

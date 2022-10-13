@@ -121,7 +121,7 @@
 
         function DeleteDetalleTransporte(id) {
             const capsula1 = () => {
-                ajaxRequest("/DetailsTransportation/Delete?id=" + id, null, "POST")
+                ajaxRequest("/API/DetailsTransportation/Delete?id=" + id, null, "POST")
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);

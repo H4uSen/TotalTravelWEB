@@ -22,7 +22,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Activities")">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create","ReservationRestaurant")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -125,12 +125,41 @@
                     </tr>
                 }
             </tbody>
-        </table><br>
-
+        </table>
+        <br>
     </div>
 </div>
 <br>
 
+
+<div class="ui modal" id="modalCreate">   
+
+    <i class="close icon">
+        <div class="header">
+            ingrese una reservacion de restaurante
+        </div>>
+        <form asp-action="Create" id="createrestauranreservation" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label  class="control-label"></label>
+                <input id="Resv_ID" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label  class="control-label"></label>
+                <input id="Rest_ID" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label  class="control-label"></label>
+                <input id="ReRe_FechaReservacion" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input id="ReRe_HoraReservacion" class="form-control" />
+            </div>
+        </form>>
+
+</div>>
 
 @section Scripts{
     <script>

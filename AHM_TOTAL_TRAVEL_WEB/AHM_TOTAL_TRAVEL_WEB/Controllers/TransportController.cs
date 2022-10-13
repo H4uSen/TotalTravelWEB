@@ -39,13 +39,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var country = await _generalService.CountriesList(model_Country);
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+            var partners = await _generalService.PartnersList();
+            IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
+            ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+
+            var tipotransporte = await _transportService.TypesTransportList();
+            IEnumerable<TypesTransportListViewModel> data_TipoTransporte = (IEnumerable<TypesTransportListViewModel>)tipotransporte.Data;
+            ViewBag.TiTr_ID = new SelectList(data_TipoTransporte, "ID", "Trasporte");
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TransportViewModel transporte)
         {
-
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -109,5 +117,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //        return View();
         //    }
         //}
+
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (TransportListViewModel)(await _transportService.TransportFind(id, token)).Data;
+
+            return View(transporte);
+        }
     }
 }

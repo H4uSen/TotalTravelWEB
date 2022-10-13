@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     [Produces("multipart/form-data")]
     public class CityController : Controller
     {
-        GeneralService  _generalService;
+        private readonly GeneralService  _generalService;
         public CityController(GeneralService  generalService)
         {
             _generalService = generalService;
@@ -20,6 +21,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
+            IEnumerable<CountriesListViewModel> model_Country = null;
+            var country = await _generalService.CountriesList(model_Country);
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+
             var token = HttpContext.User.FindFirst("Token").Value;
             var model = new List<CityListViewModel>();
             var list = await _generalService.CitiesList(token);
@@ -29,14 +37,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<CityViewModel>();
-
-            //IEnumerable<RestaurantViewModel> model_restaurant = null;
-            //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
-            //IEnumerable<PaisesListViewModel> data_Pais = (IEnumerable<PaisesListViewModel>)pais.Data;
-            //ViewBag.Pais_ID = new SelectList(data_Pais, "ID", "Descripcion");
-
-
             return View();
         }
 
@@ -47,9 +47,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                city.Ciud_UsuarioCreacion = 1.ToString();
+                city.ciud_UsuarioCreacion = 1;
                 var list = await _generalService.CitiesCreate(city, token);
-                return RedirectToAction("Index");
+                if (list.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

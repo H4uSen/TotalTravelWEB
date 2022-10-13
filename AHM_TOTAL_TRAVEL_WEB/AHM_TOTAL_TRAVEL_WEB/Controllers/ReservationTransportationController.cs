@@ -12,7 +12,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
     public class ReservationTransportationController : Controller
     {
-        ReservationService _reservationService;
+         private readonly ReservationService _reservationService;
         public ReservationTransportationController(ReservationService reservationService)
         {
             _reservationService = reservationService;
@@ -25,6 +25,40 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var model = new List<ReservationTransportationListViewModel>();
             var list = await _reservationService.transportationReservationList(model, token);
             return View(list.Data);
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ReservationTransportationViewModel  reservationTransportation)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                reservationTransportation.ReTr_UsuarioCreacion = 1;
+                var list = await _reservationService.transportationReservationCreate(reservationTransportation, token);
+                if (list.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+
         }
     }
 }
