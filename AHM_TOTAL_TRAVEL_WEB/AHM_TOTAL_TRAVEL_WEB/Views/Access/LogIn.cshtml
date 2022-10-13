@@ -66,7 +66,7 @@
                                     <div>
                                         <button class="btn btn-primary mb-3 mt-3" id="login" type="submit">Ingresar</button><br>
                                         <a class="text-md text-paleBlue" href="@Url.Action("RecoverPassword","Access")" style="font-size: medium;">Recuperar contraseña</a><br>
-                                        <small class="text-gray-500" style="font-size: medium;">no tiene una cuenta? </small>
+                                        <small class="text-gray-500" style="font-size: medium;">¿No tiene una cuenta? </small>
                                         <a class="text-sm text-paleBlue" href="@Url.Action("Register","Access")">Registrese</a>
                                     </div>
                                 </form>
@@ -79,6 +79,7 @@
 
     </div>
     <!-- JavaScript files-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/vendor/chart.js/Chart.min.js"></script>
     <script src="../assets/vendor/just-validate/js/just-validate.min.js"></script>
@@ -87,14 +88,6 @@
     <!-- Main File-->
     <script src="../assets/js/front.js"></script>
     <script src="~/js/main.js"></script>
-    @*<script>
-            var validatorName = document.getElementById("labelvalidatorName");
-            if (validatorName.innerHTML == 0) {
-                validatorName.innerHTML = "Rellene este campo";
-            } else {
-                validatorName.innerHTML = " ";
-            }
-        </script>*@
     @{
         if (ViewData["LoginErrorEmail"] != null)
         {

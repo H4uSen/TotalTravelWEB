@@ -20,8 +20,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new List<CountriesListViewModel>();
-            var list = await _generalServices.CountriesList(model);
+            var list = await _generalServices.CountriesList();
             return View(list.Data);
         }
 
@@ -54,8 +53,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
 
             var item = new CountriesViewModel();
-            IEnumerable<CountriesListViewModel> model = null;
-            var list = await _generalServices.CountriesList(model);
+            var list = await _generalServices.CountriesList();
             IEnumerable<CountriesListViewModel> data = (IEnumerable<CountriesListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.Pais_ID = element.ID;

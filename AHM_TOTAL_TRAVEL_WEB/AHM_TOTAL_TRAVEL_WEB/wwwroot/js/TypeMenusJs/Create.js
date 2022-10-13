@@ -21,9 +21,7 @@ $("#sendTypeMenus").click(() => {
 
         $('#createTypeMenusForm').submit()
 
-    } else {
-        $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-    }
+    } 
 
 });
 

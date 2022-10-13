@@ -4,6 +4,7 @@ using AHM_TOTAL_TRAVEL_WEB.WebAPI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class AccessController : Controller
     {
         //int userId;
-        AccessService _accessServices;
-        public AccessController(AccessService accessService)
+        private readonly AccessService _accessServices;
+        private readonly GeneralService _generalService;
+        public AccessController(AccessService accessService, GeneralService generalService)
         {
             _accessServices = accessService;
+            _generalService = generalService;
         }
 
         public IActionResult Login()
@@ -70,8 +73,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             
 
         }
-        public IActionResult Register()
+        public async Task<IActionResult> RegisterAsync()
         {
+           var city = await _generalService.CitiesList();
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+            var country = await _generalService.CountriesList();
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
             return View();
         }
 

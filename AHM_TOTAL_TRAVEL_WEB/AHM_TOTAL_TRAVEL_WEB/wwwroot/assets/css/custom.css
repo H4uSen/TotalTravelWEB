@@ -109,3 +109,21 @@
     color: darkred;
     font-size: 16px;
 }
+
+.text-purple {
+    color: #652D90;
+}
+
+.btn-purple {
+    color: white;
+    background-color: #652D90 !important;
+}
+
+    .btn-purple > i {
+        color: white !important;
+    }
+
+    .btn-purple:hover {
+        color: white;
+        background-color: #3e165a !important;
+    }

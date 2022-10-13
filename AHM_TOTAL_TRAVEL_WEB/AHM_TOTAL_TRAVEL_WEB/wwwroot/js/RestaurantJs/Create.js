@@ -111,7 +111,9 @@ function createRestaurant() {
             var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");
 
             if (response.data.codeStatus > 0) {
-                window.location.href = '/Restaurant';
+                window.location.href = '/Restaurant?success=true';
+
+
             } else {
 
                 $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");

@@ -21,13 +21,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<CountriesListViewModel> model_Country = null;
-            var country = await _generalService.CountriesList(model_Country);
+            var country = await _generalService.CountriesList();
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
 
             string token = HttpContext.User.FindFirst("Token").Value;
             //IEnumerable<CityListViewModel> model_City = null;
-            var city = await _generalService.CitiesList(token);
+            var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
             ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 

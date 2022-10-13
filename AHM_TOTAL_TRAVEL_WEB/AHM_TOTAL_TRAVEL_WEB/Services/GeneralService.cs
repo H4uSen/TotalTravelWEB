@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Ciudades
 
-        public async Task<ServiceResult> CitiesList(string token)
+        public async Task<ServiceResult> CitiesList()
         {
             var Result = new ServiceResult();
 
@@ -28,8 +28,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                     req.Path = $"/API/Cities/List";
                     req.Content = null;
 
-                },
-                token
+                }
                 );
 
                 if (!response.Success)
@@ -258,7 +257,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Countries
 
-        public async Task<ServiceResult> CountriesList(IEnumerable<CountriesListViewModel> model)
+        public async Task<ServiceResult> CountriesList()
         {
             var result = new ServiceResult();
             try
