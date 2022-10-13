@@ -24,6 +24,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            var type = await _activitiesServices.TypesActivitiesList();
+            IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
+            ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
             var model = new List<ActivitiesListViewModel>();
             var list = await _activitiesServices.ActivityList(model);
             return View(list.Data);
@@ -33,7 +36,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Create()
         {
             IEnumerable<TypesActivitiesListViewModel> model = null;
-            var type = await _activitiesServices.TypesActivitiesList(model);
+            var type = await _activitiesServices.TypesActivitiesList();
             IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
             ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
             return View();
@@ -53,7 +56,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 {
                     ViewData["Error"] = response.MessageStatus;
                     IEnumerable<TypesActivitiesListViewModel> model = null;
-                    var type = await _activitiesServices.TypesActivitiesList(model);
+                    var type = await _activitiesServices.TypesActivitiesList();
                     IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
                     ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
                     return View();

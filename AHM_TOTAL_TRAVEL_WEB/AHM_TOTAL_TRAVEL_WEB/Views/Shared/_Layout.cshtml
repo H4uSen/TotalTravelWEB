@@ -34,11 +34,11 @@
         .sidebar-link {
             font-size: 1.3em !important;
         }
-
         .ui.modal {
             left: auto !important;
             top: auto !important;
             height: auto !important;
+            overflow-x: unset !important;
         }
     </style>
     @RenderSection("HeadLinks", required: false)
@@ -173,6 +173,8 @@
                         <ul class="collapse list-unstyled" id="Hotels_Schema">
                             <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
                             <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
+                            <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Hoteles Menu</a></li>
+                            <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Hoteles Actividades</a></li>
 
                         </ul>
                         <a class="sidebar-link" href="#General_Schema" data-toggle="collapse">

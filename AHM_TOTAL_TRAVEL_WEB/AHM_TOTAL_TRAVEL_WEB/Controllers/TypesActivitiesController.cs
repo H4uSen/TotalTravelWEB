@@ -21,7 +21,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new List<TypesActivitiesListViewModel>();
-            var list = await _activitiesServices.TypesActivitiesList(model);
+            var list = await _activitiesServices.TypesActivitiesList();
             return View(list.Data);
         }
 
@@ -55,7 +55,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var item = new TypesActivitiesViewModel();
             IEnumerable<TypesActivitiesListViewModel> model = null;
-            var list = await _activitiesServices.TypesActivitiesList(model);
+            var list = await _activitiesServices.TypesActivitiesList();
             IEnumerable<TypesActivitiesListViewModel> data = (IEnumerable<TypesActivitiesListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.TiAc_ID = element.ID;
