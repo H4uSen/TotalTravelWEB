@@ -15,7 +15,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         {
             _api = api;
         }
+        #region Reservations
+        public async Task<ServiceResult> ReservationList(IEnumerable<ReservationListViewModel> model, string token)
+        {
+            var Result = new ServiceResult();
 
+            try
+            {
+                var response = await _api.Get<IEnumerable<ReservationListViewModel>, IEnumerable<ReservationListViewModel>>(req => {
+                    req.Path = $"/API/Reservation/List";
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+        #endregion
         #region Reservacion Restaurants
 
         public async Task<ServiceResult> RestaurantsReservationList(IEnumerable<ReservationRestaurantsListViewModel> model, string token)
@@ -139,7 +167,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
 
-        #region Reservacion Actividades Extrax
+        #region Reservacion Actividades Extra
 
         public async Task<ServiceResult> ExtraActivitiesReservationList(IEnumerable<ReservationExtraActivitiesListViewModel> model, string token)
         {
