@@ -13,18 +13,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
     public class ReservationRestaurantController : Controller
     {
-        ReservationService  _reservationService;
-        RestaurantService _restaurantService;
+        private readonly ReservationService _reservationService;
+        private readonly RestaurantService _restaurantService;
         public ReservationRestaurantController(ReservationService  reservationService, RestaurantService restaurantService)
         {
             _reservationService = reservationService;
             _restaurantService = restaurantService;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //IEnumerable<RestaurantListViewModel> model_Restaurants = null;
+            //var Restaurants = await _restaurantService.RestaurantsList(model_Restaurants);
+            //IEnumerable<RestaurantListViewModel> data_Restaurante = (IEnumerable<RestaurantListViewModel>)Restaurants.Data;
+            //ViewBag.Rest_ID = new SelectList(data_Restaurante, "ID", "Descripcion");
+
             var token = HttpContext.User.FindFirst("Token").Value;
+
+
             var model = new List<ReservationRestaurantsListViewModel>();
             var list = await _reservationService.RestaurantsReservationList(model, token);
             return View(list.Data);
@@ -33,13 +41,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<ReservationRestaurantsViewModel>();
-                
-            IEnumerable<RestaurantListViewModel> model_Restaurants = null;
-            var Restaurants = await _restaurantService.RestaurantsList(model_Restaurants);
-            IEnumerable<RestaurantListViewModel> data_Pais = (IEnumerable<RestaurantListViewModel>)Restaurants.Data;
-            ViewBag.Rest_ID = new SelectList(data_Pais, "ID", "Descripcion");
-
+ 
 
             return View();
         }
@@ -54,7 +56,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 reservationRestaurants.ReRe_UsuarioCreacion = 1;
                 var list = await _reservationService.RestaurantsReservationCreate(reservationRestaurants, token);
-                return RedirectToAction("Index");
+                if (list.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

@@ -12,7 +12,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
     public class ReservationExtraActivitiesController : Controller
     {
-        ReservationService _reservationService;
+         private readonly ReservationService _reservationService;
         public ReservationExtraActivitiesController(ReservationService reservationService)
         {
             _reservationService = reservationService;
@@ -31,13 +31,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<ReservationExtraActivitiesViewModel>();
-
-            //IEnumerable<RestaurantViewModel> model_restaurant = null;
-            //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
-            //IEnumerable<PaisesListViewModel> data_Pais = (IEnumerable<PaisesListViewModel>)pais.Data;
-            //ViewBag.Pais_ID = new SelectList(data_Pais, "ID", "Descripcion");
-
 
             return View();
         }
@@ -52,7 +45,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 reservationExtraActivities.ReAE_UsuarioCreacion = 1;
                 var list = await _reservationService.ExtraActivitiesReservationCreate(reservationExtraActivities, token);
-                return RedirectToAction("Index");
+                if (list.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
