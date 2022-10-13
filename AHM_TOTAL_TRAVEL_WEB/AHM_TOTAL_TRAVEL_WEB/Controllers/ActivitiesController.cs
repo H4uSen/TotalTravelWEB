@@ -85,7 +85,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                //actividad.actv_UsuarioModifica = 1;
+                actividad.actv_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _activitiesServices.ActivitiesUpdate(actividad, id, token);
                 return RedirectToAction("Index");
             }

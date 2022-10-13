@@ -33,7 +33,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Create(PartnerTypeViewModel TipoPartner)
         {
 
@@ -51,6 +50,59 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+
+            var item = new PartnerTypeViewModel();
+            IEnumerable<PartnerTypeListViewModel> model = null;
+            var list = await _generalServices.PartnerTypeList(model);
+            IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+            item.TiPar_Descripcion = element.Descripcion;
+            item.Rol_ID = element.Rol_ID;
+
+            return View(item);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(PartnerTypeViewModel TipoPartner, int id)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                //TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+
+                var lista = await _generalServices.PartnerTypeUpdate(TipoPartner, id, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(PartnerTypeViewModel TipoPartner, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                TipoPartner.TiPar_UsuarioModifica = 1;
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _generalServices.PartnerTypeDelete(TipoPartner, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
 
     }
 }
