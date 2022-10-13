@@ -207,7 +207,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region TypesActivities
 
-        public async Task<ServiceResult> TypesActivitiesList(IEnumerable<TypesActivitiesListViewModel> model)
+        public async Task<ServiceResult> TypesActivitiesList()
         {
             var result = new ServiceResult();
             try

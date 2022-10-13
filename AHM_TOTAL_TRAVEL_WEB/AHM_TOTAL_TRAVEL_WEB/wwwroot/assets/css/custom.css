@@ -102,6 +102,7 @@
     left: auto !important;
     top: auto !important;
     height: auto !important;
+    overflow-y: unset !important;
 }
 
 .labelvalidator {
