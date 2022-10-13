@@ -37,12 +37,13 @@
                                     <select id="TiTr_ID" class="ui dropdown search" asp-items="ViewBag.TiTr_ID">
                                         <option value="">Seleccione un tipo de transporte</option>
                                     </select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoTransporte"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="field">
                             <div class="two fields">
-                                <div class="field">                                    
+                                <div class="field">
                                     <label>País</label>
                                     <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                         <option value="">Seleccione un país</option>
@@ -52,13 +53,14 @@
                                 <div class="field">
                                     <label>Ciudad</label>
                                     <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudad"></label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="field">
                             <label>Colonia</label>
-                            <input id="Colonia" class="form-control" placeholder="Colonia" />
+                            <input id="Colonia" placeholder="Colonia" />
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
                         </div>
 
@@ -66,18 +68,26 @@
                             <div class="two fields">
                                 <div class="field">
                                     <label>Calle</label>
-                                    <input id="Calle" class="form-control" placeholder="Calle" />
+                                    <input id="Calle" placeholder="Calle" />
                                     <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
                                 </div>
                                 <div class="field">
                                     <label>Avenida</label>
-                                    <input id="Avenida" class="form-control" placeholder="Avenida" />
+                                    <input id="Avenida" placeholder="Avenida" />
                                     <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
                                 </div>
                             </div>
                         </div>
                         <input type="button" value="Crear" onclick="createTransport()" class="btn btn-primary ui positive button" />
                     </div>
+                </div>
+                <div class="ui negative message bottom attached" id="errorDiv">
+                    <div class="header">
+                        An error has occurred while performing the operation.
+                    </div>
+                    <p>
+
+                    </p>
                 </div>
             </form>
             <!-- fin formulario-->
@@ -88,6 +98,7 @@
 @section Scripts {
 
     <script src="~/js/TransportJs/Create.js"></script>
+    <script src="~/js/TransportJs/SelectCiudades.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

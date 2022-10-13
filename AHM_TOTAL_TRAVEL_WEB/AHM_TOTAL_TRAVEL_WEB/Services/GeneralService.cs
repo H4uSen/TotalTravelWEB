@@ -136,6 +136,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
 
+        public async Task<ServiceResult> AddressFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var direccion = new AddressListViewModel();
+
+            try
+            {
+                var response = await _api.Get<AddressListViewModel, AddressListViewModel>(req => {
+                    req.Path = $"/API/Address/Find?id=" + id;
+                    req.Content = direccion;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
         #endregion
 
         #region Partners

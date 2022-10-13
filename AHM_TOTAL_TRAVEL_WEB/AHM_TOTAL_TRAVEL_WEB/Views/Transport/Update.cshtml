@@ -5,40 +5,94 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Update</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon bus"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar
+                    </div>
+                    <p>Edita un registro de transporte.</p>
+                </div>
+            </div>
 
-<h4>TransportViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            @Html.HiddenFor(model=>model.Tprt_ID)
-            <div class="form-group">
-                <label asp-for="TiTr_ID" class="control-label"></label>
-                <input asp-for="TiTr_ID" class="form-control" />
-                <span asp-validation-for="TiTr_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part_ID" class="control-label"></label>
-                <input asp-for="Part_ID" class="form-control" />
-                <span asp-validation-for="Part_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dire_ID" class="control-label"></label>
-                <input asp-for="Dire_ID" class="form-control" />
-                <span asp-validation-for="Dire_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <form>
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Partner</label>
+                                    <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID"></select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></label>
+                                </div>
+                                <div class="field">
+                                    <label>Tipo transporte</label>
+                                    <select id="TiTr_ID" class="ui dropdown search" asp-items="ViewBag.TiTr_ID"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>País</label>
+                                    <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID"></select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
+                                </div>
+                                <div class="field">
+                                    <label>Ciudad</label>
+                                    <select id="City_ID" class="ui dropdown search"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Actualizar dirección</label>
+                            <div class="ui labeled input">
+                                <div class="ui label">
+                                    Colonia
+                                </div>
+                                <input type="text" id="Colonia" value="@ViewData["Colonia"]" />
+                            </div>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
+                        </div>
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Avenida
+                                        </div>
+                                        <input type="text" id="Avenida" value="@ViewData["Avenida"]" />
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Calle
+                                        </div>
+                                        <input type="text" id="Calle" value="@ViewData["Calle"]" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" value="Guardar" onclick="createTransport()" class="btn btn-primary ui positive button" />
+                    </div>
+                </div>
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
+
+    <script src="~/js/TransportJs/Create.js"></script>
+    <script src="~/js/TransportJs/SelectCiudades.js"></script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

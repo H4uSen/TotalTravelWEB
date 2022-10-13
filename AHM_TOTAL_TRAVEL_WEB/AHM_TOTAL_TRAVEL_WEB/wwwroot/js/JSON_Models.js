@@ -42,3 +42,11 @@ var AdressViewModel = {
     "Dire_UsuarioCreacion": Client_User_ID,
     "Dire_UsuarioModifica": Client_User_ID,
 }
+
+var TransportViewModel = {
+    "tiTr_ID": 0,
+    "part_ID": 0,
+    "dire_ID": 0,
+    "tprt_UsuarioCreacion": Client_User_ID,
+    "tprt_UsuarioModifica": Client_User_ID
+}

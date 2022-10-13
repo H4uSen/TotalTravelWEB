@@ -71,6 +71,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
             var item = new TransportViewModel();
             var list = await _transportService.TransportList();
             IEnumerable<TransportListViewModel> data = (IEnumerable<TransportListViewModel>)list.Data;
@@ -79,6 +80,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.TiTr_ID = element.TipoTransporteID;
             item.Part_ID = element.PartnerID;
             item.Dire_ID = element.DireccionId;
+
+            var direccion = ((AddressListViewModel)(await _generalService.AddressFind(item.Dire_ID.ToString(), token)).Data).Direccion;
+            var direccionDetalle = direccion.Split(", ");
+            ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
+            ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
+            ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
+
+            var city = await _generalService.CitiesList(token);
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+            IEnumerable<CountriesListViewModel> model_Country = null;
+            var country = await _generalService.CountriesList(model_Country);
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+            var partners = await _generalService.PartnersList();
+            IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
+            ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+
+            var tipotransporte = await _transportService.TypesTransportList();
+            IEnumerable<TypesTransportListViewModel> data_TipoTransporte = (IEnumerable<TypesTransportListViewModel>)tipotransporte.Data;
+            ViewBag.TiTr_ID = new SelectList(data_TipoTransporte, "ID", "Trasporte");
 
             return View(item);
         }
