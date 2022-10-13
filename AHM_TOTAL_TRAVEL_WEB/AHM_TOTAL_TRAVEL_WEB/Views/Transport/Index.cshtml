@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="container card">
     <div class="ui basic segment">
 
@@ -22,9 +21,9 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="#">
+                <button id="createModal" class="ui small primary labeled icon button">
                     <i class="plus icon"></i> Nuevo
-                </a>
+                </button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -56,7 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+               @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -70,83 +69,60 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon positive button" id="editar">
+                            <a class="ui large icon positive button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon"></i>
-                            </button>
-                            <button class="ui large icon negative button">
+                            </a>
+                            <a class="ui large icon negative button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
+                            </a>
+                            <a class="ui large icon yellow button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
                                 <i class="folder open outline icon"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 }
             </tbody>
-        </table><br>
-
+        </table>
     </div>
 </div>
-
-<!--MODAL DE PRUEBA -->
-<div class="ui modal" id="modalPrueba">
-    <i class="close icon"></i>
-    <div class="header">
-        Modal Title
-    </div>
-    <div class="image content">
-        <div class="image">
-            An image can appear on left or an icon
-        </div>
-        <div class="description">
-            A description can appear on the right
-        </div>
-    </div>
-    <div class="actions">
-        <button class="ui button">Cancel</button>
-        <button class="ui button">OK</button>
-    </div>
-</div>
-
-
-@section CSS{ 
-    <style>
-        .ui.modal {
-            left: auto !important;
-            top: auto !important;
-            height: auto !important;
-        }
-    </style>
-}
-
 
 @section Scripts{
+
     <script>
-        // ----------------------------------- EVENTS ------------------------------------
+    // -------------------------------------- EVENTS ---------------------------------------
 
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#tabla tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#tabla").paginationTdA({
-                elemPerPage: 5
-            });
+    $("#txtSearch").keyup(function () {
+        _this = this;
+        $.each($("#tabla tbody tr"), function () {
+            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            }
         });
 
         $("#tabla").paginationTdA({
             elemPerPage: 5
-        });              
-
-        $("#editar").click(() => {
-            $(".ui.modal").modal('show');            
         });
-        
-    </script>
+    });
+
+    $("#tabla").paginationTdA({
+        elemPerPage: 5
+    });
+
+    $("#editar").click(() => {
+        $(".ui.modal").modal('show');
+    });
+
+    function Delete(id) {
+        const capsula1 = () => {
+            ajaxRequest("/Transports/Delete?id=" + id, null, "POST")
+        };
+
+        sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+
+    };
+</script>
+
 }

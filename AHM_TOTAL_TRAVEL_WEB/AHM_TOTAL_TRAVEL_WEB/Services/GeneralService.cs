@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Ciudades
 
-        public async Task<ServiceResult> CitiesList(IEnumerable<CityListViewModel> model, string token)
+        public async Task<ServiceResult> CitiesList(string token)
         {
             var Result = new ServiceResult();
 
@@ -140,7 +140,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Partners
 
-        public async Task<ServiceResult> PartnersList(IEnumerable<PartnersListViewModel> model)
+        public async Task<ServiceResult> PartnersList()
         {
             var result = new ServiceResult();
             try
@@ -295,6 +295,126 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 {
                     req.Path = $"/API/Countries/Update?id=" + actividad.Pais_ID;
                     req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
+
+        #region PartnerType
+
+        public async Task<ServiceResult> PartnerTypeList(IEnumerable<PartnerTypeListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<PartnerTypeListViewModel>, IEnumerable<PartnerTypeListViewModel>>(req => {
+                    req.Path = $"/API/PartnerType/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> PartnerTypeCreate(PartnerTypeViewModel TipoPartner, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<PartnerTypeViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PartnerType/Insert";
+                    req.Content = TipoPartner;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PartnerTypeUpdate(PartnerTypeViewModel TipoPartner, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<PartnerTypeViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PartnerType/Update?id=" + id;
+                    req.Content = TipoPartner;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PartnerTypeDelete(PartnerTypeViewModel TipoPartner, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<PartnerTypeViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PartnerType/Delete?id=" + id + "&mod=" + TipoPartner.TiPar_UsuarioModifica;
+                    req.Content = null;
                 },
                 token
                 );

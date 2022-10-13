@@ -26,23 +26,29 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="field">
-                                    <input id="ID" class="form-control" placeholder="ID (required)" />
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <label asp-for="Habi_Nombre" class="form-control"></label>
+                                    <input asp-for="Habi_Nombre" class="form-control" />
+                                    <span asp-validation-for="Habi_Nombre" class="text-danger"></span>
                                 </div>
                                 <div class="field">
-                                    <input id="Habitacion" class="form-control" placeholder="Habitacion (required)" />
-                                </div>
-                                <div class="field">
-                                    <input id="Descripcion" class="form-control" placeholder="Descripcion(required)" />
+                                    <label asp-for="Habi_Descripcion" class="form-control"></label>
+                                    <input asp-for="Habi_Descripcion" class="form-control" />
+                                    <span asp-validation-for="Habi_Descripcion" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="field">
                             <div class="two fields">
                                 <div class="field">
-                                    <input id="Categoria" class="form-control" placeholder="Categoria (required)" />
+                                    <label asp-for="CaHa_ID" class="form-control"></label>
+                                    <input asp-for="CaHa_ID" class="form-control" />
+                                    <span asp-validation-for="CaHa_ID" class="text-danger"></span>
                                 </div>
                                 <div class="field">
-                                    <input id="Hotel" class="form-control" placeholder="Hotel(required)" />
+                                    <label asp-for="Hote_ID" class="form-control"></label>
+                                    <input asp-for="Hote_ID" class="form-control" />
+                                    <span asp-validation-for="Hote_ID" class="text-danger"></span>
                                 </div>
                             </div>
 
@@ -50,29 +56,27 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="field">
-                                    <input id="Precio" class="form-control" placeholder="Precio (required)" />
+                                    <label asp-for="Habi_Precio" class="form-control"></label>
+                                    <input asp-for="Habi_Precio" class="form-control" />
+                                    <span asp-validation-for="Habi_Precio" class="text-danger"></span>
                                 </div>
 
                                 <div class="field">
 
-                                    <input id="UsuarioCreacion" class="form-control" placeholder="UsuarioCrea (required)" />
+                                    <label asp-for="Habi_UsuarioCreacion" class="form-control"></label>
+                                    <input asp-for="Habi_UsuarioCreacion" class="form-control" />
+                                    <span asp-validation-for="Habi_UsuarioCreacion" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="two fields">
-                            <div class="field">
-                                <label class="control-label">Imagen</label>
-                                <input id="File" type="file" class="form-control" multiple />
-                            </div>
-                        </div>
-                        <input type="button" value="Create" onclick="createRoomst()" class="btn btn-primary ui positive button" />
+                        <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
                 </div>
-
             </form>
             <!-- fin formulario-->
         </div>
     </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
-<script src="~/js/RoomsJs/Create.js"></script>

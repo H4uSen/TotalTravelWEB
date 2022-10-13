@@ -22,7 +22,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             var token = HttpContext.User.FindFirst("Token").Value;
             var model = new List<CityListViewModel>();
-            var list = await _generalService.CitiesList(model, token);
+            var list = await _generalService.CitiesList(token);
             return View(list.Data);
         }
 

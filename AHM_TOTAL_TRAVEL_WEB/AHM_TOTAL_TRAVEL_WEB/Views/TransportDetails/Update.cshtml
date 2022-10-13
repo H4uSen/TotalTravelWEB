@@ -1,0 +1,53 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.TransportDetailsViewModel
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon car"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                       Edit information
+                    </div>
+                    <p class="text-capitalize"> Edit information</p>
+                </div>
+            </div>
+            <form asp-action="Create">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Transporte ID</label>
+                                <input asp-for="Tprt_ID" />
+                            </div>
+                            <div class="field">
+                                <label>Capacidad</label>
+                                <input asp-for="Detr_Capacidad" />
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Precio</label>
+                                <input asp-for="DeTr_Precio" />
+                            </div>
+                            <div class="field">
+                                <label>Matricula</label>
+                                <input asp-for="DeTr_Matricula" />
+                            </div>
+
+                        </div>
+
+                        <input type="submit" value="Create" class="btn btn-primary" />
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

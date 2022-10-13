@@ -47,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                transportdetails.DeTr_UsuarioCreacion = 1;
                 var list = await _transportService.TransportDetailsCreate(transportdetails, token);
                 return RedirectToAction("Index");
             }
@@ -56,6 +56,62 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
 
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+
+            var item = new TransportDetailsViewModel();
+            IEnumerable<TransportDetailsListViewModel> model = null;
+            var list = await _transportService.TransportDetailsList(model);
+            IEnumerable<TransportDetailsListViewModel> data = (IEnumerable<TransportDetailsListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+            item.Tprt_ID = element.ID;
+            item.Detr_Capacidad = element.Capacidad;
+            item.DeTr_Precio = element.Precio;
+            item.DeTr_Matricula = element.Matricula;
+
+
+            return View(item);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(TransportDetailsViewModel transportdetails, int id)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                transportdetails.DeTr_UsuarioModifica = 1;
+                var lista = await _transportService.TransportDetailsUpdate(transportdetails, id, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(TransportDetailsViewModel transportdetails, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                transportdetails.DeTr_UsuarioModifica = 1;
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _transportService.TransportDetailsDelete(transportdetails, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

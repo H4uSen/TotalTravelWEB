@@ -20,7 +20,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _activitiesServices.ExtraActivitiesList(token);
+            var model = new List<ActivitiesExtrasListViewModel>();
+            var list = await _activitiesServices.ExtraActivitiesList(model, token);
             return View(list.Data);
         }
 
@@ -37,7 +38,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.AcEx_UsuarioModifica = 1;
+                actividad.acEx_UsuarioModifica = 1;
                 var list = await _activitiesServices.ActivitiesExtraCreate(actividad, token);
                 return RedirectToAction("Index");
             }

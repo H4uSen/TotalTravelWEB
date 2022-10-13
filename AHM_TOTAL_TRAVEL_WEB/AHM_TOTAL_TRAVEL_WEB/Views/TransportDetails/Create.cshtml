@@ -10,7 +10,7 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="user plus icon"></i>
+                <i class="icon car"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         create a new users
@@ -18,48 +18,42 @@
                     <p class="text-capitalize">create a new user and/or add a partner account.</p>
                 </div>
             </div>
-        </div>
-        <form asp-action="Create">
-            <div class="ui form attached fluid segment">     
-                <div class="content">
-                    <div class="three fields">
-                        <div class="field">
-                            <label>Transporte ID</label>
-                            <input asp-for="Tprt_ID" />
+            <form asp-action="Create">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Transporte ID</label>
+                                <input asp-for="Tprt_ID" />
+                            </div>
+                            <div class="field">
+                                <label>Capacidad</label>
+                                <input asp-for="Detr_Capacidad" />
+                            </div>
                         </div>
-                        <div class="field">
-                            <label>Horario</label>
-                            <input asp-for="HoTr_ID" />
-                        </div>
-                        <div class="field">
-                            <label>Capacidad</label>
-                            <input asp-for="Detr_Capacidad" />
-                        </div>
-                    </div>
-                    <div class="three fields">
-                        <div class="field">
-                            <label>Precio</label>
-                            <input asp-for="DeTr_Precio" />
-                        </div>
-                        <div class="field">
-                            <label>Matricula</label>
-                            <input asp-for="DeTr_Matricula" />
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Precio</label>
+                                <input asp-for="DeTr_Precio" />
+                            </div>
+                            <div class="field">
+                                <label>Matricula</label>
+                                <input asp-for="DeTr_Matricula" />
+                            </div>
+
                         </div>
 
-                    </div>
-                    <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />
+
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
 
 
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

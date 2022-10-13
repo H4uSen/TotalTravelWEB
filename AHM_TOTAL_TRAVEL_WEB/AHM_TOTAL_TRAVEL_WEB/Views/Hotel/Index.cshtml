@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="#">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create", "Hotel")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -43,6 +43,8 @@
             <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th><th>
                         @Html.DisplayNameFor(model => model.Hotel)
                     </th>
                     <th>
@@ -62,6 +64,8 @@
                 {
                      <tr>
                          <td>
+                             @Html.DisplayFor(modelItem => item.ID)
+                         </td><td>
                              @Html.DisplayFor(modelItem => item.Hotel)
                          </td>
                          <td>
