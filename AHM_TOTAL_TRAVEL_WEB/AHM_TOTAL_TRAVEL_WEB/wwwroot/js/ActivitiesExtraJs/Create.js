@@ -10,6 +10,10 @@ $("#closeActivity").click(() => {
     $("#modalCreate").modal('hide');
 });
 
+$("#sendActivity").click(() => {
+    validar();
+})
+
 function validar() {
     if ($("#Actividad").val() == 0) {
         $("#labelvalidatorActividad").html("Ingrese una Descripcion");
@@ -24,7 +28,7 @@ function validar() {
         $("#labelvalidatorTipoActividad").html(" ");
     }
     if ($("#Actividad").val() != 0 && $("#tipoActividad").val() != 0) {
-        $("#CreateActivity").submit();
+        $("#createActivitiesForm").submit();
     }
 
 }
