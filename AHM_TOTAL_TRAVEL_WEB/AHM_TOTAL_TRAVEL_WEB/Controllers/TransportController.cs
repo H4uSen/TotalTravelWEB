@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class TransportController : Controller
     {
         private readonly TransportService _transportService;
+        private readonly GeneralService _generalService;
 
-        public TransportController(TransportService transportService)
+        public TransportController(TransportService transportService, GeneralService generalService)
         {
             _transportService = transportService;
+            _generalService = generalService;
         }
 
         //[HttpGet]
@@ -25,8 +28,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var city = await _generalService.CitiesList(token);
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+            IEnumerable<CountriesListViewModel> model_Country = null;
+            var country = await _generalService.CountriesList(model_Country);
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
             return View();
         }
 
@@ -79,5 +91,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Delete(TransportViewModel transporte, int id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var idd = HttpContext.User.FindFirst("User_Id").Value;
+        //        transporte.Tprt_UsuarioModifica = int.Parse(idd);
+        //        string token = HttpContext.User.FindFirst("Token").Value;
+        //        var list = await _transportService.TransportDelete(transporte, id, token);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

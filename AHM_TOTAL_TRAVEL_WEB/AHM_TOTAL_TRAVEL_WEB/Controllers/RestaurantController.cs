@@ -33,8 +33,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var model = new List<RestaurantViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
-            IEnumerable<CityListViewModel> model_City = null;
-            var city = await _generalService.CitiesList(model_City, token);
+            //IEnumerable<CityListViewModel> model_City = null;
+            var city = await _generalService.CitiesList(token);
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
             ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 

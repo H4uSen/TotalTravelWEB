@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Ciudades
 
-        public async Task<ServiceResult> CitiesList(IEnumerable<CityListViewModel> model, string token)
+        public async Task<ServiceResult> CitiesList(string token)
         {
             var Result = new ServiceResult();
 

@@ -14,7 +14,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
     public class AccessController : Controller
     {
-        int userId;
+        //int userId;
         AccessService _accessServices;
         public AccessController(AccessService accessService)
         {

@@ -29,6 +29,10 @@
                 <span asp-validation-for="Dire_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label>Ciudad</label>
+                <select asp-items="ViewBag.Ciudades" name="Ciu_ID" class="ui dropdown search"></select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

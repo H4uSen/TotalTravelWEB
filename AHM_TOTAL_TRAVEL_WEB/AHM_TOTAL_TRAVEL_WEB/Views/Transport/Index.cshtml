@@ -22,9 +22,9 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create", "Transport")">
+                <button id="createModal" class="ui small primary labeled icon button">
                     <i class="plus icon"></i> Nuevo
-                </a>
+                </button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -56,8 +56,8 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach (var item in Model)
-               {
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.TipoTransporte)
@@ -73,7 +73,7 @@
                             <a class="ui large icon positive button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon"></i>
                             </a>
-                            <a class="ui large icon negative button">
+                            <a class="ui large icon negative button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </a>
                             <a class="ui large icon yellow button">
@@ -88,65 +88,85 @@
     </div>
 </div>
 
-<!--MODAL DE PRUEBA -->
-<div class="ui modal" id="modalPrueba">
+<!--MODAL CREATE -->
+<div class="ui modal" id="modalCreate">
     <i class="close icon"></i>
     <div class="header">
-        Modal Title
+        Ingresa un transporte
     </div>
-    <div class="image content">
-        <div class="image">
-            An image can appear on left or an icon
+    <form asp-action="Create" asp-controller="Transport" id="formCreate">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Tipo transporte</label>
+                        <input name="TiTr_ID" id="TiTr_ID" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                    </div>
+                    <div class="field">
+                        <label>Partner</label>
+                        <input name="Part_ID" id="Part_ID" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Dirección</label>
+                        <input name="Dire_ID" id="Dire_ID" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                    </div>
+                    <div class="field">
+                        <label>Ciudad</label>
+                        <select asp-items="ViewBag.Ciudades" name="Ciu_ID" class="ui dropdown search"></select>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="description">
-            A description can appear on the right
-        </div>
-    </div>
+    </form>
     <div class="actions">
-        <button class="ui button">Cancel</button>
-        <button class="ui button">OK</button>
+        <button class="ui button" id="close">Cerrar</button>
+        <button class="ui button" id="save">Guardar</button>
     </div>
 </div>
 
-
-@section CSS{ 
-    <style>
-        .ui.modal {
-            left: auto !important;
-            top: auto !important;
-            height: auto !important;
-        }
-    </style>
-}
-
-
 @section Scripts{
+
     <script>
-        // ----------------------------------- EVENTS ------------------------------------
+    // ----------------------------------- EVENTS ------------------------------------
 
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#tabla tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#tabla").paginationTdA({
-                elemPerPage: 5
-            });
+    $("#txtSearch").keyup(function () {
+        _this = this;
+        $.each($("#tabla tbody tr"), function () {
+            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            }
         });
 
         $("#tabla").paginationTdA({
             elemPerPage: 5
-        });              
-
-        $("#editar").click(() => {
-            $(".ui.modal").modal('show');            
         });
-        
-    </script>
+    });
+
+    $("#tabla").paginationTdA({
+        elemPerPage: 5
+    });
+
+    $("#editar").click(() => {
+        $(".ui.modal").modal('show');
+    });
+
+    function Delete(id) {
+        const capsula1 = () => {
+            ajaxRequest("/Transports/Delete?id=" + id, null, "POST")
+        };
+
+        sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+
+    };
+</script>
+    <!--<script src="~/js/TypeMenusJs/Update.js"></script>-->
+
 }
