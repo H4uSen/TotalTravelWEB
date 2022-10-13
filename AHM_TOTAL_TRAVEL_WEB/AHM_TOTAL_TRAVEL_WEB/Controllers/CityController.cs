@@ -47,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                city.Ciud_UsuarioCreacion = 1.ToString();
+                city.ciud_UsuarioCreacion = 1;
                 var list = await _generalService.CitiesCreate(city, token);
                 return RedirectToAction("Index");
             }

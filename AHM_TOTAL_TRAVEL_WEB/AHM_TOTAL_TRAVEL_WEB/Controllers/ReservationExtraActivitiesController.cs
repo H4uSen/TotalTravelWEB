@@ -26,6 +26,40 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _reservationService.ExtraActivitiesReservationList(model, token);
             return View(list.Data);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var model = new List<ReservationExtraActivitiesViewModel>();
+
+            //IEnumerable<RestaurantViewModel> model_restaurant = null;
+            //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
+            //IEnumerable<PaisesListViewModel> data_Pais = (IEnumerable<PaisesListViewModel>)pais.Data;
+            //ViewBag.Pais_ID = new SelectList(data_Pais, "ID", "Descripcion");
+
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ReservationExtraActivitiesViewModel  reservationExtraActivities)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                reservationExtraActivities.ReAE_UsuarioCreacion = 1;
+                var list = await _reservationService.ExtraActivitiesReservationCreate(reservationExtraActivities, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
     }
 
 }
