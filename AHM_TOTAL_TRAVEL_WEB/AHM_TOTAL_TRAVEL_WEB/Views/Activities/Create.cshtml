@@ -19,19 +19,19 @@
             </div>
 
             <!-- formulario-->
-            <form>
+            <form id="CreateActivity" asp-action="Create">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
 
                         <div class="field">
-                            <label class="control-label">Actividades</label>
+                            <label>Actividades</label>
                             <div class="two fields">
                                 <div class="field">
-                                    <input id="Actividad" class="form-control" placeholder="Descripcion de la Actividad" />
+                                    <input id="Actividad" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
                                 </div>
                                 <div class="field">
-                                    <select id="tipoActividad" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
+                                    <select id="tipoActividad" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
                                         <option value="">Seleccione el tipo de Actividad</option>
                                     </select>
                                 </div>
@@ -43,8 +43,16 @@
 
                         <input type="button" value="Crear" onclick="validar()" class="btn btn-primary ui positive button" />
                     </div>
-                </div>
 
+                </div>
+                <div class="ui negative message bottom attached" id="errorDiv">
+                    <div class="header">
+                        An error has occurred while performing the operation
+                    </div>
+                    <p>
+
+                    </p>
+                </div>
             </form>
             <!-- fin formulario-->
         </div>
@@ -53,22 +61,32 @@
 
 
 @section Scripts{
+
     <script>
+        $("#errorDiv").hide();
+        $('.ui.dropdown').dropdown();
         function validar() {
             if ($("#Actividad").val() == 0) {
                 iziToastAlert("Error", "Campos Actividad Vacio", "error");
             }
-            else {
-
-            }
-            if ($("#tipoActividad").val() == 0) {
+            else if ($("#tipoActividad").val() == 0) {
                 iziToastAlert("Error", "Seleccione un tipo de Actividad", "error");
             }
             else {
-
+                $("#CreateActivity").submit();
             }
-            
 
         }
+
+
     </script>
+    @{
+        if (ViewData["Error"] != null)
+        {
+            <script>
+                $("#errorDiv").show();
+                $("#errorDiv p").html("@ViewData["Error"]");
+            </script>
+        }
+    }
 }
