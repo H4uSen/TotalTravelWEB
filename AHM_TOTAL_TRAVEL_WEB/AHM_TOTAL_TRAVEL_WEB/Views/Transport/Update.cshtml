@@ -32,6 +32,7 @@
                                 <div class="field">
                                     <label>Tipo transporte</label>
                                     <select id="TiTr_ID" class="ui dropdown search" asp-items="ViewBag.TiTr_ID"></select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoTransporte"></label>
                                 </div>
                             </div>
                         </div>
@@ -45,6 +46,7 @@
                                 <div class="field">
                                     <label>Ciudad</label>
                                     <select id="City_ID" class="ui dropdown search"></select>
+                                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudad"></label>
                                 </div>
                             </div>
                         </div>
@@ -68,6 +70,7 @@
                                             Avenida
                                         </div>
                                         <input type="text" id="Avenida" value="@ViewData["Avenida"]" />
+                                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
                                     </div>
                                 </div>
                                 <div class="field">
@@ -76,12 +79,21 @@
                                             Calle
                                         </div>
                                         <input type="text" id="Calle" value="@ViewData["Calle"]" />
+                                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="button" value="Guardar" onclick="createTransport()" class="btn btn-primary ui positive button" />
+                        <input type="button" value="Guardar" onclick="updateTransport()" class="btn btn-primary ui positive button" />
                     </div>
+                </div>
+                <div class="ui negative message bottom attached" id="errorDiv">
+                    <div class="header">
+                        An error has occurred while performing the operation.
+                    </div>
+                    <p>
+
+                    </p>
                 </div>
             </form>
             <!-- fin formulario-->
@@ -91,7 +103,7 @@
 
 @section Scripts {
 
-    <script src="~/js/TransportJs/Create.js"></script>
+    <script src="~/js/TransportJs/Update.js"></script>
     <script src="~/js/TransportJs/SelectCiudades.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
