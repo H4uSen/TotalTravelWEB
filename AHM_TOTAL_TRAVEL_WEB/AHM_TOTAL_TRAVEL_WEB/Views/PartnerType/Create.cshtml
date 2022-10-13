@@ -9,7 +9,7 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="fa-duotone fa-car"></i>
+                <i class="user icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         create a new users
@@ -21,7 +21,7 @@
                 <div class="ui form attached fluid segment">
                     <div class="content">
                         <div class="three fields">
-                           
+
                             <div class="field">
                                 <label>Descripcion</label>
                                 <input asp-for="TiPar_Descripcion" />
@@ -31,10 +31,12 @@
                                 <input asp-for="Rol_ID" />
                             </div>
                         </div>
-                  
 
-                        <input type="button" value="Crear" class="btn btn-primary ui positive button" />
 
+                        <input type="submit" value="Crear" class="btn btn-primary ui positive button" />
+                        <div>
+                            <a asp-action="Index">Back to List</a>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -44,7 +46,5 @@
 
 
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

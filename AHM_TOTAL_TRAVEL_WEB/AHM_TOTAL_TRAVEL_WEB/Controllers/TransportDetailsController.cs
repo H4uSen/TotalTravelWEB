@@ -47,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                transportdetails.DeTr_UsuarioCreacion = 1;
                 var list = await _transportService.TransportDetailsCreate(transportdetails, token);
                 return RedirectToAction("Index");
             }
