@@ -1,0 +1,78 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon bus"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles
+                    </div>
+                    <p>Detalles de un transporte.</p>
+                </div>
+            </div>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Partner</label>
+                                @Html.DisplayFor(model => model.NombrePartner)
+
+                            </div>
+                            <div class="field">
+                                <label>Tipo transporte</label>
+                                @Html.DisplayFor(model => model.TipoTransporte)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Dirección</label>
+                        @Html.DisplayFor(model => model.Direccion)
+                    </div>
+                </div>
+            </div>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario Creación
+                        </th>
+                        <th>
+                            Fecha Creación
+                        </th>
+                        <th>
+                            Usuario modifica
+                        </th>
+                        <th>
+                            Fecha modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaModifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

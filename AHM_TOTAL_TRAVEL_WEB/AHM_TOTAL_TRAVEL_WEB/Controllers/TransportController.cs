@@ -54,7 +54,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TransportViewModel transporte)
         {
-
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -118,5 +117,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //        return View();
         //    }
         //}
+
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (TransportListViewModel)(await _transportService.TransportFind(id, token)).Data;
+
+            return View(transporte);
+        }
     }
 }

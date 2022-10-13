@@ -75,7 +75,7 @@
                             <a class="ui large icon negative button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </a>
-                            <a class="ui large icon yellow button">
+                            <a class="ui large icon yellow button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
                                 <i class="folder open outline icon"></i>
                             </a>
                         </td>
