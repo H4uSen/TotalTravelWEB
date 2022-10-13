@@ -26,6 +26,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string TiPar_Descripcion { get; set; }
         public int Rol_ID { get; set; }
         public int TiPar_UsuarioCreacion { get; set; }
-       
+        public int TiPar_UsuarioModifica { get; set; }
+
+
+
     }
 }

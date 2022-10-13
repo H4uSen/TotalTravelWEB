@@ -403,6 +403,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> ActivitiesDelete(PartnerTypeViewModel TipoPartner, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<PartnerTypeViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PartnerType/Delete?id=" + id + "&mod=" + TipoPartner.TiPar_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         #endregion
     }
 }
