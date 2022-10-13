@@ -20,7 +20,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new List<TypeMenusListViewModel>();
-            var list = await _restaurantServices.TypeMenusList(model);
+            var list = await _restaurantServices.TypeMenusList();
             return View(list.Data);
         }
 
@@ -43,6 +43,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string UserID = HttpContext.User.FindFirst("User_Id").Value;
                 typeMenus.Time_UsuarioCreacion = Convert.ToInt32(UserID);
                 var list = await _restaurantServices.typeMenusCreate(typeMenus, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var item = new TypeMenusViewModel();
+            var list = await _restaurantServices.TypeMenusList();
+            IEnumerable<TypeMenusListViewModel> data = (IEnumerable<TypeMenusListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+
+            item.Time_ID = element.ID;
+            item.Time_Descripcion = element.descripcion;
+
+            return View(item);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(TypeMenusViewModel TypeMenus)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                TypeMenus.Time_UsuarioModifica = int.Parse(idd);
+                var lista = await _restaurantServices.TypeMenusUpdate(TypeMenus, token);
                 return RedirectToAction("Index");
             }
             else

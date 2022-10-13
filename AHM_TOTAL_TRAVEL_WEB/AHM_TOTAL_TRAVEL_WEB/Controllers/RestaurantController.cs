@@ -23,7 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new List<RestaurantListViewModel>();
-            var list = await _restaurantServices.RestaurantsList(model);
+            var list = await _restaurantServices.RestaurantsList();
             return View(list.Data);
         }
 
@@ -68,6 +68,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var item = new RestaurantListViewModel();
+            var list = await _restaurantServices.RestaurantsList();
+
+            IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+            item.ID = element.ID;
+            item.Partner = element.Partner;
+            item.Restaurante = element.Restaurante;
+            item.Direccion = element.Direccion;
+
+            return View(item);
+        }
+
 
     }
 }

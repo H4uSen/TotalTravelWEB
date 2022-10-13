@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #region Restaurants
 
-        public async Task<ServiceResult> RestaurantsList(IEnumerable<RestaurantListViewModel> model)
+        public async Task<ServiceResult> RestaurantsList()
         {
             var Result = new ServiceResult();
 
@@ -75,6 +75,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
 
+
         #endregion
 
         #region Menus
@@ -108,7 +109,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
         #region TypeMenus
-        public async Task<ServiceResult> TypeMenusList(IEnumerable<TypeMenusListViewModel> model)
+        public async Task<ServiceResult> TypeMenusList()
         {
             var Result = new ServiceResult();
 
@@ -163,6 +164,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+
+        public async Task<ServiceResult> TypeMenusUpdate(TypeMenusViewModel typeMenus, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<TypeMenusViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/MenuTypes/Update?id=" + typeMenus.Time_ID;
+                    req.Content = typeMenus;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
     }

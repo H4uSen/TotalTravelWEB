@@ -1,10 +1,10 @@
 ﻿var send = false;
 $("#createTypeMenus").click(() => {
-    $(".ui.modal").modal('show');
+    $("#modalCreate").modal('show');
 });
 
 $("#closeTypeMenus").click(() => {
-    $(".ui.modal").modal('hide');
+    $("#modalCreate").modal('hide');
 });
 
 $("#sendTypeMenus").click(() => {
@@ -16,14 +16,13 @@ $("#sendTypeMenus").click(() => {
         $("#labelvalidatorError").html(" ");
         send = true;
     }
-    console.log($('#Time_Descripcion').val());
 
     if (send) {
 
         $('#createTypeMenusForm').submit()
 
     } else {
-        console.log("no se envia");
+        $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
     }
 
 });

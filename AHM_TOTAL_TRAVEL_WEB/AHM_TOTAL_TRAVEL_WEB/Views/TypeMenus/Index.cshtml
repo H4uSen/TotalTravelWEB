@@ -61,7 +61,7 @@
                             @Html.DisplayFor(modelItem => item.descripcion)
                         </td>
                         <td>
-                            <button class="ui large icon positive button">
+                            <button type="button" class="ui large icon positive button" onclick="GetTypeMenus('@item.ID')">
                                 <i class="pencil alternate icon"></i>
                             </button>
                             <button class="ui large icon negative button">
@@ -91,12 +91,11 @@
             <div class="content">
 
                 <div class="field">
-                    <div class="form-group">
-                        <label class="control-label">Descripción</label>
-                        <input name="Time_Descripcion" id="Time_Descripcion" class="form-control" />
-                    </div>
+                    <label>Descripción</label>
+                    <input name="Time_Descripcion" id="Time_Descripcion" />
                     <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
                 </div>
+
             </div>
         </div>
     </form>
@@ -106,8 +105,32 @@
     </div>
 </div>
 
+<div class="ui modal" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un tipo de menú
+    </div>
+    <form asp-action="Update" asp-controller="TypeMenus" id="updateTypeMenusForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+
+                <div class="field">
+                    <input name="Time_ID" id="Time_ID" />
+                    <label>Descripción</label>
+                    <input name="Time_Descripcion" id="Time_DescripcionUpdate" />
+                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorUpdateError"></label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeEditTypeMenus">Cerrar</button>
+        <button class="ui button" id="sendEditTypeMenus">Guardar</button>
+    </div>
+</div>
 
 
 @section Scripts{
     <script src="~/js/TypeMenusJs/Create.js"></script>
+    <script src="~/js/TypeMenusJs/Update.js"></script>
 }
