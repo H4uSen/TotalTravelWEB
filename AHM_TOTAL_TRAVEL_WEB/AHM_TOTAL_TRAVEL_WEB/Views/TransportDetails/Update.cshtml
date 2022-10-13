@@ -6,47 +6,48 @@
 }
 
 <h1>Editar</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon car"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                       Edit information
+                    </div>
+                    <p class="text-capitalize"> Edit information</p>
+                </div>
+            </div>
+            <form asp-action="Create">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Transporte ID</label>
+                                <input asp-for="Tprt_ID" />
+                            </div>
+                            <div class="field">
+                                <label>Capacidad</label>
+                                <input asp-for="Detr_Capacidad" />
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Precio</label>
+                                <input asp-for="DeTr_Precio" />
+                            </div>
+                            <div class="field">
+                                <label>Matricula</label>
+                                <input asp-for="DeTr_Matricula" />
+                            </div>
 
-<h4>TransportDetailsViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Tprt_ID" class="control-label"></label>
-                <input asp-for="Tprt_ID" class="form-control" />
-                <span asp-validation-for="Tprt_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoTr_ID" class="control-label"></label>
-                <input asp-for="HoTr_ID" class="form-control" />
-                <span asp-validation-for="HoTr_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Detr_Capacidad" class="control-label"></label>
-                <input asp-for="Detr_Capacidad" class="form-control" />
-                <span asp-validation-for="Detr_Capacidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeTr_Precio" class="control-label"></label>
-                <input asp-for="DeTr_Precio" class="form-control" />
-                <span asp-validation-for="DeTr_Precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeTr_Matricula" class="control-label"></label>
-                <input asp-for="DeTr_Matricula" class="form-control" />
-                <span asp-validation-for="DeTr_Matricula" class="text-danger"></span>
-            </div>
-       
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                        </div>
+
+                        <input type="submit" value="Create" class="btn btn-primary" />
+
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

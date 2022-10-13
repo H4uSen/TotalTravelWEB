@@ -42,18 +42,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ActivitiesViewModel actividad)
         {
-
-            if (ModelState.IsValid)
-            {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.actv_UsuarioCreacion = 1;
-                var list = await _activitiesServices.ActivitiesCreate(actividad, token);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
-            }
+                RequestStatus response = (RequestStatus)(await _activitiesServices.ActivitiesCreate(actividad, token)).Data;
+                if (response.CodeStatus != 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewData["Error"] = response.MessageStatus;
+                    IEnumerable<TypesActivitiesListViewModel> model = null;
+                    var type = await _activitiesServices.TypesActivitiesList(model);
+                    IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
+                    ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
+                    return View();
+                };
+          
 
         }
 
