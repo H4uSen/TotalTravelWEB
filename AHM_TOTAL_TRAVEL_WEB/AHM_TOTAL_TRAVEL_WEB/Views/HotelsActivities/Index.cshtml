@@ -1,0 +1,157 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.HotelsActivitiesListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="bus icon"></i>
+            <div class="content">
+                <div class="header">
+                    Transportes
+                </div>
+                <p>Create, Update, Delete or Search and Filter Users.</p>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <a class="ui small primary labeled icon button" href="@Url.Action("Create", "TypesTransport")">
+                    <i class="plus icon"></i> Nuevo
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="tabla">
+            <thead>
+                <tr>
+                    <th>
+                        Actividad
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+                    <th>
+                        Hotel
+                    </th>
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Actividad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hotel)
+                    </td>
+
+
+                    <td>
+                        <a class="ui large icon positive button" id="editar" href="@Url.Action("Update", "HotelsMenu", new { id=item.ID })">
+                            <i class="pencil alternate icon"></i>
+                        </a>
+                        <button class="ui large icon negative button">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <button class="ui large icon yellow button">
+                            <i class="folder open outline icon"></i>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+
+<!--MODAL DE PRUEBA -->
+<div class="ui modal" id="modalPrueba">
+    <i class="close icon"></i>
+    <div class="header">
+        Modal Title
+    </div>
+    <div class="image content">
+        <div class="image">
+            An image can appear on left or an icon
+        </div>
+        <div class="description">
+            A description can appear on the right
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button">Cancel</button>
+        <button class="ui button">OK</button>
+    </div>
+</div>
+
+
+@section CSS{
+    <style>
+        .ui.modal {
+            left: auto !important;
+            top: auto !important;
+            height: auto !important;
+        }
+    </style>
+}
+
+
+@section Scripts{
+    <script>
+        // ----------------------------------- EVENTS ------------------------------------
+
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#tabla tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#tabla").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#tabla").paginationTdA({
+            elemPerPage: 5
+        });
+
+        $("#editar").click(() => {
+            $(".ui.modal").modal('show');
+        });
+
+    </script>
+}

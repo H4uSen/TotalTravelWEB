@@ -383,5 +383,247 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         //}
 
         #endregion
+
+        #region Hoteles Menu
+
+        public async Task<ServiceResult> HotelsMenuList(IEnumerable<HotelsMenuListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<HotelsMenuListViewModel>, IEnumerable<HotelsMenuListViewModel>>(req => {
+                    req.Path = $"/API/HotelsMenu/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> HotelsMenuCreate(HotelsMenuViewModel menuhotel, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<HotelsMenuViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/HotelsMenu/Insert";
+                    req.Content = menuhotel;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> HotelsMenuUpdate(HotelsMenuViewModel menuhotel, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Put<HotelsMenuViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/HotelsMenu/Update?id=" + id;
+                    req.Content = menuhotel;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> HotelsMenuDelete(HotelsMenuViewModel menuhotel, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<HotelsMenuViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/HotelsMenu/Delete?id=" + id + "&mod=" + menuhotel.HoMe_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
+
+        #region Hoteles Actividades
+
+        public async Task<ServiceResult> HotelsActivitiesList(IEnumerable<HotelsActivitiesListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<HotelsActivitiesListViewModel>, IEnumerable<HotelsActivitiesListViewModel>>(req => {
+                    req.Path = $"/API/HotelsActivities/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> HotelsActivitiesCreate(HotelsActivitiesViewModel actividades, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<HotelsActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/HotelsActivities/Insert";
+                    req.Content = actividades;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> HotelsActivitiesUpdate(HotelsActivitiesViewModel actividades, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Put<HotelsActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/HotelsActivities/Update?id=" + id;
+                    req.Content = actividades;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> HotelsActivitiesDelete(HotelsActivitiesViewModel actividades, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<HotelsActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/HotelsActivities/Delete?id=" + id + "&mod=" + actividades.HoAc_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        #endregion
     }
 }
