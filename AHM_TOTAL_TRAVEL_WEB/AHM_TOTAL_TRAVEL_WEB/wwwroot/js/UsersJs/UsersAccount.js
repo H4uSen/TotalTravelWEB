@@ -39,7 +39,7 @@ function UpdateUser() {
             data.append("Usua_Url", null);
         }
 
-        const userStatus = uploadFile("https://totaltravelapi.azurewebsites.net/API/Users/Update?id=" + Client_User_ID, data, "PUT");
+        const userStatus = JSON.parse(uploadFile("https://totaltravelapi.azurewebsites.net/API/Users/Update?id=" + Client_User_ID, data, "PUT"));
 
         if (userStatus.code == 200) {
             location.reload();
