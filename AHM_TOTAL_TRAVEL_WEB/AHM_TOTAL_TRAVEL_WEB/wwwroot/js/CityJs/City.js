@@ -1,17 +1,18 @@
-﻿$('.ui.dropdown').dropdown();
+﻿const { error } = require("jquery");
 
-$("#create").click(() => {
+$('.ui.dropdown').dropdown();
+
+$("#Create").click(() => {
     $(".ui.modal").modal('show');
-
-   
 });
 
-$("#update").click(() => {
-    $(".ui.modal").modal('show');
-
-
+$("#createCity").click(() => {
+    $("#modalCreate").modal('show');
 });
 
+$("#closeCity").click(() => {
+    $("#modalCreate").modal('hide');
+});
 
 $("#sendCity").click(() => {
     Validacion();
@@ -29,9 +30,11 @@ function Validacion() {
     } else {
         $("#labelvalidatorCity").html(" ");
     }
-    if ($("#pais_ID").val() != 0 && $("#ciud_Descripcion").val() != 0)
-    {
-        $("#createCity").submit();
+    if ($("#pais_ID").val() != 0 && $("#ciud_Descripcion").val() != 0) {
+        $("#createCityform").submit();
+    }
+    else {
+        console.log("error");
     }
     
 }

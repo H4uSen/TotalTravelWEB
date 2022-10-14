@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +27,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var model = new List<PartnerTypeListViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+
+            var partners = await _generalServices.PartnerTypeList(model);
+            IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
+            ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion");
+
             return View();
         }
 
@@ -91,5 +100,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (TransportListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
+
+            return View(transporte);
+        }
+
     }
 }
