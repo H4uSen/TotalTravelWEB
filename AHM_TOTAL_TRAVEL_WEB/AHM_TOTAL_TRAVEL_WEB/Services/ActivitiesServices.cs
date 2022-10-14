@@ -88,7 +88,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Put<ActivitiesViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/Activities/Update?id="+ id;
+                    req.Path = $"/API/Activities/Update?id="+ actividad.Actv_ID;
                     req.Content = actividad;
                 },
                 token

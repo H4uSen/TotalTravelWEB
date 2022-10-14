@@ -22,6 +22,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
     public class ActivitiesViewModel
     {
+        public int Actv_ID { get; set; }
         public string actv_Descripcion { get; set; }
         public int? actv_UsuarioCreacion { get; set; }
         public int? actv_UsuarioModifica { get; set; }
