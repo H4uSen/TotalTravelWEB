@@ -21,15 +21,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
+           
             var model = new List<TransportDetailsListViewModel>();
             var list = await _transportService.TransportDetailsList(model);
             return View(list.Data);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-           
+
+            var model = new List<TypesTransportListViewModel>();
+            var typeTransportation = await _transportService.TypesTransportList();
+            IEnumerable<TypesTransportListViewModel> data_TypeTransportation = (IEnumerable<TypesTransportListViewModel>)typeTransportation.Data;
+            ViewBag.Tprt_ID = new SelectList(data_TypeTransportation, "ID", "Trasporte");
 
             //IEnumerable<RestaurantViewModel> model_restaurant = null;
             //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
@@ -113,6 +118,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+        }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (TransportDetailsListViewModel)(await _transportService.TransportDetailsFind(id, token)).Data;
+
+            return View(transporte);
         }
     }
 }
