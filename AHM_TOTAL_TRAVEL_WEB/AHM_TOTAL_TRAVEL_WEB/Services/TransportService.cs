@@ -404,6 +404,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
 
+        public async Task<ServiceResult> TransportDestionationsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new DestinationsTransportationsListViewModel();
+
+            try
+            {
+                var response = await _api.Get<DestinationsTransportationsListViewModel, DestinationsTransportationsListViewModel>(req => {
+                    req.Path = $"/API/DestinationsTransportations/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
         #endregion
 
     }

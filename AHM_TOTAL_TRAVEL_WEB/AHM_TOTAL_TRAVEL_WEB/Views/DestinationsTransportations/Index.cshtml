@@ -62,14 +62,15 @@
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","DestinationsTransportations",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
-                            <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
+                            <button class="ui large icon positive button" id="UpdateBottomDsTr" onclick="GetDsTr(@item.ID)">
+                                <i class="pencil alternate icon"></i>
+                            </button>
+                            <button class="ui large icon negative button" onclick="DeleteDsTr(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
-                            <button class="ui large icon yellow button">
+                            <a class="ui large icon yellow button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
                                 <i class="folder open outline icon"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -115,6 +116,38 @@
     </div>
 </div>
 
+
+@*<div class="ui modal" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualizar un Destino Transporte
+    </div>
+    <form asp-action="Update" asp-controller="DestinationsTransportations" id="updateDestinationsTransportationsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="field">
+                        <input name="Actv_ID" id="Actv_ID" />
+                        <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
+                    </div>
+                    <div class="field">
+                        <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
+                            <option value="">Seleccione el tipo de Actividad</option>
+                        </select>
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeEditDT">Cerrar</button>
+        <button class="ui button" id="sendEditDT">Guardar</button>
+    </div>
+</div>*@
+
 @section Scripts{
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
     <script>
@@ -141,12 +174,12 @@
 
         //------------------------------------Funciones------------------------
 
-        function DeleteActividad(id) {
+        function DeleteDsTr(id) {
             const capsula1 = () => {
-                ajaxRequest("/Activities/Delete?id=" + id, null, "POST")
+                ajaxRequest("/DestinationsTransportations/Delete?id=" + id, null, "POST")
             };
 
-            sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
 
         };
     </script>

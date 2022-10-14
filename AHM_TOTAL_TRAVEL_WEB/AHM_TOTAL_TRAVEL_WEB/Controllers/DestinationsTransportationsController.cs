@@ -89,5 +89,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var destinotransporte = (DestinationsTransportationsListViewModel)(await _transportService.TransportDestionationsFind(id, token)).Data;
+
+            return View(destinotransporte);
+        }
     }
 }
