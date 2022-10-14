@@ -5,6 +5,10 @@ $("input[type=text]").prop("autocomplete", "off");
 var Client_User_ID = parseInt(GetCookie("User_Id"));
 var Client_User_Name = GetCookie("User_Name");
 
+const user_FileName = `User-${Client_User_ID}`;
+const url_image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
+$("#user_image").prop("src", "https://" + url_image);
+
 // ----------------------------------- EVENTS ------------------------------------
 
 

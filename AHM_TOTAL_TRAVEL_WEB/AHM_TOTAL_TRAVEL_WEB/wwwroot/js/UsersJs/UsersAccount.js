@@ -1,4 +1,8 @@
-﻿function UpdateUser() {
+﻿
+
+$("#image_profile").prop("src", "https://" + url_image);
+
+function UpdateUser() {
     var direStatus = false;
     var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
     var dire = AdressViewModel;
@@ -24,18 +28,18 @@
         data.append("Usua_Apellido", $("#Usua_Apellido").val());
         data.append("Usua_Telefono", $("#Usua_Telefono").val());
         data.append("Role_ID", Client_Role_ID);
-        data.append("Usua_Url", null);
         data.append("Dire_ID", DireID);
         data.append("Part_ID", isNaN(Client_Partner_ID) ? 0 : Client_Partner_ID);
         data.append("Usua_UsuarioModifica", Client_User_ID);
+
         if ($("#File").prop("files")[0] != undefined) {
-            data.append("File", $("#File").prop("files")[0]);
+            data.append("Usua_Url", $("#File").prop("files")[0]);
         }
         else {
-            data.append("File", null);
+            data.append("Usua_Url", null);
         }
 
-        const userStatus = uploadFile("https://totaltravel.somee.com/API/Users/Update?id=" + Client_User_ID, data, "PUT");
+        const userStatus = uploadFile("https://totaltravelapi.azurewebsites.net/API/Users/Update?id=" + Client_User_ID, data, "PUT");
 
         if (userStatus.code == 200) {
             location.reload();

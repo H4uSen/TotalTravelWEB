@@ -40,11 +40,43 @@
         .sidebar-link {
             font-size: 1.3em !important;
         }
+
         .ui.modal {
             left: auto !important;
             top: auto !important;
             height: auto !important;
             overflow-x: unset !important;
+        }
+
+
+        #btnLogOut{
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.5rem 2rem;
+            display: inline-block;
+            border-radius: 0.5rem;
+            -webkit-transition: all 0.2s;
+            transition: all 0.2s;
+            position: relative;
+            font-size: 1.6rem;
+            border: none;
+            cursor: pointer;
+            background-color: #652D90;
+        }
+
+        #btnLogOut:hover {
+            -webkit-transform: translateY(-3px);
+            transform: translateY(-3px);
+            -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+            background-color: #652D90;
+        }
+
+        #btnLogOut:hover::after {
+            -webkit-transform: scaleX(1.4) scaleY(1.6);
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+            background-color: #652D90;
         }
     </style>
     @RenderSection("HeadLinks", required: false)
@@ -88,11 +120,9 @@
 
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="@Url.Action("LogOut","Access")">
+                                <a class="btn btn-primary nav-link text-white boton" href="@Url.Action("LogOut","Access")" style="background-color: #652D90;" id="btnLogOut">
+                                    <i class="power off icon"></i>
                                     <span class="d-none d-sm-inline">Cerrar Sesión</span>
-                                    <svg class="svg-icon svg-icon-xs svg-icon-heavy">
-                                        <use xlink:href="#security-1"> </use>
-                                    </svg>
                                 </a>
                             </li>
                             <li class="nav-item" style="
@@ -127,8 +157,8 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="popButton">
                         <div class="ms-3 title">
                             
-                            <a class="d-none d-md-block dropdown-toggle h4 mb-2" id="" asp-area="" asp-controller="Account" asp-action="Index">
-                                <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;" src="@Context.Session.GetString("ImgUrl")" alt="...">
+                            <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize" asp-area="" asp-controller="Account" asp-action="Index" style="color: black; text-decoration: inherit;">
+                                <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
                                 @Context.Session.GetString("Nombre")
                             </a>
                         </div>
