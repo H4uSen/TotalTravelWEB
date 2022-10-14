@@ -1,5 +1,4 @@
-﻿const { error } = require("jquery");
-
+﻿
 $('.ui.dropdown').dropdown();
 
 $("#Create").click(() => {
@@ -33,9 +32,7 @@ function Validacion() {
     if ($("#pais_ID").val() != 0 && $("#ciud_Descripcion").val() != 0) {
         $("#createCityform").submit();
     }
-    else {
-        console.log("error");
-    }
+ 
     
 }
 
