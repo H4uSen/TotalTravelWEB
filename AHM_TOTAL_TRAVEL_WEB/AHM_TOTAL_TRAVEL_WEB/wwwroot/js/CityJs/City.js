@@ -6,6 +6,12 @@ $("#create").click(() => {
    
 });
 
+$("#update").click(() => {
+    $(".ui.modal").modal('show');
+
+
+});
+
 
 $("#sendCity").click(() => {
     Validacion();

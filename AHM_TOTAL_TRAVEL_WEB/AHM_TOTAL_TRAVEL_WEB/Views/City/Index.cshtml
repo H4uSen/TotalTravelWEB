@@ -91,14 +91,12 @@
                             @Html.DisplayFor(modelItem => item.FechaModifica)
                         </td>
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
+                            @*<a id="update" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>*@
+
+                            <a href="@Url.Action("Update","City",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            <a class="ui large icon yellow button" href="@Url.Action("Details", "City", new { id=item.ID })">
                                 <i class="folder open outline icon"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -140,6 +138,42 @@
         <button class="ui button" id="closeCity">Cerrar</button>
         <button class="ui button" id="sendCity">Guardar</button>
     </div>
+
+</div>
+
+
+
+@*//////////////////////////////////////////////////////MODAL update ////////////////////////////////////////////////////////////////////////////////////////*@
+
+<div class="ui modal" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Edita una ciudad
+    </div>
+    <form asp-action="Update" id="updateCity">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <select id="pais_ID" name="pais_ID" class="ui dropdown search" asp-items="ViewBag.pais_ID">
+                            </select>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
+                        </div>
+                        <div class="field">
+                            <input id="ciud_Descripcion" name="ciud_Descripcion" placeholder="Ciudad" />
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="ui button" id="closeCity">Cerrar</button>
+            <button class="ui button" id="sendCity">Guardar</button>
+        </div>
+    </form>
+    
 
 </div>
 

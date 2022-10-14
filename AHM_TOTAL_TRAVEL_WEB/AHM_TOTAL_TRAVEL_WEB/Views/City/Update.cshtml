@@ -1,0 +1,40 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CityViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Update</h1>
+
+<h4>CityViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ciud_Descripcion" class="control-label"></label>
+                <input asp-for="ciud_Descripcion" class="form-control" />
+                <span asp-validation-for="ciud_Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select id="pais_ID" name="pais_ID" class="ui dropdown search" asp-items="ViewBag.pais_ID">
+                </select>
+                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

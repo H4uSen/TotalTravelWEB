@@ -75,7 +75,66 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+        public async Task<ServiceResult> CitiesUpdate(CityViewModel  city, int id, string token)
+        {
+            var Result = new ServiceResult();
 
+            try
+            {
+
+                var response = await _api.Put<CityViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Cities/Update?id=" + id + "&mod=" + city.ciud_UsuarioModifica;
+                    req.Content = city;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+
+        public async Task<ServiceResult> CityFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new CityListViewModel();
+
+            try
+            {
+                var response = await _api.Get<CityListViewModel, CityListViewModel>(req => {
+                    req.Path = $"/API/Cities/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
 
         #region Direccion
