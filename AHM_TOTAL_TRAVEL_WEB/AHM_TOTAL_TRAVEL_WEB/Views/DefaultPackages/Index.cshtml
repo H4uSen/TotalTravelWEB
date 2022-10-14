@@ -100,13 +100,13 @@
 
                         <td>                       
                             <a class="ui large icon btn-purple button" href="@Url.Action("Update","DefaultPackages", new { id=item.Id })">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                                <i class="pencil alternate icon"></i>
                             </a>
                             <a class="ui large icon negative button" href="@Url.Action("Details","DefaultPackages", new { id=item.Id })">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                                <i class="trash alternate icon"></i>
                             </a>                                                       
                             <button class="ui large icon button" onclick="DeleteDefaultPackage(@item.Id)">
-                                <i class="trash alternate icon"></i>
+                                <i class="info alternate icon"></i>
                             </button>                                                                             
                         </td>
                     </tr>

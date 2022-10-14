@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createActivities" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+                <button id="createActivities" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -75,13 +75,13 @@
                         <td>
                             @*<a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>*@
                             @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
-                            <button class="ui large icon positive button" id="UpdateBottomActivities" onclick="GetActivities(@item.ID)">
+                            <button class="ui large icon btn-purple button" id="UpdateBottomActivities" onclick="GetActivities(@item.ID)">
                                 <i class="pencil alternate icon"></i>
                             </button>
                             <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
-                            <a href="@Url.Action("Details","Activities",new {  id=item.ID})" class="ui large icon warning button"><i class="info alternate icon"></i></a>
+                            <a href="@Url.Action("Details","Activities",new {  id=item.ID})" class="ui large icon button"><i class="info alternate icon"></i></a>
                         </td>
                     </tr>
                 }
