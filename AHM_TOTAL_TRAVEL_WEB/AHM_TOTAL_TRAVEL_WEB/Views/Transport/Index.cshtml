@@ -44,7 +44,7 @@
                     <th>
                         Dirección
                     </th>
-                    <th width="300px"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -65,11 +65,11 @@
                             <a class="ui large icon btn-purple button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon"></i>
                             </a>
-                            <a class="ui large icon negative button" onclick="Delete(@item.ID)">
-                                <i class="trash alternate icon"></i>
+                            <a class="ui large icon btn-edit button" onclick="Delete(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
                             </a>
-                            <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                            <a class="ui large icon btn-delete button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
                         </td>
                     </tr>
