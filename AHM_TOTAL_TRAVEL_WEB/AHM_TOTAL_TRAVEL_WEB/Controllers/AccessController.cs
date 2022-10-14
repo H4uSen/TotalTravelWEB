@@ -3,13 +3,16 @@ using AHM_TOTAL_TRAVEL_WEB.Services;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
@@ -96,7 +99,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             var userID = HttpContext.User.FindFirst("User_Id").ToString();
             var ID = Convert.ToInt32(userID.Substring(9,2));
-            ViewData["userID"] = ID;
+            
 
             if (password.usua_Password == null || password.passwordConfirm == null)
             {
@@ -193,8 +196,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             else if (LogInData.Email != null && LogInData.Password != null)
             {
                 var LogInVerify = (UserLoggedModel)(await _accessServices.LogIn(LogInData)).Data;
+                
                 if (LogInVerify != null)
                 {
+                    HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
+                    HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
+                    HttpContext.Session.SetString("Nombre", LogInVerify.Nombre);
+                    
                     //2.- CONFIGURACION DE LA AUTENTICACION
                     #region AUTENTICACTION
                     var claims = new List<Claim>

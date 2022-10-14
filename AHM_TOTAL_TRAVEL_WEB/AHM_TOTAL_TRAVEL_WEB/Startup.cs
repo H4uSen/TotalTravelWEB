@@ -27,16 +27,43 @@ namespace AHM_TOTAL_TRAVEL_WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => {
+                options.ResourcesPath = "Resources";
+            });
             services.AddAutoMapper(x => x.AddProfile<MappingProfileExtensions>(), AppDomain.CurrentDomain.GetAssemblies());
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddViewLocalization();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US");
+                options.SupportedCultures = new List<System.Globalization.CultureInfo>
+                {
+                    new System.Globalization.CultureInfo("en-US"),
+                    new System.Globalization.CultureInfo("es-ES")
+                };
+                options.SupportedUICultures = new List<System.Globalization.CultureInfo>
+                {
+                    new System.Globalization.CultureInfo("en-US"),
+                    new System.Globalization.CultureInfo("es-ES")
+                };
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(option => {
                 option.LoginPath = "/Access/LandingPage";
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 option.AccessDeniedPath = "/Home/Privacy";
             });
+            
+            services.AddControllersWithViews()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
+            
             services.BusinessLogic();
             services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IOTimeout = TimeSpan.FromMinutes(60);
+            });
             services.AddOptions();
 
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
@@ -59,9 +86,12 @@ namespace AHM_TOTAL_TRAVEL_WEB
 
             app.UseRouting();
 
+            app.UseSession();
             app.UseAuthentication();
-
             app.UseAuthorization();
+
+            app.UseRequestLocalization();
+
 
             app.UseEndpoints(endpoints =>
             {

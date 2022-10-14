@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sidebar Functionality
     // ------------------------------------------------------ //
     const sbToggleBtn = document.getElementById('toggle-btn'),
-          sideNavbar  = document.querySelector('.side-navbar'),
-          innerContent = document.querySelector('.content-inner'),
+        sideNavbar = document.querySelector('.side-navbar'),
+        innerContent = document.querySelector('.content-inner'),
           smBrand = document.querySelector('.navbar-header .brand-small'),
           lgBrand = document.querySelector('.navbar-header .brand-big');
 

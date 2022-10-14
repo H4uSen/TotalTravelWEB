@@ -68,6 +68,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
             public string Partner { get; set; }
             public int? PartnerID { get; set; }
             public string Token { get; set; }
-        
+            public string Image_URL { get; set; }
+
     }
 }
