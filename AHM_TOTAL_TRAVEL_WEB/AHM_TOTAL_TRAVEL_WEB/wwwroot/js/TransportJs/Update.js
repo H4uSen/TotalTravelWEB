@@ -66,7 +66,7 @@ function updateTransport(id) {
             data.tiTr_ID = parseInt($("#TiTr_ID").val());
             data.part_ID = parseInt($("#Part_ID").val());
 
-            var response = ajaxRequest("https://totaltravel.somee.com/API/Transports/Update?id="+id, data, "POST");
+            var response = ajaxRequest("https://totaltravel.somee.com/API/Transports/Update?id="+id, data, "PUT");
 
             if (response.code == 200) {
                 if (response.data.codeStatus > 0) {
