@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create", "Hotel")">
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create", "Hotel")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -43,9 +43,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th><th>
-                        @Html.DisplayNameFor(model => model.Hotel)
+                        Hotel
                     </th>
                     <th>
                         Descripción
@@ -54,7 +52,7 @@
                         Dirección
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Partners)
+                        Partners
                     </th>
                     <th width="300px"></th>
                 </tr>
@@ -64,8 +62,6 @@
                 {
                      <tr>
                          <td>
-                             @Html.DisplayFor(modelItem => item.ID)
-                         </td><td>
                              @Html.DisplayFor(modelItem => item.Hotel)
                          </td>
                          <td>
@@ -78,14 +74,14 @@
                              @Html.DisplayFor(modelItem => item.Partners)
                          </td>
                          <td>
-                             <button class="ui large icon positive button">
+                             <button class="ui large icon btn-purple button">
                                  <i class="pencil alternate icon"></i>
                              </button>
                              <button class="ui large icon negative button">
                                  <i class="trash alternate icon"></i>
                              </button>
-                             <button class="ui large icon yellow button">
-                                 <i class="folder open outline icon"></i>
+                             <button class="ui large icon button">
+                                 <i class="bi bi-info-circle fa-lg"></i>
                              </button>
                          </td>
                     </tr>
