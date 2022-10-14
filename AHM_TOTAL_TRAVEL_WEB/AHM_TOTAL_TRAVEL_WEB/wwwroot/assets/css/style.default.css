@@ -13764,8 +13764,8 @@ nav.side-navbar .sidebar-header .avatar {
 }
 
 nav.side-navbar.shrinked {
-    min-width: 90px;
-    max-width: 90px;
+    min-width: 120px;
+    max-width: 120px;
     text-align: center;
 }
 
