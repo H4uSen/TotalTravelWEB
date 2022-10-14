@@ -21,7 +21,7 @@
             <form>
                 <div class="ui form attached fluid segment">
                     <div class="content">
-
+                        @*@Html.HiddenFor(model => model.Tprt_ID)*@
                         <div class="field">
                             <div class="two fields">
                                 <div class="field">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="button" value="Guardar" onclick="updateTransport()" class="btn btn-primary ui positive button" />
+                        <input type="button" value="Guardar" onclick="updateTransport(@Model.Tprt_ID)" class="btn btn-primary ui positive button" />
                     </div>
                 </div>
                 <div class="ui negative message bottom attached" id="errorDiv">

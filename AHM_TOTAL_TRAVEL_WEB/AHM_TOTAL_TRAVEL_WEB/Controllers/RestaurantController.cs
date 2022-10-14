@@ -22,8 +22,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
             var model = new List<RestaurantListViewModel>();
-            var list = await _restaurantServices.RestaurantsList();
+            var list = await _restaurantServices.RestaurantsList(token);
+
             return View(list.Data);
         }
 
@@ -72,7 +74,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var item = new RestaurantListViewModel();
-            var list = await _restaurantServices.RestaurantsList();
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var list = await _restaurantServices.RestaurantsList(token);
 
             IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];

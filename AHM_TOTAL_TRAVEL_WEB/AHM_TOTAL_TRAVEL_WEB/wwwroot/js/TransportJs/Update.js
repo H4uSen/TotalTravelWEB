@@ -1,7 +1,6 @@
 ﻿$("#errorDiv").hide();
 
-function updateTransport() {
-
+function updateTransport(id) {
 
     if ($('#Colonia').val() == 0) {
         $("#labelvalidatorCol").html("Ingrese una colonia.");
@@ -41,7 +40,6 @@ function updateTransport() {
     } else {
         $("#labelvalidatorTipoTransporte").html(" ");
     }
-
     if ($('#Colonia').val() != 0 && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
         && $('#City_ID').val() != 0 && $('#TiTr_ID').val() != 0 && $('#Part_ID').val() != 0) {
 
@@ -68,7 +66,7 @@ function updateTransport() {
             data.tiTr_ID = parseInt($("#TiTr_ID").val());
             data.part_ID = parseInt($("#Part_ID").val());
 
-            var response = ajaxRequest("https://totaltravel.somee.com/API/Transports/Update", data, "POST");
+            var response = ajaxRequest("https://totaltravel.somee.com/API/Transports/Update?id="+id, data, "POST");
 
             if (response.code == 200) {
                 if (response.data.codeStatus > 0) {
@@ -78,7 +76,6 @@ function updateTransport() {
                     $("#errorDiv p").html(response.data.messageStatus);
                 }
             }
-
         } else {
             $("#labelvalidatorError").html("Se han enviado parámetros incorrectos en los campos de dirección.");
         }

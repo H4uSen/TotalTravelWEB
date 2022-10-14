@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     $("#Time_ID").hide();
 });
+
 function GetTypeMenus(id) {
     var response = ajaxRequest("https://totaltravel.somee.com/API/MenuTypes/Find?Id=" + id);
     if (response.code == 200) {

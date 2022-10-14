@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #region Restaurants
 
-        public async Task<ServiceResult> RestaurantsList()
+        public async Task<ServiceResult> RestaurantsList(string token)
         {
             var Result = new ServiceResult();
 
@@ -27,7 +27,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<RestaurantListViewModel>, IEnumerable<RestaurantListViewModel>>(req => {
                     req.Path = $"/API/Restaurants/List";
                     req.Content = null;
-                }
+                },
+                token
                 );
                 if (!response.Success)
                 {

@@ -73,8 +73,11 @@
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            @*<a href="@Url.Action("Update","Activities",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>*@
                             @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
+                            <button class="ui large icon positive button" id="UpdateBottomActivities" onclick="GetActivities(@item.ID)">
+                                <i class="pencil alternate icon"></i>
+                            </button>
                             <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
@@ -124,8 +127,40 @@
     </div>
 </div>
 
+<div class="ui modal" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un tipo de menú
+    </div>
+    <form asp-action="Update" asp-controller="Activities" id="updateActivitiesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="field">
+                        <input name="Actv_ID" id="Actv_ID" />
+                        <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
+                    </div>
+                    <div class="field">
+                        <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
+                            <option value="">Seleccione el tipo de Actividad</option>
+                        </select>
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeEditActivities">Cerrar</button>
+        <button class="ui button" id="sendEditActivities">Guardar</button>
+    </div>
+</div>
+
 @section Scripts{
 <script src="~/js/ActivitiesExtraJs/Create.js"></script>
+<script src="~/js/ActivitiesExtraJs/Update.js"></script>
     <script>
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {

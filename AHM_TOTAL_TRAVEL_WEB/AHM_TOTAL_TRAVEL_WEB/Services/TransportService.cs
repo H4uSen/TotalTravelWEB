@@ -316,5 +316,95 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region DestinosTransportes
+
+        public async Task<ServiceResult> TransportDestionationsList()
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<DestinationsTransportationsListViewModel>, IEnumerable<DestinationsTransportationsListViewModel>>(req => {
+                    req.Path = $"/API/DestinationsTransportations/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> TransportDestionationsCreate(DestinationsTransportationsViewModel transportedestino, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<DestinationsTransportationsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DestinationsTransportations/Insert";
+                    req.Content = transportedestino;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> TransportDestionationsUpdate(DestinationsTransportationsViewModel transportedestino, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<DestinationsTransportationsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DestinationsTransportations/Update?id=" + transportedestino.DsTr_ID;
+                    req.Content = transportedestino;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }
