@@ -29,19 +29,16 @@
                 <div class="header">
                     Direcciones
                 </div>
-                <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                @*<a class="ui small primary labeled icon button" href="@Url.Action("Create","Address")">
-                        <i class="user icon"></i> Nuevo
-                    </a>*@
-                <button id="createAddress" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
-
-            </div>
+            <a class="ui small btn-purple text-white labeled icon button" id="createAddress">
+                <i class="plus icon"></i> Nuevo
+            </a>
+        </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
                     <input type="text" placeholder="Buscar..." id="txtSearch">
@@ -53,9 +50,7 @@
         <table class="ui compact selectable celled table" id="grdAddress">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.Direccion)
                     </th>
@@ -65,37 +60,35 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Pais)
                     </th>
-                    <th width="500"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pais)
-                        </td>
-                        <td>
-                            <button class="ui large icon positive button">
-                                <i class="pencil alternate icon"></i>
-                            </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
-                        </td>
-                    </tr>
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pais)
+                    </td>
+                    <td>
+                        <button class="ui large icon btn-edit button" id="createAddress" >
+                            <i class="pencil alternate icon  icon-crud"></i>
+                        </button>
+                        <button class="ui large icon btn-delete button" >
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a  class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -153,8 +146,8 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeAddress">Cerrar</button>
-        <button class="ui button" id="sendAddress">Guardar</button>
+        <button class="ui button btn-purple text-white" id="sendAddress">Guardar</button>
+        <button class="ui button" id="closeAddress">Cancelar</button>
     </div>
 </div>
 

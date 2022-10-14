@@ -35,14 +35,14 @@
                                 <div class="required field">
                                     <label>Restaurante</label>
                                     <input id="Rest_Nombre" placeholder="Restaurante" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurant"></span>
+                                    <span class="labelvalidator" id="labelvalidatorRestaurant"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Socio</label>
                                     <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
                                         <option value="">Seleccione un partner</option>
                                     </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
+                                    <span class="labelvalidator" id="labelvalidatorPartner"></span>
                                 </div>
                             </div>
                         </div>
@@ -53,19 +53,19 @@
                                     <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                         <option value="">Seleccione un pais</option>
                                     </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></span>
+                                    <span class="labelvalidator" id="labelvalidatorPais"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Ciudad</label>
                                     <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></span>
+                                    <span class="labelvalidator" id="labelvalidatorCity"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="required field">
                             <label>Colonia</label>
                             <input id="Colonia" placeholder="Colonia" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></span>
+                            <span class="labelvalidator" id="labelvalidatorCol"></span>
                         </div>
 
                         <div class="field">
@@ -73,12 +73,12 @@
                                 <div class="required field">
                                     <label>Calle</label>
                                     <input id="Calle" placeholder="Calle" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></span>
+                                    <span class="labelvalidator" id="labelvalidatorCalle"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Avenida</label>
                                     <input id="Avenida" placeholder="Avenida" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></span>
+                                    <span class="labelvalidator" id="labelvalidatorAve"></span>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <input id="File" type="file" multiple />
                             </div>
                         </div>
-                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
 
                         <input type="button" value="Guardar" onclick="createRestaurant()" class="btn btn-purple ui positive button" />
                     </div>
