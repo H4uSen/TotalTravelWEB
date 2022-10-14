@@ -209,8 +209,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     {
                     new Claim("User_Id", LogInVerify.ID.ToString()),
                     new Claim("User_Name", LogInVerify.Nombre),
-                    new Claim(ClaimTypes.Role, LogInVerify.Role_ID.ToString()),
                     new Claim("Token", LogInVerify.Token),
+                    new Claim("Role_Id", LogInVerify.Role_ID.ToString()),
+                    new Claim("Partner_Id", LogInVerify.PartnerID.ToString()),
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

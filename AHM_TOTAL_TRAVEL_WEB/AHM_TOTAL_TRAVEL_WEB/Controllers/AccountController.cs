@@ -34,44 +34,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
+            var direccion = (AddressListViewModel)(await _generalService.AddressFind(cuenta.DireccionID.ToString(), token)).Data;
+            var direccionDetalle = direccion.Direccion.Split(", ");
+            ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
+            ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
+            ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
+            //ViewData["CiudadID"] = direccion.C
+
             return View(cuenta);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UserUpdateViewModel data)
         {
-            var id = HttpContext.User.FindFirst("User_Id").Value;
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
-            data.Role_ID = cuenta.Role_ID;
-            data.Part_ID = cuenta.PartnerID;
-            data.Usua_ID = int.Parse(id);
-            data.Usua_UsuarioModifica = int.Parse(id);
-            AddressViewModel addressdata = new AddressViewModel()
-            {
-                Ciud_ID = data.Ciu_ID,
-                Dire_Descripcion = data.Dire_Descripcion,
-                Dire_UsuarioCreacion = int.Parse(id)
-            };
-            var addressStatus = (RequestStatus)(await _generalService.CreateAddress(token, addressdata)).Data;
-
-            if (addressStatus.CodeStatus > 0)
-            {
-                data.Dire_ID = addressStatus.CodeStatus;
-                var items = _mapper.Map<UserViewModel>(data);
-                var userStatus = (RequestStatus)(await _accessService.UserUpdate(items, token)).Data;
-
-                if (userStatus.CodeStatus <= 0)
-                {
-                    ViewData["Error"] = "Error al actualizar el usuario";
-                }                
-            }
-            else
-            {
-                ViewData["Error"] = "Error al actualizar el usuario";
-            }
-
-            return View(cuenta);
+            return View();
         }
+
+
     }
 }
