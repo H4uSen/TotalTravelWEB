@@ -6,28 +6,28 @@ $("#createDestinationsTransportations").click(() => {
     $("#modalCreate").modal('show');
 });
 
-$("#closeActivity").click(() => {
+$("#close").click(() => {
     $("#modalCreate").modal('hide');
 });
 
-$("#sendActivity").click(() => {
+$("#send").click(() => {
     validar();
 })
 
 function validar() {
-    if ($("#Actividad").val() == 0) {
-        $("#labelvalidatorActividad").html("Ingrese una Descripcion");
+    if ($("#CiudadSalida").val() == 0) {
+        $("#labelvalidatorCiudadSalida").html("Seleccione una Ciudad de Salida");
     }
     else {
-        $("#labelvalidatorActividad").html(" ");
+        $("#labelvalidatorCiudadSalida").html(" ");
     }
-    if ($("#tipoActividad").val() == 0) {
-        $("#labelvalidatorTipoActividad").html("Seleccione el tipo de la Actividad");
+    if ($("#CiudadDestino").val() == 0) {
+        $("#labelvalidatorCiudadDestino").html("Seleccione una Ciudad de Destino");
     }
     else {
-        $("#labelvalidatorTipoActividad").html(" ");
+        $("#labelvalidatorCiudadDestino").html(" ");
     }
-    if ($("#Actividad").val() != 0 && $("#tipoActividad").val() != 0) {
+    if ($("#CiudadSalida").val() != 0 && $("#CiudadDestino").val() != 0) {
         $("#createDestinationsTransportationsForm").submit();
     }
 

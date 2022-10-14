@@ -92,15 +92,16 @@
                     <label>Destinos Transportes</label>
                     <div class="two fields">
                         <div class="field">
-                            <select id="DsTr_CiudadSalida" name="dsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
+                            <select id="CiudadSalida" name="DsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
                                 <option value="">Seleccione la ciudad de salida</option>
                             </select>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadSalida"></label>
                         </div>
                         <div class="field">
-                            <select id="DsTr_CiudadDestino" name="dsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
+                            <select id="CiudadDestino" name="DsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
                                 <option value="">Seleccione la ciudad de destino</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadDestino"></label>
                         </div>
 
                     </div>
@@ -109,8 +110,8 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeActivity">Cerrar</button>
-        <button class="ui button" id="sendActivity" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cerrar</button>
+        <button class="ui button" id="send" onclick="validar()">Guardar</button>
     </div>
 </div>
 
