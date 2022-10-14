@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createDestinationsTransportations" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+                <button id="createDestinationsTransportations" class="ui small btn-purple text-white labeled icon button"><i class="user icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -62,14 +62,14 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon positive button" id="UpdateBottomDsTr" onclick="GetDsTr(@item.ID)">
+                            <button class="ui large icon btn-purple button" id="UpdateBottomDsTr" onclick="GetDsTr(@item.ID)">
                                 <i class="pencil alternate icon"></i>
                             </button>
                             <button class="ui large icon negative button" onclick="DeleteDsTr(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
-                            <a class="ui large icon yellow button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
-                                <i class="folder open outline icon"></i>
+                            <a class="ui large icon button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg"></i>
                             </a>
                         </td>
                     </tr>

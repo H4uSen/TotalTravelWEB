@@ -81,11 +81,11 @@
                     </td>
 
                     <td>
-                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                        <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-purple button"><i class="pencil alternate icon"></i></a>
+                        <button  class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
+                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="folder open outline  icon"></i></a>
                     </td>
                 </tr>
                 }

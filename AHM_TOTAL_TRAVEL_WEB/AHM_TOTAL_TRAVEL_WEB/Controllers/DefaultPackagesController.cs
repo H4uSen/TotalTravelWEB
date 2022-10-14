@@ -33,18 +33,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            //var model = new List<ActivitiesViewModel>();
-            //string token = HttpContext.User.FindFirst("Token").Value;
+            var model = new List<RestaurantListViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
 
-            //var hotel = await _HotelsService.HotelsList(token);
-            //IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
-            //ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
 
-            //IEnumerable<RestaurantListViewModel> model_Partners = null;
-            //var restaurant = await _RestaurantService.RestaurantsList(model_Partners);
-            //IEnumerable<RestaurantListViewModel> data_Restaurant = (IEnumerable<RestaurantListViewModel>)restaurant.Data;
-            //ViewBag.Rest_ID = new SelectList(data_Restaurant, "ID", "Nombre");
+            var hotel = await _HotelsService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
+            ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel");
+
+            var rest = await _RestaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;
+            ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante");
+
             return View();
+
+
         }
 
         [HttpPost]
@@ -68,6 +71,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var hotel = await _HotelsService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
+            ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel");
+
+            var rest = await _RestaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;
+            ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante");
 
             var item = new DefaultPackagesViewModel();
             IEnumerable<DefaultPackagesListViewModel> model = null;
@@ -78,6 +89,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.paqu_Descripcion = element.Descripcion_Paquete;
             item.paqu_Duracion=element.Duracion_Paquete;
             item.paqu_Nombre = element.Nombre;
+            item.paqu_Precio = element.Precio;
+            
             
 
             //IEnumerable<EstablecimientoListViewModel> model_Est = null;
@@ -105,6 +118,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
 
+        }
+        public async Task<IActionResult> Delete(DefaultPackagesViewModel DePa, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                DePa.paqu_UsuarioModifica = 1;
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _saleServices.DefaultPackagesDelete(DePa, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
+
+            return View(transporte);
         }
     }
 }
