@@ -48,5 +48,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(TypesTransportViewModel transporte, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                transporte.TiTr_UsuarioModifica = 1;
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _transportService.TypesTransportDelete(transporte, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
     }
 }

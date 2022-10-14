@@ -1,0 +1,101 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PartnerTypeListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="user icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles
+                    </div>
+                    <p>Detalles de un tipo de socio.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "PartnerType")">
+                        Back
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
+
+                            </div>
+                            <div class="field">
+                                <label>Descripcion</label>
+                                @Html.DisplayFor(model => model.Descripcion)
+                            </div>                 
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Rol_ID</label>
+                                @Html.DisplayFor(model => model.Rol_Id)
+                            </div>
+                            <div class="field">
+                                <label>Rol_Descripcion</label>
+                                @Html.DisplayFor(model => model.Rol_Descripcion)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Auditoría
+            </h3>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario Creación
+                        </th>
+                        <th>
+                            Fecha Creación
+                        </th>
+                        <th>
+                            Usuario modifica
+                        </th>
+                        <th>
+                            Fecha modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Usuario_Creacion_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Fecha_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Usuario_Modifica_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Fecha_Modifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
