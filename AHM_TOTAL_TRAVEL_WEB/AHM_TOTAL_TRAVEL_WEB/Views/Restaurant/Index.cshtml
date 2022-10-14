@@ -14,15 +14,14 @@
                 <div class="header">
                     Restaurantes
                 </div>
-                <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Restaurant")">
-                    <i class="user icon"></i> Nuevo
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Restaurant")">
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
@@ -51,7 +50,7 @@
                     <th>
                         Dirección
                     </th>
-                    <th width="300px"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -69,14 +68,14 @@
                         </td>
             
                         <td>
-                            <button class="ui large icon btn-purple button">
-                                <i class="pencil alternate icon"></i>
+                            <button class="ui large icon btn-edit button">
+                                <i class="pencil alternate icon  icon-crud"></i>
                             </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
+                            <button class="ui large icon btn-delete button">
+                                <i class="trash alternate icon icon-crud"></i>
                             </button>                  
                             <a class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
                         </td>
                     </tr>
