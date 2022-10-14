@@ -9,7 +9,7 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="user icon"></i>
+            <i class="icon bicycle"></i>
             <div class="content">
                 <div class="header">
                     Actividades
@@ -81,9 +81,7 @@
                             <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            <a href="@Url.Action("Details","Activities",new {  id=item.ID})" class="ui large icon warning button"><i class="info alternate icon"></i></a>
                         </td>
                     </tr>
                 }
