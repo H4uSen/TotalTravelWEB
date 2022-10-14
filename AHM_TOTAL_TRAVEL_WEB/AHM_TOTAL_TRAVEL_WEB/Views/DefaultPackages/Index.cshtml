@@ -20,8 +20,8 @@
 
         <br>
         <div class="ui grid">
-            <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","DefaultPackages")">
+            
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","DefaultPackages")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -98,15 +98,16 @@
                             @Html.DisplayFor(modelItem => item.Restaurante)
                         </td>
 
-                        <td>
-                             
-                            <a href="@Url.Action("Update","DefaultPackages",new {  id=item.Id})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            <button class="ui large icon negative button" onclick="DeleteDefaultPackage(@item.Id)">
+                        <td>                       
+                            <a class="ui large icon btn-purple button" href="@Url.Action("Update","DefaultPackages", new { id=item.Id })">
+                                <i class="bi bi-info-circle fa-lg"></i>
+                            </a>
+                            <a class="ui large icon negative button" href="@Url.Action("Details","DefaultPackages", new { id=item.Id })">
+                                <i class="bi bi-info-circle fa-lg"></i>
+                            </a>                                                       
+                            <button class="ui large icon button" onclick="DeleteDefaultPackage(@item.Id)">
                                 <i class="trash alternate icon"></i>
-                            </button>
-                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
-                            
-                            <a href="@Url.Action("Details","DefaultPackages",new {  id=item.Id})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            </button>                                                                             
                         </td>
                     </tr>
                 }
