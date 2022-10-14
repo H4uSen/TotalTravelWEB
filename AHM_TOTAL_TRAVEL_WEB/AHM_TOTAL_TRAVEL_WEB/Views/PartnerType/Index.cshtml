@@ -75,10 +75,10 @@
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","PartnerType",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            <a href="@Url.Action("Update","PartnerType",new {  id=item.ID})" class="ui large icon btn-purple button"><i class="pencil alternate icon"></i></a>
                             <button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
                                 <i class="trash alternate icon"></i>
-                            </button><a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
+                            </button><a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
                         </td>
                     </tr>
                 }
