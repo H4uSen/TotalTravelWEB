@@ -60,7 +60,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.TiPar_Descripcion = element.Descripcion;
-            item.Rol_ID = element.Rol_ID;
+            item.Rol_ID = element.Rol_Id;
 
             return View(item);
 
