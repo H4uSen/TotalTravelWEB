@@ -47,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         public async Task<ServiceResult> TransportDetailsCreate(TransportDetailsViewModel transportdetails, string token)
         {
-            var Result = new ServiceResult();
+             var Result = new ServiceResult();
 
             try
             {
@@ -134,6 +134,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+
+        public async Task<ServiceResult> TransportDetailsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new TransportDetailsListViewModel();
+
+            try
+            {
+                var response = await _api.Get<TransportDetailsListViewModel, TransportDetailsListViewModel>(req => {
+                    req.Path = $"/API/DetailsTransportation/Find?Id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
 
@@ -316,16 +345,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+<<<<<<< Updated upstream
         #region DestinosTransportes
 
         public async Task<ServiceResult> TransportDestionationsList()
+=======
+        #region HorariosTransporte
+        public async Task<ServiceResult> ScheduleTransportationList(IEnumerable<ScheduleTransportationListViewModel> model)
+>>>>>>> Stashed changes
         {
             var Result = new ServiceResult();
 
             try
             {
+<<<<<<< Updated upstream
                 var response = await _api.Get<IEnumerable<DestinationsTransportationsListViewModel>, IEnumerable<DestinationsTransportationsListViewModel>>(req => {
                     req.Path = $"/API/DestinationsTransportations/List";
+=======
+                var response = await _api.Get<IEnumerable<ScheduleTransportationListViewModel>, IEnumerable<ScheduleTransportationListViewModel>>(req => {
+                    req.Path = $"/API/ScheduleTransportation/List";
+>>>>>>> Stashed changes
                     req.Content = null;
                 }
                 );
@@ -344,6 +383,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+<<<<<<< Updated upstream
 
         public async Task<ServiceResult> TransportDestionationsCreate(DestinationsTransportationsViewModel transportedestino, string token)
         {
@@ -435,5 +475,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+=======
+        #endregion
+>>>>>>> Stashed changes
     }
 }

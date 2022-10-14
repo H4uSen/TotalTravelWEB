@@ -13,22 +13,38 @@
                 <i class="icon car"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        create a new users
+                        Crear
                     </div>
-                    <p class="text-capitalize">create a new user and/or add a partner account.</p>
+                    <p>Crear un nuevo detalle de transporte</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
+                        Back
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
             <form asp-action="Create">
                 <div class="ui form attached fluid segment">
                     <div class="content">
                         <div class="two fields">
-                            <div class="field">
-                                <label>Transporte ID</label>
-                                <input asp-for="Tprt_ID" />
+                            <div class="required field">
+                                <label>Tipo Transporte</label>
+                                <select id="Tprt_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID">
+                                    <option value="">Seleccione un tipo de transporte</option>
+                                </select>
+                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                             <div class="field">
                                 <label>Capacidad</label>
                                 <input asp-for="Detr_Capacidad" />
+                            </div>
+                            <div class="required field">
+                                <label>Horario</label>
+                                <select id="HoTr_ID" name="HoTr_ID" class="ui dropdown search">
+                                    <option value="">Seleccione un horario</option>
+                                </select>
+                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                         </div>
                         <div class="two fields">
