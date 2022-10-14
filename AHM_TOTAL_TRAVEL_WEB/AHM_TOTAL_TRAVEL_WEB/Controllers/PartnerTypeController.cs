@@ -75,7 +75,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 //TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-
                 var lista = await _generalServices.PartnerTypeUpdate(TipoPartner, id, token);
                 return RedirectToAction("Index");
             }
