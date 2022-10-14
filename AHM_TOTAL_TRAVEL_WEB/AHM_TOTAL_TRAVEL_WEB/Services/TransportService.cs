@@ -351,7 +351,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Delete<TypesTransportViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/TypesTransport/Delete?id=" + id + "&mod=" + transporte.TiTr_UsuarioModifica;
+                    req.Path = $"/API/TypesTransport/Delete?id=" + id + "&Mod=" + transporte.TiTr_UsuarioModifica;
                     req.Content = null;
                 },
                 token

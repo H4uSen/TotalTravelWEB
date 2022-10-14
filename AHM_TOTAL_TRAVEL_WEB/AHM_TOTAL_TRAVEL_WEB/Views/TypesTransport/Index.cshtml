@@ -58,7 +58,7 @@
 
                         <td>
 
-                            <button class="ui large icon negative button" onclick="Delete(@item.ID)">
+                            <button class="ui large icon negative button" id="botonEliminar" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
                             <button class="ui large icon yellow button">
@@ -127,11 +127,11 @@
         //------------------------------------Funciones------------------------
 
         function Delete(id) {
-            const capsula1 = () => {
+            const capsula2 = () => {
                 ajaxRequest("/TypesTransport/Delete?id=" + id, null, "POST")
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula2);
 
         };
     </script>

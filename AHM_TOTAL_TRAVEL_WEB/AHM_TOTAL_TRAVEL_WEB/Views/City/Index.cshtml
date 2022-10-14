@@ -41,9 +41,7 @@
         <table class="ui compact selectable celled table" id="grdCity">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
+                  
                     <th>
                         @Html.DisplayNameFor(model => model.Ciudad)
                     </th>
@@ -69,9 +67,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
+                       
                         <td>
                             @Html.DisplayFor(modelItem => item.Ciudad)
                         </td>
@@ -121,15 +117,16 @@
             <div class="content">
                 <div class="required field">
                     <div class="two fields">
+
+                        <div class="field">
+                            <input id="ciud_Descripcion" name="ciud_Descripcion" placeholder="Ciudad" />
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
+                        </div>
                         <div class="field">
                             <select id="pais_ID" name="pais_ID" class="ui dropdown search" asp-items="ViewBag.pais_ID">
                                 <option value="">Seleccione un pais</option>
                             </select>
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
-                        </div>
-                        <div class="field">
-                            <input id="ciud_Descripcion" name="ciud_Descripcion" placeholder="Ciudad" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                         </div>
                     </div>
                 </div>
@@ -159,11 +156,12 @@
                     <div class="two fields">
                         <div class="field">
                             <input name="Ciud_ID" id="Ciud_ID" />
-                            <input id="ciud_Descripcion" name="ciud_Descripcion" placeholder="Ciudad" />
+                            <input id="ciud_Descrip" name="ciud_Descrip" placeholder="Ciudad" />
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                         </div>
+
                         <div class="field">
-                            <select id="pais_ID" name="pais_ID" class="ui dropdown search" asp-items="ViewBag.pais_ID">
+                            <select id="pais_Id" name="pais_Id" class="ui dropdown search" asp-items="ViewBag.pais_ID">
                             </select>
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
                         </div>

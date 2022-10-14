@@ -21,9 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Restaurant")">
-                    <i class="user icon"></i> Nuevo
-                </a>
+                <button class="ui small btn-purple text-white labeled icon button"><i class="user icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -43,16 +41,13 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        Partner
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Partner)
+                        Restaurante
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Restaurante)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Direccion)
+                        Dirección
                     </th>
                     <th width="300px"></th>
                 </tr>
@@ -61,9 +56,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Partner)
                         </td>
@@ -75,15 +67,15 @@
                         </td>
             
                         <td>
-                            <button class="ui large icon positive button">
+                            <button class="ui large icon btn-purple button">
                                 <i class="pencil alternate icon"></i>
                             </button>
                             <button class="ui large icon negative button">
                                 <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            </button>                  
+                            <a class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg"></i>
+                            </a>
                         </td>
                     </tr>
                 }
