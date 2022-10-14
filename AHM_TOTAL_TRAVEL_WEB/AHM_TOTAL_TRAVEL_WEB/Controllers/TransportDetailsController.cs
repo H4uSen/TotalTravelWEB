@@ -70,6 +70,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.Tprt_ID = element.ID;
             item.Detr_Capacidad = element.Capacidad;
+            //item.HoTr_ID = element.Fecha;
             item.DeTr_Precio = element.Precio;
             item.DeTr_Matricula = element.Matricula;
 
@@ -85,7 +86,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioModifica = 1;
+                transportdetails.DeTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _transportService.TransportDetailsUpdate(transportdetails, id, token);
                 return RedirectToAction("Index");
             }
