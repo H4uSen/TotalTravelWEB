@@ -1,0 +1,152 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.DestinationsTransportationsListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="user icon"></i>
+            <div class="content">
+                <div class="header">
+                    Destinos Transportes
+                </div>
+                <p>Create, Update, Delete or Search and Filter Users.</p>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <button id="createDestinationsTransportations" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdRestaurants">
+            <thead>
+                <tr>
+                    <th>
+                        Ciudad Salida
+                        @*@Html.DisplayNameFor(model => model.CiudadSalida)*@
+                    </th>
+                    <th>
+                        Ciudad Destino
+                        @*@Html.DisplayNameFor(model => model.CiudadDestino)*@
+                    </th>
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CiudadSalida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CiudadDestino)
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("Update","DestinationsTransportations",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
+                            <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
+                                <i class="trash alternate icon"></i>
+                            </button>
+                            <button class="ui large icon yellow button">
+                                <i class="folder open outline icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un Destino Transporte
+    </div>
+    <form asp-action="Create" asp-controller="DestinationsTransportations" id="createDestinationsTransportationsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label>Destinos Transportes</label>
+                    <div class="two fields">
+                        <div class="field">
+                            <select id="DsTr_CiudadSalida" name="dsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
+                                <option value="">Seleccione la ciudad de salida</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <select id="DsTr_CiudadDestino" name="dsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
+                                <option value="">Seleccione la ciudad de destino</option>
+                            </select>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeActivity">Cerrar</button>
+        <button class="ui button" id="sendActivity" onclick="validar()">Guardar</button>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
+    <script>
+        // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdRestaurants tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdRestaurants").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 5
+        });
+
+        //------------------------------------Funciones------------------------
+
+        function DeleteActividad(id) {
+            const capsula1 = () => {
+                ajaxRequest("/Activities/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+
+        };
+    </script>
+}
