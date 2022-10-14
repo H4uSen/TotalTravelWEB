@@ -374,26 +374,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #endregion
 
-<<<<<<< Updated upstream
         #region DestinosTransportes
 
         public async Task<ServiceResult> TransportDestionationsList()
-=======
-        #region HorariosTransporte
-        public async Task<ServiceResult> ScheduleTransportationList(IEnumerable<ScheduleTransportationListViewModel> model)
->>>>>>> Stashed changes
         {
             var Result = new ServiceResult();
 
             try
             {
-<<<<<<< Updated upstream
                 var response = await _api.Get<IEnumerable<DestinationsTransportationsListViewModel>, IEnumerable<DestinationsTransportationsListViewModel>>(req => {
                     req.Path = $"/API/DestinationsTransportations/List";
-=======
-                var response = await _api.Get<IEnumerable<ScheduleTransportationListViewModel>, IEnumerable<ScheduleTransportationListViewModel>>(req => {
-                    req.Path = $"/API/ScheduleTransportation/List";
->>>>>>> Stashed changes
+
                     req.Content = null;
                 }
                 );
@@ -412,12 +403,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
-<<<<<<< Updated upstream
+
 
         public async Task<ServiceResult> TransportDestionationsCreate(DestinationsTransportationsViewModel transportedestino, string token)
         {
             var Result = new ServiceResult();
-
             try
             {
                 var response = await _api.Post<DestinationsTransportationsViewModel, RequestStatus>(req =>
@@ -504,8 +494,39 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
-=======
+
+        #region HorariosTransporte
+        public async Task<ServiceResult> ScheduleTransportationList(IEnumerable<ScheduleTransportationListViewModel> model) {
+            
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<ScheduleTransportationListViewModel>, IEnumerable<ScheduleTransportationListViewModel>>(req => {
+                    req.Path = $"/API/ScheduleTransportation/List";
+
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+
         #endregion
->>>>>>> Stashed changes
+
     }
 }
