@@ -269,7 +269,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Post<TypesActivitiesViewModel, RequestStatus>(req =>
+                var response = await _api.Put<TypesActivitiesViewModel, RequestStatus>(req =>
                 {
                     req.Path = $"/API/TypeActivities/Update?id=" + actividad.TiAc_ID;
                     req.Content = actividad;

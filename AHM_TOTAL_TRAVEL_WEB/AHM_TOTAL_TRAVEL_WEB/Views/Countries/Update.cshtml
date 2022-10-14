@@ -13,6 +13,11 @@
     <div class="col-md-4">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="form-group" hidden>
+                <label asp-for="Pais_ID" class="control-label"></label>
+                <input asp-for="Pais_ID" class="form-control" />
+                <span asp-validation-for="Pais_ID" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Pais_Codigo" class="control-label"></label>
                 <input asp-for="Pais_Codigo" class="form-control" />

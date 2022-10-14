@@ -289,7 +289,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Post<PartnersViewModel, RequestStatus>(req =>
+                var response = await _api.Put<PartnersViewModel, RequestStatus>(req =>
                 {
                     req.Path = $"/API/Partners/Update?id=" + actividad.Part_ID;
                     req.Content = actividad;
@@ -378,7 +378,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Post<CountriesViewModel, RequestStatus>(req =>
+                var response = await _api.Put<CountriesViewModel, RequestStatus>(req =>
                 {
                     req.Path = $"/API/Countries/Update?id=" + actividad.Pais_ID;
                     req.Content = actividad;
