@@ -20,8 +20,8 @@
 
         <br>
         <div class="ui grid">
-            <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Countries")">
+            <div class="eight wide column">                
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Countries")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
@@ -74,15 +74,16 @@
                             @Html.DisplayFor(modelItem => item.Nacionalidad)
                         </td>
 
-                        <td>
-                            <a href="@Url.Action("Update","Countries",new { id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
-                            <button class="ui large icon negative button">
+                        <td>                           
+                            <a class="ui large icon btn-purple button" href="@Url.Action("Update","Countries", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg"></i>
+                            </a>
+                            <a class="ui large icon negative button" href="@Url.Action("Details","Countries", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg"></i>
+                            </a>                                                       
+                            <button class="ui large icon button" onclick="DeleteCountries(@item.ID)">
                                 <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            </button>   
                         </td>
                     </tr>
                 }
