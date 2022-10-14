@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a id="createModal" class="ui small primary labeled icon button" href="@Url.Action("Create", "Transport")">
+                <a id="createModal" class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create", "Transport")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -63,14 +63,14 @@
                         </td>
 
                         <td>
-                            <a class="ui large icon positive button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
+                            <a class="ui large icon btn-purple button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon"></i>
                             </a>
                             <a class="ui large icon negative button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </a>
-                            <a class="ui large icon yellow button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
-                                <i class="folder open outline icon"></i>
+                            <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg"></i>
                             </a>
                         </td>
                     </tr>
