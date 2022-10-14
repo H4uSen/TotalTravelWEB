@@ -13,9 +13,14 @@
                 <i class="icon bus"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear
+                        Crear Transporte
                     </div>
-                    <p>Ingresa un nuevo transporte.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Transport")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
 
@@ -78,12 +83,12 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="button" value="Crear" onclick="createTransport()" class="ui small btn-purple text-white labeled icon button" />
+                        <input type="button" value="Guardar" onclick="createTransport()" class="ui small btn-purple text-white labeled button" />
                     </div>
                 </div>
                 <div class="ui negative message bottom attached" id="errorDiv">
                     <div class="header">
-                        An error has occurred while performing the operation.
+                        Ha ocurrido un error al realizar la operación.
                     </div>
                     <p>
 
