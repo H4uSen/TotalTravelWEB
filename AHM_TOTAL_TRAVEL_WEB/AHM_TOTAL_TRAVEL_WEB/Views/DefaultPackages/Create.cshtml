@@ -5,47 +5,84 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>DefaultPackagesViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
-            <div class="form-group">
-                <label asp-for="paqu_Nombre" class="control-label"></label>
-                <input asp-for="paqu_Nombre" class="form-control" />
-                <span asp-validation-for="paqu_Nombre" class="text-danger"></span>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon archive"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Crear
+                    </div>
+                    <p>Ingresa un nuevo paquete predeterminado.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="paqu_Descripcion" class="control-label"></label>
-                <input asp-for="paqu_Descripcion" class="form-control" />
-                <span asp-validation-for="paqu_Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paqu_Duracion" class="control-label"></label>
-                <input asp-for="paqu_Duracion" class="form-control" />
-                <span asp-validation-for="paqu_Duracion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="hote_ID" class="control-label"></label>
-                <input asp-for="hote_ID" class="form-control" />
-                <span asp-validation-for="hote_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="rest_ID" class="control-label"></label>
-                <input asp-for="rest_ID" class="form-control" />
-                <span asp-validation-for="rest_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+            <!-- formulario-->
+           <form asp-action="Create" id="frmCreateDefaultPackagues">
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Nombre</label>
+                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Descripción</label>
+                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
+                                </div>                              
+                            </div>
+                        </div>  
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Precio</label>
+                                    <input asp-for="paqu_Precio" id="Precio" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPrecio"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Duración</label>
+                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDuracion"></span>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="field">
+                            <div class="two fields">
+                                 <div class="required field">
+                                    <label>Hotel</label>
+                                    <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
+                                        <option value="">Seleccione un hotel</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorHotel"></span>
+                                </div>          
+                                <div class="required field">
+                                    <label>Restaurante</label>
+                                    <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
+                                        <option value="">Seleccione un restaurante</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurantes"></span>
+                                </div>                         
+                            </div>
+                        </div>  
+                      
+
+                        <input type="button" value="Crear" onclick="createDefaultPackages()" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Scripts{
+    <script src="~/js/DefaultPackaguesJS/Create.js"></script>
+}
 

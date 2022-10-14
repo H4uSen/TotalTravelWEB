@@ -29,5 +29,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Usuario_Modifica { get; set; }
         public DateTime? Fecha_Modifcia { get; set; }
         public bool? Estado { get; set; }
+        public decimal? Precio { get; set; }
     }
 }

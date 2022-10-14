@@ -9,7 +9,7 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="user icon"></i>
+            <i class="icon archive"></i>
             <div class="content">
                 <div class="header">
                     Paquetes Predeterminados
@@ -55,6 +55,9 @@
                         @Html.DisplayNameFor(model => model.Duracion_Paquete)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Hotel)
                     </th>
                     <th>
@@ -83,6 +86,9 @@
                             @Html.DisplayFor(modelItem => item.Duracion_Paquete)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Hotel)
                         </td>
                         <td>
@@ -93,14 +99,14 @@
                         </td>
 
                         <td>
+                             
                             <a href="@Url.Action("Update","DefaultPackages",new {  id=item.Id})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
-                            <button class="ui large icon negative button">
+                            <button class="ui large icon negative button" onclick="DeleteDefaultPackage(@item.Id)">
                                 <i class="trash alternate icon"></i>
                             </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            @*<i class='pencil alternate icon'></i>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "ui large icon positive button" })*@
+                            
+                            <a href="@Url.Action("Details","DefaultPackages",new {  id=item.Id})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
                         </td>
                     </tr>
                 }
@@ -134,4 +140,7 @@
             elemPerPage: 5
         });
     </script>
+    <script src="~/js/DefaultPackaguesJS/Delete.js"></script>
+    
+
 }
