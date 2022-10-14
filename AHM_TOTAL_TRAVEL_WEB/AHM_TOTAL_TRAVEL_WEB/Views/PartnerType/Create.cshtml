@@ -12,9 +12,15 @@
                 <i class="user icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        create a new users
+                        Crear
                     </div>
-                    <p class="text-capitalize">create a new user and/or add a partner account.</p>
+                    <p>Crear un nuevo tipo de socio</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "PartnerType")">
+                        Back
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
             <form asp-action="Create">
@@ -22,9 +28,12 @@
                     <div class="content">
                         <div class="three fields">
 
-                            <div class="field">
-                                <label>Descripcion</label>
-                                <input asp-for="TiPar_Descripcion" />
+                            <div class="required field">
+                                <label>Tipo de Socio</label>
+                                <select id="TiPar_ID" name="TiPar_ID" class="ui dropdown search" asp-items="ViewBag.TiPar_ID">
+                                    <option value="">Seleccione un tipo de Socio</option>
+                                </select>
+                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                             <div class="field">
                                 <label>Rol</label>
@@ -34,9 +43,7 @@
 
 
                         <input type="submit" value="Crear" class="btn btn-primary ui positive button" />
-                        <div>
-                            <a asp-action="Index">Back to List</a>
-                        </div>
+                       
                     </div>
                 </div>
             </form>

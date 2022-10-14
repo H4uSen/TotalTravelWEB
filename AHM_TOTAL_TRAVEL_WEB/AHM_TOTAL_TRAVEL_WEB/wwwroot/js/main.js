@@ -195,7 +195,7 @@ var Client_User_Name = GetCookie("User_Name");
                 }
             });
 
-            return JSON.parse(response);
+            return response;
         }
 
      //----------------------------- SEMANTIC FUNCTIONS HELPERS ----------------------------------------

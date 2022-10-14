@@ -60,26 +60,27 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rol_Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rol_Descripcion)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rol_Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rol_Descripcion)
+                        </td>
 
-                    <td>
-                        <a href="@Url.Action("Update","PartnerType",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
-                        <a href="@Url.Action("Delete","PartnerType",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>
-                        <a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href="@Url.Action("Update","PartnerType",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                            <button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
+                                <i class="trash alternate icon"></i>
+                            </button><a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon yellow button"><i class="folder open outline  icon"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table><br>
@@ -88,3 +89,36 @@
 </div>
 <br>
 
+@section Scripts{
+    <script>
+                // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdRestaurants tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdRestaurants").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 5
+        });
+
+        function DeleteTipoPartner(id) {
+            const capsula1 = () => {
+                ajaxRequest("/API/PartnerType/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+
+        };
+    </script>
+}

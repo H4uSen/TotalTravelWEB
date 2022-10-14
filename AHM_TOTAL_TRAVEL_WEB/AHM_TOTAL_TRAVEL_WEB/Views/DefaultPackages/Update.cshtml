@@ -5,51 +5,87 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Update</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon archive"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Editar
+                    </div>
+                    <p>Actualiza este paquete predeterminado.</p>
+                </div>
+            </div>
 
-<h4>DefaultPackagesViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
-            <div class="form-group">
-                <label asp-for="paqu_Nombre" class="control-label"></label>
-                <input asp-for="paqu_Nombre" class="form-control" />
-                <span asp-validation-for="paqu_Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paqu_Descripcion" class="control-label"></label>
-                <input asp-for="paqu_Descripcion" class="form-control" />
-                <span asp-validation-for="paqu_Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paqu_Duracion" class="control-label"></label>
-                <input asp-for="paqu_Duracion" class="form-control" />
-                <span asp-validation-for="paqu_Duracion" class="text-danger"></span>
-            </div><div class="form-group">
-                <label asp-for="paqu_Precio" class="control-label"></label>
-                <input asp-for="paqu_Precio" class="form-control" />
-                <span asp-validation-for="paqu_Precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="hote_ID" class="control-label"></label>
-                <input asp-for="hote_ID" class="form-control" />
-                <span asp-validation-for="hote_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="rest_ID" class="control-label"></label>
-                <input asp-for="rest_ID" class="form-control" />
-                <span asp-validation-for="rest_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- formulario-->
+           <form asp-action="Update" id="frmUpdateDefaultPackagues">
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="required field" hidden>
+                            <label>ID</label>
+                            <input asp-for="paqu_ID" class="form-control" />                           
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Nombre</label>
+                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Descripción</label>
+                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
+                                </div>                              
+                            </div>
+                        </div>  
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Precio</label>
+                                    <input asp-for="paqu_Precio" id="Precio" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPrecio"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Duración</label>
+                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDuracion"></span>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="field">
+                            <div class="two fields">
+                                 <div class="required field">
+                                    <label>Hotel</label>
+                                    <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
+                                        <option value="">Seleccione un hotel</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorHotel"></span>
+                                </div>          
+                                <div class="required field">
+                                    <label>Restaurante</label>
+                                    <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
+                                        <option value="">Seleccione un restaurante</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurantes"></span>
+                                </div>                         
+                            </div>
+                        </div>  
+                      
+
+                        <input type="button" value="Actualizar" onclick="updateDefaultPackages()" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
+@section Scripts{
+    <script src="~/js/DefaultPackaguesJS/Update.js"></script>
+}
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

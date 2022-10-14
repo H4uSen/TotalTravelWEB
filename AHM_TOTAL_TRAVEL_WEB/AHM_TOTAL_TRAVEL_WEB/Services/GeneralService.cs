@@ -289,7 +289,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Post<PartnersViewModel, RequestStatus>(req =>
+                var response = await _api.Put<PartnersViewModel, RequestStatus>(req =>
                 {
                     req.Path = $"/API/Partners/Update?id=" + actividad.Part_ID;
                     req.Content = actividad;
@@ -311,6 +311,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+        public async Task<ServiceResult> PartnersFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new PartnersListViewModel();
+
+            try
+            {
+                var response = await _api.Get<PartnersListViewModel, PartnersListViewModel>(req => {
+                    req.Path = $"/API/Partners/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
 
@@ -378,7 +406,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Post<CountriesViewModel, RequestStatus>(req =>
+                var response = await _api.Put<CountriesViewModel, RequestStatus>(req =>
                 {
                     req.Path = $"/API/Countries/Update?id=" + actividad.Pais_ID;
                     req.Content = actividad;
@@ -520,6 +548,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+
+        public async Task<ServiceResult> PartnerTypeFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new PartnerTypeListViewModel();
+
+            try
+            {
+                var response = await _api.Get<PartnerTypeListViewModel, PartnerTypeListViewModel>(req => {
+                    req.Path = $"/API/PartnerType/Find?Id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
     }

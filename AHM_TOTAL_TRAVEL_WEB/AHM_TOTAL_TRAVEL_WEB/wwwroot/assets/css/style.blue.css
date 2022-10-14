@@ -12621,7 +12621,7 @@ input {
 nav.side-navbar {
   overflow: hidden;
   min-width: 250px;
-  max-width: 250px;
+  max-width: 400px;
   color: #686a76;
   background: #fff;
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);

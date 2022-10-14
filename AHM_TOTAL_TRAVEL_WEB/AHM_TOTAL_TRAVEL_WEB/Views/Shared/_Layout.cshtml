@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http;
+@inject IViewLocalizer Localizer;
+
+<!DOCTYPE html>
+
+<html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,17 +79,38 @@
                             <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" href="#"><span></span><span></span><span></span></a>
                         </div>
                         <!-- Navbar Menu -->
-                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center" 
+                            style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-content: space-around;">
                             <li id="search" class="nav-item d-flex align-items-center">
 
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="@Url.Action("LogOut","Access")">
-                                    <span class="d-none d-sm-inline">Logout</span>
+                                    <span class="d-none d-sm-inline">Cerrar Sesión</span>
                                     <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                                         <use xlink:href="#security-1"> </use>
                                     </svg>
                                 </a>
+                            </li>
+                            <li class="nav-item" style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-content: space-around;">
+                                
+                                <!-- GTranslate: https://gtranslate.io/ -->
+                                <a href="#" onclick="doGTranslate('es|en');return false;" title="English" class="gflag nturl" style="background-position:-0px -0px; margin-top:15px;"><img src="//gtranslate.net/flags/blank.png" height="24" width="24" alt="English" /></a>
+                                <p style="
+                                   display: flex;
+                                   margin-top: 15px;
+                                   align-content: center;
+                                   align-items: center;
+                                   margin-left: 11px;
+                                   margin-right: 11px;"> | </p>
+                                <a href="#" onclick="doGTranslate('es|es');return false;" title="Spanish" class="gflag nturl" style="background-position:-600px -200px; margin-top:15px;"><img src="//gtranslate.net/flags/blank.png" height="24" width="24" alt="Spanish" /></a>
+
                             </li>
                         </ul>
                     </div>
@@ -98,9 +125,12 @@
                 <div class="sidebar-header d-flex align-items-center py-4 px-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="popButton">
-                        <img class="avatar shadow-0 img-fluid rounded-circle" src="~/assets/img/avatar-1.jpg" alt="...">
                         <div class="ms-3 title">
-                            <a class="d-none d-md-block dropdown-toggle h4 mb-2" id="" asp-area="" asp-controller="Account" asp-action="Index">Mark Stephen</a>
+                            
+                            <a class="d-none d-md-block dropdown-toggle h4 mb-2" id="" asp-area="" asp-controller="Account" asp-action="Index">
+                                <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;" src="@Context.Session.GetString("ImgUrl")" alt="...">
+                                @Context.Session.GetString("Nombre")
+                            </a>
                         </div>
                     </a><!-- End Profile Iamge Icon -->
                     <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
@@ -128,7 +158,7 @@
                 <ul class="list-unstyled py-4">
                     <li class="sidebar-item" id="">
                         <a class="sidebar-link" href="#">
-                            Inicio
+                            Principal
                         </a>
                     </li>
                 </ul>
@@ -159,6 +189,7 @@
                             <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
                             <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
                             <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
+                            <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos Transportes</a></li>
                         </ul>
                         <a class="sidebar-link" href="#Activity_Schema" data-toggle="collapse">
                             Modulo de Actividades
@@ -233,11 +264,72 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     -->
     <script type="text/javascript" src="~/js/Pagination.js"></script>
+    <script type="text/javascript" src="~/assets/js/front.js"></script>
+    
 
     <!-- Proyect files -->
     <script src="~/js/main.js"></script>
     <script src="~/js/JSON_Models.js"></script>
     @RenderSection("Scripts", required: false)
+
+    <style type="text/css">
+        <!--
+        a.gflag {
+            vertical-align: middle;
+            font-size: 24px;
+            padding: 1px 0;
+            background-repeat: no-repeat;
+            background-image: url(//gtranslate.net/flags/24.png);
+        }
+
+            a.gflag img {
+                border: 0;
+            }
+
+            a.gflag:hover {
+                background-image: url(//gtranslate.net/flags/24a.png);
+            }
+
+        #goog-gt-tt {
+            display: none !important;
+        }
+
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+
+        .goog-te-menu-value:hover {
+            text-decoration: none !important;
+        }
+
+        body {
+            top: 0 !important;
+        }
+
+        #google_translate_element2 {
+            display: none !important;
+        }
+        -->
+    </style>
+
+    <br />
+    
+                               
+    <div id="google_translate_element2"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit2() { new google.translate.TranslateElement({ pageLanguage: 'es', autoDisplay: true }, 'google_translate_element2'); }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
+
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        eval(function (p, a, c, k, e, r) { e = function (c) { return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!''.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]); return p }('6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}', 43, 43, '||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'.split('|'), 0, {}))
+        /* ]]> */
+    </script>
+
+
+    
 </body>
 </html>
 
