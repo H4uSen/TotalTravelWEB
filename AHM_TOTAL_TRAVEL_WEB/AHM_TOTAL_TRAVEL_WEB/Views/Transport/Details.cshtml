@@ -27,19 +27,24 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
+                            </div>
+                            <div class="field">
                                 <label>Partner</label>
                                 @Html.DisplayFor(model => model.NombrePartner)
-
                             </div>
+                        </div>
+                        <div class="two" fields>
                             <div class="field">
                                 <label>Tipo transporte</label>
                                 @Html.DisplayFor(model => model.TipoTransporte)
                             </div>
+                            <div class="field">
+                                <label>Dirección</label>
+                                @Html.DisplayFor(model => model.Direccion)
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label>Dirección</label>
-                        @Html.DisplayFor(model => model.Direccion)
                     </div>
                 </div>
             </div>
