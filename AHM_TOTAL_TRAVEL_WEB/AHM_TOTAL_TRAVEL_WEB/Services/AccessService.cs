@@ -260,5 +260,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region Roles
+
+        public async Task<ServiceResult> RolesList(string token)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<RolListViewModel>, IEnumerable<RolListViewModel>>(req => {
+                    req.Path = $"/API/Roles/List";
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -13,10 +13,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class PartnerTypeController : Controller
     {
         GeneralService _generalServices;
+        AccessService _accessService;
 
-        public PartnerTypeController(GeneralService generalServices)
+        public PartnerTypeController(GeneralService generalServices,AccessService accessService)
         {
             _generalServices = generalServices;
+            _accessService = accessService;
         }
 
         //[HttpGet]
@@ -30,11 +32,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
-            var model = new List<PartnerTypeListViewModel>();
-            var partnerType = await _generalServices.PartnerTypeList(model);
-            IEnumerable<PartnerTypeListViewModel> data_PartnerType = (IEnumerable<PartnerTypeListViewModel>)partnerType.Data;
-            ViewBag.TiPar_ID = new SelectList(data_PartnerType, "ID", "Descripcion");
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var Rol = await _accessService.RolesList(token);
+            IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
+            ViewBag.Rol_ID = new SelectList(data_rol, "ID", "Descripcion");
 
             return View();
         }
@@ -60,12 +61,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var Rol = await _accessService.RolesList(token);
+            IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
+            ViewBag.Rol_ID = new SelectList(data_rol, "ID", "Descripcion");
+
 
             var item = new PartnerTypeViewModel();
             IEnumerable<PartnerTypeListViewModel> model = null;
             var list = await _generalServices.PartnerTypeList(model);
             IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
+            item.TiPar_ID = element.ID;
             item.TiPar_Descripcion = element.Descripcion;
             item.Rol_ID = element.Rol_Id;
 
