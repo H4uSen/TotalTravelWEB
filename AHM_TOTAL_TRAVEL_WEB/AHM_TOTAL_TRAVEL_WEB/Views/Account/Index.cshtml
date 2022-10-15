@@ -185,7 +185,7 @@
                                 <h6 class="mb-0">Dirección</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                @*@Html.DisplayFor(model => model.Direccion)*@
+                                @ViewData["DireccionExacta"]
                             </div>
                         </div>
                     </div>
@@ -232,20 +232,24 @@
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1">Colonia</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="Colonia" value="@ViewData["Colonia"]">
-                                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <select class="ui dropdown search min-width-0" id="Ciudad" asp-items="ViewBag.Ciudades">
-                                            <option value="">Seleccione una ciudad</option>
+                                        <select class="ui dropdown search min-width-0" id="Pais" asp-items="ViewBag.Paises">
+                                            <option value="">Seleccione un país</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-6">
+                                        <select class="ui dropdown search min-width-0" id="Ciudad">
+                                            <option value="">Seleccione una ciudad</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <br />
+                                        <select class="ui dropdown search min-width-0" id="Colonia">
+                                            <option value="">Seleccione una colonia</option>
+                                        </select>
+                                        
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <br />
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Avenida</span>
@@ -255,6 +259,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
+                                        <br />
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Calle</span>
@@ -300,6 +305,10 @@
             $("#info").transition('slide down');
             $("#formedit").transition('slide up');
         });
+
+        const Pais_ID = "@ViewData["Pais"]";
+        const Ciud_ID = "@ViewData["Ciudad"]";
+        const Colonia_ID = "@ViewData["Colonia"]";
 
     </script>
     <script src="~/js/UsersJs/UsersAccount.js"></script>

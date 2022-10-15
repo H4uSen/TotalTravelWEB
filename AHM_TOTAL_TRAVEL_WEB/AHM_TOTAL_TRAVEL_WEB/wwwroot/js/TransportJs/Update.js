@@ -1,5 +1,35 @@
 ﻿$("#errorDiv").hide();
 
+
+//function ObtenerDatosTransportes(id) {
+
+//    $.ajax({
+//        url: 'https://totaltravel.somee.com/API/Transports/Find?id='+ id,
+//        headers: {
+//            'Content-Type': 'application/x-www-form-urlencoded'
+//        },
+//        type: "GET",
+//        dataType: "json",
+//        async: true,
+//        data: {
+//        },
+//        success: function (result) {
+//            const data = result.data;
+//            console.log(data);
+//            idTransporte = id;
+//            $("#Muni_ID").val(data.id);
+//            $(`#updateModal #cbbDepartamentos2 option[value = "${data.departamentoID}"]`).prop("selected", true);
+
+//            //window.location = "pagina.html";
+//        },
+//        error: function () {
+//            console.log("error");
+//        }
+//    });
+//}
+
+
+
 function updateTransport(id) {
 
     if ($('#Colonia').val() == 0) {
