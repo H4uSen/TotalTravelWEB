@@ -25,8 +25,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string TipoTransporte { get; set; }
         public int? PartnerID { get; set; }
         public string NombrePartner { get; set; }
+        public int Ciudad_ID { get; set; }
+        public string Ciudad { get; set; }
         public int? DireccionId { get; set; }
-        public string Direccion { get; set; }
+        public int ColoniaId { get; set; }
+        public string Colonia { get; set; }
+        public string Calle { get; set; }
+        public string Avenida { get; set; }
         public int? UsuarioCreacionID { get; set; }
         public string UsuarioCreacion { get; set; }
         public DateTime? FechaCreacion { get; set; }

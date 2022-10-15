@@ -34,11 +34,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-            var direccion = (AddressListViewModel)(await _generalService.AddressFind(cuenta.DireccionID.ToString(), token)).Data;
-            var direccionDetalle = direccion.Direccion.Split(", ");
-            ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
-            ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
-            ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
+            //var direccion = (AddressListViewModel)(await _generalService.AddressFind(cuenta.DireccionID.ToString(), token)).Data;
+            //var direccionDetalle = direccion.Direccion.Split(", ");           PERDON ):
+            //ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
+            //ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
+            //ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
             //ViewData["CiudadID"] = direccion.C
 
             return View(cuenta);
