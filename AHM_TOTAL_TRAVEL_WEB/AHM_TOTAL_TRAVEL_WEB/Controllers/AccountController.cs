@@ -47,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UserUpdateViewModel data)
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
 
