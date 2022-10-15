@@ -61,13 +61,13 @@
 
                         </td>
                         <td>
-                            <a class="ui large icon btn-purple button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
-                                <i class="pencil alternate icon"></i>
+                            <a class="ui large icon btn-edit button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
+                                <i class="pencil alternate icon icon-crud"></i>
                             </a>
-                            <a class="ui large icon btn-edit button" onclick="Delete(@item.ID)">
+                            <a class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </a>
-                            <a class="ui large icon btn-delete button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
+                            <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
                         </td>
