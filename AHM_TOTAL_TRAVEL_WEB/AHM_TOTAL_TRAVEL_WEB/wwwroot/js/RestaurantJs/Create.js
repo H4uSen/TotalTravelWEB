@@ -13,7 +13,7 @@ $('#Count_ID').change(function () {
         });
         ClearDropDownItem($('#City_ID'));
         if (cityFilter.length > 0) {
-            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
+            AddDropDownItem($('#City_ID'), item = { value: "", text: "Seleccione una ciudad." });
             for (var i = 0; i < cityFilter.length; i++) {
                 var item = cityFilter[i];
                 AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
@@ -22,9 +22,32 @@ $('#Count_ID').change(function () {
         } else {
             SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
         }
-        
+    }
+
+});
+
+$('#City_ID').change(function () {
 
 
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    if (response.code == 200) {
+
+        var City_ID = $('#City_ID').val();
+        var suburbs = response.data;
+        var suburbsFilter = jQuery.grep(suburbs, function (Suburb, i) {
+            return Suburb.ciudadID == City_ID;
+        });
+        ClearDropDownItem($('#Col_ID'));
+        if (suburbsFilter.length > 0) {
+            AddDropDownItem($('#Col_ID'), item = { value: "", text: "Seleccione una colonia." });
+            for (var i = 0; i < suburbsFilter.length; i++) {
+                var item = suburbsFilter[i];
+                AddDropDownItem($('#Col_ID'), item = { value: item.id, text: item.colonia });
+            }
+            $('#Col_ID').parent().find('.text').html('Seleccione una colonia');
+        } else {
+            SetDropDownPlaceholder($('#Col_ID'), "No hay colonias disponibles.");
+        }
     }
 
 });
@@ -35,7 +58,7 @@ $('#Count_ID').change(function () {
 function createRestaurant() {
 
 
-    if ($('#Colonia').val() == 0) {
+    if ($('#Col_ID').val() == 0 || $('#Col_ID').val() == null) {
         $("#labelvalidatorCol").html("Ingrese una colonia.");
     }
     else {
@@ -75,15 +98,16 @@ function createRestaurant() {
         $("#labelvalidatorPartner").html(" ");
     }
 
-    if ($('#Colonia').val() != 0 && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
+    if ($('#Col_ID').val() != 0 && $('#Col_ID').val() != null && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
         && $('#City_ID').val() != 0 && $('#City_ID').val() != null && $('#Rest_Nombre').val() != 0 && $('#Part_ID').val() != 0) {
 
         var direStatus = false;
-        var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
         var dire = AdressViewModel;
 
-        dire.Dire_Descripcion = fullAddress;
-        dire.Ciud_ID = parseInt($("#City_ID").val());
+        dire.colo_ID = parseInt($('#Col_ID').val());
+        dire.dire_Calle = $('#Calle').val();
+        dire.dire_Avenida = $('#Avenida').val();
+
         var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
@@ -92,6 +116,7 @@ function createRestaurant() {
             direStatus = true;
         } else {
             console.log(responseAddress)
+            console.log($('#Col_ID').val());
         }
 
         if (direStatus) {
@@ -109,11 +134,9 @@ function createRestaurant() {
 
             data.append("file", $("#File").prop("files")[0]);
             var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");
-
-            if (response.data.codeStatus > 0) {
+            var responseJson = JSON.parse(response);
+            if (responseJson.data.codeStatus > 0) {
                 window.location.href = '/Restaurant?success=true';
-
-
             } else {
 
                 $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
