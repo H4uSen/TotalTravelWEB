@@ -65,12 +65,12 @@
                         <div class="field">
                             <div class="required field">
                                 <label>Imagen</label>
-                                <input id="File" type="file" multiple />
+                                <input id="FileAct" type="file" multiple />
                             </div>
                         </div>
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="createRestaurant()" class="btn btn-purple ui positive button" />
+                        <input type="button" id="btnGuardarActvExtra" value="Guardar" class="btn btn-purple ui positive button" />
                     </div>
                 </div>
 
@@ -79,3 +79,7 @@
         </div>
     </div>
 </div>
+@section Scripts{
+<script src="~/js/ActivitiesExtraJs/Create.js"></script>
+
+}

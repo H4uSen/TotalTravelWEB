@@ -15,7 +15,8 @@ function GetActivities(id) {
     if (response.code == 200) {
         $('#Actv_ID').val(id);
         $('#ActividadUpdate').val(response.data.descripcion);
-        $('#valor').val(response.data.tipo);
+        const parent = $("#TiPoAc_IDUpdate").parent();
+        parent.find(`.menu .item[data-value="${response.data.iD_TiAc}"]`).addClass(["selected", "active"]);
 
         if ($('#ActividadUpdate').val() != 0) {
             $("#modalUpdate").modal('show');
@@ -29,19 +30,15 @@ $("#sendEditActivities").click(() => {
 });
 
 function ValidarUpdate() {
-    if ($("#ActividadUpdate").val() == 0) {
-        $("#labelvalidatorActividadUpdate").html("No se Puede dejar vacio este campo");
-    }
-    else {
-        $("#labelvalidatorActividadUpdate").html(" ");
-    }
-    if ($("#TiPoAc_IDUpdate").val() == 0) {
-        $("#labelvalidatorTipoActividadUpdate").html("Seleccione el tipo de la Actividad");
-    }
-    else {
-        $("#labelvalidatorTipoActividadUpdate").html(" ");
-    }
-    if ($("#ActividadUpdate").val() != 0 && $("#TiPoAc_IDUpdate").val() != 0) {
+
+    const ValidateArrayActivitiesUpdate = [
+        { validateMessage: "Ingrese una Actividad", Jqueryinput: $("#ActividadUpdate") },
+        { validateMessage: "Seleccione el tipo de la Actividad", Jqueryinput: $("#TiPoAc_IDUpdate") }
+    ];
+
+    const ActivityValidateUpdate = ValidateForm(ValidateArrayActivitiesUpdate);
+
+    if (ActivityValidateUpdate) {
         $("#updateActivitiesForm").submit();
     }
 }
