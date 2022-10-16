@@ -1,0 +1,161 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.SuburbsListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="home icon"></i>
+            <div class="content">
+                <div class="header">
+                    Colonias
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <button id="createSuburbs" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="tabla">
+            <thead>
+                <tr>
+                    <th>
+                        Colonia
+                    </th>
+                    <th>
+                        Ciudad
+                    </th>
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Colonia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad)
+                        </td>
+
+                        <td>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomColo" onclick="GetColo(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button" onclick="DeleteColo(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details", "Suburbs", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una Colonia
+    </div>
+    <form asp-action="Create" asp-controller="Suburbs" id="createSuburbsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Colonia</label>
+                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorColonia"></span>
+                        </div>
+                        <div class="required field">
+                            <label>País</label>
+                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                <option value="">Seleccione un país</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="one field">
+                        <div class="required field">
+                            <label>Ciudad</label>
+                            <select id="City_ID" name="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudad"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/SuburbsJs/Create.js"></script>
+    <script src="~/js/SuburbsJs/SelectCiudades.js"></script>
+    <script>
+        // -------------------------------------- EVENTS ---------------------------------------
+
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#tabla tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#tabla").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#tabla").paginationTdA({
+            elemPerPage: 5
+        });
+    </script>
+    <script>
+        function DeleteColo(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Suburbs/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Suburbs?success=true';
+                }
+            };
+
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
+
+        };
+    </script>
+
+}

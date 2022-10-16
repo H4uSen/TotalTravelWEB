@@ -1,0 +1,90 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.SuburbsListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="home icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles de una Colonia
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Suburbs")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="field">
+                        <div class="three fields">
+                            <div class="field">
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
+
+                            </div>
+                            <div class="field">
+                                <label>Colonia</label>
+                                @Html.DisplayFor(model => model.Colonia)
+
+                            </div>
+                            <div class="field">
+                                <label>Ciudad</label>
+                                @Html.DisplayFor(model => model.Ciudad)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Auditoría
+            </h3>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario Creación
+                        </th>
+                        <th>
+                            Fecha Creación
+                        </th>
+                        <th>
+                            Usuario modifica
+                        </th>
+                        <th>
+                            Fecha modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Usuario_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Fecha_Creacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Usuario_Modifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Fecha_Modifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

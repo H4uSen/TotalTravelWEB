@@ -607,5 +607,154 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
         #endregion
+
+        #region Colonias
+
+        public async Task<ServiceResult> SuburbsList()
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<SuburbsListViewModel>, IEnumerable<SuburbsListViewModel>>(req => {
+                    req.Path = $"/API/Suburbs/List";
+
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+
+        public async Task<ServiceResult> SuburbsCreate(SuburbsViewModel colonia, string token)
+        {
+            var Result = new ServiceResult();
+            try
+            {
+                var response = await _api.Post<SuburbsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Suburbs/Insert";
+                    req.Content = colonia;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> SuburbsUpdate(SuburbsViewModel colonia, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<SuburbsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Suburbs/Update?id=" + colonia.Colo_ID;
+                    req.Content = colonia;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> SuburbsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new SuburbsListViewModel();
+
+            try
+            {
+                var response = await _api.Get<SuburbsListViewModel, SuburbsListViewModel>(req => {
+                    req.Path = $"/API/Suburbs/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> SuburbsDelete(SuburbsViewModel colonia, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Delete<SuburbsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Suburbs/Delete?id=" + id + "&mod=" + colonia.Colo_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        #endregion
     }
 }
