@@ -14,6 +14,58 @@ $("#user_image").prop("src", "https://" + url_image);
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 
+function ValidateForm(inputArray = []) {
+    var Validate = [];
+
+    //recorre cada input en array
+    $.each(inputArray, function (i, item) {
+
+        const parent = $(item.Jqueryinput).parents(".field")[0];
+
+        if ($(item.Jqueryinput).val() == 0 || $(item.Jqueryinput).val() == null) {
+
+            //crea span item
+            var labelvalidator = document.createElement("span");
+            labelvalidator.className = "labelvalidator";
+            labelvalidator.innerText = item.validateMessage;
+
+            //si valor de input esta vacio añade spam de error
+            if ($(parent).find("span.labelvalidator").length == 0) {
+                $(item.Jqueryinput).parents(".field")[0].append(labelvalidator);
+            }
+
+            $(parent).addClass("error");
+
+            //añade item de status sobre el input actual
+            Validate.push(
+                { item: item.Jqueryinput, status: false }
+            );
+        }
+        else {
+
+            //si valor de input esta llena remueve spam de error
+            $(parent).find("span.labelvalidator").remove();
+            $(parent).removeClass("error");
+
+            //añade item de status sobre el input actual
+            Validate.push(
+                { item: item.Jqueryinput, status: true }
+            );
+        }
+    });
+
+    //filtra status items en false
+    var statusFilter = jQuery.grep(Validate, function (item, i) {
+        return item.status == false;
+    });
+
+    if (statusFilter.length == 0) {
+        return true;
+    }
+
+    return false;
+}
+
     //se utiliza para alertas de campos vacios
     function iziToastAlert(title = "An error ocurred", message = "", type = "error") {
         const colors = {

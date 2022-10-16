@@ -12,11 +12,11 @@
             top: auto !important;
             height: auto !important;
         }
+
         table thead tr th {
             background-color: #2b2b2b;
             color: white;
         }
-
     </style>
 }
 
@@ -35,10 +35,10 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-            <a class="ui small btn-purple text-white labeled icon button" id="createAddress">
-                <i class="plus icon"></i> Nuevo
-            </a>
-        </div>
+                <a class="ui small btn-purple text-white labeled icon button" id="createAddress">
+                    <i class="plus icon"></i> Nuevo
+                </a>
+            </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
                     <input type="text" placeholder="Buscar..." id="txtSearch">
@@ -66,29 +66,29 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
+                    <tr>
 
-                    <td>
-                        @*@Html.DisplayFor(modelItem => item.Direccion)*@
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ciudad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pais)
-                    </td>
-                    <td>
-                        <button class="ui large icon btn-edit button" id="createAddress" >
-                            <i class="pencil alternate icon  icon-crud"></i>
-                        </button>
-                        <button class="ui large icon btn-delete button" >
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a  class="ui large icon button">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                </tr>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.Direccion)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pais)
+                        </td>
+                        <td>
+                            <button class="ui large icon btn-edit button" id="createAddress">
+                                <i class="pencil alternate icon  icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -108,40 +108,47 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="field">
-                    <input id="Colonia"  placeholder="Colonia" />
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
-                </div>
-
-                <div class="field">
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label>Calle</label>
                             <input id="Calle" placeholder="Calle" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
+                            <span class="labelvalidator" id="labelvalidatorCalle"></span>
                         </div>
-                        <div class="field">
+                        <div class="required field">
+                            <label>Avenida</label>
                             <input id="Avenida" placeholder="Avenida" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
+                            <span class="labelvalidator" id="labelvalidatorAve"></span>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label>País</label>
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un pais</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
+                            <span class="labelvalidator" id="labelvalidatorPais"></span>
                         </div>
                         <div class="field">
-                            <div class="field">
+                            <div class="required field">
+                                <label>Ciudad</label>
                                 <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
-                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
+                                <span class="labelvalidator" id="labelvalidatorCity"></span>
                             </div>
                         </div>
                     </div>
-
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                    <div class="required field">
+                        <label>Colonia</label>
+                        <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
+                        <span class="labelvalidator" id="labelvalidatorCol"></span>
+                    </div>
+                    <span class="labelvalidator" id="labelvalidatorError"></span>
                 </div>
+
+
+
+
             </div>
         </div>
     </form>

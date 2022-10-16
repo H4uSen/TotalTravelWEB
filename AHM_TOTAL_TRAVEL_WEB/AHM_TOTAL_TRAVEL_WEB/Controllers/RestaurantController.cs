@@ -82,7 +82,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.ID = element.ID;
             item.Partner = element.Partner;
             item.Restaurante = element.Restaurante;
-            item.Direccion = element.Direccion;
+            //item.Direccion = element.Direccion;
 
             return View(item);
         }

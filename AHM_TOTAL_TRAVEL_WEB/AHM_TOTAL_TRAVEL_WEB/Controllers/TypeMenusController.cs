@@ -87,13 +87,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             if (ModelState.IsValid)
             {
+                ServiceResult result = new ServiceResult();
                 var idd = HttpContext.User.FindFirst("User_Id").Value;
                 TypeMenus.Time_UsuarioModifica = int.Parse(idd);
 
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _restaurantServices.TypeMenusDelete(TypeMenus, id, token);
+                var list = (RequestStatus)(await _restaurantServices.TypeMenusDelete(TypeMenus, id, token)).Data;
 
-                return View();
+                return Ok(list.CodeStatus);
             }
             else
             {

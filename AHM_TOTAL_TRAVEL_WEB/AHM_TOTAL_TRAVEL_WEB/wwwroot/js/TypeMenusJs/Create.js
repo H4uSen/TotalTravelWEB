@@ -9,19 +9,15 @@ $("#closeTypeMenus").click(() => {
 
 $("#sendTypeMenus").click(() => {
 
-    if ($('#Time_Descripcion').val() == 0) {
-        $("#labelvalidatorError").html("Rellene este campo.");
-    }
-    else {
-        $("#labelvalidatorError").html(" ");
-        send = true;
-    }
+    validateArrayForm = [
+        { validateMessage: "Ingrese un tipo menú.", Jqueryinput: $("#Time_Descripcion") },
+    ];
 
-    if (send) {
-
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+    if (ValidateFormStatus) {
         $('#createTypeMenusForm').submit()
-
-    } 
+    }
 
 });
 

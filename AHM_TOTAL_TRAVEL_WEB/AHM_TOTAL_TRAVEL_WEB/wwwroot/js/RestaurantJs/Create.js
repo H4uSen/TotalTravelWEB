@@ -3,7 +3,7 @@ $('.ui.dropdown').dropdown();
 
 $('#Count_ID').change(function () {
 
-   
+
     var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
     if (response.code == 200) {
         var Count_ID = $('#Count_ID').val();
@@ -57,49 +57,20 @@ $('#City_ID').change(function () {
 
 function createRestaurant() {
 
+    validateArrayForm = [
+        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Col_ID") },
+        { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
+        { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
+        { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
+        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") },
+        { validateMessage: "Ingrese un restaurante.", Jqueryinput: $("#Rest_Nombre") },
+        { validateMessage: "Seleccione una socio.", Jqueryinput: $("#Part_ID") }
+    ];
 
-    if ($('#Col_ID').val() == 0 || $('#Col_ID').val() == null) {
-        $("#labelvalidatorCol").html("Ingrese una colonia.");
-    }
-    else {
-        $("#labelvalidatorCol").html(" ");
-    }
-    if ($('#Calle').val() == 0) {
-        $("#labelvalidatorCalle").html("Ingrese una calle.");
-    }
-    else {
-        $("#labelvalidatorCalle").html(" ");
-    }
-    if ($('#Avenida').val() == 0) {
-        $("#labelvalidatorAve").html("Ingrese una avenida.");
-    }
-    else {
-        $("#labelvalidatorAve").html(" ");
-    }
-    if ($('#Count_ID').val() == 0) {
-        $("#labelvalidatorPais").html("Seleccione un país.");
-    } else {
-        $("#labelvalidatorPais").html(" ");
-    }
-    if ($('#City_ID').val() == 0 || $('#City_ID').val() == null ) {
-        $("#labelvalidatorCity").html("Seleccione una ciudad.");
-    } else {
-        $("#labelvalidatorCity").html(" ");
-    }
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
 
-    if ($('#Rest_Nombre').val() == 0) {
-        $("#labelvalidatorRestaurant").html("Ingrese un restaurante.");
-    } else {
-        $("#labelvalidatorRestaurant").html(" ");
-    }
-    if ($('#Part_ID').val() == 0) {
-        $("#labelvalidatorPartner").html("Seleccione una socio.");
-    } else {
-        $("#labelvalidatorPartner").html(" ");
-    }
-
-    if ($('#Col_ID').val() != 0 && $('#Col_ID').val() != null && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
-        && $('#City_ID').val() != 0 && $('#City_ID').val() != null && $('#Rest_Nombre').val() != 0 && $('#Part_ID').val() != 0) {
+    if (ValidateFormStatus) {
 
         var direStatus = false;
         var dire = AdressViewModel;
@@ -120,7 +91,6 @@ function createRestaurant() {
         }
 
         if (direStatus) {
-            /*var images = [];*/
             var data = new FormData();
             data.append("dire_ID", parseInt(DireID));
             data.append("rest_Nombre", $("#Rest_Nombre").val());
@@ -145,19 +115,7 @@ function createRestaurant() {
         } else {
             $("#labelvalidatorError").html("Se han enviado parámetros incorrectos en los campos de dirección.");
         }
-
-    } 
-
-    
+    }
 }
-
-
-
-
-
-
-
-
-
 
 

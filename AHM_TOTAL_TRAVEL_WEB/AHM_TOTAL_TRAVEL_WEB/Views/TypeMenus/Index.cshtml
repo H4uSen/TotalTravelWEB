@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a  class="ui small btn-purple text-white labeled icon button" id="createTypeMenus">
+                <a class="ui small btn-purple text-white labeled icon button" id="createTypeMenus">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -51,22 +51,22 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripcion)
-                    </td>
-                    <td>
-                        <button class="ui large icon btn-edit button" onclick="GetTypeMenus('@item.ID')">
-                            <i class="pencil alternate icon  icon-crud"></i>
-                        </button>
-                        <button class="ui large icon btn-delete button" onclick="DeleteTypeMenus('@item.ID')">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a href="@Url.Action("Details","TypeMenus",new {  id=item.ID})" class="ui large icon button">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcion)
+                        </td>
+                        <td>
+                            <button class="ui large icon btn-edit button" onclick="GetTypeMenus('@item.ID')">
+                                <i class="pencil alternate icon  icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button" onclick="DeleteTypeMenus('@item.ID')">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("Details","TypeMenus",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -84,10 +84,9 @@
         <div class="ui form attached fluid segment">
             <div class="content">
 
-                <div class="field">
+                <div class="required field">
                     <label>Tipo de menú</label>
                     <input name="Time_Descripcion" id="Time_Descripcion" />
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
                 </div>
 
             </div>
@@ -129,7 +128,10 @@
     <script>
         function DeleteTypeMenus(id) {
             const capsula1 = () => {
-                ajaxRequest("TypeMenus/Delete?id=" + id, null, "POST")
+                var response = ajaxRequest("TypeMenus/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/TypeMenus?success=true';
+                }
             };
 
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
