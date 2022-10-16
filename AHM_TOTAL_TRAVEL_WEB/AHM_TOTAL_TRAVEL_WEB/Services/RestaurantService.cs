@@ -107,6 +107,68 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
 
+
+        public async Task<ServiceResult> MenusDelete(MenusViewModel Menus, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<MenusViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Menu/Delete?id=" + id + "&mod=" + Menus.Menu_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+
+        public async Task<ServiceResult> MenusFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var Menu = new MenusListViewModel();
+
+            try
+            {
+                var response = await _api.Get<MenusListViewModel, MenusListViewModel>(req => {
+                    req.Path = $"/API/Menus/Find?id=" + id;
+                    req.Content = Menu;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
         #endregion
 
         #region TypeMenus

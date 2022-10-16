@@ -67,57 +67,34 @@ $("#closeAddress").click(() => {
 
 $("#sendAddress").click(() => {
 
-    if ($('#Col_ID').val() == 0 || $('#Col_ID').val() == null) {
-        $("#labelvalidatorCol").html("Ingrese una colonia.");
-    }
-    else {
-        $("#labelvalidatorCol").html(" ");
-    }
-    if ($('#Calle').val() == 0) {
-        $('#Calle').parent().append(`<span class="labelvalidator" id="labelvalidatorCol"></span>`);
-        $("#labelvalidatorCalle").html("Ingrese una calle.");
-    }
-    else {
-        $("#labelvalidatorCalle").html(" ");
-    }
-    if ($('#Avenida').val() == 0) {
-        $("#labelvalidatorAve").html("Ingrese una avenida.");
-    }
-    else {
-        $("#labelvalidatorAve").html(" ");
-    }
-    if ($('#Count_ID').val() == 0) {
-        $("#labelvalidatorPais").html("Seleccione un país.");
-    } else {
-        $("#labelvalidatorPais").html(" ");
-    }
-    if ($('#City_ID').val() == 0 || $('#City_ID').val() == null) {
-        $("#labelvalidatorCity").html("Seleccione una ciudad.");
-    } else {
-        $("#labelvalidatorCity").html(" ");
-    }
 
-    if ($('#Col_ID').val() != 0 && $('#Col_ID').val() != null && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
-        && $('#City_ID').val() != 0 && $('#City_ID').val() != null) {
+    validateArrayForm = [
+        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Col_ID") },
+        { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
+        { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
+        { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
+        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") }
+    ];
 
-        var direStatus = false;
-        var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+
+    if (ValidateFormStatus) {
+
         var dire = AdressViewModel;
 
-        dire.Dire_Descripcion = fullAddress;
-        dire.Ciud_ID = parseInt($("#City_ID").val());
+        dire.colo_ID = parseInt($('#Col_ID').val());
+        dire.dire_Calle = $('#Calle').val();
+        dire.dire_Avenida = $('#Avenida').val();
+
         var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
             window.location.href = '/Address';
-        } else {
-            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-        }
-
+        } 
 
     }
-
 
 });
 
@@ -134,10 +111,10 @@ $("#txtSearch").keyup(function () {
     });
 
     $("#grdAddress").paginationTdA({
-        elemPerPage: 5
+        elemPerPage: 10
     });
 });
 
 $("#grdAddress").paginationTdA({
-    elemPerPage: 5
+    elemPerPage: 10
 });

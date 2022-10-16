@@ -71,7 +71,7 @@
                             <button class="ui large icon btn-edit button">
                                 <i class="pencil alternate icon  icon-crud"></i>
                             </button>
-                            <button class="ui large icon btn-delete button" onclick="DeleteTypeMenus('@item.ID')">
+                            <button class="ui large icon btn-delete button" onclick="DeleteRestaurant('@item.ID')">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a class="ui large icon button">
@@ -111,7 +111,7 @@
             elemPerPage: 5
         });
 
-        function DeleteTypeMenus(id) {
+        function DeleteRestaurant(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("Restaurant/Delete?id=" + id, null, "POST");
                 if (response > 0) {

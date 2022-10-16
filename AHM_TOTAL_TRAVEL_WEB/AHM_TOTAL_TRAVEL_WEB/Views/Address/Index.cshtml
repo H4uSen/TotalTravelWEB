@@ -50,15 +50,17 @@
         <table class="ui compact selectable celled table" id="grdAddress">
             <thead>
                 <tr>
-
                     <th>
-                        @*@Html.DisplayNameFor(model => model.Direccion)*@
+                        País
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Ciudad)
+                        Ciudad
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Pais)
+                        Colonia
+                    </th>
+                    <th>
+                        Dirección
                     </th>
                     <th width="200px"></th>
                 </tr>
@@ -66,29 +68,31 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-
-                        <td>
-                            @*@Html.DisplayFor(modelItem => item.Direccion)*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pais)
-                        </td>
-                        <td>
-                            <button class="ui large icon btn-edit button" id="createAddress">
-                                <i class="pencil alternate icon  icon-crud"></i>
-                            </button>
-                            <button class="ui large icon btn-delete button">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Colonia)
+                    </td>
+                    <td>
+                       Calle @Html.DisplayFor(modelItem => item.Calle), Avenida @Html.DisplayFor(modelItem => item.Avenida)
+                    </td>
+                    <td>
+                        <button class="ui large icon btn-edit button" id="createAddress">
+                            <i class="pencil alternate icon  icon-crud"></i>
+                        </button>
+                        <button class="ui large icon btn-delete button" onclick="DeleteAddress('@item.ID')">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a  href="@Url.Action("Details","Address",new {  id=item.ID})" class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -112,12 +116,10 @@
                         <div class="required field">
                             <label>Calle</label>
                             <input id="Calle" placeholder="Calle" />
-                            <span class="labelvalidator" id="labelvalidatorCalle"></span>
                         </div>
                         <div class="required field">
                             <label>Avenida</label>
                             <input id="Avenida" placeholder="Avenida" />
-                            <span class="labelvalidator" id="labelvalidatorAve"></span>
                         </div>
                     </div>
                 </div>
@@ -128,27 +130,19 @@
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un pais</option>
                             </select>
-                            <span class="labelvalidator" id="labelvalidatorPais"></span>
                         </div>
                         <div class="field">
                             <div class="required field">
                                 <label>Ciudad</label>
                                 <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
-                                <span class="labelvalidator" id="labelvalidatorCity"></span>
                             </div>
                         </div>
                     </div>
                     <div class="required field">
                         <label>Colonia</label>
                         <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
-                        <span class="labelvalidator" id="labelvalidatorCol"></span>
                     </div>
-                    <span class="labelvalidator" id="labelvalidatorError"></span>
                 </div>
-
-
-
-
             </div>
         </div>
     </form>
@@ -160,6 +154,18 @@
 
 @section Scripts{
     <script src="~/js/AddressJs/Create.js"></script>
+    <script>
+        function DeleteAddress(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Address/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Address?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
+    </script>
 }
 
 <!-- Modal -->

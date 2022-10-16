@@ -1,8 +1,12 @@
 ﻿$(document).ready(function () {
     $("#Time_ID").hide();
+
 });
 
 function GetTypeMenus(id) {
+    $(document).ready(function () {
+        $("#Time_DescripcionUpdate");
+    });
     var response = ajaxRequest("https://totaltravel.somee.com/API/MenuTypes/Find?Id=" + id);
     if (response.code == 200) {
         $('#Time_ID').val(id);
@@ -19,19 +23,19 @@ $("#closeEditTypeMenus").click(() => {
     $("#modalUpdate").modal('hide');
 });
 
+
 $("#sendEditTypeMenus").click(() => {
 
-    console.log("a")
-    if ($('#Time_DescripcionUpdate').val() == 0) {
-        $("#labelvalidatorUpdateError").html("Ingrese un tipo menú.");
-    }
-    else {
-        $("#labelvalidatorUpdateError").html(" ");
-    }
 
-    if ($('#Time_DescripcionUpdate').val() != 0) {
 
+    validateArrayForm = [
+        { validateMessage: "Ingrese un tipo menú.", Jqueryinput: $("#Time_DescripcionUpdate") },
+    ];
+
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+    if (ValidateFormStatus) {
         $('#updateTypeMenusForm').submit()
-
     }
+
 });
