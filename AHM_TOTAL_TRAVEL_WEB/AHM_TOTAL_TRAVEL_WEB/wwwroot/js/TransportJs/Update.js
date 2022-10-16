@@ -1,5 +1,8 @@
 ﻿$("#errorDiv").hide();
 
+$(`#Pais option[value = "${Pais_ID}"]`).prop("selected", true);
+$(`#Ciudad option[value = "${Ciud_ID}"]`).prop("selected", true);
+$(`#Colonia option[value = "${Colonia_ID}"]`).prop("selected", true);
 
 //function ObtenerDatosTransportes(id) {
 

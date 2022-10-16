@@ -51,3 +51,10 @@ var TransportViewModel = {
     "tprt_UsuarioCreacion": Client_User_ID,
     "tprt_UsuarioModifica": Client_User_ID
 }
+
+var SuburbsViewModel = {
+    "colo_Descripcion": "string",
+    "ciud_ID": 0,
+    "colo_UsuarioCreacion": Client_User_ID,
+    "colo_UsuarioModifica": Client_User_ID
+}
