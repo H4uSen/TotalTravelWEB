@@ -358,29 +358,30 @@ var Client_User_Name = GetCookie("User_Name");
         $(DropDown).empty();
     }
 
-    function SetDropDownValue(DropDown, NewValue = "") {
+    function SetDropDownValue(DropDown, defaultValue = "") {
 
         $(DropDown).find(`option[value = "${NewValue}"]`).prop("selected", true);
 
         const parent = $(DropDown).parent();
+
+        //remueve item selected actual
         parent.find(`.menu div.item`).removeClass("active selected");
-        const item = parent.find(`.menu div.item[data-value="${NewValue}"]`);
+
+        //encuentra default
+        const item = parent.find(`.menu div.item[data-value="${defaultValue}"]`);
         $(item[0]).addClass(["active", "selected"]);
 
-        console.log($(item[0]).attr("data-text"));
+        //setea texto
+        $(parent).find(".text").removeClass("default");
+        $(parent).find(".text").html(
+            $(item[0]).attr("data-text")
+        );
+
     }
 
-    function SetDropDownPlaceholder(DropDown, text) {
-        $(DropDown).parent().find(".default.text").html(text);
-        $(DropDown).parent().find(".text").html(text);
-        /*
-        if ($(DropDown).parent().find(".default.text").length > 0) {
-            $(DropDown).parent().find(".default.text").html(text);
-        } else {
-            $(DropDown).parent().append(
-                `<div class="default text">${text}</div>`
-            );
-        }*/
+    function SetDropDownPlaceholder(DropDown) {
+        $(DropDown).dropdown('restore defaults');
+
     }
 
     function getCalendarDate(stringDate) {
