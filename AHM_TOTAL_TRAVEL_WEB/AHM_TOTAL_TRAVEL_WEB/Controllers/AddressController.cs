@@ -32,7 +32,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 
             var model = new List<AddressListViewModel>();
-            var list = await _generalService.AddressesList(model);
+            var list = await _generalService.AddressesList();
             return View(list.Data);
         }
         [HttpGet]

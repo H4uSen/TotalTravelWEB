@@ -1,6 +1,7 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 
+
 $("input[type=text]").prop("autocomplete", "off");
 var Client_User_ID = parseInt(GetCookie("User_Id"));
 var Client_User_Name = GetCookie("User_Name");
@@ -12,6 +13,26 @@ var Client_User_Name = GetCookie("User_Name");
     $("#user_image").prop("src", "https://" + url_image);
 
 // ----------------------------------- FUNCTIONS ------------------------------------
+
+
+    async function createBlob(url) {
+        var response = await fetch(url);
+        response.headers = { type: 'image/jpeg' };
+        var data = await response.blob();
+        return data;
+    }
+    function convertImage(file) {
+        return new Promise((resolve) => {
+            const read = new FileReader();
+
+            read.onload = () => resolve({
+                src: read.result,
+                fileName: file.name
+            });
+
+            read.readAsDataURL(file);
+        });
+    }
 
     function ManualValidateForm(callback = () => { return true; }, containerDiv) {
         //crea span item
@@ -360,7 +381,7 @@ var Client_User_Name = GetCookie("User_Name");
 
     function SetDropDownValue(DropDown, defaultValue = "") {
 
-        $(DropDown).find(`option[value = "${NewValue}"]`).prop("selected", true);
+        $(DropDown).find(`option[value = "${defaultValue}"]`).prop("selected", true);
 
         const parent = $(DropDown).parent();
 
