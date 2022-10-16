@@ -152,53 +152,40 @@ function CreateUser() {
     var Role_success = false;
     var Address_success = false;
 
+    const userValidateArray = [
+        { validateMessage: "Required field: 'User DNI Number'", Jqueryinput: $("#frmCreateUser #txtDNI") },
+        { validateMessage: "Required field: 'User first Name' ", Jqueryinput: $("#frmCreateUser #txtNombre") },
+        { validateMessage: "Required field: 'User Last Name' ", Jqueryinput: $("#frmCreateUser #txtApellido") },
+        { validateMessage: "Required field: 'User Phone Number' ", Jqueryinput: $("#frmCreateUser #txtTelefono") },
+        { validateMessage: "Required field: 'User Birth Date' ", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
+        { validateMessage: "Required field: 'User Password' ", Jqueryinput: $("#frmCreateUser #txtPassword") },
+        { validateMessage: "Required field: 'User Email' ", Jqueryinput: $("#frmCreateUser #txtEmail") },
+        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser input:radio[name=rbGenero]') },
+    ];
 
-    if ($("#frmCreateUser #txtDNI").val() == 0) {
-        iziToastAlert(
-            "Required field: 'User DNI Number' ", "", "error"
-        );
-    }
-    else if ($("#frmCreateUser #txtNombre").val() == 0) {
-        iziToastAlert(
-            "Required field: 'User first Name' ", "", "error"
-        );
-    }
-    else if ($("#frmCreateUser #txtApellido").val() == 0) {
-        iziToastAlert(
-            "Required field: 'User Last Name' ", "", "error"
-        );
-    }
-    else if ($("#frmCreateUser #txtTelefono").val() == 0) {
-        iziToastAlert(
-            "Required field: 'User Phone Number' ", "", "error"
-        );
-    }
-    else if ($("#frmCreateUser #txtFechaNacimiento").val() == 0) {
-        iziToastAlert(
-            "Required field: 'User Birth Date' ", "", "error"
-        );
-    }
-    else if ($('#frmCreateUser input:radio[name=rbGenero]:checked').length == 0) {
-        //$('input:radio[name=rbGenero]:checked').val()
-        iziToastAlert(
-            "Required field: 'User Gender' ", "", "error"
-        );
-    }
-    else if ($('#frmCreateUser #txtEmail').val() == 0) {
-        iziToastAlert(
-            "Required field: 'User Email' ", "", "error"
-        );
-    }
-    else if ($('#frmCreateUser #txtPassword').val() == 0) {
-        iziToastAlert(
-            "Required field: 'User Password' ", "", "error"
-        );
-    }
-    else if ($('#frmCreateUser #txtPassword').val() !== $('#frmCreateUser #txtPasswordConfirm').val()) {
-         iziToastAlert(
-            "Required field: 'Password Confirm' ", "passwords do not match ", "error"
-         );
-    } else{
+    const userValidate = ValidateForm(userValidateArray);
+
+    const passwordCallback = () => {
+        var validate = false;
+        if ($('#frmCreateUser #txtPassword').val() === $('#frmCreateUser #txtPasswordConfirm').val()) {
+            validate = true;
+        }
+
+        return validate;
+    };
+
+    const passwordValidate = ManualValidateForm()
+
+    if (userValidate ) {
+
+        if ($('#frmCreateUser #txtPassword').val() !== $('#frmCreateUser #txtPasswordConfirm').val()) {
+            iziToastAlert(
+                "Required field: 'Password Confirm' ", "passwords do not match ", "error"
+            );
+        } else {
+
+        }
+    }else{
 
          //verify rol
          if ($("#checkAdmin").prop("checked")) {
