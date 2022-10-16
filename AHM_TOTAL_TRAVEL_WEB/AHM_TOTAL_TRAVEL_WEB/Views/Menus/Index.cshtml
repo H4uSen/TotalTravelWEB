@@ -14,15 +14,14 @@
                 <div class="header">
                     Menús
                 </div>
-                <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Menus")">
-                    <i class="user icon"></i> Nuevo
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Menus")">
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
@@ -85,15 +84,15 @@
                             @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            <button class="ui large icon positive button">
-                                <i class="pencil alternate icon"></i>
+                            <button class="ui large icon btn-edit button">
+                                <i class="pencil alternate icon  icon-crud"></i>
                             </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
+                            <button class="ui large icon btn-delete button" onclick="DeleteMenus('@item.ID')">
+                                <i class="trash alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            <a href="@Url.Action("Details","Menus",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -120,12 +119,24 @@
             });
 
             $("#grdMenus").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#grdMenus").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
+
+
+        function DeleteMenus(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Menus/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Menus?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
     </script>
 }

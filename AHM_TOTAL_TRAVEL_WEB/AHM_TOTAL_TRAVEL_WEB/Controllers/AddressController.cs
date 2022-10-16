@@ -69,5 +69,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (AddressListViewModel)(await _generalService.AddressFind(id, token)).Data;
+            return View(detalle);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(AddressViewModel Address, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                Address.Dire_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _generalService.AddressDelete(Address, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }

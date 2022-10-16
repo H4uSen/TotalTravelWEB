@@ -100,16 +100,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(PartnerTypeViewModel TipoPartner, int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (ModelState.IsValid)
             {
-                TipoPartner.TiPar_UsuarioModifica = 1;
-
+                int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _generalServices.PartnerTypeDelete(TipoPartner, id, token);
+                var list = (RequestStatus)(await _generalServices.PartnerTypeDelete(modifica, id, token)).Data;
 
-                return RedirectToAction("Index");
+                return Ok(list.CodeStatus);
             }
             else
             {

@@ -23,7 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Actividades
 
-        public async Task<ServiceResult> ActivityList(IEnumerable<ActivitiesListViewModel> model)
+        public async Task<ServiceResult> ActivityList()
         {
             var result = new ServiceResult();
             try
@@ -230,6 +230,95 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+
+        public async Task<ServiceResult> ActivitiesExtraUpdate(ActivitiesExtrasViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<ActivitiesExtrasViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ActivitiesExtra/Update?id=" + actividad.AcEx_ID;
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> ActivitiesExtraDelete(ActivitiesExtrasViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Delete<ActivitiesExtrasViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ActivitiesExtra/Delete?id=" + actividad.AcEx_ID + "&mod=" + actividad.acEx_UsuarioModifica;
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> ActivitiesExtrasFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new ActivitiesListViewModel();
+
+            try
+            {
+                var response = await _api.Get<ActivitiesListViewModel, ActivitiesListViewModel>(req => {
+                    req.Path = $"/API/ActivitiesExtra/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
 
         #endregion

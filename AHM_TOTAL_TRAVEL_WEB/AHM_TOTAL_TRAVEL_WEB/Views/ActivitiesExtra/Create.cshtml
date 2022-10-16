@@ -5,52 +5,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div id="frmCreateActivityExtra">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon bicycle"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Crear Actividad Extra
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ActivitiesExtra")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
 
-<h4>ActivitiesExtrasViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="part_ID" class="control-label"></label>
-                <input asp-for="part_ID" class="form-control" />
-                <span asp-validation-for="part_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="actv_ID" class="control-label"></label>
-                <input asp-for="actv_ID" class="form-control" />
-                <span asp-validation-for="actv_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="acEx_Precio" class="control-label"></label>
-                <input asp-for="acEx_Precio" class="form-control" />
-                <span asp-validation-for="acEx_Precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="acEx_Descripcion" class="control-label"></label>
-                <input asp-for="acEx_Descripcion" class="form-control" />
-                <span asp-validation-for="acEx_Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="acEx_UsuarioCreacion" class="control-label"></label>
-                <input asp-for="acEx_UsuarioCreacion" class="form-control" />
-                <span asp-validation-for="acEx_UsuarioCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="acEx_UsuarioModifica" class="control-label"></label>
-                <input asp-for="acEx_UsuarioModifica" class="form-control" />
-                <span asp-validation-for="acEx_UsuarioModifica" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class=" two fields">
+                                <div class="required field">
+                                    <label>Socio</label>
+                                    <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                        <option value="">Seleccione un partner</option>
+                                    </select>
+                                    <span class="labelvalidator" id="labelvalidatorPartner"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Actividad</label>
+                                    <select id="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                        <option value="">Seleccione una actividad</option>
+                                    </select>
+                                    <span class="labelvalidator" id="labelvalidatorActividad"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Precio</label>
+                                    <input id="acEx_Precio" name="acEx_Precio" placeholder="Precio" />
+                                    <span class="labelvalidator" id="labelvalidatorPrecio"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Descripcion</label>
+                                    <input id="acEx_Descripcion" name="acEx_Descripcion" placeholder="Descripcion de la Actividad Extra" />
+                                    <span class="labelvalidator" id="labelvalidatorDescrip"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="required field">
+                                <label>Imagen</label>
+                                <input id="File" type="file" multiple />
+                            </div>
+                        </div>
+                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" onclick="createRestaurant()" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

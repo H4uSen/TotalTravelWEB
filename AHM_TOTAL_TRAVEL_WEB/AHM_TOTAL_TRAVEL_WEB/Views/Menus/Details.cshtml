@@ -1,0 +1,111 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.MenusListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon map marker alternate"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles
+                    </div>
+                    <p>Detalles de el menú.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Menus")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="field">
+                        <div class="four fields">
+                            <div class="field">
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
+                            </div>
+                            <div class="field">
+                                <label>Menú</label>
+                                @Html.DisplayFor(model => model.Menu)
+                            </div>
+                            <div class="field">
+
+                            </div>
+                            <div class="field">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="four fields">
+                            <div class="field">
+                                <label>Restaurante</label>
+                                @Html.DisplayFor(model => model.Restaurante)
+                            </div>
+                            <div class="field">
+                                <label>Tipo de menú</label>
+                                @Html.DisplayFor(model => model.TipoMenu)
+                            </div>
+                            <div class="field">
+                                <label>Descripcion</label>
+                                @Html.DisplayFor(model => model.Descripcion)
+                            </div>
+                            <div class="field">
+                                <label>Precio</label>
+                                @Html.DisplayFor(model => model.Precio)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Auditoría
+            </h3>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario Creación
+                        </th>
+                        <th>
+                            Fecha Creación
+                        </th>
+                        <th>
+                            Usuario modifica
+                        </th>
+                        <th>
+                            Fecha modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaModifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

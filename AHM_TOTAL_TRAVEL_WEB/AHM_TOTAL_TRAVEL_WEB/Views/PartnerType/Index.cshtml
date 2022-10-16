@@ -21,8 +21,8 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","PartnerType")">
-                    <i class="user icon"></i> Nuevo
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","PartnerType")">
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
@@ -86,32 +86,22 @@
 @section Scripts{
     <script>
                 // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
+        TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
 
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
-            });
-        });
 
         $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
 
         function DeleteTipoPartner(id) {
-            const capsula1 = () => {
-                ajaxRequest("/API/PartnerType/Delete?id=" + id, null, "POST")
+            const Tpartner = () => {
+                const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
+                if (result > 0) {
+                    location.reload();
+                }
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
 
         };
     </script>

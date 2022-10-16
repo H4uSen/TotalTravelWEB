@@ -1,0 +1,101 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.AddressListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon map marker alternate"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles
+                    </div>
+                    <p>Detalles de el tipo menú.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Address")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="four fields">
+                            <div class="field">
+                                <label>País</label>
+                                @Html.DisplayFor(model => model.Pais)
+                            </div>
+                            <div class="field">
+                                <label>Ciudad</label>
+                                @Html.DisplayFor(model => model.Ciudad)
+                            </div>
+                            <div class="field">
+                                <label>Colonia</label>
+                                @Html.DisplayFor(model => model.Colonia)
+                            </div>
+                            <div class="field">
+                                <label>Descripción</label>
+                                Calle @Html.DisplayFor(model => model.Calle), Avenida @Html.DisplayFor(model => model.Avenida)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Auditoría
+            </h3>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario Creación
+                        </th>
+                        <th>
+                            Fecha Creación
+                        </th>
+                        <th>
+                            Usuario modifica
+                        </th>
+                        <th>
+                            Fecha modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioCrea)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaCrea)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaModifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

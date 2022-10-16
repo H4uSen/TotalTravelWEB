@@ -11,7 +11,7 @@ function getSchedule() {
         $("#HoTr_ID").append(
             `<option value="">Seleccione un horario. (required)</option>`
         );
-        SetDropDownPlaceholder($('#HoTr_ID'), "Seleccione un horario.");
+        AddDropDownItem($('#HoTr_ID'), item = { value: "", text: "Seleccione un horario"});
         for (var i = 0; i < hoTr.length; i++) {
             var item = hoTr[i];
             AddDropDownItem($('#HoTr_ID'), item = { value: item.id, text: item.ciudad_Salida + " - " + item.ciudad_Destino + "/ " + item.hora_Salida + "-" + item.hora_Llegada });

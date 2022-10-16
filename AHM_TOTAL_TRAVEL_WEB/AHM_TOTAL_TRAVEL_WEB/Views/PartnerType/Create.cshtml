@@ -23,10 +23,10 @@
                     </a>
                 </div>
             </div>
-            <form asp-action="Create">
+            <form asp-action="Create" id="FrmTipoPartner">
                 <div class="ui form attached fluid segment">
                     <div class="content">
-                        <div class="three fields">    
+                        <div class="three fields">
                             <div class="field">
                                 <label>Descripcion</label>
                                 <input asp-for="TiPar_Descripcion" />
@@ -34,22 +34,36 @@
                             <div class="required field">
                                 <label>Tipo de Rol</label>
                                 <select id="Rol_ID" class="ui dropdown search" asp-items="ViewBag.Rol_ID" asp-for="Rol_ID">
-                                    <option value="">Seleccione un tipo de Socio</option>
+                                    <option value="">Seleccione un Rol</option>
                                 </select>
-                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                         </div>
 
 
-                        <input type="submit" value="Crear" class="btn btn-primary ui positive button" />
-                       
+                        <input id="btnGuardar" type="button" value="Crear" class="btn btn-primary ui positive button" />
+
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        $("#btnGuardar").click(() => {
+            const ValidateArray = [
+                { validateMessage: "Ingrese una descripcion de tipo de socio", Jqueryinput: $("#TiPar_Descripcion") },
+                { validateMessage: "Seleccione un Rol para el socio", Jqueryinput: $("#Rol_ID") }
+            ];
+            const userValidate = ValidateForm(ValidateArray);
+            if (userValidate) {
+                $("#FrmTipoPartner").submit();
+            }
+        });
+        
 
+    </script>
+}
 
 
 

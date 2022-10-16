@@ -35,10 +35,10 @@ $("#txtSearch").keyup(function () {
     });
 
     $("#grdTypeMenus").paginationTdA({
-        elemPerPage: 5
+        elemPerPage: 10
     });
 });
 
 $("#grdTypeMenus").paginationTdA({
-    elemPerPage: 5
+    elemPerPage: 10
 });

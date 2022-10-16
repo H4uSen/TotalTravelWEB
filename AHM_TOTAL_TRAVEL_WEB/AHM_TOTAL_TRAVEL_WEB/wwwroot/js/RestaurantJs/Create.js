@@ -85,10 +85,7 @@ function createRestaurant() {
 
             DireID = responseAddress.data.codeStatus;
             direStatus = true;
-        } else {
-            console.log(responseAddress)
-            console.log($('#Col_ID').val());
-        }
+        } 
 
         if (direStatus) {
             var data = new FormData();

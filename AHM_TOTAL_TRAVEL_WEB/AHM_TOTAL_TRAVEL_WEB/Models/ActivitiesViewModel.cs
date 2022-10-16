@@ -51,6 +51,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     
     public class ActivitiesExtrasViewModel
     {
+        public int? AcEx_ID { get; set; }
         public int? part_ID { get; set; }
         public int? actv_ID { get; set; }
         public decimal? acEx_Precio { get; set; }
