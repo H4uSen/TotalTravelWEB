@@ -77,97 +77,72 @@ function registerUser() {
 
 
     validateArrayForm = [
-        { validateMessage: "Ingrese el DNI.", Jqueryinput: $("#txtDni") },
-        { validateMessage: "Ingrese su nombre", Jqueryinput: $("#txtNombre") },
-        { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido") },
-        { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac") },
-        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") },
-        { validateMessage: "Ingrese un restaurante.", Jqueryinput: $("#Rest_Nombre") },
-        { validateMessage: "Seleccione una socio.", Jqueryinput: $("#Part_ID") }
+        { validateMessage: "Ingrese el DNI.", Jqueryinput: $("#txtDni")},
+        { validateMessage: "Ingrese su nombre", Jqueryinput: $("#txtNombre")},
+        { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido")},
+        { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac")},
+        { validateMessage: "Ingrese su teléfono", Jqueryinput: $("#txtTelefono") },
+        { validateMessage: "Ingrese su correo electrónico", Jqueryinput: $("#txtEmail") },
+        { validateMessage: "Ingrese una calle", Jqueryinput: $("#Calle") },
+        { validateMessage: "Ingrese una avenidad", Jqueryinput: $("#Avenida") },
+        { validateMessage: "Seleccione un país", Jqueryinput: $("#Count_ID") },
+        { validateMessage: "Seleccione una ciudad", Jqueryinput: $("#City_ID") },
+        { validateMessage: "Seleccione una ciudad", Jqueryinput: $("#Col_ID") },
+
+
     ];
 
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     var passwordValidator = false;
+    
 
-    if ($('#txtTelefono').val() == 0) {
-        $("#labelvalidatorTelefono").html("Seleccione una ciudad.");
-    } else {
-        $("#labelvalidatorTelefono").html(" ");
-    }
     if ($("input[name='gender']:checked").val() == undefined) {
         $("#labelvalidatorSexo").html("Seleccione un sexo.");
+        $("input[name='gender']").addClass("error");
     } else {
 
         $("#labelvalidatorSexo").html(" ");
-    }
-    if ($('#txtEmail').val() == 0) {
-        $("#labelvalidatorEmail").html("Ingrese un correo electrónico.");
-    } else {
-        $("#labelvalidatorEmail").html(" ");
+        $("input[name='gender']").removeClass("error");
     }
     if ($('#txtPassword').val() == 0 || $('#txtPassword2').val() == 0) {
         $("#labelvalidatorPass").html("Ingrese su contraseña.");
+        $(this).addClass("error");
+        $("input#txtPassword2").addClass("error");
     } else if ($('#txtPassword').val() != $('#txtPassword2').val()) {
         $("#labelvalidatorPass").html("Las contraseñas no coinciden.");
+        $("input#txtPassword").addClass("error");
+        $("input#txtPassword2").addClass("error");
     } else if ($('#txtPassword2').val().length < 6) {
         $("#labelvalidatorPass").html("La contraseña es muy corta.");
+        $("input#txtPassword").addClass("error");
+        $("input#txtPassword2").addClass("error");
     }
     else {
         $("#labelvalidatorPass").html(" ");
+        $("input#txtPassword").removeClass("error");
         passwordValidator = true;
     }
-    if ($('#Colonia').val() == 0) {
-        $("#labelvalidatorCol").html("Ingrese una colonia.");
-    }
-    else {
-        $("#labelvalidatorCol").html(" ");
-    }
-    if ($('#Calle').val() == 0) {
-        $("#labelvalidatorCalle").html("Ingrese una calle.");
-    }
-    else {
-        $("#labelvalidatorCalle").html(" ");
-    }
-    if ($('#Avenida').val() == 0) {
-        $("#labelvalidatorAve").html("Ingrese una avenida.");
-    }
-    else {
-        $("#labelvalidatorAve").html(" ");
-    }
-    if ($('#Count_ID').val() == 0) {
-        $("#labelvalidatorPais").html("Seleccione un país.");
-    } else {
-        $("#labelvalidatorPais").html(" ");
-    }
-    if ($('#City_ID').val() == 0 || $('#City_ID').val() == null) {
-        $("#labelvalidatorCity").html("Seleccione una ciudad.");
-    } else {
-        $("#labelvalidatorCity").html(" ");
-    }
+
+    
 
 
-
-    if ($('#txtDni').val() != 0 && $('#txtNombre').val() != 0 && $('#txtApellido').val() != 0 && $('#txtFechaNac').val() != 0 &&
-        $('#txtTelefono').val() != 0 && $("input[name='gender']:checked").val() != undefined && $('#txtEmail').val() != 0 &&
-        passwordValidator != false && $('#Colonia').val() != 0 && $('#Calle').val() != 0 && $('#Avenida').val() != 0 &&
-        $('#Count_ID').val() != 0 && $('#City_ID').val() != 0 && $('#City_ID').val() != null) {
+    if (ValidateFormStatus == true && passwordValidator == true && $("input[name='gender']:checked").val() != undefined) {
 
         var direStatus = false;
-        var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
         var dire = AdressViewModel;
 
-        dire.Dire_Descripcion = fullAddress;
-        dire.Ciud_ID = parseInt($("#City_ID").val());
+        dire.colo_ID = parseInt($('#Col_ID').val());
+        dire.dire_Calle = $('#Calle').val();
+        dire.dire_Avenida = $('#Avenida').val();
+
         var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
             DireID = responseAddress.data.codeStatus;
             direStatus = true;
-        } else {
-            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
         }
 
         if (direStatus) {
