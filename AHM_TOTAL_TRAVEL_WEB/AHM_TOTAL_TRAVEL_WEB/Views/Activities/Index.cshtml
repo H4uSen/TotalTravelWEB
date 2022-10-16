@@ -104,14 +104,12 @@
                         <div class="field">
                             <label>Descripcion de la Actividad</label>
                             <input id="Actividad" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividad"></label>
                         </div>
                         <div class="field">
                             <label>Tipo Actividad</label>
                             <select id="TiPoAc_ID" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
-                                <option id="valor" value="">Seleccione el tipo de Actividad</option>
+                                <option value="">Seleccione el tipo de Actividad</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
                         </div>
                     </div>
                 </div>
@@ -119,7 +117,7 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendActivity" onclick="validar()">Guardar</button>
+        <button class="ui button btn-purple text-white" id="sendActivity">Guardar</button>
         <button class="ui button" id="closeActivity">Cancelar</button>
     </div>
 </div>
@@ -140,14 +138,14 @@
                         <input name="Actv_ID" id="Actv_ID" />
                         <label class="required">Descripcion</label>
                         <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
+                        
                     </div>
                     <div class="field">
                         <label class="required">Tipo Actividad</label>
                         <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
                             <option value="">Seleccione el tipo de Actividad</option>
                         </select>
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
+                        
                     </div>
 
                 </div>
