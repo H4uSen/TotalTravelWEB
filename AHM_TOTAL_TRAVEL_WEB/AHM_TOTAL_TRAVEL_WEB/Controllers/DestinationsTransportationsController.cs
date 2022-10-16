@@ -90,6 +90,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(DestinationsTransportationsViewModel TypeMenus, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                TypeMenus.DsTr_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _transportService.TransportDestionationsDelete(TypeMenus, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         public async Task<IActionResult> Details(string id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;

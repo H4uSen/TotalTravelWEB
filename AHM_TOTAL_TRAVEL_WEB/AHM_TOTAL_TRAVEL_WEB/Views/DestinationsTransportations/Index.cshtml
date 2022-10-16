@@ -115,43 +115,44 @@
 
 
 @*<div class="ui modal" id="modalUpdate">
-    <i class="close icon"></i>
-    <div class="header">
-        Actualizar un Destino Transporte
-    </div>
-    <form asp-action="Update" asp-controller="DestinationsTransportations" id="updateDestinationsTransportationsForm">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <div class="two fields">
-                    <div class="field">
-                        <input name="Actv_ID" id="Actv_ID" />
-                        <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
-                    </div>
-                    <div class="field">
-                        <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
-                            <option value="">Seleccione el tipo de Actividad</option>
-                        </select>
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
-                    </div>
+        <i class="close icon"></i>
+        <div class="header">
+            Actualizar un Destino Transporte
+        </div>
+        <form asp-action="Update" asp-controller="DestinationsTransportations" id="updateDestinationsTransportationsForm">
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="two fields">
+                        <div class="field">
+                            <input name="Actv_ID" id="Actv_ID" />
+                            <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
+                        </div>
+                        <div class="field">
+                            <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
+                                <option value="">Seleccione el tipo de Actividad</option>
+                            </select>
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
+                        </div>
 
+                    </div>
                 </div>
             </div>
+        </form>
+        <div class="actions">
+            <button class="ui button" id="closeEditDT">Cerrar</button>
+            <button class="ui button" id="sendEditDT">Guardar</button>
         </div>
-    </form>
-    <div class="actions">
-        <button class="ui button" id="closeEditDT">Cerrar</button>
-        <button class="ui button" id="sendEditDT">Guardar</button>
-    </div>
-</div>*@
+    </div>*@
 
 @section Scripts{
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
     <script>
-        // ----------------------------------- EVENTS ------------------------------------
+        // -------------------------------------- EVENTS ---------------------------------------
+
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#tabla tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -160,24 +161,27 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#tabla").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#tabla").paginationTdA({
             elemPerPage: 5
         });
-
-        //------------------------------------Funciones------------------------
-
+    </script>
+    <script>
         function DeleteDsTr(id) {
             const capsula1 = () => {
-                ajaxRequest("/DestinationsTransportations/Delete?id=" + id, null, "POST")
+                var response = ajaxRequest("DestinationsTransportations/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/DestinationsTransportations?success=true';
+                }
             };
 
-            sweetAlertconfirm("¿Está seguro de eliminar este registro?", "Este registro se borrará permanentemente", "warning", capsula1);
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
 
         };
     </script>
+
 }
