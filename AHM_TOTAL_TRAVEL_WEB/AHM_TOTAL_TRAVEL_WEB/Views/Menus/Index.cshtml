@@ -119,12 +119,24 @@
             });
 
             $("#grdMenus").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#grdMenus").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
+
+
+        function DeleteMenus(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Menus/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Menus?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
     </script>
 }

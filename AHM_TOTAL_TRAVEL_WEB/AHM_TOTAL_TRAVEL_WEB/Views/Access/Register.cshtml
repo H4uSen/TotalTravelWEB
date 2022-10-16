@@ -56,19 +56,17 @@
                                     <div class="required field">
                                         <label>DNI:</label>
                                         <input type="number" id="txtDni" placeholder="Ingrese su DNI" />
-                                        <span class="labelvalidator" id="labelvalidatorDNI"></span>
                                     </div>
                                     <div class="field">
                                         <div class="two fields">
                                             <div class="required field">
                                                 <label>Nombre:</label>
                                                 <input id="txtNombre" placeholder="Ingrese su nombre" />
-                                                <span class="labelvalidator" id="labelvalidatorNombre"></span>
+
                                             </div>
                                             <div class="required field">
                                                 <label>Apellido</label>
                                                 <input id="txtApellido" placeholder="Apellido" />
-                                                <span class="labelvalidator" id="labelvalidatorApellido"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +75,6 @@
                                             <div class="required field">
                                                 <label>Fecha de nacimiento:</label>
                                                 <input type="date" id="txtFechaNac" placeholder="Ingresa tu fecha de nacimiento">
-                                                <span class="labelvalidator" id="labelvalidatorFechaNac"></span>
                                             </div>
                                             <div class=" field">
 
@@ -89,7 +86,6 @@
                                             <div class="required field">
                                                 <label>Teléfono:</label>
                                                 <input type="number" id="txtTelefono" placeholder="Ingresa tu teléfono">
-                                                <span class="labelvalidator" id="labelvalidatorTelefono"></span>
                                             </div>
                                             <div class="required field">
                                                 <label>Sexo:</label>
@@ -105,7 +101,7 @@
                                                         </label>
                                                     </div>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    &nbsp;<span class="labelvalidator mt-2" id="labelvalidatorSexo"></span>
+                                                    &nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -114,7 +110,6 @@
                                     <div class="required field">
                                         <label>Correo electrónico:</label>
                                         <input id="txtEmail" placeholder="Ingrese su correo electrónico" />
-                                        <span class="labelvalidator" id="labelvalidatorEmail"></span>
                                     </div>
                                     <div class="field">
                                         <div class="two fields">
@@ -127,7 +122,6 @@
                                                 <input id="txtPassword2" type="password" placeholder="Repite tu contraseña">
                                             </div>
                                         </div>
-                                        <span class="labelvalidator" id="labelvalidatorPass"></span>
                                     </div>
                                     <div class="field">
                                         <div class="two fields">
@@ -136,19 +130,16 @@
                                                 <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                                     <option value="">Seleccione un pais</option>
                                                 </select>
-                                                <span class="labelvalidator" id="labelvalidatorPais"></span>
                                             </div>
                                             <div class="required field">
                                                 <label>Ciudad</label>
                                                 <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
-                                                <span class="labelvalidator" id="labelvalidatorCity"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="required field">
                                         <label>Colonia</label>
-                                        <input id="Colonia" placeholder="Colonia" />
-                                        <span class="labelvalidator" id="labelvalidatorCol"></span>
+                                        <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                                     </div>
 
                                     <div class="field">
@@ -156,12 +147,12 @@
                                             <div class="required field">
                                                 <label>Calle</label>
                                                 <input id="Calle" placeholder="Calle" />
-                                                <span class="labelvalidator" id="labelvalidatorCalle"></span>
+
                                             </div>
                                             <div class="required field">
                                                 <label>Avenida</label>
                                                 <input id="Avenida" placeholder="Avenida" />
-                                                <span class="labelvalidator" id="labelvalidatorAve"></span>
+
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +164,7 @@
                                     <div class="form-group mar mt-3" style="display: flex;justify-content: center;">
                                         <small class="text-gray-500 fs-6 mt-1">¿Ya tienes una cuenta? </small><a class=" text-paleBlue fs-5 ms-2" href="@Url.Action("Login","Access")">Inicia sesión</a>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </form>

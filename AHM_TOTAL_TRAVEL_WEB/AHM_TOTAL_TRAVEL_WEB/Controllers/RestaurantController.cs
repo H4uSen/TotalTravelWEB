@@ -69,6 +69,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (RestaurantListViewModel)(await _restaurantServices.RestaurantFind(id, token)).Data;
+            return View(detalle);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)

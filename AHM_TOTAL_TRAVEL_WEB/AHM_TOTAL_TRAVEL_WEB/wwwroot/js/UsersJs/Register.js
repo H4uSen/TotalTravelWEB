@@ -34,7 +34,7 @@ $('#Count_ID').change(function () {
         });
         ClearDropDownItem($('#City_ID'));
         if (cityFilter.length > 0) {
-            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
+            AddDropDownItem($('#City_ID'), item = { value: "", text: "Seleccione una ciudad." });
             for (var i = 0; i < cityFilter.length; i++) {
                 var item = cityFilter[i];
                 AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
@@ -47,33 +47,50 @@ $('#Count_ID').change(function () {
 
 });
 
+$('#City_ID').change(function () {
+
+
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    if (response.code == 200) {
+
+        var City_ID = $('#City_ID').val();
+        var suburbs = response.data;
+        var suburbsFilter = jQuery.grep(suburbs, function (Suburb, i) {
+            return Suburb.ciudadID == City_ID;
+        });
+        ClearDropDownItem($('#Col_ID'));
+        if (suburbsFilter.length > 0) {
+            AddDropDownItem($('#Col_ID'), item = { value: "", text: "Seleccione una colonia." });
+            for (var i = 0; i < suburbsFilter.length; i++) {
+                var item = suburbsFilter[i];
+                AddDropDownItem($('#Col_ID'), item = { value: item.id, text: item.colonia });
+            }
+            $('#Col_ID').parent().find('.text').html('Seleccione una colonia');
+        } else {
+            SetDropDownPlaceholder($('#Col_ID'), "No hay colonias disponibles.");
+        }
+    }
+
+});
 
 function registerUser() {
 
+
+    validateArrayForm = [
+        { validateMessage: "Ingrese el DNI.", Jqueryinput: $("#txtDni") },
+        { validateMessage: "Ingrese su nombre", Jqueryinput: $("#txtNombre") },
+        { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido") },
+        { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac") },
+        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") },
+        { validateMessage: "Ingrese un restaurante.", Jqueryinput: $("#Rest_Nombre") },
+        { validateMessage: "Seleccione una socio.", Jqueryinput: $("#Part_ID") }
+    ];
+
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+
     var passwordValidator = false;
-    if ($('#txtDni').val() == 0) {
-        $("#labelvalidatorDNI").html("Ingrese su DNI.");
-    }
-    else {
-        $("#labelvalidatorDNI").html(" ");
-    }
-    if ($('#txtNombre').val() == 0) {
-        $("#labelvalidatorNombre").html("Ingrese su nombre.");
-    }
-    else {
-        $("#labelvalidatorNombre").html(" ");
-    }
-    if ($('#txtApellido').val() == 0) {
-        $("#labelvalidatorApellido").html("Ingrese un apellido.");
-    }
-    else {
-        $("#labelvalidatorApellido").html(" ");
-    }
-    if ($('#txtFechaNac').val() == 0) {
-        $("#labelvalidatorFechaNac").html("Ingrese su fecha de nacimiento.");
-    } else {
-        $("#labelvalidatorFechaNac").html(" ");
-    }
+
     if ($('#txtTelefono').val() == 0) {
         $("#labelvalidatorTelefono").html("Seleccione una ciudad.");
     } else {

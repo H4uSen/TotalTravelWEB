@@ -77,6 +77,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
 
 
+        public async Task<ServiceResult> RestaurantFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var typeMenu = new RestaurantListViewModel();
+
+            try
+            {
+                var response = await _api.Get<RestaurantListViewModel, RestaurantListViewModel>(req => {
+                    req.Path = $"/API/Restaurants/Find?id=" + id;
+                    req.Content = typeMenu;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
         #endregion
 
         #region Menus
@@ -117,7 +146,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Delete<MenusViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/Menu/Delete?id=" + id + "&mod=" + Menus.Menu_UsuarioModifica;
+                    req.Path = $"/API/Menus/Delete?id=" + id + "&mod=" + Menus.Menu_UsuarioModifica;
                     req.Content = null;
                 },
                 token
