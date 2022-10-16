@@ -1,39 +1,18 @@
 ﻿function createMenus() {
 
-    if ($('#Menu_Nombre').val() == 0) {
-        $("#labelvalidatorMenu").html("Ingrese un menú");
-    }
-    else {
-        $("#labelvalidatorMenu").html(" ");
-    }
-    if ($('#Menu_Descripcion').val() == 0) {
-        $("#labelvalidatorDescripcion").html("Ingrese una descripción.");
-    }
-    else {
-        $("#labelvalidatorDescripcion").html(" ");
-    }
-    if ($('#Menu_Precio').val() == 0) {
-        $("#labelvalidatorPrecio").html("Ingrese un precio.");
-    }
-    else {
-        $("#labelvalidatorPrecio").html(" ");
-    }
-    if ($('#Rest_ID').val() == 0) {
-        $("#labelvalidatorRest").html("Seleccione un restaurante.");
-    } else {
-        $("#labelvalidatorRest").html(" ");
-    }
-    if ($('#Time_ID').val() == 0) {
-        $("#labelvalidatorTipo").html("Seleccione un tipo de menú");
-    } else {
-        $("#labelvalidatorTipo").html(" ");
-    }
 
+    validateArrayForm = [
+        { validateMessage: "Ingrese el nombre del menú.", Jqueryinput: $("#Menu_Nombre") },
+        { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#Menu_Descripcion") },
+        { validateMessage: "Ingrese el precio.", Jqueryinput: $("#Menu_Precio") },
+        { validateMessage: "Seleccione un restaurante.", Jqueryinput: $("#Rest_ID") },
+        { validateMessage: "Seleccione una tipo menú.", Jqueryinput: $("#Time_ID") }
+    ];
 
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
 
-    if ($('#Menu_Nombre').val() != 0 && $('#Menu_Descripcion').val() != 0 && $('#Menu_Precio').val() != 0 && $('#Rest_ID').val() != 0
-        && $('#Time_ID').val() != 0) {
-
+    if (ValidateFormStatus) {
 
         var images = [];
         var data = new FormData();
@@ -54,11 +33,7 @@
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Menus';
-        } else {
-
-            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-        }
-
+        } 
 
     }
    

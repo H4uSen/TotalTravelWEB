@@ -14,14 +14,15 @@
                 <div class="header">
                     Tipo menús
                 </div>
-                <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createTypeMenus" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+                <a class="ui small btn-purple text-white labeled icon button" id="createTypeMenus">
+                    <i class="plus icon"></i> Nuevo
+                </a>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -41,13 +42,10 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.descripcion)
+                        Tipo de menú
                     </th>
 
-                    <th width="300px"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -55,21 +53,18 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.descripcion)
                         </td>
                         <td>
-                            <button type="button" class="ui large icon positive button" onclick="GetTypeMenus('@item.ID')">
-                                <i class="pencil alternate icon"></i>
+                            <button class="ui large icon btn-edit button" onclick="GetTypeMenus('@item.ID')">
+                                <i class="pencil alternate icon  icon-crud"></i>
                             </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
+                            <button class="ui large icon btn-delete button" onclick="DeleteTypeMenus('@item.ID')">
+                                <i class="trash alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            <a href="@Url.Action("Details","TypeMenus",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -82,7 +77,6 @@
 <br>
 
 <div class="ui modal" id="modalCreate">
-    <i class="close icon"></i>
     <div class="header">
         Ingresa un tipo de menú
     </div>
@@ -90,42 +84,39 @@
         <div class="ui form attached fluid segment">
             <div class="content">
 
-                <div class="field">
-                    <label>Descripción</label>
+                <div class="required field">
+                    <label>Tipo de menú</label>
                     <input name="Time_Descripcion" id="Time_Descripcion" />
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
                 </div>
 
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeTypeMenus">Cerrar</button>
-        <button class="ui button" id="sendTypeMenus">Guardar</button>
+        <button class="ui button btn-purple text-white" id="sendTypeMenus">Guardar</button>
+        <button class="ui button" id="closeTypeMenus">Cancelar</button>
     </div>
 </div>
 
+
 <div class="ui modal" id="modalUpdate">
-    <i class="close icon"></i>
     <div class="header">
         Actualiza un tipo de menú
     </div>
     <form asp-action="Update" asp-controller="TypeMenus" id="updateTypeMenusForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-
                 <div class="field">
                     <input name="Time_ID" id="Time_ID" />
                     <label>Descripción</label>
                     <input name="Time_Descripcion" id="Time_DescripcionUpdate" />
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorUpdateError"></label>
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeEditTypeMenus">Cerrar</button>
-        <button class="ui button" id="sendEditTypeMenus">Guardar</button>
+        <button class="ui button btn-purple text-white" id="sendEditTypeMenus">Guardar</button>
+        <button class="ui button" id="closeEditTypeMenus">Cancelar</button>
     </div>
 </div>
 
@@ -133,4 +124,17 @@
 @section Scripts{
     <script src="~/js/TypeMenusJs/Create.js"></script>
     <script src="~/js/TypeMenusJs/Update.js"></script>
+    <script>
+        function DeleteTypeMenus(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("TypeMenus/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/TypeMenus?success=true';
+                }
+            };
+
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
+    </script>
 }

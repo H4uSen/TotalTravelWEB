@@ -80,11 +80,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Part_ID = element.PartnerID;
             item.Dire_ID = element.DireccionId;
 
-            var direccion = ((AddressListViewModel)(await _generalService.AddressFind(item.Dire_ID.ToString(), token)).Data).Direccion;
-            var direccionDetalle = direccion.Split(", ");
-            ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
-            ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
-            ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
+            //var direccion = ((AddressListViewModel)(await _generalService.AddressFind(item.Dire_ID.ToString(), token)).Data).Direccion;
+            //var direccionDetalle = direccion.Split(", ");
+            //ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
+            //ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
+            //ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
 
             var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;

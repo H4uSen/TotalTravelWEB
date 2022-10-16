@@ -29,16 +29,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult>Index()
         {
             var token = HttpContext.User.FindFirst("Token").Value;
-            var CiudadesList = (IEnumerable<CityListViewModel>) (await _generalService.CitiesList()).Data;
-            ViewBag.Ciudades = new SelectList(CiudadesList, "ID", "Ciudad");
+            var PaisesList = (IEnumerable<CountriesListViewModel>) (await _generalService.CountriesList()).Data;
+            ViewBag.Paises = new SelectList(PaisesList, "ID", "Pais");
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
             var direccion = (AddressListViewModel)(await _generalService.AddressFind(cuenta.DireccionID.ToString(), token)).Data;
-            var direccionDetalle = direccion.Direccion.Split(", ");
-            ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
-            ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
-            ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
+
+            ViewData["Calle"] = direccion.Calle;
+            ViewData["Avenida"] = direccion.Avenida;
+            ViewData["Pais"] = direccion.ID_Pais;
+            ViewData["Ciudad"] = direccion.ID_Ciudad;
+            ViewData["Colonia"] = direccion.ID_Colonia;
+            ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
+
+            //var direccionDetalle = direccion.Direccion.Split(", ");           PERDON ):
+            //ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
+            //ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
+            //ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
             //ViewData["CiudadID"] = direccion.C
 
             return View(cuenta);
@@ -47,7 +55,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UserUpdateViewModel data)
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
 

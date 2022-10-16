@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.MenusListViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -9,14 +9,15 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon bus"></i>
+                <i class="icon map marker alternate"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Detalles de un Transporte
+                        Detalles
                     </div>
-                </div>                
+                    <p>Detalles de el menú.</p>
+                </div>
                 <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Transport")">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Menus")">
                         Regresar
                         <i class="left arrow icon"></i>
                     </a>
@@ -31,23 +32,35 @@
                                 @Html.DisplayFor(model => model.ID)
                             </div>
                             <div class="field">
-                                <label>Partner</label>
-                                @Html.DisplayFor(model => model.NombrePartner)
+                                <label>Menú</label>
+                                @Html.DisplayFor(model => model.Menu)
                             </div>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="two fields">
+                        <div class="four fields">
                             <div class="field">
-                                <label>Tipo transporte</label>
-                                @Html.DisplayFor(model => model.TipoTransporte)
+                                <label>Restaurante</label>
+                                @Html.DisplayFor(model => model.Restaurante)
+                            </div>
+                            <div class="field">
+                                <label>Tipo de menú</label>
+                                @Html.DisplayFor(model => model.TipoMenu)
+                            </div>
+                            <div class="field">
+                                <label>Descripcion</label>
+                                @Html.DisplayFor(model => model.Descripcion)
+                            </div>
+                            <div class="field">
+                                <label>Precio</label>
+                                @Html.DisplayFor(model => model.Precio)
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+            </div>
             <br />
-            
+
             <h3 class="ui horizontal divider header">
                 <i class="folder open icon"></i>
                 Auditoría

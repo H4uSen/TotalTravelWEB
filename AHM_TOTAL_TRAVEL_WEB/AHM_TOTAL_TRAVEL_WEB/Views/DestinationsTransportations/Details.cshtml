@@ -9,16 +9,15 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon bus"></i>
+                <i class="map marker alternate icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Detalles
+                        Detalles de un Destino Transporte
                     </div>
-                    <p>Detalles de un Destino Transporte.</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "DestinationsTransportations")">
-                        Back
+                        Regresar
                         <i class="left arrow icon"></i>
                     </a>
                 </div>
@@ -26,7 +25,12 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
+                            <div class="field">
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
+
+                            </div>
                             <div class="field">
                                 <label>Ciudad de Salida</label>
                                 @Html.DisplayFor(model => model.CiudadSalida)

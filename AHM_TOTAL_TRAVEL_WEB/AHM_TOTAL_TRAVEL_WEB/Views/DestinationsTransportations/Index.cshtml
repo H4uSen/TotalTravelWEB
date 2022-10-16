@@ -8,23 +8,22 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="user icon"></i>
+            <i class="map marker alternate icon"></i>
             <div class="content">
                 <div class="header">
                     Destinos Transportes
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createDestinationsTransportations" class="ui small btn-purple text-white labeled icon button"><i class="user icon"></i>Nuevo</button>
+                <button id="createDestinationsTransportations" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
                     <i class="search icon"></i>
                 </div>
             </div>
@@ -41,11 +40,9 @@
                 <tr>
                     <th>
                         Ciudad Salida
-                        @*@Html.DisplayNameFor(model => model.CiudadSalida)*@
                     </th>
                     <th>
                         Ciudad Destino
-                        @*@Html.DisplayNameFor(model => model.CiudadDestino)*@
                     </th>
                     <th width="300px"></th>
                 </tr>
@@ -62,14 +59,14 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon btn-purple button" id="UpdateBottomDsTr" onclick="GetDsTr(@item.ID)">
-                                <i class="pencil alternate icon"></i>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="GetDsTr(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon negative button" onclick="DeleteDsTr(@item.ID)">
-                                <i class="trash alternate icon"></i>
+                            <button class="ui large icon btn-delete button" onclick="DeleteDsTr(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a class="ui large icon button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
                         </td>
                     </tr>
@@ -90,29 +87,29 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="required field">
-                    <label>Destinos Transportes</label>
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label>Ciudad Salida</label>
                             <select id="CiudadSalida" name="DsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
                                 <option value="">Seleccione la ciudad de salida</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadSalida"></label>
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadSalida"></span>
                         </div>
-                        <div class="field">
+                        <div class="required field">
+                            <label>Ciudad Destino</label>
                             <select id="CiudadDestino" name="DsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
                                 <option value="">Seleccione la ciudad de destino</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadDestino"></label>
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadDestino"></span>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="close">Cerrar</button>
-        <button class="ui button" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
     </div>
 </div>
 
@@ -179,7 +176,7 @@
                 ajaxRequest("/DestinationsTransportations/Delete?id=" + id, null, "POST")
             };
 
-            sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+            sweetAlertconfirm("¿Está seguro de eliminar este registro?", "Este registro se borrará permanentemente", "warning", capsula1);
 
         };
     </script>

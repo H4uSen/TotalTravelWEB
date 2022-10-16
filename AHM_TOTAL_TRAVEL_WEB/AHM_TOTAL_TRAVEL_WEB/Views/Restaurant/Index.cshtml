@@ -64,16 +64,16 @@
                             @Html.DisplayFor(modelItem => item.Restaurante)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
+                            @Html.DisplayFor(modelItem => item.Ciudad), @Html.DisplayFor(modelItem => item.Colonia), Calle  @Html.DisplayFor(modelItem => item.Calle), Avenida  @Html.DisplayFor(modelItem => item.Avenida)
                         </td>
-            
+
                         <td>
                             <button class="ui large icon btn-edit button">
                                 <i class="pencil alternate icon  icon-crud"></i>
                             </button>
-                            <button class="ui large icon btn-delete button">
+                            <button class="ui large icon btn-delete button" onclick="DeleteRestaurant('@item.ID')">
                                 <i class="trash alternate icon icon-crud"></i>
-                            </button>                  
+                            </button>
                             <a class="ui large icon button">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
@@ -89,7 +89,8 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
+        //TableSearchInput(SearchInput, Table, elemPerPage = 10)
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdRestaurants tbody tr"), function () {
@@ -109,5 +110,16 @@
         $("#grdRestaurants").paginationTdA({
             elemPerPage: 5
         });
+
+        function DeleteRestaurant(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Restaurant/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Restaurant?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
     </script>
 }

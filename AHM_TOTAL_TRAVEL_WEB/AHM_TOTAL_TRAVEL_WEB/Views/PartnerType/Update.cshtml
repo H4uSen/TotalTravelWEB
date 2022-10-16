@@ -4,8 +4,6 @@
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Editar</h1>
 <div id="frmCreateUser">
     <div class="container card">
         <div class="ui basic segment">
@@ -13,9 +11,9 @@
                 <i class="user icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear
+                        Editar
                     </div>
-                    <p>Crear un nuevo tipo de socio</p>
+                    <p>Editar tipo de socio</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "PartnerType")">
@@ -27,19 +25,26 @@
             <form asp-action="Update">
                 <div class="ui form attached fluid segment">
                     <div class="content">
-                        <div class="two fields">
+                        <div class="three fields">
+                            <div class="field" hidden>
+                                <label>ID</label>
+                                <input asp-for="TiPar_ID" />
+                            </div>
                             <div class="field">
                                 <label>Descripcion</label>
                                 <input asp-for="TiPar_Descripcion" />
                             </div>
-                            <div class="field">
-                                <label>Rol</label>
-                                <input asp-for="Rol_ID"  />
+                            <div class="required field">
+                                <label>Tipo de Rol</label>
+                                <select id="Rol_ID" class="ui dropdown search" asp-items="ViewBag.Rol_ID" asp-for="Rol_ID">
+                                    <option value="">Seleccione un tipo de Socio</option>
+                                </select>
+                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                         </div>
-                        
 
-                        <input type="submit" value="Create" class="btn btn-primary" />
+
+                        <input type="submit" value="Editar" class="btn btn-primary ui positive button" />
 
                     </div>
                 </div>
@@ -47,5 +52,3 @@
         </div>
     </div>
 </div>
-
-

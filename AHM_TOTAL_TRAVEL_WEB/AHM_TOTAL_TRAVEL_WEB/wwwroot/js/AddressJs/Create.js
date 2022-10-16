@@ -16,7 +16,7 @@ $("#createAddress").click(() => {
 
             ClearDropDownItem($('#City_ID'));
             if (cityFilter.length > 0) {
-                SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
+                AddDropDownItem($('#City_ID'), item = { value: "", text: "Seleccione una ciudad." });
                 for (var i = 0; i < cityFilter.length; i++) {
                     var item = cityFilter[i];
                     AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
@@ -31,6 +31,34 @@ $("#createAddress").click(() => {
         }
 
     });
+
+    $('#City_ID').change(function () {
+
+
+        var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+        if (response.code == 200) {
+
+            var City_ID = $('#City_ID').val();
+            var suburbs = response.data;
+            var suburbsFilter = jQuery.grep(suburbs, function (Suburb, i) {
+                return Suburb.ciudadID == City_ID;
+            });
+            ClearDropDownItem($('#Col_ID'));
+            if (suburbsFilter.length > 0) {
+                AddDropDownItem($('#Col_ID'), item = { value: "", text: "Seleccione una colonia." });
+                for (var i = 0; i < suburbsFilter.length; i++) {
+                    var item = suburbsFilter[i];
+                    AddDropDownItem($('#Col_ID'), item = { value: item.id, text: item.colonia });
+                }
+                $('#Col_ID').parent().find('.text').html('Seleccione una colonia');
+            } else {
+                SetDropDownPlaceholder($('#Col_ID'), "No hay colonias disponibles.");
+            }
+        }
+
+    });
+
+
 });
 
 $("#closeAddress").click(() => {
@@ -39,56 +67,34 @@ $("#closeAddress").click(() => {
 
 $("#sendAddress").click(() => {
 
-    if ($('#Colonia').val() == 0) {
-        $("#labelvalidatorCol").html("Ingrese una colonia.");
-    }
-    else {
-        $("#labelvalidatorCol").html(" ");
-    }
-    if ($('#Calle').val() == 0) {
-        $("#labelvalidatorCalle").html("Ingrese una calle.");
-    }
-    else {
-        $("#labelvalidatorCalle").html(" ");
-    }
-    if ($('#Avenida').val() == 0) {
-        $("#labelvalidatorAve").html("Ingrese una avenida.");
-    }
-    else {
-        $("#labelvalidatorAve").html(" ");
-    }
-    if ($('#Count_ID').val() == 0) {
-        $("#labelvalidatorPais").html("Seleccione un país.");
-    } else {
-        $("#labelvalidatorPais").html(" ");
-    }
-    if ($('#City_ID').val() == 0 || $('#City_ID').val() == null) {
-        $("#labelvalidatorCity").html("Seleccione una ciudad.");
-    } else {
-        $("#labelvalidatorCity").html(" ");
-    }
 
-    if ($('#Colonia').val() != 0 && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
-        && $('#City_ID').val() != 0 && $('#City_ID').val() != null) {
+    validateArrayForm = [
+        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Col_ID") },
+        { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
+        { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
+        { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
+        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") }
+    ];
 
-        var direStatus = false;
-        var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+
+    if (ValidateFormStatus) {
+
         var dire = AdressViewModel;
 
-        dire.Dire_Descripcion = fullAddress;
-        dire.Ciud_ID = parseInt($("#City_ID").val());
+        dire.colo_ID = parseInt($('#Col_ID').val());
+        dire.dire_Calle = $('#Calle').val();
+        dire.dire_Avenida = $('#Avenida').val();
+
         var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
             window.location.href = '/Address';
-        } else {
-            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-        }
-
+        } 
 
     }
-
 
 });
 
@@ -105,10 +111,10 @@ $("#txtSearch").keyup(function () {
     });
 
     $("#grdAddress").paginationTdA({
-        elemPerPage: 5
+        elemPerPage: 10
     });
 });
 
 $("#grdAddress").paginationTdA({
-    elemPerPage: 5
+    elemPerPage: 10
 });

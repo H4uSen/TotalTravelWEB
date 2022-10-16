@@ -55,8 +55,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? Fecha_Nacimiento { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
-        public string Direccion { get; set; }
         public int DireccionID { get; set; }
+        public int? ColoniaID { get; set; }
+        public string Colonia { get; set; }
+        public string Calle { get; set; }
+        public string Avenida { get; set; }
         public string Partner { get; set; }
         public int? PartnerID { get; set; }
         public string Rol { get; set; }
@@ -68,5 +71,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModifica { get; set; }
         public DateTime? Fecha_Modifica { get; set; }
         public bool? Estado { get; set; }
+        public string Image_URL { get; set; }
     }
 }

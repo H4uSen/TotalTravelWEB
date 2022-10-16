@@ -12,11 +12,11 @@
             top: auto !important;
             height: auto !important;
         }
+
         table thead tr th {
             background-color: #2b2b2b;
             color: white;
         }
-
     </style>
 }
 
@@ -29,18 +29,15 @@
                 <div class="header">
                     Direcciones
                 </div>
-                <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                @*<a class="ui small primary labeled icon button" href="@Url.Action("Create","Address")">
-                        <i class="user icon"></i> Nuevo
-                    </a>*@
-                <button id="createAddress" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
-
+                <a class="ui small btn-purple text-white labeled icon button" id="createAddress">
+                    <i class="plus icon"></i> Nuevo
+                </a>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -54,48 +51,48 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        País
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Direccion)
+                        Ciudad
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Ciudad)
+                        Colonia
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Pais)
+                        Dirección
                     </th>
-                    <th width="500"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pais)
-                        </td>
-                        <td>
-                            <button class="ui large icon positive button">
-                                <i class="pencil alternate icon"></i>
-                            </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon"></i>
-                            </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Colonia)
+                    </td>
+                    <td>
+                       Calle @Html.DisplayFor(modelItem => item.Calle), Avenida @Html.DisplayFor(modelItem => item.Avenida)
+                    </td>
+                    <td>
+                        <button class="ui large icon btn-edit button" id="createAddress">
+                            <i class="pencil alternate icon  icon-crud"></i>
+                        </button>
+                        <button class="ui large icon btn-delete button" onclick="DeleteAddress('@item.ID')">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a  href="@Url.Action("Details","Address",new {  id=item.ID})" class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -115,51 +112,60 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="field">
-                    <input id="Colonia"  placeholder="Colonia" />
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
-                </div>
-
-                <div class="field">
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label>Calle</label>
                             <input id="Calle" placeholder="Calle" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></label>
                         </div>
-                        <div class="field">
+                        <div class="required field">
+                            <label>Avenida</label>
                             <input id="Avenida" placeholder="Avenida" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></label>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label>País</label>
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un pais</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
                         </div>
                         <div class="field">
-                            <div class="field">
+                            <div class="required field">
+                                <label>Ciudad</label>
                                 <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
-                                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                             </div>
                         </div>
                     </div>
-
-                    <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></label>
+                    <div class="required field">
+                        <label>Colonia</label>
+                        <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeAddress">Cerrar</button>
-        <button class="ui button" id="sendAddress">Guardar</button>
+        <button class="ui button btn-purple text-white" id="sendAddress">Guardar</button>
+        <button class="ui button" id="closeAddress">Cancelar</button>
     </div>
 </div>
 
 @section Scripts{
     <script src="~/js/AddressJs/Create.js"></script>
+    <script>
+        function DeleteAddress(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Address/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Address?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
+    </script>
 }
 
 <!-- Modal -->

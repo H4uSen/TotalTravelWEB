@@ -193,17 +193,45 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+        public async Task<ServiceResult> AddressDelete(AddressViewModel Address, int id, string token)
+        {
+            var Result = new ServiceResult();
 
+            try
+            {
+
+                var response = await _api.Delete<AddressViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Address/Delete?id=" + id + "&mod=" + Address.Dire_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         public async Task<ServiceResult> AddressFind(string id, string token)
         {
             var Result = new ServiceResult();
-            var direccion = new AddressListViewModel();
 
             try
             {
                 var response = await _api.Get<AddressListViewModel, AddressListViewModel>(req => {
                     req.Path = $"/API/Address/Find?id=" + id;
-                    req.Content = direccion;
+                    req.Content = null;
                 },
                 token
                 );

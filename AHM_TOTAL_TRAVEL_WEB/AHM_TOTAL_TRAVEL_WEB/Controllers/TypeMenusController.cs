@@ -81,5 +81,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(TypeMenusViewModel TypeMenus, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                TypeMenus.Time_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _restaurantServices.TypeMenusDelete(TypeMenus, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (TypeMenusListViewModel)(await _restaurantServices.TypeMenusFind(id, token)).Data;
+            return View(detalle);
+        }
+
     }
 }
