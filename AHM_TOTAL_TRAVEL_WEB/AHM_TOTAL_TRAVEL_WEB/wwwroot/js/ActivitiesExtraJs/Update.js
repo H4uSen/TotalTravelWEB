@@ -15,7 +15,7 @@ function GetActivities(id) {
     if (response.code == 200) {
         $('#Actv_ID').val(id);
         $('#ActividadUpdate').val(response.data.descripcion);
-        //$('#TiPoAc_IDUpdate').val(response.data.tipo);
+        $('#valor').val(response.data.tipo);
 
         if ($('#ActividadUpdate').val() != 0) {
             $("#modalUpdate").modal('show');

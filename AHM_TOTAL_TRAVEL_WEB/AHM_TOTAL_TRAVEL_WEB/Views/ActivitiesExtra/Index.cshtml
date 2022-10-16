@@ -38,7 +38,7 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="grdActividadesExtra">
             <thead>
                 <tr>
                     <th>
@@ -80,14 +80,14 @@
                     </td>
 
                     <td>
-                        <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>
+                        <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
                         @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
-                        <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
-                            <i class="trash alternate icon"></i>
+                        <button class="ui large icon btn-delete button" onclick="DeleteActividadExtra(@item.ID)">
+                            <i class="trash alternate icon icon-crud"></i>
                         </button>
-                        <button class="ui large icon yellow button">
-                            <i class="folder open outline icon"></i>
-                        </button>
+                        <a class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
                     </td>
                 </tr>
                 }
@@ -103,7 +103,7 @@
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#grdActividadesExtra tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -112,23 +112,23 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#grdActividadesExtra").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#grdActividadesExtra").paginationTdA({
             elemPerPage: 5
         });
 
         //------------------------------------Funciones------------------------
 
-        function DeleteActividad(id) {
-            const capsula1 = () => {
+        function DeleteActividadExtra(id) {
+            const capsula3 = () => {
                 ajaxRequest("/ActivitiesExtra/Delete?id=" + id, null, "POST")
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula3);
 
         };
     </script>
