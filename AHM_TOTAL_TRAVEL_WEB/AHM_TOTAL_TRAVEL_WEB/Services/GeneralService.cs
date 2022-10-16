@@ -547,7 +547,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> PartnerTypeDelete(PartnerTypeViewModel TipoPartner, int id, string token)
+        public async Task<ServiceResult> PartnerTypeDelete(int modifica, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -556,7 +556,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Delete<PartnerTypeViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/PartnerType/Delete?id=" + id + "&mod=" + TipoPartner.TiPar_UsuarioModifica;
+                    req.Path = $"/API/PartnerType/Delete?id=" + id + "&mod=" + modifica;
                     req.Content = null;
                 },
                 token
