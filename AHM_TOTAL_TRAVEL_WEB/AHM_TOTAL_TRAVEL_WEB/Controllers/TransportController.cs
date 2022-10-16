@@ -123,23 +123,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(TransportViewModel transporte, int id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var idd = HttpContext.User.FindFirst("User_Id").Value;
-        //        transporte.Tprt_UsuarioModifica = int.Parse(idd);
-        //        string token = HttpContext.User.FindFirst("Token").Value;
-        //        var list = await _transportService.TransportDelete(transporte, id, token);
+        [HttpPost]
+        public async Task<IActionResult> Delete(TransportViewModel Transporte, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                Transporte.Tprt_UsuarioModifica = int.Parse(idd);
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _transportService.TransportDelete(Transporte, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
 
 
         public async Task<IActionResult> Details(string id)

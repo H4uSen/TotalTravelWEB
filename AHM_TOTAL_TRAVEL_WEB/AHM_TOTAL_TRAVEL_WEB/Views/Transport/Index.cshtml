@@ -64,7 +64,7 @@
                             <a class="ui large icon btn-edit button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </a>
-                            <a class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                            <a class="ui large icon btn-delete button" onclick="DeleteTransport(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </a>
                             <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
@@ -102,19 +102,19 @@
     $("#tabla").paginationTdA({
         elemPerPage: 5
     });
-
-    $("#editar").click(() => {
-        $(".ui.modal").modal('show');
-    });
-
-    function Delete(id) {
-        const capsula1 = () => {
-            ajaxRequest("/Transports/Delete?id=" + id, null, "POST")
-        };
-
-        sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
-
-    };
 </script>
+    <script>
+        function DeleteTransport(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Transport/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Transport?success=true';
+                }
+            };
+
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
+    </script>
 
 }
