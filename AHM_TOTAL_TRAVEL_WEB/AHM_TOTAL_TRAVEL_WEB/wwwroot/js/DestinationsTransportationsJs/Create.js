@@ -6,8 +6,12 @@ $("#createDestinationsTransportations").click(() => {
     $("#modalCreate").modal('show');
 });
 
-$("#close").click(() => {
+$("#modalCreate #close").click(() => {
     $("#modalCreate").modal('hide');
+});
+
+$("#modalUpdate #close").click(() => {
+    $("#modalUpdate").modal('hide');
 });
 
 $("#send").click(() => {
@@ -15,20 +19,45 @@ $("#send").click(() => {
 })
 
 function validar() {
-    if ($("#CiudadSalida").val() == 0) {
-        $("#labelvalidatorCiudadSalida").html("Seleccione una Ciudad de Salida.");
-    }
-    else {
-        $("#labelvalidatorCiudadSalida").html(" ");
-    }
-    if ($("#CiudadDestino").val() == 0) {
-        $("#labelvalidatorCiudadDestino").html("Seleccione una Ciudad de Destino.");
-    }
-    else {
-        $("#labelvalidatorCiudadDestino").html(" ");
-    }
-    if ($("#CiudadSalida").val() != 0 && $("#CiudadDestino").val() != 0) {
+
+    validateArrayForm = [
+        { validateMessage: "Seleccione una Ciudad de Salida.", Jqueryinput: $("#modalCreate #CiudadSalida") },
+        { validateMessage: "Seleccione una Ciudad de Destino.", Jqueryinput: $("#modalCreate #CiudadDestino") },
+    ];
+
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+
+    if (ValidateFormStatus) {
         $("#createDestinationsTransportationsForm").submit();
     }
 
+}
+
+function editar(destinoTransporteID) {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/DestinationsTransportations/Find?id=" + destinoTransporteID);
+    if (response.code == 200) {
+        var item = response.data;
+        SetDropDownValue($("#modalUpdate #CiudadSalida"), defaultValue = item.ciudadSalidaID);
+        SetDropDownValue($("#modalUpdate #CiudadDestino"), defaultValue = item.ciudadDestinoID);
+
+        $("#modalUpdate #DsTr_ID").val(item.id);
+
+        $("#modalUpdate").modal("show");
+        
+    }
+}
+
+function actualizar() {
+    validateArrayForm = [
+        { validateMessage: "Seleccione una Ciudad de Salida.", Jqueryinput: $("#modalUpdate #CiudadSalida") },
+        { validateMessage: "Seleccione una Ciudad de Destino.", Jqueryinput: $("#modalUpdate #CiudadDestino") },
+    ];
+
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+
+    if (ValidateFormStatus) {
+        $("#updateDestinationsTransportationsForm").submit();
+    }
 }

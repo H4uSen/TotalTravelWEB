@@ -15,19 +15,17 @@ $("#send").click(() => {
 })
 
 function validar() {
-    if ($("#Colonia").val() == 0) {
-        $("#labelvalidatorColonia").html("Ingrese una colonia.");
-    }
-    else {
-        $("#labelvalidatorColonia").html(" ");
-    }
-    if ($("#City_ID").val() == 0) {
-        $("#labelvalidatorCiudad").html("Seleccione una ciudad.");
-    }
-    else {
-        $("#labelvalidatorCiudad").html(" ");
-    }
-    if ($("#Colonia").val() != 0 && $("#City_ID").val() != 0) {
+
+    validateArrayForm = [
+        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Colonia") },
+        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") },
+        { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
+    ];
+
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+
+    if (ValidateFormStatus) {
         $("#createSuburbsForm").submit();
     }
 
