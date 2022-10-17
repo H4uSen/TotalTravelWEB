@@ -51,26 +51,25 @@ function CreateActivityExtra() {
         data.append("actv_ID", parseInt($("#Actv_ID").val()));
         data.append("acEx_Precio", $("#acEx_Precio").val());
         data.append("acEx_Descripcion", $("#acEx_Descripcion").val());
+        data.append("acEx_UsuarioCreacion", parseInt(Client_User_ID));
 
         data.append("file", $("#FileAct").prop("files")[0]);
         var response = uploadFile("https://totaltravel.somee.com/API/ActivitiesExtra/Insert", data, "POST");
 
-
-        console.log(response);
-        //if (response.code == 200) {
-        //    if (response.data.codeStatus > 0) {
-        //        window.location.href = '/ActivitiesExtra?success=true';
+        if (response.code == 200) {
+            if (response.data.codeStatus > 0) {
+                window.location.href = '/ActivitiesExtra?success=true';
 
 
-        //    } else {
+            } else {
 
-        //        $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-        //    }
+                $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
+            }
             
-        //}
-        //else {
-        //    console.log(response);
-        //}
+        }
+        else {
+            console.log(response);
+        }
 
         
     }

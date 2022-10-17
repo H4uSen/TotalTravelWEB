@@ -48,7 +48,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.acEx_UsuarioModifica = 1;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                actividad.acEx_UsuarioCreacion = Convert.ToInt32(UserID);
                 var list = await _activitiesServices.ActivitiesExtraCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -96,14 +97,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(ActivitiesExtrasViewModel actividad)
+        public async Task<IActionResult> Delete(ActivitiesExtrasViewModel actividad, int id)
         {
             if (ModelState.IsValid)
             {
                 actividad.acEx_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
 
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _activitiesServices.ActivitiesExtraDelete(actividad, token);
+                var list = await _activitiesServices.ActivitiesExtraDelete(actividad,id, token);
 
                 return RedirectToAction("Index");
             }

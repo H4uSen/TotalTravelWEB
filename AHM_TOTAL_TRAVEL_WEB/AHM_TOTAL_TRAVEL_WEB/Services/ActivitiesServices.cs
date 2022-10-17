@@ -262,7 +262,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> ActivitiesExtraDelete(ActivitiesExtrasViewModel actividad, string token)
+        public async Task<ServiceResult> ActivitiesExtraDelete(ActivitiesExtrasViewModel actividad, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -270,7 +270,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             {
                 var response = await _api.Delete<ActivitiesExtrasViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/ActivitiesExtra/Delete?id=" + actividad.AcEx_ID + "&mod=" + actividad.acEx_UsuarioModifica;
+                    req.Path = $"/API/ActivitiesExtra/Delete?id=" + id + "&mod=" + actividad.acEx_UsuarioModifica;
                     req.Content = actividad;
                 },
                 token
