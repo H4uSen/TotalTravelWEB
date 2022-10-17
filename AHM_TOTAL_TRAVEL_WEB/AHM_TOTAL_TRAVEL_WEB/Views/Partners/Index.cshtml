@@ -44,24 +44,34 @@
             <thead>
                 <tr>
                     <th>
+                        #
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Email)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Telefono)
+                        Teléfono
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TipoPartner)
+                        Tipo de Socio
                     </th>
                         <th width="300px">Acciones</th>
                  </tr>
             </thead>
             <tbody>
+                @{
+                    int id = 0;
+                }
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @{id++;}
+                            @id
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
@@ -89,6 +99,8 @@
                         </td>
                     </tr>
                 }
+                
+                
             </tbody>
         </table><br>
 
