@@ -21,14 +21,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Nombre { get; set; }
         public string Descripcion_Paquete { get; set; }
         public string Duracion_Paquete { get; set; }
+        public decimal? Precio { get; set; }
+        public int ID_Hotel { get; set; }
         public string Hotel { get; set; }
         public string Descripcion_Hotel { get; set; }
+        public int ID_Restaurante { get; set; }
         public string Restaurante { get; set; }
+        public int ID_Usuario_Creacion { get; set; }
         public string Usuario_Creacion { get; set; }
         public DateTime? Fecha_Creacion { get; set; }
+        public int? ID_Usuario_Modifica { get; set; }
         public string Usuario_Modifica { get; set; }
         public DateTime? Fecha_Modifcia { get; set; }
         public bool? Estado { get; set; }
-        public decimal? Precio { get; set; }
     }
 }
