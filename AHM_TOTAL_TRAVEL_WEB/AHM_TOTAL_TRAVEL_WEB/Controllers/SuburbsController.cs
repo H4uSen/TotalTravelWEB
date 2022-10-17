@@ -59,6 +59,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
             var item = new SuburbsViewModel();
             var list = await _generalService.SuburbsList();
             IEnumerable<SuburbsListViewModel> data = (IEnumerable<SuburbsListViewModel>)list.Data;
@@ -66,6 +67,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Colo_ID = element.ID;
             item.Colo_Descripcion = element.Colonia;
             item.Ciud_ID = element.CiudadID;
+
+            var ciudad = (CityListViewModel)(await _generalService.CityFind(item.Ciud_ID.ToString(), token)).Data;
+
+            ViewData["Pais"] = ciudad.PaisID;
 
             return View(item);
         }

@@ -361,7 +361,7 @@ var Client_User_Name = GetCookie("User_Name");
 
     function SetDropDownValue(DropDown, defaultValue = "") {
 
-        $(DropDown).find(`option[value = "${NewValue}"]`).prop("selected", true);
+        $(DropDown).find(`option[value = "${defaultValue}"]`).prop("selected", true);
 
         const parent = $(DropDown).parent();
 
