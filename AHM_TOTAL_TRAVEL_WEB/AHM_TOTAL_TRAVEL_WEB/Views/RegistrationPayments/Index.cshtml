@@ -12,7 +12,7 @@
             <i class="icon food"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Regsitros de pago
                 </div>
             </div>
         </div>
@@ -43,51 +43,18 @@
                         @Html.DisplayNameFor(model => model.fechaPago)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Id_TipoPago)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.TipoPago)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Id_Reservacion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id_Paquete)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id_Cliente)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Apellido)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DNI)
+                        Cliente
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Telefono)
                     </th>
+
                     <th>
-                        @Html.DisplayNameFor(model => model.Id_UsuarioCrea)
+                        Acciones
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCrea)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FechaCreacion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id_UsuarioModifica)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UsuarioModifica)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FechaModifica)
-                    </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -104,54 +71,17 @@
                             @Html.DisplayFor(modelItem => item.fechaPago)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id_TipoPago)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.TipoPago)
                         </td>
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id_Reservacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id_Paquete)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id_Cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Apellido)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DNI)
+                            @string.Concat( item.Nombre, " ", item.Apellido)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Telefono)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id_UsuarioCrea)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaCreacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id_UsuarioModifica)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioModifica)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaModifica)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Detalles", "Details", new {id = item.ID /* id=item.PrimaryKey */ }) 
                         </td>
                     </tr>
                 }
@@ -186,10 +116,10 @@
 
     </script>
 }
-@section HighlightTiles{
+@section HighlightTile{
     <script>
-        $("#AccessModule").addClass("active");
-        $("#Access_Schema").addClass("show");
-        $("#AccessModule").addClass("expandedList")
+        $("#SalesModule").addClass("active");
+        $("#Sale_Schema").addClass("show");
+        $("#SalesModule").addClass("expandedList")
     </script>
 }
