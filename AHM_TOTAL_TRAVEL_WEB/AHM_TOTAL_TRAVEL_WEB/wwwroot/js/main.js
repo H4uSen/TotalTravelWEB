@@ -4,12 +4,14 @@
 $("input[type=text]").prop("autocomplete", "off");
 var Client_User_ID = parseInt(GetCookie("User_Id"));
 var Client_User_Name = GetCookie("User_Name");
+$("#loaderAnimation").hide();
 
 // ----------------------------------- EVENTS ------------------------------------
 
     const user_FileName = `User-${Client_User_ID}`;
     const url_image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
     $("#user_image").prop("src", "https://" + url_image);
+
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 
@@ -261,6 +263,12 @@ var Client_User_Name = GetCookie("User_Name");
                 'Authorization': `Bearer ${Token}`
             },
             async: false,
+            beforeSend: function () {
+                $("#loaderAnimation").show();
+            },
+            complete: function () {
+                $("#loaderAnimation").hide();
+            },
             success: function (response) {
                 dataResponse = response;
             },
@@ -324,6 +332,12 @@ var Client_User_Name = GetCookie("User_Name");
             processData: false,
             contentType: false,
             type: method,
+            beforeSend: function () {
+                $("#loaderAnimation").show();
+            },
+            complete: function () {
+                $("#loaderAnimation").hide();
+            },
             success: function (httpResponse) {
                 dataResponse = JSON.parse(httpResponse);
             },
