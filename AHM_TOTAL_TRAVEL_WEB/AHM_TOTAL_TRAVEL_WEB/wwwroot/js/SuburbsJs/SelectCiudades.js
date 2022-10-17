@@ -18,7 +18,7 @@ function RellenarCiudades(Count_ID, dropdown) {
             SetDropDownPlaceholder($(dropdown), "Seleccione una ciudad.");
             for (var i = 0; i < cityFilter.length; i++) {
                 var item = cityFilter[i];
-                console.log(item);
+                //console.log(item);
                 AddDropDownItem($(dropdown), item = { value: item.id, text: item.ciudad });
             }
             $(dropdown).parent().find('.text').html('Seleccione una ciudad');

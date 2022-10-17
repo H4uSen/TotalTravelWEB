@@ -99,24 +99,3 @@ function RellenarCiudades(Pais_ID) {
         }
     }
 }
-
-function RellenarColonias(Ciud_ID) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
-    if (response.code == 200) {
-        var colonias = response.data;
-        console.log(colonias, Ciud_ID);
-        var coloniasFilter = jQuery.grep(colonias, function (Colonia, i) {
-            return Colonia.ciudadID == Ciud_ID;
-        });
-        ClearDropDownItem($('#Colonia'));
-        if (coloniasFilter.length > 0) {
-            SetDropDownPlaceholder($('#Colonia'), "Seleccione una colonia.");
-            for (var i = 0; i < coloniasFilter.length; i++) {
-                var item = coloniasFilter[i];
-                AddDropDownItem($('#Colonia'), item = { value: item.id, text: "Colonia. " + item.colonia });
-            }
-        } else {
-            SetDropDownPlaceholder($('#Colonia'), "No hay colonias disponibles.");
-        }
-    }
-}
