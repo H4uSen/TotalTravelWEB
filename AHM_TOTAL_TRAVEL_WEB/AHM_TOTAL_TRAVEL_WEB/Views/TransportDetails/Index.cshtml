@@ -64,38 +64,38 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model) 
+                @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo_Transporte)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Capacidad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Matricula)
-                    </td>
-                    @{
-                        string horario = $"{item.Ciudad_Salida} - {item.Ciudad_Llegada} / {item.Hora_Salida} - {item.Hora_Llegada}";
-                     }
-                    <td>
-                        @horario
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
-                        <button  class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
-                            <i class="trash alternate icon"></i>
-                        </button>
-                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Transporte)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Capacidad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Matricula)
+                        </td>
+                        @{
+                            string horario = $"{item.Ciudad_Salida} - {item.Ciudad_Llegada} / {item.Hora_Salida} - {item.Hora_Llegada}";
+                        }
+                        <td>
+                            @horario
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
+                            <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                                <i class="trash alternate icon"></i>
+                            </button>
+                            <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table><br>
@@ -106,7 +106,7 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdRestaurants tbody tr"), function () {
@@ -138,5 +138,13 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", DTransporte);
 
         };
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#TransportModule").addClass("active");
+        $("#Transport_Schema").addClass("show");
+        $("#TransportModule").addClass("expandedList")
     </script>
 }
