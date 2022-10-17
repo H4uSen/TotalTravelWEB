@@ -1,0 +1,170 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.categoryroomsListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ui icon attached message">
+    <i class="icon building"></i>
+    <div class="content">
+        <div class="header">
+            Categoria Hoteles
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="ui grid">
+    <div class="eight wide column">
+        <button id="createCategoryrooms" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+    </div>
+    <div class="eight wide column">
+        <div class="ui icon input" style="float:right;">
+            <input type="text" placeholder="Buscar..." id="txtSearch">
+            <i class="search icon"></i>
+        </div>
+    </div>
+</div>
+<style>
+    table thead tr th {
+        background-color: #2b2b2b;
+        color: white;
+    }
+</style>
+<table class="ui compact selectable celled table" id="grdcategorye">
+    <thead>
+        <tr>
+            <th>
+                Descrpcion
+            </th>
+
+            <th width="200px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    <a class="ui large icon btn-edit button" id=" Updatecategory" onclick=" Updatecategory(@item.ID)">
+                        <i class="pencil alternate icon icon-crud"></i>
+                    </a>
+                    <button class="ui large icon btn-delete button" onclick=" DeleteCategoriesRooms(@item.ID)">
+                        <i class="trash alternate icon icon-crud"></i>
+                    </button>
+                    <a href="@Url.Action("details","CategoriesRooms",new {  id=item.ID})" class="ui large icon button">
+                        <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br>
+
+  
+<br>
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una categoria de habitacion
+    </div>
+    <form asp-action="Create" asp-controller="CategoriesRooms" id="createCategoryroomsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label>Categoria de habitacion </label>
+                    <div class="two fields">
+                        <div class="field">
+                            <label></label>
+                            <input id="category" name="CaHa_Descripcion" placeholder="Descripcion del categoria habitacion" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeCategoryrooms">Cerrar</button>
+        <button class="ui button" id="sendCategoryrooms" onclick="validar()">Guardar</button>
+    </div>
+</div>
+
+
+<div class="ui modal" id="modalUpdate">
+    <div class="header">
+        Actualiza una categoria de habitacion
+    </div>
+    <form asp-action="Update" asp-controller="CategoriesRooms" id="updateCategoryroomsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <input name="CaHa_ID" id="CaHa_ID" style="visibility:hidden" />
+                <div class="field">
+                    <label>Descripción</label>
+                    <input name="CaHa_Descripcion" id="CaHa_DescripcionUpdate" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="sendEditCategoryrooms">Guardar</button>
+        <button class="ui button" id="closeEditCategoryrooms">Cancelar</button>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script src="~/js/CategoriesRooms/Update.js"></script>
+    <script>
+        function validar() {
+            const userValidateArray = [
+                { validateMessage: "Ingrese un tipo de pago'", Jqueryinput: $("#category") }
+            ];
+
+            const userValidate = ValidateForm(userValidateArray);
+
+            if (userValidate) {
+
+                var data = categorysroomsViewModel;
+                data.CaHa_Descripcion = $("#category").val();
+
+                const response = ajaxRequest(
+                    "https://totaltravel.somee.com/API/Categoriesrooms/Insert",
+                    data, "POST"
+                );
+                if (response.code == 200) {
+                    location.reload();
+                }
+            }
+        }
+        $("#createCategoryrooms").click(() => {
+            $("#modalCreate").modal("show")
+        })
+        // ----------------------------------- EVENTS ------------------------------------
+        TableSearchInput($("#txtSearch"), $("#grdcategorye"), elemPerPage = 10)
+
+        $("#grdcategorye").paginationTdA({
+            elemPerPage: 10
+        });
+
+
+        function DeleteCategoriesRooms(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("CategoriesRooms/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/CategoriesRooms?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
+    </script>
+}

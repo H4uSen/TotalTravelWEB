@@ -71,3 +71,15 @@ var SuburbsViewModel = {
     "colo_UsuarioCreacion": Client_User_ID,
     "colo_UsuarioModifica": Client_User_ID
 }
+
+var PaymentTypesViewModel = {
+    "tiPa_Descripcion": "string",
+    "tiPa_UsuarioCreacion": Client_User_ID,
+    "tiPa_UsuarioModifica": Client_User_ID
+};
+
+var categorysroomsViewModel = {
+    "Caha_Descripcion": "string",
+    "CaHa_UsuarioCreacion": Client_User_ID,
+    "CaHa_UsuarioModifica": Client_User_ID
+};

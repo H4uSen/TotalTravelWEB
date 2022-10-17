@@ -25,7 +25,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create() 
         {
             return View();
         }

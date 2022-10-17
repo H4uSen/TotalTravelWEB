@@ -106,7 +106,7 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdMenus tbody tr"), function () {
@@ -138,5 +138,12 @@
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
 
         };
+    </script>
+}
+@section HighlightTile{
+    <script>
+        $("#RestaurantModule").addClass("active");
+        $("#Restaurant_Schema").addClass("show");
+        $("#RestaurantModule").addClass("expandedList")
     </script>
 }
