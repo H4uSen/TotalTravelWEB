@@ -88,9 +88,53 @@
 
     </div>
 </div>
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una Actividades de hotel
+    </div>
+    <form asp-action="Create" asp-controller="HotelsActivities" id="createHotelsActivitiesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label></label>
+                    <div class="two fields">
+                        <div class="field">
+                            <input id="Descripcion" name="HoAc_Descripcion" placeholder="Descripcion de la actividad hotel" />
+                        </div>
+                        <div class="field">
+                            <input id="Precio" name="HoAc_Precio" placeholder="Precio de la actividad hotel" />
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <select id="tHoTe_ID" name="HoTe_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
+                                <option value="">Seleccione el Hotel</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <select id="tActv_ID" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                <option value="">Seleccione la actividad</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="field">
+                        <input id="file" type="file" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeHotelsActivities">Cerrar</button>
+        <button class="ui button" id="sendHotelsActivities" onclick="validar()">Guardar</button>
+    </div>
+</div>
 
 @section Scripts{
-    <script src="~/js/ActivitiesExtraJs/Create.js"></script>
+    <script src="~/js/HotelsActivities/Create.js"></script>
     <script src="~/js/ActivitiesExtraJs/Update.js"></script>
     <script>
         // ----------------------------------- EVENTS ------------------------------------
@@ -124,6 +168,13 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsulaha);
 
         };
+    </script>
+}
+@section HighlightTile{
+    <script>
+        $("#HotelModule").addClass("active");
+        $("#Hotels_Schema").addClass("show");
+        $("#HotelModule").addClass("expandedList")
     </script>
 }
 
