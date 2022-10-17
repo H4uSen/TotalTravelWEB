@@ -19,18 +19,18 @@
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
-                        Back
+                        Regresar
                         <i class="left arrow icon"></i>
                     </a>
                 </div>
             </div>
-            <form asp-action="Create">
+            <form asp-action="Create" id="FrmDetallesTranporte">
                 <div class="ui form attached fluid segment">
                     <div class="content">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="required field">
                                 <label>Tipo Transporte</label>
-                                <select id="Tprt_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID">
+                                <select id="Tprt_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Tprt_ID">
                                     <option value="">Seleccione un tipo de transporte</option>
                                 </select>
                                 <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
@@ -41,13 +41,13 @@
                             </div>
                             <div class="required field">
                                 <label>Horario</label>
-                                <select id="HoTr_ID" name="HoTr_ID" class="ui dropdown search">
+                                <select id="HoTr_ID" name="HoTr_ID" class="ui dropdown search" asp-for="HoTr_ID">
                                     <option value="">Seleccione un horario</option>
                                 </select>
                                 <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                         </div>
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field">
                                 <label>Precio</label>
                                 <input asp-for="DeTr_Precio" />
@@ -59,7 +59,7 @@
 
                         </div>
 
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-purple ui positive button" />
 
                     </div>
                 </div>
@@ -70,6 +70,22 @@
 
 @section Scripts{
     <script src="~/js/TransportDetails/Create.js"></script>
+    <script>
+        $("#btnGuardar").click(() => {
+            const ValidateArray = [
+                { validateMessage: "Seleccione un tipo de transporte", Jqueryinput: $("#Tprt_ID") },
+                { validateMessage: "Ingrese la cantidad", Jqueryinput: $("#DeTr_Capacidad") },
+                { validateMessage: "Seleccione un horario", Jqueryinput: $("#HoTr_ID") },
+                { validateMessage: "Ingrese el precio", Jqueryinput: $("#DeTr_Precio") },
+                { validateMessage: "Ingrese la matricula", Jqueryinput: $("#DeTr_Matricula") }
+
+            ];
+            const userValidate = ValidateForm(ValidateArray);
+            if (userValidate) {
+                $("#FrmDetallesTranporte").submit();
+            }
+        });
+    </script>
 }
 
 
