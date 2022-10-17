@@ -410,6 +410,64 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+        public async Task<ServiceResult> TypesActivitiesDelete(TypesActivitiesViewModel actividad, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<TypesActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/TypeActivities/Delete?id=" + id + "&mod=" + actividad.TiAc_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> TypesActivitiesFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new TypesActivitiesListViewModel();
+
+            try
+            {
+                var response = await _api.Get<TypesActivitiesListViewModel, TypesActivitiesListViewModel>(req => {
+                    req.Path = $"/API/TypeActivities/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
     }
 }

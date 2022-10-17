@@ -37,7 +37,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Pais_UsuarioCreacion = 1;
+                actividad.Pais_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.CountriesCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -77,7 +77,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Pais_UsuarioModifica = 1;
+                actividad.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.CountriesUpdate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -86,6 +86,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
 
+        }
+        public async Task<IActionResult> Delete(CountriesViewModel DePa, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                DePa.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _generalServices.CountriesDelete(DePa, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (CountriesListViewModel)(await _generalServices.CountriesFind(id, token)).Data;
+
+            return View(transporte);
         }
     }
 }

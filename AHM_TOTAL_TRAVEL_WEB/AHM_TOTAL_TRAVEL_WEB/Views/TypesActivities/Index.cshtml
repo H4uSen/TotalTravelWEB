@@ -9,7 +9,7 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="user icon"></i>
+            <i class="list icon"></i>
             <div class="content">
                 <div class="header">
                     Tipos de Actividades
@@ -21,9 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","TypesActivities")">
-                    <i class="user icon"></i> Nuevo
-                </a>
+                <button id="createTypesActivities" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>              
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -43,9 +41,6 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Descripcion)
                     </th>
                         <th width="300px">Acciones</th>
@@ -56,22 +51,19 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
 
                         <td>
-                             <a class="ui large icon btn-purple button" href="@Url.Action("Update","TypeActivities", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg"></i>
-                            </a>
-                            <a class="ui large icon negative button" href="@Url.Action("Details","TypeActivities", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg"></i>
-                            </a>                                                       
-                            <button class="ui large icon button" onclick="DeleteDefaultPackage(@item.ID)">
-                                <i class="trash alternate icon"></i>
-                            </button>        
+                            <button class="ui large icon btn-edit button" onclick="editar(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                             <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button> 
+                            <a class="ui large icon button" href="@Url.Action("Details", "TypesActivities", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>                       
                         </td>
                     </tr>
                 }
@@ -82,7 +74,66 @@
 </div>
 <br>
 
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un Tipo de Actividad 
+    </div>
+    <form asp-action="Create" asp-controller="TypesActivities" id="createTypesActivitiesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="field">
+                        <div class="required field">
+                            <label>Descripcion</label>                       
+                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+
+<div class="ui modal longer" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un Tipo de Actividad
+    </div>
+    <form asp-action="Update" asp-controller="TypesActivities" id="updateTypesActivitiesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                
+                <div class="required field">
+                    <div class="field">
+                        <div class="required field">                            
+                            <label>Descripcion</label>                       
+                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
+                        </div> 
+                        <div class="required field">
+                            <input id="TiAc_ID" name="TiAc_ID" hidden/>                     
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+
 @section Scripts{
+    <script src="~/js/TypesActivites/TypesActivities.js"></script>
     <script>
                 // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
@@ -105,4 +156,19 @@
             elemPerPage: 5
         });
     </script>
+    <script>
+    function Delete(id) {
+    const capsula1 = () => {
+        ajaxRequest("/TypesActivities/Delete?id=" + id, null, "POST")
+        location.reload();
+     };
+
+     sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+     
+
+    };
+    
+
+    </script>
+
 }

@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -29,10 +30,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var model = new List<PartnerTypeListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
 
-            var partners = await _generalServices.PartnerTypeList();
+            var partners = await _generalServices.PartnerTypeList(model);
             IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
             ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion");
 
@@ -46,7 +48,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Part_UsuarioCreacion = 1;
+                actividad.Part_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.PartnersCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -60,6 +62,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            var model1 = new List<PartnerTypeListViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+
+            var partners = await _generalServices.PartnerTypeList(model1);
+            IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
+            ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion");
 
             var item = new PartnersViewModel();
             IEnumerable<PartnersListViewModel> model = null;
@@ -68,10 +77,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.Part_ID = element.ID;
             item.Part_Email = element.Email;
-            item.Part_Nombre = element.Nombre;  
+            item.Part_Nombre = element.Nombre;
             item.Part_Telefono = element.Telefono;
             item.TiPart_Id = element.TipoPartner_Id;
-            
+
 
             //IEnumerable<EstablecimientoListViewModel> model_Est = null;
             //var Establecimiento = await _generalServices.EstablecimientosList(model_Est);
@@ -89,7 +98,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Part_UsuarioModifica = 1;
+                actividad.Part_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.PartnersUpdate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -99,10 +108,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+        public async Task<IActionResult> Delete(PartnersViewModel DePa, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                DePa.Part_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _generalServices.PartnersDelete(DePa, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
         public async Task<IActionResult> Details(string id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var transporte = (TransportListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
+            var transporte = (PartnersListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
 
             return View(transporte);
         }

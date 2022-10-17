@@ -57,7 +57,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.paqu_UsuarioCreacion = 1;
+                actividad.paqu_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _saleServices.DefaultPackagesCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -109,7 +109,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.paqu_UsuarioModifica = 1;
+                actividad.paqu_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _saleServices.DefaultPackagesUpdate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -123,7 +123,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                DePa.paqu_UsuarioModifica = 1;
+                DePa.paqu_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
 
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var list = await _saleServices.DefaultPackagesDelete(DePa, id, token);

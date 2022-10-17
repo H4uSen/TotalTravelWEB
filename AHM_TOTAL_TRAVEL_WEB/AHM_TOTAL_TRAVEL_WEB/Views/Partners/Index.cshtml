@@ -44,9 +44,6 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
@@ -54,9 +51,6 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Telefono)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TipoPartner_Id)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TipoPartner)
@@ -69,9 +63,6 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td>
@@ -79,24 +70,22 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Telefono)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoPartner_Id)
-                        </td>
+                        </td>                      
                         <td>
                             @Html.DisplayFor(modelItem => item.TipoPartner)
                         </td>
 
                         <td>                           
-                             <a class="ui large icon btn-purple button" href="@Url.Action("Update","Partners", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                             <a class="ui large icon btn-edit button" href="@Url.Action("Update","Partners", new { id=item.ID })">
+                                <i class="pencil alternate icon icon-crud"></i>
                             </a>
-                            <a class="ui large icon negative button" href="@Url.Action("Details","Partners", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg"></i>
+                            <button class="ui large icon btn-delete button" onclick="DeletePartners(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button> 
+                            <a class="ui large icon button" href="@Url.Action("Details","Partners", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>                                                       
-                            <button class="ui large icon button" onclick="DeleteDefaultPackage(@item.ID)">
-                                <i class="trash alternate icon"></i>
-                            </button>      
+                                                                                   
                         </td>
                     </tr>
                 }
@@ -129,5 +118,17 @@
         $("#grdRestaurants").paginationTdA({
             elemPerPage: 5
         });
+    </script>
+    <script>
+       function DeletePartners(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Partners/Delete?id=" + id, null, "POST");
+                
+                location.reload();
+                
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
     </script>
 }

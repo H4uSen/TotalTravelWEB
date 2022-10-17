@@ -5,52 +5,80 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Update</h1>
 
-<h4>PartnersViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group" hidden>
-                <label asp-for="Part_ID" class="control-label"></label>
-                <input asp-for="Part_ID" class="form-control" />
-                <span asp-validation-for="Part_ID" class="text-danger"></span>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="user icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Editar
+                    </div>
+                    <p>Actualiza el socio.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Part_Nombre" class="control-label"></label>
-                <input asp-for="Part_Nombre" class="form-control" />
-                <span asp-validation-for="Part_Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part_Email" class="control-label"></label>
-                <input asp-for="Part_Email" class="form-control" />
-                <span asp-validation-for="Part_Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part_Telefono" class="control-label"></label>
-                <input asp-for="Part_Telefono" class="form-control" />
-                <span asp-validation-for="Part_Telefono" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TiPart_Id" class="control-label"></label>
-                <input asp-for="TiPart_Id" class="form-control" />
-                <span asp-validation-for="TiPart_Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Part_Url" class="control-label"></label>
-                <input asp-for="Part_Url" class="form-control" />
-                <span asp-validation-for="Part_Url" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+            <!-- formulario-->
+           <form asp-action="Update" id="frmUpdatePartners">
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="required field" hidden>
+                            <label>ID</label>
+                            <input asp-for="Part_ID" id="ID" class="form-control" />                           
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Nombre</label>
+                                    <input id="Nombre" placeholder="Nombre" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Email</label>
+                                    <input id="Email"  placeholder="Email" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorEmail"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Telefono</label>
+                                    <input id="Telefono"  placeholder="Telefono" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Tipo de socio</label>
+                                    <select id="TiPart_Id" class="ui dropdown search" asp-items="ViewBag.TiPart_Id">
+                                        <option value="">Seleccione el tipo de socio</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTiPar"></span>
+                                </div>                         
+                            </div>
+                        </div>                                              
+                        <div class="field">
+                            <div class="required field">
+                                <label>Imagen</label>
+                                <input  id="File" type="file"  multiple />
+                            </div>
+                        </div>
+                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
+                     
+                        <input type="button" value="Actualizar" onclick="updateDefaultPackages()" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
+@section Scripts{
+    <script src="~/js/PartnersJS/Create.js"></script>
+}
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

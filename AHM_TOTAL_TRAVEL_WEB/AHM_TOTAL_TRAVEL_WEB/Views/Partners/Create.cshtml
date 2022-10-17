@@ -7,16 +7,16 @@
 
 
 
-<div id="frmCrateUser">
+<div id="frmCreateUser">
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon user-select-all"></i>
+                <i class="user icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         Crear
                     </div>
-                    <p>Ingresa un nuevo partner.</p>
+                    <p>Ingresa un nuevo socio.</p>
                 </div>
             </div>
 
@@ -49,9 +49,9 @@
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
                                 </div>
                                 <div class="required field">
-                                    <label>Tipo de Partner</label>
+                                    <label>Tipo de socio</label>
                                     <select id="TiPart_Id" class="ui dropdown search" asp-items="ViewBag.TiPart_Id">
-                                        <option value="">Seleccione el tipo de Partner</option>
+                                        <option value="">Seleccione el tipo de socio</option>
                                     </select>
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTiPar"></span>
                                 </div>                         
@@ -77,6 +77,4 @@
 @section Scripts{
     <script src="~/js/PartnersJS/Create.js"></script>
 }
-
-
 

@@ -38,7 +38,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.TiAc_UsuarioCreacion = 1;
+                actividad.TiAc_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _activitiesServices.TypesActivitiesCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -78,7 +78,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.TiAc_UsuarioModifica = 1;
+                actividad.TiAc_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _activitiesServices.TypesActivitiesUpdate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -87,6 +87,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
 
+        }
+        public async Task<IActionResult> Delete(TypesActivitiesViewModel DePa, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                DePa.TiAc_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _activitiesServices.TypesActivitiesDelete(DePa, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (TypesActivitiesListViewModel)(await _activitiesServices.TypesActivitiesFind(id, token)).Data;
+
+            return View(transporte);
         }
     }
 }

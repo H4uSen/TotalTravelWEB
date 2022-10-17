@@ -340,6 +340,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+        public async Task<ServiceResult> PartnersDelete(PartnersViewModel actividad, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<PartnersViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Partners/Delete?id=" + id + "&mod=" + actividad.Part_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         public async Task<ServiceResult> PartnersFind(string id, string token)
         {
             var Result = new ServiceResult();
@@ -456,6 +486,64 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+        public async Task<ServiceResult> CountriesDelete(CountriesViewModel actividad, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<CountriesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Countries/Delete?id=" + id + "&mod=" + actividad.Pais_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> CountriesFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new CountriesListViewModel();
+
+            try
+            {
+                var response = await _api.Get<CountriesListViewModel, CountriesListViewModel>(req => {
+                    req.Path = $"/API/Countries/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
 
