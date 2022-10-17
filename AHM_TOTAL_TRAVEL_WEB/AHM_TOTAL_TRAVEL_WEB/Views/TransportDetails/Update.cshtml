@@ -70,11 +70,14 @@
 @section Scripts{
     <script>
 
-        const Tprt_ID = '@ViewBag["Tprt_ID"]';
-        const HoTr_ID = '@ViewBag["HoTr_ID"]';
+        const Tprt_ID = '@ViewData["Tprt_ID"]';
+        const HoTr_ID = '@ViewData["HoTr_ID"]';
        
     </script>
+
     <script>
+        SetDropDownValue($("#Tprt_ID"), Tprt_ID);
+        SetDropDownValue($("#HoTr_ID"), HoTr_ID);
         $("#btnGuardar").click(() => {
             const ValidateArray = [
                 { validateMessage: "Seleccione un tipo de transporte", Jqueryinput: $("#Tprt_ID") },
