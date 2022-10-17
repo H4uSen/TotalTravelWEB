@@ -1,7 +1,6 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 
-
 $("input[type=text]").prop("autocomplete", "off");
 var Client_User_ID = parseInt(GetCookie("User_Id"));
 var Client_User_Name = GetCookie("User_Name");
@@ -14,39 +13,23 @@ var Client_User_Name = GetCookie("User_Name");
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 
-
-    async function createBlob(url) {
-        var response = await fetch(url);
-        response.headers = { type: 'image/jpeg' };
-        var data = await response.blob();
-        return data;
-    }
-    function convertImage(file) {
-        return new Promise((resolve) => {
-            const read = new FileReader();
-
-            read.onload = () => resolve({
-                src: read.result,
-                fileName: file.name
-            });
-
-            read.readAsDataURL(file);
-        });
-    }
-
-    function ManualValidateForm(callback = () => { return true; }, containerDiv) {
+    // si calback retorna true, crea span en containerDiv
+    function ManualValidateForm(callback = () => { return true; }, containerDiv, validateMessage = "Rellene este campo") {
         //crea span item
         var labelvalidator = document.createElement("span");
         labelvalidator.className = "labelvalidator";
-        labelvalidator.innerText = item.validateMessage;
+        labelvalidator.innerText = validateMessage;
 
         if (callback) {
+            if ($(containerDiv).find("span.labelvalidator").length == 0) {
+                $(containerDiv).append(labelvalidator);
+            }
+            $(containerDiv).addClass("error");
 
-            $(containerDiv).append(labelvalidator);
             return true;
         } else {
             $(containerDiv).find("span.labelvalidator").remove();
-            $(parent).removeClass("error");
+            $(containerDiv).removeClass("error");
 
             //añade item de status sobre el input actual
             return false;
@@ -72,7 +55,7 @@ var Client_User_Name = GetCookie("User_Name");
             //recorre cada input en array
             $.each(inputArray, function (i, item) {
 
-                const parent = $(item.Jqueryinput).parents(".field")[0];
+                var parent = $(item.Jqueryinput).parents(".field")[0];
                 var empty = false;
                 //crea span item
                 var labelvalidator = document.createElement("span");
@@ -80,13 +63,10 @@ var Client_User_Name = GetCookie("User_Name");
                 labelvalidator.innerText = item.validateMessage;
 
                 //valida tipo de inpur y si esta vacio 
-                if (item.radio == true) { //radio button
-                    if ($(`input:radio[name=${item.name}]:checked`).length == 0) {
-                        empty = true;
-                    }
-                }
-                else if (item.checkbox == true) { //check box
-                    if ($(`input:checkbox[name=${item.name}]:checked`).length == 0) {
+                if (item.check == true) { //check box o radio button
+                    parent = $(item.Jqueryinput).parents(".checkButton_container")[0];
+
+                    if ($(item.Jqueryinput).find(":checked").length == 0) {
                         empty = true;
                     }
                 }
@@ -104,7 +84,7 @@ var Client_User_Name = GetCookie("User_Name");
                 //ajecuta funcionalidad de label
                 if (empty) {
                     if ($(parent).find("span.labelvalidator").length == 0) {
-                        $(item.Jqueryinput).parents(".field")[0].append(labelvalidator);
+                        $(parent).append(labelvalidator);
                     }
 
                     $(parent).addClass("error");
@@ -418,4 +398,70 @@ var Client_User_Name = GetCookie("User_Name");
         }
 
         return year + '-' + month + '-' + day;
+}
+
+    function FillDropDown(
+        dropdownData = {
+            dropdown: $(),
+            items: {
+                list: [],
+                valueData: "",
+                textData: ""
+            },
+            placeholder: {
+                empty: "Seleccione una opcion",
+                default: "No se encontraron opciones",
+            },
+            semantic: true
+        }
+    ){
+
+        // get dropdpwn atributes
+        const dropDown = $(dropdownData.dropdown);
+        const dropdownClass = dropDown.attr('class');
+        const id = dropDown.attr('id');
+        const name = dropDown.attr('name');
+
+        //create and set dropdown atributes
+        var newDropdown = document.createElement("select");
+        $(newDropdown).attr('class', dropdownClass);
+        $(newDropdown).attr('id', id);
+        $(newDropdown).attr('name', name);
+
+
+        if (dropdownData.items.list.length > 0) {
+
+            var placeholder = document.createElement("option");
+            placeholder.innerText = dropdownData.placeholder.default;
+            //set placeholder
+            newDropdown.append(placeholder);
+
+            for (let i = 0; i < dropdownData.items.list.length; i++) {
+                const item = dropdownData.items.list[i];
+                const value = item[dropdownData.Items.valueData];
+                const text = item[dropdownData.Items.TextData];
+
+                //create option
+                var option = document.createElement("option");
+                option.value = value;
+                option.innerText = text;
+
+                dropdown.append(option);
+            }
+
+        }
+        else {
+            var placeholder = document.createElement("option");
+            placeholder.innerText = dropdownData.placeholder.empty;
+            //set placeholder
+            newDropdown.append(placeholder);
+        }
+
+        if (dropdownData.semantic) {
+            $(newDropdown).addClass(["ui", "dropdown", "search"]);
+        }
+
+        $(dropDown).parents("field")[0].append(newDropdown);
+        $(dropDown).parent().remove();
+
     }

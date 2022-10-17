@@ -50,7 +50,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             .AddCookie(option => {
                 option.LoginPath = "/Access/LandingPage";
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-                option.AccessDeniedPath = "/Home/Privacy";
+                option.AccessDeniedPath = "/Home/Error";
             });
             
             services.AddControllersWithViews()

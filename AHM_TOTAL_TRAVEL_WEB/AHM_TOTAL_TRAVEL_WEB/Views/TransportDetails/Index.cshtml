@@ -21,8 +21,8 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","TransportDetails")">
-                    <i class="user icon"></i> Nuevo
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
@@ -57,11 +57,14 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Matricula)
                     </th>
+                    <th>
+                        Horario
+                    </th>
                     <th width="300px"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model) 
                 {
                 <tr>
                     <td>
@@ -79,13 +82,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Matricula)
                     </td>
-
+                    @{
+                        string horario = $"{item.Ciudad_Salida} - {item.Ciudad_Llegada} / {item.Hora_Salida} - {item.Hora_Llegada}";
+                     }
                     <td>
-                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-purple button"><i class="pencil alternate icon"></i></a>
+                        @horario
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
                         <button  class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
                             <i class="trash alternate icon"></i>
                         </button>
-                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="folder open outline  icon"></i></a>
+                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
                     </td>
                 </tr>
                 }
@@ -111,20 +119,23 @@
             });
 
             $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
 
         function DeleteDetalleTransporte(id) {
-            const capsula1 = () => {
-                ajaxRequest("/API/DetailsTransportation/Delete?id=" + id, null, "POST")
+            const DTransporte = () => {
+                const result = ajaxRequest("/TransportDetails/Delete?id=" + id, null, "POST");
+                if (result > 0) {
+                    location.reload();
+                }
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", DTransporte);
 
         };
     </script>

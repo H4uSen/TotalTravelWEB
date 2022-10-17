@@ -351,36 +351,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         //}
 
-        //public async Task<ServiceResult> ActivitiesDelete(ActivitiesViewModel actividad, int id, string token)
-        //{
-        //    var Result = new ServiceResult();
+        public async Task<ServiceResult> HotelDelete(HotelViewModel transporte, int id, string token)
+        {
+            var Result = new ServiceResult();
 
-        //    try
-        //    {
-
-        //        var response = await _api.Delete<ActivitiesViewModel, RequestStatus>(req =>
-        //        {
-        //            req.Path = $"/API/Activities/Delete?id=" + id + "&mod=" + actividad.actv_UsuarioModifica;
-        //            req.Content = null;
-        //        },
-        //        token
-        //        );
-        //        if (!response.Success)
-        //        {
-        //            return Result.FromApi(response);
-        //        }
-        //        else
-        //        {
-        //            return Result.Ok(response.Data);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Result.Error(Helpers.GetMessage(ex));
-        //        throw;
-        //    }
-
-        //}
+            try
+            {
+                var response = await _api.Delete<HotelViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Hotels/Delete?id=" + id + "&mod=" + transporte.Hote_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
 
         #endregion
 

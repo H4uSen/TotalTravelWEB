@@ -1,92 +1,193 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.RegistrationPaymentsListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PaymentRecordListViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container card">
+    <div class="ui basic segment">
 
+        <div class="ui icon attached message">
+            <i class="icon food"></i>
+            <div class="content">
+                <div class="header">
+                    Restaurantes
+                </div>
+            </div>
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MontoPago)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaPago)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.TipoPago)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_Reservacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_Paquete)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DNI)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MontoPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaPago)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_Reservacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_Paquete)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DNI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            
-            <td>
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            </td>
-        </tr>
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdPaymentRecord">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MontoPago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.fechaPago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id_TipoPago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TipoPago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id_Reservacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id_Paquete)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id_Cliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Apellido)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DNI)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id_UsuarioCrea)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UsuarioCrea)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaCreacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id_UsuarioModifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UsuarioModifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaModifica)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MontoPago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fechaPago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_TipoPago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_Reservacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_Paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_Cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DNI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_UsuarioCrea)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaModifica)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        // ----------------------------------- EVENTS ------------------------------------
+        //TableSearchInput(SearchInput, Table, elemPerPage = 10)
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdPaymentRecord tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdPaymentRecord").paginationTdA({
+                elemPerPage: 10
+            });
+        });
+
+        $("#grdPaymentRecord").paginationTdA({
+            elemPerPage: 10
+        });
+
+    </script>
 }
-    </tbody>
-</table>

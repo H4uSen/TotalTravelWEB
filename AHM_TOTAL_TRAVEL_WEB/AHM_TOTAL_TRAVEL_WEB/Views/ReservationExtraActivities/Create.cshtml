@@ -5,56 +5,79 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>ReservationExtraActivitiesViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-          
-            <div class="form-group">
-                <label asp-for="Resv_ID" class="control-label"></label>
-                <input asp-for="Resv_ID" class="form-control" />
-                <span asp-validation-for="Resv_ID" class="text-danger"></span>
+<div id="frmCreateReservation">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon user-select-all"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Crear
+                    </div>
+                    <p>Ingresa un nuevo partner.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="AcEx_ID" class="control-label"></label>
-                <input asp-for="AcEx_ID" class="form-control" />
-                <span asp-validation-for="AcEx_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_Cantidad" class="control-label"></label>
-                <input asp-for="ReAE_Cantidad" class="form-control" />
-                <span asp-validation-for="ReAE_Cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_FechaReservacion" class="control-label"></label>
-                <input asp-for="ReAE_FechaReservacion" class="form-control" />
-                <span asp-validation-for="ReAE_FechaReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_HoraReservacion" class="control-label"></label>
-                <input asp-for="ReAE_HoraReservacion" class="form-control" />
-                <span asp-validation-for="ReAE_HoraReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_UsuarioCreacion" class="control-label"></label>
-                <input asp-for="ReAE_UsuarioCreacion" class="form-control" />
-                <span asp-validation-for="ReAE_UsuarioCreacion" class="text-danger"></span>
-            </div>
-         
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Reservacion</label>
+                                    <input id="Resv_ID" placeholder="Reservacion" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Actividad Extra</label>
+                                    <input id="AcEx_ID" placeholder="Actividad Extra" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorEmail"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Cantidad</label>
+                                    <input id="ReAE_Cantidad" placeholder="Cantidad" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                </div>
+                                <div class="required field">
+                                    <label>Fecha Reservacion</label>
+                                    <input id="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                                <div class="required field">
+                                    <label>Hora Reservacion</label>
+                                    <input id="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                </div>
+                                
+                        </div>
+
+
+                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Crear" onclick="createreservationactividadesextra()" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

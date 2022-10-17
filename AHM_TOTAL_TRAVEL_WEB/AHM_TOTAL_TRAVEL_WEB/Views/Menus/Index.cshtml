@@ -84,9 +84,9 @@
                             @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            <button class="ui large icon btn-edit button">
+                            <a href="@Url.Action("Update","Menus",new {  id=item.ID})" class="ui large icon btn-edit button">
                                 <i class="pencil alternate icon  icon-crud"></i>
-                            </button>
+                            </a>
                             <button class="ui large icon btn-delete button" onclick="DeleteMenus('@item.ID')">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>

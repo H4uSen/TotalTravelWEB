@@ -1,7 +1,8 @@
 ﻿$('.ui.dropdown').dropdown();
 
 $("#createAddress").click(() => {
-    $(".ui.modal").modal('show');
+    $("#modalCreate").modal('show');
+   
 
     $('#Count_ID').change(function () {
 

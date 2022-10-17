@@ -138,7 +138,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
         #region Menus
-        public async Task<ServiceResult> MenusList(IEnumerable<MenusListViewModel> model)
+        public async Task<ServiceResult> MenusList()
         {
             var Result = new ServiceResult();
 

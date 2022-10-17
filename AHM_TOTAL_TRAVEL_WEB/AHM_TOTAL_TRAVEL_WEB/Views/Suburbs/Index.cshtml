@@ -60,7 +60,7 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottomColo" onclick="GetColo(@item.ID)">
+                            <button class="ui large icon btn-edit button" id="UpdateBottomColo" onclick="editar(@item.ID)">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </button>
                             <button class="ui large icon btn-delete button" onclick="DeleteColo(@item.ID)">
@@ -80,7 +80,6 @@
 <br>
 
 <div class="ui modal longer" id="modalCreate">
-    <i class="close icon"></i>
     <div class="header">
         Ingresa una Colonia
     </div>
@@ -90,11 +89,11 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Colonia</label>
+                            <label class="ui label">Colonia</label>
                             <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
                         </div>
                         <div class="required field">
-                            <label>País</label>
+                            <label class="ui label">País</label>
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un país</option>
                             </select>
@@ -102,7 +101,7 @@
                     </div>
                     <div class="one field">
                         <div class="required field">
-                            <label>Ciudad</label>
+                            <label class="ui label">Ciudad</label>
                             <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
                         </div>
                     </div>
@@ -116,10 +115,51 @@
     </div>
 </div>
 
+<div class="ui modal longer" id="modalUpdate">
+    <div class="header">
+        Actualiza una Colonia
+    </div>
+    <form asp-action="Update" asp-controller="Suburbs" id="updateSuburbsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <input id="Colo_ID" name="Colo_ID" style="visibility:hidden" />
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label class="ui label">Colonia</label>
+                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">País</label>
+                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                <option value="">Seleccione un país</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="one field">
+                        <div class="required field">
+                            <label class="ui label">Ciudad</label>
+                            <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+
 @section Scripts{
-    <script src="~/js/SuburbsJs/Create.js"></script>
     <script src="~/js/SuburbsJs/SelectCiudades.js"></script>
+    <script src="~/js/SuburbsJs/Create.js"></script>
     <script>
+
+
+
         // -------------------------------------- EVENTS ---------------------------------------
 
         $("#txtSearch").keyup(function () {
@@ -134,13 +174,16 @@
             });
 
             $("#tabla").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#tabla").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
+
+        const paisID = "@ViewData["Pais"]";
+
     </script>
     <script>
         function DeleteColo(id) {
