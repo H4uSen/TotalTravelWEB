@@ -143,7 +143,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Categorias Habitaciones
         //RoomsListViewModel LIST
-        public async Task<ServiceResult> CategoriesRoomsList(IEnumerable<categoryroomsListViewModel> model)
+        public async Task<ServiceResult> CategoriesRoomsList()
         {
             var result = new ServiceResult();
             try
@@ -201,14 +201,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
 
         //RoomsListViewModel UPDATE
-        public async Task<ServiceResult> CategoriesRoomsUpdate(categoryroomsViewModel categoriahabitacion, int id, string token)
+        public async Task<ServiceResult> CategoriesRoomsUpdate(categoryroomsViewModel categoriahabitacion, string token)
         {
             var Result = new ServiceResult();
             try
             {
                 var response = await _api.Put<categoryroomsViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/CategoriesRooms/Update?id=" + id;
+                    req.Path = $"/API/CategoriesRooms/Update?id=" + categoriahabitacion.CaHa_ID;
                     req.Content = categoriahabitacion;
                 },
                 token
@@ -258,6 +258,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+
+        public async Task<ServiceResult> CategoriesRoomsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var room = new categoryroomsListViewModel();
+
+            try
+            {
+                var response = await _api.Get<categoryroomsListViewModel, categoryroomsListViewModel>(req => {
+                    req.Path = $"/API/CategoriesRooms/Find?id=" + id;
+                    req.Content = room;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
 

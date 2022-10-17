@@ -401,5 +401,157 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #endregion
 
+
+        #region Paymenttypes
+
+        public async Task<ServiceResult> PaymentTypesList()
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<TipeofpayListViewModel>, IEnumerable<TipeofpayListViewModel>>(req => {
+                    req.Path = $"/API/PaymentTypes/List";
+                    req.Content = null;
+
+                }
+                    );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> PaymentTypesCreate(TipeofpayViewModel payment, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<TipeofpayViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/PaymentTypes/Insert";
+                    req.Content = payment;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PaymentTypesUpdate(TipeofpayViewModel payment, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<TipeofpayViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PaymentTypes/Update?id=" + payment.TiPa_ID;
+                    req.Content = payment;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> PaymentTypesDelete(TipeofpayViewModel payment, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<TipeofpayViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/PaymentTypes/Delete?id=" + id + "&mod=" + payment.TiPa_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PaymentTypesFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var tipe = new TipeofpayListViewModel();
+
+            try
+            {
+                var response = await _api.Get<TipeofpayListViewModel, TipeofpayListViewModel>(req => {
+                    req.Path = $"/API/PaymentTypes/Find?Id=" + id;
+                    req.Content = tipe;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        #endregion
+
+
     }
 }
