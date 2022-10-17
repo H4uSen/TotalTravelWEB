@@ -461,7 +461,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region PartnerType
 
-        public async Task<ServiceResult> PartnerTypeList(IEnumerable<PartnerTypeListViewModel> model)
+        public async Task<ServiceResult> PartnerTypeList()
         {
             var result = new ServiceResult();
             try

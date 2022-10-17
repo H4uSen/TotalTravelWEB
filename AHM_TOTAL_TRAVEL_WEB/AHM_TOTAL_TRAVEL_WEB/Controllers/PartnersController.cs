@@ -29,11 +29,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<PartnerTypeListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
 
-            var partners = await _generalServices.PartnerTypeList(model);
+            var partners = await _generalServices.PartnerTypeList();
             IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
             ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion");
 

@@ -24,8 +24,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new List<PartnerTypeListViewModel>();
-            var list = await _generalServices.PartnerTypeList(model);
+            var list = await _generalServices.PartnerTypeList();
             return View(list.Data);
         }
 
@@ -68,8 +67,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             var item = new PartnerTypeViewModel();
-            IEnumerable<PartnerTypeListViewModel> model = null;
-            var list = await _generalServices.PartnerTypeList(model);
+            var list = await _generalServices.PartnerTypeList();
             IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.TiPar_ID = element.ID;
