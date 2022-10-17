@@ -13,7 +13,7 @@
             <i class="icon food"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Reservacion Restaurantes
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                       
+
                         <td>
                             @Html.DisplayFor(modelItem => item.Numero_Reservacacion)
                         </td>
@@ -76,7 +76,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Hora_Reservacion)
                         </td>
-                       
+
 
                         <td>
                             <a href="@Url.Action("Update","Activities",new {  id=item.Id})" class="ui large icon btn-edit button">
@@ -89,7 +89,7 @@
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
 
-                           
+
                         </td>
                     </tr>
                 }
@@ -101,7 +101,7 @@
 <br>
 
 
-<div class="ui modal" id="modalCreate">   
+<div class="ui modal" id="modalCreate">
 
     <i class="close icon">
         <div class="header">
@@ -111,15 +111,15 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label  class="control-label"></label>
+                <label class="control-label"></label>
                 <input id="Resv_ID" class="form-control" />
             </div>
             <div class="form-group">
-                <label  class="control-label"></label>
+                <label class="control-label"></label>
                 <input id="Rest_ID" class="form-control" />
             </div>
             <div class="form-group">
-                <label  class="control-label"></label>
+                <label class="control-label"></label>
                 <input id="ReRe_FechaReservacion" class="form-control" />
             </div>
             <div class="form-group">
@@ -132,7 +132,7 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdReservationRestaurants tbody tr"), function () {
@@ -152,5 +152,13 @@
         $("#grdReservationRestaurants").paginationTdA({
             elemPerPage: 10
         });
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
     </script>
 }

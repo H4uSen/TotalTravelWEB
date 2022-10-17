@@ -49,7 +49,7 @@ function createreservationactividadesextra() {
 
 
         data.append("file", $("#File").prop("files")[0]);
-        var response = uploadFile("https://totaltravel.somee.com/API/Reservation/Insert", data, "POST");
+        var response = uploadFile("https://totaltravel.somee.com/API/ReservationActivitiesExtra/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Reservation?success=true';
