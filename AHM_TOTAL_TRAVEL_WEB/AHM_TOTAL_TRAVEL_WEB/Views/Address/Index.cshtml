@@ -68,31 +68,31 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pais)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ciudad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Colonia)
-                    </td>
-                    <td>
-                       Calle @Html.DisplayFor(modelItem => item.Calle), Avenida @Html.DisplayFor(modelItem => item.Avenida)
-                    </td>
-                    <td>
-                        <button class="ui large icon btn-edit button" id="createAddress">
-                            <i class="pencil alternate icon  icon-crud"></i>
-                        </button>
-                        <button class="ui large icon btn-delete button" onclick="DeleteAddress('@item.ID')">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a  href="@Url.Action("Details","Address",new {  id=item.ID})" class="ui large icon button">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pais)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Colonia)
+                        </td>
+                        <td>
+                            Calle @Html.DisplayFor(modelItem => item.Calle), Avenida @Html.DisplayFor(modelItem => item.Avenida)
+                        </td>
+                        <td>
+                            <button class="ui large icon btn-edit button" id="createAddress" onclick="GetAddress('@item.ID')">
+                                <i class="pencil alternate icon  icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button" onclick="DeleteAddress('@item.ID')">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("Details","Address",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -114,11 +114,11 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="required field">
-                            <label  class="ui label">Calle</label>
+                            <label class="ui label">Calle</label>
                             <input id="Calle" placeholder="Calle" />
                         </div>
                         <div class="required field">
-                            <label  class="ui label">Avenida</label>
+                            <label class="ui label">Avenida</label>
                             <input id="Avenida" placeholder="Avenida" />
                         </div>
                     </div>
@@ -126,20 +126,20 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="required field">
-                            <label  class="ui label">País</label>
+                            <label class="ui label">País</label>
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un pais</option>
                             </select>
                         </div>
                         <div class="field">
                             <div class="required field">
-                                <label  class="ui label">Ciudad</label>
+                                <label class="ui label">Ciudad</label>
                                 <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
                             </div>
                         </div>
                     </div>
                     <div class="required field">
-                        <label  class="ui label">Colonia</label>
+                        <label class="ui label">Colonia</label>
                         <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                     </div>
                 </div>
@@ -152,9 +152,182 @@
     </div>
 </div>
 
+
+
+<div class="ui modal" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una dirección
+    </div>
+    <form asp-action="Update" id="updateAddress">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="field">
+                    <div class="two fields">
+                        <input id="addressID" />
+                        <div class="required field">
+                            <label class="ui label">Calle</label>
+                            <input id="CalleUpdate" placeholder="Calle" />
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Avenida</label>
+                            <input id="AvenidaUpdate" placeholder="Avenida" />
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label class="ui label">País</label>
+                            <select id="Count_IDUpdate" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                <option value="">Seleccione un pais</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <div class="required field">
+                                <label class="ui label">Ciudad</label>
+                                <select id="City_IDUpdate" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="required field">
+                        <label class="ui label">Colonia</label>
+                        <select id="Col_IDUpdate" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="sendAddressUpdate">Guardar</button>
+        <button class="ui button" id="closeAddressUpdate">Cancelar</button>
+    </div>
+</div>
+
+
 @section Scripts{
+
     <script src="~/js/AddressJs/Create.js"></script>
     <script>
+        $(document).ready(function () {
+            $("#addressID").hide();
+
+        });
+        function GetAddress(id) {
+
+            var AddressModel = AdressListViewModel;
+            var request = ajaxRequest("https://totaltravel.somee.com/API/Address/Find?Id=" + id);
+            var calle = request.data.calle;
+            var avenida = request.data.avenida;
+            AddressModel.id = request.data.id;
+            AddressModel.calle = request.data.calle;
+            AddressModel.avenida = request.data.avenida;
+            AddressModel.iD_Pais = request.data.iD_Pais;
+            AddressModel.iD_Ciudad = request.data.iD_Ciudad;
+            AddressModel.iD_Colonia = request.data.iD_Colonia;
+
+            $("#addressID").val(AddressModel.id);
+            $("#CalleUpdate").val(AddressModel.calle);
+            $("#AvenidaUpdate").val(AddressModel.avenida);
+            SetDropDownValue($("#Count_IDUpdate"), AddressModel.iD_Pais);
+            GetCitiesUpdate(AddressModel.iD_Pais);
+            GetSuburbUpdate(AddressModel.iD_Ciudad);
+            SetDropDownValue($("#City_IDUpdate"), AddressModel.iD_Ciudad);
+            SetDropDownValue($("#Col_IDUpdate"), AddressModel.iD_Colonia);
+
+            $("#modalUpdate").modal('show');
+        }
+
+        $("#sendAddressUpdate").click(() => {
+
+
+            validateArrayForm = [
+                { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Col_IDUpdate") },
+                { validateMessage: "Ingrese una calle.", Jqueryinput: $("#CalleUpdate") },
+                { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#AvenidaUpdate") },
+                { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_IDUpdate") },
+                { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_IDUpdate") }
+            ];
+
+            // retorna bool 
+            const ValidateFormStatus = ValidateForm(validateArrayForm);
+
+            if (ValidateFormStatus) {
+
+                var dire = AdressViewModel;
+                dire.id = parseInt($('#addressID').val());
+                dire.colo_ID = parseInt($('#Col_IDUpdate').val());
+                dire.dire_Calle = $('#CalleUpdate').val();
+                dire.dire_Avenida = $('#AvenidaUpdate').val();
+                dire.dire_UsuarioModifica = dire.id;
+
+                var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Update?id=" + dire.id, dire, "PUT");
+                var DireID;
+                if (responseAddress.code == 200) {
+
+                    window.location.href = '/Address?success=true';
+                }
+
+            }
+
+        });
+        $("#closeAddressUpdate").click(() => {
+            $(".ui.modal").modal('hide');
+        });
+
+        $('#Count_IDUpdate').change(function () {
+            GetCitiesUpdate($('#Count_IDUpdate').val());
+            SetDropDownPlaceholder($('#Col_IDUpdate'));
+        });
+        $('#City_IDUpdate').change(function () {
+            GetSuburbUpdate($('#City_IDUpdate').val());
+        });
+        function GetCitiesUpdate(paisID) {
+
+            var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+            if (response.code == 200) {
+                var cities = response.data;
+                var cityFilter = jQuery.grep(cities, function (City, i) {
+                    return City.paisID == paisID;
+                });
+                ClearDropDownItem($('#City_IDUpdate'));
+                if (cityFilter.length > 0) {
+                    AddDropDownItem($('#City_IDUpdate'), item = { value: "", text: "Seleccione una ciudad." });
+                    for (var i = 0; i < cityFilter.length; i++) {
+                        var item = cityFilter[i];
+                        AddDropDownItem($('#City_IDUpdate'), item = { value: item.id, text: item.ciudad });
+                    }
+                    $('#City_IDUpdate').parent().find('.text').html('Seleccione una ciudad');
+                } else {
+                    SetDropDownPlaceholder($('#City_IDUpdate'), "No hay ciudades disponibles.");
+                }
+            }
+        }
+
+        function GetSuburbUpdate(ciudID) {
+
+            var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+            if (response.code == 200) {
+
+                var suburbs = response.data;
+                var suburbsFilter = jQuery.grep(suburbs, function (Suburb, i) {
+                    return Suburb.ciudadID == ciudID;
+                });
+                ClearDropDownItem($('#Col_IDUpdate'));
+                if (suburbsFilter.length > 0) {
+                    AddDropDownItem($('#Col_IDUpdate'), item = { value: "", text: "Seleccione una colonia." });
+                    for (var i = 0; i < suburbsFilter.length; i++) {
+                        var item = suburbsFilter[i];
+                        AddDropDownItem($('#Col_IDUpdate'), item = { value: item.id, text: item.colonia });
+                    }
+                    $('#Col_IDUpdate').parent().find('.text').html('Seleccione una colonia');
+                } else {
+                    SetDropDownPlaceholder($('#Col_IDUpdate'), "No hay colonias disponibles.");
+                }
+            }
+        }
+
+
         function DeleteAddress(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("Address/Delete?id=" + id, null, "POST");

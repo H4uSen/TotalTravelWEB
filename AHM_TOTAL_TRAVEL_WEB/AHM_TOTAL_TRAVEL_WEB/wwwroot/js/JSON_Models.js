@@ -37,11 +37,24 @@ var PartnerViewModel = {
 }
 
 var AdressViewModel = {
+    "id": 0,
     "colo_ID": 0,
     "dire_Calle": "string",
     "dire_Avenida": "string",
     "dire_UsuarioCreacion": Client_User_ID,
     "dire_UsuarioModifica": Client_User_ID
+}
+var AdressListViewModel = {
+    "id": 0,
+    "iD_Colonia": 0,
+    "colonia": "string",
+    "calle": "string",
+    "avenida": "string",
+    "iD_Ciudad": 0,
+    "ciudad": "string",
+    "iD_Pais": 0,
+    "pais": "string",
+    "iD_UsuaCrea": 0
 }
 
 var TransportViewModel = {

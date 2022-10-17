@@ -75,7 +75,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
+        public async Task<ServiceResult> RestaurantDelete(RestaurantViewModel restaurant, int id, string token)
+        {
+            var Result = new ServiceResult();
 
+            try
+            {
+
+                var response = await _api.Delete<TypeMenusViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Restaurants/Delete?id=" + id + " &Mod=" + restaurant.Rest_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
 
         public async Task<ServiceResult> RestaurantFind(string id, string token)
         {

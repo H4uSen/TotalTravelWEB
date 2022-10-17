@@ -139,7 +139,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Direccion
 
-        public async Task<ServiceResult> AddressesList(IEnumerable<AddressListViewModel> model)
+        public async Task<ServiceResult> AddressesList()
         {
             var Result = new ServiceResult();
 
