@@ -120,7 +120,7 @@
     <form asp-action="Update" asp-controller="DestinationsTransportations" id="updateDestinationsTransportationsForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <input id="DsTr_ID" name="DsTr_ID" style="visibility:hidden"/>
+                <input id="DsTr_ID" name="DsTr_ID" style="visibility:hidden" />
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
@@ -146,7 +146,13 @@
     </div>
 </div>
 
-
+@section HighlightTile{
+    <script>
+        $("#TransportModule").addClass("active");
+        $("#Transport_Schema").addClass("show");
+        $("#TransportModule").addClass("expandedList")
+    </script>
+}
 
 @section Scripts{
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>

@@ -14,7 +14,7 @@
                     <div class="header text-capitalize">
                         Detalles de un Transporte
                     </div>
-                </div>                
+                </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Transport")">
                         Regresar
@@ -44,10 +44,10 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+            </div>
             <br />
-            
+
             <h3 class="ui horizontal divider header">
                 <i class="folder open icon"></i>
                 Auditoría
@@ -90,3 +90,11 @@
         </div>
     </div>
 </div>
+
+@section HighlightTile{
+    <script>
+        $("#TransportModule").addClass("active");
+        $("#Transport_Schema").addClass("show");
+        $("#TransportModule").addClass("expandedList")
+    </script>
+}
