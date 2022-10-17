@@ -15,7 +15,7 @@
                 <div class="header">
                     Transportes
                 </div>
-               
+
             </div>
         </div>
 
@@ -83,7 +83,7 @@
                         <div class="field">
                             <input id="Transporte" name="TiTr_Descripcion" placeholder="Descripcion del tipo de transporte" />
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatort"></label>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,5 +131,13 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula2);
 
         };
+    </script>
+
+}
+@section HighlightTile{
+    <script>
+        $("#TransportModule").addClass("active");
+        $("#Transport_Schema").addClass("show");
+        $("#TransportModule").addClass("expandedList")
     </script>
 }

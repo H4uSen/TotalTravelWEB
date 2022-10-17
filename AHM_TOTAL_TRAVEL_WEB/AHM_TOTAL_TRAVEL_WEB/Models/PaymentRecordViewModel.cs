@@ -1,13 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Models
 {
     public class PaymentRecordListViewModel
     {
+        [DisplayName("# de registro")]
         public int ID { get; set; }
+        [DisplayName("Monto pagado")]
         public decimal? MontoPago { get; set; }
+        [DisplayName("Fecha del pago")]
         public DateTime? fechaPago { get; set; }
         public int Id_TipoPago { get; set; }
+        [DisplayName("Forma de pago")]
         public string TipoPago { get; set; }
         public int Id_Reservacion { get; set; }
         public int? Id_Paquete { get; set; }

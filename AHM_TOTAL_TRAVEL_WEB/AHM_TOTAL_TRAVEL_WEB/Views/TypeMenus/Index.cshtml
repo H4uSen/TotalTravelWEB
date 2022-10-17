@@ -84,7 +84,7 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="required field">
-                    <label  class="ui label">Tipo de menú</label>
+                    <label class="ui label">Tipo de menú</label>
                     <input name="Time_Descripcion" id="Time_Descripcion" />
                 </div>
 
@@ -135,5 +135,12 @@
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
 
         };
+    </script>
+}
+@section HighlightTile{
+    <script>
+        $("#RestaurantModule").addClass("active");
+        $("#Restaurant_Schema").addClass("show");
+        $("#RestaurantModule").addClass("expandedList")
     </script>
 }
