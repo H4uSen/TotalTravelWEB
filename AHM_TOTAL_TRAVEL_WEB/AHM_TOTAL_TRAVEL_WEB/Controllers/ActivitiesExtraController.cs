@@ -23,8 +23,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var model = new List<ActivitiesExtrasListViewModel>();
-            var list = await _activitiesServices.ExtraActivitiesList(model, token);
+            //var model = new List<ActivitiesExtrasListViewModel>();
+            var list = await _activitiesServices.ExtraActivitiesList(token);
             return View(list.Data);
         }
 
