@@ -29,13 +29,19 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Reservacion</label>
-                                    <input id="Resv_ID" placeholder="Reservacion" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                    <select id="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
+                                        <option value="">Seleccione el tipo de socio</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReserva"></span>
+             
                                 </div>
                                 <div class="required field">
                                     <label>Actividad Extra</label>
-                                    <input id="AcEx_ID" placeholder="Actividad Extra" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorEmail"></span>
+                                    <select id="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
+                                        <option value="">Seleccione el tipo de socio</option>
+                                    </select>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAcEx_ID"></span>
+                
                                 </div>
                             </div>
                         </div>
@@ -45,7 +51,7 @@
                                 <div class="required field">
                                     <label>Cantidad</label>
                                     <input id="ReAE_Cantidad" placeholder="Cantidad" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReAE_Cantidad"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Fecha Reservacion</label>

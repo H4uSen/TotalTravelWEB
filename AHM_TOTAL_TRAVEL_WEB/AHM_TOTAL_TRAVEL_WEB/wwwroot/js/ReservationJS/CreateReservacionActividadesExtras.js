@@ -4,52 +4,55 @@ function createreservationactividadesextra() {
 
 
     if ($('#Resv_ID').val() == 0) {
-        $("#labelvalidatorNombre").html("Ingrese un Nombre.");
+        $("#labelvalidatorReserva").html("Seleccione una reserva.");
     }
     else {
         $("#labelvalidatorNombre").html(" ");
     }
     if ($('#AcEx_ID').val() == 0) {
-        $("#labelvalidatorEmail").html("Ingrese un Email.");
+        $("#labelvalidatorAcEx_ID").html("Seleccione una actividad extra.");
     }
     else {
-        $("#labelvalidatorEmail").html(" ");
+        $("#labelvalidatorAcEx_ID").html(" ");
+    }
+    if ($('#ReAE_Cantidad').val() == 0) {
+        $("#labelvalidatorReAE_Cantidad").html("Ingrese una cantidad.");
+    }
+    else {
+        $("#labelvalidatorReAE_Cantidad").html(" ");
     }
     if ($('#ReAE_FechaReservacion').val() == 0) {
-        $("#labelvalidatorTelefono").html("Ingrese un Telefono.");
+        $("#labelvalidatorReAE_FechaReservacion").html("Ingrese una fehca.");
     }
     else {
-        $("#labelvalidatorTelefono").html(" ");
+        $("#labelvalidatorReAE_FechaReservacion").html(" ");
     }
     if ($('#ReAE_HoraReservacion').val() == 0) {
-        $("#labelvalidatorTiPar").html("Seleccione un Tipo de Socio.");
+        $("#labelvalidatorReAE_HoraReservacion").html("Ingrese una hora.");
     } else {
-        $("#labelvalidatorTiPar").html(" ");
+        $("#labelvalidatorReAE_HoraReservacion").html(" ");
     }
 
 
 
 
-    if ($('#Nombre').val() != 0 && $('#Email').val() != 0 && $('#Telefono').val() != 0 && $('#TiPart_Id').val() != 0) {
+    if ($('#Resv_ID').val() != 0 && $('#AcEx_ID').val() != 0 && $('#ReAE_Cantidad').val() != 0 && $('#ReAE_FechaReservacion').val() != 0 && $('#ReAE_HoraReservacion').val() != 0) {
 
         /*var images = [];*/
         var data = new FormData();
-        data.append("part_Nombre", $("#Nombre").val());
-        data.append("part_Email", $("#Email").val());
-        data.append("part_Telefono", $("#Telefono").val());
-        data.append("tiPart_Id", parseInt($("#TiPart_Id").val()));
-        data.append("part_UsuarioCreacion", parseInt(Client_User_ID));
+        data.append("Resv_ID", $("#Resv_ID").val());
+        data.append("AcEx_ID", $("#AcEx_ID").val());
+        data.append("ReAE_Cantidad", $("#ReAE_Cantidad").val());
+        data.append("ReAE_FechaReservacion", parseInt($("#ReAE_FechaReservacion").val()));
+        data.append("ReAE_HoraReservacion", parseInt($("#ReAE_HoraReservacion").val()));
+        data.append("ReAE_UsuarioCreacion", parseInt(Client_User_ID));
 
-        //for (let i = 0; i < $('#File').prop('files').length; i++) {
-        //    const file = $('#File').prop('files')[i];
-        //    images.push(file); //IFORMFILE
-        //}
 
         data.append("file", $("#File").prop("files")[0]);
-        var response = uploadFile("https://totaltravel.somee.com/API/Partners/Insert", data, "POST");
+        var response = uploadFile("https://totaltravel.somee.com/API/Reservation/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
-            window.location.href = '/Partners?success=true';
+            window.location.href = '/Reservation?success=true';
 
 
         } else {

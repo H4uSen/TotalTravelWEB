@@ -227,12 +227,9 @@
                 for (let i = 0; i < imagesArray.length; i++) {
                     data.append("File", imagesArray[i].src);
                 }
-                var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT");
-                console.log(response);
-                var responseJson = JSON.parse(response);
+                var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT"); 
                
-               
-                if (responseJson.data.codeStatus > 0) {
+                if (response.data.codeStatus > 0) {
                     window.location.href = '/Menus?success=true';
                 }
 

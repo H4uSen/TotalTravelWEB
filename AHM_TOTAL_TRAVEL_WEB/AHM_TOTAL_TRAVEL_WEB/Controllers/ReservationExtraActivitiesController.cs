@@ -22,7 +22,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
+            IEnumerable<ReservationListViewModel> model_Country = null;
+            var country = await _reservationService.ReservationList();
+            IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+
+            //---------------------------------------
             var token = HttpContext.User.FindFirst("Token").Value;
+
 
 
             var model = new List<ReservationExtraActivitiesListViewModel>();

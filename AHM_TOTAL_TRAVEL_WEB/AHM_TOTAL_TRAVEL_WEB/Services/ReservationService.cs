@@ -16,7 +16,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             _api = api;
         }
         #region Reservations
-        public async Task<ServiceResult> ReservationList(IEnumerable<ReservationListViewModel> model, string token)
+        public async Task<ServiceResult> ReservationList()
         {
             var Result = new ServiceResult();
 
@@ -25,8 +25,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<ReservationListViewModel>, IEnumerable<ReservationListViewModel>>(req => {
                     req.Path = $"/API/Reservation/List";
                     req.Content = null;
-                },
-                token
+                }
+                
                 );
                 if (!response.Success)
                 {
@@ -43,6 +43,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+
+       
         #endregion
         #region Reservacion Restaurants
 
