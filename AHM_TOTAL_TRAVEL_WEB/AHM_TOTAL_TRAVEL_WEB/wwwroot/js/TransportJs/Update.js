@@ -1,9 +1,13 @@
 ﻿$("#errorDiv").hide();
 
+$(`#City_ID option[value = "${Ciudad}"]`).prop("selected", true);
 $(`#Count_ID option[value = "${Pais_ID}"]`).prop("selected", true);
-$(`#City_ID option[value = "${Ciud_ID}"]`).prop("selected", true);
 $(`#Part_ID option[value = "${Part_ID}"]`).prop("selected", true);
 $(`#TiTr_ID option[value = "${TiTr_ID}"]`).prop("selected", true);
+
+$('#Count_ID').change(function () {
+    RellenarCiudades($('#Count_ID').val());
+})
 
 function updateTransport(id) {
 
@@ -71,6 +75,26 @@ function updateTransport(id) {
             }
         } else {
             $("#labelvalidatorError").html("Se han enviado parámetros incorrectos en los campos de dirección.");
+        }
+    }
+}
+
+function RellenarCiudades(Pais_ID) {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+    if (response.code == 200) {
+        var cities = response.data;
+        var cityFilter = jQuery.grep(cities, function (City, i) {
+            return City.paisID == Pais_ID;
+        });
+        ClearDropDownItem($('#City_ID'));
+        if (cityFilter.length > 0) {
+            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
+            for (var i = 0; i < cityFilter.length; i++) {
+                var item = cityFilter[i];
+                AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
+            }
+        } else {
+            SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
         }
     }
 }

@@ -55,7 +55,7 @@ function editar(coloniaIDm) {
 
 
         $("#modalUpdate").modal("show");
-        console.log(itemcity);
+        //console.log(itemcity);
     }
 }
 

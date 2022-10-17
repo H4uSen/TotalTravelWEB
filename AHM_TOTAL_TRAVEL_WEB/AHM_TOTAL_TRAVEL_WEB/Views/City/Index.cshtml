@@ -101,13 +101,15 @@
     <form asp-action="Create" asp-controller="City" id="createCityform">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <div class="required field">
+                <div class="field">
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label class="ui label">Ciudad</label>
                             <input id="ciud_Descripcion" name="ciud_Descripcion" placeholder="Ciudad" />
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                         </div>
-                        <div class="field">
+                        <div class="required field">
+                            <label class="ui label">País</label>
                             <select id="pais_ID" name="pais_ID" class="ui dropdown search" asp-items="ViewBag.pais_ID">
                                 <option value="">Seleccione un pais</option>
                             </select>
@@ -139,13 +141,15 @@
             <div class="content">
                 <div class="field">
                     <div class="two fields">
-                        <div class="field">
+                        <div class="required field">
+                            <label class="ui label">Ciudad</label>
                             <input name="Ciud_ID" id="Ciud_ID" />
                             <input id="ciud_DescripUpdate" name="ciud_Descripcion" placeholder="Ciudad" />
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCity"></label>
                         </div>
 
-                        <div class="field">
+                        <div class="required field">
+                            <label class="ui label">País</label>
                             <select id="pais_IdUpdate" name="pais_Id" class="ui dropdown search" asp-items="ViewBag.pais_ID">
                             </select>
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>

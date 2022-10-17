@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
+using AutoMapper.Configuration.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,8 +44,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+        public async Task<ServiceResult> ReservationFind(int id, string token)
+        {
+            var Result = new ServiceResult();
 
-       
+            try
+            {
+                var response = await _api.Get<ReservationListViewModel, ReservationListViewModel>(req => {
+                    req.Path = $"/API/Reservation/Find?id=" + id;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
         #region Reservacion Restaurants
 
