@@ -61,7 +61,7 @@
                              @Html.DisplayFor(modelItem => item.Descripcion)
                          </td>
                          <td>
-                             @Html.DisplayFor(modelItem => item.Direccion)
+                             Calle @(item.Calle), Avenida @(item.Avenida), Colonia @(item.Colonia), Ciudad de @item.Ciudad
                          </td>
                          <td>
                              @Html.DisplayFor(modelItem => item.Partners)
@@ -73,7 +73,7 @@
                              <a class="ui large icon btn-delete button" onclick="DeleteHoteles(@item.ID)">
                                  <i class="trash alternate icon icon-crud"></i>
                              </a>
-                             <a class="ui large icon button">
+                             <a class="ui large icon button" href="@Url.Action("Details", "Hotel", new { id=item.ID })">
                                  <i class="bi bi-info-circle fa-lg icon-crud"></i>
                              </a>
                          </td>
