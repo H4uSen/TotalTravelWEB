@@ -9,7 +9,7 @@ $('#Count_ID').change(function () {
         var cityFilter = jQuery.grep(cities, function (City, i) {
             return City.paisID == Count_ID;
         });
-        ClearDropDownItem($('#City_ID'));
+        //ClearDropDownItem($('#City_ID'));
         if (cityFilter.length > 0) {
             SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
             for (var i = 0; i < cityFilter.length; i++) {
