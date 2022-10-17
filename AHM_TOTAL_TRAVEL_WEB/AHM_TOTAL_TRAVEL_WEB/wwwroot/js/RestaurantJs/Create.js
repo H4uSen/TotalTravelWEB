@@ -1,4 +1,4 @@
-﻿
+﻿var imagesArray = [];
 $('.ui.dropdown').dropdown();
 
 $('#Count_ID').change(function () {
@@ -53,6 +53,52 @@ $('#City_ID').change(function () {
 });
 
 
+$("#File").change(async function () {
+
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+    imagesArray.push(fileData);
+    LoadImage();
+
+});
+function LoadImage() {
+
+    var RestaurantCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false"></div>`;
+    $("#RestaurantCarousel").replaceWith(RestaurantCarousel);
+    $("#image-upload-list").html("");
+
+    for (let i = 0; i < imagesArray.length; i++) {
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
+
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
+
+        $("#image-upload-list").append(fileItem);
+        $("#RestaurantCarousel").append(HTML_img);
+    }
+    $("#RestaurantCarousel").fotorama();
+}
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    LoadImage();
+}
+
 
 
 function createRestaurant() {
@@ -94,15 +140,12 @@ function createRestaurant() {
             data.append("part_ID", parseInt($("#Part_ID").val()));
             data.append("rest_UsuarioCreacion", parseInt(Client_User_ID));
 
-            //for (let i = 0; i < $('#File').prop('files').length; i++) {
-            //    const file = $('#File').prop('files')[i];
-            //    images.push(file); //IFORMFILE
-            //}
+            for (let i = 0; i < imagesArray.length; i++) {
+                data.append("File", imagesArray[i].src);
+            }
 
-            data.append("file", $("#File").prop("files")[0]);
             var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");
-            var responseJson = JSON.parse(response);
-            if (responseJson.data.codeStatus > 0) {
+            if (response.data.codeStatus > 0) {
                 window.location.href = '/Restaurant?success=true';
             } else {
 

@@ -65,38 +65,39 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
+        //[HttpGet]
+        //public async Task<IActionResult> Update(int id)
+        //{
 
-            IEnumerable<CountriesListViewModel> model_Country = null;
-            var country = await _generalService.CountriesList();
-            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
-            ViewBag.pais_ID = new SelectList(data_Country, "ID", "Pais");
-
-
-            var item = new CityViewModel();
-            IEnumerable<CityListViewModel> model = null;
-            var list = await _generalService.CitiesList();
-            IEnumerable<CityListViewModel> data = (IEnumerable<CityListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            item.ciud_Descripcion = element.Ciudad;
+        //    IEnumerable<CountriesListViewModel> model_Country = null;
+        //    var country = await _generalService.CountriesList();
+        //    IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+        //    ViewBag.pais_ID = new SelectList(data_Country, "ID", "Pais");
 
 
+        //    var item = new CityViewModel();
+        //    IEnumerable<CityListViewModel> model = null;
+        //    var list = await _generalService.CitiesList();
+        //    IEnumerable<CityListViewModel> data = (IEnumerable<CityListViewModel>)list.Data;
+        //    var element = data.Where(x => x.ID == id).ToList()[0];
+        //    item.ciud_Descripcion = element.Ciudad;
 
-            return View(item);
 
-        }
+
+        //    return View(item);
+
+        //}
 
 
         [HttpPost]
-        public async Task<IActionResult> Update(CityViewModel  city, int id)
+        public async Task<IActionResult> Update(CityViewModel city)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 city.ciud_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                int id = city.Ciud_ID;
                 var lista = await _generalService.CitiesUpdate(city, id, token);
                 return RedirectToAction("Index");
             }

@@ -4,9 +4,6 @@
 const PartnerList = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
 const PartnerTypeList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PartnerType/List");
 
-FillCities();
-FillPartnerType();
-FillPartners(0);
 
 $('#standard_calendar').calendar({
     type: 'date'
@@ -20,8 +17,8 @@ $("#frmSelectPartner").hide();
 // ----------------------------------- EVENTS ------------------------------------
 $("#tbnCreateUser").click(CreateUser);
 
-$("#frmSelectPartner .cbbTipoPartner").change(() => {
-    const TipoPartner_Id = $("#frmSelectPartner .cbbTipoPartner select").val();
+$("#frmSelectPartner #cbbTipoPartner").change(() => {
+    const TipoPartner_Id = $("#frmSelectPartner #cbbTipoPartner").val();
     FillPartners(TipoPartner_Id);
 });
 
@@ -60,7 +57,7 @@ $("#checkExistingPartner").change(function () {
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 
-function FillCities() {
+function FillCities(id_pais) {
     const request = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 
     if (request.code == 200) {
@@ -79,30 +76,12 @@ function FillCities() {
     }
 }
 
-function FillPartnerType() {
-
-    if (PartnerTypeList.code == 200) {
-
-        const PartnerTypes = PartnerTypeList.data;
-        $(".cbbTipoPartner").empty();
-        $(".cbbTipoPartner").append(
-            `<option value="">Select a Partner Type (required)</option>`
-        );
-        for (let i = 0; i < PartnerTypes.length; i++) {
-            const PartnerType = PartnerTypes[i];
-            const option = `<option value="${PartnerType.id}">${PartnerType.descripcion}</option>`;
-
-            $(".cbbTipoPartner").append(option);
-        }
-    }
-}
 
 function FillPartners(PartnerType_Id) {
 
     if (PartnerList.code == 200) {
 
         var Partners = PartnerList.data;
-
         if (PartnerType_Id != 0) {
             //filter data by ParterType_Id
             Partners = jQuery.grep(Partners, function (Partner, i) {
@@ -110,6 +89,30 @@ function FillPartners(PartnerType_Id) {
             });
         }
 
+        var ListItems = [];
+        for (let i = 0; i < Partners.length; i++) {
+            const Partner = Partners[i];
+            ListItems.push({ value: Partner.id, text: `${Partner.tipoPartner} - ${Partner.nombre}` });
+        }
+
+        const dropdownData = {
+            dropdown: $("#frmSelectPartner #cbbPartners"),
+            items: {
+                list: ListItems,
+                valueData: "value",
+                textData: "text"
+            },
+            placeholder: {
+                empty: "Seleccione un partner",
+                default: "No se encontraron partner disponibles",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#frmSelectPartner #cbbPartners").dropdown();
+
+        /*
         //clear dropdown
         ClearDropDownItem(
             $("#frmSelectPartner #cbbPartners")
@@ -137,10 +140,9 @@ function FillPartners(PartnerType_Id) {
         }
         else {
             SetDropDownPlaceholder(
-                $("#frmSelectPartner #cbbPartners"),
-                "No Partner Are On"
+                $("#frmSelectPartner #cbbPartners")
             );
-        }
+        }*/
 
     }
 }
@@ -160,13 +162,14 @@ function CreateUser() {
         { validateMessage: "Required field: 'User Birth Date' ", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
         { validateMessage: "Required field: 'User Password' ", Jqueryinput: $("#frmCreateUser #txtPassword") },
         { validateMessage: "Required field: 'User Email' ", Jqueryinput: $("#frmCreateUser #txtEmail") },
-        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser input:radio[name=rbGenero]') },
+        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser input:radio[name=rbGenero]'), check: true },
     ];
 
     const userValidate = ValidateForm(userValidateArray);
 
     const passwordCallback = () => {
         var validate = false;
+
         if ($('#frmCreateUser #txtPassword').val() === $('#frmCreateUser #txtPasswordConfirm').val()) {
             validate = true;
         }
@@ -174,19 +177,19 @@ function CreateUser() {
         return validate;
     };
 
-    const passwordValidate = ManualValidateForm()
+    const passwordValidate = ManualValidateForm(
+        passwordCallback,
+        $('#frmCreateUser #txtPasswordConfirm').parents(".field")[0],
+        "Contraseñas no coinciden"
+    );
 
-    if (userValidate ) {
-
-        if ($('#frmCreateUser #txtPassword').val() !== $('#frmCreateUser #txtPasswordConfirm').val()) {
-            iziToastAlert(
-                "Required field: 'Password Confirm' ", "passwords do not match ", "error"
-            );
-        } else {
-
+    if (userValidate) {
+        if (passwordValidate) {
+            alert("success");
         }
+        
     }else{
-
+        /*
          //verify rol
          if ($("#checkAdmin").prop("checked")) {
              user.role_ID = 1;
@@ -262,7 +265,8 @@ function CreateUser() {
                     "Error when performing action: 'Create User' ", UserInsertStatus.message, "error"
                 );
             }
-         }
+        }
+        */
     }
 }
 

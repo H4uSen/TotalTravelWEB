@@ -67,17 +67,7 @@ $('#City_ID').change(function () {
 });
 
 
-$("#File").change(async function () {
-    $("#RestaurantCarouselHeader").hide();
 
-    const fileData = await convertImage($("#File").prop("files")[0])
-        .then(function (data) {
-            return data;
-        });
-    imagesArray.push(fileData);
-    LoadImage();
-  
-});
 
 //FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
 
@@ -105,6 +95,18 @@ async function GetImage() {
     }
 }
 //FIN
+
+$("#File").change(async function () {
+    $("#RestaurantCarouselHeader").hide();
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+    imagesArray.push(fileData);
+    LoadImage();
+
+});
 function LoadImage() {
 
     var RestaurantCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false"></div>`;

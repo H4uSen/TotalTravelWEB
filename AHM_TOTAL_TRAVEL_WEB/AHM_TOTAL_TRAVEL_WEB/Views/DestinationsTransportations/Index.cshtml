@@ -79,7 +79,6 @@
 <br>
 
 <div class="ui modal longer" id="modalCreate">
-    <i class="close icon"></i>
     <div class="header">
         Ingresa un Destino Transporte
     </div>
@@ -89,14 +88,14 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Ciudad Salida</label>
+                            <label class="ui label">Ciudad Salida</label>
                             <select id="CiudadSalida" name="DsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
                                 <option value="">Seleccione la ciudad de salida</option>
                             </select>
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadSalida"></span>
                         </div>
                         <div class="required field">
-                            <label>Ciudad Destino</label>
+                            <label class="ui label">Ciudad Destino</label>
                             <select id="CiudadDestino" name="DsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
                                 <option value="">Seleccione la ciudad de destino</option>
                             </select>
@@ -115,7 +114,6 @@
 
 
 <div class="ui modal longer" id="modalUpdate">
-    <i class="close icon"></i>
     <div class="header">
         Actualiza un Destino Transporte
     </div>
@@ -126,13 +124,13 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Ciudad Salida</label>
+                            <label class="ui label">Ciudad Salida</label>
                             <select id="CiudadSalida" name="DsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
                                 <option value="">Seleccione la ciudad de salida</option>
                             </select>
                         </div>
                         <div class="required field">
-                            <label>Ciudad Destino</label>
+                            <label class="ui label">Ciudad Destino</label>
                             <select id="CiudadDestino" name="DsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
                                 <option value="">Seleccione la ciudad de destino</option>
                             </select>
@@ -167,12 +165,12 @@
             });
 
             $("#tabla").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#tabla").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
     </script>
     <script>

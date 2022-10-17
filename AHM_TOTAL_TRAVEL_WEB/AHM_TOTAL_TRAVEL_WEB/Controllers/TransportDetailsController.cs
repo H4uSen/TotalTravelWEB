@@ -52,7 +52,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioCreacion = 1;
+                transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _transportService.TransportDetailsCreate(transportdetails, token);
                 return RedirectToAction("Index");
             }
@@ -67,6 +67,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            var typeTransportation = await _transportService.TypesTransportList();
+            IEnumerable<TypesTransportListViewModel> data_TypeTransportation = (IEnumerable<TypesTransportListViewModel>)typeTransportation.Data;
+            ViewBag.Tprt_ID = new SelectList(data_TypeTransportation, "ID", "Trasporte");
 
             var item = new TransportDetailsViewModel();
             IEnumerable<TransportDetailsListViewModel> model = null;
@@ -78,7 +81,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //item.HoTr_ID = element.Fecha;
             item.DeTr_Precio = element.Precio;
             item.DeTr_Matricula = element.Matricula;
-
+            ViewBag["Tprt_ID"] = element.Tipo_Transporte_ID;
+            ViewBag["HoTr_ID"] = element.Horario_ID;
 
             return View(item);
 
@@ -103,16 +107,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(TransportDetailsViewModel transportdetails, int id)
+        public async Task<IActionResult> Delete( int id)
         {
             if (ModelState.IsValid)
             {
-                transportdetails.DeTr_UsuarioModifica = 1;
-
+                int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _transportService.TransportDetailsDelete(transportdetails, id, token);
+                var list = (RequestStatus)(await _transportService.TransportDetailsDelete(modifica, id, token)).Data;
 
-                return RedirectToAction("Index");
+                return Ok(list.CodeStatus);
             }
             else
             {

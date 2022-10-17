@@ -105,7 +105,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> TransportDetailsDelete(TransportDetailsViewModel transportdetails, int id, string token)
+        public async Task<ServiceResult> TransportDetailsDelete(int modifica, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -114,7 +114,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Delete<TransportDetailsViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/DetailsTransportation/Delete?id=" + id + "&mod=" + transportdetails.DeTr_UsuarioModifica;
+                    req.Path = $"/API/DetailsTransportation/Delete?id=" + id + "&Mod=" + modifica;
                     req.Content = null;
                 },
                 token
