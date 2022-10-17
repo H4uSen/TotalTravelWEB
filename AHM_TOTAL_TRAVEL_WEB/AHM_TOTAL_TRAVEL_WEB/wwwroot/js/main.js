@@ -342,7 +342,7 @@ $("#loaderAnimation").hide();
                 dataResponse = JSON.parse(httpResponse);
             },
             error: function (jqXHR, exception) {
-                jqXHR = JSON.parse(jqXHR);
+                /*jqXHR = JSON.parse(jqXHR);*/
 
                 HTTPError.code = jqXHR.status;
                 HTTPError.data = jqXHR;
