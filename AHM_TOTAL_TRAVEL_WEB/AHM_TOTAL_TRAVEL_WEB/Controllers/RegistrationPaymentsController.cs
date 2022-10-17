@@ -30,12 +30,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //    return View(list.Data);
         //}
         
-        [HttpGet]
-        public async Task<IActionResult> Details(string id)
-        {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            PaymentRecordViewModel record = (PaymentRecordViewModel)(await _saleServices.PaymentRecordsFind(id, token)).Data;
-            return View(record);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Details(string id)
+        //{
+        //    string token = HttpContext.User.FindFirst("Token").Value;
+        //    PaymentRecordViewModel record = (PaymentRecordViewModel)(await _saleServices.PaymentRecordsFind(id, token)).Data;
+        //    return View(record);
+        //}
     }
 }
