@@ -12,7 +12,7 @@
             <i class="figure icon"></i>
             <div class="content">
                 <div class="header">
-                    Reservacion Actividades Extras 
+                    Reservacion Actividades Extras
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a  class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","ReservationExtraActivities")">
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","ReservationExtraActivities")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -66,7 +66,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        
+
                         <td>
                             @Html.DisplayFor(modelItem => item.Reservacion)
                         </td>
@@ -85,7 +85,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Hora_Reservacion)
                         </td>
-                      
+
 
                         <td>
                             <a href="@Url.Action("Update","ReservationExtraActivities",new {  id=item.ID})" class="ui large icon btn-edit button">
@@ -98,7 +98,7 @@
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
 
-                           
+
                         </td>
                     </tr>
                 }
@@ -112,7 +112,7 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdReservationExtraActivities tbody tr"), function () {
@@ -131,7 +131,14 @@
 
         $("#grdReservationExtraActivities").paginationTdA({
             elemPerPage: 10
-        })  ;
+        });
     </script>
 }
 
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
+    </script>
+}

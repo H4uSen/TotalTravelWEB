@@ -52,10 +52,10 @@ $("#txtSearch").keyup(function () {
     });
 
     $("#grdCity").paginationTdA({
-        elemPerPage: 5
+        elemPerPage: 10
     });
 });
 
 $("#grdCity").paginationTdA({
-    elemPerPage: 5
+    elemPerPage: 10
 });
