@@ -104,7 +104,7 @@
 
                             <div class="column">
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
-                                    
+
 
                                     <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
                                     </div>
@@ -134,6 +134,12 @@
         const partID = '@ViewData["PartID"]';
     </script>
     <script src="~/js/RestaurantJs/Update.js"></script>
-   
-}
 
+}
+@section HighlightTile{
+    <script>
+        $("#RestaurantModule").addClass("active");
+        $("#Restaurant_Schema").addClass("show");
+        $("#RestaurantModule").addClass("expandedList")
+    </script>
+}

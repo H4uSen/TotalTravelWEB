@@ -38,7 +38,7 @@
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
                                     <div class="ui right labeled input">
-                                        <input type="number" placeholder="Precio"  value="@Model.Precio" id="Menu_Precio">
+                                        <input type="number" placeholder="Precio" value="@Model.Precio" id="Menu_Precio">
                                         <div class="ui basic label">.00</div>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                         <div class="field">
                             <div class="required field">
                                 <label class="ui label">Descripcion</label>
-                                <input id="Menu_Descripcion"  value="@Model.Descripcion" placeholder="Descripcion" />
+                                <input id="Menu_Descripcion" value="@Model.Descripcion" placeholder="Descripcion" />
                             </div>
                         </div>
                         <div class="field">
@@ -131,13 +131,13 @@
 
 
         async function GetImage() {
- 
+
             var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + menuFolder)
             if (responseImage.code == 200) {
                 var list = responseImage.data
                 for (var i = 0; i < list.length; i++) {
                     var imageUrl = list[i].imageUrl;
-                  
+
                     var split = imageUrl.split("/");
                     var fileName = split[split.length - 1];
                     var file = await createBlob(imageUrl)
@@ -179,16 +179,16 @@
                 HTML_img.src = item.src;
                 const fileItem =
                     `<div class="item">
-                        <div class="right floated content">
-                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-                                <i class="trash icon"></i>
-                            </button>
-                        </div>
-                        <i class="image big icon"></i>
-                        <div class="content text-grap">
-                            ${item.fileName}
-                        </div>
-                    </div>`;
+                                <div class="right floated content">
+                                    <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                        <i class="trash icon"></i>
+                                    </button>
+                                </div>
+                                <i class="image big icon"></i>
+                                <div class="content text-grap">
+                                    ${item.fileName}
+                                </div>
+                            </div>`;
 
                 $("#image-upload-list").append(fileItem);
                 $("#MenusCarousel").append(HTML_img);
@@ -212,7 +212,7 @@
                 { validateMessage: "Seleccione una tipo menú.", Jqueryinput: $("#Time_ID") }
             ];
 
-            // retorna bool 
+            // retorna bool
             const ValidateFormStatus = ValidateForm(validateArrayForm);
 
             if (ValidateFormStatus) {
@@ -227,8 +227,8 @@
                 for (let i = 0; i < imagesArray.length; i++) {
                     data.append("File", imagesArray[i].src);
                 }
-                var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT"); 
-               
+                var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT");
+
                 if (response.data.codeStatus > 0) {
                     window.location.href = '/Menus?success=true';
                 }
@@ -236,8 +236,14 @@
             }
         }
 
-        
+
 
     </script>
 }
-
+@section HighlightTile{
+    <script>
+        $("#RestaurantModule").addClass("active");
+        $("#Restaurant_Schema").addClass("show");
+        $("#RestaurantModule").addClass("expandedList")
+    </script>
+}
