@@ -43,7 +43,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>País</label>
-                                    <select id="Count_ID" onchange="Rellenar()" class="ui dropdown search" asp-items="ViewBag.Count_ID"></select>
+                                    <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID"></select>
                                 </div>
                                 <div class="required field">
                                     <label>Ciudad</label>
@@ -103,16 +103,12 @@
 
     <script>
         const Pais_ID = "@ViewData["Pais"]";
-        const Ciud_ID = "@ViewData["Ciudad"]";
-        $(`#City_ID option[value = "${Ciud_ID}"]`).prop("selected", true);
-        const Colonia_ID = "@ViewData["Colonia"]";
+        const Ciudad = "@ViewData["Ciudad"]";
         const Part_ID = "@ViewData["Partner"]";
         const TiTr_ID = "@ViewData["TipoTransporte"]";
     </script>
 
     <script src="~/js/TransportJs/Update.js"></script>
-    <script src="~/js/TransportJs/SelectCiudades.js"></script>
-
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

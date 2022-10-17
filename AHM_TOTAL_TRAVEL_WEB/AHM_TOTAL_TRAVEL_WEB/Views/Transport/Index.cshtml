@@ -58,7 +58,7 @@
                             @Html.DisplayFor(modelItem => item.NombrePartner)
                         </td>
                         <td>
-                            @*@ViewData["DireccionExacta"]*@
+                            Calle @(item.Calle), Avenida @(item.Avenida), Colonia @(item.Colonia), Ciudad de @item.Ciudad
                         </td>
                         <td>
                             <a class="ui large icon btn-edit button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
