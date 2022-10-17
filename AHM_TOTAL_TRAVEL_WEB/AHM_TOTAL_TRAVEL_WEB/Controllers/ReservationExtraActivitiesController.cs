@@ -91,6 +91,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var actividad = (ReservationExtraActivitiesListViewModel)(await _reservationService.ExtraActivitiesReservationFind(id, token)).Data;
+
+            return View(actividad);
+        }
     }
 
 }
