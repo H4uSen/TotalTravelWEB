@@ -14,9 +14,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class ReservationExtraActivitiesController : Controller
     {
          private readonly ReservationService _reservationService;
-        public ReservationExtraActivitiesController(ReservationService reservationService)
+        private readonly ActivitiesServices _activitiesServices;
+        public ReservationExtraActivitiesController(ReservationService reservationService, ActivitiesServices activitiesServices )
         {
             _reservationService = reservationService;
+            _activitiesServices = activitiesServices;
         }
 
         [HttpGet]
@@ -26,12 +28,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<ReservationListViewModel> model_Country = null;
             var country = await _reservationService.ReservationList();
             IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)country.Data;
-            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+            ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
 
 
             //---------------------------------------
             var token = HttpContext.User.FindFirst("Token").Value;
 
+            var city = await _activitiesServices.ExtraActivitiesList();
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 
 
             var model = new List<ReservationExtraActivitiesListViewModel>();
