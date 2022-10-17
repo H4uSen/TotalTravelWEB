@@ -21,10 +21,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _accessService = accessService;
         }
 
-        //[HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = new List<PartnerTypeListViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var Rol = await _accessService.RolesList(token);
+            IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
+            ViewBag.Rol_ID = new SelectList(data_rol, "ID", "Descripcion");
             var list = await _generalServices.PartnerTypeList(model);
             return View(list.Data);
         }
