@@ -1,0 +1,233 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.DefaultPackagesDetailsListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="icon bicycle"></i>
+            <div class="content">
+                <div class="header">
+                    Paquete predeterminado detalles
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <button id="createDefaultPackagesDetails" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdRestaurants">
+            <thead>
+                <tr>
+                    <th>
+                        Paquete
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Duracion
+                    </th>
+                    <th>
+                        Actividad
+                    </th>
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombrePaquete)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionPaquete)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DuracionPaquete)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionActividad)
+                    </td>
+
+
+                    <td>
+
+                        <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
+                            <i class="pencil alternate icon icon-crud"></i>
+                        </button>
+                        <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a class="ui large icon button" href="@Url.Action("Details", "DefaultPackagesDetails", new { id=item.ID })">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table><br>
+    </div>
+</div>
+<br>
+
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa Detalles de paquete predeterminado
+    </div>
+    <form asp-action="Create" asp-controller="DefaultPackagesDetails" id="createDefaultPackagesDetailsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Paquete predeterminado</label>
+                            <select id="paqu_ID" name="paqu_ID" class="ui dropdown search" asp-items="ViewBag.paqu_ID">
+                                <option value="">Seleccione el paquete</option>
+                            </select>
+                        </div>
+                            <div class="field">
+                                <label>Actividad</label>
+                                <select id="Actv_ID" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                    <option value="">Seleccione el tipo de Actividad</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="sendDefaultPackagesDetails">Guardar</button>
+        <button class="ui button" id="closeDefaultPackagesDetails">Cancelar</button>
+    </div>
+</div>
+
+
+
+
+<div class="ui modal longer" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un Destino Transporte
+    </div>
+    <form asp-action="Update" asp-controller="DefaultPackagesDetails" id="updateDefaultPackagesDetailsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Paquete Predetermidado</label>
+                            <select id="Paqu_ID" name="Paqu_ID" class="ui dropdown search" asp-items="ViewBag.paqu_ID">
+                                <option value="">Seleccione el paquete</option>
+                            </select>
+                        </div>
+                        <div class="required field">
+                            <label>Actividad</label>
+                            <select id="Actv_ID" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                <option value="">Seleccione la actividad</option>
+                            </select>
+                        </div>
+                        <div class="required field">
+                            <input id="PaDe_ID" name="PaDe_ID" hidden />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/DefaultPackagesDetails/Create.js"></script>
+ 
+    <script>
+                // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdRestaurants tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdRestaurants").paginationTdA({
+                elemPerPage: 5
+            });
+        });
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 5
+        });
+
+        //------------------------------------Funciones------------------------
+
+        function Delete(id) {
+            const capsula1d = () => {
+                ajaxRequest("/DefaultPackagesDetails/Delete?id=" + id, null, "POST")
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1d);
+
+        };
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

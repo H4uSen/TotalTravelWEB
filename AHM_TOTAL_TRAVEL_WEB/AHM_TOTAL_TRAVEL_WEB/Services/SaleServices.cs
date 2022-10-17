@@ -253,5 +253,153 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         //        }
         #endregion
 
+        #region DefaultPackagesDetails
+
+        public async Task<ServiceResult> DefaultPackagesDetailsList()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<DefaultPackagesDetailsListViewModel>, IEnumerable<DefaultPackagesDetailsListViewModel>>(req => {
+                    req.Path = $"/API/DefaultPackagesDetails/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> DefaultPackagesDetailsCreate(DefaultPackagesDetailsViewModel actividad, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<DefaultPackagesDetailsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DefaultPackagesDetails/Insert";
+                    req.Content = actividad;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> DefaultPackagesDetailsUpdate(DefaultPackagesDetailsViewModel ppd, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<DefaultPackagesDetailsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DefaultPackagesDetails/Update?id=" + ppd.PaDe_ID;
+                    req.Content = ppd;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> DefaultPackagesDetailsDelete(DefaultPackagesDetailsViewModel actividad, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<DefaultPackagesDetailsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/DefaultPackagesDetails/Delete?id=" + id + "&mod=" + actividad.PaDe_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> DefaultPackagesDetailsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new DefaultPackagesDetailsListViewModel();
+
+            try
+            {
+                var response = await _api.Get<DefaultPackagesDetailsListViewModel, DefaultPackagesDetailsListViewModel>(req => {
+                    req.Path = $"/API/DefaultPackagesDetails/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+        #endregion
+
     }
 }

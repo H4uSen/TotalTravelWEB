@@ -13,14 +13,14 @@
                 <div class="header">
                     Hoteles Menu
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
+              
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createHotelsMenu" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+                <button id="createHotelsMenu" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -73,15 +73,13 @@
 
 
                         <td>
-                            <button class="ui large icon positive button" id="UpdateBottomActivities" onclick="GetActivities(@item.ID)">
-                                <i class="pencil alternate icon"></i>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomHotelsMenu" onclick="GetHotelsMenu(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
-                                <i class="trash alternate icon"></i>
+                            <button class="ui large icon negative button" onclick="Delete(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            <a href="@Url.Action("Details","HotelsMenu",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
                         </td>
                     </tr>
                 }
@@ -103,11 +101,9 @@
                     <div class="two fields">
                         <div class="field">
                             <input id="Descripcion" name="HoMe_Descripcion" placeholder="Descripcion del menu" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatord"></label>
                         </div>
                         <div class="field">
                             <input id="Precio" name="HoMe_Precio" placeholder="Precio del menu" />
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatord"></label>
                         </div>
                     </div>
                     <div class="two fields">
@@ -115,15 +111,17 @@
                             <select id="tHoTe_ID" name="HoTe_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
                                 <option value="">Seleccione el Hotel</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
                         </div>
                         <div class="field">
                             <select id="tTime_ID" name="Time_ID" class="ui dropdown search" asp-items="ViewBag.Time_ID">
                                 <option value="">Seleccione el Menu</option>
                             </select>
-                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
                         </div>
 
+
+                    </div>
+                    <div class="field">
+                        <input id="file" type="file"/>
                     </div>
                 </div>
             </div>
@@ -140,20 +138,31 @@
     <div class="header">
         Actualiza un tipo de menú
     </div>
-    <form asp-action="Update" asp-controller="Activities" id="updateActivitiesForm">
+    <form asp-action="Update" asp-controller="HotelsMenu" id="updateHotelsMenuForm">
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="two fields">
                     <div class="field">
-                        <input name="Actv_ID" id="Actv_ID" />
-                        <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
+                        <input id="Descripcion_up" name="HoMe_Descripcion" placeholder="Descripcion del menu" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatord"></label>
                     </div>
                     <div class="field">
-                        <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
-                            <option value="">Seleccione el tipo de Actividad</option>
+                        <input id="Precio_up" name="HoMe_Precio" placeholder="Precio del menu" />
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatord"></label>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <select id="tHoTe_ID_up" name="HoTe_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
+                            <option value="">Seleccione el Hotel</option>
                         </select>
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
+                    </div>
+                    <div class="field">
+                        <select id="tTime_ID_up" name="Time_ID" class="ui dropdown search" asp-items="ViewBag.Time_ID">
+                            <option value="">Seleccione el Menu</option>
+                        </select>
+                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
                     </div>
 
                 </div>
@@ -161,14 +170,14 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeEditActivities">Cerrar</button>
-        <button class="ui button" id="sendEditActivities">Guardar</button>
+        <button class="ui button" id="closeEditHotelsMenu">Cerrar</button>
+        <button class="ui button" id="sendEditHotelsMenu">Guardar</button>
     </div>
 </div>
 
 @section Scripts{
     <script src="~/js/HotelsMenu/Create.js"></script>
-    <script src="~/js/ActivitiesExtraJs/Update.js"></script>
+    <script src="~/js/HotelsMenu/Update.js"></script>
     <script>
         // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
@@ -193,12 +202,12 @@
 
         //------------------------------------Funciones------------------------
 
-        function DeleteActividad(id) {
-            const capsula1 = () => {
-                ajaxRequest("/Activities/Delete?id=" + id, null, "POST")
+        function Delete(id) {
+            const capsulahm = () => {
+                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST")
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsulahm);
 
         };
     </script>

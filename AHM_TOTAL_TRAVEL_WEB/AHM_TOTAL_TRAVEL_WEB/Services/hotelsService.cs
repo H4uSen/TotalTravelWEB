@@ -503,6 +503,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+        public async Task<ServiceResult> HotelsMenuFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new HotelsMenuListViewModel();
+
+            try
+            {
+                var response = await _api.Get<HotelsMenuListViewModel, HotelsMenuListViewModel>(req => {
+                    req.Path = $"/API/HotelsMenu/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
 
         #region Hoteles Actividades
@@ -623,6 +651,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+        public async Task<ServiceResult> HotelsActivitiesFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new HotelsActivitiesListViewModel();
+
+            try
+            {
+                var response = await _api.Get<HotelsActivitiesListViewModel, HotelsActivitiesListViewModel>(req => {
+                    req.Path = $"/API/Activities/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
         #endregion
     }

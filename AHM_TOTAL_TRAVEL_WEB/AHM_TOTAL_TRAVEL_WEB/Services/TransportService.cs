@@ -401,6 +401,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> TypesTransportFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new TypesTransportListViewModel();
+
+            try
+            {
+                var response = await _api.Get<TypesTransportListViewModel, TypesTransportListViewModel>(req => {
+                    req.Path = $"/API/TypesTransport/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
 
         #region DestinosTransportes

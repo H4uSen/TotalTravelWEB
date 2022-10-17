@@ -80,5 +80,78 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+
+            var item = new HotelsMenuViewModel();
+            IEnumerable<HotelsMenuListViewModel> model = null;
+            var list = await _hotelService.HotelsMenuList(model);
+            IEnumerable<HotelsMenuListViewModel> data = (IEnumerable<HotelsMenuListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+            item.HoMe_Descripcion = element.Menu;
+            item.HoMe_Precio = element.Precio;
+
+            string token = HttpContext.User.FindFirst("Token").Value;
+            IEnumerable<HotelListViewModel> model2 = null;
+            var type = await _hotelService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
+            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Descripcion");
+
+            var type2 = await _restaurantServices.TypeMenusList();
+            IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
+            ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
+
+
+
+
+            return View(item);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(HotelsMenuViewModel actividad, int id)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                actividad.HoMe_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                var lista = await _hotelService.HotelsMenuUpdate(actividad, id, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(HotelsMenuViewModel actividad, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                actividad.HoMe_UsuarioModifica = 1;
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _hotelService.HotelsMenuDelete(actividad, id, token);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (HotelsMenuListViewModel)(await _hotelService.HotelsMenuFind(id, token)).Data;
+            return View(detalle);
+        }
+
+
     }
 }

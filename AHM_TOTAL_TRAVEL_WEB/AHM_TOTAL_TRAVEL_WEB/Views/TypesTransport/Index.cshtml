@@ -15,14 +15,14 @@
                 <div class="header">
                     Transportes
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
+               
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createTypesTransport" class="ui small primary labeled icon button"><i class="user icon"></i>Nuevo</button>
+                <button id="createTypesTransport" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -57,13 +57,10 @@
                         </td>
 
                         <td>
-
-                            <button class="ui large icon negative button" id="botonEliminar" onclick="Delete(@item.ID)">
-                                <i class="trash alternate icon"></i>
+                            <button class="ui large icon negative button" onclick="Delete(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon yellow button">
-                                <i class="folder open outline icon"></i>
-                            </button>
+                            <a href="@Url.Action("Details","TypesTransport",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
                         </td>
                     </tr>
                 }

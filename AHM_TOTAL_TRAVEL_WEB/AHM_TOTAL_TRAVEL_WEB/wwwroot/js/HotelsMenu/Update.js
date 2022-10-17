@@ -1,47 +1,41 @@
 ﻿$(document).ready(function () {
-    $("#Actv_ID").hide();
+    $("#HoMe_ID").hide();
 });
 
-$("#closeEditActivities").click(() => {
+$("#closeEditHotelsMenu").click(() => {
     $("#modalUpdate").modal('hide');
 });
-$("#UpdateBottomActivities").click(() => {
+$("#UpdateBottomHotelsMenu").click(() => {
     $("#modalUpdate").modal('show');
 });
 
 
-function GetActivities(id) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Activities/Find?id=" + id);
+function GetHotelsMenu(id) {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/HotelsMenu/Find?id=" + id);
     if (response.code == 200) {
-        $('#Actv_ID').val(id);
-        $('#ActividadUpdate').val(response.data.descripcion);
-        //$('#TiPoAc_IDUpdate').val(response.data.tipo);
+        $('#HoMe_ID').val(id);
+        $('#Descripcion_up').val(response.data.menu);
+        $('#Precio_up').val(response.data.precio);
+        //const parent = $("#tHoTe_ID_up").parent();
+        //parent.find(`.menu .item[data-value="${response.data.iD_TiAc}"]`).addClass(["selected", "active"]);
+        //const parent = $("#tTime_ID_up").parent();
+        //parent.find(`.menu .item[data-value="${response.data.iD_TiAc}"]`).addClass(["selected", "active"]);
 
-        if ($('#ActividadUpdate').val() != 0) {
+
+        if ($('#HotelsMenuUpdate').val() != 0) {
             $("#modalUpdate").modal('show');
         }
 
     }
 }
 
-$("#sendEditActivities").click(() => {
+$("#sendEditHotelsMenu").click(() => {
     ValidarUpdate();
 });
 
 function ValidarUpdate() {
-    if ($("#ActividadUpdate").val() == 0) {
-        $("#labelvalidatorActividadUpdate").html("No se Puede dejar vacio este campo");
-    }
-    else {
-        $("#labelvalidatorActividadUpdate").html(" ");
-    }
-    if ($("#TiPoAc_IDUpdate").val() == 0) {
-        $("#labelvalidatorTipoActividadUpdate").html("Seleccione el tipo de la Actividad");
-    }
-    else {
-        $("#labelvalidatorTipoActividadUpdate").html(" ");
-    }
-    if ($("#ActividadUpdate").val() != 0 && $("#TiPoAc_IDUpdate").val() != 0) {
-        $("#updateActivitiesForm").submit();
+  
+    if ($("#Descripcion").val() != 0 && $("#Precio").val() != 0 && $("#tHoTe_ID").val() != 0 && $("#tTime_ID").val() != 0) {
+        $("#updateHotelsMenuForm").submit();
     }
 }
