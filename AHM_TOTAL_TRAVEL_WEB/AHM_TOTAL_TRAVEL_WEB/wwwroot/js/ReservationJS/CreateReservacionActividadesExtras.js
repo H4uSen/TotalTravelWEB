@@ -40,11 +40,11 @@ function createreservationactividadesextra() {
 
         /*var images = [];*/
         var data = new FormData();
-        data.append("Resv_ID", $("#Resv_ID").val());
-        data.append("AcEx_ID", $("#AcEx_ID").val());
+        data.append("Resv_ID", parseInt($("#Resv_ID").val())); 
+        data.append("AcEx_ID", parseInt($("#AcEx_ID").val()));
         data.append("ReAE_Cantidad", $("#ReAE_Cantidad").val());
-        data.append("ReAE_FechaReservacion", parseInt($("#ReAE_FechaReservacion").val()));
-        data.append("ReAE_HoraReservacion", parseInt($("#ReAE_HoraReservacion").val()));
+        data.append("ReAE_FechaReservacion", $("#ReAE_FechaReservacion").val());
+        data.append("ReAE_HoraReservacion", $("#ReAE_HoraReservacion").val());
         data.append("ReAE_UsuarioCreacion", parseInt(Client_User_ID));
 
 

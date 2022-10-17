@@ -24,19 +24,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            var token = HttpContext.User.FindFirst("Token").Value;
+
 
             IEnumerable<ReservationListViewModel> model_Country = null;
-            var country = await _reservationService.ReservationList();
-            IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)country.Data;
+            var resrvation = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)resrvation.Data;
             ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
 
 
             //---------------------------------------
-            var token = HttpContext.User.FindFirst("Token").Value;
 
-            var city = await _activitiesServices.ExtraActivitiesList();
-            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
-            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+            var actividad = await _activitiesServices.ExtraActivitiesList(token);
+            IEnumerable<ActivitiesExtrasListViewModel> data_City = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
+            ViewBag.AcEx_ID = new SelectList(data_City, "ID", "Actividad");
 
 
             var model = new List<ReservationExtraActivitiesListViewModel>();
@@ -48,6 +49,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var token = HttpContext.User.FindFirst("Token").Value;
+
+            IEnumerable<ReservationListViewModel> model_Country = null;
+            var resrvation = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)resrvation.Data;
+            ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
+
+
+            //---------------------------------------
+
+            var actividad = await _activitiesServices.ExtraActivitiesList(token);
+            IEnumerable<ActivitiesExtrasListViewModel> data_City = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
+            ViewBag.AcEx_ID = new SelectList(data_City, "ID", "Actividad");
 
             return View();
         }
