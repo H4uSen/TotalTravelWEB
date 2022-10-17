@@ -43,6 +43,14 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section HighlightTile{
+    <script>
+        $("#HotelModule").addClass("active");
+        $("#Hotel_Schema").addClass("show");
+        $("#HotelModule").addClass("expandedList")
+    </script>
+}
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
