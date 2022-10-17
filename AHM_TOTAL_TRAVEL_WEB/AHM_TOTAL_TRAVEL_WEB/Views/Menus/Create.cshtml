@@ -29,7 +29,7 @@
                     <div class="content">
 
                         <div class="field">
-                          
+
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Menú</label>
@@ -62,15 +62,44 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="ui grid three column stackable mt-4">
 
-                        <div class="field">
-                            <div class="field">
-                                <label class="ui label">Imagen</label>
-                                <input id="File" type="file" multiple />
+                            <div class="column">
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <input type="button" value="Crear" onclick="createMenus()" class="btn btn-primary ui positive button" />
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imagenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header" id="MenusCarousel">
+                                        <i class="images icon"></i>
+                                        Tus imagenes aparecerán aquí.
+                                    </div>
+
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+
+                        <input type="button" value="Guardar" onclick="createMenus()" class="btn btn-purple ui positive button mb-3 ms-3" />
                     </div>
                 </div>
 
@@ -83,7 +112,6 @@
     
     <script>
         var UserID = '@ViewData["UserID"]';
-        console.log(UserID);
     </script>
     <script src="~/js/MenusJs/Create.js"></script>
 }
