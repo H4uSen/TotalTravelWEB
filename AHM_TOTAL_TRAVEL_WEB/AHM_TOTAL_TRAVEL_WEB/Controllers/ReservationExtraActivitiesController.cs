@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var token = HttpContext.User.FindFirst("Token").Value;
+
+
             var model = new List<ReservationExtraActivitiesListViewModel>();
             var list = await _reservationService.ExtraActivitiesReservationList(model, token);
             return View(list.Data);
