@@ -1,4 +1,52 @@
-﻿function createMenus() {
+﻿var imagesArray = [];
+$("#File").change(async function () {
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+    imagesArray.push(fileData);
+    LoadImage();
+
+});
+function LoadImage() {
+
+    var MenusCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false"></div>`;
+    $("#MenusCarousel").replaceWith(MenusCarousel);
+    $("#image-upload-list").html("");
+
+    for (let i = 0; i < imagesArray.length; i++) {
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
+
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
+
+        $("#image-upload-list").append(fileItem);
+        $("#MenusCarousel").append(HTML_img);
+    }
+    $("#MenusCarousel").fotorama();
+}
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    LoadImage();
+}
+
+
+
+function createMenus() {
 
 
     validateArrayForm = [
@@ -23,12 +71,9 @@
         data.append("Rest_ID", $("#Rest_ID").val());
         data.append("Menu_UsuarioCreacion", UserID);
 
-        for (let i = 0; i < $('#File').prop('files').length; i++) {
-            const file = $('#File').prop('files')[i];
-            images.push(file); //IFORMFILE
+        for (let i = 0; i < imagesArray.length; i++) {
+            data.append("File", imagesArray[i].src);
         }
-
-        data.append("file", images);
         var response = uploadFile("https://totaltravel.somee.com/API/Menus/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {

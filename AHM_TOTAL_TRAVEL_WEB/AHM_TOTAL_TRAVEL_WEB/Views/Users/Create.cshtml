@@ -21,6 +21,7 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
 
+                    <!-- user info section -->
                     <div class="field">
                         <label>User Info</label>
                         <div class="three fields">
@@ -50,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="field">
+                        <div class="field checkButton_container">
                             <label>Gender (required)</label>
                             <div class="inline fields">
                                 <div class="field">
@@ -70,24 +71,65 @@
                         </div>
                     </div>
 
+                    <!-- user adress section -->
                     <div class="field">
                         <label>User Adress</label>
-                        <div class="two fields">
-                            <div class="five wide field">
-                                <select class="ui search dropdown cbbCiudades" id="cbbCiudades">
-                                    <option value="">Select a City Residence (required)</option>
-                                    <option value="1">san pedro sula</option>
-                                    <option value="2">tegucigalpa</option>
-                                    <option value="3">barcelona</option>
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Contry</label>
+                                <select class="ui search dropdown cbbCiudades" id="cbbPaises" asp-items="ViewBag.Counties">
+                                    <option value="">Select your Country Residence</option>
+                                    <option value="1">Honduras</option>
+                                    <option value="2">U.S.A</option>
+                                    <option value="3">Germany</option>
                                 </select>
                             </div>
-                            <div class="five wide field">
-                                <input type="text" id="txtDireccionExacta"
-                                       placeholder="Detail your Adress (required)">
+                            <div class="field">
+                                <label>City</label>
+                                <select class="ui search dropdown cbbCiudades" id="cbbCiudades">
+                                    <option value="">Select a City Residence (required)</option>
+                                    <option value="1">San pedro sula</option>
+                                    <option value="2">Tegucigalpa</option>
+                                    <option value="3">Barcelona</option>
+                                </select>
                             </div>
+                            <div class="field">
+                                <label>Suburb/hood</label>
+                                <select class="ui search dropdown cbbCiudades" id="cbbColonias">
+                                    <option value="">Select a Suburbs/hood Residence (required)</option>
+                                    <option value="1">San pedro sula</option>
+                                    <option value="2">Tegucigalpa</option>
+                                    <option value="3">Barcelona</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Street Number/Name</label>
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Street...
+                                        </div>
+                                        <input type="text" id="txtCalle">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Avenue Number/Name</label>
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Hood...
+                                        </div>
+                                        <input type="text" id="txtAvenida">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
+                    <!-- user acount section -->
                     <div class="field">
                         <label>Acount Info</label>
                         <div class="three fields">
@@ -105,6 +147,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- role adress section -->
                     <div class="ui segment">
                         <div class="grouped fields">
                             <div class="field">
@@ -129,17 +173,15 @@
                         </div>
                     </div>
 
+                    <!-- find partner section -->
                     <div id="frmSelectPartner">
 
                         <div class="field">
                             <label>Select Partner</label>
                             <div class="fields">
                                 <div class="six wide field">
-                                    <select class="ui dropdown cbbTipoPartner" id="cbbTipoPartner">
+                                    <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
                                         <option value="">Select a Partner Type (required)</option>
-                                        <option value="1">Hotel Partner</option>
-                                        <option value="2">Turistic Partner</option>
-                                        <option value="3">Transport Partner</option>
                                     </select>
                                 </div>
                                 <div class="six wide field">
@@ -151,17 +193,14 @@
                         </div>
                     </div>
 
+                    <!-- create partner section -->
                     <div id="frmCreatePartner">
                         <div class="field">
                             <label>Partner Info</label>
                             <div class="four fields">
                                 <div class="field">
-                                    <select class="ui dropdown cbbTipoPartner" id="cbbTipoPartner">
+                                    <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
                                         <option value="">Select a Partner Type (required)</option>
-                                        <option value="1">Hotel Partner</option>
-                                        <option value="2">Turistic Partner</option>
-                                        <option value="3">Transport Partner</option>
-                                        <option value="3">Restaurant Partner</option>
                                     </select>
                                 </div>
                                 <div class="field">

@@ -77,7 +77,7 @@
                         </div>
 
 
-                        <div class="ui grid three column stackable">
+                        <div class="ui grid three column stackable mt-4">
 
                             <div class="column">
                                 <div class="ui segment">
@@ -91,12 +91,12 @@
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
                                     <div class="ui icon header">
                                         <i class="pdf file outline icon"></i>
-                                        No documents are listed for this customer.
+                                        Sube tus imagenes al sistema.
                                     </div>
                                     <input type="file" (change)="fileEvent($event)" class="inputfile"
                                            id="File" />
-                                    <label for="flHotelImages" class="ui primary button">
-                                        Add Document
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
                                     </label>
                                 </div>
 
@@ -104,12 +104,12 @@
 
                             <div class="column">
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
-                                    <div class="ui icon header" id="HotelCarouselHeader">
+                                    <div class="ui icon header" id="RestaurantCarousel">
                                         <i class="images icon"></i>
-                                        your photos will appear here
+                                        Tus imagenes aparecerán aquí.
                                     </div>
 
-                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
                                     </div>
                                 </div>
                             </div>
