@@ -552,6 +552,60 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region PaymentRecords
+        public async Task<ServiceResult> PaymentRecordsList()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<PaymentRecordListViewModel>, IEnumerable<PaymentRecordListViewModel>>(req => {
+                    req.Path = $"/API/RecordPayment/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
 
+        public async Task<ServiceResult> PaymentRecordsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<PaymentRecordViewModel, PaymentRecordViewModel>(req => {
+                    req.Path = $"/API/RecordPayment/Find?id=" + id;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+        #endregion
     }
 }
