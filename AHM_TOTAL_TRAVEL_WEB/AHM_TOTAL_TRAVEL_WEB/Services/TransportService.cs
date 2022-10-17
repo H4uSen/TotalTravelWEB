@@ -583,7 +583,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
 
         #region HorariosTransporte
-        public async Task<ServiceResult> ScheduleTransportationList(IEnumerable<ScheduleTransportationListViewModel> model) {
+        public async Task<ServiceResult> ScheduleTransportationList() {
             
             var Result = new ServiceResult();
 
@@ -594,6 +594,99 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                     req.Content = null;
                 }
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> ScheduleTransportationCreate(ScheduleTransportationViewModel horario, string token)
+        {
+
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ScheduleTransportationViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/DestinationsTransportation/Insert";
+
+                    req.Content = horario;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        
+        public async Task<ServiceResult> ScheduleTransportationUpdate(ScheduleTransportationViewModel horario, string token)
+        {
+
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<ScheduleTransportationViewModel, RequestStatus >(req => {
+                    req.Path = $"/API/DestinationsTransportation/Update?id=" + horario.HoTr_ID;
+
+                    req.Content = horario;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        
+        public async Task<ServiceResult> ScheduleTransportationDelete(ScheduleTransportationViewModel horario, int id ,string token)
+        {
+
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Delete<ScheduleTransportationViewModel, RequestStatus >(req => {
+                    req.Path = $"/API/DestinationsTransportation/Delete?id= " + id + "&Mod=" + horario.HoTr_UsuarioModifica ;
+
+                    req.Content = horario;
+                },
+                token
                 );
                 if (!response.Success)
                 {

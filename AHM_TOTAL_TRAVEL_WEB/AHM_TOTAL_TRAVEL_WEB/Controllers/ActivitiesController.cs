@@ -29,6 +29,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
             var model = new List<ActivitiesListViewModel>();
             var list = await _activitiesServices.ActivityList();
+
             return View(list.Data);
         }
 
@@ -75,7 +76,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<ActivitiesListViewModel> data = (IEnumerable<ActivitiesListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.actv_Descripcion = element.Descripcion;
-
+            ViewData["TipoActividad"] = element.ID_TiAc;
 
             return View(item);
 
