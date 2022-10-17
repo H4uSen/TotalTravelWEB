@@ -27,6 +27,7 @@ function validar() {
         var data = new FormData();
         data.append("HoMe_Descripcion", $("#modalCreate #Descripcion").val());
         data.append("HoMe_Precio", $("#modalCreate #Precio").val());
+        data.append("HoMe_UsuarioCreacion", Client_User_ID);
         data.append("HoTe_ID", $("#modalCreate #tHoTe_ID").val());
         data.append("Time_ID", $("#modalCreate #tTime_ID").val());
         if ($("#modalCreate #file").prop("files")[0] != undefined) {
@@ -35,7 +36,7 @@ function validar() {
         else {
             data.append("File", null);
         }
-        var status = uploadFile("https://totaltravel.somee.com/API/HotelsMenu/Insert", data);
+        var status = uploadFile("https://totaltravel.somee.com/API/HotelsMenu/Insert", data,"POST");
         if (status.code == 200) {
             location.reload();
         }
