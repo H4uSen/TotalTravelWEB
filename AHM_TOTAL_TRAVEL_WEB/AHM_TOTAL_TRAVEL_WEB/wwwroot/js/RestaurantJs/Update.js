@@ -180,7 +180,7 @@ function updateRestaurant() {
             data.append("dire_ID", parseInt(DireID));
             data.append("rest_Nombre", $("#Rest_Nombre").val());
             data.append("part_ID", parseInt($("#Part_ID").val()));
-            data.append("rest_UsuarioCreacion", parseInt(Client_User_ID));
+            data.append("rest_UsuarioModifica", parseInt(Client_User_ID));
 
             for (let i = 0; i < imagesArray.length; i++) {
                 data.append("File", imagesArray[i].src);

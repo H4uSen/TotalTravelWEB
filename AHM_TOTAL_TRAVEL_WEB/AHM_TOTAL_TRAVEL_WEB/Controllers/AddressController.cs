@@ -33,16 +33,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var model = new List<AddressListViewModel>();
             var list = await _generalService.AddressesList();
+
+            var idd = HttpContext.User.FindFirst("User_Id").Value;
+            ViewData["UserID"] = idd;
             return View(list.Data);
         }
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
 
+        //[HttpGet]
+        //public async Task<IActionResult> Update(int id)
+        //{
+        //    var address = new AddressListViewModel();
+        //    string token = HttpContext.User.FindFirst("Token").Value;
+        //    var addressList = await _generalService.AddressesList();
+        //    IEnumerable<AddressListViewModel> addressData = (IEnumerable<AddressListViewModel>)addressList.Data;
+        //    var elementAddress = addressData.Where(x => x.ID == id).ToList()[0];
+        //    address.Calle = elementAddress.Calle;
+        //    address.Avenida = elementAddress.Avenida;
+        //    ViewData["PaisID"] = elementAddress.ID_Pais;
+        //    ViewData["CiudadID"] = elementAddress.ID_Ciudad;
+        //    ViewData["ColoID"] = elementAddress.ID_Colonia;
 
-            return View();
-        }
+        //    var city = await _generalService.CitiesList();
+        //    IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+        //    ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 
+        //    var country = await _generalService.CountriesList();
+        //    IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+        //    ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+        //    return View(elementAddress);
+        //}
         [HttpPost]
         public async Task<IActionResult> Create(AddressViewModel address)
         {

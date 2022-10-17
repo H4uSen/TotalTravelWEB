@@ -100,6 +100,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+
             var item = new RestaurantListViewModel();
             var address = new AddressListViewModel();
             string token = HttpContext.User.FindFirst("Token").Value;
@@ -122,6 +123,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             var elementAddress = addressData.Where(x => x.ID == item.ID_Direccion).ToList()[0];
+
             ViewData["RestaurantFolder"] = $"Restaurants/Restaurant-{item.ID}/Place";
             ViewData["RestaurantID"] = element.ID;
             ViewData["PaisID"] = elementAddress.ID_Pais;
