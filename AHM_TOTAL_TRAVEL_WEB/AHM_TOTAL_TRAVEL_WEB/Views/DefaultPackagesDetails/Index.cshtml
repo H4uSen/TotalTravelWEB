@@ -56,34 +56,34 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombrePaquete)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DescripcionPaquete)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DuracionPaquete)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DescripcionActividad)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombrePaquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescripcionPaquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DuracionPaquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescripcionActividad)
+                        </td>
 
 
-                    <td>
+                        <td>
 
-                        <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
-                            <i class="pencil alternate icon icon-crud"></i>
-                        </button>
-                        <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a class="ui large icon button" href="@Url.Action("Details", "DefaultPackagesDetails", new { id=item.ID })">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                </tr>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details", "DefaultPackagesDetails", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table><br>
@@ -108,14 +108,14 @@
                                 <option value="">Seleccione el paquete</option>
                             </select>
                         </div>
-                            <div class="field">
-                                <label>Actividad</label>
-                                <select id="Actv_ID" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
-                                    <option value="">Seleccione el tipo de Actividad</option>
-                                </select>
-                            </div>
+                        <div class="field">
+                            <label>Actividad</label>
+                            <select id="Actv_ID" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                <option value="">Seleccione el tipo de Actividad</option>
+                            </select>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </form>
@@ -166,9 +166,9 @@
 
 @section Scripts{
     <script src="~/js/DefaultPackagesDetails/Create.js"></script>
- 
+
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdRestaurants tbody tr"), function () {
@@ -199,6 +199,13 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1d);
 
         };
+    </script>
+}
+@section HighlightTile{
+    <script>
+        $("#SalesModule").addClass("active");
+        $("#Sale_Schema").addClass("show");
+        $("#SalesModule").addClass("expandedList")
     </script>
 }
 

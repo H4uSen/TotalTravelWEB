@@ -12,18 +12,66 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class HotelsActivitiesController : Controller
     {
         private readonly HotelsService _hotelService;
+        ActivitiesServices _activitiesServices;
 
-        public HotelsActivitiesController(HotelsService hotelService)
+        public HotelsActivitiesController(HotelsService hotelService, ActivitiesServices activitiesServices)
         {
             _hotelService = hotelService;
+            _activitiesServices = activitiesServices;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var type = await _hotelService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
+            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+
+            var ac = await _activitiesServices.ActivityList();
+            IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
+            ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
+
             var model = new List<HotelsActivitiesListViewModel>();
             var list = await _hotelService.HotelsActivitiesList(model);
             return View(list.Data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var model = new List<HotelListViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+
+            var type = await _hotelService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
+            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+
+            var ac = await _activitiesServices.ActivityList();
+            IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
+            ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
+
+            return View();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(HotelsActivitiesViewModel package)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                package.HoAc_UsuarioCreacion = int.Parse(id);
+                var list = await _hotelService.HotelsActivitiesCreate(package, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(HotelsActivitiesViewModel actividad, int id)

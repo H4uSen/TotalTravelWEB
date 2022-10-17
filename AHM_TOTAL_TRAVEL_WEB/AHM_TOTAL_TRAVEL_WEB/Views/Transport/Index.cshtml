@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach (var item in Model)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -78,31 +78,40 @@
     </div>
 </div>
 
+@section HighlightTile{
+    <script>
+        $("#TransportModule").addClass("active");
+        $("#Transport_Schema").addClass("show");
+        $("#TransportModule").addClass("expandedList")
+    </script>
+}
+
 @section Scripts{
 
     <script>
-    // -------------------------------------- EVENTS ---------------------------------------
+        // -------------------------------------- EVENTS ---------------------------------------
 
-    $("#txtSearch").keyup(function () {
-        _this = this;
-        $.each($("#tabla tbody tr"), function () {
-            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                $(this).hide();
-            }
-            else {
-                $(this).show();
-            }
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#tabla tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#tabla").paginationTdA({
+                elemPerPage: 10
+            });
         });
 
         $("#tabla").paginationTdA({
             elemPerPage: 10
         });
-    });
-
-    $("#tabla").paginationTdA({
-        elemPerPage: 10
-    });
-</script>
+    </script>
+    
     <script>
         function DeleteTransport(id) {
             const capsula1 = () => {
