@@ -5,6 +5,17 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Models
 {
+
+
+    public class TipeofpayViewModel
+    {
+        public int TiPa_ID { get; set; }
+        public string? TiPa_Descripcion { get; set; }
+        public int? TiPa_UsuarioCreacion { get; set; }
+        public int? TiPa_UsuarioModifica { get; set; }
+
+    }
+
     public class TipeofpayListViewModel
     {
         public int ID { get; set; }
