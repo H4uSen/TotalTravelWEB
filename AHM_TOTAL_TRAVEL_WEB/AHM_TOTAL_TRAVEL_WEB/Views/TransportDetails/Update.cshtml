@@ -19,12 +19,12 @@
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
-                        Back
+                        Regresar
                         <i class="left arrow icon"></i>
                     </a>
                 </div>
             </div>
-            <form asp-action="Update">
+            <form asp-action="Update" id="FrmDetallesTranporte">
                 <div class="ui form attached fluid segment">
                     <div class="content">
                         <div class="three fields">
@@ -33,7 +33,6 @@
                                 <select id="Tprt_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Tprt_ID">
                                     <option value="">Seleccione un tipo de transporte</option>
                                 </select>
-                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                             <div class="field">
                                 <label>Capacidad</label>
@@ -44,7 +43,6 @@
                                 <select id="HoTr_ID" name="HoTr_ID" class="ui dropdown search" asp-for="HoTr_ID">
                                     <option value="">Seleccione un horario</option>
                                 </select>
-                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                             </div>
                         </div>
                         <div class="three fields">
@@ -69,15 +67,11 @@
 </div>
 @section Scripts{
     <script>
-
-        const Tprt_ID = '@ViewData["Tprt_ID"]';
-        const HoTr_ID = '@ViewData["HoTr_ID"]';
-       
+        var horarioID = '@ViewData["HorarioID"]';
     </script>
-
+    <script src="~/js/TransportDetails/Update.js"></script>
     <script>
-        SetDropDownValue($("#Tprt_ID"), Tprt_ID);
-        SetDropDownValue($("#HoTr_ID"), HoTr_ID);
+
         $("#btnGuardar").click(() => {
             const ValidateArray = [
                 { validateMessage: "Seleccione un tipo de transporte", Jqueryinput: $("#Tprt_ID") },
