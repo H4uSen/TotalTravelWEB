@@ -26,7 +26,7 @@
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
                     <i class="search icon"></i>
                 </div>
             </div>
@@ -58,13 +58,13 @@
                             @Html.DisplayFor(modelItem => item.NombrePartner)
                         </td>
                         <td>
-
+                            Calle @(item.Calle), Avenida @(item.Avenida), Colonia @(item.Colonia), Ciudad de @item.Ciudad
                         </td>
                         <td>
                             <a class="ui large icon btn-edit button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </a>
-                            <a class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                            <a class="ui large icon btn-delete button" onclick="DeleteTransport(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </a>
                             <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
@@ -95,26 +95,24 @@
         });
 
         $("#tabla").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
     });
 
     $("#tabla").paginationTdA({
-        elemPerPage: 5
+        elemPerPage: 10
     });
-
-    $("#editar").click(() => {
-        $(".ui.modal").modal('show');
-    });
-
-    function Delete(id) {
-        const capsula1 = () => {
-            ajaxRequest("/Transports/Delete?id=" + id, null, "POST")
-        };
-
-        sweetAlertconfirm("¿Estás Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
-
-    };
 </script>
+    <script>
+        function DeleteTransport(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Transport/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Transport?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
+        };
+    </script>
 
 }

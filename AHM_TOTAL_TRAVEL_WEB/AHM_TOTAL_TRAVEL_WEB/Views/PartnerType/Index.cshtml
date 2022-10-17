@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","PartnerType")">
+                <a class="ui small btn-purple text-white labeled icon button" id="createTipoPartner">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -69,8 +69,9 @@
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","PartnerType",new {  id=item.ID})" class="ui large icon btn-purple button"><i class="pencil alternate icon"></i></a>
-                            <button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
+                            <button class="ui large icon btn-edit button"  id="UpdateBottomTipoPartner" onclick="GetTipoPartner('@item.ID')">
+                                <i class="pencil alternate icon  icon-crud"></i>
+                            </button><button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button><a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
                         </td>
@@ -83,26 +84,93 @@
 </div>
 <br>
 
+<div class="ui modal" id="modalCreate">
+    <div class="header">
+        Ingresa un tipo de socio
+    </div>
+    <form asp-action="Create" asp-controller="PartnerType" id="createTipoPartnerForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Descripcion</label>
+                        <input name="TiPar_Descripcion" id="TiPar_Descripcion" />
+                    </div>
+                    <div class="required field">
+                        <label>Tipo de Rol</label>
+                        <select id="Rol_ID" name="Rol_ID" class="ui dropdown search" asp-items="ViewBag.Rol_ID">
+                            <option value="">Seleccione un Rol</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="sendTipoPartner">Guardar</button>
+        <button class="ui button" id="closeTipoPartner">Cancelar</button>
+    </div>
+</div>
+
+<div class="ui modal" id="modalUpdate">
+    <div class="header">
+        Actualiza un tipo de menú
+    </div>
+    <form asp-action="Update" asp-controller="PartnerType" id="updateTipoPartnerForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="field">
+                        <input name="TiPar_ID" id="TiPar_ID" />
+                        <label>Descripcion</label>
+                        <input id="TiPar_DescripcionUpdate" name="TiPar_Descripcion" />
+                    </div>
+                    <div class="required field">
+                        <label>Tipo de Rol</label>
+                        <select id="Rol_IDUpdate" name="Rol_ID" class="ui dropdown search" asp-items="ViewBag.Rol_ID">
+                            <option value="">Seleccione un Rol</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="sendEditTipoPartner" onclick="sendUpdate()">Guardar</button>
+        <button class="ui button" id="closeEditTipoPartner">Cancelar</button>
+    </div>
+</div>
+
+
+
 @section Scripts{
-    <script>
-                // ----------------------------------- EVENTS ------------------------------------
-        TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
+    <script src="~/js/PartnerType/Create.js"></script>
+    <script src="~/js/PartnerType/Update.js"></script>
+            <script>
 
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 10
-        });
 
-        function DeleteTipoPartner(id) {
-            const Tpartner = () => {
-                const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
-                if (result > 0) {
+
+            // ----------------------------------- EVENTS ------------------------------------
+                TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
+
+
+                $("#grdRestaurants").paginationTdA({
+                    elemPerPage: 10
+            });
+
+                function DeleteTipoPartner(id) {
+                const Tpartner = () => {
+                    const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
+                    if (result > 0) {
                     location.reload();
-                }
+                    }
+                };
+
+                sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
+
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
-
-        };
+               
     </script>
 }

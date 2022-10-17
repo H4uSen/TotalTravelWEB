@@ -32,12 +32,10 @@
                                 <div class="required field">
                                     <label>Partner</label>
                                     <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID"></select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPartner"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Tipo transporte</label>
                                     <select id="TiTr_ID" class="ui dropdown search" asp-items="ViewBag.TiTr_ID"></select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoTransporte"></span>
                                 </div>
                             </div>
                         </div>
@@ -46,12 +44,10 @@
                                 <div class="required field">
                                     <label>País</label>
                                     <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID"></select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Ciudad</label>
                                     <select id="City_ID" class="ui dropdown search"></select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudad"></span>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +60,6 @@
                                 </div>
                                 <input type="text" id="Colonia" value="@ViewData["Colonia"]" />
                             </div>
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></span>
                         </div>
 
                         <div class="field">
@@ -75,7 +70,6 @@
                                             Avenida
                                         </div>
                                         <input type="text" id="Avenida" value="@ViewData["Avenida"]" />
-                                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAve"></span>
                                     </div>
                                 </div>
                                 <div class="required field">
@@ -84,7 +78,6 @@
                                             Calle
                                         </div>
                                         <input type="text" id="Calle" value="@ViewData["Calle"]" />
-                                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCalle"></span>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +101,14 @@
 
 @section Scripts {
 
+    <script>
+        const Pais_ID = "@ViewData["Pais"]";
+        const Ciudad = "@ViewData["Ciudad"]";
+        const Part_ID = "@ViewData["Partner"]";
+        const TiTr_ID = "@ViewData["TipoTransporte"]";
+    </script>
+
     <script src="~/js/TransportJs/Update.js"></script>
-    <script src="~/js/TransportJs/SelectCiudades.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

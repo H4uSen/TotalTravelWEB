@@ -35,7 +35,7 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="tabla">
             <thead>
                 <tr>
                     <th>
@@ -44,7 +44,7 @@
                     <th>
                         Ciudad Destino
                     </th>
-                    <th width="300px"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -59,7 +59,7 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="GetDsTr(@item.ID)">
+                            <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </button>
                             <button class="ui large icon btn-delete button" onclick="DeleteDsTr(@item.ID)">
@@ -114,44 +114,50 @@
 </div>
 
 
-@*<div class="ui modal" id="modalUpdate">
+<div class="ui modal longer" id="modalUpdate">
     <i class="close icon"></i>
     <div class="header">
-        Actualizar un Destino Transporte
+        Actualiza un Destino Transporte
     </div>
     <form asp-action="Update" asp-controller="DestinationsTransportations" id="updateDestinationsTransportationsForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <div class="two fields">
-                    <div class="field">
-                        <input name="Actv_ID" id="Actv_ID" />
-                        <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorActividadUpdate"></label>
+                <input id="DsTr_ID" name="DsTr_ID" style="visibility:hidden"/>
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Ciudad Salida</label>
+                            <select id="CiudadSalida" name="DsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
+                                <option value="">Seleccione la ciudad de salida</option>
+                            </select>
+                        </div>
+                        <div class="required field">
+                            <label>Ciudad Destino</label>
+                            <select id="CiudadDestino" name="DsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
+                                <option value="">Seleccione la ciudad de destino</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="field">
-                        <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
-                            <option value="">Seleccione el tipo de Actividad</option>
-                        </select>
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividadUpdate"></label>
-                    </div>
-
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeEditDT">Cerrar</button>
-        <button class="ui button" id="sendEditDT">Guardar</button>
+        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
     </div>
-</div>*@
+</div>
+
+
 
 @section Scripts{
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
     <script>
-        // ----------------------------------- EVENTS ------------------------------------
+        // -------------------------------------- EVENTS ---------------------------------------
+
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#tabla tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -160,24 +166,27 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
+            $("#tabla").paginationTdA({
                 elemPerPage: 5
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
+        $("#tabla").paginationTdA({
             elemPerPage: 5
         });
-
-        //------------------------------------Funciones------------------------
-
+    </script>
+    <script>
         function DeleteDsTr(id) {
             const capsula1 = () => {
-                ajaxRequest("/DestinationsTransportations/Delete?id=" + id, null, "POST")
+                var response = ajaxRequest("DestinationsTransportations/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/DestinationsTransportations?success=true';
+                }
             };
 
-            sweetAlertconfirm("¿Está seguro de eliminar este registro?", "Este registro se borrará permanentemente", "warning", capsula1);
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
 
         };
     </script>
+
 }

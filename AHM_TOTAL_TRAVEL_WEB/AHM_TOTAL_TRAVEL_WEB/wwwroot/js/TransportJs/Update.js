@@ -1,92 +1,55 @@
 ﻿$("#errorDiv").hide();
 
-
-//function ObtenerDatosTransportes(id) {
-
-//    $.ajax({
-//        url: 'https://totaltravel.somee.com/API/Transports/Find?id='+ id,
-//        headers: {
-//            'Content-Type': 'application/x-www-form-urlencoded'
-//        },
-//        type: "GET",
-//        dataType: "json",
-//        async: true,
-//        data: {
-//        },
-//        success: function (result) {
-//            const data = result.data;
-//            console.log(data);
-//            idTransporte = id;
-//            $("#Muni_ID").val(data.id);
-//            $(`#updateModal #cbbDepartamentos2 option[value = "${data.departamentoID}"]`).prop("selected", true);
-
-//            //window.location = "pagina.html";
-//        },
-//        error: function () {
-//            console.log("error");
-//        }
-//    });
-//}
-
-
+$(`#Count_ID option[value = "${Pais_ID}"]`).prop("selected", true);
+$(`#City_ID option[value = "${Ciud_ID}"]`).prop("selected", true);
+$(`#Part_ID option[value = "${Part_ID}"]`).prop("selected", true);
+$(`#TiTr_ID option[value = "${TiTr_ID}"]`).prop("selected", true);
 
 function updateTransport(id) {
 
-    if ($('#Colonia').val() == 0) {
-        $("#labelvalidatorCol").html("Ingrese una colonia.");
-    }
-    else {
-        $("#labelvalidatorCol").html(" ");
-    }
-    if ($('#Calle').val() == 0) {
-        $("#labelvalidatorCalle").html("Ingrese una calle.");
-    }
-    else {
-        $("#labelvalidatorCalle").html(" ");
-    }
-    if ($('#Avenida').val() == 0) {
-        $("#labelvalidatorAve").html("Ingrese una avenida.");
-    }
-    else {
-        $("#labelvalidatorAve").html(" ");
-    }
-    if ($('#Count_ID').val() == 0) {
-        $("#labelvalidatorPais").html("Seleccione un país.");
-    } else {
-        $("#labelvalidatorPais").html(" ");
-    }
-    if ($('#City_ID').val() == 0) {
-        $("#labelvalidatorCiudad").html("Seleccione una ciudad.");
-    } else {
-        $("#labelvalidatorCiudad").html(" ");
-    }
-    if ($('#Part_ID').val() == 0) {
-        $("#labelvalidatorPartner").html("Seleccione un socio.");
-    } else {
-        $("#labelvalidatorPartner").html(" ");
-    }
-    if ($('#TiTr_ID').val() == 0) {
-        $("#labelvalidatorTipoTransporte").html("Seleccione un tipo de transporte.");
-    } else {
-        $("#labelvalidatorTipoTransporte").html(" ");
-    }
-    if ($('#Colonia').val() != 0 && $('#Calle').val() != 0 && $('#Avenida').val() != 0 && $('#Count_ID').val() != 0
-        && $('#City_ID').val() != 0 && $('#TiTr_ID').val() != 0 && $('#Part_ID').val() != 0) {
+    validateArrayForm = [
+        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Colonia") },
+        { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
+        { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
+        { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
+        { validateMessage: "Seleccione una ciudad.", Jqueryinput: $("#City_ID") },
+        { validateMessage: "Seleccione un socio.", Jqueryinput: $("#Part_ID") },
+        { validateMessage: "Seleccione un tipo de transporte.", Jqueryinput: $("#TiTr_ID") }
+    ];
+    const validacion = ValidateForm(validateArrayForm);
+    if (validacion) {
 
-        var direStatus = false;
-        var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
-        var dire = AdressViewModel;
+        var coloStatus = false;
+        var colo = SuburbsViewModel;
 
-        dire.Dire_Descripcion = fullAddress;
-        dire.Ciud_ID = parseInt($("#City_ID").val());
-        var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
-        var DireID;
-        if (responseAddress.code == 200) {
+        colo.colo_Descripcion = ($("#Colonia").val());
+        colo.ciud_ID = parseInt($("#City_ID").val());
+        var responseSuburb = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/Insert", colo, "POST");
+        var ColoID;
+        if (responseSuburb.code == 200) {
 
-            DireID = responseAddress.data.codeStatus;
-            direStatus = true;
+            ColoID = responseSuburb.data.codeStatus;
+            coloStatus = true;
         } else {
-            console.log(responseAddress)
+            console.log(responseSuburb)
+        }
+
+        if (coloStatus) {
+            var direStatus = false;
+            var dire = AdressViewModel;
+
+            dire.colo_ID = parseInt(ColoID);
+            dire.dire_Calle = ($("#Calle").val());
+            dire.dire_Avenida = ($("#Avenida").val());
+            var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+            var DireID;
+            if (responseAddress.code == 200) {
+
+                DireID = responseAddress.data.codeStatus;
+                direStatus = true;
+            } else {
+                console.log(responseAddress)
+            }
         }
 
         if (direStatus) {

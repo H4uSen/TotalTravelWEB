@@ -33,12 +33,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
     public class RestaurantViewModel
     {
-        
-        public int Dire_ID  { get; set; }
+
+        public int Rest_ID { get; set; }
+        public int? Dire_ID { get; set; }
         public string Rest_Nombre { get; set; }
-        public string Part_ID { get; set; }
-        public int Rest_UsuarioCreacion { get; set; }
-        public string Rest_UsuarioModifica { get; set; }
-        public List<IFormFile> File { get; set; }
+        public int? Part_ID { get; set; }
+        public int? Rest_UsuarioCreacion { get; set; }
+        public DateTime? Rest_FechaCreacion { get; set; }
+        public int? Rest_UsuarioModifica { get; set; }
+        public DateTime? Rest_FechaModifica { get; set; }
+        public bool? Rest_Estado { get; set; }
+        public string Rest_Url { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-$("#image_profile").prop("src", "https://" + url_image);
+﻿$("#image_profile").prop("src", "https://" + url_image);
 
 RellenarCiudades(Pais_ID);
 RellenarColonias(Ciud_ID);
@@ -11,21 +9,44 @@ $(`#Colonia option[value = "${Colonia_ID}"]`).prop("selected", true);
 
 $('.ui.dropdown').dropdown();
 
+$('#Pais').change(function () {
+    RellenarCiudades($('#Pais').val());
+})
+//$('#Pais').change(RellenarCiudades($('#Pais').val()))
+
+
 function UpdateUser() {
-    var direStatus = false;
-    var fullAddress = `Colonia. ${$('#Colonia').val()}, Calle. ${$('#Calle').val()}, Avenida. ${$('#Avenida').val()}`;
-    var dire = AdressViewModel;
+    var coloStatus = false;
+    var colo = SuburbsViewModel;
 
-    dire.Dire_Descripcion = fullAddress;
-    dire.Ciud_ID = parseInt($("#Ciudad").val());
-    var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
-    var DireID;
-    if (responseAddress.code == 200) {
+    colo.colo_Descripcion = ($("#Colonia").val());
+    colo.ciud_ID = parseInt($("#City_ID").val());
+    var responseSuburb = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/Insert", colo, "POST");
+    var ColoID;
+    if (responseSuburb.code == 200) {
 
-        DireID = responseAddress.data.codeStatus;
-        direStatus = true;
+        ColoID = responseSuburb.data.codeStatus;
+        coloStatus = true;
     } else {
-        console.log(responseAddress)
+        console.log(responseSuburb)
+    }
+
+    if (coloStatus) {
+        var direStatus = false;
+        var dire = AdressViewModel;
+
+        dire.colo_ID = parseInt(ColoID);
+        dire.dire_Calle = ($("#Calle").val());
+        dire.dire_Avenida = ($("#Avenida").val());
+        var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var DireID;
+        if (responseAddress.code == 200) {
+
+            DireID = responseAddress.data.codeStatus;
+            direStatus = true;
+        } else {
+            console.log(responseAddress)
+        }
     }
     if (direStatus) {
         const Client_Partner_ID = parseInt(GetCookie("Partner_Id"));

@@ -77,11 +77,43 @@
                         </div>
 
 
-                        <div class="field">
-                            <div class="required field">
-                                <label class="ui label">Imagen</label>
-                                <input id="File" type="file" multiple />
+                        <div class="ui grid three column stackable">
+
+                            <div class="column">
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        No documents are listed for this customer.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="flHotelImages" class="ui primary button">
+                                        Add Document
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header" id="HotelCarouselHeader">
+                                        <i class="images icon"></i>
+                                        your photos will appear here
+                                    </div>
+
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 

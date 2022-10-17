@@ -23,7 +23,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
+            var token = HttpContext.User.FindFirst("Token").Value;
             var list = await _transportService.TransportList();
+            //var direccion = (AddressListViewModel)(await _generalService.AddressFind(.ToString(), token)).Data;
+
+            //ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
             return View(list.Data);
         }
 
@@ -80,11 +84,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Part_ID = element.PartnerID;
             item.Dire_ID = element.DireccionId;
 
-            //var direccion = ((AddressListViewModel)(await _generalService.AddressFind(item.Dire_ID.ToString(), token)).Data).Direccion;
-            //var direccionDetalle = direccion.Split(", ");
-            //ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
-            //ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
-            //ViewData["Avenida"] = direccionDetalle[2].Split(". ")[1];
+            var direccion = (AddressListViewModel)(await _generalService.AddressFind(item.Dire_ID.ToString(), token)).Data;
+
+            ViewData["Calle"] = direccion.Calle;
+            ViewData["Avenida"] = direccion.Avenida;
+            ViewData["Pais"] = direccion.ID_Pais;
+            ViewData["Ciudad"] = direccion.ID_Ciudad;
+            ViewData["Colonia"] = direccion.Colonia;
+            ViewData["Partner"] = item.Part_ID;
+            ViewData["TipoTransporte"] = item.TiTr_ID;
 
             var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
@@ -123,23 +131,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(TransportViewModel transporte, int id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var idd = HttpContext.User.FindFirst("User_Id").Value;
-        //        transporte.Tprt_UsuarioModifica = int.Parse(idd);
-        //        string token = HttpContext.User.FindFirst("Token").Value;
-        //        var list = await _transportService.TransportDelete(transporte, id, token);
+        [HttpPost]
+        public async Task<IActionResult> Delete(TransportViewModel Transporte, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                Transporte.Tprt_UsuarioModifica = int.Parse(idd);
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _transportService.TransportDelete(Transporte, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
 
 
         public async Task<IActionResult> Details(string id)
