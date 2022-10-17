@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="~/assets/css/style.default.css">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="~/css/TableStyles.css" />
     <!-- Frameworks alerts -->
     <link rel="stylesheet" href="~/assets/css/iziToast.min.css">
     <!-- Favicon-->
@@ -177,14 +178,17 @@
             <nav class="side-navbar">
                 <!-- Sidebar Header-->
                 <div class="sidebar-header d-flex align-items-center py-4 px-3">
-                    <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
+                    <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize"  asp-area="" asp-controller="Account" asp-action="Index" style="color: black; text-decoration: inherit;">
+                        <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;margin-left: 25%;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
+                    </a>
+                    
                     <div class="ms-3 title">
 
                         <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize" asp-area="" asp-controller="Account" asp-action="Index" style="color: black; text-decoration: inherit;">
                             @Context.Session.GetString("Name")
                         </a>
                     </div>
-                    </a><!-- End Profile Image Icon -->
+                    <!-- End Profile Image Icon -->
                 </div>
                 @{
                     if (usersRole == "Administrador")
@@ -206,15 +210,20 @@
                             Admin
                         </span>
                         <ul class="list-unstyled py-4">
+
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#Access_Schema" data-toggle="collapse">
+                                <a class="sidebar-link" id="AccessModule" href="#Access_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     Modulo de Acceso
                                 </a>
                                 <ul class="collapse list-unstyled" id="Access_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Users")">Usuarios</a></li>
-
                                 </ul>
-                                <a class="sidebar-link" href="#General_Schema" data-toggle="collapse">
+                            </li>
+
+
+                            <li class="sidebar-item" id="GeneralModule">
+                                <a class="sidebar-link" id="GeneralModule" href="#General_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
                                     Modulo General
                                 </a>
                                 <ul class="collapse list-unstyled" id="General_Schema">
@@ -225,7 +234,11 @@
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Partners")">Socios</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","PartnerType")">Tipo de Socios</a></li>
                                 </ul>
-                                <a class="sidebar-link" data-target="#Restaurant_Schema" data-toggle="collapse">
+                            </li>
+
+                            <li class="sidebar-item" id="RestaurantModule">
+                                <a class="sidebar-link" id="RestaurantModule" href="#Restaurant_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
                                     Modulo de Restaurantes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Restaurant_Schema">
@@ -233,7 +246,11 @@
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Menus")">Menus</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypeMenus")">Tipo Menús</a></li>
                                 </ul>
-                                <a class="sidebar-link" href="#Transport_Schema" data-toggle="collapse">
+                            </li>
+
+                            <li class="sidebar-item" id="TransportModule">
+                                <a class="sidebar-link" id="TransportModule" href="#Transport_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
                                     Modulo de Transportes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Transport_Schema">
@@ -242,7 +259,11 @@
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos Transportes</a></li>
                                 </ul>
-                                <a class="sidebar-link" href="#Activity_Schema" data-toggle="collapse">
+                            </li>
+
+                            <li class="sidebar-item" id="ActivitiesModule">
+                                <a class="sidebar-link" id="ActivitiesModule" href="#Activity_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
                                     Modulo de Actividades
                                 </a>
                                 <ul class="collapse list-unstyled" id="Activity_Schema">
@@ -250,7 +271,11 @@
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ActivitiesExtra")">Actividades Extra</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypesActivities")">Tipos de Actividades</a></li>
                                 </ul>
-                                <a class="sidebar-link" href="#Hotels_Schema" data-toggle="collapse">
+                            </li>
+
+                            <li class="sidebar-item" id="HotelModule">
+                                <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
                                     Modulo de Hoteles
                                 </a>
                                 <ul class="collapse list-unstyled" id="Hotels_Schema">
@@ -258,26 +283,31 @@
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Hoteles Menu</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Hoteles Actividades</a></li>
-
                                 </ul>
+                            </li>
 
-                                <a class="sidebar-link" href="#Sale_Schema" data-toggle="collapse">
-                                    Modulo Ventas
+                            <li class="sidebar-item" id="SalesModule">
+                                <a class="sidebar-link" id="SalesModule" href="#Sale_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
+                                    Modulo de Ventas
                                 </a>
                                 <ul class="collapse list-unstyled" id="Sale_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DefaultPackages")">Paquetes Predeterminados</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DefaultPackagesDetails")">Paquetes Predeterminados Detalles</a></li>
                                 </ul>
+                            </li>
 
 
-                                <a class="sidebar-link" href="#Reservation_Schema" data-toggle="collapse">
-                                    Modulo Reservaciones
+
+                            <li class="sidebar-item" id="ReservationModule">
+                                <a class="sidebar-link" id="ReservationModule" href="#Reservation_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    
+                                    Modulo de Reservaciones
                                 </a>
                                 <ul class="collapse list-unstyled" id="Reservation_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationTransportation")">Reservacion Transporte</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservacion Actividades Extra</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationRestaurant")">Reservacion Restaurant</a></li>
-
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationRestaurant")">Reservacion Restaurante</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -372,6 +402,7 @@
     <script src="~/js/main.js"></script>
     <script src="~/js/JSON_Models.js"></script>
     @RenderSection("Scripts", required: false)
+    @RenderSection("HighlightTile", required: false)
 
     <style type="text/css">
         <!--
@@ -422,7 +453,6 @@
         function googleTranslateElementInit2() { new google.translate.TranslateElement({ pageLanguage: 'es', autoDisplay: true }, 'google_translate_element2'); }
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
-
 
     <script type="text/javascript">
         /* <![CDATA[ */

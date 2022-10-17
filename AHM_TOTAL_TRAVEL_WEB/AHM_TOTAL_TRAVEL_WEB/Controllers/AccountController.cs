@@ -40,7 +40,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Avenida"] = direccion.Avenida;
             ViewData["Pais"] = direccion.ID_Pais;
             ViewData["Ciudad"] = direccion.ID_Ciudad;
-            ViewData["Colonia"] = direccion.ID_Colonia;
+            ViewData["Colonia"] = direccion.Colonia;
             ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
 
             //var direccionDetalle = direccion.Direccion.Split(", ");           PERDON ):
