@@ -71,14 +71,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var hotel = await _HotelsService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
-            ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel");
-
-            var rest = await _RestaurantService.RestaurantsList(token);
-            IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;
-            ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante");
+           
 
             var item = new DefaultPackagesViewModel();
             IEnumerable<DefaultPackagesListViewModel> model = null;
@@ -90,14 +83,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.paqu_Duracion=element.Duracion_Paquete;
             item.paqu_Nombre = element.Nombre;
             item.paqu_Precio = element.Precio;
-            
-            
+            item.hote_ID = element.ID_Hotel;
+            item.rest_ID = element.ID_Restaurante;
 
-            //IEnumerable<EstablecimientoListViewModel> model_Est = null;
-            //var Establecimiento = await _generalServices.EstablecimientosList(model_Est);
-            //IEnumerable<EstablecimientoListViewModel> data_Establecimiento = (IEnumerable<EstablecimientoListViewModel>)Establecimiento.Data;
-            //ViewBag.Est_ID = new SelectList(data_Establecimiento, "ID", "Descripcion", element.EstablecimientoID);
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var hotel = await _HotelsService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
+            ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel",element.ID_Hotel);
 
+            var rest = await _RestaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;
+            ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante",element.ID_Restaurante);
+
+          
+            
+                   
             return View(item);
 
         }

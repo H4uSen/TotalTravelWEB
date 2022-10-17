@@ -67,9 +67,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            //var typeTransportation = await _transportService.TypesTransportList();
-            //IEnumerable<TypesTransportListViewModel> data_TypeTransportation = (IEnumerable<TypesTransportListViewModel>)typeTransportation.Data;
-            //ViewBag.Tprt_ID = new SelectList(data_TypeTransportation, "ID", "Trasporte");
 
             var item = new TransportDetailsViewModel();
             IEnumerable<TransportDetailsListViewModel> model = null;
@@ -81,8 +78,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //item.HoTr_ID = element.Fecha;
             item.DeTr_Precio = element.Precio;
             item.DeTr_Matricula = element.Matricula;
-            ViewData["Tprt_ID"] = element.Tipo_Transporte_ID;
-            ViewData["HoTr_ID"] = element.Horario_ID;
+            item.Tprt_ID = element.Tipo_Transporte_ID;
+            item.HoTr_ID = element.Horario_ID;
+
+            ViewData["HorarioID"] = element.Horario_ID;
+
+            var typeTransportation = await _transportService.TypesTransportList();
+            IEnumerable<TypesTransportListViewModel> data_TypeTransportation = (IEnumerable<TypesTransportListViewModel>)typeTransportation.Data;
+            ViewBag.Tprt_ID = new SelectList(data_TypeTransportation, "ID", "Trasporte", element.Tipo_Transporte_ID);
+
+            //var horario = await _transportService.TypesTransportList();
+            //IEnumerable<TransportDetailsListViewModel> data_Horario = (IEnumerable<TransportDetailsListViewModel>)horario.Data;
+            //ViewBag.HoTr_ID = new SelectList(data_Horario, "ID", "Trasporte", element.Horario_ID);
 
             return View(item);
 

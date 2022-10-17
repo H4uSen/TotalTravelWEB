@@ -43,6 +43,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Colonia"] = direccion.Colonia;
             ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
 
+            var fechanaci = cuenta.Fecha_Nacimiento.ToString().Split(" ");
+            ViewData["Fechanaci"] = fechanaci[0];
+
             //var direccionDetalle = direccion.Direccion.Split(", ");           PERDON ):
             //ViewData["Colonia"] = direccionDetalle[0].Split(". ")[1];
             //ViewData["Calle"] = direccionDetalle[1].Split(". ")[1];
