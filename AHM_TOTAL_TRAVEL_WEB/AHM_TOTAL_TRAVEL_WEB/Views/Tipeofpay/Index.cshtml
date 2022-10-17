@@ -1,0 +1,175 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.categoryroomsListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="icon dollar sign"></i>
+            <div class="content">
+                <div class="header">
+                    Tipos de pago
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <button id="createTipeofpay" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+        <table class="ui compact selectable celled table" id="grdPayment">
+            <thead>
+                <tr>
+                    <th>
+                        Descrpcion
+                    </th>
+
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            <a class="ui large icon btn-edit button" id="Updatepaymet" onclick="Updatepaymet(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <button class="ui large icon btn-delete button" onclick=" DeleteTipeofpay(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("details","Tipeofpay",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+    </div>
+</div>
+<br>
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un tipo de pago
+    </div>
+    <form asp-action="Create" asp-controller="Tipeofpay" id="createtypeofpayForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label>Tipo de pago </label>
+                    <div class="two fields">
+                        <div class="field">
+                            <label> </label>
+                            <input id="payment" name="TiPa_Descripcion" placeholder="Descripcion del tipo de pago" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeTipeofpay">Cerrar</button>
+        <button class="ui button" id="sendTipeofpay" onclick="validar()">Guardar</button>
+    </div>
+</div>
+
+
+<div class="ui modal" id="modalUpdate">
+    <div class="header">
+        Actualiza un tipo de Pago
+    </div>
+    <form asp-action="Update" asp-controller="Tipeofpay" id="updateTipeofpayForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <input name="TiPa_ID" id="TiPa_ID" style="visibility:hidden" />
+                <div class="field">
+                    <label>Descripción</label>
+                    <input name="TiPa_Descripcion" id="TiPa_DescripcionUpdate" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="sendEditTipeofpay">Guardar</button>
+        <button class="ui button" id="closeEditTipeofpay">Cancelar</button>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script src="~/js/PaymentTypes/Update.js">
+    </script>
+    <script>
+            function validar() {
+                const userValidateArray = [
+            {validateMessage: "Ingrese un tipo de pago'", Jqueryinput: $("#payment") }
+            ];
+
+            const userValidate = ValidateForm(userValidateArray);
+
+            if (userValidate) {
+
+                    var data = PaymentTypesViewModel;
+            data.tiPa_Descripcion = $("#payment").val();
+
+            const response = ajaxRequest(
+            "https://totaltravel.somee.com/API/PaymentTypes/Insert",
+            data, "POST"
+            );
+            if (response.code == 200) {
+                location.reload();
+                    }
+                }
+
+
+            }
+            $("#createTipeofpay").click(() => {
+                $("#modalCreate").modal("show")
+            })
+            // ----------------------------------- EVENTS ------------------------------------
+            TableSearchInput($("#txtSearch"), $("#grdPayment"), elemPerPage = 10)
+
+            $("#grdPayment").paginationTdA({
+                elemPerPage: 10
+            });
+
+
+            function DeleteTipeofpay(id) {
+                const capsula1 = () => {
+                    var response = ajaxRequest("Tipeofpay/Delete?id=" + id, null, "POST");
+                    if (response > 0) {
+                window.location.href = '/Tipeofpay?success=true';
+                    }
+                };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+            };
+    </script>
+}
