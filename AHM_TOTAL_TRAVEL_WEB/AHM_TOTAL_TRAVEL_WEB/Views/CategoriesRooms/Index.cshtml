@@ -123,6 +123,7 @@
 @section HighlightTile{
 
     <script src="~/js/CategoriesRooms/Update.js"></script>
+
     <script>
         $("#HotelModule").addClass("active");
         $("#Hotels_Schema").addClass("show");
@@ -132,9 +133,6 @@
 
 
 @section Scripts{
-
-
-
     <script>
 
         function validar() {
@@ -161,6 +159,10 @@
         $("#createCategoryrooms").click(() => {
             $("#modalCreate").modal("show")
         })
+
+        $("#closeCategoryrooms").click(() => {
+            $("#modalCreate").modal('hide');
+        });
         // ----------------------------------- EVENTS ------------------------------------
         TableSearchInput($("#txtSearch"), $("#grdcategorye"), elemPerPage = 10)
 
