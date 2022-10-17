@@ -35,7 +35,7 @@
                             <div class="field">
                                 <label>Descripcion</label>
                                 @Html.DisplayFor(model => model.Descripcion)
-                            </div>                 
+                            </div>
                         </div>
                     </div>
                     <div class="field">
@@ -97,5 +97,11 @@
     </div>
 </div>
 
-
+@section HighlightTile{
+    <script>
+        $("#GeneralModule").addClass("active");
+        $("#General_Schema").addClass("show");
+        $("#GeneralModule").addClass("expandedList")
+    </script>
+}
 
