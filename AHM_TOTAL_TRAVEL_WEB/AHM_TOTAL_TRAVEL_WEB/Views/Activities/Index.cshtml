@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createActivities" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
+                <button id="createActivities" class="ui small primary labeled icon btn-purple button"><i class="plus icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -138,14 +138,14 @@
                         <input name="Actv_ID" id="Actv_ID" />
                         <label class="required">Descripcion</label>
                         <input id="ActividadUpdate" name="actv_Descripcion" placeholder="Descripcion de la Actividad" />
-                        
+
                     </div>
                     <div class="field">
                         <label class="required">Tipo Actividad</label>
                         <select id="TiPoAc_IDUpdate" name="tiAc_ID" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
                             <option value="">Seleccione el tipo de Actividad</option>
                         </select>
-                        
+
                     </div>
 
                 </div>
@@ -159,10 +159,10 @@
 </div>
 
 @section Scripts{
-<script src="~/js/ActivitiesExtraJs/Create.js"></script>
-<script src="~/js/ActivitiesExtraJs/Update.js"></script>
+    <script src="~/js/ActivitiesExtraJs/Create.js"></script>
+    <script src="~/js/ActivitiesExtraJs/Update.js"></script>
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdRestaurants tbody tr"), function () {
@@ -193,5 +193,13 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
 
         };
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#ActivitiesModule").addClass("active");
+        $("#Activity_Schema").addClass("show");
+        $("#ActivitiesModule").addClass("expandedList")
     </script>
 }
