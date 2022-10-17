@@ -66,7 +66,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var item = new ActivitiesExtrasViewModel();
             IEnumerable<ActivitiesExtrasListViewModel> model = null;
             string token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _activitiesServices.ExtraActivitiesList(model, token);
+            var list = await _activitiesServices.ExtraActivitiesList(token);
             IEnumerable<ActivitiesExtrasListViewModel> data = (IEnumerable<ActivitiesExtrasListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.acEx_Descripcion = element.Descripcion;
