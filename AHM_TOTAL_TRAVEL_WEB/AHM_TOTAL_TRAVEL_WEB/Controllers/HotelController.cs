@@ -84,22 +84,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(ActivitiesViewModel actividad, int id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        actividad.actv_UsuarioModifica = 1;
+        [HttpPost]
+        public async Task<IActionResult> Delete(HotelViewModel hotel, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                hotel.Hote_UsuarioModifica = int.Parse(idd);
 
-        //        string token = HttpContext.User.FindFirst("Token").Value;
-        //        var list = await _activitiesServices.ActivitiesDelete(actividad, id, token);
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _hotelService.HotelDelete(hotel, id, token)).Data;
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }
