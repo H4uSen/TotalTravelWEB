@@ -103,5 +103,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var hotel = (HotelListViewModel)(await _hotelService.HotelFind(id, token)).Data;
+
+
+            return View(hotel);
+        }
     }
 }

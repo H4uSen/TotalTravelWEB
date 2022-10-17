@@ -408,6 +408,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+        public async Task<ServiceResult> HotelFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var hotel = new HotelListViewModel();
+
+            try
+            {
+                var response = await _api.Get<HotelListViewModel, HotelListViewModel>(req =>
+                {
+                    req.Path = $"/API/Hotels/Find?id=" + id;
+                    req.Content = hotel;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
 
         #endregion
 
