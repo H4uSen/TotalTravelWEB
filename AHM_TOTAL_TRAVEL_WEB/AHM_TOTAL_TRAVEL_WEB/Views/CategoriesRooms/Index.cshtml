@@ -67,11 +67,11 @@
 </table>
 <br>
 
-  
+
 <br>
 
 <div class="ui modal longer" id="modalCreate">
-    
+
     <div class="header">
         Ingresa una categoria de habitacion
     </div>
@@ -93,7 +93,7 @@
     <div class="actions">
 
         <button class="ui button button btn-purple text-white" id="sendCategoryrooms" onclick="validar()">Guardar</button>
-        <button class="ui button" id="closeCategoryrooms">Cancelar</button> 
+        <button class="ui button" id="closeCategoryrooms">Cancelar</button>
 
     </div>
 </div>
@@ -126,47 +126,55 @@
 @section Scripts{
     <script src="~/js/CategoriesRooms/Update.js"></script>
     <script>
-        function validar() {
-            const userValidateArray = [
-                { validateMessage: "Ingrese una categoria '", Jqueryinput: $("#category") }
-            ];
+        $("#SalesModule").addClass("active");
+        $("#Sale_Schema").addClass("show");
+        $("#SalesModule").addClass("expandedList")
+    </script>
+}
 
-            const userValidate = ValidateForm(userValidateArray);
+<script>
 
-            if (userValidate) {
+    function validar() {
+        const userValidateArray = [
+            { validateMessage: "Ingrese una categoria '", Jqueryinput: $("#category") }
+        ];
 
-                var data = categorysroomsViewModel;
-                data.CaHa_Descripcion = $("#category").val();
+        const userValidate = ValidateForm(userValidateArray);
 
-                const response = ajaxRequest(
-                    "https://totaltravel.somee.com/API/Categoriesrooms/Insert",
-                    data, "POST"
-                );
-                if (response.code == 200) {
-                    location.reload();
-                }
+        if (userValidate) {
+
+            var data = categorysroomsViewModel;
+            data.CaHa_Descripcion = $("#category").val();
+
+            const response = ajaxRequest(
+                "https://totaltravel.somee.com/API/Categoriesrooms/Insert",
+                data, "POST"
+            );
+            if (response.code == 200) {
+                location.reload();
             }
         }
-        $("#createCategoryrooms").click(() => {
-            $("#modalCreate").modal("show")
-        })
-        // ----------------------------------- EVENTS ------------------------------------
-        TableSearchInput($("#txtSearch"), $("#grdcategorye"), elemPerPage = 10)
+    }
+    $("#createCategoryrooms").click(() => {
+        $("#modalCreate").modal("show")
+    })
+    // ----------------------------------- EVENTS ------------------------------------
+    TableSearchInput($("#txtSearch"), $("#grdcategorye"), elemPerPage = 10)
 
-        $("#grdcategorye").paginationTdA({
-            elemPerPage: 10
-        });
+    $("#grdcategorye").paginationTdA({
+        elemPerPage: 10
+    });
 
 
-        function DeleteCategoriesRooms(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("CategoriesRooms/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/CategoriesRooms?success=true';
-                }
-            };
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
+    function DeleteCategoriesRooms(id) {
+        const capsula1 = () => {
+            var response = ajaxRequest("CategoriesRooms/Delete?id=" + id, null, "POST");
+            if (response > 0) {
+                window.location.href = '/CategoriesRooms?success=true';
+            }
         };
-    </script>
+        sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+    };
+</script>
 }
