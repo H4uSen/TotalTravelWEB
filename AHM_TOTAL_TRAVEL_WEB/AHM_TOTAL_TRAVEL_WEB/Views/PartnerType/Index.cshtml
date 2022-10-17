@@ -145,74 +145,32 @@
 
 @section Scripts{
     <script src="~/js/PartnerType/Create.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#TiPar_ID").hide();
-        });
-
-        $("#closeEditTipoPartner").click(() => {
-            $("#modalUpdate").modal('hide');
-        });
-        //$("#UpdateBottomTipoPartner").click(() => {
-        //    $("#modalUpdate").modal('show');
-        //});
+    <script src="~/js/PartnerType/Update.js"></script>
+            <script>
 
 
-        function GetTipoPartner(id) {
-            var response = ajaxRequest("https://totaltravel.somee.com/API/PartnerType/Find?id=" + id);
-            if (response.code == 200) {
-                $('#TiPar_ID').val(id);
-                $('#TiPar_DescripcionUpdate').val(response.data.descripcion);
-                const parent = $("#Rol_IDUpdate").parent();
-                parent.find(`.menu .item[data-value="${response.data.iD_Role_ID}"]`).addClass(["selected", "active"]);
-
-                if ($('#TiPar_DescripcionUpdate').val() != 0) {
-                    $("#modalUpdate").modal('show');
-                }
-
-            }
-        }
-
-       
-        function sendUpdate() {
-            console.log("a");
-            const ValidateArray = [
-                { validateMessage: "Ingrese una descripcion de tipo de socio", Jqueryinput: $("#TiPar_DescripcionUpdate") },
-                { validateMessage: "Seleccione un Rol para el socio", Jqueryinput: $("#Rol_IDUpdate") }
-            ];
-            const userValidate = ValidateForm(ValidateArray);
-            if (userValidate) {
-                $("#updateTipoPartnerForm").submit();
-            }
-
-        }
-        
-
-        // ----------------------------------- EVENTS ------------------------------------
-        TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
 
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 10
-        });
+            // ----------------------------------- EVENTS ------------------------------------
+                TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
 
-        function DeleteTipoPartner(id) {
-            const Tpartner = () => {
-                const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
-                if (result > 0) {
+
+                $("#grdRestaurants").paginationTdA({
+                    elemPerPage: 10
+            });
+
+                function DeleteTipoPartner(id) {
+                const Tpartner = () => {
+                    const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
+                    if (result > 0) {
                     location.reload();
-                }
+                    }
+                };
+
+                sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
+
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
-
-        };
-
-        $(document).ready(function () {
-            $("#Time_ID").hide();
-
-        });
-
-        
+               
     </script>
 }
