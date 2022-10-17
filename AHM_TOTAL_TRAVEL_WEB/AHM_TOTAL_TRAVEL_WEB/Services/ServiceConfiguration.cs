@@ -21,7 +21,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             services.AddTransient<HotelsService>();
             services.AddTransient<GeneralService>();
             services.AddTransient<RestaurantService>();
-            services.AddTransient<RegistrationPaymentsService>();
             services.AddTransient<TransportService>();
             services.AddTransient<ReservationService>();
             services.AddTransient<HttpClient>();
