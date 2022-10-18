@@ -29,14 +29,13 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Reservacion</label>
-                                    <select id="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
+                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
                                         <option value="">Seleccione un partner</option>
                                     </select>
                                 </div>
                                 <div class="required field">
                                     <label>Cantidad</label>
-                                    <input id="ReAE_Cantidad" placeholder="Cantidad" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReAE_Cantidad"></span>
+                                    <input id="ReAE_Cantidad" name="ReAE_Cantidad" placeholder="Cantidad" />
                                 </div>
                                 
 
@@ -47,23 +46,21 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Reservacion</label>
-                                    <select id="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
+                                    <select id="AcEx_ID" name="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
                                         <option value="">Seleccione un partner</option>
                                     </select>
                                 </div>
                                 <div class="required field">
                                     <label>Fecha Reservacion</label>
-                                    <input id="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReAE_FechaReservacion"></span>
+                                    <input id="ReAE_FechaReservacion" name="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="required field">
-                                <label>Hora Reservacion</label>
-                                <input id="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
-                                <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReAE_HoraReservacion"></span>
+                                <label>Hora Reservacion</label> 
+                                <input id="ReAE_HoraReservacion" name="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
                             </div>
 
                         </div>
