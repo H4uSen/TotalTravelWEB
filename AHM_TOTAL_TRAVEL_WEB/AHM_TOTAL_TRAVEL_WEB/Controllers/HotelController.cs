@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class HotelController : Controller
     {
         private readonly HotelsService _hotelService;
+        private readonly GeneralService _generalService;
 
-        public HotelController(HotelsService hotelService)
+        public HotelController(HotelsService hotelService, GeneralService generalService)
         {
             _hotelService = hotelService;
+            _generalService = generalService;
         }
 
         //[HttpGet]
@@ -27,8 +30,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            //string token = HttpContext.User.FindFirst("Token").Value;
+
+            var country = await _generalService.CountriesList();
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+            var city = await _generalService.CitiesList();
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+            var partners = await _generalService.PartnersList();
+            IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
+            ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+
             return View();
         }
 
