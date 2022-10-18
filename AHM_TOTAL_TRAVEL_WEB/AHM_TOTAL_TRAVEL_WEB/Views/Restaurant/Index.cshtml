@@ -88,40 +88,7 @@
 <br>
 
 @section Scripts{
-    <script>
-        // ----------------------------------- EVENTS ------------------------------------
-        //TableSearchInput(SearchInput, Table, elemPerPage = 10)
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 10
-        });
-
-        function DeleteRestaurant(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("Restaurant/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/Restaurant?success=true';
-                }
-            };
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
-        };
-    </script>
+    <script src="~/js/RestaurantJs/Delete.js"></script>
 }
 
 @section HighlightTile{
