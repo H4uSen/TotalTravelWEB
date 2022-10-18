@@ -27,6 +27,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? NumeroPersonas { get; set; }
         public int? CantidadPagos { get; set; }
         public int? Id_Paquete { get; set; }
+        public string DescripcionPaquete { get; set; }
         public decimal? precio { get; set; }
         public int Id_Cliente { get; set; }
         public string Nombre { get; set; }
@@ -44,7 +45,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? Id_UsuarioModifica { get; set; }
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
-
     }
 
 }
