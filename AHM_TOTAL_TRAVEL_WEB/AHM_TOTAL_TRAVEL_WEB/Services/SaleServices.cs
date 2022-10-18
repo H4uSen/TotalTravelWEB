@@ -166,91 +166,92 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
         #region RoomPackages
-        //        public async Task<ServiceResult> RoomPackagesList(IEnumerable<DefaultPackagesListViewModel> model)
-        //        {
-        //            var result = new ServiceResult();
-        //            try
-        //            {
-        //                var response = await _api.Get<IEnumerable<DefaultPackagesListViewModel>, IEnumerable<DefaultPackagesListViewModel>>(req => {
-        //                    req.Path = $"/API/DefaultPackages/List";
-        //                    req.Content = null;
-        //                }
-        //                );
-        //                if (!response.Success)
-        //                {
-        //                    return result.FromApi(response);
-        //                }
-        //                else
-        //                {
-        //                    return result.Ok(response.Data);
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                return result.Error(Helpers.GetMessage(ex));
-        //                throw;
-        //            }
-        //        }
+        public async Task<ServiceResult> RoomsPackagesList(IEnumerable<RoomsPackagesListViewModel> model)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var response = await _api.Get<IEnumerable<RoomsPackagesListViewModel>, IEnumerable<RoomsPackagesListViewModel>>(req =>
+                {
+                    req.Path = $"/API/RoomsPackages/List";
+                    req.Content = null;
+                }
+                );
+                if (!response.Success)
+                {
+                    return result.FromApi(response);
+                }
+                else
+                {
+                    return result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
 
-        //        public async Task<ServiceResult> RoomPackagesCreate(DefaultPackagesViewModel actividad, string token)
-        //        {
-        //            var Result = new ServiceResult();
+        public async Task<ServiceResult> RoomsPackagesCreate(RoomsPackagesViewModel rooms, string token)
+        {
+            var Result = new ServiceResult();
 
-        //            try
-        //            {
-        //                var response = await _api.Post<DefaultPackagesViewModel, RequestStatus>(req =>
-        //                {
-        //                    req.Path = $"/API/DefaultPackages/Insert";
-        //                    req.Content = actividad;
-        //                },
-        //                token
-        //                );
-        //                if (!response.Success)
-        //                {
-        //                    return Result.FromApi(response);
-        //                }
-        //                else
-        //                {
-        //                    return Result.Ok(response.Data);
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                return Result.Error(Helpers.GetMessage(ex));
-        //                throw;
-        //            }
+            try
+            {
+                var response = await _api.Post<RoomsPackagesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/RoomsPackages/Insert";
+                    req.Content = rooms;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
 
-        //        }
+        }
 
-        //        public async Task<ServiceResult> DefaultPackagesUpdate(DefaultPackagesViewModel actividad, string token)
-        //        {
-        //            var Result = new ServiceResult();
+        public async Task<ServiceResult> RoomsPackagesUpdate(RoomsPackagesListViewModel rooms, string token)
+        {
+            var Result = new ServiceResult();
 
-        //            try
-        //            {
-        //                var response = await _api.Put<DefaultPackagesViewModel, RequestStatus>(req =>
-        //                {
-        //                    req.Path = $"/API/DefaultPackages/Update?id=" + actividad.paqu_ID;
-        //                    req.Content = actividad;
-        //                },
-        //                token
-        //                );
-        //                if (!response.Success)
-        //                {
-        //                    return Result.FromApi(response);
-        //                }
-        //                else
-        //                {
-        //                    return Result.Ok(response.Data);
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                return Result.Error(Helpers.GetMessage(ex));
-        //                throw;
-        //            }
+            try
+            {
+                var response = await _api.Put<RoomsPackagesListViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/RoomsPackages/Update?id=" + rooms.ID;
+                    req.Content = rooms;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
 
-        //        }
+        }
         #endregion
 
         #region DefaultPackagesDetails
