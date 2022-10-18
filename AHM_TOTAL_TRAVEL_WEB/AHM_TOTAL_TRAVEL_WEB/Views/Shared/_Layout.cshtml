@@ -233,7 +233,7 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="AccessModule" href="#Access_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    Modulo de Acceso
+                                    Módulo de Acceso
                                 </a>
                                 <ul class="collapse list-unstyled" id="Access_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Users")">Usuarios</a></li>
@@ -244,12 +244,12 @@
                             <li class="sidebar-item" id="GeneralModule">
                                 <a class="sidebar-link" id="GeneralModule" href="#General_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo General
+                                    Módulo General
                                 </a>
                                 <ul class="collapse list-unstyled" id="General_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Countries")">Paises</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","City")">Ciudad</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Suburbs")">Colonias</a></li>
+                                    <li><a id="Suburbs_Index" class="sidebar-link" href="@Url.Action("Index","Suburbs")">Colonias</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Address")">Direcciones</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Partners")">Socios</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","PartnerType")">Tipo de Socios</a></li>
@@ -259,7 +259,7 @@
                             <li class="sidebar-item" id="RestaurantModule">
                                 <a class="sidebar-link" id="RestaurantModule" href="#Restaurant_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo de Restaurantes
+                                    Módulo de Restaurantes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Restaurant_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Restaurant")">Restaurantes</a></li>
@@ -271,12 +271,12 @@
                             <li class="sidebar-item" id="TransportModule">
                                 <a class="sidebar-link" id="TransportModule" href="#Transport_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo de Transportes
+                                    Módulo de Transportes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Transport_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
+                                    <li><a id="DestinationsTransport_Index" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
                                     <li><a id="Schedule_Index" class="sidebar-link" href="@Url.Action("Index","ScheduleTransportation")">Horarios Transporte</a></li>
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos Transportes</a></li>
                                 </ul>
@@ -285,7 +285,7 @@
                             <li class="sidebar-item" id="ActivitiesModule">
                                 <a class="sidebar-link" id="ActivitiesModule" href="#Activity_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo de Actividades
+                                    Módulo de Actividades
                                 </a>
                                 <ul class="collapse list-unstyled" id="Activity_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Activities")">Actividades</a></li>
@@ -297,7 +297,7 @@
                             <li class="sidebar-item" id="HotelModule">
                                 <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo de Hoteles
+                                    Módulo de Hoteles
                                 </a>
                                 <ul class="collapse list-unstyled" id="Hotels_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
@@ -311,7 +311,7 @@
                             <li class="sidebar-item" id="SalesModule">
                                 <a class="sidebar-link" id="SalesModule" href="#Sale_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo de Ventas
+                                    Módulo de Ventas
                                 </a>
                                 <ul class="collapse list-unstyled" id="Sale_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DefaultPackages")">Paquetes Predeterminados</a></li>
@@ -326,12 +326,13 @@
                             <li class="sidebar-item" id="ReservationModule">
                                 <a class="sidebar-link" id="ReservationModule" href="#Reservation_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     
-                                    Modulo de Reservaciones
+                                    Módulo de Reservaciones
                                 </a>
                                 <ul class="collapse list-unstyled" id="Reservation_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationTransportation")">Reservacion Transporte</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservacion Actividades Extra</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationRestaurant")">Reservacion Restaurante</a></li>
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationTransportation")">Reservación Transporte</a></li>
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservación Actividades Extra</a></li>
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationRestaurant")">Reservación Restaurante</a></li>
+                                    <li><a id="ReservationDetails_Index" class="sidebar-link" href="@Url.Action("Index","ReservationDetails")">Reservación Detalles</a></li>
                                 </ul>
                             </li>
                         </ul>
