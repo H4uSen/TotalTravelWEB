@@ -3,7 +3,8 @@
 $('.ui.dropdown').dropdown();
 
 $("#createDestinationsTransportations").click(() => {
-    $("#modalCreate").modal('show');
+    $("#modalCreate").modal({ autofocus: false, forceSelection: false }).modal('show');
+    /*$("#modalCreate").modal('show');*/
 });
 
 $("#modalCreate #close").click(() => {

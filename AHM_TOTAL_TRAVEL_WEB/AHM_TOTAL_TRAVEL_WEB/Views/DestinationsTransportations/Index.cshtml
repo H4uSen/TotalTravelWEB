@@ -92,14 +92,12 @@
                             <select id="CiudadSalida" name="DsTr_CiudadSalida" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadSalida">
                                 <option value="">Seleccione la ciudad de salida</option>
                             </select>
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadSalida"></span>
                         </div>
                         <div class="required field">
                             <label class="ui label">Ciudad Destino</label>
                             <select id="CiudadDestino" name="DsTr_CiudadDestino" class="ui dropdown search" asp-items="ViewBag.DsTr_CiudadDestino">
                                 <option value="">Seleccione la ciudad de destino</option>
                             </select>
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCiudadDestino"></span>
                         </div>
                     </div>
                 </div>
@@ -156,41 +154,5 @@
 
 @section Scripts{
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
-    <script>
-        // -------------------------------------- EVENTS ---------------------------------------
-
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#tabla tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#tabla").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
-        $("#tabla").paginationTdA({
-            elemPerPage: 10
-        });
-    </script>
-    <script>
-        function DeleteDsTr(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("DestinationsTransportations/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/DestinationsTransportations?success=true';
-                }
-            };
-
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
-
-        };
-    </script>
-
+    <script src="~/js/DestinationsTransportationsJs/Delete.js"></script>
 }

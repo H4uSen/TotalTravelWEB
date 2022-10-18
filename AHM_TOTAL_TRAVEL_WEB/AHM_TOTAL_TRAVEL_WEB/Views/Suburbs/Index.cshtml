@@ -161,52 +161,7 @@
 }
 
 @section Scripts{
-
-   
     <script src="~/js/SuburbsJs/Create.js"></script>
     <script src="~/js/SuburbsJs/Update.js"></script>
-
-    <script>
-
-        
-
-        // -------------------------------------- EVENTS ---------------------------------------
-
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#tabla tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#tabla").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
-        $("#tabla").paginationTdA({
-            elemPerPage: 10
-        });
-
-        const paisID = "@ViewData["Pais"]";
-
-    </script>
-    <script>
-        function DeleteColo(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("Suburbs/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/Suburbs?success=true';
-                }
-            };
-
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
-
-        };
-    </script>
-
+    <script src="~/js/SuburbsJs/Delete.js"></script>
 }
