@@ -132,7 +132,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> RestaurantsReservationUpdate(ReservationRestaurantsViewModel restaurante, string token)
+        public async Task<ServiceResult> RestaurantsReservationUpdate(ReservationRestaurantsViewModel restaurante, int id, string token)
         {
             var Result = new ServiceResult();
 

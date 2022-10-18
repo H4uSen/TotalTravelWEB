@@ -8,6 +8,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class ScheduleTransportationListViewModel
     {
         public int ID { get; set; }
+        public int ID_Destino { get; set; }
         public int Ciudad_Salida_ID { get; set; }
         public string Ciudad_Salida { get; set; }
         public int Ciudad_Destino_ID { get; set; }

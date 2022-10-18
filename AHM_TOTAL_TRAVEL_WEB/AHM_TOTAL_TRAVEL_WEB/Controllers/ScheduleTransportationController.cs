@@ -50,10 +50,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ScheduleTransportationViewModel horarios, int id)
         {
+            string horaSalida = horarios.HoTr_HoraSalida;
+            string horaLlegada = horarios.HoTr_HoraLlegada;
+            string[] HoraSalidaResult = horaSalida.Split(":",2,StringSplitOptions.None);
+            string[] HoraLlegadaResult = horaLlegada.Split(":", 2, StringSplitOptions.None);
+            horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
+            horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
             string token = HttpContext.User.FindFirst("Token").Value;
             horarios.HoTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-            RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationCreate(horarios, token)).Data;
-            return View();
+            RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationUpdate(horarios, token)).Data;
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

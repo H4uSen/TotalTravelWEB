@@ -179,10 +179,15 @@
     <script src="~/js/HotelsMenu/Create.js"></script>
     <script src="~/js/HotelsMenu/Update.js"></script>
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
         // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#tabla tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -191,20 +196,23 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
+            $("#tabla").paginationTdA({
+                elemPerPage: 10
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+        $("#tabla").paginationTdA({
+            elemPerPage: 10
         });
 
         //------------------------------------Funciones------------------------
 
         function Delete(id) {
             const capsulahm = () => {
-                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST")
+                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/HotelsMenu?success=true';
+                }
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsulahm);

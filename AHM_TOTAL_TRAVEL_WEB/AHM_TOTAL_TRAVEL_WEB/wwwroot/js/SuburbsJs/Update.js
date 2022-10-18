@@ -2,12 +2,9 @@
 
 $('.ui.dropdown').dropdown();
 
-SetDropDownValue($("#Count_ID"), Pais);
-SetDropDownValue($("#City_ID"), Ciudad);
-
-//$('#modalUpdate #Count_ID').change(function () {
-//    RellenarCiudades($('#Count_ID').val());
-//})
+$('#modalUpdate #Count_ID').change(function () {
+    RellenarCiudades($('#Count_ID').val());
+})
 
 $("#modalUpdate #close").click(() => {
     $("#modalUpdate").modal('hide');
@@ -36,6 +33,7 @@ function editar(coloniaIDm) {
         var itemcity = response.data;
         RellenarCiudades(itemcity.paisID, $("#modalUpdate #City_ID"));
 
+        $("#modalUpdate #Colo_ID").val(coloniaIDm);
         SetDropDownValue($("#modalUpdate #Count_ID"), defaultValue = itemcity.paisID);
         SetDropDownValue($("#modalUpdate #City_ID"), defaultValue = itemcity.id);
         $("#modalUpdate #Colonia").val(itemSubu.colonia);
@@ -45,7 +43,7 @@ function editar(coloniaIDm) {
         //console.log(itemcity);
     }
 }
-RellenarCiudades(itemSubu.paisID);
+
 function actualizar() {
     validateArrayForm = [
         { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#modalUpdate #Colonia") },
