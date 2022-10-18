@@ -1,22 +1,16 @@
 ﻿$("#image_profile").prop("src", "https://" + url_image);
 
-RellenarCiudades(Pais_ID);
-RellenarColonias(Ciud_ID);
-
-$(`#Pais option[value = "${Pais_ID}"]`).prop("selected", true);
-$(`#Ciudad option[value = "${Ciud_ID}"]`).prop("selected", true);
-$(`#Colonia option[value = "${Colonia_ID}"]`).prop("selected", true);
-
 $('.ui.dropdown').dropdown();
+
+SetDropDownValue($("#Pais"), Pais_ID);
+RellenarCiudades(Pais_ID);
+SetDropDownValue($("#Ciudad"), Ciud_ID);
 
 $('#Pais').change(function () {
     RellenarCiudades($('#Pais').val());
 })
-//$('#Pais').change(RellenarCiudades($('#Pais').val()))
-
 
 function UpdateUser() {
-
     validateArrayForm = [
         { validateMessage: "Ingrese un nombre.", Jqueryinput: $("#Usua_Nombre") },
         { validateMessage: "Ingrese un apellido.", Jqueryinput: $("#Usua_Apellido") },
@@ -37,7 +31,7 @@ function UpdateUser() {
         var colo = SuburbsViewModel;
 
         colo.colo_Descripcion = ($("#Colonia").val());
-        colo.ciud_ID = parseInt($("#City_ID").val());
+        colo.ciud_ID = parseInt($("#Ciudad").val());
         var responseSuburb = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/Insert", colo, "POST");
         var ColoID;
         if (responseSuburb.code == 200) {
@@ -99,21 +93,27 @@ function UpdateUser() {
 }
 
 function RellenarCiudades(Pais_ID) {
+
     var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
-        var cityFilter = jQuery.grep(cities, function (City, i) {
-            return City.paisID == Pais_ID;
+        cities = jQuery.grep(cities, function (city, i) {
+            return city.paisID == Pais_ID;
         });
-        ClearDropDownItem($('#Ciudad'));
-        if (cityFilter.length > 0) {
-            SetDropDownPlaceholder($('#Ciudad'), "Seleccione una ciudad.");
-            for (var i = 0; i < cityFilter.length; i++) {
-                var item = cityFilter[i];
-                AddDropDownItem($('#Ciudad'), item = { value: item.id, text: item.ciudad });
-            }
-        } else {
-            SetDropDownPlaceholder($('#Ciudad'), "No hay ciudades disponibles.");
+        const dropdownData = {
+            dropdown: $("#Ciudad"),
+            items: {
+                list: cities,
+                valueData: "id",
+                textData: "ciudad"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
         }
+        FillDropDown(dropdownData);
+        $("#Ciudad").dropdown();
     }
 }

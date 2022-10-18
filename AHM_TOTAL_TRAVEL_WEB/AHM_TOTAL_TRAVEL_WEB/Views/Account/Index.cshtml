@@ -240,18 +240,20 @@
                                             <option value="">Seleccione un país</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <select class="ui dropdown search min-width-0" id="Ciudad">
-                                            <option value="">Seleccione una ciudad</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <br />
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Colonia</span>
+                                    <div class="col-sm-6 field">
+                                        <div>
+                                            <select class="ui dropdown search min-width-0" id="Ciudad">
+                                            </select>
                                         </div>
-                                        <input type="text" class="form-control" id="Colonia" value="@ViewData["Colonia"]">
-
+                                    </div>
+                                    <div class="col-sm-12">                                    
+                                        <br />
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">Colonia</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Colonia" value="@ViewData["Colonia"]">
+                                        </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <br />
@@ -286,8 +288,8 @@
                         <div class="row">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9 text-secondary">
-                                <button onclick="UpdateUser()" class="btn btn-edit px-4">Guardar</button> |
-                                <a class="ui button mb-3 ms-3" href="#" id="cancelar">Cancelar</a>
+                                <button onclick="UpdateUser()" class="btn btn-edit px-4">Guardar</button>
+                                <a class="ui button mb-3 ms-3" id="cancelar">Cancelar</a>
                             </div>
                         </div>
                     </div>
@@ -298,12 +300,10 @@
 </div>
 @section Scripts{
 
-
     <script>
 
         $('.ui.dropdown').dropdown();
         $('#formedit').hide();
-
 
         $("#editar").click(() => {
             $("#info").transition('slide down');
@@ -317,9 +317,8 @@
             $("#formedit").transition('slide down');
         });
 
-        const Pais_ID = "@ViewData["Pais"]";
         const Ciud_ID = "@ViewData["Ciudad"]";
-        const Colonia_ID = "@ViewData["Colonia"]";
+        const Pais_ID = "@ViewData["Pais"]";
 
     </script>
     <script src="~/js/UsersJs/UsersAccount.js"></script>
