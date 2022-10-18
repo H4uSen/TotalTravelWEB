@@ -72,9 +72,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
         #endregion
+
         #region Reservacion Restaurants
 
-        public async Task<ServiceResult> RestaurantsReservationList(IEnumerable<ReservationRestaurantsListViewModel> model, string token)
+        public async Task<ServiceResult> RestaurantsReservationList(string token)
         {
             var Result = new ServiceResult();
 
@@ -131,16 +132,76 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
+        public async Task<ServiceResult> RestaurantsReservationUpdate(ReservationRestaurantsViewModel restaurante, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<ReservationRestaurantsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ReservationRestaurant/Update?id=" + restaurante.ReRe_ID;
+                    req.Content = restaurante;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> RestaurentReservationDelete(ReservationRestaurantsViewModel restaurant, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<ReservationRestaurantsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ReservationRestaurant/Delete?id=" + id + " &Mod=" + restaurant.ReRe_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         public async Task<ServiceResult> RestaurentReservationFind(string id, string token)
         {
             var Result = new ServiceResult();
-            var transport = new ReservationRestaurantsListViewModel();
+            var restaurant = new ReservationRestaurantsListViewModel();
 
             try
             {
                 var response = await _api.Get<ReservationRestaurantsListViewModel, ReservationRestaurantsListViewModel>(req => {
                     req.Path = $"/API/ReservationRestaurant/Find?id=" + id;
-                    req.Content = transport;
+                    req.Content = restaurant;
                 },
                 token
                 );
@@ -161,11 +222,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #endregion
 
-
-
         #region Reservacion Transporte
 
-        public async Task<ServiceResult> transportationReservationList(IEnumerable<ReservationTransportationListViewModel> model, string token)
+        public async Task<ServiceResult> transportationReservationList( string token)
         {
             var Result = new ServiceResult();
 
@@ -221,6 +280,66 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> transportationReservationUpdate(ReservationTransportationViewModel transporte, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<ReservationTransportationViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ReservationTransportation/Update?id=" + transporte.ReTr_ID;
+                    req.Content = transporte;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+        public async Task<ServiceResult> TransportReservationDelete(ReservationTransportationViewModel transporte, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<ReservationTransportationViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ReservationTransportation/Delete?id=" + id + " &Mod=" + transporte.ReTr_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         public async Task<ServiceResult> TransportReservationFind(string id, string token)
         {
             var Result = new ServiceResult();
@@ -251,10 +370,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #endregion
 
-
         #region Reservacion Actividades Extra
 
-        public async Task<ServiceResult> ExtraActivitiesReservationList(IEnumerable<ReservationExtraActivitiesListViewModel> model, string token)
+        public async Task<ServiceResult> ExtraActivitiesReservationList( string token)
         {
             var Result = new ServiceResult();
 
@@ -291,6 +409,69 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Post<ReservationExtraActivitiesViewModel, RequestStatus>(req => {
                     req.Path = $"/API/ReservationActivitiesExtra/Insert";
                     req.Content = reservationExtraActivities;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+
+        public async Task<ServiceResult> ExtraActivitiesReservationUpdate(ReservationExtraActivitiesViewModel actividadesextraas, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<ReservationExtraActivitiesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ReservationActivitiesExtra/Update?id=" + actividadesextraas.ReAE_ID;
+                    req.Content = actividadesextraas;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+
+
+        public async Task<ServiceResult> ExtraActivitiesReservationDelete(ReservationExtraActivitiesViewModel actividadesextras, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<ReservationRestaurantsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/ReservationActivitiesExtra/Delete?id=" + id + " &Mod=" + actividadesextras.ReAE_UsuarioModifica;
+                    req.Content = null;
                 },
                 token
                 );

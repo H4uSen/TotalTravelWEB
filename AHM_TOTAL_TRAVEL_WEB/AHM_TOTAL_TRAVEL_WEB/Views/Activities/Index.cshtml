@@ -40,16 +40,10 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Descripcion)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Tipo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCrea)
                     </th>
                     <th width="300px"></th>
                 </tr>
@@ -59,16 +53,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Tipo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioCrea)
                         </td>
 
                         <td>
@@ -175,23 +163,27 @@
             });
 
             $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
 
         //------------------------------------Funciones------------------------
 
         function DeleteActividad(id) {
             const capsula1 = () => {
-                ajaxRequest("/Activities/Delete?id=" + id, null, "POST")
+                var response = ajaxRequest("/Activities/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Activities?success=true';
+                }
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
 
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            
         };
     </script>
 }

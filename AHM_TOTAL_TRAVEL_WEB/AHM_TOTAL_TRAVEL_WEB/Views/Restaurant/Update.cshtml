@@ -76,10 +76,11 @@
                             </div>
                         </div>
 
-
+                       
                         <div class="ui grid three column stackable mt-4">
 
                             <div class="column">
+                                <label class="ui label">Imagenes en fila.</label>
                                 <div class="ui segment">
                                     <div class="ui middle aligned divided list" id="image-upload-list">
 
@@ -114,7 +115,8 @@
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="updateRestaurant()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="updateRestaurant()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Restaurant")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>
 

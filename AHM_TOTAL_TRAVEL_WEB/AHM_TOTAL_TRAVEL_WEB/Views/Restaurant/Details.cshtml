@@ -14,7 +14,6 @@
                     <div class="header text-capitalize">
                         Detalles
                     </div>
-                    <p>Detalles de el restaurante.</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Restaurant")">
@@ -26,23 +25,11 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="field">
-                        <div class="three fields">
-                            <div class="field">
-                                <label>ID</label>
-                                @Html.DisplayFor(model => model.ID)
-                            </div>
+                        <div class="four fields">
                             <div class="field">
                                 <label>Restaurante</label>
                                 @Html.DisplayFor(model => model.Restaurante)
                             </div>
-                            <div class="field">
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="three fields">
                             <div class="field">
                                 <label>Partner</label>
                                 @Html.DisplayFor(model => model.Partner)

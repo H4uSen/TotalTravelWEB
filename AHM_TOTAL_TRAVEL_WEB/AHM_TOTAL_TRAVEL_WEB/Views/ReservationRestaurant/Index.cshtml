@@ -82,7 +82,7 @@
                             <a href="@Url.Action("Update","Activities",new {  id=item.Id})" class="ui large icon btn-edit button">
                                 <i class="pencil alternate icon  icon-crud"></i>
                             </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteRestaurant('@item.Id')">
+                            <button class="ui large icon btn-delete button" onclick="DeleteReservacionRestaurante('@item.Id')">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a href="@Url.Action("Details","Activities",new {  id=item.Id})" class="ui large icon button">
@@ -152,6 +152,19 @@
         $("#grdReservationRestaurants").paginationTdA({
             elemPerPage: 10
         });
+
+
+        function DeleteReservacionRestaurante(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("ReservationRestaurant/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/ReservationRestaurant?success=true';
+                }
+            };
+
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+        };
     </script>
 }
 

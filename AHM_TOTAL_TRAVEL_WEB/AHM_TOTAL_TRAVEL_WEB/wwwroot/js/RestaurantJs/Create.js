@@ -3,7 +3,6 @@ $('.ui.dropdown').dropdown();
 
 $('#Count_ID').change(function () {
 
-
     var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
     if (response.code == 200) {
         var Count_ID = $('#Count_ID').val();
@@ -157,5 +156,3 @@ function createRestaurant() {
         }
     }
 }
-
-

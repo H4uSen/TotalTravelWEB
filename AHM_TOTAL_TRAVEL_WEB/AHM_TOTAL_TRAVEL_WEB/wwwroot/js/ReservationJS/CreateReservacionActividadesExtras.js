@@ -3,42 +3,21 @@
 function createreservationactividadesextra() {
 
 
-    if ($('#Resv_ID').val() == 0) {
-        $("#labelvalidatorReserva").html("Seleccione una reserva.");
-    }
-    else {
-        $("#labelvalidatorNombre").html(" ");
-    }
-    if ($('#AcEx_ID').val() == 0) {
-        $("#labelvalidatorAcEx_ID").html("Seleccione una actividad extra.");
-    }
-    else {
-        $("#labelvalidatorAcEx_ID").html(" ");
-    }
-    if ($('#ReAE_Cantidad').val() == 0) {
-        $("#labelvalidatorReAE_Cantidad").html("Ingrese una cantidad.");
-    }
-    else {
-        $("#labelvalidatorReAE_Cantidad").html(" ");
-    }
-    if ($('#ReAE_FechaReservacion').val() == 0) {
-        $("#labelvalidatorReAE_FechaReservacion").html("Ingrese una fehca.");
-    }
-    else {
-        $("#labelvalidatorReAE_FechaReservacion").html(" ");
-    }
-    if ($('#ReAE_HoraReservacion').val() == 0) {
-        $("#labelvalidatorReAE_HoraReservacion").html("Ingrese una hora.");
-    } else {
-        $("#labelvalidatorReAE_HoraReservacion").html(" ");
-    }
+    const userValidateArray = [
+        { validateMessage: "Required field: 'Seleccione una reservacion'", Jqueryinput: $("#Resv_ID") },
+        { validateMessage: "Required field: 'Ingrese una cantidad' ", Jqueryinput: $("#ReAE_Cantidad") },
+        { validateMessage: "Required field: 'Seleccione una actividad' ", Jqueryinput: $("#AcEx_ID") },
+        { validateMessage: "Required field: 'ingrese la fecha' ", Jqueryinput: $("#ReAE_FechaReservacion") },
+        { validateMessage: "Required field: 'ingrese la hora' ", Jqueryinput: $("#ReAE_HoraReservacion") },
+
+    ];
+
+    const userValidate = ValidateForm(userValidateArray);
 
 
 
+    if (userValidate) {
 
-    if ($('#Resv_ID').val() != 0 && $('#AcEx_ID').val() != 0 && $('#ReAE_Cantidad').val() != 0 && $('#ReAE_FechaReservacion').val() != 0 && $('#ReAE_HoraReservacion').val() != 0) {
-
-        /*var images = [];*/
         var data = new FormData();
         data.append("Resv_ID", parseInt($("#Resv_ID").val())); 
         data.append("AcEx_ID", parseInt($("#AcEx_ID").val()));

@@ -184,9 +184,9 @@ $("#loaderAnimation").hide();
             text: message,
             icon: type,
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Confirmar!',
+            confirmButtonColor: '#A97BC4',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
         }).then((result) => {
             if (result.isConfirmed) {

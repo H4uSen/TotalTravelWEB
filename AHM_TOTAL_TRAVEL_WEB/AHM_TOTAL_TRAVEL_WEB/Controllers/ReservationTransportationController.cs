@@ -23,7 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             var token = HttpContext.User.FindFirst("Token").Value;
             var model = new List<ReservationTransportationListViewModel>();
-            var list = await _reservationService.transportationReservationList(model, token);
+            var list = await _reservationService.transportationReservationList( token);
             return View(list.Data);
         }
 
@@ -60,5 +60,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReservationTransportationViewModel transporte, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                transporte.ReTr_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _reservationService.TransportReservationDelete(transporte, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (ReservationTransportationViewModel)(await _reservationService.TransportReservationFind(id, token)).Data;
+            return View(detalle);
+        }
+
     }
 }

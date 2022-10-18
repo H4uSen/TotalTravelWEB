@@ -38,7 +38,7 @@
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
                                     <div class="ui right labeled input">
-                                        <input type="number" placeholder="Precio" id="Menu_Precio">
+                                        <input type="number" min="1"  oninput="this.value = Math.abs(this.value)" placeholder="Precio" id="Menu_Precio">
                                         <div class="ui basic label">.00</div>
                                     </div>
                                 </div>
@@ -65,6 +65,7 @@
                         <div class="ui grid three column stackable mt-4">
 
                             <div class="column">
+                                <label class="ui label">Imagenes en fila.</label>
                                 <div class="ui segment">
                                     <div class="ui middle aligned divided list" id="image-upload-list">
 
@@ -99,7 +100,8 @@
                                 </div>
                             </div>
 
-                            <input type="button" value="Guardar" onclick="createMenus()" class="btn btn-purple ui positive button mb-3 ms-3" />
+                            <input type="button" value="Guardar" onclick="createMenus()" class="btn btn-edit ui positive button mb-3 ms-3" />
+                            <a type="button" href="@Url.Action("Index", "Menus")" class="ui button mb-3 ms-3">Cancelar</a>
                         </div>
                     </div>
 
