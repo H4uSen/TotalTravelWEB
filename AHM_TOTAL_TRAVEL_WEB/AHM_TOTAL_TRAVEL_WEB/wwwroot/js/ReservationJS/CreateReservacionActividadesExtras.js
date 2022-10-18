@@ -7,7 +7,7 @@ function createreservationactividadesextra() {
         $("#labelvalidatorReserva").html("Seleccione una reserva.");
     }
     else {
-        $("#labelvalidatorNombre").html(" ");
+        $("#labelvalidatorReserva").html(" ");
     }
     if ($('#AcEx_ID').val() == 0) {
         $("#labelvalidatorAcEx_ID").html("Seleccione una actividad extra.");
@@ -38,7 +38,6 @@ function createreservationactividadesextra() {
 
     if ($('#Resv_ID').val() != 0 && $('#AcEx_ID').val() != 0 && $('#ReAE_Cantidad').val() != 0 && $('#ReAE_FechaReservacion').val() != 0 && $('#ReAE_HoraReservacion').val() != 0) {
 
-        /*var images = [];*/
         var data = new FormData();
         data.append("Resv_ID", parseInt($("#Resv_ID").val())); 
         data.append("AcEx_ID", parseInt($("#AcEx_ID").val()));

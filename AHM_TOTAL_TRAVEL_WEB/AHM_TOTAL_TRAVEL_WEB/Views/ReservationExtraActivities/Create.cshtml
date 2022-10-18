@@ -28,30 +28,28 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label>Reservacion</label>
+                                    <label class="ui label">Reservacion</label>
                                     <select id="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
-                                        <option value="">Seleccione uan reservacion</option>
+                                        <option value="">Seleccione un partner</option>
                                     </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReserva"></span>
-
                                 </div>
                                 <div class="required field">
-                                    <label>Actividad Extra</label>
-                                    <select id="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
-                                        <option value="">Seleccione una actividad extra</option>
-                                    </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorAcEx_ID"></span>
-
+                                    <label>Cantidad</label>
+                                    <input id="ReAE_Cantidad" placeholder="Cantidad" />
+                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReAE_Cantidad"></span>
                                 </div>
+                                
+
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label>Cantidad</label>
-                                    <input id="ReAE_Cantidad" placeholder="Cantidad" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorReAE_Cantidad"></span>
+                                    <label class="ui label">Reservacion</label>
+                                    <select id="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
+                                        <option value="">Seleccione un partner</option>
+                                    </select>
                                 </div>
                                 <div class="required field">
                                     <label>Fecha Reservacion</label>
@@ -87,3 +85,10 @@
     <script src="~/js/ReservationJS/CreateReservacionActividadesExtras.js"></script>
 }
 
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
+    </script>
+}

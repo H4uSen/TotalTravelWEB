@@ -24,24 +24,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
+            string token = HttpContext.User.FindFirst("Token").Value;
 
 
-            IEnumerable<ReservationListViewModel> model_Country = null;
-            var resrvation = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)resrvation.Data;
-            ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
+            //IEnumerable<ReservationListViewModel> model_Country = null;
+            //var resrvation = await _reservationService.ReservationList(token);
+            //IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)resrvation.Data;
+            //ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
 
 
-            //---------------------------------------
+            ////---------------------------------------
 
-            var actividad = await _activitiesServices.ExtraActivitiesList(token);
-            IEnumerable<ActivitiesExtrasListViewModel> data_City = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
-            ViewBag.AcEx_ID = new SelectList(data_City, "ID", "Actividad");
+            //var actividad = await _activitiesServices.ExtraActivitiesList(token);
+            //IEnumerable<ActivitiesExtrasListViewModel> data_City = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
+            //ViewBag.AcEx_ID = new SelectList(data_City, "ID", "Actividad_Extra");
 
 
             var model = new List<ReservationExtraActivitiesListViewModel>();
-            var list = await _reservationService.ExtraActivitiesReservationList(model, token);
+            var list = await _reservationService.ExtraActivitiesReservationList( token);
             return View(list.Data);
         }
 
@@ -49,19 +49,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
+            var model = new List<ReservationExtraActivitiesViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
 
             IEnumerable<ReservationListViewModel> model_Country = null;
-            var resrvation = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)resrvation.Data;
-            ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
+            var partners = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_Partners = (IEnumerable<ReservationListViewModel>)partners.Data;
+            ViewBag.Resv_ID = new SelectList(data_Partners, "ID", "Reservacion");
+
+            //IEnumerable<ReservationListViewModel> model_Country = null;
+            //var resrvation = await _reservationService.ReservationList(token);
+            //IEnumerable<ReservationListViewModel> data_Country = (IEnumerable<ReservationListViewModel>)resrvation.Data;
+            //ViewBag.Resv_ID = new SelectList(data_Country, "ID", "Reservacion");
 
 
-            //---------------------------------------
+            ////---------------------------------------
 
-            var actividad = await _activitiesServices.ExtraActivitiesList(token);
-            IEnumerable<ActivitiesExtrasListViewModel> data_City = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
-            ViewBag.AcEx_ID = new SelectList(data_City, "ID", "Actividad");
+            //var actividad = await _activitiesServices.ExtraActivitiesList(token);
+            //IEnumerable<ActivitiesExtrasListViewModel> data_City = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
+            //ViewBag.AcEx_ID = new SelectList(data_City, "ID", "Actividad");
 
             return View();
         }
@@ -74,8 +80,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
                 reservationExtraActivities.ReAE_UsuarioCreacion = 1;
                 var list = await _reservationService.ExtraActivitiesReservationCreate(reservationExtraActivities, token);
+
                 if (list.Success)
                 {
                     return RedirectToAction("Index");
@@ -84,6 +92,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 {
                     return View();
                 }
+
+
             }
             else
             {
@@ -99,6 +109,28 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View(actividad);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReservationExtraActivitiesViewModel actividadesextras, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                actividadesextras.ReAE_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _reservationService.ExtraActivitiesReservationDelete(actividadesextras, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
     }
 
 }

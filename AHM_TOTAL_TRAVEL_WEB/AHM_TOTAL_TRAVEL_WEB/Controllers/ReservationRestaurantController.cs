@@ -34,7 +34,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             var model = new List<ReservationRestaurantsListViewModel>();
-            var list = await _reservationService.RestaurantsReservationList(model, token);
+            var list = await _reservationService.RestaurantsReservationList(token);
             return View(list.Data);
         }
 
@@ -70,6 +70,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReservationRestaurantsViewModel restaurant, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                restaurant.ReRe_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _reservationService.RestaurentReservationDelete(restaurant, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
