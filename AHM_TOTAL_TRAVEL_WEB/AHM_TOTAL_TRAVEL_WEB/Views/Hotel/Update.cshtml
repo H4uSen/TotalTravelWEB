@@ -117,7 +117,7 @@
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="createHotel()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="updateHotel()" class="btn btn-purple ui positive button" />
                         <a type="button" href="@Url.Action("Index", "Hotel")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>
@@ -129,11 +129,13 @@
 
 @section Scripts{
     <script>
+        const folderName = '@ViewData["HotelFolder"]';
         const Pais_ID = "@ViewData["Pais"]";
         const Ciudad = "@ViewData["Ciudad"]";
         const Part_ID = "@ViewData["Partner"]";
+        const Hote_ID = "@ViewData["Hotel_ID"]"
     </script>
-    <script src="~/js/HotelJs/Create.js"></script>
+    <script src="~/js/HotelJs/Update.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

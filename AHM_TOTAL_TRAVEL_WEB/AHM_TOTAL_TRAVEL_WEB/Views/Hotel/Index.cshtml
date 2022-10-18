@@ -67,7 +67,7 @@
                             @Html.DisplayFor(modelItem => item.Partners)
                         </td>
                         <td>
-                            <a class="ui large icon btn-edit button">
+                            <a class="ui large icon btn-edit button" href="@Url.Action("Update", "Hotel", new { id=item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </a>
                             <a class="ui large icon btn-delete button" onclick="DeleteHoteles(@item.ID)">
