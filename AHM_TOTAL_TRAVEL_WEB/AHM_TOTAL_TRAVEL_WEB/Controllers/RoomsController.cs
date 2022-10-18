@@ -19,7 +19,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _hotelsServices = hotelsService;
         }
 
-        //[HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
 
@@ -29,11 +29,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-            public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             var model = new List<HotelListViewModel>();
-            var Hotel = await _hotelsServices.HotelsList();
-            IEnumerable<TypesTransportListViewModel> data_Hotel = (IEnumerable<TypesTransportListViewModel>)Hotel.Data;
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var Hotel = await _hotelsServices.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
             ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
 
             return View();
@@ -59,27 +60,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(string id)
+        public async Task<IActionResult> Update(int id)
         {
-
             var item = new RoomsViewModel();
-            IEnumerable<RoomsListViewModel> model = null;
-            var list = await _hotelsServices.RoomsList(model);
+            IEnumerable<RoomsViewModel> model = null;
+            var list = await _hotelsServices.RoomsList(null);
             IEnumerable<RoomsListViewModel> data = (IEnumerable<RoomsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.Hote_ID = element.ID;
             item.Habi_Nombre = element.Habitacion;
             item.Habi_Descripcion = element.Descripcion;
-            item.CaHa_ID = element.Categoria;
-            item.Hote_ID  = element.Hotel;
+            item.CaHa_ID = element.ID_Categoria;
+            item.Hote_ID = element.ID_Hotel;
             item.Habi_Precio = element.Precio;
             item.Habi_balcon = element.Balcon;
             item.Habi_wifi = element.Wifi;
             item.Habi_camas = element.Camas;
             item.Habi_capacidad = element.Capacidad;
-            item.Habi_url = element.Urls;
+            item.Habi_url = element.Image_Url;
 
-            var rooms = await _hotelsServices.RoomsList(model);
+            var rooms = await _hotelsServices.RoomsList(null);
             IEnumerable<RoomsListViewModel> data_rooms = (IEnumerable<RoomsListViewModel>)rooms.Data;
             ViewBag.Hote_ID = new SelectList(data_rooms, "ID", "Hotel", element.Hotel);
 
@@ -95,7 +95,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                habitacion.Habi_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                habitacion.Habi_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _hotelsServices.RoomsUpdate(habitacion, id, token);
                 return RedirectToAction("Index");
             }
