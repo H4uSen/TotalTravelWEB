@@ -92,3 +92,9 @@ var HotelsViewModel = {
     "hote_UsuarioCreacion": Client_User_ID,
     "hote_UsuarioModifica": Client_User_ID
 }
+var TipoPartnerViewModel = {
+    "id": 0,
+    "descripcion": "string",
+    "rol_Id": 0,
+    "rol_Descripcion": "string"
+};

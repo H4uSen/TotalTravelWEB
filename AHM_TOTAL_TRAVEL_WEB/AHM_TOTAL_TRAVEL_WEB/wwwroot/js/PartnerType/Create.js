@@ -1,5 +1,4 @@
 ﻿$('.ui.dropdown').dropdown();
-
 $("#createTipoPartner").click(() => {
     $("#modalCreate").modal('show');
 });
@@ -20,3 +19,4 @@ $("#sendTipoPartner").click(() => {
     }
 
 });
+
