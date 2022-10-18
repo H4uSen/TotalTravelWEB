@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("create","Rooms")">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","Rooms")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -83,7 +83,7 @@
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID_Categoria)
+                            @Html.DisplayFor(modelItem => item.Categoria)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Hotel)
@@ -105,7 +105,7 @@
                         </td>
                         <td>
                             <a href="@Url.Action("Update","Rooms",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
-                            <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                            <button class="ui large icon negative button" onclick="DeleteRooms(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
                             <a href="@Url.Action("Details","Rooms",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>

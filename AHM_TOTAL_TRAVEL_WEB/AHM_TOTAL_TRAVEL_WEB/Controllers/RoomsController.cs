@@ -70,14 +70,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Hote_ID = element.ID;
             item.Habi_Nombre = element.Habitacion;
             item.Habi_Descripcion = element.Descripcion;
-            item.CaHa_ID = element.ID_Categoria;
-            item.Hote_ID = element.ID_Hotel;
+            //item.CaHa_ID = element.Categoria;
             item.Habi_Precio = element.Precio;
             item.Habi_balcon = element.Balcon;
             item.Habi_wifi = element.Wifi;
             item.Habi_camas = element.Camas;
             item.Habi_capacidad = element.Capacidad;
-            item.Habi_url = element.Image_Url;
+            //item.Habi_url = element.Image_Url;
 
             var rooms = await _hotelsServices.RoomsList(null);
             IEnumerable<RoomsListViewModel> data_rooms = (IEnumerable<RoomsListViewModel>)rooms.Data;

@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,9 +12,8 @@
                 <i class="icon building"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear
+                        Crear restaurante
                     </div>
-                    <p>Crear un nueva Habitacion</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Rooms")">
@@ -23,96 +22,117 @@
                     </a>
                 </div>
             </div>
-            <form asp-action="Create" id="FrmRooms">
+
+            <!-- formulario-->
+            <form>
+
                 <div class="ui form attached fluid segment">
                     <div class="content">
-                        <div class="three fields">
-                            <div class="required field">
-                                <label>Hotel</label>
-                                <select id="Hote_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID" asp-for="ID_Hotel">
-                                    <option value="">Seleccione un hotel</option>
-                                </select>
-                            </div>
-                            <div class="field">
-                                <label>Habitacion</label>
-                                <input asp-for="Habitacion" />
-                            </div> 
-                            <div class="field">
-                                <label>Camas</label>
-                                <input asp-for="Camas" />
+
+                        <div class="field">
+                            <div class=" two fields">
+                                <div class="required field">
+                                    <label class="ui label">Habitacion</label>
+                                    <input id="Hote_Nombre" placeholder="Habitacion" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Hotel</label>
+                                    <select id="Hote_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
+                                        <option value="">Seleccione un hotel</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="three fields">
-                            <div class="field">
-                                <label>Descripcion</label>
-                                <input asp-for="Descripcion" />
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">                                 
+                                        <label class="ui label">Categoria</label>
+                                        <input id="CaHa_ID" placeholder="Categoria" />                                 
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Precio</label>
+                                    <input id="Habi_Precio" placeholder="Precio" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Balcon</label>
+                            <input id="Habi_balcon" placeholder="Balcon" />
+                        </div>
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Wifi</label>
+                                    <input id="Habi_wifi" placeholder="Wifi" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Cama</label>
+                                    <input id="Habi_camas" placeholder="Cama" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="ui grid three column stackable mt-4">
+
+                            <div class="column">
+                                <label class="ui label">Imagenes en fila.</label>
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="field">
-                                <label>Categoria</label>
-                                <input asp-for="ID_Categoria" />
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imagenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+
                             </div>
-                            <div class="field">
-                                <label>Precio</label>
-                                <input asp-for="Precio" />
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header" id="RoomsCarousel">
+                                        <i class="images icon"></i>
+                                        Tus imagenes aparecerán aquí.
+                                    </div>
+
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false">
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="three fields">
-                            <div class="field">
-                                <label>Balcon</label>
-                                <input asp-for="Balcon" />
-                            </div>
-                            <div class="field">
-                                <label>Wifi</label>
-                                <input asp-for="Wifi" />
-                            </div>
-                           
-                            <div class="field">
-                                <label>Capacidad</label>
-                                <input asp-for="Capacidad" type="number" min="1" />
-                            </div>
-                        </div>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" onclick="createRooms()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Rooms")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
-                    <input id="Guardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
-                    <a type="button" href="@Url.Action("Index", "Rooms")" class="ui button mb-3 ms-3">Cancelar</a>
                 </div>
+
             </form>
+            <!-- fin formulario-->
         </div>
     </div>
 </div>
-
 @section Scripts{
-    <script>
-        $("#Guardar").click(() => {
-            const ValidateArray = [
-                { validateMessage: "Seleccione un hotel", Jqueryinput: $("#ID_Hote") },
-                { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Capacidad") },
-                { validateMessage: "Seleccione un habitacion", Jqueryinput: $("#Habitacion") },
-                { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Descripcion") },
-                { validateMessage: "Ingrese la categoria", Jqueryinput: $("#ID_Categoria") },
-                { validateMessage: "Seleccione un precio", Jqueryinput: $("#Precio") },
-                { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Balcon") },
-                { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Wifi") },
-                { validateMessage: "Ingrese las camas", Jqueryinput: $("#Camas") }
-
-            ];
-            const userValidate = ValidateForm(ValidateArray);
-            if (userValidate) {
-                $("#FrmRooms").submit();
-            }
-        });
-    </script>
-
+    <script src="~/js/Rooms/Create.js"></script>
 }
 
 @section HighlightTile{
     <script>
-        $("#RoomsModule").addClass("active");
-        $("#Rooms_Schema").addClass("show");
-        $("#RoomsModule").addClass("expandedList")
+        $("#HotelModule").addClass("active");
+        $("#Hotel_Schema").addClass("show");
+        $("#HotelModule").addClass("expandedList")
     </script>
 }
-
-
-
-
