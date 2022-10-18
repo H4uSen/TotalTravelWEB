@@ -77,29 +77,20 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Contry</label>
-                                <select class="ui search dropdown cbbCiudades" id="cbbPaises" asp-items="ViewBag.Counties">
+                                <select class="ui search dropdown" id="cbbPaises" asp-items="ViewBag.Counties">
                                     <option value="">Select your Country Residence</option>
-                                    <option value="1">Honduras</option>
-                                    <option value="2">U.S.A</option>
-                                    <option value="3">Germany</option>
                                 </select>
                             </div>
                             <div class="field">
                                 <label>City</label>
-                                <select class="ui search dropdown cbbCiudades" id="cbbCiudades">
+                                <select class="ui search dropdown" id="cbbCiudades">
                                     <option value="">Select a City Residence (required)</option>
-                                    <option value="1">San pedro sula</option>
-                                    <option value="2">Tegucigalpa</option>
-                                    <option value="3">Barcelona</option>
                                 </select>
                             </div>
                             <div class="field">
                                 <label>Suburb/hood</label>
-                                <select class="ui search dropdown cbbCiudades" id="cbbColonias">
+                                <select class="ui search dropdown" id="cbbColonias">
                                     <option value="">Select a Suburbs/hood Residence (required)</option>
-                                    <option value="1">San pedro sula</option>
-                                    <option value="2">Tegucigalpa</option>
-                                    <option value="3">Barcelona</option>
                                 </select>
                             </div>
                         </div>
@@ -150,24 +141,27 @@
 
                     <!-- role adress section -->
                     <div class="ui segment">
-                        <div class="grouped fields">
-                            <div class="field">
-                                <div class="ui toggle checkbox">
-                                    <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
-                                    <label>Administrator User</label>
+                        <div class="field">
+                            <label>Add a user Role</label>
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
+                                        <label>Administrator User</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui toggle checkbox">
-                                    <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
-                                    <label>Partner User</label>
+                                <div class="field">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
+                                        <label>Partner User</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui toggle checkbox">
-                                    <input type="checkbox" id="checkExistingPartner" tabindex="0"
-                                           class="hidden" disabled>
-                                    <label>Existing Partner</label>
+                                <div class="field">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" id="checkExistingPartner" tabindex="0"
+                                               class="hidden" disabled>
+                                        <label>Existing Partner</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -223,6 +217,12 @@
 
                     <div class="ui positive button" tabindex="0" id="tbnCreateUser">Create User</div>
                 </div>
+            </div>
+            <div class="ui negative attached message" id="msgErrorForm">
+                <div class="header">
+                    A error ocurred while perfoming the action
+                </div>
+                <p></p>
             </div>
             <!-- fin formulario-->
         </div>

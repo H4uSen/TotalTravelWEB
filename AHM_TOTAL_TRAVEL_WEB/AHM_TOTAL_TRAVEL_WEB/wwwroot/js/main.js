@@ -184,9 +184,9 @@ $("#loaderAnimation").hide();
             text: message,
             icon: type,
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Confirmar!',
+            confirmButtonColor: '#A97BC4',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
         }).then((result) => {
             if (result.isConfirmed) {
@@ -443,8 +443,8 @@ $("#loaderAnimation").hide();
                 textData: ""
             },
             placeholder: {
-                empty: "Seleccione una opcion",
-                default: "No se encontraron opciones",
+                empty: "No se encontraron opciones",
+                default: "Seleccione una opcion",
             },
             semantic: true
         }
@@ -466,26 +466,28 @@ $("#loaderAnimation").hide();
         if (dropdownData.items.list.length > 0) {
 
             var placeholder = document.createElement("option");
+            placeholder.value = "";
             placeholder.innerText = dropdownData.placeholder.default;
             //set placeholder
             newDropdown.append(placeholder);
 
             for (let i = 0; i < dropdownData.items.list.length; i++) {
                 const item = dropdownData.items.list[i];
-                const value = item[dropdownData.Items.valueData];
-                const text = item[dropdownData.Items.TextData];
+                const value = item[dropdownData.items.valueData];
+                const text = item[dropdownData.items.textData];
 
                 //create option
                 var option = document.createElement("option");
                 option.value = value;
                 option.innerText = text;
 
-                dropdown.append(option);
+                newDropdown.append(option);
             }
 
         }
         else {
             var placeholder = document.createElement("option");
+            placeholder.value = "";
             placeholder.innerText = dropdownData.placeholder.empty;
             //set placeholder
             newDropdown.append(placeholder);
@@ -494,8 +496,11 @@ $("#loaderAnimation").hide();
         if (dropdownData.semantic) {
             $(newDropdown).addClass(["ui", "dropdown", "search"]);
         }
+        if (dropdownData.items.list.length > 10) {
+            $(newDropdown).addClass("search");
+        }
 
-        $(dropDown).parents("field")[0].append(newDropdown);
-        $(dropDown).parent().remove();
+        $(dropDown).parents(".field")[0].append(newDropdown);
+        $($(dropDown).parents(".field")[0]).find("div.ui.dropdown").remove();
 
     }

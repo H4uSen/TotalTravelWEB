@@ -105,11 +105,11 @@
 
                             <div class="column">
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
-                                    <div class="ui icon header" id="RestaurantCarousel">
+                                    <div class="ui icon header" id="HotelCarousel">
                                         <i class="images icon"></i>
                                         Tus imágenes aparecerán aquí.
                                     </div>
-                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="createRestaurant()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="createHotel()" class="btn btn-purple ui positive button" />
                     </div>
                 </div>
             </form>
@@ -126,14 +126,17 @@
     </div>
 </div>
 
+@section Scripts{
+    <script src="~/js/HotelJs/Create.js"></script>
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
 @section HighlightTile{
     <script>
         $("#HotelModule").addClass("active");
         $("#Hotels_Schema").addClass("show");
         $("#HotelModule").addClass("expandedList")
     </script>
-}
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

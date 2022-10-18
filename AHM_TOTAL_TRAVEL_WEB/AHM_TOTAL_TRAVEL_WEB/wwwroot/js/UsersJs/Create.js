@@ -2,9 +2,13 @@
 // ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
 const PartnerList = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
-const PartnerTypeList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PartnerType/List");
+const PartnerTypeList = ajaxRequest("https://totaltravel.somee.com/API/PartnerType/List");
+const CitiesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+const SuburbsList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
 
 
+
+$("#msgErrorForm").hide();
 $('#standard_calendar').calendar({
     type: 'date'
 });
@@ -17,9 +21,20 @@ $("#frmSelectPartner").hide();
 // ----------------------------------- EVENTS ------------------------------------
 $("#tbnCreateUser").click(CreateUser);
 
-$("#frmSelectPartner #cbbTipoPartner").change(() => {
-    const TipoPartner_Id = $("#frmSelectPartner #cbbTipoPartner").val();
+$("#frmCreateUser #cbbTipoPartner").change((_this) => {
+    const TipoPartner_Id = $(_this.target).val();
     FillPartners(TipoPartner_Id);
+});
+
+//-------------- ADDRESS DROPDOWNS EVENTS
+$("#frmCreateUser #cbbPaises").change((_this) => {
+    const Country_Id = $(_this.target).val();
+    FillCities(Country_Id);
+});
+
+$("#frmCreateUser #cbbCiudades").change((_this) => {
+    const City_Id = $(_this.target).val();
+    FillSuburbs(City_Id);
 });
 
 $("#checkPartner").change(function () {
@@ -57,25 +72,6 @@ $("#checkExistingPartner").change(function () {
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 
-function FillCities(id_pais) {
-    const request = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
-
-    if (request.code == 200) {
-
-        const cities = request.data;
-        $(".cbbCiudades").empty();
-        $(".cbbCiudades").append(
-            `<option value="">Select a City Residence (required)</option>`
-        );
-        for (let i = 0; i < cities.length; i++) {
-            const city = cities[i];
-            const option = `<option value="${city.id}">${city.ciudad}, ${city.pais}</option>`;
-
-            $(".cbbCiudades").append(option);
-        }
-    }
-}
-
 
 function FillPartners(PartnerType_Id) {
 
@@ -103,8 +99,8 @@ function FillPartners(PartnerType_Id) {
                 textData: "text"
             },
             placeholder: {
-                empty: "Seleccione un partner",
-                default: "No se encontraron partner disponibles",
+                empty: "No se encontraron partner disponibles",
+                default: "Seleccione un partner",
             },
             semantic: true
         }
@@ -112,37 +108,79 @@ function FillPartners(PartnerType_Id) {
         FillDropDown(dropdownData);
         $("#frmSelectPartner #cbbPartners").dropdown();
 
-        /*
-        //clear dropdown
-        ClearDropDownItem(
-            $("#frmSelectPartner #cbbPartners")
-        );
-        // add placeholder
-        $("#frmSelectPartner #cbbPartners").append(
-            `<option value="">Select a Partner (required)</option>`
-        );
+    }
+}
 
-        if (Partners.length > 0) {
-            SetDropDownPlaceholder(
-                $("#frmSelectPartner #cbbPartners"),
-                "Select a Partner (required)"
-            );
+function FillCities(Country_Id) {
 
-            for (let i = 0; i < Partners.length; i++) {
-                const Partner = Partners[i];
+    if (CitiesList.code == 200) {
 
-                AddDropDownItem(
-                    $("#frmSelectPartner #cbbPartners"),
-                    { value: Partner.id, text: `${Partner.tipoPartner} - ${Partner.nombre}` }
-                );
-            }
+        var cities = CitiesList.data;
+        cities = jQuery.grep(cities, function (city, i) {
+            return city.paisID == Country_Id;
+        });
 
+        var ListItems = [];
+        for (let i = 0; i < cities.length; i++) {
+            const city = cities[i];
+            ListItems.push({ value: city.id, text: city.ciudad });
         }
-        else {
-            SetDropDownPlaceholder(
-                $("#frmSelectPartner #cbbPartners")
-            );
-        }*/
+
+        const dropdownData = {
+            dropdown: $("#frmCreateUser #cbbCiudades"),
+            items: {
+                list: ListItems,
+                valueData: "value",
+                textData: "text"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#frmCreateUser #cbbCiudades").dropdown();
+
+        $("#frmCreateUser #cbbCiudades").change((_this) => {
+            const City_Id = $(_this.target).val();
+            FillSuburbs(City_Id);
+        });
+    }
+}
+
+function FillSuburbs(City_Id) {
+
+    if (SuburbsList.code == 200) {
+
+        var suburbs = SuburbsList.data;
+        suburbs = jQuery.grep(suburbs, function (suburb, i) {
+            return suburb.ciudadID == City_Id;
+        });
+
+        var ListItems = [];
+        for (let i = 0; i < suburbs.length; i++) {
+            const suburb = suburbs[i];
+            ListItems.push({ value: suburb.id, text: suburb.colonia });
+        }
+
+        const dropdownData = {
+            dropdown: $("#frmCreateUser #cbbColonias"),
+            items: {
+                list: ListItems,
+                valueData: "value",
+                textData: "text"
+            },
+            placeholder: {
+                empty: "No se encontraron colonias disponibles",
+                default: "Seleccione una colonia",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#frmCreateUser #cbbColonias").dropdown();
 
     }
 }
@@ -162,7 +200,12 @@ function CreateUser() {
         { validateMessage: "Required field: 'User Birth Date' ", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
         { validateMessage: "Required field: 'User Password' ", Jqueryinput: $("#frmCreateUser #txtPassword") },
         { validateMessage: "Required field: 'User Email' ", Jqueryinput: $("#frmCreateUser #txtEmail") },
-        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser input:radio[name=rbGenero]'), check: true },
+        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser option[name="rbGenero"]'),check:true },
+        { validateMessage: "Required field: 'User address Country' ", Jqueryinput: $('#frmCreateUser #cbbPaises')},
+        { validateMessage: "Required field: 'User address City' ", Jqueryinput: $('#frmCreateUser #cbbCiudades') },
+        { validateMessage: "Required field: 'User address Suburb' ", Jqueryinput: $('#frmCreateUser #cbbColonias') },
+        { validateMessage: "Required field: 'User address Street name' ", Jqueryinput: $('#frmCreateUser #txtCalle') },
+        { validateMessage: "Required field: 'User address Avenue name' ", Jqueryinput: $('#frmCreateUser #txtAvenida') },
     ];
 
     const userValidate = ValidateForm(userValidateArray);
@@ -189,7 +232,7 @@ function CreateUser() {
         }
         
     }else{
-        /*
+        
          //verify rol
          if ($("#checkAdmin").prop("checked")) {
              user.role_ID = 1;
@@ -266,7 +309,7 @@ function CreateUser() {
                 );
             }
         }
-        */
+        
     }
 }
 
@@ -279,31 +322,21 @@ function CreatePartner() {
         part_ID: 0
     };
 
+    const userValidateArray = [
+        { validateMessage: "Required field: 'Partner Name' ", Jqueryinput: $("#frmCreatePartner #txtPartnerName") },
+        { validateMessage: "Required field: 'Partner Email' ", Jqueryinput: $("#frmCreatePartner #txtPartnerEmail") },
+        { validateMessage: "Required field: 'Partner Phone' ", Jqueryinput: $("#frmCreatePartner #txtPartnerPhone") },
+        { validateMessage: "Required field: 'Partner Type' ", Jqueryinput: $("#frmCreatePartner #cbbTipoPartner") },
+    ];
+
+    const userValidate = ValidateForm(userValidateArray);
+
     //validate partner constructor data
-    if ($("#frmCreatePartner #txtPartnerName").val() == 0) {
-        iziToastAlert(
-            "Required field: 'Partner Name' ", "", "error"
-        );
-    }
-    else if ($("#frmCreatePartner #txtPartnerEmail").val() == 0) {
-        iziToastAlert(
-            "Required field: 'Partner Email' ", "", "error"
-        );
-    }
-    else if ($("#frmCreatePartner #txtPartnerPhone").val() == 0) {
-        iziToastAlert(
-            "Required field: 'Partner Phone' ", "", "error"
-        );
-    }
-    else if ($("#frmCreatePartner .cbbTipoPartner select").val() == 0) {
-         iziToastAlert(
-            "Required field: 'Partner Type' ", "", "error"
-         );
-    } else {
+    if (userValidate){
          partner.part_Nombre = $("#frmCreatePartner #txtPartnerName").val();
          partner.part_Email = $("#frmCreatePartner #txtPartnerEmail").val();
          partner.part_Telefono = $("#frmCreatePartner #txtPartnerPhone").val();
-         partner.tiPart_Id = parseInt($("#frmCreatePartner .cbbTipoPartner select").val());
+         partner.tiPart_Id = parseInt($("#frmCreatePartner #cbbTipoPartner").val());
 
 
          const PartnerInsertStatus = ajaxRequest(
@@ -323,9 +356,8 @@ function CreatePartner() {
             data.success = true;
          }
          else {
-            iziToastAlert(
-                "Error when performing action: 'Create Partner' ", PartnerInsertStatus.data.messageStatus, "error"
-            );
+             $("#msgErrorForm").show();
+             $("#msgErrorForm p").html("An error ocurred while creating 'User Adress' ");
          }
     }
 
@@ -339,34 +371,23 @@ function CreateUserDirection() {
         dire_ID: 0
     };
 
-    if ($('#frmCreateUser #cbbCiudades').val() == 0) {
-        iziToastAlert(
-            "Required field: 'User City Residence' ", "", "error"
-        );
+    //construct direction json
+    userAdress.colo_ID = parseInt($("#frmCreateUser #cbbColonias").val());
+    userAdress.dire_Avenida = parseInt($("#frmCreateUser #txtAvenida").val());
+    userAdress.dire_Calle = parseInt($("#frmCreateUser #txtCalle").val());
+
+    const USerAddressStatus = ajaxRequest(
+        "https://totaltravel.somee.com/API/Address/Insert",
+        userAdress, "POST"
+    );
+
+    if (USerAddressStatus.code == 200) {
+        data.dire_ID = USerAddressStatus.data.codeStatus;
+        data.success = true;
     }
-    else if ($('#frmCreateUser #txtDireccionExacta').val() == 0) {
-        iziToastAlert(
-            "Required field: 'User Address Detail' ", "", "error"
-        );
-    } else {
-        //construct direction json
-        userAdress.Ciud_ID = parseInt($("#frmCreateUser #cbbCiudades").val());
-        userAdress.Dire_Descripcion = $("#frmCreateUser #txtDireccionExacta").val();
-
-        const USerAddressStatus = ajaxRequest(
-            "https://totaltravel.somee.com/API/Address/Insert",
-            userAdress, "POST"
-        );
-
-        if (USerAddressStatus.code == 200) {
-            data.dire_ID = USerAddressStatus.data.codeStatus;
-            data.success = true;
-        }
-        else {
-            iziToastAlert(
-                "Error when performing action: 'Create User Address' ", USerAddressStatus.data.messageStatus, "error"
-            );
-        }
+    else {
+        $("#msgErrorForm").show();
+        $("#msgErrorForm p").html("An error ocurred while creating 'User Adress' ");
     }
 
     return data;

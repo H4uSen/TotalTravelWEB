@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Menus")">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","Menus")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -41,33 +41,27 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Restaurante)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TipoMenu)
+                        Tipo menú
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Menu)
+                        Menú
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
+                        Descripción
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Precio)
                     </th>
-                    <th></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Restaurante)
                         </td>
@@ -81,7 +75,7 @@
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Precio)
+                           L. @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
                             <a href="@Url.Action("Update","Menus",new {  id=item.ID})" class="ui large icon btn-edit button">
@@ -105,40 +99,7 @@
 <br>
 
 @section Scripts{
-    <script>
-        // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdMenus tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdMenus").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
-        $("#grdMenus").paginationTdA({
-            elemPerPage: 10
-        });
-
-
-        function DeleteMenus(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("Menus/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/Menus?success=true';
-                }
-            };
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
-        };
-    </script>
+    <script src="~/js/MenusJs/Delete.js"></script>
 }
 @section HighlightTile{
     <script>

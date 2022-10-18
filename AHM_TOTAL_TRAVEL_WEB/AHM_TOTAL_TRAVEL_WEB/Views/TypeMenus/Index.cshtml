@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" id="createTypeMenus">
+                <a class="ui small btn-edit text-white labeled icon button" id="createTypeMenus">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -92,7 +92,7 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendTypeMenus">Guardar</button>
+        <button class="ui button btn-edit text-white" id="sendTypeMenus">Guardar</button>
         <button class="ui button" id="closeTypeMenus">Cancelar</button>
     </div>
 </div>
@@ -114,7 +114,7 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendEditTypeMenus">Guardar</button>
+        <button class="ui button btn-edit text-white" id="sendEditTypeMenus">Guardar</button>
         <button class="ui button" id="closeEditTypeMenus">Cancelar</button>
     </div>
 </div>
@@ -123,19 +123,7 @@
 @section Scripts{
     <script src="~/js/TypeMenusJs/Create.js"></script>
     <script src="~/js/TypeMenusJs/Update.js"></script>
-    <script>
-        function DeleteTypeMenus(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("TypeMenus/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/TypeMenus?success=true';
-                }
-            };
-
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
-        };
-    </script>
+    <script src="~/js/TypeMenusJs/Delete.js"></script>
 }
 @section HighlightTile{
     <script>
