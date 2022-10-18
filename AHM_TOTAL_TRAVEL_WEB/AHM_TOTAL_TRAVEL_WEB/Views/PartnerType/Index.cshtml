@@ -69,7 +69,7 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon btn-edit button"  id="UpdateBottomTipoPartner" onclick="GetTipoPartner('@item.ID')">
+                            <button class="ui large icon btn-edit button" id="UpdateBottomTipoPartner" onclick="GetTipoPartner('@item.ID')">
                                 <i class="pencil alternate icon  icon-crud"></i>
                             </button><button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
                                 <i class="trash alternate icon"></i>
@@ -146,31 +146,39 @@
 @section Scripts{
     <script src="~/js/PartnerType/Create.js"></script>
     <script src="~/js/PartnerType/Update.js"></script>
-            <script>
+    <script>
 
 
 
 
-            // ----------------------------------- EVENTS ------------------------------------
-                TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
+        // ----------------------------------- EVENTS ------------------------------------
+        TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
 
 
-                $("#grdRestaurants").paginationTdA({
-                    elemPerPage: 10
-            });
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 10
+        });
 
-                function DeleteTipoPartner(id) {
-                const Tpartner = () => {
-                    const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
-                    if (result > 0) {
+        function DeleteTipoPartner(id) {
+            const Tpartner = () => {
+                const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
+                if (result > 0) {
                     location.reload();
-                    }
-                };
-
-                sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
-
+                }
             };
 
-               
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
+
+        };
+
+
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#GeneralModule").addClass("active");
+        $("#General_Schema").addClass("show");
+        $("#GeneralModule").addClass("expandedList")
     </script>
 }

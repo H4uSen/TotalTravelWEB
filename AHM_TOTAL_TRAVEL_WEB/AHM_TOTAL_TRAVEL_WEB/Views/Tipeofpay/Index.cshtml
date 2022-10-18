@@ -159,6 +159,9 @@
     $("#createTipeofpay").click(() => {
         $("#modalCreate").modal("show")
     })
+    $("#closeTipeofpay").click(() => {
+        $("#modalCreate").modal('hide');
+    });
     // ----------------------------------- EVENTS ------------------------------------
     TableSearchInput($("#txtSearch"), $("#grdPayment"), elemPerPage = 10)
 
