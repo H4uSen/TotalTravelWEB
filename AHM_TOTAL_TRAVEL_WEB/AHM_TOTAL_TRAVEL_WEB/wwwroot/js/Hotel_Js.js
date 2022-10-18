@@ -18,42 +18,14 @@ $('#Count_ID').change(function () {
                 AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
             }
             $('#City_ID').parent().find('.text').html('Seleccione una ciudad');
-        } else {
+        }
+        else {
             SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
         }
     }
-
 });
-
-$('#City_ID').change(function () {
-
-
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
-    if (response.code == 200) {
-
-        var City_ID = $('#City_ID').val();
-        var suburbs = response.data;
-        var suburbsFilter = jQuery.grep(suburbs, function (Suburb, i) {
-            return Suburb.ciudadID == City_ID;
-        });
-        ClearDropDownItem($('#Col_ID'));
-        if (suburbsFilter.length > 0) {
-            AddDropDownItem($('#Col_ID'), item = { value: "", text: "Seleccione una colonia." });
-            for (var i = 0; i < suburbsFilter.length; i++) {
-                var item = suburbsFilter[i];
-                AddDropDownItem($('#Col_ID'), item = { value: item.id, text: item.colonia });
-            }
-            $('#Col_ID').parent().find('.text').html('Seleccione una colonia');
-        } else {
-            SetDropDownPlaceholder($('#Col_ID'), "No hay colonias disponibles.");
-        }
-    }
-
-});
-
 
 $("#File").change(async function () {
-
 
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
@@ -130,7 +102,7 @@ function createRestaurant() {
 
             DireID = responseAddress.data.codeStatus;
             direStatus = true;
-        } 
+        }
 
         if (direStatus) {
             var data = new FormData();
