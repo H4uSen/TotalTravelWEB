@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+            public async Task<IActionResult> Create()
         {
+            var model = new List<HotelListViewModel>();
+            var Hotel = await _hotelsServices.HotelsList();
+            IEnumerable<TypesTransportListViewModel> data_Hotel = (IEnumerable<TypesTransportListViewModel>)Hotel.Data;
+            ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
+
             return View();
         }
 
@@ -40,7 +46,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                habitacion.Habi_UsuarioModifica = 1;
+                habitacion.Habi_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _hotelsServices.RoomsCreate(habitacion, token);
                 return RedirectToAction("Index");
             }
@@ -52,6 +58,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Update(string id)
+        {
+
+            var item = new RoomsViewModel();
+            IEnumerable<RoomsListViewModel> model = null;
+            var list = await _hotelsServices.RoomsList(model);
+            IEnumerable<RoomsListViewModel> data = (IEnumerable<RoomsListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+            item.Hote_ID = element.ID;
+            item.Habi_Nombre = element.Habitacion;
+            item.Habi_Descripcion = element.Descripcion;
+            item.CaHa_ID = element.Categoria;
+            item.Hote_ID  = element.Hotel;
+            item.Habi_Precio = element.Precio;
+            item.Habi_balcon = element.Balcon;
+            item.Habi_wifi = element.Wifi;
+            item.Habi_camas = element.Camas;
+            item.Habi_capacidad = element.Capacidad;
+            item.Habi_url = element.Urls;
+
+            var rooms = await _hotelsServices.RoomsList(model);
+            IEnumerable<RoomsListViewModel> data_rooms = (IEnumerable<RoomsListViewModel>)rooms.Data;
+            ViewBag.Hote_ID = new SelectList(data_rooms, "ID", "Hotel", element.Hotel);
+
+
+            return View(item);
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update(RoomsViewModel habitacion, int id)
         {
@@ -59,6 +95,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
+                habitacion.Habi_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _hotelsServices.RoomsUpdate(habitacion, id, token);
                 return RedirectToAction("Index");
             }
@@ -70,21 +107,30 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(RoomsViewModel habitacion, int id)
+        public async Task<IActionResult> Delete(RoomsViewModel rooms, int id)
         {
             if (ModelState.IsValid)
             {
-                habitacion.Habi_UsuarioModifica = 1;
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                rooms.Habi_UsuarioModifica = int.Parse(idd);
 
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _hotelsServices.RoomsDelete(habitacion, id, token);
+                var list = (RequestStatus)(await _hotelsServices.RoomsDelete(rooms, id, token)).Data;
 
-                return RedirectToAction("Index");
+                return Ok(list.CodeStatus);
             }
             else
             {
                 return View();
             }
+        }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var transporte = (RoomsListViewModel)(await _hotelsServices.RoomsFind(id, token)).Data;
+
+            return View(transporte);
         }
     }
 }
