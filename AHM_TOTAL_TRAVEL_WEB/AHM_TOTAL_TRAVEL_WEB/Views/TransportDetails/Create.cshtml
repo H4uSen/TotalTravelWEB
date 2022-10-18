@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 <div id="frmCreateUser">
     <div class="container card">
         <div class="ui basic segment">
@@ -36,7 +35,7 @@
                             </div>
                             <div class="field">
                                 <label>Capacidad</label>
-                                <input asp-for="DeTr_Capacidad" />
+                                <input asp-for="DeTr_Capacidad" type="number" min="1"/>
                             </div>
                             <div class="required field">
                                 <label>Horario</label>
@@ -48,7 +47,7 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Precio</label>
-                                <input asp-for="DeTr_Precio" />
+                                <input asp-for="DeTr_Precio" type="number" min="1"/>
                             </div>
                             <div class="field">
                                 <label>Matricula</label>
@@ -57,7 +56,7 @@
 
                         </div>
 
-                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-purple ui positive button" />
+                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
 
                     </div>
                 </div>

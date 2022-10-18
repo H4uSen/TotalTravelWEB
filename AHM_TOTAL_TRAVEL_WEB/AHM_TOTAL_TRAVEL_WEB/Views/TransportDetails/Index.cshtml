@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -42,9 +42,6 @@
         <table class="ui compact selectable celled table" id="grdRestaurants">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Tipo_Transporte)
                     </th>
@@ -67,9 +64,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Tipo_Transporte)
                         </td>
