@@ -1,0 +1,70 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationRestaurantsViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon car"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Editar
+                    </div>
+                    <p>Editar Reservacion Restaurante</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <form asp-action="Update" id="FrmDetallesTranporte">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="two fields">
+                            <div class="required field">
+                                <label>Tipo Transporte</label>
+                                <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Resv_ID">
+                                    <option value="">Seleccione una Reservacion</option>
+                                </select>
+                            </div>
+                            <div class="required field">
+                                <label>Restaurante</label>
+                                <select id="Rest_ID" name="Rest_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Rest_ID">
+                                    <option value="">Seleccione un Restaurante</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="two fields">
+
+                            <div class="required field">
+                                <label>Hora</label>
+                                <input asp-for="ReRe_HoraReservacion" />
+                            </div>
+                            <div class="required field">
+                                <label>Fecha Reservacion</label>
+                                <input asp-for="ReRe_FechaReservacion" type="date" />
+                            </div>
+                        </div>
+
+
+                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ReservationRestaurantDetails")" class="ui button mb-3 ms-3">Cancelar</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+    

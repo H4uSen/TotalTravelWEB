@@ -9,22 +9,22 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon food"></i>
+                <i class="icon alert-info"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear restaurante
+                        Crear Reservacion Transporte
                     </div>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
                         Regresar
-                        <i class="left arrow icon"></i>
+                        <i class="focus icon"></i>
                     </a>
                 </div>
             </div>
 
             <!-- formulario-->
-            <form>
+            <form asp-action="Create" asp-controller="ReservationTransportation" id="CreateReservationTransporte">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
@@ -49,30 +49,30 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Cantidad Asientos</label>
-                                    <input id="ReTr_CantidadAsientos" name="ReTr_CantidadAsientos" placeholder="Cantidad Asientos"/>
+                                    <input id="ReTr_CantidadAsientos" name="ReTr_CantidadAsientos" placeholder="Cantidad Asientos" />
                                 </div>
                                 <div class="required field">
-                                    <label>Fecha Reservacion</label>
-                                    <input id="ReTr_Cancelado" name="ReTr_Cancelado" placeholder="Cancelado" type="date" />
+                                    <label>Cancelado</label>
+                                    <input id="ReTr_Cancelado" name="ReTr_Cancelado" placeholder="Cancelado"  />
                                 </div>
                             </div>
                         </div>
-                      
+
 
                         <div class="field">
                             <div class="fields">
                                 <div class="required field">
-                                    <label>Fecha Reservacion</label>
+                                    <label>Fecha Cancelado</label>
                                     <input id="ReTr_FechaCancelado" name="ReTr_FechaCancelado" placeholder="Fecha Cancelado" type="date" />
                                 </div>
                             </div>
                         </div>
 
 
-                    
+
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="createRestaurant()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" id="btnCreateReservationTransporte" class="btn btn-purple ui positive button" />
                     </div>
                 </div>
 
@@ -82,8 +82,20 @@
     </div>
 </div>
 
-         
-           
-          
-          
-           
+
+@section Scripts{
+    <script src="~/js/ReservacionTransporte/Create.js"></script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
+    </script>
+}
+
+
+
+
+

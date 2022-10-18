@@ -48,7 +48,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte");
 
 
-
             return View();
         }
 
