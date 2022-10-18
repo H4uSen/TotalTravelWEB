@@ -8,7 +8,7 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="bus icon"></i>
+            <i class="icon food"></i>
             <div class="content">
                 <div class="header">
                     Hoteles Menu
@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createHotelsMenu" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
+                <button id="createHotelsMenu" class="ui small primary labeled icon btn-edit button"><i class="plus icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -73,7 +73,7 @@
 
 
                         <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottomHotelsMenu" onclick="GetHotelsMenu(@item.ID)">
+                            <button class="ui large icon btn-edit button" id="UpdateBottomHotelsMenu" onclick="editar(@item.ID)">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </button>
                             <button class="ui large icon negative button" onclick="Delete(@item.ID)">
@@ -97,7 +97,7 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="required field">
-                    <label></label>
+                    
                     <div class="two fields">
                         <div class="field">
                             <input id="Descripcion" name="HoMe_Descripcion" placeholder="Descripcion del menu" />
@@ -141,14 +141,13 @@
     <form asp-action="Update" asp-controller="HotelsMenu" id="updateHotelsMenuForm">
         <div class="ui form attached fluid segment">
             <div class="content">
+                <input id="id" style="display:none" />
                 <div class="two fields">
                     <div class="field">
                         <input id="Descripcion_up" name="HoMe_Descripcion" placeholder="Descripcion del menu" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatord"></label>
                     </div>
                     <div class="field">
                         <input id="Precio_up" name="HoMe_Precio" placeholder="Precio del menu" />
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatord"></label>
                     </div>
                 </div>
                 <div class="two fields">
@@ -156,22 +155,23 @@
                         <select id="tHoTe_ID_up" name="HoTe_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
                             <option value="">Seleccione el Hotel</option>
                         </select>
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
                     </div>
                     <div class="field">
                         <select id="tTime_ID_up" name="Time_ID" class="ui dropdown search" asp-items="ViewBag.Time_ID">
                             <option value="">Seleccione el Menu</option>
                         </select>
-                        <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTipoActividad"></label>
                     </div>
 
+                </div>
+                <div class="field">
+                    <input id="file_up" type="file" />
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
         <button class="ui button" id="closeEditHotelsMenu">Cerrar</button>
-        <button class="ui button" id="sendEditHotelsMenu">Guardar</button>
+        <button class="ui button" id="sendEditHotelsMenu" onclick="actualizar()">Guardar</button>
     </div>
 </div>
 
@@ -179,10 +179,15 @@
     <script src="~/js/HotelsMenu/Create.js"></script>
     <script src="~/js/HotelsMenu/Update.js"></script>
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
         // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
+            $.each($("#tabla tbody tr"), function () {
                 if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
                     $(this).hide();
                 }
@@ -191,20 +196,23 @@
                 }
             });
 
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
+            $("#tabla").paginationTdA({
+                elemPerPage: 10
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+        $("#tabla").paginationTdA({
+            elemPerPage: 10
         });
 
         //------------------------------------Funciones------------------------
 
         function Delete(id) {
             const capsulahm = () => {
-                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST")
+                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/HotelsMenu?success=true';
+                }
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsulahm);

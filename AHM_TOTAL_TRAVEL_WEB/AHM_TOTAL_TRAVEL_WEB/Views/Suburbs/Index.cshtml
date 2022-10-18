@@ -94,7 +94,7 @@
                         </div>
                         <div class="required field">
                             <label class="ui label">País</label>
-                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                            <select id="Pais_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un país</option>
                             </select>
                         </div>
@@ -102,7 +102,7 @@
                     <div class="one field">
                         <div class="required field">
                             <label class="ui label">Ciudad</label>
-                            <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                            <select id="Ciud_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
                         </div>
                     </div>
                 </div>
@@ -161,12 +161,14 @@
 }
 
 @section Scripts{
-    <script src="~/js/SuburbsJs/SelectCiudades.js"></script>
+
+   
     <script src="~/js/SuburbsJs/Create.js"></script>
+    <script src="~/js/SuburbsJs/Update.js"></script>
 
     <script>
 
-
+        
 
         // -------------------------------------- EVENTS ---------------------------------------
 

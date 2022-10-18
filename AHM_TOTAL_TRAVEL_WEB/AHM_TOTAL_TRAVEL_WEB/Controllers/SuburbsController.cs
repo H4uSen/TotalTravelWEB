@@ -22,9 +22,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var token = HttpContext.User.FindFirst("Token").Value;
-            var type = await _generalService.CitiesList();
-            IEnumerable<CityListViewModel> data_type = (IEnumerable<CityListViewModel>)type.Data;
-            ViewBag.City_ID = new SelectList(data_type, "ID", "Ciudad");
+            var city = await _generalService.CitiesList();
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
             var country = await _generalService.CountriesList();
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
@@ -68,9 +69,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Colo_Descripcion = element.Colonia;
             item.Ciud_ID = element.CiudadID;
 
-            var ciudad = (CityListViewModel)(await _generalService.CityFind(item.Ciud_ID.ToString(), token)).Data;
+            var ciudad = (CityListViewModel)(await _generalService.CityFind(element.CiudadID.ToString(), token)).Data;
 
             ViewData["Pais"] = ciudad.PaisID;
+            ViewData["Ciudad"] = element.CiudadID;
 
             return View(item);
         }

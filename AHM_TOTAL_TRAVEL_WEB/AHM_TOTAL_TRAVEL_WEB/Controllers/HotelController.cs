@@ -71,23 +71,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Update(int id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var item = new HotelViewModel();
+            var item = new HotelListViewModel();
             IEnumerable<HotelListViewModel> model = null;
             var list = await _hotelService.HotelsList(token);
             IEnumerable<HotelListViewModel> data = (IEnumerable<HotelListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
-            item.Hote_Nombre = element.Hotel;
-            item.Hote_Descripcion = element.Descripcion;
-            item.Part_ID = element.ID_Partner;
-            item.Dire_ID = element.ID_Direc;
+            item.ID = element.ID;
+            item.Hotel = element.Hotel;
+            item.Descripcion = element.Descripcion;
+            item.ID_Partner = element.ID_Partner;
+            item.ID_Direc = element.ID_Direc;
 
             var direccion = (AddressListViewModel)(await _generalService.AddressFind(element.ID_Direc.ToString(), token)).Data;
 
+            ViewData["HotelFolder"] = $"Hotels/Hotel-{item.ID}/Place";
+            ViewData["Hotel_ID"] = element.ID;
             ViewData["Calle"] = direccion.Calle;
             ViewData["Avenida"] = direccion.Avenida;
             ViewData["Colonia"] = direccion.Colonia;
             ViewData["Pais"] = direccion.ID_Pais;
             ViewData["Ciudad"] = direccion.ID_Ciudad;
+            ViewData["Partner"] = element.ID_Partner;
 
             var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;

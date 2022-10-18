@@ -5,12 +5,11 @@ if (izziSuccess == "true") {
     iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
 }
 
-
-
 // ----------------------------------- EVENTS ------------------------------------
+//TableSearchInput(SearchInput, Table, elemPerPage = 10)
 $("#txtSearch").keyup(function () {
     _this = this;
-    $.each($("#grdMenus tbody tr"), function () {
+    $.each($("#grdRestaurants tbody tr"), function () {
         if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
             $(this).hide();
         }
@@ -19,21 +18,20 @@ $("#txtSearch").keyup(function () {
         }
     });
 
-    $("#grdMenus").paginationTdA({
+    $("#grdRestaurants").paginationTdA({
         elemPerPage: 10
     });
 });
 
-$("#grdMenus").paginationTdA({
+$("#grdRestaurants").paginationTdA({
     elemPerPage: 10
 });
 
-
-function DeleteMenus(id) {
+function DeleteRestaurant(id) {
     const capsula1 = () => {
-        var response = ajaxRequest("Menus/Delete?id=" + id, null, "POST");
+        var response = ajaxRequest("Restaurant/Delete?id=" + id, null, "POST");
         if (response > 0) {
-            window.location.href = '/Menus?success=true';
+            window.location.href = '/Restaurant?success=true';
         }
     };
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
