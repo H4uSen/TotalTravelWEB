@@ -620,7 +620,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             try
             {
                 var response = await _api.Post<ScheduleTransportationViewModel, RequestStatus>(req => {
-                    req.Path = $"/API/DestinationsTransportation/Insert";
+                    req.Path = $"/API/ScheduleTransportation/Insert";
 
                     req.Content = horario;
                 },
