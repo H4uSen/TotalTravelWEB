@@ -12,9 +12,9 @@
                 <i class="icon car"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear
+                        Editar
                     </div>
-                    <p>Crear un nuevo detalle de transporte</p>
+                    <p>Editar un detalle de transporte</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="field">
                                 <label>Capacidad</label>
-                                <input asp-for="DeTr_Capacidad" type="number" min="1"/>
+                                <input asp-for="DeTr_Capacidad" type="number" min="1" />
                             </div>
                             <div class="required field">
                                 <label>Horario</label>
@@ -47,7 +47,7 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Precio</label>
-                                <input asp-for="DeTr_Precio" type="number" min="1"/>
+                                <input asp-for="DeTr_Precio" />
                             </div>
                             <div class="field">
                                 <label>Matricula</label>
@@ -57,6 +57,7 @@
                         </div>
 
                         <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "TransportDetails")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
                 </div>
