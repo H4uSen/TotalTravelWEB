@@ -747,7 +747,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             try
             {
                 var response = await _api.Get<HotelsActivitiesListViewModel, HotelsActivitiesListViewModel>(req => {
-                    req.Path = $"/API/Activities/Find?id=" + id;
+                    req.Path = $"/API/HotelsActivities/Find?id=" + id;
                     req.Content = cuenta;
                 },
                 token
