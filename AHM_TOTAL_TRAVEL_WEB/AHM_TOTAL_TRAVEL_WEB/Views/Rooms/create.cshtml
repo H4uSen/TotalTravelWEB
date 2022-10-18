@@ -1,9 +1,10 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsListViewModel
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div id="frmCreateUser">
     <div class="container card">
         <div class="ui basic segment">
@@ -13,70 +14,105 @@
                     <div class="header text-capitalize">
                         Crear
                     </div>
-                    <p class="text-capitalize">Ingresa una nueva Habitacion.</p>
+                    <p>Crear un nueva Habitacion</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Rooms")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
-
-            <!-- formulario-->
-            <form>
-
+            <form asp-action="Create" id="FrmRooms">
                 <div class="ui form attached fluid segment">
                     <div class="content">
-
-                        <div class="field">
-                            <div class="two fields">
-                                <div class="field">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <label asp-for="Habi_Nombre" class="form-control"></label>
-                                    <input asp-for="Habi_Nombre" class="form-control" />
-                                    <span asp-validation-for="Habi_Nombre" class="text-danger"></span>
-                                </div>
-                                <div class="field">
-                                    <label asp-for="Habi_Descripcion" class="form-control"></label>
-                                    <input asp-for="Habi_Descripcion" class="form-control" />
-                                    <span asp-validation-for="Habi_Descripcion" class="text-danger"></span>
-                                </div>
+                        <div class="three fields">
+                            <div class="required field">
+                                <label>Hotel</label>
+                                <select id="Hote_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID" asp-for="ID_Hotel">
+                                    <option value="">Seleccione un hotel</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Habitacion</label>
+                                <input asp-for="Habitacion" />
+                            </div> 
+                            <div class="field">
+                                <label>Camas</label>
+                                <input asp-for="Camas" />
                             </div>
                         </div>
-                        <div class="field">
-                            <div class="two fields">
-                                <div class="field">
-                                    <label asp-for="CaHa_ID" class="form-control"></label>
-                                    <input asp-for="CaHa_ID" class="form-control" />
-                                    <span asp-validation-for="CaHa_ID" class="text-danger"></span>
-                                </div>
-                                <div class="field">
-                                    <label asp-for="Hote_ID" class="form-control"></label>
-                                    <input asp-for="Hote_ID" class="form-control" />
-                                    <span asp-validation-for="Hote_ID" class="text-danger"></span>
-                                </div>
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Descripcion</label>
+                                <input asp-for="Descripcion" />
                             </div>
 
-                        </div>
-                        <div class="field">
-                            <div class="two fields">
-                                <div class="field">
-                                    <label asp-for="Habi_Precio" class="form-control"></label>
-                                    <input asp-for="Habi_Precio" class="form-control" />
-                                    <span asp-validation-for="Habi_Precio" class="text-danger"></span>
-                                </div>
-
-                                <div class="field">
-
-                                    <label asp-for="Habi_UsuarioCreacion" class="form-control"></label>
-                                    <input asp-for="Habi_UsuarioCreacion" class="form-control" />
-                                    <span asp-validation-for="Habi_UsuarioCreacion" class="text-danger"></span>
-                                </div>
+                            <div class="field">
+                                <label>Categoria</label>
+                                <input asp-for="ID_Categoria" />
+                            </div>
+                            <div class="field">
+                                <label>Precio</label>
+                                <input asp-for="Precio" />
                             </div>
                         </div>
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Balcon</label>
+                                <input asp-for="Balcon" />
+                            </div>
+                            <div class="field">
+                                <label>Wifi</label>
+                                <input asp-for="Wifi" />
+                            </div>
+                           
+                            <div class="field">
+                                <label>Capacidad</label>
+                                <input asp-for="Capacidad" type="number" min="1" />
+                            </div>
+                        </div>
                     </div>
+                    <input id="Guardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                    <a type="button" href="@Url.Action("Index", "Rooms")" class="ui button mb-3 ms-3">Cancelar</a>
                 </div>
             </form>
-            <!-- fin formulario-->
         </div>
     </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
 </div>
+
+@section Scripts{
+    <script>
+        $("#Guardar").click(() => {
+            const ValidateArray = [
+                { validateMessage: "Seleccione un hotel", Jqueryinput: $("#ID_Hote") },
+                { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Capacidad") },
+                { validateMessage: "Seleccione un habitacion", Jqueryinput: $("#Habitacion") },
+                { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Descripcion") },
+                { validateMessage: "Ingrese la categoria", Jqueryinput: $("#ID_Categoria") },
+                { validateMessage: "Seleccione un precio", Jqueryinput: $("#Precio") },
+                { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Balcon") },
+                { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Wifi") },
+                { validateMessage: "Ingrese las camas", Jqueryinput: $("#Camas") }
+
+            ];
+            const userValidate = ValidateForm(ValidateArray);
+            if (userValidate) {
+                $("#FrmRooms").submit();
+            }
+        });
+    </script>
+
+}
+
+@section HighlightTile{
+    <script>
+        $("#RoomsModule").addClass("active");
+        $("#Rooms_Schema").addClass("show");
+        $("#RoomsModule").addClass("expandedList")
+    </script>
+}
+
+
+
+

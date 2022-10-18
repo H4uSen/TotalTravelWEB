@@ -44,6 +44,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 }
             }
 
+        internal Task HotelsList()
+        {
+            throw new NotImplementedException();
+        }
+
         //RoomsListViewModel CREATE
         public async Task<ServiceResult> RoomsCreate(RoomsViewModel habitacion, string token)
             {

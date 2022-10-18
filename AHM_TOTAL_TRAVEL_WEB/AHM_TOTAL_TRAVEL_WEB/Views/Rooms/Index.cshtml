@@ -9,20 +9,20 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="building icon"></i>
+            <i class="icon building"></i>
             <div class="content">
                 <div class="header">
-                    Rooms
+                   Habitaciones
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
+                <p></p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Rooms")">
-                    <i class="user icon"></i> Nuevo
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("create","Rooms")">
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
@@ -42,69 +42,75 @@
         <table class="ui compact selectable celled table" id="grdRestaurants">
             <thead>
                 <tr>
-
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        Habitacion
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Habitacion)
+                        Descripcion
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
+                        Categoria
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Categoria)
+                        Hotel
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Hotel)
+                        Precio
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Precio)
+                        Balcon
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UsuarioCreacion)
+                        Wifi
                     </th>
-                    <th></th>
+                    <th>
+                       Camas
+                    </th>
+                    <th>
+                        Capacidad
+                    </th>
+                    <th width="300px"></th>
                 </tr>
             </thead>
             <tbody>
-               @foreach (var item in Model)
+                @foreach (var item in Model)
                 {
-                <tr>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Habitacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Categoria)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hotel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
-                    </td>
-
-                    <td>
-                        <a href="@Url.Action("Update","Rooms",new {  id=item.ID})" class="ui large icon positive button"><i class="pencil alternate icon"></i></a>  
-                        <button class="ui large icon negative button" onclick="DeleteActividad(@item.ID)">
-                            <i class="trash alternate icon"></i>
-                        </button>
-                        <button class="ui large icon yellow button">
-                            <i class="folder open outline icon"></i>
-                        </button>
-                    </td>
-                </tr>
-                
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habitacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID_Categoria)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hotel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Balcon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Wifi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Camas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Capacidad)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Update","Rooms",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
+                            <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                                <i class="trash alternate icon"></i>
+                            </button>
+                            <a href="@Url.Action("Details","Rooms",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table><br>
@@ -115,7 +121,7 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdRestaurants tbody tr"), function () {
@@ -128,23 +134,32 @@
             });
 
             $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
 
-        //------------------------------------Funciones------------------------
-
-        function DeleteActividad(id) {
-            const capsula1 = () => {
-                ajaxRequest("/Rooms/Delete?id=" + id, null, "POST")
+        function DeleteRooms(id) {
+            const Rooms = () => {
+                const result = ajaxRequest("/Rooms/Delete?id=" + id, null, "POST");
+                if (result > 0) {
+                    location.reload();
+                }
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Rooms);
 
         };
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#RoomsModule").addClass("active");
+        $("#Rooms_Schema").addClass("show");
+        $("#RoomsModule").addClass("expandedList")
     </script>
 }
