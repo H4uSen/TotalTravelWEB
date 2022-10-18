@@ -83,3 +83,18 @@ var categorysroomsViewModel = {
     "CaHa_UsuarioCreacion": Client_User_ID,
     "CaHa_UsuarioModifica": Client_User_ID
 };
+
+var HotelsViewModel = {
+    "hote_Nombre": "string",
+    "hote_Descripcion": "string",
+    "dire_ID": 0,
+    "part_ID": 0,
+    "hote_UsuarioCreacion": Client_User_ID,
+    "hote_UsuarioModifica": Client_User_ID
+}
+var TipoPartnerViewModel = {
+    "id": 0,
+    "descripcion": "string",
+    "rol_Id": 0,
+    "rol_Descripcion": "string"
+};

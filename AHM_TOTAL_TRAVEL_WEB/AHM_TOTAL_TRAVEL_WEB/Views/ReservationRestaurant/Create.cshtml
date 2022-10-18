@@ -5,51 +5,83 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>ReservationRestaurantsViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-      
-            <div class="form-group">
-                <label asp-for="Resv_ID" class="control-label"></label>
-                <input asp-for="Resv_ID" class="form-control" />
-                <span asp-validation-for="Resv_ID" class="text-danger"></span>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon food"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Crear restaurante
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationRestaurants")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Rest_ID" class="control-label"></label>
-                <input asp-for="Rest_ID" class="form-control" />
-                <span asp-validation-for="Rest_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReRe_FechaReservacion" class="control-label"></label>
-                <input asp-for="ReRe_FechaReservacion" class="form-control" />
-                <span asp-validation-for="ReRe_FechaReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReRe_HoraReservacion" class="control-label"></label>
-                <input asp-for="ReRe_HoraReservacion" class="form-control" />
-                <span asp-validation-for="ReRe_HoraReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReRe_UsuarioCreacion" class="control-label"></label>
-                <input asp-for="ReRe_UsuarioCreacion" class="form-control" />
-                <span asp-validation-for="ReRe_UsuarioCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class=" two fields">
+                                <div class="required field">
+                                    <label class="ui label">Reservacion</label>
+                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
+                                        <option value="">Seleccione una reservacion</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Restaurante</label>
+                                    <select id="Rest_ID" name="Rest_ID" class="ui dropdown search" asp-items="ViewBag.Rest_ID">
+                                        <option value="">Seleccione una reservacion</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Fecha Reservacion</label>
+                                    <input id="ReRe_FechaReservacion" name="ReRe_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
+                                </div>
+                                <div class="required field">
+                                    <label>Hora Reservacion</label>
+                                    <input id="ReRe_HoraReservacion" name="ReRe_HoraReservacion" placeholder="Hora Reservacion"/>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" id="btnCreateReservationrestaurante" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts{
+    <script src="~/js/ReservationRestauranteJS/Creat.js"></script>
 }
+
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
+    </script>
+}
+
+
+

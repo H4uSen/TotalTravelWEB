@@ -96,8 +96,7 @@
                                 <h4>@string.Concat(Model.Nombre," ",Model.Apellido)</h4>
                                 <p class="text-secondary mb-1"> @Html.DisplayFor(model => model.Rol)</p>
                                 <p class="text-muted font-size-sm">@Html.DisplayFor(model => model.Telefono)</p>
-                                <a class="btn btn-primary w-100" href="#" id="editar">Editar</a>
-                                <!--<button class="btn btn-outline-primary">Message</button>-->
+                                <a class="btn btn-edit w-100" href="#" id="editar">Editar</a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +111,8 @@
                                 @Html.DisplayFor(model => model.Email)
                             </div>
                         </div>
-                        <hr><div class="row">
+                        <hr>
+                        <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Rol</h6>
                             </div>
@@ -121,14 +121,18 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Socio</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(model => model.Partner)
-                            </div>
-                        </div>
+                        @{ if (Model.Partner != null)
+                           {
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Socio</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Html.DisplayFor(model => model.Partner)
+                                    </div>
+                                </div>
+                           }
+                        }
                     </div>
                 </div>
             </div>
@@ -256,7 +260,6 @@
                                                 <span class="input-group-text" id="basic-addon1">Avenida</span>
                                             </div>
                                             <input type="text" class="form-control" id="Avenida" value="@ViewData["Avenida"]">
-                                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -266,7 +269,6 @@
                                                 <span class="input-group-text" id="basic-addon1">Calle</span>
                                             </div>
                                             <input type="text" class="form-control" id="Calle" value="@ViewData["Calle"]">
-                                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorCol"></label>
 
                                         </div>
                                     </div>
@@ -284,7 +286,8 @@
                         <div class="row">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9 text-secondary">
-                                <button onclick="UpdateUser()" class="btn btn-primary px-4">Guardar</button>
+                                <button onclick="UpdateUser()" class="btn btn-edit px-4">Guardar</button> |
+                                <a class="ui button mb-3 ms-3" href="#" id="cancelar">Cancelar</a>
                             </div>
                         </div>
                     </div>
@@ -304,7 +307,14 @@
 
         $("#editar").click(() => {
             $("#info").transition('slide down');
+            $('#editar').hide();
             $("#formedit").transition('slide up');
+        });
+
+        $("#cancelar").click(() => {
+            $("#info").transition('slide up');
+            $('#editar').show();
+            $("#formedit").transition('slide down');
         });
 
         const Pais_ID = "@ViewData["Pais"]";

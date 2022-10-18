@@ -44,11 +44,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 }
             }
 
-        internal Task RoomsList()
-        {
-            throw new NotImplementedException();
-        }
-
         //RoomsListViewModel CREATE
         public async Task<ServiceResult> RoomsCreate(RoomsViewModel habitacion, string token)
             {
@@ -139,6 +134,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 }
 
             }
+
+        public async Task<ServiceResult> RoomsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var habitacion = new RoomsListViewModel();
+
+            try
+            {
+                var response = await _api.Get<RoomsListViewModel, RoomsListViewModel>(req =>
+                {
+                    req.Path = $"/API/Rooms/Find?id=" + id;
+                    req.Content = habitacion;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
 
         #region Categorias Habitaciones
@@ -298,7 +323,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<IEnumerable<HotelListViewModel>, IEnumerable<HotelListViewModel>>(req => {
+                var response = await _api.Get<IEnumerable<HotelListViewModel>, IEnumerable<HotelListViewModel>>(req =>
+                {
                     req.Path = $"/API/Hotels/List";
                     req.Content = null;
                 },

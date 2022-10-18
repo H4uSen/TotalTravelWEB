@@ -21,9 +21,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
-           
+            var token = HttpContext.User.FindFirst("Token").Value;
+
             var model = new List<TransportDetailsListViewModel>();
-            var list = await _transportService.TransportDetailsList(model);
+            var list = await _transportService.TransportDetailsList(token);
             return View(list.Data);
         }
 
@@ -67,10 +68,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
 
             var item = new TransportDetailsViewModel();
             IEnumerable<TransportDetailsListViewModel> model = null;
-            var list = await _transportService.TransportDetailsList(model);
+            var list = await _transportService.TransportDetailsList(token);
             IEnumerable<TransportDetailsListViewModel> data = (IEnumerable<TransportDetailsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.Tprt_ID = element.ID;

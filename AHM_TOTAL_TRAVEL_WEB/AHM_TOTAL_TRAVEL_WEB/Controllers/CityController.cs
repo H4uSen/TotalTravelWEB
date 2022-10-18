@@ -65,29 +65,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
 
-        //[HttpGet]
-        //public async Task<IActionResult> Update(int id)
-        //{
-
-        //    IEnumerable<CountriesListViewModel> model_Country = null;
-        //    var country = await _generalService.CountriesList();
-        //    IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
-        //    ViewBag.pais_ID = new SelectList(data_Country, "ID", "Pais");
-
-
-        //    var item = new CityViewModel();
-        //    IEnumerable<CityListViewModel> model = null;
-        //    var list = await _generalService.CitiesList();
-        //    IEnumerable<CityListViewModel> data = (IEnumerable<CityListViewModel>)list.Data;
-        //    var element = data.Where(x => x.ID == id).ToList()[0];
-        //    item.ciud_Descripcion = element.Ciudad;
-
-
-
-        //    return View(item);
-
-        //}
-
 
         [HttpPost]
         public async Task<IActionResult> Update(CityViewModel city)
@@ -113,9 +90,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Details(string id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var transporte = (CityListViewModel)(await _generalService.CityFind(id, token)).Data;
+            var city = (CityListViewModel)(await _generalService.CityFind(id, token)).Data;
 
-            return View(transporte);
+            return View(city);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationDetailsListViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -9,15 +9,14 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon align-self-lg-start "></i>
+                <i class="file alternate icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Detalles
+                        Detalles de una Reserva
                     </div>
-                    <p>Detalles de una ciudad.</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationDetails")">
                         Regresar
                         <i class="left arrow icon"></i>
                     </a>
@@ -26,41 +25,52 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field">
-                                <label>Reservacion</label>
-                                @Html.DisplayFor(model => model.Reservacion)
+                                <label>ID</label>
+                                @Html.DisplayFor(model => model.ID)
 
                             </div>
                             <div class="field">
-                                <label>Cliente</label>
-                                @Html.DisplayFor(model => model.Cliente)
+                                <label>Habitación</label>
+                                @Html.DisplayFor(model => model.Nombre_Habitacion)
+
+                            </div>
+                            <div class="field">
+                                <label>Descripción</label>
+                                @Html.DisplayFor(model => model.Descripcion_Habitacion)
                             </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field">
-                                <label>Actividad Extra</label>
-                                @Html.DisplayFor(model => model.Actividad_Extra)
+                                <label>Categoría</label>
+                                @Html.DisplayFor(model => model.Categoria_Habitacion)
 
                             </div>
                             <div class="field">
-                                <label>Cantidad</label>
-                                @Html.DisplayFor(model => model.Cantidad)
+                                <label>Hotel</label>
+                                @Html.DisplayFor(model => model.Hotel)
+
+                            </div>
+                            <div class="field">
+                                <label>Precio Habitación</label>
+                                @Html.DisplayFor(model => model.Precio_Habitacion)
                             </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field">
-                                <label>Fecha Reservacion</label>
-                                @Html.DisplayFor(model => model.Fecha_Reservacion)
+                                <label>Fecha Entrada</label>
+                                @Html.DisplayFor(model => model.Fecha_Entrada)
 
                             </div>
                             <div class="field">
-                                <label>Hora Reservacion</label>
-                                @Html.DisplayFor(model => model.Hora_Reservacion)
+                                <label>Fecha Salida</label>
+                                @Html.DisplayFor(model => model.Fecha_Salida)
+
+                            </div>
+                            <div class="field">
+                                <label>Precio Reservación Hotel</label>
+                                @Html.DisplayFor(model => model.Precio_ReservacionHotel)
                             </div>
                         </div>
                     </div>
@@ -95,7 +105,6 @@
                         <td>
                             @Html.DisplayFor(model => model.Usuario_Creacion)
                         </td>
-
                         <td>
                             @Html.DisplayFor(model => model.Fecha_Creacion)
                         </td>
@@ -112,7 +121,10 @@
     </div>
 </div>
 
-
-
-
- 
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
+    </script>
+}

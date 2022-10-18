@@ -24,7 +24,7 @@ function GetAddress(id) {
     SetDropDownValue($("#City_IDUpdate"), AddressModel.iD_Ciudad);
     SetDropDownValue($("#Col_IDUpdate"), AddressModel.iD_Colonia);
 
-    $("#modalUpdate").modal('show');
+    $("#modalUpdate").modal({ autofocus: false, forceSelection: false }).modal('show');
 }
 
 $("#sendAddressUpdate").click(() => {

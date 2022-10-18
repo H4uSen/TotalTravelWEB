@@ -35,7 +35,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" id="createAddress">
+                <a class="ui small btn-edit text-white labeled icon button" id="createAddress">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -114,18 +114,6 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="required field">
-                            <label class="ui label">Calle</label>
-                            <input id="Calle" placeholder="Calle" />
-                        </div>
-                        <div class="required field">
-                            <label class="ui label">Avenida</label>
-                            <input id="Avenida" placeholder="Avenida" />
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="two fields">
-                        <div class="required field">
                             <label class="ui label">País</label>
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un pais</option>
@@ -143,11 +131,24 @@
                         <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                     </div>
                 </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label class="ui label">Calle</label>
+                            <input id="Calle" placeholder="Calle" />
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Avenida</label>
+                            <input id="Avenida" placeholder="Avenida" />
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendAddress">Guardar</button>
+        <button class="ui button btn-edit text-white" id="sendAddress">Guardar</button>
         <button class="ui button" id="closeAddress">Cancelar</button>
     </div>
 </div>
@@ -162,19 +163,6 @@
     <form asp-action="Update" id="updateAddress">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <div class="field">
-                    <div class="two fields">
-                        <input id="addressID" />
-                        <div class="required field">
-                            <label class="ui label">Calle</label>
-                            <input id="CalleUpdate" placeholder="Calle" />
-                        </div>
-                        <div class="required field">
-                            <label class="ui label">Avenida</label>
-                            <input id="AvenidaUpdate" placeholder="Avenida" />
-                        </div>
-                    </div>
-                </div>
                 <div class="field">
                     <div class="two fields">
                         <div class="required field">
@@ -195,11 +183,24 @@
                         <select id="Col_IDUpdate" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                     </div>
                 </div>
+                <div class="field">
+                    <div class="two fields">
+                        <input id="addressID" />
+                        <div class="required field">
+                            <label class="ui label">Calle</label>
+                            <input id="CalleUpdate" placeholder="Calle" />
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Avenida</label>
+                            <input id="AvenidaUpdate" placeholder="Avenida" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendAddressUpdate">Guardar</button>
+        <button class="ui button btn-edit text-white" id="sendAddressUpdate">Guardar</button>
         <button class="ui button" id="closeAddressUpdate">Cancelar</button>
     </div>
 </div>

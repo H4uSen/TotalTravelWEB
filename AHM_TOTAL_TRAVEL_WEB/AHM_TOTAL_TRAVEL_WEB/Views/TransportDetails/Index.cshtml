@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -43,19 +43,16 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        Transporte
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tipo_Transporte)
+                       Capacidad
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Capacidad)
+                        Precio
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Precio)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Matricula)
+                        Matricula
                     </th>
                     <th>
                         Horario
@@ -67,9 +64,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Tipo_Transporte)
                         </td>

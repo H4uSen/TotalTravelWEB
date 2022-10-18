@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Editar</h1>
 <div id="frmCreateUser">
     <div class="container card">
         <div class="ui basic segment">
@@ -13,9 +12,9 @@
                 <i class="icon car"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear
+                        Editar
                     </div>
-                    <p>Crear un nuevo detalle de transporte</p>
+                    <p>Editar un detalle de transporte</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
@@ -36,7 +35,7 @@
                             </div>
                             <div class="field">
                                 <label>Capacidad</label>
-                                <input asp-for="DeTr_Capacidad" />
+                                <input asp-for="DeTr_Capacidad" type="number" min="1" />
                             </div>
                             <div class="required field">
                                 <label>Horario</label>
@@ -57,7 +56,8 @@
 
                         </div>
 
-                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-purple ui positive button" />
+                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "TransportDetails")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
                 </div>

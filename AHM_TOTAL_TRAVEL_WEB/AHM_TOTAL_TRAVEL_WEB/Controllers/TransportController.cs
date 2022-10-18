@@ -84,15 +84,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Part_ID = element.PartnerID;
             item.Dire_ID = element.DireccionId;
 
-            var direccion = (AddressListViewModel)(await _generalService.AddressFind(item.Dire_ID.ToString(), token)).Data;
+            var tra = (TransportListViewModel)(await _transportService.TransportFind(id.ToString(), token)).Data;
+            var direccion = (AddressListViewModel)(await _generalService.AddressFind(tra.DireccionId.ToString(), token)).Data;
 
             ViewData["Calle"] = direccion.Calle;
             ViewData["Avenida"] = direccion.Avenida;
             ViewData["Pais"] = direccion.ID_Pais;
             ViewData["Ciudad"] = direccion.ID_Ciudad;
             ViewData["Colonia"] = direccion.Colonia;
-            ViewData["Partner"] = item.Part_ID;
-            ViewData["TipoTransporte"] = item.TiTr_ID;
+            ViewData["Partner"] = tra.PartnerID;
+            ViewData["TipoTransporte"] = tra.TipoTransporteID;
 
             var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;

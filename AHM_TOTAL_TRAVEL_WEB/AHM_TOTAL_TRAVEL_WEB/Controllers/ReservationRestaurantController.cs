@@ -25,10 +25,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //IEnumerable<RestaurantListViewModel> model_Restaurants = null;
-            //var Restaurants = await _restaurantService.RestaurantsList(model_Restaurants);
-            //IEnumerable<RestaurantListViewModel> data_Restaurante = (IEnumerable<RestaurantListViewModel>)Restaurants.Data;
-            //ViewBag.Rest_ID = new SelectList(data_Restaurante, "ID", "Descripcion");
+          
 
             var token = HttpContext.User.FindFirst("Token").Value;
 
@@ -41,9 +38,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
- 
+            var model = new List<ReservationExtraActivitiesViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var reservasion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservasion.Data;
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete");
+
+
+            var restaurant = await _restaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)restaurant.Data;
+            ViewBag.Rest_ID = new SelectList(data_restaurant, "ID", "Restaurante");
+
 
             return View();
+
         }
 
 
@@ -90,6 +99,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var restaurante = (ReservationRestaurantsListViewModel)(await _reservationService.RestaurentReservationFind(id, token)).Data;
+
+            return View(restaurante);
         }
     }
 }

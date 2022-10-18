@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.SuburbsListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationDetailsListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,10 +9,10 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="home icon"></i>
+            <i class="file alternate icon"></i>
             <div class="content">
                 <div class="header">
-                    Colonias
+                    Reservaciones Detalles
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createSuburbs" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                <button id="createReservationDetails" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -40,37 +40,76 @@
             <thead>
                 <tr>
                     <th>
-                        Colonia
+                        Habitación
                     </th>
                     <th>
-                        Ciudad
+                        Descripción
                     </th>
+                    <th>
+                        Categoría
+                    </th>
+                    <th>
+                        Hotel
+                    </th>
+                    <th>
+                        Precio Habitación
+                    </th>
+                    <th>
+                        Fecha Entrada
+                    </th>
+                    <th>
+                        Fecha Salida
+                    </th>
+                    <th>
+                        Precio Reservación Hotel
+                    </th>
+
                     <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Colonia)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre_Habitacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion_Habitacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria_Habitacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hotel)
+                    </td>
+                    <td>
+                        L @Html.DisplayFor(modelItem => item.Precio_Habitacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha_Entrada)
+                        @*@ViewData["Fechahotel1"]*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha_Salida)
+                        @*@ViewData["Fechahotel2"]*@
+                    </td>
+                    <td>
+                        L @Html.DisplayFor(modelItem => item.Precio_ReservacionHotel)
+                    </td>
 
-                        <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottomColo" onclick="editar(@item.ID)">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </button>
-                            <button class="ui large icon btn-delete button" onclick="DeleteColo(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a class="ui large icon button" href="@Url.Action("Details", "Suburbs", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <td>
+                        <button class="ui large icon btn-edit button" id="UpdateBottomReDe" onclick="editar(@item.ID)">
+                            <i class="pencil alternate icon icon-crud"></i>
+                        </button>
+                        <button class="ui large icon btn-delete button" onclick="DeleteReDe(@item.ID)">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a class="ui large icon button" href="@Url.Action("Details", "ReservationDetails", new { id=item.ID })">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table><br>
@@ -79,7 +118,7 @@
 </div>
 <br>
 
-<div class="ui modal longer" id="modalCreate">
+@*<div class="ui modal longer" id="modalCreate">
     <div class="header">
         Ingresa una Colonia
     </div>
@@ -110,12 +149,12 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-edit text-white" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
         <button class="ui button" id="close">Cancelar</button>
     </div>
-</div>
+</div>*@
 
-<div class="ui modal longer" id="modalUpdate">
+@*<div class="ui modal longer" id="modalUpdate">
     <div class="header">
         Actualiza una Colonia
     </div>
@@ -147,22 +186,21 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-edit text-white" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
         <button class="ui button" id="close">Cancelar</button>
     </div>
-</div>
+</div>*@
 
 @section HighlightTile{
     <script>
-        $("#GeneralModule").addClass("active");
-        $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+        $("#ReservationModule").addClass("active");
+        $("#Reservation_Schema").addClass("show");
+        $("#ReservationModule").addClass("expandedList")
     </script>
 }
 
 @section Scripts{
-    <script src="~/js/SuburbsJs/SelectCiudades.js"></script>
-    <script src="~/js/SuburbsJs/Create.js"></script>
+    @*<script src="~/js/ReservationDetails/Create.js"></script>*@
 
     <script>
 
@@ -190,15 +228,15 @@
             elemPerPage: 10
         });
 
-        const paisID = "@ViewData["Pais"]";
+        const Habitacion = "@ViewData["Habitacion"]";
 
     </script>
     <script>
         function DeleteColo(id) {
             const capsula1 = () => {
-                var response = ajaxRequest("Suburbs/Delete?id=" + id, null, "POST");
+                var response = ajaxRequest("ReservationDetails/Delete?id=" + id, null, "POST");
                 if (response > 0) {
-                    window.location.href = '/Suburbs?success=true';
+                    window.location.href = '/ReservationDetails?success=true';
                 }
             };
 
@@ -208,3 +246,5 @@
     </script>
 
 }
+
+

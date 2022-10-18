@@ -33,6 +33,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Categoria { get; set; }
         public string Hotel { get; set; }
         public decimal? Precio { get; set; }
+        public string Balcon { get; set; }
+        public string Wifi { get; set; }
+        public string Camas { get; set; }
+        public string Capacidad { get; set; }
+        public string Urls { get; set; }
         public string UsuarioCreacion { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public string UsuarioModifica { get; set; }

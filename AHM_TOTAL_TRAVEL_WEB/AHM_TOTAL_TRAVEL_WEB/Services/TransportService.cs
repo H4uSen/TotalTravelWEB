@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
         #region DetallesTransportes
-        public async Task<ServiceResult> TransportDetailsList(IEnumerable<TransportDetailsListViewModel> model)
+        public async Task<ServiceResult> TransportDetailsList(string token)
         {
             var Result = new ServiceResult();
 
@@ -27,7 +27,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<TransportDetailsListViewModel>, IEnumerable<TransportDetailsListViewModel>>(req => {
                     req.Path = $"/API/DetailsTransportation/List";
                     req.Content = null;
-                }
+                },
+                token
                 );
                 if (!response.Success)
                 {
