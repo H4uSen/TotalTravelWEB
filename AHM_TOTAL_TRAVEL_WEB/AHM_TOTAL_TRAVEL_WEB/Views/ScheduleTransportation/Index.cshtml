@@ -80,10 +80,10 @@
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Update","Restaurant",new {  id=item.ID})" class="ui large icon btn-edit button">
-                                <i class="pencil alternate icon  icon-crud"></i>
-                            </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteRestaurant('@item.ID')">
+                            <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a href="@Url.Action("Details","Restaurant",new {  id=item.ID})" class="ui large icon button">
@@ -140,8 +140,67 @@
     </div>
 </div>
 
+
+<div class="ui modal longer" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un Horario
+    </div>
+    <form asp-action="Update" asp-controller="ScheduleTransportation" id="UpdateScheduleForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="field">
+                            <input type="date" id="ID_Horario" name="HoTr_ID" placeholder="ID" />
+                            <label>Destino</label>
+                            <select id="DsTr_IDUpdate" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                                <option value="">Seleccione el Destino</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Fecha</label>
+                            <input type="date" id="FechaViajeUpdate" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Hora de Salida</label>
+                            <input id="HoTr_HoraSalidaUpdate" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                        </div>
+                        <div class="field">
+                            <label>Hora de llegada</label>
+                            <input id="HoTr_HoraLlegadaUpdate" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="SendScheduleEdit">Guardar</button>
+        <button class="ui button" id="closeScheduleEdit">Cancelar</button>
+    </div>
+</div>
+
 @section Scripts{ 
 <script src="~/js/ScheduleTRansportJs/Create.js"></script>
+<script src="~/js/ScheduleTRansportJs/Update.js"></script>
+<script>
+    //------------------------------------Funciones------------------------
+
+    function DeleteHorarios(Id) {
+        const capsula1 = () => {
+            var response = ajaxRequest("/ScheduleTransportation/Delete?id=" + Id, null, "POST");
+            if (response > 0) {
+                window.location.href = '/ScheduleTransportation?success=true';
+            }
+        };
+        sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+    };
+
+</script>
 }
 
 @section HighlightTile{
