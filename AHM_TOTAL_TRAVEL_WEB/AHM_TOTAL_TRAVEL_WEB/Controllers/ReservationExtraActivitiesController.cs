@@ -40,7 +40,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var reservasion = await _reservationService.ReservationList(token);
             IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservasion.Data;
-            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "FechaCreacion");
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete");
 
 
             var actividad = await _activitiesServices.ExtraActivitiesList(token);

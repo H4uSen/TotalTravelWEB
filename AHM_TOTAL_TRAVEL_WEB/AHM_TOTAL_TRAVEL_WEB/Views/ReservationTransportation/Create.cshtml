@@ -5,57 +5,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon food"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Crear restaurante
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
 
-<h4>ReservationTransportationViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-         
-            <div class="form-group">
-                <label asp-for="Detr_ID" class="control-label"></label>
-                <input asp-for="Detr_ID" class="form-control" />
-                <span asp-validation-for="Detr_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Resv_ID" class="control-label"></label>
-                <input asp-for="Resv_ID" class="form-control" />
-                <span asp-validation-for="Resv_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReTr_CantidadAsientos" class="control-label"></label>
-                <input asp-for="ReTr_CantidadAsientos" class="form-control" />
-                <span asp-validation-for="ReTr_CantidadAsientos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReTr_Cancelado" class="control-label"></label>
-                <input asp-for="ReTr_Cancelado" class="form-control" />
-                <span asp-validation-for="ReTr_Cancelado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReTr_FechaCancelado" class="control-label"></label>
-                <input asp-for="ReTr_FechaCancelado" class="form-control" />
-                <span asp-validation-for="ReTr_FechaCancelado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReTr_UsuarioCreacion" class="control-label"></label>
-                <input asp-for="ReTr_UsuarioCreacion" class="form-control" />
-                <span asp-validation-for="ReTr_UsuarioCreacion" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class=" two fields">
+                                <div class="required field">
+                                    <label class="ui label">Destino</label>
+                                    <select id="Detr_ID" name="Detr_ID" class="ui dropdown search" asp-items="ViewBag.Detr_ID">
+                                        <option value="">Seleccione una reservacion</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Reservacion</label>
+                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
+                                        <option value="">Seleccione una reservacion</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>Cantidad Asientos</label>
+                                    <input id="ReTr_CantidadAsientos" name="ReTr_CantidadAsientos" placeholder="Cantidad Asientos"/>
+                                </div>
+                                <div class="required field">
+                                    <label>Fecha Reservacion</label>
+                                    <input id="ReTr_Cancelado" name="ReTr_Cancelado" placeholder="Cancelado" type="date" />
+                                </div>
+                            </div>
+                        </div>
+                      
+
+                        <div class="field">
+                            <div class="fields">
+                                <div class="required field">
+                                    <label>Fecha Reservacion</label>
+                                    <input id="ReTr_FechaCancelado" name="ReTr_FechaCancelado" placeholder="Fecha Cancelado" type="date" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" onclick="createRestaurant()" class="btn btn-purple ui positive button" />
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+         
+           
+          
+          
+           
