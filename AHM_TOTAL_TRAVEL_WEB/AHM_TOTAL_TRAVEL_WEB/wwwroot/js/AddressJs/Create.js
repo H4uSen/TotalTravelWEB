@@ -1,12 +1,12 @@
 ﻿$('.ui.dropdown').dropdown();
 
 $("#createAddress").click(() => {
-    $("#modalCreate").modal('show');
+    $("#modalCreate").modal({ autofocus: false, forceSelection: false}).modal('show');
    
 
     $('#Count_ID').change(function () {
 
-
+        SetDropDownPlaceholder($('#Col_ID'));
         var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
         if (response.code == 200) {
             var Count_ID = $('#Count_ID').val();
