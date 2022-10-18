@@ -83,26 +83,6 @@ function updateTransport(id) {
     }
 }
 
-//function RellenarCiudades(Pais_ID) {
-//    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-//    if (response.code == 200) {
-//        var cities = response.data;
-//        var cityFilter = jQuery.grep(cities, function (City, i) {
-//            return City.paisID == Pais_ID;
-//        });
-//        ClearDropDownItem($('#City_ID'));
-//        if (cityFilter.length > 0) {
-//            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
-//            for (var i = 0; i < cityFilter.length; i++) {
-//                var item = cityFilter[i];
-//                AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
-//            }
-//        } else {
-//            SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
-//        }
-//    }
-//}
-
 function RellenarCiudades(Country_Id) {
 
     var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");

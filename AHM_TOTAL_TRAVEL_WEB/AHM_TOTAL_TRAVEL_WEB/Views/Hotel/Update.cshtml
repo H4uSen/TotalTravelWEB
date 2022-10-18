@@ -1,0 +1,147 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.HotelListViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="building icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar Hotel
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Hotel")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- formulario-->
+            <form>
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Hotel</label>
+                                    <input id="Hote_Nombre" placeholder="Hotel" value="@Model.Hotel"/>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Descripción</label>
+                                    <input id="Hote_Descripcion" placeholder="Descripcion" value="@Model.Descripcion"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Socio</label>
+                                    <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                        <option value="">Seleccione un socio</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">País</label>
+                                    <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                        <option value="">Seleccione un país</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Ciudad</label>
+                                    <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Colonia</label>
+                                    <input id="Colonia" placeholder="Colonia" value="@ViewData["Colonia"]" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Calle</label>
+                                    <input id="Calle" placeholder="Calle" value="@ViewData["Calle"]"/>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Avenida</label>
+                                    <input id="Avenida" placeholder="Avenida" value="@ViewData["Avenida"]"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui grid three column stackable mt-4">
+                            <div class="column">
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imágenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header" id="HotelCarousel">
+                                        <i class="images icon"></i>
+                                        Tus imágenes aparecerán aquí.
+                                    </div>
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" onclick="createHotel()" class="btn btn-purple ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Hotel")" class="ui button mb-3 ms-3">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+            <!-- fin formulario-->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const Pais_ID = "@ViewData["Pais"]";
+        const Ciudad = "@ViewData["Ciudad"]";
+        const Part_ID = "@ViewData["Partner"]";
+    </script>
+    <script src="~/js/HotelJs/Create.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section HighlightTile{
+    <script>
+        $("#HotelModule").addClass("active");
+        $("#Hotels_Schema").addClass("show");
+        $("#HotelModule").addClass("expandedList")
+    </script>
+}
