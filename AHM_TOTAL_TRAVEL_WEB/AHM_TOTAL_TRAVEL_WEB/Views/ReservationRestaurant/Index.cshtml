@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","ReservationRestaurant")">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","ReservationRestaurant")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -79,13 +79,13 @@
 
 
                         <td>
-                            <a href="@Url.Action("Update","Activities",new {  id=item.Id})" class="ui large icon btn-edit button">
+                            <a href="@Url.Action("Update","ReservationRestaurant",new {  id=item.Id})" class="ui large icon btn-edit button">
                                 <i class="pencil alternate icon  icon-crud"></i>
                             </a>
                             <button class="ui large icon btn-delete button" onclick="DeleteReservacionRestaurante('@item.Id')">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
-                            <a href="@Url.Action("Details","Activities",new {  id=item.Id})" class="ui large icon button">
+                            <a href="@Url.Action("Details","ReservationRestaurant",new {  id=item.Id})" class="ui large icon button">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
 

@@ -100,5 +100,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var restaurante = (ReservationRestaurantsListViewModel)(await _reservationService.RestaurentReservationFind(id, token)).Data;
+
+            return View(restaurante);
+        }
     }
 }
