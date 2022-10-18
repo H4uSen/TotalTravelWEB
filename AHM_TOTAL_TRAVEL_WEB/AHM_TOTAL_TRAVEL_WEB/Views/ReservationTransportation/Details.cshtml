@@ -1,9 +1,10 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationTransportationListViewModel
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div id="frmCreateUser">
     <div class="container card">
@@ -17,7 +18,7 @@
                     <p>Detalles de una ciudad.</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
                         Regresar
                         <i class="left arrow icon"></i>
                     </a>
@@ -28,39 +29,39 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
+                                <label>Capacidad</label>
+                                @Html.DisplayFor(model => model.Capacidad)
+
+                            </div>
+                            <div class="field">
+                                <label>Precio</label>
+                                @Html.DisplayFor(model => model.Precio)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
                                 <label>Reservacion</label>
                                 @Html.DisplayFor(model => model.Reservacion)
 
                             </div>
                             <div class="field">
-                                <label>Cliente</label>
-                                @Html.DisplayFor(model => model.Cliente)
+                                <label>Asientos</label>
+                                @Html.DisplayFor(model => model.Asientos)
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Actividad Extra</label>
-                                @Html.DisplayFor(model => model.Actividad_Extra)
+                                <label>Cancelado</label>
+                                @Html.DisplayFor(model => model.Cancelado)
 
                             </div>
                             <div class="field">
-                                <label>Cantidad</label>
-                                @Html.DisplayFor(model => model.Cantidad)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Fecha Reservacion</label>
-                                @Html.DisplayFor(model => model.Fecha_Reservacion)
-
-                            </div>
-                            <div class="field">
-                                <label>Hora Reservacion</label>
-                                @Html.DisplayFor(model => model.Hora_Reservacion)
+                                <label>Fecha Cancelado</label>
+                                @Html.DisplayFor(model => model.Fecha_Cancelado)
                             </div>
                         </div>
                     </div>
@@ -113,6 +114,4 @@
 </div>
 
 
-
-
- 
+   

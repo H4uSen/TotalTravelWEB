@@ -1,7 +1,7 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.HotelViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.HotelListViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,7 +12,7 @@
                 <i class="building icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear Hotel
+                        Actualizar Hotel
                     </div>
                 </div>
                 <div class="right floated content" style="text-align: end;">
@@ -31,11 +31,11 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Hotel</label>
-                                    <input id="Hote_Nombre" placeholder="Hotel" />
+                                    <input id="Hote_Nombre" placeholder="Hotel" value="@Model.Hotel"/>
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Descripción</label>
-                                    <input id="Hote_Descripcion" placeholder="Descripcion" />
+                                    <input id="Hote_Descripcion" placeholder="Descripcion" value="@Model.Descripcion"/>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Colonia</label>
-                                    <input id="Colonia" placeholder="Colonia" />
+                                    <input id="Colonia" placeholder="Colonia" value="@ViewData["Colonia"]" />
                                 </div>
                             </div>
                         </div>
@@ -71,11 +71,11 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Calle</label>
-                                    <input id="Calle" placeholder="Calle" />
+                                    <input id="Calle" placeholder="Calle" value="@ViewData["Calle"]"/>
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Avenida</label>
-                                    <input id="Avenida" placeholder="Avenida" />
+                                    <input id="Avenida" placeholder="Avenida" value="@ViewData["Avenida"]"/>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +128,12 @@
 </div>
 
 @section Scripts{
+    <script>
+        const Pais_ID = "@ViewData["Pais"]";
+        const Ciudad = "@ViewData["Ciudad"]";
+        const Part_ID = "@ViewData["Partner"]";
+    </script>
     <script src="~/js/HotelJs/Create.js"></script>
-
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

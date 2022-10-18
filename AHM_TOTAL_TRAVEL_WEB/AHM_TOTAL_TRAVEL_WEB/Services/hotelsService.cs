@@ -44,11 +44,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 }
             }
 
-        internal Task RoomsList()
-        {
-            throw new NotImplementedException();
-        }
-
         //RoomsListViewModel CREATE
         public async Task<ServiceResult> RoomsCreate(RoomsViewModel habitacion, string token)
             {
@@ -328,7 +323,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<IEnumerable<HotelListViewModel>, IEnumerable<HotelListViewModel>>(req => {
+                var response = await _api.Get<IEnumerable<HotelListViewModel>, IEnumerable<HotelListViewModel>>(req =>
+                {
                     req.Path = $"/API/Hotels/List";
                     req.Content = null;
                 },

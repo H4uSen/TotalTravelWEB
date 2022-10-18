@@ -24,20 +24,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
-            var list = await _generalServices.PartnerTypeList();
-            return View(list.Data);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
             string token = HttpContext.User.FindFirst("Token").Value;
             var Rol = await _accessService.RolesList(token);
             IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
             ViewBag.Rol_ID = new SelectList(data_rol, "ID", "Descripcion");
 
-            return View();
+            var list = await _generalServices.PartnerTypeList();
+            return View(list.Data);
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> Create()
+        //{
+        //    string token = HttpContext.User.FindFirst("Token").Value;
+        //    var Rol = await _accessService.RolesList(token);
+        //    IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
+        //    ViewBag.Rol_ID = new SelectList(data_rol, "id", "descripcion");
+
+        //    return View();
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Create(PartnerTypeViewModel TipoPartner)
@@ -46,7 +51,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                TipoPartner.TiPar_UsuarioCreacion = 1;
+                TipoPartner.TiPar_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.PartnerTypeCreate(TipoPartner, token);
                 return RedirectToAction("Index");
             }
@@ -74,12 +79,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.TiPar_Descripcion = element.Descripcion;
             item.Rol_ID = element.Rol_Id;
 
+            ViewData["Rol_IDview"] = item.Rol_ID;
+
+
             return View(item);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(PartnerTypeViewModel TipoPartner, int id)
+        public async Task<IActionResult> Update(PartnerTypeViewModel TipoPartner)
         {
 
             if (ModelState.IsValid)
@@ -87,6 +95,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 //TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                var id = TipoPartner.TiPar_ID;
                 var lista = await _generalServices.PartnerTypeUpdate(TipoPartner, id, token);
                 return RedirectToAction("Index");
             }

@@ -6,7 +6,7 @@
 }
 
 
-<div id="frmCreateReservation">
+<div id="frmcreatereservationactividadesextra">
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
@@ -15,7 +15,12 @@
                     <div class="header text-capitalize">
                         Crear
                     </div>
-                    <p>Ingresa un nuevo partner.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
 
@@ -30,7 +35,7 @@
                                 <div class="required field">
                                     <label class="ui label">Reservacion</label>
                                     <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
-                                        <option value="">Seleccione un partner</option>
+                                        <option value="">Seleccione una reservacion</option>
                                     </select>
                                 </div>
                                 <div class="required field">
@@ -45,9 +50,9 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label class="ui label">Reservacion</label>
+                                    <label class="ui label">Actividad</label>
                                     <select id="AcEx_ID" name="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
-                                        <option value="">Seleccione un partner</option>
+                                        <option value="">Selecciona actividad</option>
                                     </select>
                                 </div>
                                 <div class="required field">
@@ -68,7 +73,7 @@
 
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Crear" onclick="createreservationactividadesextra()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra"  class="btn btn-purple ui positive button" />
                     </div>
                 </div>
 

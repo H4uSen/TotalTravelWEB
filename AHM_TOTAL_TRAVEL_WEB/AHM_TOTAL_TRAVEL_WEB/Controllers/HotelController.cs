@@ -67,21 +67,42 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Update(int id)
-        //{
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var item = new HotelViewModel();
+            IEnumerable<HotelListViewModel> model = null;
+            var list = await _hotelService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data = (IEnumerable<HotelListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == id).ToList()[0];
+            item.Hote_Nombre = element.Hotel;
+            item.Hote_Descripcion = element.Descripcion;
+            item.Part_ID = element.ID_Partner;
+            item.Dire_ID = element.ID_Direc;
 
-        //    var item = new ActivitiesViewModel();
-        //    IEnumerable<ActivitiesListViewModel> model = null;
-        //    var list = await _activitiesServices.ActivityList(model);
-        //    IEnumerable<ActivitiesListViewModel> data = (IEnumerable<ActivitiesListViewModel>)list.Data;
-        //    var element = data.Where(x => x.ID == id).ToList()[0];
-        //    item.actv_Descripcion = element.Descripcion;
+            var direccion = (AddressListViewModel)(await _generalService.AddressFind(element.ID_Direc.ToString(), token)).Data;
 
+            ViewData["Calle"] = direccion.Calle;
+            ViewData["Avenida"] = direccion.Avenida;
+            ViewData["Colonia"] = direccion.Colonia;
+            ViewData["Pais"] = direccion.ID_Pais;
+            ViewData["Ciudad"] = direccion.ID_Ciudad;
 
-        //    return View(item);
+            var city = await _generalService.CitiesList();
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 
-        //}
+            var country = await _generalService.CountriesList();
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+            var partners = await _generalService.PartnersList();
+            IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
+            ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+
+            return View(item);
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> Update(ActivitiesViewModel actividad, int id)

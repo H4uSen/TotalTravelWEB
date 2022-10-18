@@ -11,16 +11,15 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    Restaurantes
+                    Actividades Extra
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple labeled icon button" href="@Url.Action("Create","ActivitiesExtra")">
+                <a class="ui small primary labeled icon btn-edit button" href="@Url.Action("Create","ActivitiesExtra")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -42,9 +41,6 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Partner)
                     </th>
                     <th>
@@ -63,9 +59,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Partner)
                         </td>

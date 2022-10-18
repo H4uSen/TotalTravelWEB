@@ -1,5 +1,11 @@
 ﻿$('.ui.dropdown').dropdown();
 
+
+$("#btnCreateReservationActivityExtra").click(() => {
+    createreservationactividadesextra();
+})
+
+
 function createreservationactividadesextra() {
 
 
@@ -12,11 +18,11 @@ function createreservationactividadesextra() {
 
     ];
 
-    const userValidate = ValidateForm(userValidateArray);
+    const ReservacionActividadValidate = ValidateForm(userValidateArray);
 
 
 
-    if (userValidate) {
+    if (ReservacionActividadValidate) {
 
         var data = new FormData();
         data.append("Resv_ID", parseInt($("#Resv_ID").val())); 
@@ -31,7 +37,7 @@ function createreservationactividadesextra() {
         var response = uploadFile("https://totaltravel.somee.com/API/ReservationActivitiesExtra/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
-            window.location.href = '/Reservation?success=true';
+            window.location.href = '/ReservationActivitiesExtra?success=true';
 
 
         } else {

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#TiPar_ID").hide();
+    $("#TiPar_IDUpdate").hide();
 });
 
 $("#closeEditTipoPartner").click(() => {
@@ -8,18 +8,21 @@ $("#closeEditTipoPartner").click(() => {
 
 
 function GetTipoPartner(id) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/PartnerType/Find?id=" + id);
-    if (response.code == 200) {
-        $('#TiPar_ID').val(id);
-        $('#TiPar_DescripcionUpdate').val(response.data.descripcion);
-        const parent = $("#Rol_IDUpdate").parent();
-        parent.find(`.menu .item[data-value="${response.data.iD_Role_ID}"]`).addClass(["selected", "active"]);
 
-        if ($('#TiPar_DescripcionUpdate').val() != 0) {
-            $("#modalUpdate").modal('show');
-        }
+    var TipoPartnerModel = TipoPartnerViewModel;
+    var request = ajaxRequest("https://totaltravel.somee.com/API/PartnerType/Find?Id=" + id);
+    TipoPartnerModel.descripcion = request.data.descripcion;
+    TipoPartnerModel.rol_Id = request.data.rol_Id;
+    TipoPartnerModel.id = request.data.id;
 
-    }
+    $("#TiPar_IDUpdate").val(TipoPartnerModel.id);
+ 
+    $("#TiPar_DescripcionUpdate").val(TipoPartnerModel.descripcion);
+    
+    SetDropDownValue($("#Rol_IDUpdate"), TipoPartnerModel.rol_Id);
+    
+
+    $("#modalUpdate").modal({ autofocus: false, forceSelection: false }).modal('show');
 }
 
 function sendUpdate() {
