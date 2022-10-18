@@ -151,6 +151,30 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> UsersFind(int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<UserListViewModel, UserListViewModel>(req => {
+                    req.Path = $"/API/Users/Find?id={id}";
+                    req.Content = null;
+                }, token);
+
+                if (!response.Success)
+                    return Result.FromApi(response);
+                else
+                    return Result.Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+            }
+
+        }
+
         public async Task<ServiceResult> UserRegister()
         {
             var Result = new ServiceResult();
@@ -185,6 +209,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 },
                 token
                 );
+
+                if (!response.Success)
+                    return Result.FromApi(response);
+                else
+                    return Result.Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+            }
+
+        }
+
+        public async Task<ServiceResult> DeleteUser(int User_Id, int User_Modify ,string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Delete<object, RequestStatus>(req => {
+                    req.Path = $"/API/Users/Delete?id={User_Id}&mod={User_Modify}";
+                    req.Content = null;
+                },token );
 
                 if (!response.Success)
                     return Result.FromApi(response);

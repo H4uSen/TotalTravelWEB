@@ -14,15 +14,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class UsersController : Controller
     {
         private readonly GeneralService _GeneralServices;
-        public UsersController(GeneralService GeneralService)
+        private readonly AccessService _AccessService;
+        public UsersController(GeneralService GeneralService, AccessService AccessService)
         {
             _GeneralServices = GeneralService;
-        }
-        public IActionResult Index()
-        {
-            return View();
+            _AccessService = AccessService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<UserListViewModel> UserList = (IEnumerable<UserListViewModel>)(await _AccessService.UsersList()).Data;
+            return View(UserList);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             IEnumerable<CountriesListViewModel> listCounties = (IEnumerable<CountriesListViewModel>)(await _GeneralServices.CountriesList()).Data;
@@ -30,6 +36,32 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Counties = new SelectList(listCounties, "ID", "Pais");
             ViewBag.PartnersTypes = new SelectList(listPartnersType, "ID", "Descripcion");
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int User_Id)
+        {
+
+            string token = HttpContext.User.FindFirst("Token").Value;
+            int user_modify = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+            var response = (RequestStatus)(await _AccessService.DeleteUser(User_Id, user_modify, token)).Data;
+
+            return Ok(response.CodeStatus);
+        }
+
+        public async Task<IActionResult> Details(int User_Id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var response = (UserListViewModel)(await _AccessService.UsersFind(User_Id, token)).Data;
+            var AddressData = (AddressListViewModel)(await _GeneralServices.AddressFind(response.DireccionID.ToString(),token)).Data;
+
+            ViewData["DIreccionCompleta"] = "Direccion No disponible";
+            if (AddressData != null)
+                ViewData["DIreccionCompleta"] =
+                    $"Calle {AddressData.Calle}, Avenida {AddressData.Avenida}, ciudad de {AddressData.Ciudad}, {AddressData.Pais}";
+
+
+            return View(response);
         }
     }
 }

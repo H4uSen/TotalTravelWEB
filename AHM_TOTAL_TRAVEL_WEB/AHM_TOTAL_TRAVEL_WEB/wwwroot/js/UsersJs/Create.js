@@ -188,7 +188,7 @@ function FillSuburbs(City_Id) {
 
 // create user 
 function CreateUser() {
-    var user = UserViewModel;
+    var user = new FormData();
     var Role_success = false;
     var Address_success = false;
 
@@ -200,7 +200,7 @@ function CreateUser() {
         { validateMessage: "Required field: 'User Birth Date' ", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
         { validateMessage: "Required field: 'User Password' ", Jqueryinput: $("#frmCreateUser #txtPassword") },
         { validateMessage: "Required field: 'User Email' ", Jqueryinput: $("#frmCreateUser #txtEmail") },
-        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser option[name="rbGenero"]'),check:true },
+        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser input[name="rbGenero"]'), check:true },
         { validateMessage: "Required field: 'User address Country' ", Jqueryinput: $('#frmCreateUser #cbbPaises')},
         { validateMessage: "Required field: 'User address City' ", Jqueryinput: $('#frmCreateUser #cbbCiudades') },
         { validateMessage: "Required field: 'User address Suburb' ", Jqueryinput: $('#frmCreateUser #cbbColonias') },
@@ -234,79 +234,80 @@ function CreateUser() {
     }else{
         
          //verify rol
-         if ($("#checkAdmin").prop("checked")) {
-             user.role_ID = 1;
-             Role_success = true;
-         }
-         else if ($("#checkPartner").prop("checked")) {
+        if ($("#checkAdmin").prop("checked")) {
+            user.append("role_ID",1);
+            Role_success = true;
+        }
+        else if ($("#checkPartner").prop("checked")) {
 
-              if ($("#checkExistingPartner").prop("checked")) {
+             if ($("#checkExistingPartner").prop("checked")) {
 
                   // get partner id
-                  user.part_ID = parseInt($("#frmSelectPartner #cbbPartners").val());
+                 user.append("part_ID", parseInt($("#frmSelectPartner #cbbPartners").val()));
 
-                  const PartnerRole = jQuery.grep(PartnerList.data, function (item, i) {
-                      return item.id == user.part_ID;
-                  });
-                  user.role_ID = PartnerRole[0].rol_Id;
-                  Role_success = true;
+                 const PartnerRole = jQuery.grep(PartnerList.data, function (item, i) {
+                     return item.id == parseInt($("#frmSelectPartner #cbbPartners").val());
+                 });
 
-              } else {
+                 user.append("role_ID", PartnerRole[0].rol_Id);
+                 Role_success = true;
 
-                  //create new partner
-                  var CreatePartnerStatus = CreatePartner();
-                  if (CreatePartnerStatus.success == true) {
-                      user.part_ID = CreatePartnerStatus.part_ID;
-                      user.role_ID = CreatePartnerStatus.role_ID;
-                      Role_success = true;
-                  }
-              }
+             } else {
 
-         } else {
-              iziToastAlert(
-                 "Required field: 'Super User Role' ", "Select a Moderator Role", "error"
-              );
-         }
+                 //create new partner
+                 var CreatePartnerStatus = CreatePartner();
+                 if (CreatePartnerStatus.success == true) {
+                     user.append("part_ID", CreatePartnerStatus.part_ID);
+                     user.append("role_ID", CreatePartnerStatus.role_ID);
+                     Role_success = true;
+                 }
+             }
+
+        } else {
+             $("#msgErrorForm").show();
+             $("#msgErrorForm p").html("Required field: 'Super User Role' ");
+        }
 
          // create address
-         if (Role_success) {
+        if (Role_success) {
 
             var CreateUserDirectionStatus = CreateUserDirection();
             if (CreateUserDirectionStatus.success == true) {
-                user.dire_ID = CreateUserDirectionStatus.dire_ID;
-                Address_success = true;
+                 user.append("dire_ID", CreateUserDirectionStatus.dire_ID);
+                 Address_success = true;
             }
 
-         }
+        }
 
          // create user
-         if (Address_success) {
+        if (Address_success) {
 
-            user.usua_DNI = $("#frmCreateUser #txtDNI").val();
-            user.usua_Nombre = $("#frmCreateUser #txtNombre").val();
-            user.usua_Apellido = $("#frmCreateUser #txtApellido").val();
-            user.usua_Telefono = $("#frmCreateUser #txtTelefono").val();
-            user.usua_FechaNaci = getCalendarDate($("#frmCreateUser #txtFechaNacimiento").val());
-            user.usua_Sexo = $('input:radio[name=rbGenero]:checked').val();
-            user.usua_Email = $('#frmCreateUser #txtEmail').val();
-            user.usua_Password = $('#frmCreateUser #txtPassword').val();
+            user.append("usua_DNI", $("#frmCreateUser #txtDNI").val());
+            user.append("usua_Nombre", $("#frmCreateUser #txtNombre").val());
+            user.append("usua_Apellido", $("#frmCreateUser #txtApellido").val());
+            user.append("usua_Telefono", $("#frmCreateUser #txtTelefono").val());
+            user.append("usua_FechaNaci", getCalendarDate($("#frmCreateUser #txtFechaNacimiento").val()));
+            user.append("usua_Sexo", $('input:radio[name=rbGenero]:checked').val());
+            user.append("usua_Email", $("#frmCreateUser #txtEmail").val());
+            user.append("usua_Password", $("#frmCreateUser #txtPassword").val());
+            user.append("usua_Url", null);
+            user.append("usua_UsuarioCreacion", Client_User_ID);
 
-            const UserInsertStatus = ajaxRequest(
+            const UserInsertStatus = uploadFile(
                 "https://totaltravelapi.azurewebsites.net/API/Users/Insert",
                 user, "POST"
             );
 
             if (UserInsertStatus.code == 200) {
-                user.usua_ID = UserInsertStatus.data.codeStatus;
-                iziToastAlert(
+                 user.usua_ID = UserInsertStatus.data.codeStatus;
+                 iziToastAlert(
                     "!User Created Successfully! ", "", "success"
-                );
-                location.assign("https://localhost:44366/Users");
+                 );
+                 location.assign("Index");
             }
             else {
-                iziToastAlert(
-                    "Error when performing action: 'Create User' ", UserInsertStatus.message, "error"
-                );
+                 $("#msgErrorForm").show();
+                 $("#msgErrorForm p").html(UserInsertStatus.message);
             }
         }
         
@@ -315,7 +316,7 @@ function CreateUser() {
 
 
 function CreatePartner() {
-    var partner = PartnerViewModel;
+
     var data = {
         success: false,
         role_ID: 0,
@@ -329,36 +330,40 @@ function CreatePartner() {
         { validateMessage: "Required field: 'Partner Type' ", Jqueryinput: $("#frmCreatePartner #cbbTipoPartner") },
     ];
 
-    const userValidate = ValidateForm(userValidateArray);
+    const Validate = ValidateForm(userValidateArray);
 
     //validate partner constructor data
-    if (userValidate){
-         partner.part_Nombre = $("#frmCreatePartner #txtPartnerName").val();
-         partner.part_Email = $("#frmCreatePartner #txtPartnerEmail").val();
-         partner.part_Telefono = $("#frmCreatePartner #txtPartnerPhone").val();
-         partner.tiPart_Id = parseInt($("#frmCreatePartner #cbbTipoPartner").val());
+    if (Validate) {
+
+        var partnerData = new FormData();
+        partnerData.append("part_Nombre", $("#frmCreatePartner #txtPartnerName").val());
+        partnerData.append("part_Email", $("#frmCreatePartner #txtPartnerEmail").val());
+        partnerData.append("part_Telefono", $("#frmCreatePartner #txtPartnerPhone").val());
+        partnerData.append("tiPart_Id", parseInt($("#frmCreatePartner #cbbTipoPartner").val()));
+        partnerData.append("part_UsuarioCreacion", Client_User_ID);
+        partnerData.append("File", null);
 
 
-         const PartnerInsertStatus = ajaxRequest(
+        const PartnerInsertStatus = uploadFile(
             "https://totaltravelapi.azurewebsites.net/API/Partners/Insert",
-            partner, "POST"
-         );
+            partnerData, "POST"
+        );
 
-         if (PartnerInsertStatus.code == 200) {
+        if (PartnerInsertStatus.code == 200) {
 
             const NewPartnerData = ajaxRequest(
                 "https://totaltravel.somee.com/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
             );
 
             // fill data
-            data.role_ID = NewPartnerData.rol_Id;
+            data.role_ID = NewPartnerData.data.rol_Id;
             data.part_ID = PartnerInsertStatus.data.codeStatus;
             data.success = true;
-         }
-         else {
-             $("#msgErrorForm").show();
-             $("#msgErrorForm p").html("An error ocurred while creating 'User Adress' ");
-         }
+        }
+        else {
+            $("#msgErrorForm").show();
+            $("#msgErrorForm p").html("An error ocurred while creating 'User partner': " + PartnerInsertStatus.message);
+        }
     }
 
     return data;
@@ -373,8 +378,8 @@ function CreateUserDirection() {
 
     //construct direction json
     userAdress.colo_ID = parseInt($("#frmCreateUser #cbbColonias").val());
-    userAdress.dire_Avenida = parseInt($("#frmCreateUser #txtAvenida").val());
-    userAdress.dire_Calle = parseInt($("#frmCreateUser #txtCalle").val());
+    userAdress.dire_Avenida = $("#frmCreateUser #txtAvenida").val();
+    userAdress.dire_Calle = $("#frmCreateUser #txtCalle").val();
 
     const USerAddressStatus = ajaxRequest(
         "https://totaltravel.somee.com/API/Address/Insert",

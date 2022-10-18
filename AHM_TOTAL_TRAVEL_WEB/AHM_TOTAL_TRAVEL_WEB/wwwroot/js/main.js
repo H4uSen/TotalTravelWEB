@@ -1,10 +1,10 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 
-$("input[type=text]").prop("autocomplete", "off");
-var Client_User_ID = parseInt(GetCookie("User_Id"));
-var Client_User_Name = GetCookie("User_Name");
-$("#loaderAnimation").hide();
+    $("input[type=text]").prop("autocomplete", "off");
+    var Client_User_ID = parseInt(GetCookie("User_Id"));
+    var Client_User_Name = GetCookie("User_Name");
+    $("#loaderAnimation").hide();
 
 // ----------------------------------- EVENTS ------------------------------------
 
@@ -16,24 +16,25 @@ $("#loaderAnimation").hide();
 // ----------------------------------- FUNCTIONS ------------------------------------
 
 
-        async function createBlob(url) {
-            var response = await fetch(url);
-            response.headers = { type: 'image/jpeg' };
-            var data = await response.blob();
-            return data;
-        }
-        function convertImage(file) {
-            return new Promise((resolve) => {
-                const read = new FileReader();
+    async function createBlob(url) {
+        var response = await fetch(url);
+        response.headers = { type: 'image/jpeg' };
+        var data = await response.blob();
+        return data;
+    }
 
-                read.onload = () => resolve({
-                    src: read.result,
-                    fileName: file.name
-                });
+    function convertImage(file) {
+        return new Promise((resolve) => {
+            const read = new FileReader();
 
-                read.readAsDataURL(file);
+            read.onload = () => resolve({
+                src: read.result,
+                fileName: file.name
             });
-        }
+
+            read.readAsDataURL(file);
+        });
+    }
 
     // si calback retorna true, crea span en containerDiv
     function ManualValidateForm(callback = () => { return true; }, containerDiv, validateMessage = "Rellene este campo") {
@@ -500,7 +501,6 @@ $("#loaderAnimation").hide();
             $(newDropdown).addClass("search");
         }
 
-        $(dropDown).parents(".field")[0].append(newDropdown);
-        $($(dropDown).parents(".field")[0]).find("div.ui.dropdown").remove();
-
+        const actualDropDown = $($(dropDown).parents(".field")[0]).find("div.ui.dropdown");
+        $(actualDropDown).replaceWith(newDropdown);
     }

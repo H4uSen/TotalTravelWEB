@@ -1,0 +1,122 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.UserListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+        <div class="ui icon attached message">
+            <i class="icon archive"></i>
+            <div class="content">
+                <div class="header text-capitalize">
+                    Detalles
+                </div>
+                <p>Detalles del Usuario.</p>
+            </div>
+            <div class="right floated content" style="text-align: end;">
+                <a class="ui left labeled icon button" href="@Url.Action("Index", "Users")">
+                    Regresar
+                    <i class="left arrow icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="three fields">
+                    <div class="field">
+                        <label>ID</label>
+                        @string.Concat("USER-COD-00", Model.ID)
+                    </div>
+                    <div class="field">
+                        <label>DNI</label>
+                        @Model.DNI
+                    </div>
+                    <div class="field">
+                        <label>Nombre Completo</label>
+                        @string.Concat(Model.Nombre, " ", Model.Apellido)
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <label>Genero</label>
+                        @Model.Sexo
+                    </div>
+                    <div class="field">
+                        <label>Fecha Nacimiento</label>
+                        @Convert.ToDateTime(Model.Fecha_Nacimiento).ToShortDateString()
+                    </div>
+                    <div class="field">
+                        <label>Direccion</label>
+                        @ViewData["DIreccionCompleta"]
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Telefono</label>
+                        @Model.Telefono
+                    </div>
+                    <div class="field">
+                        <label>Email</label>
+                        @Model.Email
+                    </div>
+                    <div class="field">
+                        <label>Rol de Usuario</label>
+                        @Model.Rol
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <h3 class="ui horizontal divider header">
+            <i class="folder open icon"></i>
+            Auditoría
+        </h3>
+
+        <table class="ui compact selectable celled table">
+            <thead>
+                <tr>
+                    <th>
+                        Usuario Creación
+                    </th>
+                    <th>
+                        Fecha Creación
+                    </th>
+                    <th>
+                        Usuario Modifica
+                    </th>
+                    <th>
+                        Fecha Modifica
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.UsuarioCreacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Fecha_Creacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.UsuarioModifica)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Fecha_Modifica)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section HighlightTile{
+    <script>
+        $("#AccessModule").addClass("active");
+        $("#Access_Schema").addClass("show");
+        $("#AccessModule").addClass("expandedList")
+    </script>
+}

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.UserListViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,17 +11,16 @@
             <i class="user icon"></i>
             <div class="content">
                 <div class="header">
-                    !Welcome to Users View!
+                    Usuarios
                 </div>
-                <p>Create, Update, Delete or Search and Filter Users.</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small primary labeled icon button" href="@Url.Action("Create","Users")">
-                    <i class="user icon"></i> Add User
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Users")">
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
@@ -31,12 +30,6 @@
                 </div>
             </div>
         </div>
-        <style>
-            table thead tr th {
-                background-color: #2b2b2b;
-                color: white;
-            }
-        </style>
 
         <table class="ui compact selectable celled table" id="grdUsuarios">
             <thead>
@@ -49,40 +42,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Angel Johan Macea</td>
-                    <td>Angeljmacea@gmail.com</td>
-                    <td>Administrador</td>
-                    <td>No Partner</td>
-                    <td>
-                        <button class="ui large icon positive button">
-                            <i class="pencil alternate icon"></i>
-                        </button>
-                        <button class="ui large icon negative button">
-                            <i class="trash alternate icon"></i>
-                        </button>
-                        <button class="ui large icon yellow button">
-                            <i class="folder open outline icon"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Didier Isaac Bonilla Chavez</td>
-                    <td>Didierbonilla25@gmail.com</td>
-                    <td>Moderador</td>
-                    <td>Hotel</td>
-                    <td>
-                        <button class="ui large icon positive button">
-                            <i class="pencil alternate icon"></i>
-                        </button>
-                        <button class="ui large icon negative button">
-                            <i class="trash alternate icon"></i>
-                        </button>
-                        <button class="ui large icon yellow button">
-                            <i class="folder open outline icon"></i>
-                        </button>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                 {
+                    var partner = string.IsNullOrEmpty(item.Partner) ? "No Partner Afilied" : item.Partner;
+
+                    <tr>
+                        <td>@string.Concat(item.Nombre," ",item.Apellido)</td>
+                        <td>@item.Email</td>
+                        <td>@item.Rol</td>
+                        <td>@partner</td>
+                        <td>
+                            <a class="ui large icon btn-edit button" href="#">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <a class="ui large icon btn-delete button" href="javascript: DeleteUser('@item.ID')">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </a>
+                            <a href="@Url.Action("Details","Users",new { User_Id = item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                 }
             </tbody>
         </table><br>
 
@@ -90,7 +71,7 @@
 </div>
 <br>
 
-@section Scripts{ 
+@section Scripts{
     <script src="~/js/UsersJs/Index.js"></script>
 }
 @section HighlightTile{
@@ -98,6 +79,6 @@
         $("#AccessModule").addClass("active");
         $("#Access_Schema").addClass("show");
         $("#AccessModule").addClass("expandedList")
-       
+
     </script>
 }
