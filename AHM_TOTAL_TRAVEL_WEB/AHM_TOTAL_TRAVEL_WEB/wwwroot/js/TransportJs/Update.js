@@ -1,9 +1,13 @@
 ﻿$("#errorDiv").hide();
 
-$(`#City_ID option[value = "${Ciudad}"]`).prop("selected", true);
-$(`#Count_ID option[value = "${Pais_ID}"]`).prop("selected", true);
-$(`#Part_ID option[value = "${Part_ID}"]`).prop("selected", true);
-$(`#TiTr_ID option[value = "${TiTr_ID}"]`).prop("selected", true);
+$(".ui.dropdown").dropdown();
+
+SetDropDownValue($("#Count_ID"), Pais_ID);
+RellenarCiudades(Pais_ID);
+SetDropDownValue($("#City_ID"), Ciudad);
+SetDropDownValue($("#TiTr_ID"), TiTr_ID);
+SetDropDownValue($("#Part_ID"), Part_ID);
+
 
 $('#Count_ID').change(function () {
     RellenarCiudades($('#Count_ID').val());
@@ -79,22 +83,57 @@ function updateTransport(id) {
     }
 }
 
-function RellenarCiudades(Pais_ID) {
+//function RellenarCiudades(Pais_ID) {
+//    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+//    if (response.code == 200) {
+//        var cities = response.data;
+//        var cityFilter = jQuery.grep(cities, function (City, i) {
+//            return City.paisID == Pais_ID;
+//        });
+//        ClearDropDownItem($('#City_ID'));
+//        if (cityFilter.length > 0) {
+//            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
+//            for (var i = 0; i < cityFilter.length; i++) {
+//                var item = cityFilter[i];
+//                AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
+//            }
+//        } else {
+//            SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
+//        }
+//    }
+//}
+
+function RellenarCiudades(Country_Id) {
+
     var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+
     if (response.code == 200) {
+
         var cities = response.data;
-        var cityFilter = jQuery.grep(cities, function (City, i) {
-            return City.paisID == Pais_ID;
+        cities = jQuery.grep(cities, function (city, i) {
+            return city.paisID == Country_Id;
         });
-        ClearDropDownItem($('#City_ID'));
-        if (cityFilter.length > 0) {
-            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
-            for (var i = 0; i < cityFilter.length; i++) {
-                var item = cityFilter[i];
-                AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
-            }
-        } else {
-            SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
+
+        const dropdownData = {
+            dropdown: $("#City_ID"),
+            items: {
+                list: cities,
+                valueData: "id",
+                textData: "ciudad"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
         }
+
+        FillDropDown(dropdownData);
+        $("#City_ID").dropdown();
+
+        //$("#City_ID").change((_this) => {
+        //    const City_Id = $(_this.target).val();
+        //    FillSuburbs(City_Id);
+        //});
     }
 }

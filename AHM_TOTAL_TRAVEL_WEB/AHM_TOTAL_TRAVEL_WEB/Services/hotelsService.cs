@@ -317,7 +317,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Hoteles
 
-        public async Task<ServiceResult> HotelsList()
+        public async Task<ServiceResult> HotelsList(string token)
         {
             var Result = new ServiceResult();
 
@@ -327,8 +327,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 {
                     req.Path = $"/API/Hotels/List";
                     req.Content = null;
-                }
-                
+                },
+                token
                 );
                 if (!response.Success)
                 {

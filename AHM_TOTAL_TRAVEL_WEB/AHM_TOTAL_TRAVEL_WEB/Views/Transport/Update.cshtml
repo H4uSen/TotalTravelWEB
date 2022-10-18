@@ -58,7 +58,7 @@
                                 <div class="ui label">
                                     Colonia
                                 </div>
-                                <input type="text" id="Colonia" value="@ViewData["Ciudad"]" />
+                                <input type="text" id="Colonia" value="@ViewData["Colonia"]" />
                             </div>
                         </div>
 
@@ -83,6 +83,7 @@
                             </div>
                         </div>
                         <input type="button" value="Guardar" onclick="updateTransport(@Model.Tprt_ID)" class="btn btn-purple ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Transport")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>
                 <div class="ui negative message bottom attached" id="errorDiv">
