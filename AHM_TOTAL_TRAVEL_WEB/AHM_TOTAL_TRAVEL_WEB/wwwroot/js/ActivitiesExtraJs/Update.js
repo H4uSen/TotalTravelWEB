@@ -15,10 +15,8 @@ function GetActivities(id) {
     if (response.code == 200) {
         $('#Actv_ID').val(id);
         $('#ActividadUpdate').val(response.data.descripcion);
-        const parent = $("#TiPoAc_IDUpdate").parent();
-        parent.find(`.menu .item[data-value="${response.data.iD_TiAc}"]`).addClass(["selected", "active"]);
+        SetDropDownValue($("#TiPoAc_IDUpdate"),response.data.iD_TiAc);
 
-        SetDropDownValue($("#TiPoAc_IDUpdate"));
 
         if ($('#ActividadUpdate').val() != 0) {
             $("#modalUpdate").modal('show');

@@ -22,9 +22,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             var destiny = await _transportService.TransportDestionationsList();
             IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
-            ViewBag.TiAc_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
+            ViewBag.DsTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
             var list =  await _transportService.ScheduleTransportationList();
             return View(list.Data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var destiny = await _transportService.TransportDestionationsList();
+            IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
+            ViewBag.HoTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
+            return View();
         }
 
         [HttpPost]
@@ -32,8 +40,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             horarios.HoTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+            //string arrayHorrario = horarios.HoTr_Fecha.ToString();
+            //string klk = arrayHorrario.Split(" ").ToString();
+            //horarios.HoTr_Fecha = arrayHorrario;
             RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationCreate(horarios, token)).Data;
-            return View();
+            return RedirectToAction("Index");
         }
         
         [HttpPost]

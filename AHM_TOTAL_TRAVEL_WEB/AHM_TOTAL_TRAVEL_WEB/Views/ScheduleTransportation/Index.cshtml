@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Restaurant")">
+                <a class="ui small btn-purple text-white labeled icon button" id="btnCrearhorario" >
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -98,6 +98,51 @@
     </div>
 </div>
 <br>
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un Horario
+    </div>
+    <form asp-action="Create" asp-controller="ScheduleTransportation" id="createScheduleForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Destino</label>
+                            <select id="DsTr_ID" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                                <option value="">Seleccione el Destino</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Fecha</label>
+                            <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Hora de Salida</label>
+                            <input id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                        </div>
+                        <div class="field">
+                            <label>Hora de llegada</label>
+                            <input id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-purple text-white" id="SendSchedule">Guardar</button>
+        <button class="ui button" id="closeSchedule">Cancelar</button>
+    </div>
+</div>
+
+@section Scripts{ 
+<script src="~/js/ScheduleTRansportJs/Create.js"></script>
+}
 
 @section HighlightTile{
     <script>
