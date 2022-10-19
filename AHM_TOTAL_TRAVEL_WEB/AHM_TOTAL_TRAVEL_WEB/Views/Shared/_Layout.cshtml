@@ -373,6 +373,16 @@
                                     Historial de transacciones
                                 </a>
                             </li>
+                            <li class="sidebar-item" id="PurchaseModule">
+                                <a class="sidebar-link" id="PurchaseModule" href="#Purchase_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+
+                                   Compra
+                                </a>
+                                <ul class="collapse list-unstyled" id="Reservation_Schema">
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Ver paquetes predeterminados</a></li>
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservación Actividades Extra</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     }
                     if (usersRole == "Moderador de Hotel")
