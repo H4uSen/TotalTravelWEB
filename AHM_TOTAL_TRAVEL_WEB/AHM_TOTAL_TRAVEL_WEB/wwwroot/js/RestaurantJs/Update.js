@@ -1,4 +1,5 @@
 ﻿var imagesArray = [];
+var imagesArrayPure= [];
 $('.ui.dropdown').dropdown();
 
 SetDropDownValue($("#Part_ID"), partID);
@@ -78,16 +79,20 @@ async function GetImage() {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
             var imageUrl = list[i].imageUrl;
+
             var split = imageUrl.split("/");
             var fileName = split[split.length - 1];
             var file = await createBlob(imageUrl)
             .then(function (data) {
                 return data;
             });
+
+            imagesArrayPure.push(file);
             const fileData = await convertImage(file)
                 .then(function (data) {
                     return data;
                 });
+
             fileData.fileName = fileName;
             imagesArray.push(fileData);
         }
@@ -104,6 +109,7 @@ $("#File").change(async function () {
             return data;
         });
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
@@ -139,6 +145,7 @@ function LoadImage() {
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
 
@@ -184,8 +191,9 @@ function updateRestaurant() {
             data.append("part_ID", parseInt($("#Part_ID").val()));
             data.append("rest_UsuarioModifica", parseInt(Client_User_ID));
 
-            for (let i = 0; i < imagesArray.length; i++) {
-                data.append("File", imagesArray[i].src);
+            for (let i = 0; i < imagesArrayPure.length; i++) {
+
+                data.append("File", imagesArrayPure[i]);
             }
             var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Update?id=" + restaurantID, data, "PUT");
             if (response.data.codeStatus > 0) {

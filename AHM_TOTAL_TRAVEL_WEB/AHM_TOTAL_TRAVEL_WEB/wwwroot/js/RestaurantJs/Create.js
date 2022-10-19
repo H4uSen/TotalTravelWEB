@@ -1,4 +1,5 @@
 ﻿var imagesArray = [];
+var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
 
 $('#Count_ID').change(function () {
@@ -55,11 +56,14 @@ $('#City_ID').change(function () {
 $("#File").change(async function () {
 
 
+
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
             return data;
         });
+
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
@@ -95,6 +99,7 @@ function LoadImage() {
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
 
@@ -115,6 +120,8 @@ function createRestaurant() {
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
+
+
     if (ValidateFormStatus) {
 
         var direStatus = false;
@@ -133,14 +140,20 @@ function createRestaurant() {
         } 
 
         if (direStatus) {
+        
             var data = new FormData();
             data.append("dire_ID", parseInt(DireID));
             data.append("rest_Nombre", $("#Rest_Nombre").val());
             data.append("part_ID", parseInt($("#Part_ID").val()));
             data.append("rest_UsuarioCreacion", parseInt(Client_User_ID));
 
-            for (let i = 0; i < imagesArray.length; i++) {
-                data.append("File", imagesArray[i].src);
+            //for (let i = 0; i < imagesArray.length; i++) {
+            //    data.append("File", imagesArray[i].src);
+            //    console.log(JSON.stringify(imagesArray[i]));
+            //}
+           
+            for (var i = 0; i != imagesArrayPure.length; i++) {
+                data.append("File", imagesArrayPure[i]);
             }
 
             var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");

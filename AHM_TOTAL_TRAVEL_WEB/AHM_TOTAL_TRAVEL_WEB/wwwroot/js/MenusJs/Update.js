@@ -1,5 +1,44 @@
 ﻿var imagesArray = [];
 var imagesArrayPure = [];
+$('.ui.dropdown').dropdown();
+
+SetDropDownValue($("#Rest_ID"), restauranteID);
+SetDropDownValue($("#Time_ID"), tipoMenuID);
+
+$(document).ready(async function () {
+    await GetImage();
+
+});
+//FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
+
+
+async function GetImage() {
+
+    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + menuFolder)
+    if (responseImage.code == 200) {
+        var list = responseImage.data
+        for (var i = 0; i < list.length; i++) {
+            var imageUrl = list[i].imageUrl;
+
+            var split = imageUrl.split("/");
+            var fileName = split[split.length - 1];
+            var file = await createBlob(imageUrl)
+                .then(function (data) {
+                    return data;
+                });
+            imagesArrayPure.push(file);
+            const fileData = await convertImage(file)
+                .then(function (data) {
+                    return data;
+                });
+            fileData.fileName = fileName;
+            imagesArray.push(fileData);
+        }
+        LoadImage();
+    }
+}
+//FIN
+
 $("#File").change(async function () {
 
     const fileData = await convertImage($("#File").prop("files")[0])
@@ -24,16 +63,16 @@ function LoadImage() {
         HTML_img.src = item.src;
         const fileItem =
             `<div class="item">
-                        <div class="right floated content">
-                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-                                <i class="trash icon"></i>
-                            </button>
-                        </div>
-                        <i class="image big icon"></i>
-                        <div class="content text-grap">
-                            ${item.fileName}
-                        </div>
-                    </div>`;
+                                <div class="right floated content">
+                                    <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                        <i class="trash icon"></i>
+                                    </button>
+                                </div>
+                                <i class="image big icon"></i>
+                                <div class="content text-grap">
+                                    ${item.fileName}
+                                </div>
+                            </div>`;
 
         $("#image-upload-list").append(fileItem);
         $("#MenusCarousel").append(HTML_img);
@@ -47,9 +86,7 @@ function deleteImage(index) {
     LoadImage();
 }
 
-
-
-function createMenus() {
+function updateMenus() {
 
 
     validateArrayForm = [
@@ -60,29 +97,26 @@ function createMenus() {
         { validateMessage: "Seleccione una tipo menú.", Jqueryinput: $("#Time_ID") }
     ];
 
-    // retorna bool 
+    // retorna bool
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     if (ValidateFormStatus) {
-
         var data = new FormData();
         data.append("Time_ID", $("#Time_ID").val());
         data.append("Menu_Descripcion", $("#Menu_Descripcion").val());
         data.append("Menu_Nombre", $("#Menu_Nombre").val());
         data.append("Menu_Precio", $("#Menu_Precio").val());
         data.append("Rest_ID", $("#Rest_ID").val());
-        data.append("Menu_UsuarioCreacion", UserID);
+        data.append("Menu_UsuarioModifica", parseInt(Client_User_ID));
 
-        for (var i = 0; i != imagesArrayPure.length; i++) {
+        for (let i = 0; i < imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var response = uploadFile("https://totaltravel.somee.com/API/Menus/Insert", data, "POST");
+        var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Menus?success=true';
-        } 
+        }
 
     }
-   
 }
-
