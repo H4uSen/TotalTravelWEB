@@ -157,9 +157,9 @@
         function DeleteReservacionRestaurante(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("ReservationRestaurant/Delete?id=" + id, null, "POST");
-                if (response > 0) {
+               
                     window.location.href = '/ReservationRestaurant?success=true';
-                }
+                
             };
 
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);

@@ -80,6 +80,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Part_Nombre = element.Nombre;
             item.Part_Telefono = element.Telefono;
             item.TiPart_Id = element.TipoPartner_Id;
+            
+            ViewData["partnersID"] = element.ID;
 
 
             //IEnumerable<EstablecimientoListViewModel> model_Est = null;

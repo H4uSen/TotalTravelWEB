@@ -29,7 +29,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
 
 
-            var Depa = await _saleServices.DefaultPackagesList(model2);
+            var Depa = await _saleServices.DefaultPackagesList(token);
             IEnumerable<DefaultPackagesListViewModel> data_dp = (IEnumerable<DefaultPackagesListViewModel>)Depa.Data;
             ViewBag.paqu_ID = new SelectList(data_dp, "Id", "Nombre");
 
@@ -45,7 +45,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
 
 
-            var Depa = await _saleServices.DefaultPackagesList(model);
+            var Depa = await _saleServices.DefaultPackagesList(token);
             IEnumerable<DefaultPackagesListViewModel> data_dp = (IEnumerable<DefaultPackagesListViewModel>)Depa.Data;
             ViewBag.paqu_ID = new SelectList(data_dp, "Id", "Nombre");
 

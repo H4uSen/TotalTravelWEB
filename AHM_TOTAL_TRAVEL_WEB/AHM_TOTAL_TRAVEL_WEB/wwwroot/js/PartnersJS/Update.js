@@ -2,31 +2,15 @@
 
 function createPartners() {
 
+    validateArrayForm = [
+        { validateMessage: "Ingrese un nombre.", Jqueryinput: $("#Nombre") },
+        { validateMessage: "Ingrese un Email.", Jqueryinput: $("#Email") },
+        { validateMessage: "Ingrese un teléfomo.", Jqueryinput: $("#Telefono") },
+        { validateMessage: "Seleccione un tipo de partner.", Jqueryinput: $("#TiPart_Id") },
+    ];
 
-    if ($('#Nombre').val() == 0) {
-        $("#labelvalidatorNombre").html("Ingrese un Nombre.");
-    }
-    else {
-        $("#labelvalidatorNombre").html(" ");
-    }
-    if ($('#Email').val() == 0) {
-        $("#labelvalidatorEmail").html("Ingrese un Email.");
-    }
-    else {
-        $("#labelvalidatorEmail").html(" ");
-    }
-    if ($('#Telefono').val() == 0) {
-        $("#labelvalidatorTelefono").html("Ingrese un Telefono.");
-    }
-    else {
-        $("#labelvalidatorTelefono").html(" ");
-    }
-    if ($('#TiPart_Id').val() == 0) {
-        $("#labelvalidatorTiPar").html("Seleccione un Tipo de Socio.");
-    } else {
-        $("#labelvalidatorTiPar").html(" ");
-    }
-
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
 
 
 
@@ -38,7 +22,7 @@ function createPartners() {
         data.append("part_Email", $("#Email").val());
         data.append("part_Telefono", $("#Telefono").val());
         data.append("tiPart_Id", parseInt($("#TiPart_Id").val()));
-        data.append("part_UsuarioCreacion", parseInt(Client_User_ID));
+        data.append("part_UsuarioModifica", parseInt(Client_User_ID));
 
         //for (let i = 0; i < $('#File').prop('files').length; i++) {
         //    const file = $('#File').prop('files')[i];
@@ -46,7 +30,7 @@ function createPartners() {
         //}
 
         data.append("file", $("#File").prop("files")[0]);
-        var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update", data, "POST");
+        var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update?id=" + partnersID, data, "POST");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Partners?success=true';

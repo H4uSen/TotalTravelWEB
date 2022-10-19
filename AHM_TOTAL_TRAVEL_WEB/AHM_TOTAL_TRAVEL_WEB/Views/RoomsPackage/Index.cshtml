@@ -21,7 +21,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
+                <a class="ui small btn-edit text-white labeled icon button" id="createPaqueteHabitacion">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -41,21 +41,21 @@
 
         <table class="ui compact selectable celled table" id="grdRestaurants">
             <thead>
-                <tr>        
+                <tr>
                     <th>
-                       Hotel
+                        Hotel
                     </th>
                     <th>
-                       Descripcion Hotel
-                    </th>              
-                    <th>
-                       Habitacion
+                        Descripcion Hotel
                     </th>
                     <th>
-                       Descripcion Habitacion
+                        Habitacion
                     </th>
                     <th>
-                       Capacidad Habitacion
+                        Descripcion Habitacion
+                    </th>
+                    <th>
+                        Capacidad Habitacion
                     </th>
                     <th>
                         Precio Habitacion
@@ -66,33 +66,36 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre_Hotel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hotel_Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Habitacion_Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Habitacion_Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Habitacion_Capacidad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Habitacion_Precio)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
-                        <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
-                            <i class="trash alternate icon"></i>
-                        </button>
-                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre_Hotel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hotel_Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habitacion_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habitacion_Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habitacion_Capacidad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habitacion_Precio)
+                        </td>
+                        <td>
+
+                            <button class="ui large icon btn-edit button" id="UpdateBottomPaqueteHabitacion" onclick="GetPaqueteHabitacion('@item.ID')">
+                                <i class="pencil alternate icon  icon-crud"></i>
+                            </button>
+                            <button class="ui large icon negative button" onclick="DeletePaqueteHabitacion(@item.ID)">
+                                <i class="trash alternate icon"></i>
+                            </button>
+                            <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table><br>
@@ -101,3 +104,95 @@
 </div>
 <br>
 
+<div class="ui modal" id="modalCreate">
+    <div class="header">
+        Ingresa un paquete de habitacion
+    </div>
+    <form asp-action="Create" asp-controller="RoomsPackage" id="createPaqueteHabitacionForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="required field">
+                        <label>Paquete</label>
+                        <select id="Paqu_ID" name="Paqu_ID" class="ui dropdown search" asp-items="ViewBag.Paqu_ID">
+                            <option value="">Seleccione un paquete</option>
+                        </select>
+                    </div>
+                    <div class="required field">
+                        <label>Habitacion</label>
+                        <select id="Habi_ID" name="Habi_ID" class="ui dropdown search">
+                            <option value="">Seleccione un Rol</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendPaqueteHabitacion">Guardar</button>
+        <button class="ui button" id="closePaqueteHabitacion">Cancelar</button>
+    </div>
+</div>
+
+<div class="ui modal" id="modalUpdate">
+    <div class="header">
+        Actualiza un tipo de menú
+    </div>
+    <form asp-action="Update" asp-controller="RoomsPackage" id="createPaqueteHabitacionForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="required field">
+                        <label>Paquete</label>
+                        <input id="PaHa_IDUpdate" name="PaHa_ID" hidden />
+                        <select id="Paqu_IDUp" name="Paqu_ID" class="ui dropdown search" asp-items="ViewBag.Paqu_ID">
+                            <option value="">Seleccione un paquete</option>
+                        </select>
+                    </div>
+                    <div class="required field">
+                        <label>Habitacion</label>
+                        <select id="Habi_IDUp" name="Habi_ID" class="ui dropdown search">
+                            <option value="">Seleccione un Rol</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendPaqueteHabitacion" onclick="sendUpdate()">Guardar</button>
+        <button class="ui button" id="closePaqueteHabitacion">Cancelar</button>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/RoomsPackages/Create.js"></script>
+    <script>
+
+
+
+        // ----------------------------------- EVENTS ------------------------------------
+        TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
+
+
+        $("#grdRestaurants").paginationTdA({
+            elemPerPage: 10
+        });
+
+        function DeletePaqueteHabitacion(id) {
+            const RoomsP = () => {
+                const result = ajaxRequest("/RoomsPackage/Delete?id=" + id, null, "POST");
+                if (result > 0) {
+                    location.reload();
+                }
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", RoomsP);
+
+        };
+
+
+    </script>
+}

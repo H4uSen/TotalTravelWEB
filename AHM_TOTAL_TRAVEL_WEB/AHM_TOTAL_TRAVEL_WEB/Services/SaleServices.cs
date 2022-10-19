@@ -20,7 +20,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region DefaultPackages
 
-        public async Task<ServiceResult> DefaultPackagesList(IEnumerable<DefaultPackagesListViewModel> model)
+        public async Task<ServiceResult> DefaultPackagesList(string token)
         {
             var result = new ServiceResult();
             try
@@ -28,7 +28,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<DefaultPackagesListViewModel>, IEnumerable<DefaultPackagesListViewModel>>(req => {
                     req.Path = $"/API/DefaultPackages/List";
                     req.Content = null;
-                }
+                },token
                 );
                 if (!response.Success)
                 {
@@ -226,16 +226,46 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> RoomsPackagesUpdate(RoomsPackagesListViewModel rooms, string token)
+        public async Task<ServiceResult> RoomsPackagesUpdate(RoomsPackagesViewModel rooms, int id, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Put<RoomsPackagesListViewModel, RequestStatus>(req =>
+                var response = await _api.Put<RoomsPackagesViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/RoomsPackages/Update?id=" + rooms.ID;
+                    req.Path = $"/API/RoomsPackages/Update?id=" +id;
                     req.Content = rooms;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> RoomsPackagesDelete(int modifica, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<RoomsPackagesViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/RoomsPackages/Delete?id=" + id + "&mod=" +  modifica;
+                    req.Content = null;
                 },
                 token
                 );
