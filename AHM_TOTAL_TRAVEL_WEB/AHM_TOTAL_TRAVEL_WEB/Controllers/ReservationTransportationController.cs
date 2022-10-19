@@ -75,35 +75,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Update(int id)
-        //{
-        //    string token = HttpContext.User.FindFirst("Token").Value;
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
 
-        //    var item = new ReservationTransportationViewModel();
-        //    IEnumerable<ReservationTransportationListViewModel> model = null;
-        //    var list = await _reservationService.RestaurantsReservationList(token);
-        //    IEnumerable<ReservationTransportationListViewModel> data = (IEnumerable<ReservationTransportationListViewModel>)list.Data;
-        //    var element = data.Where(x => x.Id == id).ToList()[0];
-        //    item.Resv_ID = element.Reservacion;
-        //    item.ReTr_ID = element.;
-        //    item.ReRe_FechaReservacion = element.Fecha_Reservacion;
-        //    item.ReRe_HoraReservacion = element.Hora_Reservacion;
-        //    item.Resv_ID = element.Id;
-        //    item.Rest_ID = element.ID_Restaurante;
+            var item = new ReservationTransportationViewModel();
+            IEnumerable<ReservationTransportationListViewModel> model = null;
+            var list = await _reservationService.RestaurantsReservationList(token);
+            IEnumerable<ReservationTransportationListViewModel> data = (IEnumerable<ReservationTransportationListViewModel>)list.Data;
+            var element = data.Where(x => x.Id == id).ToList()[0];
+            item.Resv_ID = element.Reservacion;
+            item.Detr_ID = element.ID_detalle_Transporte;
+            item.ReTr_CantidadAsientos = element.Asientos;
+            item.ReTr_Cancelado = element.Cancelado;
+            item.ReTr_FechaCancelado = element.Fecha_Cancelado;
+            item.Resv_ID = element.Id;
+            item.Detr_ID = element.ID_detalle_Transporte;
 
 
-        //    var restaurante = await _transportService.TransportList();
-        //    IEnumerable<RestaurantListViewModel> data_restaurante = (IEnumerable<RestaurantListViewModel>)restaurante.Data;
-        //    ViewBag.Rest_ID = new SelectList(data_restaurante, "ID", "Restaurante", element.ID_Restaurante);
+            var restaurante = await _transportService.TransportList();
+            IEnumerable<TransportDetailsListViewModel> data_restaurante = (IEnumerable<TransportDetailsListViewModel>)restaurante.Data;
+            ViewBag.Detr_ID = new SelectList(data_restaurante, "ID", "Restaurante", element.ID_detalle_Transporte);
 
-        //    var reservacion = await _reservationService.ReservationList(token);
-        //    IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-        //    ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.Id);
+            var reservacion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
+            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.Id);
 
-        //    return View(item);
+            return View(item);
 
-        //}
+        }
 
         [HttpPost]
         public async Task<IActionResult> Update(ReservationTransportationViewModel  reservationTransportation, int id)

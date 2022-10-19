@@ -431,7 +431,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
 
-        public async Task<ServiceResult> ExtraActivitiesReservationUpdate(ReservationExtraActivitiesViewModel actividadesextraas, string token)
+        public async Task<ServiceResult> ExtraActivitiesReservationUpdate(ReservationExtraActivitiesViewModel actividadesextraas, int id, string token)
         {
             var Result = new ServiceResult();
 
