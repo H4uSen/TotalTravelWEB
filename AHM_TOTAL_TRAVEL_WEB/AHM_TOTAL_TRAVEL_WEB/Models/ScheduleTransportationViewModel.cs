@@ -30,7 +30,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int HoTr_ID { get; set; }
         public int? DsTr_ID { get; set; }
-        public DateTime? HoTr_Fecha { get; set; }
+        public string? HoTr_Fecha { get; set; }
         public string HoTr_HoraSalida { get; set; }
         public string HoTr_HoraLlegada { get; set; }
         public int? HoTr_UsuarioCreacion { get; set; }

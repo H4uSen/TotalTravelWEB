@@ -42,6 +42,9 @@
             <thead>
                 <tr>
                     <th>
+                        ID
+                    </th>
+                    <th>
                         Ciudad Salida
                     </th>
                     <th>
@@ -63,6 +66,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Ciudad_Salida)
                         </td>
@@ -86,7 +92,7 @@
                             <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
-                            <a href="@Url.Action("Details","Restaurant",new {  id=item.ID})" class="ui large icon button">
+                            <a href="@Url.Action("Details","ScheduleTransportation",new {  id=item.ID})" class="ui large icon button">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
                             </a>
                         </td>
@@ -123,11 +129,11 @@
                     <div class="two fields">
                         <div class="field">
                             <label>Hora de Salida</label>
-                            <input id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                            <input type="time" id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
                         </div>
                         <div class="field">
                             <label>Hora de llegada</label>
-                            <input id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                            <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
                         </div>
                     </div>
                 </div>
@@ -190,13 +196,13 @@
     //------------------------------------Funciones------------------------
 
     function DeleteHorarios(Id) {
-        const capsula1 = () => {
+        const capsula10 = () => {
             var response = ajaxRequest("/ScheduleTransportation/Delete?id=" + Id, null, "POST");
             if (response > 0) {
                 window.location.href = '/ScheduleTransportation?success=true';
             }
         };
-        sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+        sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula10);
 
     };
 
