@@ -16,6 +16,7 @@
 // ----------------------------------- FUNCTIONS ------------------------------------
 
 
+    // ----------------------------------- FILE FORMAT ------------------------------------
     async function createBlob(url) {
         var response = await fetch(url);
         response.headers = { type: 'image/jpeg' };
@@ -36,6 +37,7 @@
         });
     }
 
+    // ----------------------------------- FORM VALIDATE ------------------------------------
     // si calback retorna true, crea span en containerDiv
     function ManualValidateForm(callback = () => { return true; }, containerDiv, validateMessage = "Rellene este campo") {
         //crea span item
@@ -144,6 +146,8 @@
 
     }
 
+
+    // ----------------------------------- ALERTS ------------------------------------
     //se utiliza para alertas de campos vacios
     function iziToastAlert(title = "An error ocurred", message = "", type = "error") {
         const colors = {
@@ -196,7 +200,7 @@
         })
     }
 
-    //----------------------------- BUSCADOR TABLE JS----------------------------------------
+    //----------------------------- TABLE JS----------------------------------------
 
     function TableSearchInput(SearchInput, Table, elemPerPage = 10) {
         $(SearchInput).keyup(function () {
@@ -216,6 +220,66 @@
         });
     }
 
+    function TableDetailsConstructor(Table) {
+
+        for (let i = 0; i < $(Table).find("tbody tr").length; i++) {
+            const tr = $(Table).find("tbody tr")[i];
+
+            $(tr).prop("id", `row_${i}`);
+            $(tr).addClass("rows");
+            $(tr).prepend(
+                `<td>
+                    <button class="ui icon btn-purple button details_button w-100">
+                        <i class="plus icon"></i>
+                    </button>
+                </td>`
+            );
+        }
+    }
+
+    function MostrarDetalle(
+        detail_row = {
+            table: $(""),
+            row_Index: 0,
+            content : '<h1 class="ui red header">NO DATA AVALIABLE</h1>'
+        }
+    ) {
+        //busca row principal
+        const tr_details = $(detail_row.table).find(`tbody #row_${detail_row.row_Index}`);
+        const button = $(tr_details).find("button.details_button");
+
+        //saca dato de total de max colspan
+        const colspan = $(detail_row.table).find("thead th").length;
+
+        //almacena row de details en base al index pasado
+        const content = $(detail_row.table).find(`tbody #row_${detail_row.row_Index}_details`);
+
+        //valida si existe
+        if (content.length > 0) {
+
+            //cambia estado de el boton
+            $(button).addClass("btn-purple");
+            $(button).find("i").removeClass("minus").addClass("plus");
+
+             //elimina tr de details
+            $(content).remove();
+
+        } else { // si no lo crea
+
+            //cambia estado de el boton
+            $(button).removeClass("btn-purple");
+            $(button).find("i").removeClass("plus").addClass("minus");
+
+            //crea tr de details
+            $(tr_details).after(
+                `<tr id="row_${detail_row.row_Index}_details" class="row_details">
+                    <td colspan="${colspan}">
+                        ${detail_row.content}
+                    </td>
+                </tr>`
+            );
+        }
+    }
 
     //----------------------------- PETICIONES AJAX ----------------------------------------
 

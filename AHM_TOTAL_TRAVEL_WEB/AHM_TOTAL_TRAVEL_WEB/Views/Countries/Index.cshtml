@@ -20,9 +20,9 @@
 
         <br>
         <div class="ui grid">
-            <div class="eight wide column">                
+            <div class="eight wide column">
                 <div class="eight wide column">
-                    <button id="createCountries" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>              
+                    <button id="createCountries" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
                 </div>
             </div>
             <div class="eight wide column">
@@ -32,32 +32,21 @@
                 </div>
             </div>
         </div>
-        <style>
-            table thead tr th {
-                background-color: #2b2b2b;
-                color: white;
-            }
-        </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table class="ui compact selectable celled table" id="grdPaises">
             <thead>
-                <tr>                   
-                    <th>
-                        Código
-                    </th>
-                    <th>
-                        País
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nacionalidad)
-                    </th>
-                        <th width="300px">Acciones</th>
-                 </tr>
+                <tr>
+                    <th></th>
+                    <th>Código</th>
+                    <th>País</th>
+                    <th>@Html.DisplayNameFor(model => model.Nacionalidad)</th>
+                    <th width="300px">Acciones</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr data-value="@item.ID">
                         <td>
                             @Html.DisplayFor(modelItem => item.Codigo)
                         </td>
@@ -68,16 +57,16 @@
                             @Html.DisplayFor(modelItem => item.Nacionalidad)
                         </td>
 
-                        <td>                           
+                        <td>
                             <button class="ui large icon btn-edit button" onclick="editar(@item.ID)">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </button>
                             <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
-                            </button> 
+                            </button>
                             <a class="ui large icon button" href="@Url.Action("Details", "Countries", new { id=item.ID })">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>          
+                            </a>
                         </td>
                     </tr>
                 }
@@ -91,7 +80,7 @@
 <div class="ui modal longer" id="modalCreate">
     <i class="close icon"></i>
     <div class="header">
-        Ingresa un Pais 
+        Ingresa un Pais
     </div>
     <form asp-action="Create" asp-controller="Countries" id="createCountriesForm">
         <div class="ui form attached fluid segment">
@@ -99,22 +88,22 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Nombre</label>                       
+                            <label>Nombre</label>
                             <input name="Pais_Descripcion" id="Pais_Descripcion" class="form-control" />
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaDe"></span>
-                        </div>  
+                        </div>
                         <div class="required field">
-                            <label>Código</label>                       
+                            <label>Código</label>
                             <input name="Pais_Codigo" id="Pais_Codigo" class="form-control" />
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaCo"></span>
-                        </div>  
+                        </div>
                     </div>
                     <div class="field">
                         <div class="required field">
-                            <label>Nacionalidad</label>                       
+                            <label>Nacionalidad</label>
                             <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" class="form-control" />
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaNa"></span>
-                        </div>      
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,32 +124,32 @@
     <form asp-action="Update" asp-controller="Countries" id="updateCountriesForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                
-                 <div class="required field">
+
+                <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Nombre</label>                       
+                            <label>Nombre</label>
                             <input name="Pais_Descripcion" id="Pais_Descripcion" class="form-control" />
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaDe"></span>
-                        </div>  
+                        </div>
                         <div class="required field">
-                            <label>Código</label>                       
+                            <label>Código</label>
                             <input name="Pais_Codigo" id="Pais_Codigo" class="form-control" />
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaCo"></span>
-                        </div>  
+                        </div>
                     </div>
                     <div class="field">
                         <div class="required field">
-                            <label>Nacionalidad</label>                       
+                            <label>Nacionalidad</label>
                             <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" class="form-control" />
                             <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaNa"></span>
-                        </div>      
+                        </div>
                     </div>
                     <div class="required field">
-                        <input id="Pais_ID" name="Pais_ID" hidden/>                     
+                        <input id="Pais_ID" name="Pais_ID" hidden />
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </form>
@@ -173,43 +162,8 @@
 
 
 @section Scripts{
-     <script src="~/js/CountriesJS/Countries.js"></script>
-    <script>
-                // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
-            });
-        });
-
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
-        });
-    </script>
-    <script>
-    function Delete(id) {
-    const capsula1 = () => {
-        ajaxRequest("/Countries/Delete?id=" + id, null, "POST")
-        location.reload();
-     };
-
-     sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
-     
-
-    };
-    
-
-    </script>
+    <script src="~/js/CountriesJS/Index.js"></script>
+    <script src="~/js/CountriesJS/Countries.js"></script>
 }
 @section HighlightTile{
     <script>

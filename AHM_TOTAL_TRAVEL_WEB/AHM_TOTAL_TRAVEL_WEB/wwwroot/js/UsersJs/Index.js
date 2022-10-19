@@ -1,10 +1,26 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 
-TableSearchInput($("#txtSearch"), $("#grdUsuarios"), elemPerPage = 10)
+TableSearchInput($("#txtSearch"), $("#grdUsuarios"), elemPerPage = 10);
+
+TableDetailsConstructor($("#grdUsuarios"));
 
 $("#grdUsuarios").paginationTdA({
     elemPerPage: 10
+});
+
+$("#grdUsuarios tbody tr .details_button").click((_this) => {
+
+    const tr = $(_this.target).parents("tr");
+    const index = $("#grdUsuarios tbody tr").index(tr);
+
+    MostrarDetalle(
+        detail_row = {
+            table: $("#grdUsuarios"),
+            row_Index: index,
+            content: '<h1 class="ui red header">Hola mundo</h1>'
+        }
+    )
 });
 
 // ----------------------------------- EVENTS ------------------------------------
