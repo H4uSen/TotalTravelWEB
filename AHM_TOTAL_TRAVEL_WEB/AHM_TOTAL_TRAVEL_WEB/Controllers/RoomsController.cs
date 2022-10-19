@@ -63,7 +63,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var item = new RoomsViewModel();
-            IEnumerable<RoomsViewModel> model = null;
             var list = await _hotelsServices.RoomsList(null);
             IEnumerable<RoomsListViewModel> data = (IEnumerable<RoomsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
@@ -73,7 +72,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //item.CaHa_ID = element.Categoria;
             item.Habi_Precio = element.Precio;
             item.Habi_balcon = element.Balcon;
-            item.Habi_wifi = element.Wifi;
+            //item.Habi_wifi = element.Wifi;
             item.Habi_camas = element.Camas;
             item.Habi_capacidad = element.Capacidad;
             //item.Habi_url = element.Image_Url;

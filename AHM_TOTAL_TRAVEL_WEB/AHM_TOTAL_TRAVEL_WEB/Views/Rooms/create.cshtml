@@ -30,7 +30,7 @@
                     <div class="content">
 
                         <div class="field">
-                            <div class=" two fields">
+                            <div class=" three fields">
                                 <div class="required field">
                                     <label class="ui label">Habitacion</label>
                                     <input id="Habi_Nombre" placeholder="Habitacion" />
@@ -40,6 +40,10 @@
                                     <select id="Hote_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Descripcion</label>
+                                    <input id="Habi_Descripcion" placeholder="Descripcion" />
                                 </div>
                             </div>
                         </div>
@@ -51,7 +55,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
-                                    <input id="Habi_Precio" placeholder="Precio" />
+                                    <input type="number" id="Habi_Precio" placeholder="Precio" />
                                 </div>
                             </div>
                         </div>
@@ -68,11 +72,11 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Cama</label>
-                                    <input id="Habi_camas" placeholder="Cama" />
+                                    <input type="number" id="Habi_camas" placeholder="Cama" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Capacidad</label>
-                                    <input id="Habi_capacidad" placeholder="Capacidad" />
+                                    <input type="number" id="Habi_capacidad" placeholder="Capacidad" />
                                 </div>
                             </div>
                         </div>

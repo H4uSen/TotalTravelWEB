@@ -1,4 +1,5 @@
 ﻿var imagesArray = [];
+var imagesArrayPure = [];
 $("#File").change(async function () {
 
 
@@ -7,6 +8,7 @@ $("#File").change(async function () {
             return data;
         });
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
@@ -42,6 +44,7 @@ function LoadImage() {
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
 
@@ -64,21 +67,22 @@ function createRooms() {
 
     if (ValidateFormStatus) {
 
-        var images = [];
+
+
         var data = new FormData();
         data.append("Hote_ID", $("#Hote_ID").val());
         data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
         data.append("Habi_Nombre", $("#Habi_Nombre").val());
-        data.append("CaHa_ID ", $("#CaHa_ID ").val());
+        data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
         data.append("Habi_Precio", $("#Habi_Precio").val());
         data.append("Habi_balcon", $("#Habi_balcon").val());
         data.append("Habi_wifi", $("#Habi_wifi").val());
-        data.append("Habi_camas", $("#Habi_camas ").val());
+        data.append("Habi_camas", $("#Habi_camas").val());
         data.append("Habi_capacidad", $("#Habi_capacidad").val());
-        data.append("Habi_UsuarioCreacion", UserID);
+        data.append("Habi_UsuarioCreacion", Client_User_ID);
 
-        for (let i = 0; i < imagesArray.length; i++) {
-            data.append("File", imagesArray[i].src);
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
         var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Insert", data, "POST");
 
@@ -90,4 +94,5 @@ function createRooms() {
         }
 
     }
+    else { console.log("error") }
 }
