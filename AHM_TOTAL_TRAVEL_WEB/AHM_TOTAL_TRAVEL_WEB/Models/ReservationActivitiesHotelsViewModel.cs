@@ -27,7 +27,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int ID_Cliente { get; set; }
         public string Cliente { get; set; }
         public int ID_Actividad { get; set; }
-        public string Actividad { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
         public int? Cantidad { get; set; }
         public DateTime? Fecha_Reservacion { get; set; }
         public string Hora_Reservacion { get; set; }
