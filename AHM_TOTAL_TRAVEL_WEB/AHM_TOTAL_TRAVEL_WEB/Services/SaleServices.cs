@@ -166,32 +166,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
         #region RoomPackages
-        public async Task<ServiceResult> RoomsPackagesList(IEnumerable<RoomsPackagesListViewModel> model)
+
+        public async Task<ServiceResult> RoomsPackagesList(string token)
         {
-            var result = new ServiceResult();
+            var Result = new ServiceResult();
+
             try
             {
-                var response = await _api.Get<IEnumerable<RoomsPackagesListViewModel>, IEnumerable<RoomsPackagesListViewModel>>(req =>
-                {
+                var response = await _api.Get<IEnumerable<RoomsPackagesListViewModel>, IEnumerable<RoomsPackagesListViewModel>>(req => {
                     req.Path = $"/API/RoomsPackages/List";
                     req.Content = null;
-                }
+                },
+                token
                 );
                 if (!response.Success)
                 {
-                    return result.FromApi(response);
+                    return Result.FromApi(response);
                 }
                 else
                 {
-                    return result.Ok(response.Data);
+                    return Result.Ok(response.Data);
                 }
             }
             catch (Exception ex)
             {
-                return result.Error(Helpers.GetMessage(ex));
+                return Result.Error(Helpers.GetMessage(ex));
                 throw;
             }
         }
+    
 
         public async Task<ServiceResult> RoomsPackagesCreate(RoomsPackagesViewModel rooms, string token)
         {

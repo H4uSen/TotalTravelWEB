@@ -32,7 +32,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 
             var model = new List<HotelsActivitiesListViewModel>();
-            var list = await _hotelService.HotelsActivitiesList(model);
+            var list = await _hotelService.HotelsActivitiesList(token);
             return View(list.Data);
         }
 

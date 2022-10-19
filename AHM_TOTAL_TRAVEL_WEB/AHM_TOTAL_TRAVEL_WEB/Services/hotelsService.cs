@@ -622,7 +622,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Hoteles Actividades
 
-        public async Task<ServiceResult> HotelsActivitiesList(IEnumerable<HotelsActivitiesListViewModel> model)
+        public async Task<ServiceResult> HotelsActivitiesList(string token)
         {
             var result = new ServiceResult();
             try
@@ -630,7 +630,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<HotelsActivitiesListViewModel>, IEnumerable<HotelsActivitiesListViewModel>>(req => {
                     req.Path = $"/API/HotelsActivities/List";
                     req.Content = null;
-                }
+                },token
                 );
                 if (!response.Success)
                 {
