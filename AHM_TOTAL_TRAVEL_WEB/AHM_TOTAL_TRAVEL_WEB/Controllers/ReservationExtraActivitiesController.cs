@@ -92,19 +92,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Delete(ReservationExtraActivitiesViewModel actividadesextras, int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (ModelState.IsValid)
             {
-                ServiceResult result = new ServiceResult();
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                actividadesextras.ReAE_UsuarioModifica = int.Parse(idd);
+                
+               int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
 
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var list = (RequestStatus)(await _reservationService.ExtraActivitiesReservationDelete(actividadesextras, id, token)).Data;
+                var list = (RequestStatus)(await _reservationService.ExtraActivitiesReservationDelete(modifica, id, token)).Data;
 
                 return Ok(list.CodeStatus);
-            }
+            }   
             else
             {
                 return View();

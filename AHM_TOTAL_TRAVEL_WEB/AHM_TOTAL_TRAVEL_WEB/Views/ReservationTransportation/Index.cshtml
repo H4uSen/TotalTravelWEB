@@ -17,7 +17,6 @@
                 </div>
             </div>
         </div>
-
         <br>
         <div class="ui grid">
             <div class="eight wide column">
@@ -136,9 +135,8 @@
         function DeleteReservacionTransporte(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("ReservationTransportation/Delete?id=" + id, null, "POST");
-                if (response > 0) {
+             
                     window.location.href = '/ReservationTransportation?success=true';
-                }
             };
 
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);

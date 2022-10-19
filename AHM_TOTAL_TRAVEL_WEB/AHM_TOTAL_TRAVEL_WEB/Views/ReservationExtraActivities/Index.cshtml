@@ -137,10 +137,10 @@
 
         function DeleteReservacionActividadesextras(id) {
             const capsula1 = () => {
-                var response = ajaxRequest("ReservationActivitiesExtra/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/ReservationActivitiesExtra?success=true';
-                }
+                var response = ajaxRequest("ReservationExtraActivities/Delete?id=" + id, null, "POST");
+              
+                    window.location.href = '/ReservationExtraActivities?success=true';
+               
             };
 
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
