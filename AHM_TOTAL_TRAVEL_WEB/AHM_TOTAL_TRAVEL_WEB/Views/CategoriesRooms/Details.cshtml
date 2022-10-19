@@ -27,7 +27,7 @@
                 <div class="content">
                     <div class="field">
                         <div class="three fields">
-                      
+
                             <div class="field">
                                 <label>Descripcion</label>
                                 @Html.DisplayFor(model => model.Descripcion)
@@ -80,4 +80,10 @@
         </table>
     </div>
 </div>
-
+@section HighlightTile{
+    <script>
+        $("#HotelModule").addClass("active");
+        $("#Hotel_Schema").addClass("show");
+        $("#HotelModule").addClass("expandedList")
+    </script>
+}

@@ -25,44 +25,50 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="field">
-                        <div class="five fields">
+                        <div class="three fields">
                             <div class="field">
                                 <label>Habitacion</label>
                                 @Html.DisplayFor(model => model.Habitacion)
                             </div>
                             <div class="field">
                                 <label>Descripcion</label>
-                                @Html.DisplayNameFor(model => model.Descripcion)
+                                @Html.DisplayFor(model => model.Descripcion)
                             </div>
                             <div class="field">
                                 <label>Categoria</label>
-                                @Html.DisplayNameFor(model => model.CategoriaHabitacionID)
+                                @Html.DisplayFor(model => model.CategoriaHabitacionID)
                             </div>
+                        </div>
+                        <div class="three fields">
+
                             <div class="field">
                                 <label>Hotel</label>
-                                @Html.DisplayFor(model => model.HotelID)
+                                @Html.DisplayFor(model => model.Hotel)
                             </div>
                             <div class="field">
                                 <label>Precio</label>
-                                @Html.DisplayNameFor(model => model.Precio)
+                                @Html.DisplayFor(model => model.Precio)
                             </div>
                             <div class="field">
                                 <label>Balcon</label>
-                                @Html.DisplayNameFor(model => model.Balcon)
+                                @Html.DisplayFor(model => model.Balcon)
                             </div>
+                        </div>
+                        <div class="three fields">
                             <div class="field">
                                 <label>Wifi</label>
-                                @Html.DisplayNameFor(model => model.Wifi)
+                                @Html.DisplayFor(model => model.Wifi)
                             </div>
                             <div class="field">
                                 <label>Camas</label>
-                                @Html.DisplayNameFor(model => model.Camas)
+                                @Html.DisplayFor(model => model.Camas)
                             </div>
                             <div class="field">
                                 <label>Capacidad</label>
-                                @Html.DisplayNameFor(model => model.Capacidad)
+                                @Html.DisplayFor(model => model.Capacidad)
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
