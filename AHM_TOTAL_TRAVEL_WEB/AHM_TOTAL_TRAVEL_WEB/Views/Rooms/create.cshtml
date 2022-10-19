@@ -12,7 +12,7 @@
                 <i class="icon building"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear restaurante
+                        Crear Habitacion
                     </div>
                 </div>
                 <div class="right floated content" style="text-align: end;">
@@ -33,7 +33,7 @@
                             <div class=" two fields">
                                 <div class="required field">
                                     <label class="ui label">Habitacion</label>
-                                    <input id="Hote_Nombre" placeholder="Habitacion" />
+                                    <input id="Habi_Nombre" placeholder="Habitacion" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Hotel</label>
@@ -45,9 +45,9 @@
                         </div>
                         <div class="field">
                             <div class="two fields">
-                                <div class="required field">                                 
-                                        <label class="ui label">Categoria</label>
-                                        <input id="CaHa_ID" placeholder="Categoria" />                                 
+                                <div class="required field">
+                                    <label class="ui label">Categoria</label>
+                                    <input id="CaHa_ID" placeholder="Categoria" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="field">
-                            <div class="two fields">
+                            <div class="three fields">
                                 <div class="required field">
                                     <label class="ui label">Wifi</label>
                                     <input id="Habi_wifi" placeholder="Wifi" />
@@ -69,6 +69,10 @@
                                 <div class="required field">
                                     <label class="ui label">Cama</label>
                                     <input id="Habi_camas" placeholder="Cama" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Capacidad</label>
+                                    <input id="Habi_capacidad" placeholder="Capacidad" />
                                 </div>
                             </div>
                         </div>
@@ -126,6 +130,10 @@
     </div>
 </div>
 @section Scripts{
+
+    <script>
+        var UserID = '@ViewData["UserID"]';
+    </script>
     <script src="~/js/Rooms/Create.js"></script>
 }
 
