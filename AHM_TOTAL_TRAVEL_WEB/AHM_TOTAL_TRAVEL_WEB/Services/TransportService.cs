@@ -652,7 +652,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             try
             {
                 var response = await _api.Put<ScheduleTransportationViewModel, RequestStatus >(req => {
-                    req.Path = $"/API/DestinationsTransportation/Update?id=" + horario.HoTr_ID;
+                    req.Path = $"/API/ScheduleTransportation/Update?id=" + horario.HoTr_ID;
 
                     req.Content = horario;
                 },
@@ -704,6 +704,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
 
+        }
+
+        public async Task<ServiceResult> ScheduleFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new ScheduleTransportationListViewModel();
+
+            try
+            {
+                var response = await _api.Get<ScheduleTransportationListViewModel, ScheduleTransportationListViewModel>(req => {
+                    req.Path = $"/API/ScheduleTransportation/Find?Id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
         }
 
 
