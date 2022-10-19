@@ -72,8 +72,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //item.CaHa_ID = element.Categoria;
             item.Habi_Precio = element.Precio;
             item.Habi_balcon = element.Balcon;
+
             //item.Habi_wifi = element.Wifi;
             item.Habi_camas = element.Camas;
+
+            //item.Habi_wifi = element.Wifi;
+            //item.Habi_camas = element.Camas;
+
             item.Habi_capacidad = element.Capacidad;
             //item.Habi_url = element.Image_Url;
 
