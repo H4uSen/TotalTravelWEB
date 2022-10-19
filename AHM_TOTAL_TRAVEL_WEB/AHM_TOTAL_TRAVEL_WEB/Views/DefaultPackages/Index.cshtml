@@ -12,22 +12,21 @@
             <i class="icon archive"></i>
             <div class="content">
                 <div class="header">
-                     Paquetes Predeterminados
+                    Paquetes Predeterminados
                 </div>
-                <p> Crea, Actualiza, Elimina o Busca y Filtra Paquetes Predeterminados</p>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
-            
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","DefaultPackages")">
+            <div class="eight wide column">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","DefaultPackages")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
                     <i class="search icon"></i>
                 </div>
             </div>
@@ -52,16 +51,16 @@
                         Duración
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.precio)
+                        Precio
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Hotel)
-                    </th>                    
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Restaurante)
                     </th>
-                        <th width="300px">Acciones</th>
-                 </tr>
+                    <th width="300px">Acciones</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
@@ -77,70 +76,70 @@
                             @Html.DisplayFor(modelItem => item.Duracion_Paquete)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.precio)
+                            L. @Html.DisplayFor(modelItem => item.precio)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Hotel)
-                        </td>                        
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Restaurante)
                         </td>
 
-                        <td>                       
+                        <td>
                             <a class="ui large icon btn-edit button" href="@Url.Action("Update","DefaultPackages", new { id=item.Id })">
                                 <i class="pencil alternate icon icon-crud"></i>
-                            </a>                                                                        
+                            </a>
                             <button class="ui large icon btn-delete button" onclick="DeleteDefaultPackage(@item.Id)">
                                 <i class="trash alternate icon icon-crud"></i>
-                            </button>  
+                            </button>
                             <a class="ui large icon button" href="@Url.Action("Details","DefaultPackages", new { id=item.Id })">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>                                                           
+                            </a>
                         </td>
                     </tr>
                 }
             </tbody>
-        </table><br>  
+        </table><br>
     </div>
-<br>
+    <br>
 
-@section Scripts{
-    <script>
-                // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
+    @section Scripts{
+        <script>
+            // ----------------------------------- EVENTS ------------------------------------
+            $("#txtSearch").keyup(function () {
+                _this = this;
+                $.each($("#grdRestaurants tbody tr"), function () {
+                    if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+
+                $("#grdRestaurants").paginationTdA({
+                    elemPerPage: 5
+                });
             });
 
             $("#grdRestaurants").paginationTdA({
                 elemPerPage: 5
             });
-        });
+        </script>
+        <script src="~/js/DefaultPackaguesJS/Delete.js"></script>
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
-        });
-    </script>
-    <script src="~/js/DefaultPackaguesJS/Delete.js"></script>
-    
 
-}
+    }
     @section HighlightTile{
-    <script>
+        <script>
 
-        $("#SalesModule").addClass("active");
-        $("#SalesModule").addClass("expandedList");
-        $("#SalesModule").prop("aria-expanded");
-        $("#SalesModule").attr("aria-expanded", "true");
+            $("#SalesModule").addClass("active");
+            $("#SalesModule").addClass("expandedList");
+            $("#SalesModule").prop("aria-expanded");
+            $("#SalesModule").attr("aria-expanded", "true");
 
-        $("#Sale_Schema").addClass("show");
+            $("#Sale_Schema").addClass("show");
 
-        $("#DefaultPackagesTile").addClass("activeTile");
-    </script>
+            $("#DefaultPackagesTile").addClass("activeTile");
+        </script>
     }

@@ -1,6 +1,6 @@
 ﻿$('.ui.dropdown').dropdown();
 
-function createPartners() {
+function updatePartners() {
 
     validateArrayForm = [
         { validateMessage: "Ingrese un nombre.", Jqueryinput: $("#Nombre") },
@@ -14,7 +14,7 @@ function createPartners() {
 
 
 
-    if ($('#Nombre').val() != 0 && $('#Email').val() != 0 && $('#Telefono').val() != 0 && $('#TiPart_Id').val() != 0) {
+    if (ValidateFormStatus) {
 
         /*var images = [];*/
         var data = new FormData();
@@ -30,7 +30,7 @@ function createPartners() {
         //}
 
         data.append("file", $("#File").prop("files")[0]);
-        var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update?id=" + partnersID, data, "POST");
+        var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update?id=" + partnersID, data, "PUT");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Partners?success=true';

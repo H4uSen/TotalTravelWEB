@@ -14,18 +14,23 @@
                     <div class="header text-capitalize">
                         Editar
                     </div>
-                    <p>Actualiza este paquete predeterminado.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "DefaultPackages")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
 
             <!-- formulario-->
-           <form asp-action="Update" id="frmUpdateDefaultPackagues">
+           <form asp-action="Update" asp-controller="DefaultPackages" id="frmUpdateDefaultPackagues">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
                         <div class="required field" hidden>
                             <label>ID</label>
-                            <input asp-for="paqu_ID" class="form-control" />                           
+                            <input asp-for="paqu_ID" class="form-control" />
                         </div>
                         <div class="field">
                             <div class="two fields">
@@ -38,14 +43,14 @@
                                     <label>Descripción</label>
                                     <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
-                                </div>                              
+                                </div>
                             </div>
-                        </div>  
+                        </div>
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label>Precio</label>
-                                    <input asp-for="paqu_Precio" id="Precio" class="form-control" />
+                                    <label>Precio (L.)</label>
+                                    <input asp-for="paqu_Precio" id="Precio" class="form-control" type="number" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off />
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPrecio"></span>
                                 </div>
                                 <div class="required field">
@@ -54,28 +59,29 @@
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDuracion"></span>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                         <div class="field">
                             <div class="two fields">
-                                 <div class="required field">
+                                <div class="required field">
                                     <label>Hotel</label>
                                     <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorHotel"></span>
-                                </div>          
+                                </div>
                                 <div class="required field">
                                     <label>Restaurante</label>
                                     <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
                                         <option value="">Seleccione un restaurante</option>
                                     </select>
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurantes"></span>
-                                </div>                         
+                                </div>
                             </div>
-                        </div>  
-                      
+                        </div>
 
-                        <input type="button" value="Actualizar" onclick="updateDefaultPackages()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="updateDefaultPackages()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "DefaultPackages")" class="ui button mb-3 ms-3">Cancelar</a>
+                        
                     </div>
                 </div>
 
@@ -85,6 +91,34 @@
     </div>
 </div>
 @section Scripts{   
+    <script>
+        const campoNumerico = document.getElementById('Precio');
+
+        campoNumerico.addEventListener('keydown', function (evento) {
+            const teclaPresionada = evento.key;
+            const teclaPresionadaEsUnNumero =
+                Number.isInteger(parseInt(teclaPresionada));
+
+            const sePresionoUnaTeclaNoAdmitida =
+                teclaPresionada != 'ArrowDown' &&
+                teclaPresionada != 'ArrowUp' &&
+                teclaPresionada != 'ArrowLeft' &&
+                teclaPresionada != 'ArrowRight' &&
+                teclaPresionada != 'Backspace' &&
+                teclaPresionada != 'Delete' &&
+                teclaPresionada != 'Enter' &&
+                !teclaPresionadaEsUnNumero;
+            const comienzaPorCero =
+                campoNumerico.value.length === 0 &&
+                teclaPresionada == 0;
+
+            if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+                evento.preventDefault();
+            }
+
+        });
+
+    </script>
     <script src="~/js/DefaultPackaguesJS/Update.js"></script>
 }
 

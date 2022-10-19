@@ -66,9 +66,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
 
 
-            var partners = await _generalServices.PartnerTypeList();
-            IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
-            ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion");
+           
 
             var item = new PartnersViewModel();
             IEnumerable<PartnersListViewModel> model = null;
@@ -80,7 +78,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Part_Nombre = element.Nombre;
             item.Part_Telefono = element.Telefono;
             item.TiPart_Id = element.TipoPartner_Id;
-            
+            var partners = await _generalServices.PartnerTypeList();
+            IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
+            ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion", element.TipoPartner_Id);
+
             ViewData["partnersID"] = element.ID;
 
 

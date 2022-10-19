@@ -14,7 +14,6 @@
                 <div class="header">
                     Paises
                 </div>
-                <p>Crea, Actualiza, Elimina o Busca y Filtra Paises</p>
             </div>
         </div>
 
@@ -22,12 +21,12 @@
         <div class="ui grid">
             <div class="eight wide column">
                 <div class="eight wide column">
-                    <button id="createCountries" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                    <button id="createCountries" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
                 </div>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
                     <i class="search icon"></i>
                 </div>
             </div>
@@ -109,7 +108,7 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
+        <button class="btn btn-edit ui positive button" id="send" onclick="validar()">Guardar</button>
         <button class="ui button" id="close">Cancelar</button>
     </div>
 </div>
@@ -153,7 +152,7 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
+        <button class="btn btn-edit ui positive button" id="send" onclick="actualizar()">Guardar</button>
         <button class="ui button" id="close">Cancelar</button>
     </div>
 </div>
@@ -163,17 +162,25 @@
 @section Scripts{
     <script src="~/js/CountriesJS/Index.js"></script>
     <script src="~/js/CountriesJS/Countries.js"></script>
-}
-    @section HighlightTile{
     <script>
+        function Delete(id) {
+            const capsula1 = () => {
+                ajaxRequest("/Countries/Delete?id=" + id, null, "POST")
+                location.reload();
+            };
 
-        $("#GeneralModule").addClass("active");
-        $("#GeneralModule").addClass("expandedList");
-        $("#GeneralModule").prop("aria-expanded");
-        $("#GeneralModule").attr("aria-expanded", "true");
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
 
-        $("#General_Schema").addClass("show");
 
-        $("#CountriesTile").addClass("activeTile");
+        };
+
+
     </script>
-    }
+}
+@section HighlightTile{
+    <script>
+        $("#GeneralModule").addClass("active");
+        $("#General_Schema").addClass("show");
+        $("#GeneralModule").addClass("expandedList")
+    </script>
+}
