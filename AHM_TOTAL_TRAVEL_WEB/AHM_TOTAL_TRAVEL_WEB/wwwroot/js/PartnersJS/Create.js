@@ -27,9 +27,14 @@ function createPartners() {
         else {
             data.append("File", null);
         }
-        var status = uploadFile("https://totaltravel.somee.com/API/Partners/Insert", data,"POST");
+        var status = uploadFile("https://totaltravel.somee.com/API/Partners/Insert", data, "POST");
+        
         if (status.code == 200) {
-            location.reload();
+            window.location.href = '/Restaurant?success=true';
+        }
+        else {
+
+            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
         }
               
     }

@@ -1,5 +1,7 @@
 ﻿$('.ui.dropdown').dropdown();
 
+
+
 function createDefaultPackages() {
 
 
@@ -15,12 +17,13 @@ function createDefaultPackages() {
     else {
         $("#labelvalidatorDescripcion").html(" ");
     }
-    if ($('#Precio').val() == 0) {
+    if ($('#Precio').val() == null) {
         $("#labelvalidatorPrecio").html("Ingrese un Precio.");
     }
     else {
         $("#labelvalidatorPrecio").html(" ");
     }
+    
     if ($('#Duracion').val() == 0) {
         $("#labelvalidatorDuracion").html("Ingrese una Duracion.");
     } else {
@@ -37,6 +40,7 @@ function createDefaultPackages() {
         $("#labelvalidatorRestaurantes").html(" ");
     }
 
+     
     if ($('#rest_ID').val() != 0 && $('#Nombre').val() != 0 && $('#Descripcion').val() != 0 && $('#Precio').val() != 0 && $('#Duracion').val() != 0 && $('#hote_ID').val() != 0) {
         $("#frmCreateDefaultPackagues").submit();
     }

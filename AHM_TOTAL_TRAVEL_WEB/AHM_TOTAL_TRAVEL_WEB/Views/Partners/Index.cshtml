@@ -21,13 +21,13 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Partners")">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","Partners")">
                     <i class="user icon"></i> Nuevo
                 </a>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
                     <i class="search icon"></i>
                 </div>
             </div>
@@ -43,9 +43,6 @@
             <thead>
                 <tr>
                     <th>
-                        #
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
@@ -57,20 +54,13 @@
                     <th>
                         Tipo de Socio
                     </th>
-                        <th width="300px">Acciones</th>
-                 </tr>
+                    <th width="300px">Acciones</th>
+                </tr>
             </thead>
             <tbody>
-                @{
-                    int id = 0;
-                }
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @{id++;}
-                            @id
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
@@ -79,27 +69,27 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Telefono)
-                        </td>                      
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TipoPartner)
                         </td>
 
-                        <td>                           
-                             <a class="ui large icon btn-edit button" href="@Url.Action("Update","Partners", new { id=item.ID })">
+                        <td>
+                            <a class="ui large icon btn-edit button" href="@Url.Action("Update","Partners", new { id=item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </a>
                             <button class="ui large icon btn-delete button" onclick="DeletePartners(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
-                            </button> 
+                            </button>
                             <a class="ui large icon button" href="@Url.Action("Details","Partners", new { id=item.ID })">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>                                                       
-                                                                                   
+                            </a>
+
                         </td>
                     </tr>
                 }
-                
-                
+
+
             </tbody>
         </table><br>
 
@@ -109,7 +99,7 @@
 
 @section Scripts{
     <script>
-                // ----------------------------------- EVENTS ------------------------------------
+        // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
             $.each($("#grdRestaurants tbody tr"), function () {
@@ -131,19 +121,19 @@
         });
     </script>
     <script>
-       function DeletePartners(id) {
+        function DeletePartners(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("Partners/Delete?id=" + id, null, "POST");
-                
+
                 location.reload();
-                
+
             };
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
 
         };
     </script>
 }
-    @section HighlightTile{
+@section HighlightTile{
     <script>
 
         $("#GeneralModule").addClass("active");
@@ -155,4 +145,4 @@
 
         $("#PartnersTile").addClass("activeTile");
     </script>
-    }
+}

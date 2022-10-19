@@ -13,8 +13,7 @@
                 <div class="content">
                     <div class="header text-capitalize">
                         Detalles
-                    </div>
-                    <p>Detalles del País.</p>
+                    </div>               
                 </div>                
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Countries")">
@@ -29,19 +28,15 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>ID</label>
-                                @Html.DisplayFor(model => model.ID)
-                            </div>
-                            <div class="field">
                                 <label>Pais</label>
                                 @Html.DisplayFor(model => model.Pais)
                             </div>
-                        </div>
-                        <div class="two fields">
                             <div class="field">
                                 <label>Código</label>
                                 @Html.DisplayFor(model => model.Codigo)
                             </div>
+                        </div>
+                        <div class="field">                           
                             <div class="field">
                                 <label>Nacionalidad</label>
                                 @Html.DisplayFor(model => model.Nacionalidad)
