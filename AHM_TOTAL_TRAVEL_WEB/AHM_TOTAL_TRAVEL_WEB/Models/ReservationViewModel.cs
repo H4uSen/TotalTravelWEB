@@ -29,6 +29,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? Id_Paquete { get; set; }
         public string DescripcionPaquete { get; set; }
         public decimal? precio { get; set; }
+        public int ReservacionHotelID { get; set; }
         public DateTime? Fecha_Entrada { get; set; }
         public DateTime? Fecha_Salida { get; set; }
         public int Hotel_ID { get; set; }

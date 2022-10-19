@@ -44,7 +44,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr data-value="@item.ID">
+                    <tr data-value="@item.ID" data-hotel="@item.ReservacionHotelID">
 
                         <td>
                             @string.Concat(item.Nombre, " ", item.Apellido)
@@ -58,16 +58,17 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.NumeroPersonas)
                         </td>
-                        
+
                         @{
                             if (item.ConfirmacionHotel == true)
                             {
                                 <td>Confirmado</td>
-                            } else
+                            }
+                            else
                             {
                                 <td>No confirmado</td>
                             }
-                                }
+                        }
 
                         <td>
                             <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
@@ -87,7 +88,9 @@
 
     </div>
 </div>
-
+@section Scripts{ 
+<script src="~/js/ReservationJs/Index.js"></script>
+}
 @section HighlightTile{
     <script>
 

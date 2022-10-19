@@ -92,7 +92,12 @@
 @section HighlightTile{
     <script>
         $("#GeneralModule").addClass("active");
+        $("#GeneralModule").addClass("expandedList");
+        $("#GeneralModule").prop("aria-expanded");
+        $("#GeneralModule").attr("aria-expanded", "true");
+
         $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+
+        $("#SuburbsTile").addClass("activeTile");
     </script>
 }

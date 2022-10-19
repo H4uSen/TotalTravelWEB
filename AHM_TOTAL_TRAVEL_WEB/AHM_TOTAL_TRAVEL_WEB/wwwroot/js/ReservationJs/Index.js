@@ -1,6 +1,7 @@
 ﻿const RoomReservationList = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
 const ReservacionesActividadesHotelesList = ajaxRequest("https://totaltravel.somee.com/API/ReservationActivitiesHotels/List");
 
+
 TableSearchInput($("#txtSearch"), $("#grdReservacion"), elemPerPage = 10);
 TableDetailsConstructor($("#grdReservacion"));
 
@@ -13,18 +14,20 @@ $("#grdReservacion tbody tr .details_button").click((_this) => {
 
     const tr = $(_this.target).parents("tr");
     const index = $("#grdReservacion tbody tr").index(tr);
-    const id_pais = $(tr).attr("data-value");
+    const id_Reservacion = $(tr).attr("data-value");
+    const id_ReservacionHotel = $(tr).attr("data-hotel");
+
 
     MostrarDetalle(
         detail_row = {
             table: $("#grdReservacion"),
             row_Index: index,
-            content: citiesListDetails(id_pais)
+            content: roomsListDetails(id_ReservacionHotel)
         }
     );
 });
 
-function roomsListDetails(id_pais) {
+function roomsListDetails(id_reservacionHotel) {
 
     var RoomReservation = RoomReservationList.data;
 
@@ -33,21 +36,22 @@ function roomsListDetails(id_pais) {
         var Detail =
             `<div class="ui fluid vertical menu">`;
 
-        cities = jQuery.grep(cities, function (city, i) {
-            return city.paisID == id_pais;
+        RoomReservation = jQuery.grep(RoomReservation, function (item, i) {
+            return item.reservacionHotelID == id_reservacionHotel;
         });
 
-        for (var i = 0; i < cities.length; i++) {
+        for (var i = 0; i < RoomReservation.length; i++) {
 
-            const city = cities[i];
-            const fechaCreacion = new Date(city.fechaCrea);
+            const detail = RoomReservation[i];
+            const fecha_Creacion = new Date(detail.fecha_Creacion);
 
             Detail +=
                 `<a class="item">
-                    <h1 class="ui medium header">${city.ciudad}</h1>
-                    <p>City Name: ${city.ciudad}</p>
-                    <p>City Code: COD-00${city.id}</p>
-                    <p>Created at: ${fechaCreacion.toDateString()}</p>
+                    <h1 class="ui medium header">${detail.nombre_Habitacion}</h1>
+                    <p>Descripción: ${detail.descripcion_Habitacion}</p>
+                    <p>Categoría: ${detail.categoria_Habitacion}</p>
+                    <p>Precio: L ${parseFloat(detail.precio_Habitacion).toFixed(2)}</p>
+                    <p>Creado en: ${fecha_Creacion.toDateString()}</p>
                 </a>`;
         }
         Detail += "</div>";
