@@ -201,13 +201,19 @@
         };
     </script>
 }
-@section HighlightTile{
+    @section HighlightTile{
     <script>
+
         $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
+
         $("#Sale_Schema").addClass("show");
-        $("#SalesModule").addClass("expandedList")
+
+        $("#DefaultPackagesDetailsTile").addClass("activeTile");
     </script>
-}
+    }
 
 
 

@@ -1,7 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Authorization;
+@using System.Security.Claims;
 @inject IViewLocalizer Localizer;
-@{string usersRole =  Context.Session.GetString("Role");}
+@{
+    string usersRole =  Context.Session.GetString("Role");
+}
 <!DOCTYPE html>
 
 <html lang="es">
@@ -152,8 +156,8 @@
                             <a class="navbar-brand d-none d-sm-inline-block" href="@Url.Action("Index","Home")">
                                 <div class="brand-text d-none d-lg-inline-block img-fluid"><img src="~/assets/img/logo-AHM-Fondo-Morao.png" width="45px" height="45px" alt="imagen de logo"><span>Total</span><strong>Travel</strong></div>
                                 <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong><img src="~/assets/img/logo-AHM-Fondo-Morao.png" width="45px" height="45px" alt="imagen de logo"></strong></div>
-                            </a>
-                            <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" href="#"><span></span><span></span><span></span></a>
+                            </a> 
+                            <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" onclick="sideBarState()" href="#"><span></span><span></span><span></span></a>
                         </div>
                         <!-- Navbar Menu -->
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center"
@@ -236,105 +240,105 @@
                                     Módulo de Acceso
                                 </a>
                                 <ul class="collapse list-unstyled" id="Access_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Users")">Usuarios</a></li>
+                                    <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","Users")">Usuarios</a></li>
                                 </ul>
                             </li>
 
 
-                            <li class="sidebar-item" id="GeneralModule">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="GeneralModule" href="#General_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo General
                                 </a>
                                 <ul class="collapse list-unstyled" id="General_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Countries")">Países</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","City")">Ciudades</a></li>
-                                    <li><a id="Suburbs_Index" class="sidebar-link" href="@Url.Action("Index","Suburbs")">Colonias</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Address")">Direcciones</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Partners")">Socios</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","PartnerType")">Tipo de Socios</a></li>
+                                    <li ><a id="CountriesTile" class="sidebar-link" href="@Url.Action("Index","Countries")">Paises</a></li>
+                                    <li><a id="CitiesTile" class="sidebar-link" href="@Url.Action("Index","City")">Ciudades</a></li>
+                                    <li><a id="SuburbsTile" class="sidebar-link" href="@Url.Action("Index","Suburbs")">Colonias</a></li>
+                                    <li><a id="AddressTile" class="sidebar-link" href="@Url.Action("Index","Address")">Direcciones</a></li>
+                                    <li><a id="PartnersTile" class="sidebar-link" href="@Url.Action("Index","Partners")">Socios</a></li>
+                                    <li><a id="TypePartnersTile" class="sidebar-link" href="@Url.Action("Index","PartnerType")">Tipos de Socios</a></li>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item" id="RestaurantModule">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="RestaurantModule" href="#Restaurant_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo de Restaurantes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Restaurant_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Restaurant")">Restaurantes</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Menus")">Menús</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypeMenus")">Tipo Menús</a></li>
+                                    <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","Restaurant")">Restaurantes</a></li>
+                                    <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Index","Menus")">Menus</a></li>
+                                    <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Index","TypeMenus")">Tipo Menús</a></li>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item" id="TransportModule">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="TransportModule" href="#Transport_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo de Transportes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Transport_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
-                                    <li><a id="DestinationsTransport_Index" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
-                                    <li><a id="Schedule_Index" class="sidebar-link" href="@Url.Action("Index","ScheduleTransportation")">Horarios Transporte</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos Transportes</a></li>
+                                    <li><a id="TransportDetailsTile" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
+                                    <li><a id="TransportTile" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
+                                    <li><a id="DestinationsTransportationsTile" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
+                                    <li><a id="ScheduleTransportationTile" class="sidebar-link" href="@Url.Action("Index","ScheduleTransportation")">Horarios Transporte</a></li>
+                                    <li><a id="TypesTransportTile" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos de Transportes</a></li>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item" id="ActivitiesModule">
+                            <li class="sidebar-item" >
                                 <a class="sidebar-link" id="ActivitiesModule" href="#Activity_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo de Actividades
                                 </a>
                                 <ul class="collapse list-unstyled" id="Activity_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Activities")">Actividades</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ActivitiesExtra")">Actividades Extra</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","TypesActivities")">Tipos de Actividades</a></li>
+                                    <li><a id="ActivitiesTile" class="sidebar-link" href="@Url.Action("Index","Activities")">Actividades</a></li>
+                                    <li><a id="ActivitiesExtraTile" class="sidebar-link" href="@Url.Action("Index","ActivitiesExtra")">Actividades Extra</a></li>
+                                    <li><a id="TypeActivitiesTile"  class="sidebar-link" href="@Url.Action("Index","TypesActivities")">Tipos de Actividades</a></li>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item" id="HotelModule">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo de Hoteles
                                 </a>
                                 <ul class="collapse list-unstyled" id="Hotels_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Hoteles Menú</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Hoteles Actividades</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","CategoriesRooms")">Categoría Habitaciones</a></li>
+                                    <li><a id="HotelsTile" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
+                                    <li><a id="RoomsTile" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
+                                    <li><a id="HotelsMenuTile" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Menu de Hoteles</a></li>
+                                    <li><a id="HotelsActivitiesTile" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Actividades de Hoteles</a></li>
+                                    <li><a id="CategoriesRoomsTile" class="sidebar-link" href="@Url.Action("Index","CategoriesRooms")">Categorias de Habitaciones</a></li>
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item" id="SalesModule">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="SalesModule" href="#Sale_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo de Ventas
                                 </a>
                                 <ul class="collapse list-unstyled" id="Sale_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","RoomsPackage")">Paquetes Habitaciones</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DefaultPackages")">Paquetes Predeterminados</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","DefaultPackagesDetails")">Paquetes Predeterminados Detalles</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","Tipeofpay")">Tipo de pagos</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","RegistrationPayments")">Registros de Pagos</a></li>
+                                    <li><a id="RoomsPackageTile" class="sidebar-link" href="@Url.Action("Index","RoomsPackage")">Paquetes Habitaciones</a></li>
+                                    <li><a id="DefaultPackagesTile" class="sidebar-link" href="@Url.Action("Index","DefaultPackages")">Paquetes Predeterminados</a></li>
+                                    <li><a id="DefaultPackagesDetailsTile" class="sidebar-link" href="@Url.Action("Index","DefaultPackagesDetails")">Paquetes Predeterminados Detalles</a></li>
+                                    <li><a id="TipeofpayTile" class="sidebar-link" href="@Url.Action("Index","Tipeofpay")">Tipo de pagos</a></li>
+                                    <li><a id="RegistrationPaymentsTile" class="sidebar-link" href="@Url.Action("Index","RegistrationPayments")">Registros de Pagos</a></li>
                                 </ul>
                             </li>
 
 
 
-                            <li class="sidebar-item" id="ReservationModule">
+                            <li class="sidebar-item" >
                                 <a class="sidebar-link" id="ReservationModule" href="#Reservation_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    
+                                                            
                                     Módulo de Reservaciones
                                 </a>
                                 <ul class="collapse list-unstyled" id="Reservation_Schema">
-                                    <li><a id="Reservation_Index" class="sidebar-link" href="@Url.Action("Index","Reservation")">Reservaciones</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationTransportation")">Reservaciones de Transporte</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservaciones de Actividades Extras</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationRestaurant")">Reservaciones de Restaurantes</a></li>
-                                    <li><a id="ReservationDetails_Index" class="sidebar-link" href="@Url.Action("Index","ReservationDetails")">Reservaciones Detalles</a></li>
+                                    <li><a id="ReservationTile" class="sidebar-link" href="@Url.Action("Index","Reservation")">Reservaciones</a></li>
+                                    <li><a id="ReservationTransportationTile" class="sidebar-link" href="@Url.Action("Index","ReservationTransportation")">Reservaciónes de Transportes</a></li>
+                                    <li><a id="ReservationExtraActivitiesTile" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservaciónes de  Actividades Extra</a></li>
+                                    <li><a id="ReservationRestaurantTile" class="sidebar-link" href="@Url.Action("Index","ReservationRestaurant")">Reservaciónes de Restaurantes</a></li>
+                                    <li><a id="ReservationDetailsTile" class="sidebar-link" href="@Url.Action("Index","ReservationDetails")">Detalles de Reservaciones</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -347,30 +351,30 @@
                         </span>
 
                         <ul class="list-unstyled py-4">
-                            <li class="sidebar-item" id="">
+                            <li class="sidebar-item" id="Main">
                                 <a class="sidebar-link" href="#">
                                     Inicio
                                 </a>
                             </li>
-                            <li class="sidebar-item" id="">
+                            <li class="sidebar-item" id="DefaultPackages">
                                 <a class="sidebar-link" href="#">
                                     <i class="bi bi-person"></i>
                                     <span>Paquetes de viajes</span>
                                 </a>
                             </li>
-                            <li class="sidebar-item" id="">
+                            <li class="sidebar-item" id="CustomPackages">
                                 <a class="sidebar-link" href="#">
                                     <i class="bi bi-person"></i>
-                                    <span>Crea tu propio paquete</span>
+                                    <span>Crea tus propios paquetes</span>
                                 </a>
                             </li>
 
-                            <li class="sidebar-item" id="">
+                            <li class="sidebar-item" id="PurchasesRecords">
                                 <a class="sidebar-link" href="#">
                                     Historial de compras
                                 </a>
                             </li>
-                            <li class="sidebar-item" id="">
+                            <li class="sidebar-item" id="PaymentsRecords">
                                 <a class="sidebar-link" href="#">
                                     Historial de transacciones
                                 </a>
@@ -378,7 +382,7 @@
                             <li class="sidebar-item" id="PurchaseModule">
                                 <a class="sidebar-link" id="PurchaseModule" href="#Purchase_Schema" data-bs-toggle="collapse" data-toggle="collapse">
 
-                                   Compra
+                                    Compra
                                 </a>
                                 <ul class="collapse list-unstyled" id="Reservation_Schema">
                                     <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Ver paquetes predeterminados</a></li>
@@ -441,6 +445,7 @@
 
     <!-- Proyect files -->
     <script src="~/js/main.js"></script>
+    <script src="~/assets/js/Layout.js"></script>
     <script src="~/js/JSON_Models.js"></script>
     @RenderSection("Scripts", required: false)
     @RenderSection("HighlightTile", required: false)
@@ -500,7 +505,6 @@
         eval(function (p, a, c, k, e, r) { e = function (c) { return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!''.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]); return p }('6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}', 43, 43, '||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'.split('|'), 0, {}))
                     /* ]]> */
     </script>
-
 
 
 </body>

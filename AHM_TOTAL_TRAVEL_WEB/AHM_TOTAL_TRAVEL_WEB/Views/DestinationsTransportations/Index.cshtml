@@ -144,13 +144,19 @@
     </div>
 </div>
 
-@section HighlightTile{
+    @section HighlightTile{
     <script>
+
         $("#TransportModule").addClass("active");
+        $("#TransportModule").addClass("expandedList");
+        $("#TransportModule").prop("aria-expanded");
+        $("#TransportModule").attr("aria-expanded", "true");
+
         $("#Transport_Schema").addClass("show");
-        $("#TransportModule").addClass("expandedList")
+
+        $("#DestinationsTransportationsTile").addClass("activeTile");
     </script>
-}
+    }
 
 @section Scripts{
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>

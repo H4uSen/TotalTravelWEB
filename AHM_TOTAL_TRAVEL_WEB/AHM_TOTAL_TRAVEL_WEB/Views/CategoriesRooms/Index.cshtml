@@ -131,16 +131,19 @@
     </div>
 </div>
 
-@section HighlightTile{
-
-    <script src="~/js/CategoriesRooms/Update.js"></script>
-
+    @section HighlightTile{
     <script>
+
         $("#HotelModule").addClass("active");
+        $("#HotelModule").addClass("expandedList");
+        $("#HotelModule").prop("aria-expanded");
+        $("#HotelModule").attr("aria-expanded", "true");
+
         $("#Hotels_Schema").addClass("show");
-        $("#HotelModule").addClass("expandedList")
+
+        $("#CategoriesRoomsTile").addClass("activeTile");
     </script>
-}
+    }
 
 
 @section Scripts{

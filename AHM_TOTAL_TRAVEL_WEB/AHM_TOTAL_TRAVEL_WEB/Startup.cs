@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using System.Net;
 using AHM_TOTAL_TRAVEL_WEB.Extensions;
+using System.Security.Claims;
 
 namespace AHM_TOTAL_TRAVEL_WEB
 {
@@ -52,7 +53,13 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 option.AccessDeniedPath = "/Home/Error";
             });
-            
+            services.AddAuthorization(options => {
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
+                options.AddPolicy("Client", policy => policy.RequireClaim(ClaimTypes.Role, "Cliente"));
+                options.AddPolicy("Hotel", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Hotel"));
+                options.AddPolicy("Transport", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Transporte"));
+                options.AddPolicy("Restaurant", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Restaurante"));
+            });
             services.AddControllersWithViews()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();

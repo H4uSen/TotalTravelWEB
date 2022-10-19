@@ -220,10 +220,16 @@
         };
     </script>
 }
-@section HighlightTile{
+    @section HighlightTile{
     <script>
+
         $("#HotelModule").addClass("active");
+        $("#HotelModule").addClass("expandedList");
+        $("#HotelModule").prop("aria-expanded");
+        $("#HotelModule").attr("aria-expanded", "true");
+
         $("#Hotels_Schema").addClass("show");
-        $("#HotelModule").addClass("expandedList")
+
+        $("#HotelsMenuTile").addClass("activeTile");
     </script>
-}
+    }

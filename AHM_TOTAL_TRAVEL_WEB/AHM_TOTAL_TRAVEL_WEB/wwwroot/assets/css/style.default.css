@@ -13783,8 +13783,11 @@ nav.side-navbar.shrinked .sidebar-header .title {
     display: none;
 }
 
-.sidebar-item {
+.sidebar-item:hover {
     /* submenu item active */
+    background: #82828240;
+    color: black;
+    font-weight: normal;
 }
 
     .sidebar-item li a {
@@ -13795,12 +13798,22 @@ nav.side-navbar.shrinked .sidebar-header .title {
     .sidebar-item.active > .sidebar-link {
         color: #fff;
         border-left: 4px solid #F0A438;
-        background: #ffc36d;
+        background: #82828240;
+        color: black;
+        font-weight: normal;
     }
 
-        .sidebar-item.active > .sidebar-link:hover {
-            background: #ffc36d;
-        }
+.activeTile {
+    color: #fff;
+    border-left: 4px solid #F0A438 !important;
+    background: #82828240 !important;
+    color: #ffffff !important;
+    font-weight: 400 !important;
+}
+
+.sidebar-item.active > .sidebar-link:hover {
+    background: #82828240;
+}
 
     .sidebar-item li.active > .sidebar-link {
         color: #fff;
@@ -13843,10 +13856,18 @@ nav.side-navbar.shrinked .sidebar-header .title {
     }
 }
 
-.sidebar-link:hover {
+/*.sidebar-link:hover {
     color: #fff;
     border-left: 4px solid #F0A438;
     background: #ffc36d;
+}*/
+.sidebar-link:hover {
+    color: black;
+    border-left: 4px solid #F0A438;
+    background: #f8f8f94a;
+    color: black !important;
+    font-weight: normal;
+    transition: all 0.3s;
 }
 
 .sidebar-link[data-bs-toggle="collapse"]::before {
@@ -13880,7 +13901,11 @@ nav.side-navbar.shrinked .sidebar-header .title {
 }
 
 .sidebar-link[aria-expanded="true"], .sidebar-link[aria-expanded="aria-expanded"] {
-    background: #EEF5F9;
+    color: #fff;
+    border-left: 4px solid #F0A438;
+    background: #f8f8f94a;
+    color: black;
+    font-weight: normal;
 }
 
     .sidebar-link[aria-expanded="true"]::before, .sidebar-link[aria-expanded="aria-expanded"]::before {
@@ -13897,7 +13922,10 @@ nav.side-navbar.shrinked .sidebar-header .title {
 
 .sidebar-link[aria-expanded="true"]:hover, .sidebar-link[aria-expanded="aria-expanded"]:hover {
     color: #fff;
-    background: #ffc36d;
+    border-left: 4px solid #F0A438;
+    background: #82828240;
+    color: black;
+    font-weight: normal;
 }
 
 .sidebar-link .badge {

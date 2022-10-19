@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     public class UsersController : Controller
     {
         private readonly GeneralService _GeneralServices;

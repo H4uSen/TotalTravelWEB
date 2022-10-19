@@ -132,8 +132,13 @@
     <script src="~/js/PaymentTypes/Update.js"></script>
     <script>
         $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
+
         $("#Sale_Schema").addClass("show");
-        $("#SalesModule").addClass("expandedList")
+
+        $("#TipeofpayTile").addClass("activeTile");
     </script>
 }
 

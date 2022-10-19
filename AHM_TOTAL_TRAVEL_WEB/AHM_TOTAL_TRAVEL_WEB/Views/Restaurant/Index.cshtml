@@ -93,8 +93,14 @@
 
 @section HighlightTile{
     <script>
+
         $("#RestaurantModule").addClass("active");
+        $("#RestaurantModule").addClass("expandedList");
+        $("#RestaurantModule").prop("aria-expanded");
+        $("#RestaurantModule").attr("aria-expanded", "true");
+
         $("#Restaurant_Schema").addClass("show");
-        $("#RestaurantModule").addClass("expandedList")
+
+        $("#MenusTile").addClass("activeTile");
     </script>
 }

@@ -170,6 +170,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(UserLoginModel LogInData)
         {
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             if (LogInData.Email == null || LogInData.Password == null)
             { 
@@ -213,6 +214,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     new Claim("Token", LogInVerify.Token),
                     new Claim("Role_Id", LogInVerify.Role_ID.ToString()),
                     new Claim("Partner_Id", LogInVerify.PartnerID.ToString()),
+                    new Claim(ClaimTypes.Role,LogInVerify.Rol)
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

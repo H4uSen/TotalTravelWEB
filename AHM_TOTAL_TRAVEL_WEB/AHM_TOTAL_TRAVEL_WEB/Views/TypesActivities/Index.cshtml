@@ -174,8 +174,14 @@
 }
 @section HighlightTile{
     <script>
+
         $("#ActivityModule").addClass("active");
+        $("#ActivityModule").addClass("expandedList");
+        $("#ActivityModule").prop("aria-expanded");
+        $("#ActivityModule").attr("aria-expanded", "true");
+
         $("#Activity_Schema").addClass("show");
-        $("#ActivityModule").addClass("expandedList")
+
+        $("#TypeActivitiesTile").addClass("activeTile");
     </script>
 }

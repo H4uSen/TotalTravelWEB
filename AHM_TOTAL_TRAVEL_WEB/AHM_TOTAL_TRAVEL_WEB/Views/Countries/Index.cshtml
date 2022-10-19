@@ -164,10 +164,16 @@
     <script src="~/js/CountriesJS/Index.js"></script>
     <script src="~/js/CountriesJS/Countries.js"></script>
 }
-@section HighlightTile{
+    @section HighlightTile{
     <script>
+
         $("#GeneralModule").addClass("active");
+        $("#GeneralModule").addClass("expandedList");
+        $("#GeneralModule").prop("aria-expanded");
+        $("#GeneralModule").attr("aria-expanded", "true");
+
         $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+
+        $("#CountriesTile").addClass("activeTile");
     </script>
-}
+    }

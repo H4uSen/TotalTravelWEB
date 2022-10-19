@@ -78,8 +78,10 @@
 @section HighlightTile{
     <script>
         $("#AccessModule").addClass("active");
+        $("#AccessModule").prop("aria-expanded");
+        $("#AccessModule").attr("aria-expanded", "true");
         $("#Access_Schema").addClass("show");
-        $("#AccessModule").addClass("expandedList")
-
+        $("#AccessModule").addClass("expandedList");
+        $("#UsersTile").addClass("activeTile");
     </script>
 }
