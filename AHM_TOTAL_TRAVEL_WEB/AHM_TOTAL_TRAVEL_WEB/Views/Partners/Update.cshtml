@@ -32,13 +32,12 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Nombre</label>
-                                    <input id="Nombre" placeholder="Nombre" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                    <input id="Nombre" placeholder="Nombre" />                                    
                                 </div>
                                 <div class="required field">
                                     <label>Email</label>
                                     <input id="Email"  placeholder="Email" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorEmail"></span>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -47,15 +46,13 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Teléfono</label>
-                                    <input id="Telefono"  placeholder="Telefono" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                    <input id="Telefono"  placeholder="Telefono" />                                 
                                 </div>
                                 <div class="required field">
                                     <label>Tipo de socio</label>
                                     <select id="TiPart_Id" class="ui dropdown search" asp-items="ViewBag.TiPart_Id">
                                         <option value="">Seleccione el tipo de socio</option>
-                                    </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTiPar"></span>
+                                    </select>                                
                                 </div>                         
                             </div>
                         </div>                                              
@@ -77,6 +74,7 @@
     </div>
 </div>
 @section Scripts{
+    <script>const partnersID = '@ViewData["partnersID"]';</script>
     <script src="~/js/PartnersJS/Create.js"></script>
 }
 @section HighlightTile{
