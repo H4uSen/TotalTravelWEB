@@ -1,0 +1,103 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.RoomsPackagesListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="icon car"></i>
+            <div class="content">
+                <div class="header">
+                    Paquetes Habitaciones
+                </div>
+                <p>Create, Update, Delete or Search and Filter Rooms Packages.</p>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","TransportDetails")">
+                    <i class="plus icon"></i> Nuevo
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Search..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdRestaurants">
+            <thead>
+                <tr>        
+                    <th>
+                       Hotel
+                    </th>
+                    <th>
+                       Descripcion Hotel
+                    </th>              
+                    <th>
+                       Habitacion
+                    </th>
+                    <th>
+                       Descripcion Habitacion
+                    </th>
+                    <th>
+                       Capacidad Habitacion
+                    </th>
+                    <th>
+                        Precio Habitacion
+                    </th>
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre_Hotel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hotel_Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitacion_Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitacion_Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitacion_Capacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitacion_Precio)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
+                        <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
