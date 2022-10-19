@@ -127,3 +127,16 @@
         color: white;
         background-color: #3e165a !important;
     }
+
+.table_details_open {
+    background: url("../img/table_details_open.png") no-repeat center center
+}
+
+.table_details_close {
+    background: url("../img/table_details_open.png") no-repeat center center
+}
+
+.details_button {
+    border: 4px solid white !important;
+    box-shadow: 0px 0px 8px 0px black !important;
+}

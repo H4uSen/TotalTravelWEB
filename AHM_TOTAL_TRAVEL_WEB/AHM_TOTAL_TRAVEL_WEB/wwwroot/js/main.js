@@ -222,14 +222,16 @@
 
     function TableDetailsConstructor(Table) {
 
+        $(Table).find("thead tr").eq(0).prepend('<th width="50px"></th>');
+
         for (let i = 0; i < $(Table).find("tbody tr").length; i++) {
             const tr = $(Table).find("tbody tr")[i];
 
             $(tr).prop("id", `row_${i}`);
             $(tr).addClass("rows");
             $(tr).prepend(
-                `<td>
-                    <button class="ui icon btn-purple button details_button w-100">
+                `<td style="padding: 14px;">
+                    <button class="ui icon mini button green circular details_button">
                         <i class="plus icon"></i>
                     </button>
                 </td>`
@@ -258,7 +260,7 @@
         if (content.length > 0) {
 
             //cambia estado de el boton
-            $(button).addClass("btn-purple");
+            $(button).addClass("green").removeClass("red");
             $(button).find("i").removeClass("minus").addClass("plus");
 
              //elimina tr de details
@@ -267,7 +269,7 @@
         } else { // si no lo crea
 
             //cambia estado de el boton
-            $(button).removeClass("btn-purple");
+            $(button).addClass("red").removeClass("green");
             $(button).find("i").removeClass("plus").addClass("minus");
 
             //crea tr de details

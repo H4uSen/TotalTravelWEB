@@ -3,6 +3,7 @@
 (function ($) {
     /* función privada*/
     function createTableFooterPagination(idTable, nTdsColspan, last) {
+        var totalElem = idTable.find("tbody").eq(0).find(".elementToPaginate").length;
         var pagination =
             `<div class="ui right floated pagination menu">
                 <a class="icon item paginationInit">
@@ -18,9 +19,12 @@
             </div>`;
 
         tfoot =
-            `<tfoot class="full-width">
+            `<tfoot class="full-width ui collapsing table">
             <tr>
-                <th colspan="${nTdsColspan}">
+                <th colspan="${nTdsColspan - 1}">
+                    <h6>Showing 1 to ${last} of ${totalElem} entries<h6>
+                </th>
+                <th colspan="1">
                     ${pagination}                                 
                 </th>
             </tr>
@@ -61,6 +65,7 @@
         createTableFooterPagination(idTable, numberOfTds, last);
 
         idTable.find("tbody").eq(0).find(".elementToPaginate").each(function (i) {
+
             $(this)
                 .attr("data-number", (i + 1));
             // Ocultamos solo los que no sean inferiores o iguales al elemPerPage (para visualizar los primeros)
@@ -80,6 +85,13 @@
             for (var i = startIn; i <= stopIn; i++) {
                 idTable.find("tbody").eq(0).find(".elementToPaginate[data-number='" + i + "']").fadeIn();
             }
+
+            idTable.find("tfoot").eq(0)
+                .find("tr").eq(0).find("th").eq(0).html(
+                    `<h6>Showing ${startIn} to ${stopIn} of ${totalElem} entries</h6>`
+                );
+
+            //$("#grdUsuarios tbody .row_details").hide();
 
         });
 
