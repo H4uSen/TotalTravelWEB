@@ -82,7 +82,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.paqu_Descripcion = element.Descripcion_Paquete;
             item.paqu_Duracion=element.Duracion_Paquete;
             item.paqu_Nombre = element.Nombre;
-            item.paqu_Precio = element.Precio;
+            item.paqu_Precio = element.precio;
             item.hote_ID = element.ID_Hotel;
             item.rest_ID = element.ID_Restaurante;
 

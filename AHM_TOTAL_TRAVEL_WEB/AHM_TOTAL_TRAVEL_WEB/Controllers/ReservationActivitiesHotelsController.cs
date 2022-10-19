@@ -26,9 +26,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var token = HttpContext.User.FindFirst("Token").Value;
             //var id = HttpContext.User.FindFirst("User_Id").Value;
             //var cuenta = (ReservationDetailsListViewModel)(await _reservationService.ReservationDetailsFind(id, token)).Data;
-            var actividad = await _hotelsService.HotelsActivitiesList(token);
-            IEnumerable<HotelsActivitiesListViewModel> data_actividad = (IEnumerable<HotelsActivitiesListViewModel>)actividad.Data;
-            ViewBag.HoAc_ID = new SelectList(data_actividad, "ID", "Actividad");
+            //var actividad = await _hotelsService.HotelsActivitiesList(model);
+            //IEnumerable<HotelsActivitiesListViewModel> data_actividad = (IEnumerable<HotelsActivitiesListViewModel>)actividad.Data;
+            //ViewBag.HoAc_ID = new SelectList(data_actividad, "ID", "Actividad");
             var reserva = await _reservationService.ReservationHotelsList(token);
             IEnumerable<ReservationListViewModel> data_reserva = (IEnumerable<ReservationListViewModel>)reserva.Data;
             ViewBag.ReHo_ID = new SelectList(data_reserva, "ID", "Nombre");
