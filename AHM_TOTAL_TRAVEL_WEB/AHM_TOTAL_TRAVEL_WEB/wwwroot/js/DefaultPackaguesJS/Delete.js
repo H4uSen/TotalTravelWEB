@@ -20,7 +20,7 @@ function DeleteDefaultPackage(id) {
         location.reload();
     };
 
-    sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+    sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
 
 };
 

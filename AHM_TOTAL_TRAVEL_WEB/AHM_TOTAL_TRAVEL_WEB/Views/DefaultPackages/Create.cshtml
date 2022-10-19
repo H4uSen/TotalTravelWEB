@@ -62,34 +62,24 @@
                             <div class="two fields">                               
                                 <div class="required field">
                                     <label>¿Desea agregar restaurante?</label>
-                                    <div class="me-5">
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label me-5 fs-5">
-                                                <input type="radio" id="radio1" name="res" value="Si" onclick="vali()"> Si
-                                            </label>
+                                    <div class="field">
+                                        <div class="ui toggle checkbox">
+                                            <label>No</label>
+                                            <input type="checkbox" id="checkResta" tabindex="0" class="hidden">
+                                            <label>Si</label>
                                         </div>
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label ms-5 me-5 fs-5" >
-                                                <input type="radio" id="radio2" name="res" value="No" onclick="vali()"> No
-                                            </label>
-                                        </div>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp;<span class="labelvalidator" id="labelvalidatorSexo"></span>
                                     </div>
-
                                     <div class="required field" id="restau" hidden>
                                         <label>Restaurante</label>
                                         <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
-                                            <option value="1097" selected="selected">Seleccione un restaurante</option>                                           
+                                            <option value="0" selected="selected">Seleccione un restaurante</option>                                           
                                         </select>
-                                    </div>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurantes"></span>
+                                    </div>                                   
                                 </div>
                                 <div class="required field">
                                     <label>Hotel</label>
                                     <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
-                                        <option value="">Seleccione un hotel</option>
-
+                                        <option value="">Seleccione un hotel</option>                                       
                                     </select>
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorHotel"></span>
                                 </div>
@@ -109,6 +99,8 @@
 </div>
 @section Scripts{
     <script>
+
+        $('.ui.checkbox').checkbox();
         const campoNumerico = document.getElementById('Precio');
 
         campoNumerico.addEventListener('keydown', function (evento) {
@@ -135,18 +127,18 @@
 
         });
 
-        
-        function vali() {
-            if (document.getElementById('radio1').checked) {
-                SetDropDownValue($("#rest_ID"), 1097);           
+               
+        $("#checkResta").change(function () {
+            if ($("#checkResta").prop("checked") == true) {
                 $("#restau").removeAttr('hidden');
                 $("#restau").show();
-        }
-            if (document.getElementById('radio2').checked) {
-                SetDropDownValue($("#rest_ID"), 1097);
+                SetDropDownPlaceholder($("#rest_ID"))
+            }
+           else{
                 $("#restau").hide();
-        }
-        }
+                SetDropDownPlaceholder($("#rest_ID"))
+            }
+        });
               
     </script>
     <script src="~/js/DefaultPackaguesJS/Create.js"></script>

@@ -162,6 +162,20 @@
 @section Scripts{
     <script src="~/js/CountriesJS/Index.js"></script>
     <script src="~/js/CountriesJS/Countries.js"></script>
+    <script>
+        function Delete(id) {
+            const capsula1 = () => {
+                ajaxRequest("/Countries/Delete?id=" + id, null, "POST")
+                location.reload();
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+
+
+        };
+
+
+    </script>
 }
 @section HighlightTile{
     <script>

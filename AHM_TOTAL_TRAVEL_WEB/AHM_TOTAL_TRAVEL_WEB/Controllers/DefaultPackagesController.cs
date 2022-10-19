@@ -55,9 +55,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DefaultPackagesViewModel actividad)
         {
-            if (actividad.rest_ID == null)
+            if (actividad.rest_ID == 0)
             {
-                actividad.rest_ID = 1097;
+                actividad.rest_ID = null;
             }
             actividad.paqu_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
             if (ModelState.IsValid)
@@ -109,7 +109,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
 
             if (ModelState.IsValid)
-            {
+            {               
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.paqu_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _saleServices.DefaultPackagesUpdate(actividad, token);
