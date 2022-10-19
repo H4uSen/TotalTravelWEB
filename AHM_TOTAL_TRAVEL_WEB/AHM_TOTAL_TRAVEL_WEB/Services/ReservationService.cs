@@ -199,7 +199,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<ReservationRestaurantsListViewModel, ReservationRestaurantsListViewModel>(req => {
+                var response = await _api.Get<ReservationRestaurantsListViewModel, ReservationRestaurantsListViewModel>(req =>
+                {
                     req.Path = $"/API/ReservationRestaurant/Find?id=" + id;
                     req.Content = restaurant;
                 },

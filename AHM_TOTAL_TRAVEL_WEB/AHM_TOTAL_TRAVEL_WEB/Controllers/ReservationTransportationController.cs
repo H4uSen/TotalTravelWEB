@@ -30,6 +30,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View(list.Data);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
