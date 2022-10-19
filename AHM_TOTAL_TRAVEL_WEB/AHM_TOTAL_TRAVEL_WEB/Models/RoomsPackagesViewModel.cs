@@ -9,8 +9,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int paqu_Id { get; set; }
         public int habi_Id { get; set; }
-        public string paHa_UsuarioCreacion { get; set; }
-        public string paHa_UsuarioModifica { get; set; }
+        public int paHa_UsuarioCreacion { get; set; }
+        public int paHa_UsuarioModifica { get; set; }
     }
 
     public class RoomsPackagesListViewModel

@@ -18,12 +18,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             _saleServices = saleServices;          
         }
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var model = new List<DefaultPackagesListViewModel>();
-            var list = await _saleServices.DefaultPackagesList(model);
-            return View(list.Data);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Index()
+        //{
+        //    var model = new List<DefaultPackagesListViewModel>();
+        //    var list = await _saleServices.DefaultPackagesList(model);
+        //    return View(list.Data);
+        //}
     }
 }

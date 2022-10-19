@@ -36,20 +36,44 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RoomsPackagesListViewModel TipoPartner)
+        public async Task<IActionResult> Create(RoomsPackagesViewModel rooms)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                TipoPartner.TiPar_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                var list = await _generalServices.PartnerTypeCreate(TipoPartner, token);
+                rooms.paHa_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                var list = await _saleServices.RoomsPackagesCreate(rooms, token);
                 return RedirectToAction("Index");
             }
             else
             {
                 return View();
             }
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var defaultPackages = await _saleServices.DefaultPackagesList(token);
+            IEnumerable<DefaultPackagesListViewModel> data_defaultPackages = (IEnumerable<DefaultPackagesListViewModel>)defaultPackages.Data;
+            ViewBag.Paqu_ID = new SelectList(data_defaultPackages, "Id", "Nombre");
+
+
+            //var item = new PartnerTypeViewModel();
+            //var list = await _generalServices.PartnerTypeList();
+            //IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
+            //var element = data.Where(x => x.ID == id).ToList()[0];
+            //item.TiPar_ID = element.ID;
+            //item.TiPar_Descripcion = element.Descripcion;
+            //item.Rol_ID = element.Rol_Id;
+
+            //ViewData["Rol_IDview"] = item.Rol_ID;
+
+
+            return View();
 
         }
 

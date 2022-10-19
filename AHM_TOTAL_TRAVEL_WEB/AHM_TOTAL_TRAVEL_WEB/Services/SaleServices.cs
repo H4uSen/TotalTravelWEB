@@ -226,15 +226,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> RoomsPackagesUpdate(RoomsPackagesListViewModel rooms, string token)
+        public async Task<ServiceResult> RoomsPackagesUpdate(RoomsPackagesViewModel rooms, int id, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Put<RoomsPackagesListViewModel, RequestStatus>(req =>
+                var response = await _api.Put<RoomsPackagesViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/RoomsPackages/Update?id=" + rooms.ID;
+                    req.Path = $"/API/RoomsPackages/Update?id=" +id;
                     req.Content = rooms;
                 },
                 token

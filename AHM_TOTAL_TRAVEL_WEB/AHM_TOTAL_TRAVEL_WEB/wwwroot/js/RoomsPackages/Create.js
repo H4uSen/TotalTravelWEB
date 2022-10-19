@@ -54,3 +54,15 @@ function RoomsPackagesListDetails(id_package) {
     }
 }
 
+$("#sendPaqueteHabitacion").click(() => {
+
+    const ValidateArray = [
+        { validateMessage: "Seleccione un paquete", Jqueryinput: $("#Paqu_ID") },
+        { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_ID") }
+    ];
+    const userValidate = ValidateForm(ValidateArray);
+    if (userValidate) {
+        $("#createPaqueteHabitacionForm").submit();
+    }
+
+});
