@@ -1,89 +1,93 @@
-﻿<script>
-    var imagesArray = [];
-    $('.ui.dropdown').dropdown();
+﻿var imagesArray = [];
+var imagesArrayPure = [];
+$('.ui.dropdown').dropdown();
 
-    SetDropDownValue($("#Hote_ID"), hotelID);
-
-
-    $(document).ready(async function () {
-        await GetImage();
-
-        });
-    //FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
+/*SetDropDownValue($("#Hote_ID"), HoteID);*/
 
 
-    async function GetImage() {
+$(document).ready(async function () {
+    await GetImage();
 
-            var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + menuFolder)
+});
+//FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
+
+
+async function GetImage() {
+
+    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
     if (responseImage.code == 200) {
-                var list = responseImage.data
-    for (var i = 0; i < list.length; i++) {
-                    var imageUrl = list[i].imageUrl;
+        var list = responseImage.data
+        for (var i = 0; i < list.length; i++) {
+            var imageUrl = list[i].imageUrl;
 
-    var split = imageUrl.split("/");
-    var fileName = split[split.length - 1];
-    var file = await createBlob(imageUrl)
-    .then(function (data) {
-                            return data;
-                        });
-    const fileData = await convertImage(file)
-    .then(function (data) {
-                            return data;
-                        });
-    fileData.fileName = fileName;
-    imagesArray.push(fileData);
-                }
-    LoadImage();
-            }
-        }
-    //FIN
-
-    $("#File").change(async function () {
-
-            const fileData = await convertImage($("#File").prop("files")[0])
-    .then(function (data) {
+            var split = imageUrl.split("/");
+            var fileName = split[split.length - 1];
+            var file = await createBlob(imageUrl)
+                .then(function (data) {
                     return data;
                 });
+            imagesArrayPure.push(file);
+            const fileData = await convertImage(file)
+                .then(function (data) {
+                    return data;
+                });
+            fileData.fileName = fileName;
+            imagesArray.push(fileData);
+        }
+        LoadImage();
+    }
+}
+//FIN
+
+$("#File").change(async function () {
+
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
-        });
-    function LoadImage() {
+});
+function LoadImage() {
 
-            var RoomsCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false"></div>`;
-    $("#MenusCarousel").replaceWith(RoomsCarousel);
+    var RoomsCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false"></div>`;
+    $("#RoomsCarousel").replaceWith(RoomsCarousel);
     $("#image-upload-list").html("");
 
     for (let i = 0; i < imagesArray.length; i++) {
-                var HTML_img = document.createElement('img');
-    const item = imagesArray[i];
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
 
-    HTML_img.src = item.src;
-    const fileItem =
-    `<div class="item">
-        <div class="right floated content">
-            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-                <i class="trash icon"></i>
-            </button>
-        </div>
-        <i class="image big icon"></i>
-        <div class="content text-grap">
-            ${item.fileName}
-        </div>
-    </div>`;
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
 
-    $("#image-upload-list").append(fileItem);
-    $("#RoomsCarousel").append(HTML_img);
-            }
+        $("#image-upload-list").append(fileItem);
+        $("#RoomsCarousel").append(HTML_img);
+    }
     $("#RoomsCarousel").fotorama();
-        }
+}
 
-    function deleteImage(index) {
-        imagesArray.splice(index, 1);
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
-        }
+}
 
-    function updateMenus() {
+    function updateRooms() {
 
 
         validateArrayForm = [
@@ -103,29 +107,29 @@
 
     if (ValidateFormStatus) {
                 var data = new FormData();
-    data.append("Hote_ID", $("#Hote_ID").val());
-    data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
-    data.append("Habi_Nombre", $("#Habi_Nombre").val());
-    data.append("CaHa_ID ", $("#CaHa_ID ").val());
-    data.append("Habi_Precio", $("#Habi_Precio").val());
-    data.append("Habi_balcon", $("#Habi_balcon").val());
-    data.append("Habi_wifi", $("#Habi_wifi").val());
-    data.append("Habi_camas", $("#Habi_camas ").val());
-    data.append("Habi_capacidad", $("#Habi_capacidad").val());
-    data.append("Habi_UsuarioModifica", UserID);
-
-    for (let i = 0; i < imagesArray.length; i++) {
-        data.append("File", imagesArray[i].src);
-                }
-    var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + habiID, data, "PUT");
+        data.append("Hote_ID", $("#Hote_ID").val());
+        data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
+        data.append("Habi_Nombre", $("#Habi_Nombre").val());
+        data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
+        data.append("Habi_Precio", $("#Habi_Precio").val());
+        data.append("Habi_balcon", $("#Habi_balcon").val());
+        data.append("Habi_wifi", $("#Habi_wifi").val());
+        data.append("Habi_camas", $("#Habi_camas").val());
+        data.append("Habi_capacidad", $("#Habi_capacidad").val());
+        data.append("Habi_UsuarioModificar", parseInt(Client_User_ID));
+        for (let i = 0; i < imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
+        }
+        
+    var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Update?id=" + roomsID, data, "PUT");
 
                 if (response.data.codeStatus > 0) {
         window.location.href = '/Rooms?success=true';
                 }
 
-            }
+        }
+    else { console.log("error") }
         }
 
 
 
-</script>

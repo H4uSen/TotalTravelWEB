@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #region Habitaciones
         //RoomsListViewModel LIST
-        public async Task<ServiceResult> RoomsList(IEnumerable<RoomsListViewModel> model)
+        public async Task<ServiceResult> RoomsList()
             {
                 var result = new ServiceResult();
                 try
