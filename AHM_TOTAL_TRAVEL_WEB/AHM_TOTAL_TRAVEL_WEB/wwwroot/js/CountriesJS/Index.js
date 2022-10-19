@@ -11,7 +11,7 @@ $("#grdPaises").paginationTdA({
 
 $("#grdPaises tbody tr .details_button").click((_this) => {
 
-    const tr = $(_this.target).parents("tr");
+    const tr = $(_this.target).parents("tr"); 
     const index = $("#grdPaises tbody tr").index(tr);
     const id_pais = $(tr).attr("data-value");
 
