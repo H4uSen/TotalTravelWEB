@@ -119,11 +119,11 @@
                         </select>
                     </div>
                     <div class="required field">
-                            <label>Habitacion</label>
-                            <select id="Habi_ID" name="Habi_ID" class="ui dropdown search" >
-                                <option value="">Seleccione un Rol</option>
-                            </select>
-                        </div>
+                        <label>Habitacion</label>
+                        <select id="Habi_ID" name="Habi_ID" class="ui dropdown search">
+                            <option value="">Seleccione un Rol</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,10 +134,41 @@
     </div>
 </div>
 
+<div class="ui modal" id="modalUpdate">
+    <div class="header">
+        Actualiza un tipo de menú
+    </div>
+    <form asp-action="Update" asp-controller="RoomsPackage" id="createPaqueteHabitacionForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="two fields">
+                    <div class="required field">
+                        <label>Paquete</label>
+                        <input id="PaHa_IDUpdate" name="PaHa_ID" hidden />
+                        <select id="Paqu_IDUp" name="Paqu_ID" class="ui dropdown search" asp-items="ViewBag.Paqu_ID">
+                            <option value="">Seleccione un paquete</option>
+                        </select>
+                    </div>
+                    <div class="required field">
+                        <label>Habitacion</label>
+                        <select id="Habi_IDUp" name="Habi_ID" class="ui dropdown search">
+                            <option value="">Seleccione un Rol</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendPaqueteHabitacion" onclick="sendUpdate()">Guardar</button>
+        <button class="ui button" id="closePaqueteHabitacion">Cancelar</button>
+    </div>
+</div>
+
 
 
 @section Scripts{
-  <script src="~/js/RoomsPackages/Create.js"></script>
+    <script src="~/js/RoomsPackages/Create.js"></script>
     <script>
 
 
