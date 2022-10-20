@@ -15,21 +15,18 @@ function updatePartners() {
 
 
     if (ValidateFormStatus) {
-
-        /*var images = [];*/
         var data = new FormData();
         data.append("part_Nombre", $("#Nombre").val());
         data.append("part_Email", $("#Email").val());
         data.append("part_Telefono", $("#Telefono").val());
         data.append("tiPart_Id", parseInt($("#TiPart_Id").val()));
-        data.append("part_UsuarioModifica", parseInt(Client_User_ID));
-
-        //for (let i = 0; i < $('#File').prop('files').length; i++) {
-        //    const file = $('#File').prop('files')[i];
-        //    images.push(file); //IFORMFILE
-        //}
-
-        data.append("file", $("#File").prop("files")[0]);
+        data.append("part_UsuarioCreacion", parseInt(Client_User_ID));
+        if ($("#File").prop("files")[0] != undefined) {
+            data.append("File", $("#File").prop("files")[0]);
+        }
+        else {
+            data.append("File", null);
+        }
         var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update?id=" + partnersID, data, "PUT");
 
         if (response.data.codeStatus > 0) {

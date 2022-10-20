@@ -25,6 +25,7 @@ function validar() {
         { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#modalCreate #Pais_Descripcion") },
         { validateMessage: "Ingrese una nacionalidad.", Jqueryinput: $("#modalCreate #Pais_Nacionalidad") },
         { validateMessage: "Ingrese un código.", Jqueryinput: $("#modalCreate #Pais_Codigo") },
+        { validateMessage: "Ingrese un ISO.", Jqueryinput: $("#modalCreate #Pais_ISO") },
 
 
     ];
@@ -48,6 +49,7 @@ function editar(CountriesID) {
         $("#modalUpdate #Pais_Descripcion").val(item.pais);
         $("#modalUpdate #Pais_Codigo").val(item.codigo);
         $("#modalUpdate #Pais_Nacionalidad").val(item.nacionalidad);
+        $("#modalUpdate #Pais_ISO").val(item.iso);
 
         $("#modalUpdate").modal("show");
 
@@ -60,6 +62,7 @@ function actualizar() {
         { validateMessage: "Ingresar una descripcion", Jqueryinput: $("#modalUpdate #Pais_Descripcion") },
         { validateMessage: "Ingresar una nacionalidad", Jqueryinput: $("#modalUpdate #Pais_Nacionalidad") },
         { validateMessage: "Ingresar un código", Jqueryinput: $("#modalUpdate #Pais_Codigo") },
+        { validateMessage: "Ingresar un ISO", Jqueryinput: $("#modalUpdate #Pais_ISO") },
 
     ];
 

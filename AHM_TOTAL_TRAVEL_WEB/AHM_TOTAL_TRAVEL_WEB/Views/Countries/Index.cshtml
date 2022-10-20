@@ -35,6 +35,7 @@
         <table class="ui compact selectable celled table" id="grdPaises">
             <thead>
                 <tr>
+                    <th>ISO</th>
                     <th>Código</th>
                     <th>País</th>
                     <th>@Html.DisplayNameFor(model => model.Nacionalidad)</th>
@@ -44,29 +45,32 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr data-value="@item.ID">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Codigo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pais)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nacionalidad)
-                        </td>
+                <tr data-value="@item.ID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ISO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nacionalidad)
+                    </td>
 
-                        <td>
-                            <button class="ui large icon btn-edit button" onclick="editar(@item.ID)">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </button>
-                            <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a class="ui large icon button" href="@Url.Action("Details", "Countries", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <td>
+                        <button class="ui large icon btn-edit button" onclick="editar(@item.ID)">
+                            <i class="pencil alternate icon icon-crud"></i>
+                        </button>
+                        <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a class="ui large icon button" href="@Url.Action("Details", "Countries", new { id=item.ID })">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table><br>
@@ -88,19 +92,24 @@
                         <div class="required field">
                             <label>Nombre</label>
                             <input name="Pais_Descripcion" id="Pais_Descripcion" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaDe"></span>
+                            
                         </div>
                         <div class="required field">
                             <label>Código</label>
                             <input name="Pais_Codigo" id="Pais_Codigo" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaCo"></span>
+                            
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="two fields">
                         <div class="required field">
                             <label>Nacionalidad</label>
                             <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaNa"></span>
+                            
+                        </div>
+                        <div class="required field">
+                            <label>ISO</label>
+                            <input name="Pais_ISO" id="Pais_ISO" class="form-control" />
+                           
                         </div>
                     </div>
                 </div>
@@ -122,33 +131,35 @@
     <form asp-action="Update" asp-controller="Countries" id="updateCountriesForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
                             <label>Nombre</label>
                             <input name="Pais_Descripcion" id="Pais_Descripcion" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaDe"></span>
                         </div>
                         <div class="required field">
                             <label>Código</label>
                             <input name="Pais_Codigo" id="Pais_Codigo" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaCo"></span>
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="two fields">
                         <div class="required field">
                             <label>Nacionalidad</label>
                             <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPaNa"></span>
+                        </div>
+                        <div class="required field">
+                            <label>ISO</label>
+                            <input name="Pais_ISO" id="Pais_ISO" class="form-control" />
                         </div>
                     </div>
+
                     <div class="required field">
                         <input id="Pais_ID" name="Pais_ID" hidden />
                     </div>
                 </div>
 
             </div>
+                     
         </div>
     </form>
     <div class="actions">

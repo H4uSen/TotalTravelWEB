@@ -4,45 +4,35 @@
 function updateDefaultPackages() {
 
     
+    validateArrayForm = [
+        { validateMessage: "Ingrese un nombre.", Jqueryinput: $("#Nombre") },
+        { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#Descripcion") },
+        { validateMessage: "Ingrese un precio.", Jqueryinput: $("#Precio") },
+        { validateMessage: "Ingrese una Duración.", Jqueryinput: $("#Duracion") },
+        { validateMessage: "Seleccione un hotel.", Jqueryinput: $("#hote_ID") },
 
-    if ($('#Nombre').val() == 0) {
-        $("#labelvalidatorNombre").html("Ingrese un Nombre.");
-    }
-    else {
-        $("#labelvalidatorNombre").html(" ");
-    }
-    if ($('#Descripcion').val() == 0) {
-        $("#labelvalidatorDescripcion").html("Ingrese una Descripcion.");
-    }
-    else {
-        $("#labelvalidatorDescripcion").html(" ");
-    }
-    if ($('#Precio').val() == 0) {
-        $("#labelvalidatorPrecio").html("Ingrese un Precio.");
-    }
-    else {
-        $("#labelvalidatorPrecio").html(" ");
-    }
-    if ($('#Duracion').val() == 0) {
-        $("#labelvalidatorDuracion").html("Ingrese una Duracion.");
-    } else {
-        $("#labelvalidatorDuracion").html(" ");
-    }
-    if ($('#hote_ID').val() == 0) {
-        $("#labelvalidatorHotel").html("Seleccione un Hotel.");
-    } else {
-        $("#labelvalidatorHotel").html(" ");
-    }
-    if ($('#rest_ID').val() == 0) {
-        $("#labelvalidatorRestaurantes").html("Seleccione un Restaurante.");
-    } else {
-        $("#labelvalidatorRestaurantes").html(" ");
-    }
+    ];
 
-    if ($('#rest_ID').val() != 0 && $('#Nombre').val() != 0 && $('#Descripcion').val() != 0 && $('#Precio').val() != 0 && $('#Duracion').val() != 0 && $('#hote_ID').val() != 0) {
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+    const callback = function () {
+        var validate = false;
+        if ($("#checkResta").prop("checked") == true) {
+            if ($("#rest_ID").val() != 0) {
+                validate = true;
+
+            }
+        }
+        return validate;
+    }
+    const restaurantvalidate = ManualValidateForm(
+        callback,
+        $("#rest_ID").parent(),
+        "Seleccione un restaurante"
+    )
+
+    if (ValidateFormStatus && restaurantvalidate) {
         $("#frmUpdateDefaultPackagues").submit();
     }
-
 
 
 }

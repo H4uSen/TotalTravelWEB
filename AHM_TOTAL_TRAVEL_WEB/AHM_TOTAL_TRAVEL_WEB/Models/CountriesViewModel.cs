@@ -8,6 +8,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Pais_Codigo { get; set; }
         public string Pais_Descripcion { get; set; }
         public string Pais_Nacionalidad { get; set; }
+        public string Pais_ISO { get; set; }
         public int? Pais_UsuarioCreacion { get; set; }
         public DateTime? Pais_FechaCreacion { get; set; }
         public int? Pais_UsuarioModifica { get; set; }
@@ -20,6 +21,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Codigo { get; set; }
         public string Pais { get; set; }
         public string Nacionalidad { get; set; }
+        public string ISO { get; set; }
         public string UsuarioCreacion { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public string UsuarioModifica { get; set; }

@@ -19,6 +19,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class PartnersListViewModel
     {
         public int ID { get; set; }
+        public string Image_Url { get; set; }
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }

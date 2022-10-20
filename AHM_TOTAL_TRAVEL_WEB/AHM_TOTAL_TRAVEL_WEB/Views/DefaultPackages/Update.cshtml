@@ -36,13 +36,11 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Nombre</label>
-                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />                                
                                 </div>
                                 <div class="required field">
                                     <label>Descripción</label>
-                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
+                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />            
                                 </div>
                             </div>
                         </div>
@@ -51,30 +49,36 @@
                                 <div class="required field">
                                     <label>Precio (L.)</label>
                                     <input asp-for="paqu_Precio" id="Precio" class="form-control" type="number" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPrecio"></span>
                                 </div>
                                 <div class="required field">
                                     <label>Duración</label>
-                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDuracion"></span>
+                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />                               
                                 </div>
                             </div>
                         </div>
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
+                                    <label>¿Desea agregar restaurante?</label>
+                                    <div class="field">
+                                        <div class="ui toggle checkbox" >
+                                            <input type="checkbox" id="checkResta" tabindex="0" checked>
+                                            <label>Si</label>
+                                        </div>
+                                    </div>
+                                    <div class="required field" id="restau" hidden>
+                                        <label>Restaurante</label>
+                                        <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
+                                            <option value="0" >Seleccione un restaurante</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="required field">
                                     <label>Hotel</label>
                                     <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
                                     <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorHotel"></span>
-                                </div>
-                                <div class="required field">
-                                    <label>Restaurante</label>
-                                    <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
-                                        <option value="">Seleccione un restaurante</option>
-                                    </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorRestaurantes"></span>
                                 </div>
                             </div>
                         </div>
@@ -92,6 +96,7 @@
 </div>
 @section Scripts{   
     <script>
+        $('.ui.checkbox').checkbox();
         const campoNumerico = document.getElementById('Precio');
 
         campoNumerico.addEventListener('keydown', function (evento) {
@@ -116,6 +121,23 @@
                 evento.preventDefault();
             }
 
+        });
+
+        if ($("#checkResta").prop("checked") == true) {
+            $("#restau").removeAttr('hidden');
+            $("#restau").show();
+            
+        }
+        $("#checkResta").change(function () {
+            if ($("#checkResta").prop("checked") == true) {
+                $("#restau").removeAttr('hidden');
+                $("#restau").show();
+                SetDropDownPlaceholder($("#rest_ID"))
+            }
+            else {
+                $("#restau").hide();
+                SetDropDownPlaceholder($("#rest_ID"))
+            }
         });
 
     </script>

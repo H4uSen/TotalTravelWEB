@@ -107,7 +107,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(DefaultPackagesViewModel actividad)
         {
-
+            if (actividad.rest_ID == 0)
+            {
+                actividad.rest_ID = null;
+            }
             if (ModelState.IsValid)
             {               
                 string token = HttpContext.User.FindFirst("Token").Value;

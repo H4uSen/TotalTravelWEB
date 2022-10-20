@@ -26,8 +26,8 @@
             </div>
             <div class="ui form attached fluid segment">
                 <div class="content">
-                    <div class="field">
-                        <div class="two fields">
+                    <div class="row">
+                        <div class="col">                         
                             <div class="field">
                                 <label>Nombre</label>
                                 @Html.DisplayFor(model => model.Nombre)
@@ -36,10 +36,6 @@
                                 <label>Email</label>
                                 @Html.DisplayFor(model => model.Email)
                             </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
                             <div class="field">
                                 <label>Teléfono</label>
                                 @Html.DisplayFor(model => model.Telefono)
@@ -47,9 +43,15 @@
                             <div class="field">
                                 <label>Tipo de Socio</label>
                                 @Html.DisplayFor(model => model.TipoPartner)
+                            </div>                             
+                        </div>
+                        <div class="col">
+                            <div class="field">
+                                <label>Imagen del Socio</label>
+                                <img src="@Html.DisplayFor(model => model.Image_Url)" style="height:200px; width:250px;" />
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             </div>
             <br />

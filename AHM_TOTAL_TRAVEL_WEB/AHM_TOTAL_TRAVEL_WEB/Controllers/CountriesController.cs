@@ -60,6 +60,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Pais_Descripcion = element.Pais;
             item.Pais_Codigo = element.Codigo;  
             item.Pais_Nacionalidad = element.Nacionalidad;
+            item.Pais_ISO = element.ISO;
 
             //IEnumerable<EstablecimientoListViewModel> model_Est = null;
             //var Establecimiento = await _generalServices.EstablecimientosList(model_Est);
