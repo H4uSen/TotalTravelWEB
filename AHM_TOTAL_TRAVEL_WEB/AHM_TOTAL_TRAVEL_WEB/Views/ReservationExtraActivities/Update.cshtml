@@ -11,12 +11,12 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon car"></i>
+                <i class="fa-sharp fa-solid fa-a"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         Editar
                     </div>
-                    <p>Editar Reservacion Restaurante</p>
+                    <p>Editar Reservacion Actividad Extra</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
@@ -80,25 +80,24 @@
     </script>
     <script src="~/js/ActivitiesExtraJs/Update.js"></script>
     <script>
-            $("#btnGuardar").click(() => {
-                const ValidateArray = [
-            {validateMessage: "Seleccione una reservacion", Jqueryinput: $("#Resv_ID") },
-            {validateMessage: "Seleccione una actividad extra", Jqueryinput: $("#AcEx_ID") },
-            {validateMessage: "Ingrese una Fecha", Jqueryinput: $("#ReAE_FechaReservacion") },
-            {validateMessage: "Ingrese una cantidad", Jqueryinput: $("#ReAE_Cantidad") },
-            {validateMessage: "Ingrese una cantidad", Jqueryinput: $("#ReAE_HoraReservacion") },
+        $("#btnGuardar").click(() => {
+            const ValidateArray = [
+                { validateMessage: "Seleccione una reservacion", Jqueryinput: $("#Resv_ID") },
+                { validateMessage: "Seleccione una actividad extra", Jqueryinput: $("#AcEx_ID") },
+                { validateMessage: "Ingrese una Fecha", Jqueryinput: $("#ReAE_FechaReservacion") },
+                { validateMessage: "Ingrese una cantidad", Jqueryinput: $("#ReAE_Cantidad") },
+                { validateMessage: "Ingrese una cantidad", Jqueryinput: $("#ReAE_HoraReservacion") },
 
 
             ];
             const userValidate = ValidateForm(ValidateArray);
             if (userValidate) {
                 $("#FrmReservationActividadExtra").submit();
-                }
-            });
+            }
+        });
     </script>
 
 }
-
 
 @section HighlightTile{
     <script>
@@ -110,7 +109,7 @@
 
         $("#Reservation_Schema").addClass("show");
 
-        $("#ReservationRestaurantTile").addClass("activeTile");
+        $("#ReservationExtraActivitiesTile").addClass("activeTile");
     </script>
 }
 

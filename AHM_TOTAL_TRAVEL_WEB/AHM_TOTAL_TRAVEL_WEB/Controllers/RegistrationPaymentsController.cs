@@ -32,6 +32,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> IndexHistory()
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var model = new List<ReservationExtraActivitiesListViewModel>();
+            var list = await _saleServices.PaymentRecordsList();
+            return View(list.Data);
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             var model = new List<PaymentRecordViewModel>();

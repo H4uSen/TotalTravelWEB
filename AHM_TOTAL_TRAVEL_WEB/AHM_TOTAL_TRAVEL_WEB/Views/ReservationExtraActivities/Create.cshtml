@@ -10,7 +10,7 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon user-select-all"></i>
+                <i class="fa-sharp fa-solid fa-a"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         Crear Actividad Extra
@@ -42,7 +42,7 @@
                                     <label>Cantidad</label>
                                     <input id="ReAE_Cantidad" name="ReAE_Cantidad" placeholder="Cantidad" />
                                 </div>
-                                
+
 
                             </div>
                         </div>
@@ -64,7 +64,7 @@
 
                         <div class="field">
                             <div class="required field">
-                                <label>Hora Reservacion</label> 
+                                <label>Hora Reservacion</label>
                                 <input id="ReAE_HoraReservacion" name="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
                             </div>
 
@@ -73,7 +73,9 @@
 
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra"  class="btn btn-purple ui positive button" />
+                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra" class="btn btn-purple ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ReservationExtraActivities")" class="ui button mb-3 ms-3">Cancelar</a>
+
                     </div>
                 </div>
 

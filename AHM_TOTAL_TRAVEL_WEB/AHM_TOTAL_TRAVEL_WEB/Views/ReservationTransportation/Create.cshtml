@@ -9,7 +9,7 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon alert-info"></i>
+                <i class="bus icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         Crear Reservacion Transporte
@@ -18,7 +18,7 @@
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
                         Regresar
-                        <i class="focus icon"></i>
+                        <i class="left arrow icon"></i>
                     </a>
                 </div>
             </div>
@@ -32,9 +32,9 @@
                         <div class="field">
                             <div class=" two fields">
                                 <div class="required field">
-                                    <label class="ui label">Destino</label>
+                                    <label class="ui label">Tipo de Transporte</label>
                                     <select id="Detr_ID" name="Detr_ID" class="ui dropdown search" asp-items="ViewBag.Detr_ID">
-                                        <option value="">Seleccione una reservacion</option>
+                                        <option value="">Seleccione un transporte</option>
                                     </select>
                                 </div>
                                 <div class="required field">
@@ -52,12 +52,12 @@
                                     <input id="ReTr_CantidadAsientos" name="ReTr_CantidadAsientos" placeholder="Cantidad Asientos" />
                                 </div>
                                 <div class="field">
-                                    <div class="fields">
-                                        <div class="required field">
-                                            <label>Fecha Cancelado</label>
-                                            <input id="ReTr_FechaCancelado" name="ReTr_FechaCancelado" placeholder="Fecha Cancelado" type="date" />
-                                        </div>
+
+                                    <div class="required field">
+                                        <label>Fecha Cancelado</label>
+                                        <input id="ReTr_FechaCancelado" name="ReTr_FechaCancelado" placeholder="Fecha Cancelado" type="date" />
                                     </div>
+
                                 </div>
 
                             </div>
@@ -83,6 +83,8 @@
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
                         <input type="button" value="Guardar" id="btnCreateReservationTransporte" class="btn btn-purple ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ReservationTransportation")" class="ui button mb-3 ms-3">Cancelar</a>
+
                     </div>
                 </div>
 
