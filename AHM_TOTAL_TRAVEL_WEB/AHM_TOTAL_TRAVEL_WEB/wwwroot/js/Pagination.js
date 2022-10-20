@@ -22,10 +22,10 @@
             `<tfoot class="full-width ui collapsing table">
             <tr>
                 <th colspan="${nTdsColspan - 1}">
-                    <h6>Showing 1 to ${last} of ${totalElem} entries<h6>
+                    <h6>Mostrando 1 a ${last} de ${totalElem} registros<h6>
                 </th>
                 <th colspan="1">
-                    ${pagination}                                 
+                    <h6>${pagination}</h6>                                 
                 </th>
             </tr>
         </tfoot>`;
@@ -88,7 +88,7 @@
 
             idTable.find("tfoot").eq(0)
                 .find("tr").eq(0).find("th").eq(0).html(
-                    `<h6>Showing ${startIn} to ${stopIn} of ${totalElem} entries</h6>`
+                    ` <h6>Mostrando ${startIn} a ${stopIn} de ${totalElem} registros<h6>`
                 );
 
             //$("#grdUsuarios tbody .row_details").hide();
