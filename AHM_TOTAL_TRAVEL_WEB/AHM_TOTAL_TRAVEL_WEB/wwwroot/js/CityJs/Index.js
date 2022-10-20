@@ -2,7 +2,11 @@
 const ColoniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
 TableDetailsConstructor($("#grdCity"));
 
+TableSearchInput($("#txtSearch"), $("#grdCity"), 10);
 
+$("#grdCity").paginationTdA({
+    elemPerPage: 10
+});
 
 //-------------------------------EVENTOS-----------------------------
 $("#grdCity tbody tr .details_button").click((_this) => {
@@ -27,32 +31,41 @@ function SuburbsListDetails(idCiudad) {
 
     if (ColoniasList.code == 200 && colonias.length > 0) {
 
-        var Detail =
-            `<div class="ui fluid vertical menu">`;
-
         colonias = jQuery.grep(colonias, function (colonia, i) {
             return colonia.ciudadID == idCiudad;
         });
 
-        for (var i = 0; i < 5; i++) {
+        if (colonias.length > 0) {
 
-            const colonia = colonias[i];
-            const fechaCreacion = new Date(colonia.fecha_Creacion);
+            var Detail =
+                `<div class="ui fluid vertical menu">`;
+
+            for (var i = 0; i < 5; i++) {
+
+                const colonia = colonias[i];
+
+                const fechaCreacion = GetDateFormat({
+                    string_date: colonia.fecha_Creacion, hour_format: 12, date_format: "default"
+                });
+
+                Detail +=
+                    `<a class="item">
+                    <h1 class="ui medium header">${colonia.colonia}</h1>
+                    <p>Ciudad: ${colonia.ciudad}</p>
+                    <p>Codigo de ciudad: COD-00${colonia.id}</p>
+                    <p>Creado el: ${fechaCreacion.datetime}</p>
+                </a>`;
+            }
 
             Detail +=
-                `<a class="item">
-                    <h1 class="ui medium header">${colonia.colonia}</h1>
-                    <p>City Name: ${colonia.ciudad}</p>
-                    <p>City Code: COD-00${colonia.id}</p>
-                    <p>Created at: ${fechaCreacion.toDateString()}</p>
-                </a>`;
-
+                `<a class="item" href="Suburbs/Index?City_ID=${idCiudad}">Ver Mas...</a>`;
+        } else {
+            var Detail = "<h5 class='ui large red header text-center'>NO DATA AVALIABLE</h5>";
         }
-        Detail +=
-            `<a class="item" href="Suburbs/Index">Ver Mas...</a>`;
-        Detail += "</div>";
 
         return Detail;
+    } else {
+        return "<h5 class='ui large red header text-center'>NO DATA AVALIABLE</h5>";
     }
 
 }

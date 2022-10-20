@@ -285,6 +285,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+        public async Task<ServiceResult> RoomsPackagesFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var cuenta = new RoomsPackagesListViewModel();
+
+            try
+            {
+                var response = await _api.Get<RoomsPackagesListViewModel, RoomsPackagesListViewModel>(req => {
+                    req.Path = $"/API/RoomsPackages/Find?id=" + id;
+                    req.Content = cuenta;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
 
         #region DefaultPackagesDetails

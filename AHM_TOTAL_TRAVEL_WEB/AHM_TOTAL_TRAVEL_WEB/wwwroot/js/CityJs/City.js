@@ -40,22 +40,3 @@ function Validacion() {
 
 
 // ----------------------------------- EVENTS ------------------------------------
-$("#txtSearch").keyup(function () {
-    _this = this;
-    $.each($("#grdCity tbody tr"), function () {
-        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-            $(this).hide();
-        }
-        else {
-            $(this).show();
-        }
-    });
-
-    $("#grdCity").paginationTdA({
-        elemPerPage: 10
-    });
-});
-
-$("#grdCity").paginationTdA({
-    elemPerPage: 10
-});

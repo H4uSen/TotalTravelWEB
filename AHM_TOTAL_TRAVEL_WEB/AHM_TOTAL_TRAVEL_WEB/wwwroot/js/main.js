@@ -442,6 +442,33 @@
         });
 
         return dataResponse;
+}
+
+    function FindGetValue(Get_KeyName="") {
+        var Get_KeyValue = null;
+
+        // get url search content after "?" 
+        //example: www.url?get_var=5
+        //return : get_var=5
+        var url_query = location.search.substring(1);
+
+        //split vars and get in array
+        var gets_vars = url_query.split("&");
+
+        for (var i = 0; i < gets_vars.length; i++) {
+            //divide la key from the value in item
+            var var_key = gets_vars[i].split("=");
+
+            // if key is equal to query key return value key
+            if (var_key[0] == Get_KeyName) {
+                //get value key
+                Get_KeyValue = var_key[1];
+                break;
+            }
+        }
+
+        //return value key
+        return Get_KeyValue;
     }
 
      //----------------------------- SEMANTIC FUNCTIONS HELPERS ----------------------------------------
@@ -569,4 +596,65 @@
 
         const actualDropDown = $($(dropDown).parents(".field")[0]).find("div.ui.dropdown");
         $(actualDropDown).replaceWith(newDropdown);
+}
+
+//----------------------------- DATE FORMAT ----------------------------------------
+    function GetDateFormat(dateConfig = { string_date: "", hour_format: 12, date_format: "short"}) {
+        const months = [
+            "enero", "febrero", "marzo", "abril",
+            "mayo", "junio", "julio", "agosto",
+            "septiembre","octubre","noviembre","diciembre"
+        ]
+        var datetime = {
+            year: "",
+            month: "",
+            day: "",
+            hour: "",
+            minute: "",
+            format: 12
+        }
+
+        const datetimeArray = dateConfig.string_date.split("T");
+        const dateArray = datetimeArray[0].split("-");
+        const timeArray = datetimeArray[1].split(":");
+
+        // get date
+        datetime.year = dateArray[0];
+        datetime.month = dateArray[1];
+        datetime.day = dateArray[2];
+
+        // get time
+        datetime.hour = timeArray[0];
+        datetime.minute = timeArray[1];
+
+        // create time format
+        dateConfig.time = `${datetime.hour}:${datetime.minute}`;
+        if (dateConfig.hour_format == 12) {
+
+            datetime.hour = parseInt(datetime.hour);
+            dateConfig.time =
+                datetime.hour > 12
+                    ? `${datetime.hour - 12}:${datetime.minute} PM`
+                    : `${datetime.hour}:${datetime.minute} AM`;
+        }
+
+        // create date format
+        dateConfig.date = datetimeArray[0];
+        if (dateConfig.date_format.toLowerCase() == "large") {
+            datetime.month_name = months[datetime.month];
+            dateConfig.date = `${datetime.day} de ${months[datetime.month]}, ${datetime.year}`;
+        }
+        else if (dateConfig.date_format.toLowerCase() == "short") {
+
+            const month_name = months[datetime.month].substring(0, 3);
+            datetime.month_name = month_name;
+            dateConfig.date = `${datetime.day} de ${month_name}, ${datetime.year}`;
+        }
+
+        //construct response datetime
+        dateConfig.datetime = `${dateConfig.date} a las ${dateConfig.time}`
+        dateConfig.datetime_data = datetime;
+
+        console.log(dateConfig);
+        return dateConfig;
     }

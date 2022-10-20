@@ -70,7 +70,7 @@ function createRooms() {
 
 
         var data = new FormData();
-        data.append("Hote_ID", $("#Hote_ID").val());
+        data.append("Hotel", $("#Hotel").val());
         data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
         data.append("Habi_Nombre", $("#Habi_Nombre").val());
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));

@@ -92,10 +92,10 @@ function deleteImage(index) {
 
         validateArrayForm = [
             { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_Nombre") },
-            { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hote_ID") },
+            { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hotel") },
             { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
             { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Habi_Descripcion") },
-            { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
+            { validateMessage: "Ingrese la categoria", Jqueryinput: $("#Categoria") },
             { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
             { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
             { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Habi_wifi") },
@@ -107,7 +107,7 @@ function deleteImage(index) {
 
     if (ValidateFormStatus) {
                 var data = new FormData();
-        data.append("Hote_ID", $("#Hote_ID").val());
+        data.append("Hote_ID", $("#Hotel").val());
         data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
         data.append("Habi_Nombre", $("#Habi_Nombre").val());
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
