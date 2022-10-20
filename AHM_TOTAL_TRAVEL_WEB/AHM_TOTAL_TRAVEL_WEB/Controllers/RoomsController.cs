@@ -37,6 +37,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
             ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
 
+            //var mode = new List<HotelListViewModel>();         
+            //var categoria = await _hotelsServices.CategoriesRoomsList();
+            //IEnumerable<HotelListViewModel> data_categoria = (IEnumerable<HotelListViewModel>)categoria.Data;
+            //ViewBag.CaHa_ID = new SelectList(data_categoria, "ID", "Categoria");
+
             return View();
         }
 
@@ -83,7 +88,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<HotelListViewModel> data_rooms = (IEnumerable<HotelListViewModel>)rooms.Data;
             ViewBag.Hote_ID = new SelectList(data_rooms, "ID", "Hotel", element.Hotel);
 
+            var room = await _hotelsServices.CategoriesRoomsList();
+            IEnumerable<categoryroomsListViewModel> data_room = (IEnumerable<categoryroomsListViewModel>)room.Data;
+            ViewBag.CaHa_ID = new SelectList(data_room, "ID", "Categoria", element.Categoria);
+
             ViewData["RoomsFolder"] = $"Hotels/Hotel-{element.HotelID}/Rooms";
+            ViewData["RoomFolder"] = $"Hotels/CaHa-{element.CategoriaHabitacionID}/Rooms";
             ViewData["ID_Update"] = element.HotelID;
 
             return View(item);
