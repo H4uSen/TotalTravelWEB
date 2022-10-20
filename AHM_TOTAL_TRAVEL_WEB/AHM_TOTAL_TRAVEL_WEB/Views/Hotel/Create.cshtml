@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Colonia</label>
-                                    <input id="Colonia" placeholder="Colonia" />
+                                    <select id="Subu_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="createHotel()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="createHotel()" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "Hotel")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>

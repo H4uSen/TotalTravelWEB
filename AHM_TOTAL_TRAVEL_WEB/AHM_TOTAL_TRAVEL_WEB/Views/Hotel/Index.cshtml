@@ -102,23 +102,17 @@
 
 @section Scripts{
     <script>
+
+        const update_success = FindGetValue("update_success");
+
+        if (update_success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+        TableSearchInput($("#txtSearch"), $("#tabla"), 10);
+
         // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#tabla tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#tabla").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
+        
         $("#tabla").paginationTdA({
             elemPerPage: 10
         });

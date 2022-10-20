@@ -1,30 +1,69 @@
-﻿var imagesArray = [];
+﻿
+var ciudadesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+
+var imagesArray = [];
 var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
 
 $('#Count_ID').change(function () {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-    if (response.code == 200) {
+    if (ciudadesList.code == 200) {
         var Count_ID = $('#Count_ID').val();
-        var cities = response.data;
-        var cityFilter = jQuery.grep(cities, function (City, i) {
-            return City.paisID == Count_ID;
+        var cities = ciudadesList.data;
+        cities = jQuery.grep(cities, function (city, i) {
+            return city.paisID == Count_ID;
         });
-        ClearDropDownItem($('#City_ID'));
-        if (cityFilter.length > 0) {
-            AddDropDownItem($('#City_ID'), item = { value: "", text: "Seleccione una ciudad." });
-            for (var i = 0; i < cityFilter.length; i++) {
-                var item = cityFilter[i];
-                AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
-            }
-            $('#City_ID').parent().find('.text').html('Seleccione una ciudad');
+        const dropdownData = {
+            dropdown: $("#City_ID"),
+            items: {
+                list: cities,
+                valueData: "id",
+                textData: "ciudad"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
         }
-        else {
-            SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
-        }
+
+        FillDropDown(dropdownData);
+        $("#City_ID").dropdown();
+
+        $("#City_ID").change((_this) => {
+            const City_Id = $(_this.target).val();
+            RellenarColonias(City_Id);
+        });
     }
 });
+
+function RellenarColonias(City_Id) {
+
+    if (coloniasList.code == 200) {
+
+        var colonias = coloniasList.data;
+        colonias = jQuery.grep(colonias, function (colonia, i) {
+            return colonia.ciudadID == City_Id;
+        });
+
+        const dropdownData = {
+            dropdown: $("#Subu_ID"),
+            items: {
+                list: colonias,
+                valueData: "id",
+                textData: "colonia"
+            },
+            placeholder: {
+                empty: "No se encontraron colonias disponibles",
+                default: "Seleccione una colonia",
+            },
+            semantic: true
+        }
+        FillDropDown(dropdownData);
+        $("#Subu_ID").dropdown();
+    }
+}
 
 $("#File").change(async function () {
 
@@ -54,16 +93,16 @@ function LoadImage() {
         HTML_img.src = item.src;
         const fileItem =
             `<div class="item">
-                        <div class="right floated content">
-                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-                                <i class="trash icon"></i>
-                            </button>
-                        </div>
-                        <i class="image big icon"></i>
-                        <div class="content text-grap">
-                            ${item.fileName}
-                        </div>
-                    </div>`;
+                  <div class="right floated content">
+                       <button onclick="deleteImage(${i})" class="ui btn-edit icon button">
+                           <i class="trash icon"></i>
+                       </button>
+                  </div>
+                  <i class="image big icon"></i>
+                  <div class="content text-grap">
+                       ${item.fileName}
+                  </div>
+            </div>`;
 
         $("#image-upload-list").append(fileItem);
         $("#HotelCarousel").append(HTML_img);
@@ -80,7 +119,7 @@ function deleteImage(index) {
 function createHotel() {
 
     validateArrayForm = [
-        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Colonia") },
+        { validateMessage: "Seleccione una colonia.", Jqueryinput: $("#Subu_ID") },
         { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
         { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
@@ -95,26 +134,10 @@ function createHotel() {
 
     if (ValidateFormStatus) {
 
-        var coloStatus = false;
-        var colo = SuburbsViewModel;
-
-        colo.colo_Descripcion = ($("#Colonia").val());
-        colo.ciud_ID = parseInt($("#City_ID").val());
-        var responseSuburb = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/Insert", colo, "POST");
-        var ColoID;
-        if (responseSuburb.code == 200) {
-            ColoID = responseSuburb.data.codeStatus;
-            coloStatus = true;
-        }
-        else {
-            console.log(responseSuburb)
-        }
-
-        if (coloStatus) {
             var direStatus = false;
             var dire = AdressViewModel;
 
-            dire.colo_ID = parseInt(ColoID);
+            dire.colo_ID = parseInt($('#Subu_ID').val());
             dire.dire_Calle = $('#Calle').val();
             dire.dire_Avenida = $('#Avenida').val();
 
@@ -140,7 +163,7 @@ function createHotel() {
 
                 var response = uploadFile("https://totaltravel.somee.com/API/Hotels/Insert", data, "POST");
                 if (response.data.codeStatus > 0) {
-                    window.location.href = '/Hotel?success=true';
+                    window.location.href = '/Hotel?update_success=true';
                 } else {
 
                     $("#labelvalidatorError").html("Ha ocurrido un error, inténtelo de nuevo.");
@@ -150,5 +173,5 @@ function createHotel() {
                 $("#labelvalidatorError").html("Se han enviado parámetros incorrectos en los campos de dirección.");
             }
         }
-    }
+    
 }

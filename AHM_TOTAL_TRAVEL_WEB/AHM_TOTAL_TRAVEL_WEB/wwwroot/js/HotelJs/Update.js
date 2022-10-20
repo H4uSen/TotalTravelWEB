@@ -1,5 +1,8 @@
 ﻿$("#errorDiv").hide();
 
+var ciudadesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+
 var imagesArray = [];
 var imagesArrayPure = [];
 
@@ -8,6 +11,8 @@ $(".ui.dropdown").dropdown();
 SetDropDownValue($("#Count_ID"), Pais_ID);
 RellenarCiudades(Pais_ID);
 SetDropDownValue($("#City_ID"), Ciudad);
+RellenarColonias(Ciudad);
+SetDropDownValue($("#Subu_ID"), Colonia);
 SetDropDownValue($("#Part_ID"), Part_ID);
 
 $('#Count_ID').change(function () {
@@ -47,15 +52,11 @@ async function GetImage() {
 
 function RellenarCiudades(Country_Id) {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-
-    if (response.code == 200) {
-
-        var cities = response.data;
+    if (ciudadesList.code == 200) {
+        var cities = ciudadesList.data;
         cities = jQuery.grep(cities, function (city, i) {
             return city.paisID == Country_Id;
         });
-
         const dropdownData = {
             dropdown: $("#City_ID"),
             items: {
@@ -73,10 +74,37 @@ function RellenarCiudades(Country_Id) {
         FillDropDown(dropdownData);
         $("#City_ID").dropdown();
 
-        //$("#City_ID").change((_this) => {
-        //    const City_Id = $(_this.target).val();
-        //    FillSuburbs(City_Id);
-        //});
+        $("#City_ID").change((_this) => {
+            const City_Id = $(_this.target).val();
+            RellenarColonias(City_Id);
+        });
+    }
+}
+
+function RellenarColonias(City_Id) {
+
+    if (coloniasList.code == 200) {
+
+        var colonias = coloniasList.data;
+        colonias = jQuery.grep(colonias, function (colonia, i) {
+            return colonia.ciudadID == City_Id;
+        });
+
+        const dropdownData = {
+            dropdown: $("#Subu_ID"),
+            items: {
+                list: colonias,
+                valueData: "id",
+                textData: "colonia"
+            },
+            placeholder: {
+                empty: "No se encontraron colonias disponibles",
+                default: "Seleccione una colonia",
+            },
+            semantic: true
+        }
+        FillDropDown(dropdownData);
+        $("#Subu_ID").dropdown();
     }
 }
 
@@ -107,7 +135,7 @@ function LoadImage() {
         const fileItem =
             `<div class="item">
                  <div class="right floated content">
-                      <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                      <button onclick="deleteImage(${i})" class="ui btn-edit icon button">
                           <i class="trash icon"></i>
                       </button>
                  </div>
@@ -132,7 +160,7 @@ function deleteImage(index) {
 function updateHotel() {
 
     validateArrayForm = [
-        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Colonia") },
+        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Subu_ID") },
         { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
         { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
@@ -146,27 +174,11 @@ function updateHotel() {
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     if (ValidateFormStatus) {
-
-        var coloStatus = false;
-        var colo = SuburbsViewModel;
-
-        colo.colo_Descripcion = ($("#Colonia").val());
-        colo.ciud_ID = parseInt($("#City_ID").val());
-        var responseSuburb = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/Insert", colo, "POST");
-        var ColoID;
-        if (responseSuburb.code == 200) {
-            ColoID = responseSuburb.data.codeStatus;
-            coloStatus = true;
-        }
-        else {
-            console.log(responseSuburb)
-        }
-
-        if (coloStatus) {
+        
             var direStatus = false;
             var dire = AdressViewModel;
 
-            dire.colo_ID = parseInt(ColoID);
+            dire.colo_ID = parseInt($('#Subu_ID').val());
             dire.dire_Calle = $('#Calle').val();
             dire.dire_Avenida = $('#Avenida').val();
 
@@ -191,7 +203,7 @@ function updateHotel() {
                 }
                 var response = uploadFile("https://totaltravel.somee.com/API/Hotels/Update?id=" + Hote_ID, data, "PUT");
                 if (response.data.codeStatus > 0) {
-                    window.location.href = '/Hotel?success=true';
+                    window.location.href = '/Hotel?update_success=true';
                 } else {
 
                     $("#labelvalidatorError").html("Ha ocurrido un error, inténtelo de nuevo.");
@@ -200,6 +212,6 @@ function updateHotel() {
             } else {
                 $("#labelvalidatorError").html("Se han enviado parámetros incorrectos en los campos de dirección.");
             }
-        }
+        
     }
 }

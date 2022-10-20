@@ -42,6 +42,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
             ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 
+            var suburb = await _generalService.SuburbsList();
+            IEnumerable<SuburbsListViewModel> data_Subu = (IEnumerable<SuburbsListViewModel>)suburb.Data;
+            ViewBag.City_ID = new SelectList(data_Subu, "ID", "Colonia");
+
             var partners = await _generalService.PartnersList();
             IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
             ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
@@ -88,7 +92,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Hotel_ID"] = element.ID;
             ViewData["Calle"] = direccion.Calle;
             ViewData["Avenida"] = direccion.Avenida;
-            ViewData["Colonia"] = direccion.Colonia;
+            ViewData["Colonia"] = direccion.ID_Colonia;
             ViewData["Pais"] = direccion.ID_Pais;
             ViewData["Ciudad"] = direccion.ID_Ciudad;
             ViewData["Partner"] = element.ID_Partner;
@@ -96,6 +100,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
             ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+            var suburb = await _generalService.SuburbsList();
+            IEnumerable<SuburbsListViewModel> data_Subu = (IEnumerable<SuburbsListViewModel>)suburb.Data;
+            ViewBag.City_ID = new SelectList(data_Subu, "ID", "Colonia");
 
             var country = await _generalService.CountriesList();
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;

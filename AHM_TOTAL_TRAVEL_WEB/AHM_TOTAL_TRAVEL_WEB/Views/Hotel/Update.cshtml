@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Colonia</label>
-                                    <input id="Colonia" placeholder="Colonia" value="@ViewData["Colonia"]" />
+                                    <select id="Subu_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                                 </div>
                             </div>
                         </div>
@@ -133,6 +133,7 @@
         const folderName = '@ViewData["HotelFolder"]';
         const Pais_ID = "@ViewData["Pais"]";
         const Ciudad = "@ViewData["Ciudad"]";
+        const Colonia = "@ViewData["Colonia"]";
         const Part_ID = "@ViewData["Partner"]";
         const Hote_ID = "@ViewData["Hotel_ID"]"
     </script>
