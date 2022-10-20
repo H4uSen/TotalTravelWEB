@@ -84,7 +84,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var direccion = (AddressListViewModel)(await _generalService.AddressFind(element.ID_Direc.ToString(), token)).Data;
 
-            ViewData["HotelFolder"] = $"Hotels/Hotel-{item.ID}/Place";
+            ViewData["HotelFolder"] = $"Hotels/Hotel-{item.ID}/Place/Hotel_Images-{item.ID}";
             ViewData["Hotel_ID"] = element.ID;
             ViewData["Calle"] = direccion.Calle;
             ViewData["Avenida"] = direccion.Avenida;
