@@ -23,27 +23,30 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            //var id = HttpContext.User.FindFirst("User_Id").Value;
-            //var cuenta = (ReservationDetailsListViewModel)(await _reservationService.ReservationDetailsFind(id, token)).Data;
-            //var actividad = await _hotelsService.HotelsActivitiesList(model);
-            //IEnumerable<HotelsActivitiesListViewModel> data_actividad = (IEnumerable<HotelsActivitiesListViewModel>)actividad.Data;
-            //ViewBag.HoAc_ID = new SelectList(data_actividad, "ID", "Actividad");
-            var reserva = await _reservationService.ReservationHotelsList(token);
-            IEnumerable<ReservationListViewModel> data_reserva = (IEnumerable<ReservationListViewModel>)reserva.Data;
-            ViewBag.ReHo_ID = new SelectList(data_reserva, "ID", "Nombre");
-            var list = await _reservationService.ReservationActivitiesHotelsList(token);
+            string token = HttpContext.User.FindFirst("Token").Value;
 
-            //var fechahotel1 = cuenta.Fecha_Entrada.ToString().Split(" ");
-            //ViewData["Fechahotel1"] = fechahotel1[0];
-            //var fechahotel2 = cuenta.Fecha_Salida.ToString().Split(" ");
-            //ViewData["Fechahotel2"] = fechahotel2[0];
+            var model = new List<ReservationExtraActivitiesListViewModel>();
+            var list = await _reservationService.ReservationActivitiesHotelsList(token);
             return View(list.Data);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var model = new List<ReservationExtraActivitiesViewModel>();
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var reservasion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservasion.Data;
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete");
+
+
+            var hotelactividad = await _hotelsService.HotelsActivitiesList(token);
+            IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotelactividad.Data;
+            ViewBag.AcEx_ID = new SelectList(data_hotel, "ID", "Actividad");
+
+
+
             return View();
         }
 
@@ -69,13 +72,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Update(int id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
+
             var item = new ReservationActivitiesHotelsViewModel();
+            IEnumerable<ReservationActivitiesHotelsListViewModel> model = null;
             var list = await _reservationService.ReservationActivitiesHotelsList(token);
             IEnumerable<ReservationActivitiesHotelsListViewModel> data = (IEnumerable<ReservationActivitiesHotelsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
-            item.ReAH_ID = element.ID;
             item.Resv_ID = element.ReservacionID;
             item.HoAc_ID = element.ID_Actividad;
+            item.ReAH_Cantidad = element.Cantidad;
+            item.ReAH_FechaReservacion = element.Fecha_Reservacion;
+            item.ReAH_HoraReservacion = element.Hora_Reservacion;
+
+
+
+            var actividad = await _hotelsService.HotelsActivitiesList(token);
+            IEnumerable<HotelsActivitiesListViewModel> data_actividad = (IEnumerable<HotelsActivitiesListViewModel>)actividad.Data;
+            ViewBag.AcEx_ID = new SelectList(data_actividad, "ID", "Actividad", element.ID_Actividad);
+
+            var reservacion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
+            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.ReservacionID);
 
             return View(item);
         }
