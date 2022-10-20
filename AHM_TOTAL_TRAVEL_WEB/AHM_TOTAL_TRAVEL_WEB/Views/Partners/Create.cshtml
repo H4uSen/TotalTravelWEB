@@ -16,7 +16,12 @@
                     <div class="header text-capitalize">
                         Crear
                     </div>
-                    <p>Ingresa un nuevo socio.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Partners")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
 
@@ -31,12 +36,12 @@
                                 <div class="required field">
                                     <label>Nombre</label>
                                     <input id="Nombre" placeholder="Nombre" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+
                                 </div>
                                 <div class="required field">
                                     <label>Email</label>
-                                    <input id="Email"  placeholder="Email" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorEmail"></span>
+                                    <input id="Email" placeholder="Email" />
+
                                 </div>
                             </div>
                         </div>
@@ -45,27 +50,29 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Teléfono</label>
-                                    <input id="Telefono"  placeholder="Telefono" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                    <input id="Telefono" placeholder="Telefono" />
+
                                 </div>
                                 <div class="required field">
                                     <label>Tipo de socio</label>
                                     <select id="TiPart_Id" class="ui dropdown search" asp-items="ViewBag.TiPart_Id">
                                         <option value="">Seleccione el tipo de socio</option>
                                     </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTiPar"></span>
-                                </div>                         
+
+                                </div>
                             </div>
-                        </div>                                              
+                        </div>
                         <div class="field">
                             <div class="required field">
                                 <label>Imagen</label>
-                                <input  id="File" type="file"  multiple />
+                                <input id="File" type="file" multiple />
                             </div>
                         </div>
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Crear" onclick="createPartners()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="createPartners()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Partners")" class="ui button mb-3 ms-3">Cancelar</a>
+                        
                     </div>
                 </div>
 

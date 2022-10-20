@@ -31,7 +31,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -46,7 +45,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var transporte = await _transportService.TransportDetailsList(token);
             IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
             ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte");
-
 
             return View();
         }
@@ -77,6 +75,54 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var item = new ReservationTransportationViewModel();
+            IEnumerable<ReservationTransportationListViewModel> model = null;
+            var list = await _reservationService.RestaurantsReservationList(token);
+            IEnumerable<ReservationTransportationListViewModel> data = (IEnumerable<ReservationTransportationListViewModel>)list.Data;
+            var element = data.Where(x => x.Id == id).ToList()[0];
+            item.Resv_ID = element.Reservacion;
+            item.Detr_ID = element.ID_detalle_Transporte;
+            item.ReTr_CantidadAsientos = element.Asientos;
+            item.ReTr_Cancelado = element.Cancelado;
+            item.ReTr_FechaCancelado = element.Fecha_Cancelado;
+            item.Resv_ID = element.Id;
+            item.Detr_ID = element.ID_detalle_Transporte;
+
+
+            var restaurante = await _transportService.TransportList();
+            IEnumerable<TransportDetailsListViewModel> data_restaurante = (IEnumerable<TransportDetailsListViewModel>)restaurante.Data;
+            ViewBag.Detr_ID = new SelectList(data_restaurante, "ID", "Restaurante", element.ID_detalle_Transporte);
+
+            var reservacion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
+            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.Id);
+
+            return View(item);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ReservationTransportationViewModel  reservationTransportation, int id)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                reservationTransportation.ReTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                var lista = await _reservationService.transportationReservationUpdate(reservationTransportation, id, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
 
         [HttpPost]
         public async Task<IActionResult> Delete(ReservationTransportationViewModel transporte, int id)

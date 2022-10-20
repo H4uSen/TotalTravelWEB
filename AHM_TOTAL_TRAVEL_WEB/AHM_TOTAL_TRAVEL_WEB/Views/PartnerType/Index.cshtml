@@ -65,7 +65,8 @@
                         <td>
                             <button class="ui large icon btn-edit button" id="UpdateBottomTipoPartner" onclick="GetTipoPartner('@item.ID')">
                                 <i class="pencil alternate icon  icon-crud"></i>
-                            </button><button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
+                            </button>
+                            <button class="ui large icon negative button" onclick="DeleteTipoPartner(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button><a href="@Url.Action("Details","PartnerType",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
                         </td>
@@ -172,10 +173,16 @@
     </script>
 }
 
-@section HighlightTile{
+    @section HighlightTile{
     <script>
+
         $("#GeneralModule").addClass("active");
+        $("#GeneralModule").addClass("expandedList");
+        $("#GeneralModule").prop("aria-expanded");
+        $("#GeneralModule").attr("aria-expanded", "true");
+
         $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+
+        $("#TypePartnersTile").addClass("activeTile");
     </script>
-}
+    }

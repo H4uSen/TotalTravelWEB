@@ -23,14 +23,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class ReservationTransportationListViewModel
     {
         public int Id { get; set; }
-        public int? Capacidad { get; set; }
-        public decimal? Precio { get; set; }
         public int? Reservacion { get; set; }
         public int? Asientos { get; set; }
         public bool? Cancelado { get; set; }
         public DateTime? Fecha_Cancelado { get; set; }
+        public int ID_detalle_Transporte { get; set; }
+        public string Tipo_Transporte { get; set; }
+        public int? Capacidad { get; set; }
+        public decimal? Precio { get; set; }
+        public int ID_Usuario_Creacion { get; set; }
         public string Usuario_Creacion { get; set; }
         public DateTime? Fecha_Creacion { get; set; }
+        public int? ID_Usuario_Modifica { get; set; }
         public string Usuario_Modifica { get; set; }
         public DateTime? Fecha_Modifica { get; set; }
         public bool? Estado { get; set; }

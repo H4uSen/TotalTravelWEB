@@ -158,8 +158,14 @@
 
 @section HighlightTile{
     <script>
-        $("#RoomsModule").addClass("active");
-        $("#Rooms_Schema").addClass("show");
-        $("#RoomsModule").addClass("expandedList")
+
+        $("#HotelModule").addClass("active");
+        $("#HotelModule").addClass("expandedList");
+        $("#HotelModule").prop("aria-expanded");
+        $("#HotelModule").attr("aria-expanded", "true");
+
+        $("#Hotels_Schema").addClass("show");
+
+        $("#RoomsTile").addClass("activeTile");
     </script>
 }

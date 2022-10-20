@@ -199,7 +199,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<ReservationRestaurantsListViewModel, ReservationRestaurantsListViewModel>(req => {
+                var response = await _api.Get<ReservationRestaurantsListViewModel, ReservationRestaurantsListViewModel>(req =>
+                {
                     req.Path = $"/API/ReservationRestaurant/Find?id=" + id;
                     req.Content = restaurant;
                 },
@@ -281,7 +282,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> transportationReservationUpdate(ReservationTransportationViewModel transporte, string token)
+        public async Task<ServiceResult> transportationReservationUpdate(ReservationTransportationViewModel transporte, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -430,7 +431,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
 
 
-        public async Task<ServiceResult> ExtraActivitiesReservationUpdate(ReservationExtraActivitiesViewModel actividadesextraas, string token)
+        public async Task<ServiceResult> ExtraActivitiesReservationUpdate(ReservationExtraActivitiesViewModel actividadesextraas, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -461,7 +462,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
 
 
-        public async Task<ServiceResult> ExtraActivitiesReservationDelete(ReservationExtraActivitiesViewModel actividadesextras, int id, string token)
+        public async Task<ServiceResult> ExtraActivitiesReservationDelete(int modifica, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -470,7 +471,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Delete<ReservationRestaurantsViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/ReservationActivitiesExtra/Delete?id=" + id + " &Mod=" + actividadesextras.ReAE_UsuarioModifica;
+                    req.Path = $"/API/ReservationActivitiesExtra/Delete?id=" + id + " &Mod=" + modifica;
                     req.Content = null;
                 },
                 token

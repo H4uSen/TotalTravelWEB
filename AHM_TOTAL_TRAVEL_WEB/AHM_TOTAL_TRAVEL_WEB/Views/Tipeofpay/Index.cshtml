@@ -19,7 +19,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createTipeofpay" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                <button id="createTipeofpay" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -93,8 +93,11 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="closeTipeofpay">Cancelar</button>
-        <button class="ui button" id="sendTipeofpay" onclick="validar()">Guardar</button>
+        @*<button class="ui button btn-purple text-white" id="closeTipeofpay">Cancelar</button>
+            <button class="ui button" id="sendTipeofpay" onclick="validar()">Guardar</button>*@
+
+        <button class="ui button btn-edit text-white" id="sendTipeofpay" onclick="validar()">Guardar</button>
+        <button class="ui button" id="closeTipeofpay">Cancelar</button>
     </div>
 </div>
 
@@ -115,70 +118,80 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendEditTipeofpay">Guardar</button>
+        @*<button class="ui button btn-purple text-white" id="sendEditTipeofpay">Guardar</button>
+            <button class="ui button" id="closeEditTipeofpay">Cancelar</button>*@
+
+        <button class="ui button btn-edit text-white" id="sendEditTipeofpay">Guardar</button>
         <button class="ui button" id="closeEditTipeofpay">Cancelar</button>
     </div>
 </div>
 
 
 @section HighlightTile{
+
+    <script src="~/js/PaymentTypes/Update.js"></script>
     <script>
         $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
+
         $("#Sale_Schema").addClass("show");
-        $("#SalesModule").addClass("expandedList")
+
+        $("#TipeofpayTile").addClass("activeTile");
     </script>
 }
 
 @section Scripts{
- 
 
-<script>
-    function validar() {
-        const userValidateArray = [
-            { validateMessage: "Ingrese un tipo de pago'", Jqueryinput: $("#payment") }
-        ];
 
-        const userValidate = ValidateForm(userValidateArray);
+    <script>
+        function validar() {
+            const userValidateArray = [
+                { validateMessage: "Ingrese un tipo de pago'", Jqueryinput: $("#payment") }
+            ];
 
-        if (userValidate) {
+            const userValidate = ValidateForm(userValidateArray);
 
-            var data = PaymentTypesViewModel;
-            data.tiPa_Descripcion = $("#payment").val();
+            if (userValidate) {
 
-            const response = ajaxRequest(
-                "https://totaltravel.somee.com/API/PaymentTypes/Insert",
-                data, "POST"
-            );
-            if (response.code == 200) {
-                location.reload();
+                var data = PaymentTypesViewModel;
+                data.tiPa_Descripcion = $("#payment").val();
+
+                const response = ajaxRequest(
+                    "https://totaltravel.somee.com/API/PaymentTypes/Insert",
+                    data, "POST"
+                );
+                if (response.code == 200) {
+                    location.reload();
+                }
             }
+
+
         }
+        $("#createTipeofpay").click(() => {
+            $("#modalCreate").modal("show")
+        })
+        $("#closeTipeofpay").click(() => {
+            $("#modalCreate").modal('hide');
+        });
+        // ----------------------------------- EVENTS ------------------------------------
+        TableSearchInput($("#txtSearch"), $("#grdPayment"), elemPerPage = 10)
+
+        $("#grdPayment").paginationTdA({
+            elemPerPage: 10
+        });
 
 
-    }
-    $("#createTipeofpay").click(() => {
-        $("#modalCreate").modal("show")
-    })
-    $("#closeTipeofpay").click(() => {
-        $("#modalCreate").modal('hide');
-    });
-    // ----------------------------------- EVENTS ------------------------------------
-    TableSearchInput($("#txtSearch"), $("#grdPayment"), elemPerPage = 10)
+        function DeleteTipeofpay(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("Tipeofpay/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/Tipeofpay?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
 
-    $("#grdPayment").paginationTdA({
-        elemPerPage: 10
-    });
-
-
-    function DeleteTipeofpay(id) {
-        const capsula1 = () => {
-            var response = ajaxRequest("Tipeofpay/Delete?id=" + id, null, "POST");
-            if (response > 0) {
-                window.location.href = '/Tipeofpay?success=true';
-            }
         };
-        sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
-    };
-</script>
+    </script>
 }

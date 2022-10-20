@@ -1,5 +1,7 @@
 ﻿$("#errorDiv").hide();
+
 var imagesArray = [];
+var imagesArrayPure = [];
 
 $(".ui.dropdown").dropdown();
 
@@ -12,33 +14,36 @@ $('#Count_ID').change(function () {
     RellenarCiudades($('#Count_ID').val());
 })
 
-//$(document).ready(async function () {
-//    await GetImage();
+$(document).ready(async function () {
+    await GetImage();
+});
 
-//});
+async function GetImage() {
+    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + folderName)
+    if (responseImage.code == 200) {
+        var list = responseImage.data
+        for (var i = 0; i < list.length; i++) {
+            var imageUrl = list[i].imageUrl;
 
-//async function GetImage() {
-//    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + folderName)
-//    if (responseImage.code == 200) {
-//        var list = responseImage.data
-//        for (var i = 0; i < list.length; i++) {
-//            var imageUrl = list[i].imageUrl;
-//            var split = imageUrl.split("/");
-//            var fileName = split[split.length - 1];
-//            var file = await createBlob(imageUrl)
-//                .then(function (data) {
-//                    return data;
-//                });
-//            const fileData = await convertImage(file)
-//                .then(function (data) {
-//                    return data;
-//                });
-//            fileData.fileName = fileName;
-//            imagesArray.push(fileData);
-//        }
-//        LoadImage();
-//    }
-//}
+            var split = imageUrl.split("/");
+            var fileName = split[split.length - 1];
+            var file = await createBlob(imageUrl)
+                .then(function (data) {
+                    return data;
+                });
+
+            imagesArrayPure.push(file);
+            const fileData = await convertImage(file)
+                .then(function (data) {
+                    return data;
+                });
+
+            fileData.fileName = fileName;
+            imagesArray.push(fileData);
+        }
+        LoadImage();
+    }
+}
 
 function RellenarCiudades(Country_Id) {
 
@@ -75,14 +80,15 @@ function RellenarCiudades(Country_Id) {
     }
 }
 
-
 $("#File").change(async function () {
+    $("#HotelCarouselHeader").hide();
 
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
             return data;
         });
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
@@ -119,9 +125,9 @@ function LoadImage() {
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
-
 
 function updateHotel() {
 
@@ -180,10 +186,9 @@ function updateHotel() {
                 data.append("part_ID", parseInt($("#Part_ID").val()));
                 data.append("hote_UsuarioModifica", parseInt(Client_User_ID));
 
-                for (let i = 0; i < imagesArray.length; i++) {
-                    data.append("File", imagesArray[i].src);
+                for (let i = 0; i < imagesArrayPure.length; i++) {
+                    data.append("File", imagesArrayPure[i]);
                 }
-
                 var response = uploadFile("https://totaltravel.somee.com/API/Hotels/Update?id=" + Hote_ID, data, "PUT");
                 if (response.data.codeStatus > 0) {
                     window.location.href = '/Hotel?success=true';

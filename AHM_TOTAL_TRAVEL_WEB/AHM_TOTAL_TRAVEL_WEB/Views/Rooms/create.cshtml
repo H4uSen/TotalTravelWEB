@@ -12,7 +12,7 @@
                 <i class="icon building"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear restaurante
+                        Crear Habitacion
                     </div>
                 </div>
                 <div class="right floated content" style="text-align: end;">
@@ -30,10 +30,10 @@
                     <div class="content">
 
                         <div class="field">
-                            <div class=" two fields">
+                            <div class=" three fields">
                                 <div class="required field">
                                     <label class="ui label">Habitacion</label>
-                                    <input id="Hote_Nombre" placeholder="Habitacion" />
+                                    <input id="Habi_Nombre" placeholder="Habitacion" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Hotel</label>
@@ -41,17 +41,22 @@
                                         <option value="">Seleccione un hotel</option>
                                     </select>
                                 </div>
+                                <div class="required field">
+                                    <label class="ui label">Descripcion</label>
+                                    <input id="Habi_Descripcion" placeholder="Descripcion" />
+                                </div>
                             </div>
                         </div>
                         <div class="field">
                             <div class="two fields">
-                                <div class="required field">                                 
-                                        <label class="ui label">Categoria</label>
-                                        <input id="CaHa_ID" placeholder="Categoria" />                                 
+                                <div class="required field">
+                                    <label class="ui label">Categoria</label>
+                                   
+                                    <input id="CaHa_ID" placeholder="Descripcion" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
-                                    <input id="Habi_Precio" placeholder="Precio" />
+                                    <input type="number" id="Habi_Precio" placeholder="Precio" />
                                 </div>
                             </div>
                         </div>
@@ -61,14 +66,18 @@
                         </div>
 
                         <div class="field">
-                            <div class="two fields">
+                            <div class="three fields">
                                 <div class="required field">
                                     <label class="ui label">Wifi</label>
                                     <input id="Habi_wifi" placeholder="Wifi" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Cama</label>
-                                    <input id="Habi_camas" placeholder="Cama" />
+                                    <input type="number" id="Habi_camas" placeholder="Cama" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Capacidad</label>
+                                    <input type="number" id="Habi_capacidad" placeholder="Capacidad" />
                                 </div>
                             </div>
                         </div>
@@ -126,6 +135,10 @@
     </div>
 </div>
 @section Scripts{
+
+    <script>
+        var UserID = '@ViewData["UserID"]';
+    </script>
     <script src="~/js/Rooms/Create.js"></script>
 }
 

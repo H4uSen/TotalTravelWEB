@@ -1,0 +1,106 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="map marker alternate icon"></i>
+            <div class="content">
+                <div class="header">
+                    Reservaciones
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <button id="createDestinationsTransportations" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <table class="ui compact selectable celled table" id="grdReservacion">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Fecha Entrada - Fecha Salida</th>
+                    <th>Hotel</th>
+                    <th>Número de personas</th>
+                    <th>Confirmado</th>
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-value="@item.ID" data-hotel="@item.ReservacionHotelID">
+
+                        <td>
+                            @string.Concat(item.Nombre, " ", item.Apellido)
+                        </td>
+                        <td>
+                            @string.Concat(item.Fecha_Entrada, " - ", item.Fecha_Salida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre_Hotel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroPersonas)
+                        </td>
+
+                        @{
+                            if (item.ConfirmacionHotel == true)
+                            {
+                                <td>Confirmado</td>
+                            }
+                            else
+                            {
+                                <td>No confirmado</td>
+                            }
+                        }
+
+                        <td>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button" onclick="DeleteDsTr(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+@section Scripts{ 
+<script src="~/js/ReservationJs/Index.js"></script>
+}
+@section HighlightTile{
+    <script>
+
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationTile").addClass("activeTile");
+    </script>
+}

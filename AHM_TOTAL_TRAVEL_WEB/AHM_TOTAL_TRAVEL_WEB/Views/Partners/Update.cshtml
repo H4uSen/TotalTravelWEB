@@ -15,30 +15,34 @@
                     <div class="header text-capitalize">
                         Editar
                     </div>
-                    <p>Actualiza los detalles del socio.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Partners")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
 
             <!-- formulario-->
-           <form asp-action="Update" id="frmUpdatePartners">
+           <form asp-action="Update" asp-controller="Partners" id="frmUpdatePartners">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
                         <div class="required field" hidden>
                             <label>ID</label>
-                            <input asp-for="Part_ID" id="ID" class="form-control" />                           
+                            <input asp-for="Part_ID" id="ID" class="form-control" />
                         </div>
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Nombre</label>
-                                    <input id="Nombre" placeholder="Nombre" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorNombre"></span>
+                                    <input asp-for="Part_Nombre" id="Nombre" placeholder="Nombre" />
                                 </div>
                                 <div class="required field">
                                     <label>Email</label>
-                                    <input id="Email"  placeholder="Email" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorEmail"></span>
+                                    <input asp-for="Part_Email" id="Email" placeholder="Email" />
+
                                 </div>
                             </div>
                         </div>
@@ -47,27 +51,27 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Teléfono</label>
-                                    <input id="Telefono"  placeholder="Telefono" />
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTelefono"></span>
+                                    <input asp-for="Part_Telefono" id="Telefono" placeholder="Telefono" />
                                 </div>
                                 <div class="required field">
                                     <label>Tipo de socio</label>
                                     <select id="TiPart_Id" class="ui dropdown search" asp-items="ViewBag.TiPart_Id">
                                         <option value="">Seleccione el tipo de socio</option>
                                     </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorTiPar"></span>
-                                </div>                         
+                                </div>
                             </div>
-                        </div>                                              
+                        </div>
                         <div class="field">
                             <div class="required field">
                                 <label>Imagen</label>
-                                <input  id="File" type="file"  multiple />
+                                <input id="File" type="file" multiple />
                             </div>
                         </div>
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
-                     
-                        <input type="button" value="Actualizar" onclick="updateDefaultPackages()" class="btn btn-purple ui positive button" />
+
+                        <input type="button" value="Guardar" onclick="updatePartners()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Partners")" class="ui button mb-3 ms-3">Cancelar</a>
+                        
                     </div>
                 </div>
 
@@ -77,7 +81,8 @@
     </div>
 </div>
 @section Scripts{
-    <script src="~/js/PartnersJS/Create.js"></script>
+    <script>const partnersID = '@ViewData["partnersID"]';</script>
+    <script src="~/js/PartnersJS/Update.js"></script>
 }
 @section HighlightTile{
     <script>

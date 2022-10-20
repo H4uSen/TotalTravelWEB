@@ -89,20 +89,20 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label class="ui label">Colonia</label>
-                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
-                        </div>
-                        <div class="required field">
                             <label class="ui label">País</label>
                             <select id="Pais_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un país</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="one field">
                         <div class="required field">
                             <label class="ui label">Ciudad</label>
                             <select id="Ciud_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                        </div>
+                    </div>
+                    <div class="one field">
+                        <div class="required field">
+                            <label class="ui label">Colonia</label>
+                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
                         </div>
                     </div>
                 </div>
@@ -126,21 +126,22 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label class="ui label">Colonia</label>
-                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
-                        </div>
-                        <div class="required field">
                             <label class="ui label">País</label>
                             <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
                                 <option value="">Seleccione un país</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="one field">
                         <div class="required field">
                             <label class="ui label">Ciudad</label>
                             <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
                         </div>
+                    </div>
+                    <div class="one field">
+                        <div class="required field">
+                            <label class="ui label">Colonia</label>
+                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -154,9 +155,15 @@
 
 @section HighlightTile{
     <script>
+
         $("#GeneralModule").addClass("active");
+        $("#GeneralModule").addClass("expandedList");
+        $("#GeneralModule").prop("aria-expanded");
+        $("#GeneralModule").attr("aria-expanded", "true");
+
         $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+
+        $("#SuburbsTile").addClass("activeTile");
     </script>
 }
 

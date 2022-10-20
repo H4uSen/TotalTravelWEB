@@ -188,10 +188,16 @@
     </script>
 }
 
-@section HighlightTile{
+    @section HighlightTile{
     <script>
+
         $("#ActivitiesModule").addClass("active");
+        $("#ActivitiesModule").addClass("expandedList");
+        $("#ActivitiesModule").prop("aria-expanded");
+        $("#ActivitiesModule").attr("aria-expanded", "true");
+
         $("#Activity_Schema").addClass("show");
-        $("#ActivitiesModule").addClass("expandedList")
+
+        $("#ActivitiesTile").addClass("activeTile");
     </script>
-}
+    }

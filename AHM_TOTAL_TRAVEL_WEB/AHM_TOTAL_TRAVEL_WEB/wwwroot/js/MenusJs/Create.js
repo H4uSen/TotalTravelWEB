@@ -1,4 +1,5 @@
 ﻿var imagesArray = [];
+var imagesArrayPure = [];
 $("#File").change(async function () {
 
     const fileData = await convertImage($("#File").prop("files")[0])
@@ -6,6 +7,7 @@ $("#File").change(async function () {
             return data;
         });
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
@@ -41,6 +43,7 @@ function LoadImage() {
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
 
@@ -62,7 +65,6 @@ function createMenus() {
 
     if (ValidateFormStatus) {
 
-        var images = [];
         var data = new FormData();
         data.append("Time_ID", $("#Time_ID").val());
         data.append("Menu_Descripcion", $("#Menu_Descripcion").val());
@@ -71,13 +73,13 @@ function createMenus() {
         data.append("Rest_ID", $("#Rest_ID").val());
         data.append("Menu_UsuarioCreacion", UserID);
 
-        for (let i = 0; i < imagesArray.length; i++) {
-            data.append("File", imagesArray[i].src);
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
         var response = uploadFile("https://totaltravel.somee.com/API/Menus/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
-            window.location.href = '/Menus';
+            window.location.href = '/Menus?success=true';
         } 
 
     }

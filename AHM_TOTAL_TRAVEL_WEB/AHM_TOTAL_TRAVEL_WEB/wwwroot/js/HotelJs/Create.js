@@ -1,4 +1,5 @@
 ﻿var imagesArray = [];
+var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
 
 $('#Count_ID').change(function () {
@@ -27,14 +28,19 @@ $('#Count_ID').change(function () {
 
 $("#File").change(async function () {
 
+
+
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
             return data;
         });
+
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
+
 function LoadImage() {
 
     var HotelCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false"></div>`;
@@ -67,6 +73,7 @@ function LoadImage() {
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
 
@@ -127,8 +134,8 @@ function createHotel() {
                 data.append("part_ID", parseInt($("#Part_ID").val()));
                 data.append("hote_UsuarioCreacion", parseInt(Client_User_ID));
 
-                for (let i = 0; i < imagesArray.length; i++) {
-                    data.append("File", imagesArray[i].src);
+                for (var i = 0; i != imagesArrayPure.length; i++) {
+                    data.append("File", imagesArrayPure[i]);
                 }
 
                 var response = uploadFile("https://totaltravel.somee.com/API/Hotels/Insert", data, "POST");

@@ -4,67 +4,72 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container card">
+    <div class="ui basic segment">
 
-<div class="ui icon attached message">
-    <i class="icon building"></i>
-    <div class="content">
-        <div class="header">
-            Categoria Habitación
+        <div class="ui icon attached message">
+            <i class="icon building"></i>
+            <div class="content">
+                <div class="header">
+                    Categoria Habitación
+                </div>
+            </div>
         </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <button id="createCategoryrooms" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+        <table class="ui compact selectable celled table" id="grdcategorye">
+            <thead>
+                <tr>
+                    <th>
+                        Descripción
+                    </th>
+
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            <a class="ui large icon btn-edit button" id=" Updatecategory" onclick=" Updatecategory(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <button class="ui large icon btn-delete button" onclick=" DeleteCategoriesRooms(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("details","CategoriesRooms",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br>
     </div>
 </div>
-
-<br>
-<div class="ui grid">
-    <div class="eight wide column">
-        <button id="createCategoryrooms" class="ui small btn-purple text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
-    </div>
-    <div class="eight wide column">
-        <div class="ui icon input" style="float:right;">
-            <input type="text" placeholder="Buscar..." id="txtSearch">
-            <i class="search icon"></i>
-        </div>
-    </div>
-</div>
-<style>
-    table thead tr th {
-        background-color: #2b2b2b;
-        color: white;
-    }
-</style>
-<table class="ui compact selectable celled table" id="grdcategorye">
-    <thead>
-        <tr>
-            <th>
-                Descripción
-            </th>
-
-            <th width="200px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    <a class="ui large icon btn-edit button" id=" Updatecategory" onclick=" Updatecategory(@item.ID)">
-                        <i class="pencil alternate icon icon-crud"></i>
-                    </a>
-                    <button class="ui large icon btn-delete button" onclick=" DeleteCategoriesRooms(@item.ID)">
-                        <i class="trash alternate icon icon-crud"></i>
-                    </button>
-                    <a href="@Url.Action("details","CategoriesRooms",new {  id=item.ID})" class="ui large icon button">
-                        <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                    </a>
-
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 <br>
 
 
@@ -92,9 +97,11 @@
     </form>
     <div class="actions">
 
-        <button class="ui button " id="closeCategoryrooms">Cancelar</button>
-        <button class="ui button btn-purple text-white" id="sendCategoryrooms" onclick="validar()">Guardar</button>
+        @*<button class="ui button " id="closeCategoryrooms">Cancelar</button>
+            <button class="ui button btn-purple text-white" id="sendCategoryrooms" onclick="validar()">Guardar</button>*@
 
+        <button class="ui button btn-edit text-white" id="sendCategoryrooms" onclick="validar()">Guardar</button>
+        <button class="ui button" id="closeCategoryrooms">Cancelar</button>
     </div>
 </div>
 
@@ -115,21 +122,28 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendEditCategoryrooms">Guardar</button>
+        @*<button class="ui button btn-purple text-white" id="sendEditCategoryrooms">Guardar</button>
+            <button class="ui button" id="closeEditCategoryrooms">Cancelar</button>*@
+
+
+        <button class="ui button btn-edit text-white" id="sendEditCategoryrooms">Guardar</button>
         <button class="ui button" id="closeEditCategoryrooms">Cancelar</button>
     </div>
 </div>
 
-@section HighlightTile{
-
-    <script src="~/js/CategoriesRooms/Update.js"></script>
-
+    @section HighlightTile{
     <script>
+
         $("#HotelModule").addClass("active");
+        $("#HotelModule").addClass("expandedList");
+        $("#HotelModule").prop("aria-expanded");
+        $("#HotelModule").attr("aria-expanded", "true");
+
         $("#Hotels_Schema").addClass("show");
-        $("#HotelModule").addClass("expandedList")
+
+        $("#CategoriesRoomsTile").addClass("activeTile");
     </script>
-}
+    }
 
 
 @section Scripts{

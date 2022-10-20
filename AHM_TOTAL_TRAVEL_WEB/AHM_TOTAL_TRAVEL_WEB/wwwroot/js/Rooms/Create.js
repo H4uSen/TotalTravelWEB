@@ -1,4 +1,6 @@
-﻿$("#File").change(async function () {
+﻿var imagesArray = [];
+var imagesArrayPure = [];
+$("#File").change(async function () {
 
 
     const fileData = await convertImage($("#File").prop("files")[0])
@@ -6,6 +8,7 @@
             return data;
         });
     imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
     LoadImage();
 
 });
@@ -36,26 +39,27 @@ function LoadImage() {
         $("#image-upload-list").append(fileItem);
         $("#RoomsCarousel").append(HTML_img);
     }
-    $("#RestaurantCarousel").fotorama();
+    $("#RoomsCarousel").fotorama();
 }
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
     LoadImage();
 }
 
 function createRooms() {
 
     validateArrayForm = [
-        { validateMessage: "Seleccione un hotel", Jqueryinput: $("#ID_Hote") },
-        { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Capacidad") },
-        { validateMessage: "Seleccione un habitacion", Jqueryinput: $("#Habitacion") },
-        { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Descripcion") },
-        { validateMessage: "Ingrese la categoria", Jqueryinput: $("#ID_Categoria") },
-        { validateMessage: "Seleccione un precio", Jqueryinput: $("#Precio") },
-        { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Balcon") },
-        { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Wifi") },
-        { validateMessage: "Ingrese las camas", Jqueryinput: $("#Camas") }
+        { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_Nombre") },
+        { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hote_ID") },
+        { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
+        { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Habi_Descripcion") },
+        { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
+        { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
+        { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
+        { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Habi_wifi") },
+        { validateMessage: "Ingrese las camas", Jqueryinput: $("#Habi_camas") }
     ];
 
     // retorna bool 
@@ -63,42 +67,32 @@ function createRooms() {
 
     if (ValidateFormStatus) {
 
-        var direStatus = false;
-        var dire = AdressViewModel;
 
-        dire.colo_ID = parseInt($('#Col_ID').val());
-        dire.dire_Calle = $('#Calle').val();
-        dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
-        var DireID;
-        if (responseAddress.code == 200) {
+        var data = new FormData();
+        data.append("Hotel", $("#Hotel").val());
+        data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
+        data.append("Habi_Nombre", $("#Habi_Nombre").val());
+        data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
+        data.append("Habi_Precio", $("#Habi_Precio").val());
+        data.append("Habi_balcon", $("#Habi_balcon").val());
+        data.append("Habi_wifi", $("#Habi_wifi").val());
+        data.append("Habi_camas", $("#Habi_camas").val());
+        data.append("Habi_capacidad", $("#Habi_capacidad").val());
+        data.append("Habi_UsuarioCreacion", Client_User_ID);
 
-            DireID = responseAddress.data.codeStatus;
-            direStatus = true;
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
+        var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Insert", data, "POST");
 
-        if (direStatus) {
-            var data = new FormData();
-            data.append("dire_ID", parseInt(DireID));
-            data.append("rest_Nombre", $("#Rest_Nombre").val());
-            data.append("part_ID", parseInt($("#Part_ID").val()));
-            data.append("rest_UsuarioCreacion", parseInt(Client_User_ID));
-
-            for (let i = 0; i < imagesArray.length; i++) {
-                data.append("File", imagesArray[i].src);
-            }
-
-            var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Insert", data, "POST");
-            if (response.data.codeStatus > 0) {
-                window.location.href = '/Rooms?success=true';
-            } else {
-
-                $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-            }
-
+        if (response.data.codeStatus > 0) {
+            window.location.href = '/Rooms?success=true';
         } else {
-            $("#labelvalidatorError").html("Se han enviado parámetros incorrectos .");
+
+            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
         }
+
     }
+    else { console.log("error") }
 }

@@ -15,7 +15,7 @@
                     <div class="header text-capitalize">
                         Detalles
                     </div>
-                    <p>Detalles del Socio.</p>
+                    
                 </div>                
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Partners")">
@@ -29,36 +29,27 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>ID</label>
-                                @Html.DisplayFor(model => model.ID)
-                            </div>
-                            <div class="field">
                                 <label>Nombre</label>
                                 @Html.DisplayFor(model => model.Nombre)
                             </div>
-                            
+                            <div class="field">
+                                <label>Email</label>
+                                @Html.DisplayFor(model => model.Email)
+                            </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Email</label>
-                                @Html.DisplayFor(model => model.Email)
-                            </div>
-                            <div class="field">
                                 <label>Teléfono</label>
                                 @Html.DisplayFor(model => model.Telefono)
                             </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="field">
                             <div class="field">
                                 <label>Tipo de Socio</label>
                                 @Html.DisplayFor(model => model.TipoPartner)
-                            </div>                            
+                            </div>
                         </div>
-                    </div>
+                    </div>                   
                 </div>
             </div>
             <br />

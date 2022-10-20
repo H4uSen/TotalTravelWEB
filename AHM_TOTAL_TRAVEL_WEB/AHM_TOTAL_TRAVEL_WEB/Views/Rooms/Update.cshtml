@@ -1,49 +1,146 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RoomsListViewModel
 
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-sm">
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon building"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar Habitaciones
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Rooms")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
 
-    <h1>Update</h1>
+            <!-- formulario-->
+            <form>
 
-    <h4>RoomsViewModel</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Update">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Habi_Descripcion" class="control-label"></label>
-                    <input asp-for="Habi_Descripcion" class="form-control" />
-                    <span asp-validation-for="Habi_Descripcion" class="text-danger"></span>
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class=" two fields">
+                                <div class="required field">
+                                    <label class="ui label">Descripcion</label>
+                                    <input id="Habi_Nombre" value="@Model.Habitacion" placeholder="Habitacion" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Hotel</label>
+                                    <select id="Hote_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">  <option value="">Seleccione un hotel</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Categoria</label>
+                                    <input id="CaHa_ID" value="@Model.CategoriaHabitacionID" placeholder="Categoria" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Precio</label>
+                                    <input type="number"  id="Habi_Precio" value="@Model.Precio" placeholder="Precio" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Balcon</label>
+                            <input id="Habi_balcon" value="@Model.Balcon" placeholder="Balcon" />
+                        </div>
+
+                        <div class="field">
+                            <div class="three fields">
+                                <div class="required field">
+                                    <label class="ui label">Wifi</label>
+                                    <input id="Habi_wifi" value="@Model.Wifi" placeholder="Wifi" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Cama</label>
+                                    <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Capacidad</label>
+                                    <input type="number" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="ui grid three column stackable mt-4">
+
+                            <div class="column">
+                                <label class="ui label">Imagenes en fila.</label>
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imagenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header" id="RoomsCarousel">
+                                        <i class="images icon"></i>
+                                        Tus imagenes aparecerán aquí.
+                                    </div>
+
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" onclick="updateRooms()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "Rooms")" class="ui button mb-3 ms-3">Cancelar</a>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Habi_capacidad" class="control-label"></label>
-                    <input asp-for="Habi_capacidad" class="form-control" />
-                    <span asp-validation-for="Habi_capacidad" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Habi_capacidad" class="control-label"></label>
-                    <input asp-for="Habi_capacidad" class="form-control" />
-                    <span asp-validation-for="Habi_capacidad" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Habi_capacidad" class="control-label"></label>
-                    <input asp-for="Habi_capacidad" class="form-control" />
-                    <span asp-validation-for="Habi_capacidad" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
+
             </form>
+            <!-- fin formulario-->
         </div>
     </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
 </div>
+@section Scripts{
+    <script>
+        var RoomsFolder = '@ViewData["RoomsFolder"]';
+         var ID_Update = '@ViewData["ID_Update"]';
+
+    </script>
+
+    <script src="~/js/Rooms/Update.js"></script>
+
+}
+@section HighlightTile{
+
+    <script>
+        $("#HotelModule").addClass("active");
+        $("#Hotel_Schema").addClass("show");
+        $("#HotelModule").addClass("expandedList")
+    </script>
+}

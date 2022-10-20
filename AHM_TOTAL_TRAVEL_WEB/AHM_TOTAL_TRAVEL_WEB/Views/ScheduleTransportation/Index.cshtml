@@ -211,9 +211,14 @@
 
 @section HighlightTile{
     <script>
+
         $("#TransportModule").addClass("active");
-        $("#Schedule_Index").addClass("active");
+        $("#TransportModule").addClass("expandedList");
+        $("#TransportModule").prop("aria-expanded");
+        $("#TransportModule").attr("aria-expanded", "true");
+
         $("#Transport_Schema").addClass("show");
-        $("#TransportModule").addClass("expandedList")
+
+        $("#ScheduleTransportationTile").addClass("activeTile");
     </script>
 }

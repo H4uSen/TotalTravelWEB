@@ -82,6 +82,7 @@
 
                         <div class="ui grid three column stackable mt-4">
                             <div class="column">
+                                <label class="ui label">Imágenes en fila.</label>
                                 <div class="ui segment">
                                     <div class="ui middle aligned divided list" id="image-upload-list">
 
@@ -117,7 +118,7 @@
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Guardar" onclick="updateHotel()" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Guardar" onclick="updateHotel()" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "Hotel")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>
@@ -143,7 +144,12 @@
 @section HighlightTile{
     <script>
         $("#HotelModule").addClass("active");
+        $("#HotelModule").addClass("expandedList");
+        $("#HotelModule").prop("aria-expanded");
+        $("#HotelModule").attr("aria-expanded", "true");
+
         $("#Hotels_Schema").addClass("show");
-        $("#HotelModule").addClass("expandedList")
+
+        $("#HotelsTile").addClass("activeTile");
     </script>
 }

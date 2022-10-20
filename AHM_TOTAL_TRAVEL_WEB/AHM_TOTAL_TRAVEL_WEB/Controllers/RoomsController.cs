@@ -24,7 +24,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
 
             var model = new List<RoomsListViewModel>();
-            var list = await _hotelsServices.RoomsList(model);
+            var list = await _hotelsServices.RoomsList();
             return View(list.Data);
         }
 
@@ -36,6 +36,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var Hotel = await _hotelsServices.HotelsList(token);
             IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
             ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
+
+            //var mode = new List<HotelListViewModel>();         
+            //var categoria = await _hotelsServices.CategoriesRoomsList();
+            //IEnumerable<HotelListViewModel> data_categoria = (IEnumerable<HotelListViewModel>)categoria.Data;
+            //ViewBag.CaHa_ID = new SelectList(data_categoria, "ID", "Categoria");
 
             return View();
         }
@@ -62,26 +67,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var item = new RoomsViewModel();
-            IEnumerable<RoomsViewModel> model = null;
-            var list = await _hotelsServices.RoomsList(null);
+            var item = new RoomsListViewModel();
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var list = await _hotelsServices.RoomsList();
             IEnumerable<RoomsListViewModel> data = (IEnumerable<RoomsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
-            item.Hote_ID = element.ID;
-            item.Habi_Nombre = element.Habitacion;
-            item.Habi_Descripcion = element.Descripcion;
-            //item.CaHa_ID = element.Categoria;
-            item.Habi_Precio = element.Precio;
-            item.Habi_balcon = element.Balcon;
-            item.Habi_wifi = element.Wifi;
-            item.Habi_camas = element.Camas;
-            item.Habi_capacidad = element.Capacidad;
-            //item.Habi_url = element.Image_Url;
+            item.ID = element.ID;
+            item.Habitacion = element.Habitacion;
+            item.Descripcion = element.Descripcion;
+            item.CategoriaHabitacionID = element.CategoriaHabitacionID;
+            item.HotelID = element.HotelID;
+            item.Precio = element.Precio;
+            item.Balcon = element.Balcon;
+            item.Wifi = element.Wifi;
+            item.Camas = element.Camas;
+            item.Capacidad = element.Capacidad;
+          
 
-            var rooms = await _hotelsServices.RoomsList(null);
-            IEnumerable<RoomsListViewModel> data_rooms = (IEnumerable<RoomsListViewModel>)rooms.Data;
+            var rooms = await _hotelsServices.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_rooms = (IEnumerable<HotelListViewModel>)rooms.Data;
             ViewBag.Hote_ID = new SelectList(data_rooms, "ID", "Hotel", element.Hotel);
 
+            var room = await _hotelsServices.CategoriesRoomsList();
+            IEnumerable<categoryroomsListViewModel> data_room = (IEnumerable<categoryroomsListViewModel>)room.Data;
+            ViewBag.CaHa_ID = new SelectList(data_room, "ID", "Categoria", element.Categoria);
+
+            ViewData["RoomsFolder"] = $"Hotels/Hotel-{element.HotelID}/Rooms";
+            ViewData["RoomFolder"] = $"Hotels/CaHa-{element.CategoriaHabitacionID}/Rooms";
+            ViewData["ID_Update"] = element.HotelID;
 
             return View(item);
 
@@ -127,9 +140,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Details(string id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var transporte = (RoomsListViewModel)(await _hotelsServices.RoomsFind(id, token)).Data;
+            var rooms = (RoomsListViewModel)(await _hotelsServices.RoomsFind(id, token)).Data;
 
-            return View(transporte);
+            return View(rooms);
         }
     }
 }
