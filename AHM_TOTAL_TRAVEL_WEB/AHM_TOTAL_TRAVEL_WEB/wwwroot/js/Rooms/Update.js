@@ -95,7 +95,7 @@ function deleteImage(index) {
             { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hotel") },
             { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
             { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Habi_Descripcion") },
-            { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
+            { validateMessage: "Ingrese la categoria", Jqueryinput: $("#Categoria") },
             { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
             { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
             { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Habi_wifi") },

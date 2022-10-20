@@ -52,7 +52,7 @@ function createRooms() {
 
     validateArrayForm = [
         { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_Nombre") },
-        { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hotel") },
+        { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hote_ID") },
         { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
         { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Habi_Descripcion") },
         { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
