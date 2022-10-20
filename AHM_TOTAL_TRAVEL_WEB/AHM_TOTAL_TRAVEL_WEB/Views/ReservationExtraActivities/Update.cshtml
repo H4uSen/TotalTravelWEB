@@ -5,52 +5,112 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Update</h1>
 
-<h4>ReservationExtraActivitiesViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-           
-            <div class="form-group">
-                <label asp-for="Resv_ID" class="control-label"></label>
-                <input asp-for="Resv_ID" class="form-control" />
-                <span asp-validation-for="Resv_ID" class="text-danger"></span>
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon car"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Editar
+                    </div>
+                    <p>Editar Reservacion Restaurante</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="AcEx_ID" class="control-label"></label>
-                <input asp-for="AcEx_ID" class="form-control" />
-                <span asp-validation-for="AcEx_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_Cantidad" class="control-label"></label>
-                <input asp-for="ReAE_Cantidad" class="form-control" />
-                <span asp-validation-for="ReAE_Cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_FechaReservacion" class="control-label"></label>
-                <input asp-for="ReAE_FechaReservacion" class="form-control" />
-                <span asp-validation-for="ReAE_FechaReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAE_HoraReservacion" class="control-label"></label>
-                <input asp-for="ReAE_HoraReservacion" class="form-control" />
-                <span asp-validation-for="ReAE_HoraReservacion" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <form asp-action="Update" id="FrmReservationActividadExtra">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="two fields">
+                            <div class="required field">
+                                <label>Reservacion</label>
+                                <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID" asp-for="Resv_ID">
+                                    <option value="">Seleccione una Reservacion</option>
+                                </select>
+                            </div>
+                            <div class="required field">
+                                <label>Actividad Extra</label>
+                                <select id="AcEx_ID" name="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID" asp-for="AcEx_ID">
+                                    <option value="">Seleccione una actividad extra</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="two fields">
+
+                            <div class="required field">
+                                <label>Cantidad</label>
+                                <input asp-for="ReAE_Cantidad" />
+                            </div>
+                            <div class="required field">
+                                <label>Fecha Reservacion</label>
+                                <input asp-for="ReAE_FechaReservacion" type="date" />
+                            </div>
+
+                        </div>
+                        <div class=" fields">
+                            <div class="required field">
+                                <label>Hora</label>
+                                <input asp-for="ReAE_HoraReservacion" />
+                            </div>
+                        </div>
+
+
+                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ReservationExtraActivities")" class="ui button mb-3 ms-3">Cancelar</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts{
+    <script>
+        var actividadID = '@ViewData["ActividadID"]';
+    </script>
+    <script src="~/js/ActivitiesExtraJs/Update.js"></script>
+    <script>
+            $("#btnGuardar").click(() => {
+                const ValidateArray = [
+            {validateMessage: "Seleccione una reservacion", Jqueryinput: $("#Resv_ID") },
+            {validateMessage: "Seleccione una actividad extra", Jqueryinput: $("#AcEx_ID") },
+            {validateMessage: "Ingrese una Fecha", Jqueryinput: $("#ReAE_FechaReservacion") },
+            {validateMessage: "Ingrese una cantidad", Jqueryinput: $("#ReAE_Cantidad") },
+            {validateMessage: "Ingrese una cantidad", Jqueryinput: $("#ReAE_HoraReservacion") },
+
+
+            ];
+            const userValidate = ValidateForm(ValidateArray);
+            if (userValidate) {
+                $("#FrmReservationActividadExtra").submit();
+                }
+            });
+    </script>
+
 }
+
+
+@section HighlightTile{
+    <script>
+
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationRestaurantTile").addClass("activeTile");
+    </script>
+}
+

@@ -91,21 +91,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _reservationService.RestaurantsReservationList(token);
             IEnumerable<ReservationRestaurantsListViewModel> data = (IEnumerable<ReservationRestaurantsListViewModel>)list.Data;
             var element = data.Where(x => x.Id == id).ToList()[0];
-            item.Resv_ID = element.Numero_Reservacacion;
+            item.Resv_ID = element.DescripcionReservacion;
             item.Rest_ID = element.ID_Restaurante;
             item.ReRe_FechaReservacion = element.Fecha_Reservacion;
             item.ReRe_HoraReservacion = element.Hora_Reservacion;
-            item.Resv_ID = element.Id;
+            item.Resv_ID = element.DescripcionReservacion;
             item.Rest_ID = element.ID_Restaurante;
 
+            var reservasion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservasion.Data;
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete", element.DescripcionReservacion);
 
-            var restaurante = await _restaurantService.RestaurantsList(token);
-            IEnumerable<RestaurantListViewModel> data_restaurante = (IEnumerable<RestaurantListViewModel>)restaurante.Data;
-            ViewBag.Rest_ID = new SelectList(data_restaurante, "ID", "Restaurante", element.ID_Restaurante);
 
-            var reservacion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.Id);
+            var restaurant = await _restaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)restaurant.Data;
+            ViewBag.Rest_ID = new SelectList(data_restaurant, "ID", "Restaurante", element.ID_Restaurante);
+
+      
 
             return View(item);
 

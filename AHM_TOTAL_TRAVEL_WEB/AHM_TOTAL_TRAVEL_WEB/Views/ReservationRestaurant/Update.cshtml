@@ -18,29 +18,29 @@
                     <p>Editar Reservacion Restaurante</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationRestaurant")">
                         Regresar
                         <i class="left arrow icon"></i>
                     </a>
                 </div>
             </div>
-            <form asp-action="Update" id="FrmDetallesTranporte">
+            <form asp-action="Update" id="FrmReservationRestaurante">
                 <div class="ui form attached fluid segment">
                     <div class="content">
                         <div class="two fields">
                             <div class="required field">
-                                <label>Tipo Transporte</label>
-                                <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Resv_ID">
+                                <label>Reservacion</label>
+                                <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID" asp-for="Resv_ID">
                                     <option value="">Seleccione una Reservacion</option>
                                 </select>
                             </div>
                             <div class="required field">
                                 <label>Restaurante</label>
-                                <select id="Rest_ID" name="Rest_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Rest_ID">
+                                <select id="Rest_ID" name="Rest_ID" class="ui dropdown search" asp-items="ViewBag.Rest_ID" asp-for="Rest_ID">
                                     <option value="">Seleccione un Restaurante</option>
                                 </select>
                             </div>
-                            
+
                         </div>
                         <div class="two fields">
 
@@ -56,7 +56,7 @@
 
 
                         <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
-                        <a type="button" href="@Url.Action("Index", "ReservationRestaurantDetails")" class="ui button mb-3 ms-3">Cancelar</a>
+                        <a type="button" href="@Url.Action("Index", "ReservationRestaurant")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
                 </div>
@@ -66,5 +66,38 @@
 </div>
 
 
+@section Scripts{
 
-    
+    <script>
+
+        $("#btnGuardar").click(() => {
+            const ValidateArray = [
+                { validateMessage: "Seleccione una reservacion", Jqueryinput: $("#Resv_ID") },
+                { validateMessage: "Seleccione un restaurante", Jqueryinput: $("#Rest_ID") },
+                { validateMessage: "Ingrese una Fecha", Jqueryinput: $("#ReRe_FechaReservacion") },
+                { validateMessage: "Ingrese la Hora", Jqueryinput: $("#ReRe_HoraReservacion") },
+
+            ];
+            const userValidate = ValidateForm(ValidateArray);
+            if (userValidate) {
+                $("#FrmReservationRestaurante").submit();
+            }
+        });
+    </script>
+
+}
+
+
+@section HighlightTile{
+    <script>
+
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationRestaurantTile").addClass("activeTile");
+    </script>
+}

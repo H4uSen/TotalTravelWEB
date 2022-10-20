@@ -4,7 +4,7 @@ $(".ui.dropdown").dropdown();
 
 getSchedule();
 function getSchedule() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/ScheduleTransportation/List");
+    var response = ajaxRequest("https://totaltravel.somee.com/API/ReservationRestaurant/List");
 
     if (response.code == 200) {
 

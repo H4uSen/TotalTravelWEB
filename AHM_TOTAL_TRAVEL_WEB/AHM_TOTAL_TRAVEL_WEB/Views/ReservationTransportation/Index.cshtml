@@ -110,6 +110,9 @@
 
 
 @section Scripts{
+
+    <script src="~/js/ReservacionTransporte/Update.js"></script>
+
     <script>
         // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
@@ -135,8 +138,8 @@
         function DeleteReservacionTransporte(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("ReservationTransportation/Delete?id=" + id, null, "POST");
-             
-                    window.location.href = '/ReservationTransportation?success=true';
+
+                window.location.href = '/ReservationTransportation?success=true';
             };
 
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);

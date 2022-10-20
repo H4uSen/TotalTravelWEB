@@ -23,7 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class ReservationTransportationListViewModel
     {
         public int Id { get; set; }
-        public int? Reservacion { get; set; }
+        public int Reservacion { get; set; }
         public int? Asientos { get; set; }
         public bool? Cancelado { get; set; }
         public DateTime? Fecha_Cancelado { get; set; }

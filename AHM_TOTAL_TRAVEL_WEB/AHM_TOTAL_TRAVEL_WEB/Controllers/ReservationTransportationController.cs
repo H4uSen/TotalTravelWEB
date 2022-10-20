@@ -82,7 +82,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var item = new ReservationTransportationViewModel();
             IEnumerable<ReservationTransportationListViewModel> model = null;
-            var list = await _reservationService.RestaurantsReservationList(token);
+            var list = await _reservationService.transportationReservationList(token);
             IEnumerable<ReservationTransportationListViewModel> data = (IEnumerable<ReservationTransportationListViewModel>)list.Data;
             var element = data.Where(x => x.Id == id).ToList()[0];
             item.Resv_ID = element.Reservacion;
@@ -90,17 +90,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.ReTr_CantidadAsientos = element.Asientos;
             item.ReTr_Cancelado = element.Cancelado;
             item.ReTr_FechaCancelado = element.Fecha_Cancelado;
-            item.Resv_ID = element.Id;
+            item.Resv_ID = element.Reservacion;
             item.Detr_ID = element.ID_detalle_Transporte;
 
 
-            var restaurante = await _transportService.TransportList();
-            IEnumerable<TransportDetailsListViewModel> data_restaurante = (IEnumerable<TransportDetailsListViewModel>)restaurante.Data;
-            ViewBag.Detr_ID = new SelectList(data_restaurante, "ID", "Restaurante", element.ID_detalle_Transporte);
+            var transporte = await _transportService.TransportDetailsList(token);
+            IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
+            ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte", element.ID_detalle_Transporte);
+
 
             var reservacion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.Id);
+            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservacion.Data;
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete", element.Reservacion);
 
             return View(item);
 

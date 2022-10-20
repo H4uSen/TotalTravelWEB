@@ -26,6 +26,12 @@ function createreservationtransporte() {
 
     if (ReservacionActividadValidate) {
 
+        $("#ReTr_Cancelado").val(false);
+
+        if ($("#ReTr_Cancelado").prop('checked')){
+
+            $("#ReTr_Cancelado").val(true);
+        }
         $('#CreateReservationTransporte').submit()
 
 

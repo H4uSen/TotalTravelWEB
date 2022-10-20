@@ -102,14 +102,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.ReAE_ID = element.Id_Actividad_Extra;
 
 
-            
+
             var actividad = await _activitiesServices.ExtraActivitiesList(token);
             IEnumerable<ActivitiesExtrasListViewModel> data_actividad = (IEnumerable<ActivitiesExtrasListViewModel>)actividad.Data;
             ViewBag.AcEx_ID = new SelectList(data_actividad, "ID", "Actividad", element.Id_Actividad_Extra);
 
             var reservacion = await _reservationService.ReservationList(token);
             IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.ID);
+            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.Reservacion);
 
             return View(item);
 

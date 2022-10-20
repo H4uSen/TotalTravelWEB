@@ -22,18 +22,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
         public class ReservationRestaurantsListViewModel
     {
-
-            public int Id { get; set; }
-            public int? Numero_Reservacacion { get; set; }
-            public int ID_Restaurante { get; set; }
-            public string Restaurante { get; set; }
-            public DateTime? Fecha_Reservacion { get; set; }
-            public string Hora_Reservacion { get; set; }
-            public string Usuario_Creacion { get; set; }
-            public DateTime? Fecha_Creacion { get; set; }
-            public string Usuario_Modifica { get; set; }
-            public DateTime? Fecha_Modifica { get; set; }
-            public bool? Estado { get; set; }
-        }
+        public int Id { get; set; }
+        public int DescripcionReservacion { get; set; }
+        public int ID_Restaurante { get; set; }
+        public string Restaurante { get; set; }
+        public DateTime? Fecha_Reservacion { get; set; }
+        public string Hora_Reservacion { get; set; }
+        public int ID_Usuario_Creacion { get; set; }
+        public string Usuario_Creacion { get; set; }
+        public DateTime? Fecha_Creacion { get; set; }
+        public int? ID_Usuario_Modifica { get; set; }
+        public string Usuario_Modifica { get; set; }
+        public DateTime? Fecha_Modifica { get; set; }
+        public bool? Estado { get; set; }
+    }
     
 }
