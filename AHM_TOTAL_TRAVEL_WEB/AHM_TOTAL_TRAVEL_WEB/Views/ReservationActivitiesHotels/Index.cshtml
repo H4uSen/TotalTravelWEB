@@ -1,0 +1,167 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationActivitiesHotelsListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="figure icon"></i>
+            <div class="content">
+                <div class="header">
+                    Reservación Actividades Hoteles
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","ReservationActivitiesHotels")">
+                    <i class="plus icon"></i> Nuevo
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+
+        <table class="ui compact selectable celled table" id="grdReservationActivitiesHotels">
+            <thead>
+                <tr>
+                    <th>
+                        Cliente
+                    </th>
+                    <th>
+                        Actividad
+                    </th>
+                    <th>
+                        Descripción de la Actividad
+                    </th>
+                    <th>
+                        Cantidad
+                    </th>
+                    <th>
+                        Fecha Reservacion
+                    </th>
+                    <th>
+                        Hora Reservacion
+                    </th>
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha_Reservacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora_Reservacion)
+                    </td>
+
+                    <td>
+                        <a href="#" class="ui large icon btn-edit button">
+                            <i class="pencil alternate icon  icon-crud"></i>
+                        </a>
+                        <button class="ui large icon btn-delete button" onclick="DeleteReservacionActividadesHoteles(@item.ID)">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a href="#" class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+
+
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
+
+@section Scripts{
+    <script>
+        // ----------------------------------- EVENTS ------------------------------------
+        $("#txtSearch").keyup(function () {
+            _this = this;
+            $.each($("#grdReservationActivitiesHotels tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+
+            $("#grdReservationActivitiesHotels").paginationTdA({
+                elemPerPage: 10
+            });
+        });
+
+        $("#grdReservationActivitiesHotels").paginationTdA({
+            elemPerPage: 10
+        });
+
+
+
+        function DeleteReservacionActividadesHoteles(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("ReservationActivitiesHotels/Delete?id=" + id, null, "POST");
+
+                window.location.href = '/ReservationActivitiesHotels?success=true';
+
+            };
+
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
+
+        };
+
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationActivitiesHotelsTile").addClass("activeTile");
+    </script>
+}
+
+
+

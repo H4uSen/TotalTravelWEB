@@ -106,16 +106,16 @@ function LoadImage() {
         HTML_img.src = item.src;
         const fileItem =
             `<div class="item">
-                        <div class="right floated content">
-                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-                                <i class="trash icon"></i>
-                            </button>
-                        </div>
-                        <i class="image big icon"></i>
-                        <div class="content text-grap">
-                            ${item.fileName}
-                        </div>
-                    </div>`;
+                 <div class="right floated content">
+                      <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                          <i class="trash icon"></i>
+                      </button>
+                 </div>
+                 <i class="image big icon"></i>
+                 <div class="content text-grap">
+                      ${item.fileName}
+                 </div>
+            </div>`;
 
         $("#image-upload-list").append(fileItem);
         $("#HotelCarousel").append(HTML_img);
