@@ -93,7 +93,7 @@
                             <button class="ui large icon negative button" onclick="DeletePaqueteHabitacion(@item.ID)">
                                 <i class="trash alternate icon"></i>
                             </button>
-                            <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
+                            <a href="@Url.Action("Details","RoomsPackage",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
                         </td>
                     </tr>
                 }
@@ -134,7 +134,7 @@
     </div>
 </div>
 
-<div class="ui modal" id="modalUpdate">
+@*<div class="ui modal" id="modalUpdate">
     <div class="header">
         Actualiza un tipo de menú
     </div>
@@ -163,7 +163,7 @@
         <button class="ui button btn-edit text-white" id="sendPaqueteHabitacion" onclick="sendUpdate()">Guardar</button>
         <button class="ui button" id="closePaqueteHabitacion">Cancelar</button>
     </div>
-</div>
+</div>*@
 
 
 

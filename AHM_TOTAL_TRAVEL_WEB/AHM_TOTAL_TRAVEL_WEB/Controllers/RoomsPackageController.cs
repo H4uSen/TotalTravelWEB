@@ -53,29 +53,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var defaultPackages = await _saleServices.DefaultPackagesList(token);
-            IEnumerable<DefaultPackagesListViewModel> data_defaultPackages = (IEnumerable<DefaultPackagesListViewModel>)defaultPackages.Data;
-            ViewBag.Paqu_ID = new SelectList(data_defaultPackages, "Id", "Nombre");
+        //[HttpGet]
+        //public async Task<IActionResult> Update(int id)
+        //{
+        //    string token = HttpContext.User.FindFirst("Token").Value;
+        //    var defaultPackages = await _saleServices.DefaultPackagesList(token);
+        //    IEnumerable<DefaultPackagesListViewModel> data_defaultPackages = (IEnumerable<DefaultPackagesListViewModel>)defaultPackages.Data;
+        //    ViewBag.Paqu_ID = new SelectList(data_defaultPackages, "Id", "Nombre");
 
 
-            //var item = new PartnerTypeViewModel();
-            //var list = await _generalServices.PartnerTypeList();
-            //IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
-            //var element = data.Where(x => x.ID == id).ToList()[0];
-            //item.TiPar_ID = element.ID;
-            //item.TiPar_Descripcion = element.Descripcion;
-            //item.Rol_ID = element.Rol_Id;
+        //    //var item = new PartnerTypeViewModel();
+        //    //var list = await _generalServices.PartnerTypeList();
+        //    //IEnumerable<PartnerTypeListViewModel> data = (IEnumerable<PartnerTypeListViewModel>)list.Data;
+        //    //var element = data.Where(x => x.ID == id).ToList()[0];
+        //    //item.TiPar_ID = element.ID;
+        //    //item.TiPar_Descripcion = element.Descripcion;
+        //    //item.Rol_ID = element.Rol_Id;
 
-            //ViewData["Rol_IDview"] = item.Rol_ID;
+        //    //ViewData["Rol_IDview"] = item.Rol_ID;
 
 
-            return View();
+        //    return View();
 
-        }
+        //}
 
         public async Task<IActionResult> Delete(int id)
         {
@@ -95,7 +95,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Details(string id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var transporte = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
+            var transporte = (RoomsPackagesListViewModel)(await _saleServices.RoomsPackagesFind(id, token)).Data;
 
             return View(transporte);
         }

@@ -1,14 +1,15 @@
 ﻿const RoomsList = ajaxRequest("https://totaltravel.somee.com/API/Rooms/List");
 const PackagesList = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
 
-$('#Paqu_ID').change(function (_this){
+$('#Paqu_ID').change(function (_this) {
+
     RoomsPackagesListDetails($('#Paqu_ID').val());
 })
 
 $('.ui.dropdown').dropdown();
 
 $("#createPaqueteHabitacion").click(() => {
-    $("#modalCreate").modal('show');
+    $("#modalCreate").modal({ autofocus: false, forceSelection: false }).modal('show');
 });
 
 $("#closePaqueteHabitacion").click(() => {
