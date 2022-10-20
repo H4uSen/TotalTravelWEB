@@ -140,7 +140,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             {
                 var response = await _api.Put<ReservationRestaurantsViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/ReservationRestaurant/Update?id=" + restaurante.ReRe_ID;
+                    req.Path = $"/API/ReservationRestaurant/Update?id=" + id;
                     req.Content = restaurante;
                 },
                 token
@@ -290,7 +290,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             {
                 var response = await _api.Put<ReservationTransportationViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/ReservationTransportation/Update?id=" + transporte.ReTr_ID;
+                    req.Path = $"/API/ReservationTransportation/Update?id=" + id;
                     req.Content = transporte;
                 },
                 token
@@ -439,7 +439,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             {
                 var response = await _api.Put<ReservationExtraActivitiesViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/ReservationActivitiesExtra/Update?id=" + actividadesextraas.ReAE_ID;
+                    req.Path = $"/API/ReservationActivitiesExtra/Update?id=" + id;
                     req.Content = actividadesextraas;
                 },
                 token
