@@ -31,6 +31,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var city = await _generalService.CitiesList();
+            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+            var country = await _generalService.CountriesList();
+            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
             var type = await _generalService.PartnersList();
             IEnumerable<PartnersListViewModel> data_type = (IEnumerable<PartnersListViewModel>)type.Data;
             ViewBag.Part_ID = new SelectList(data_type, "ID", "Nombre");
@@ -49,7 +57,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                actividad.acEx_UsuarioCreacion = Convert.ToInt32(UserID);
+                actividad.AcEx_UsuarioCreacion = Convert.ToInt32(UserID);
                 var list = await _activitiesServices.ActivitiesExtraCreate(actividad, token);
                 return RedirectToAction("Index");
             }
@@ -69,8 +77,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _activitiesServices.ExtraActivitiesList(token);
             IEnumerable<ActivitiesExtrasListViewModel> data = (IEnumerable<ActivitiesExtrasListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
-            item.acEx_Descripcion = element.Descripcion;
-            item.acEx_Precio = element.Precio;
+            item.AcEx_Descripcion = element.Descripcion;
+            item.AcEx_Precio = element.Precio;
 
             return View(item);
 
@@ -84,7 +92,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.acEx_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                actividad.AcEx_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _activitiesServices.ActivitiesExtraUpdate(actividad, token);
                 return RedirectToAction("Index");
 
@@ -101,7 +109,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                actividad.acEx_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                actividad.AcEx_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
 
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var list = await _activitiesServices.ActivitiesExtraDelete(actividad,id, token);

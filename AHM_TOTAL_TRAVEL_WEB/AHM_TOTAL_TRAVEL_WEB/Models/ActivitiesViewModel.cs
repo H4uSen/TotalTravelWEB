@@ -34,11 +34,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class ActivitiesExtrasListViewModel
     {
         public int ID { get; set; }
+        public int ID_Partner { get; set; }
         public string Partner { get; set; }
+        public int CiudadID { get; set; }
+        public string Ciudad { get; set; }
+        public int ID_Actividad { get; set; }
         public string Actividad { get; set; }
         public decimal? Precio { get; set; }
         public string Descripcion { get; set; }
         public int? ID_Crea { get; set; }
+        public string ImageURL { get; set; }
         public string UsuarioCrea { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public int? ID_Modifica { get; set; }
@@ -52,13 +57,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     
     public class ActivitiesExtrasViewModel
     {
-        public int? AcEx_ID { get; set; }
-        public int? part_ID { get; set; }
-        public int? actv_ID { get; set; }
-        public decimal? acEx_Precio { get; set; }
-        public string acEx_Descripcion { get; set; }
-        public int? acEx_UsuarioCreacion { get; set; }
-        public int? acEx_UsuarioModifica { get; set; }
+        public int AcEx_ID { get; set; }
+        public int? Part_ID { get; set; }
+        public int? Actv_ID { get; set; }
+        public decimal? AcEx_Precio { get; set; }
+        public string AcEx_Descripcion { get; set; }
+        public int? AcEx_UsuarioCreacion { get; set; }
+        public DateTime? AcEx_FechaCreacion { get; set; }
+        public int? AcEx_UsuarioModifica { get; set; }
+        public DateTime? AcEx_FechaModifica { get; set; }
+        public bool? AcEx_Estado { get; set; }
+        public string AcEx_Url { get; set; }
+        public int? Dire_ID { get; set; }
         public IFormFile file { get; set; }
     }
 }

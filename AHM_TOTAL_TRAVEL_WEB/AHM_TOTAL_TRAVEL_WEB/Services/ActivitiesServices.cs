@@ -270,7 +270,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             {
                 var response = await _api.Delete<ActivitiesExtrasViewModel, RequestStatus>(req =>
                 {
-                    req.Path = $"/API/ActivitiesExtra/Delete?id=" + id + "&mod=" + actividad.acEx_UsuarioModifica;
+                    req.Path = $"/API/ActivitiesExtra/Delete?id=" + id + "&mod=" + actividad.AcEx_UsuarioModifica;
                     req.Content = actividad;
                 },
                 token

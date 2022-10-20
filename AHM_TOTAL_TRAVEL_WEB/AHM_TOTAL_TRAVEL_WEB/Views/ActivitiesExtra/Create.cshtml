@@ -51,13 +51,46 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Precio</label>
-                                    <input id="acEx_Precio" name="acEx_Precio" placeholder="Precio" />
-                                    <span class="labelvalidator" id="labelvalidatorPrecio"></span>
+                                    <input id="acEx_Precio" name="AcEx_Precio" placeholder="Precio" />
                                 </div>
                                 <div class="required field">
                                     <label>Descripcion</label>
-                                    <input id="acEx_Descripcion" name="acEx_Descripcion" placeholder="Descripcion de la Actividad Extra" />
-                                    <span class="labelvalidator" id="labelvalidatorDescrip"></span>
+                                    <input id="acEx_Descripcion" name="AcEx_Descripcion" placeholder="Descripcion de la Actividad Extra" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">País</label>
+                                    <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                        <option value="">Seleccione un pais</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Ciudad</label>
+                                    <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Colonia</label>
+                                    <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Calle</label>
+                                    <input id="Calle" placeholder="Calle" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Avenida</label>
+                                    <input id="Avenida" placeholder="Avenida" />
                                 </div>
                             </div>
                         </div>
