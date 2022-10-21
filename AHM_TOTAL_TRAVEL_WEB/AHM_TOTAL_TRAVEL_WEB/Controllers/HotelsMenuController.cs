@@ -50,7 +50,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var type2 = await _restaurantServices.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
             ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
-            return View();
+            var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)type2.Data).CodeStatus;
+            if (l > 0)
+            {
+                return Redirect("~/HotelsMenu?success=true");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -119,7 +127,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.HoMe_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _hotelService.HotelsMenuUpdate(actividad, id, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/HotelsMenu?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -137,7 +153,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var list = await _hotelService.HotelsMenuDelete(actividad, id, token);
 
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/HotelsMenu?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

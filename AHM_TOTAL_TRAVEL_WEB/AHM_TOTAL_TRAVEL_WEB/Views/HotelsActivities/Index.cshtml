@@ -211,10 +211,9 @@
 
         function DeleteHotelsActivities(id) {
             const capsulaha = () => {
-                ajaxRequest("/HotelsActivities/Delete?id=" + id, null, "POST");
-                if (response > 0) {
+                ajaxRequest("/HotelsActivities/Delete?id=" + id, null, "POST")         
                     window.location.href = '/HotelsActivities?success=true';
-                }
+
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsulaha);

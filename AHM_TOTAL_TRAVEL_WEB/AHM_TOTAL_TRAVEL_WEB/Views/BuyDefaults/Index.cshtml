@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    
 
 }
 
@@ -24,6 +24,13 @@
         border-color: transparent;
         color: #19bdce;
     }
+    .in {
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 24px;
+        color: #818c8d;
+    }
+      
 </style>
 
 
@@ -41,7 +48,7 @@
                                 <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
                             </figure>
                             <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
-                            <p>@Html.DisplayFor(modelItem => item.Id)</p>
+ 
                             <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
                             <div class="price">
                                 <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
@@ -77,32 +84,36 @@
                 <div class="two fields">
                     <div class="field">
                         <h2 class="entry-title">Nombre</h2>
-                        <input id="Nombre" name="Nombre" placeholder="Nombre" readonly/>
+                        <label class="in" id="Nombre" name="Nombre" placeholder="Nombre"  ></label>
                     </div>
                     <div class="field">
                         <h2 class="entry-title">Descripcion</h2>
-                        <p>--</p>
+                        <label class="in" id="Descripcion" name="Descripcion" placeholder="Descripcion"></label>
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <h2 class="entry-title">Duracion</h2>
-                        <p>--</p>
+                        <label class="in" id="Duracion" name="Duracion" placeholder="Duracion"></label>
+                        
                     </div>
                     <div class="field">
                         <h2 class="entry-title">Hotel</h2>
-                        <p>--</p>
+                        <label class="in" id="Hotel" name="Hotel" placeholder="Hotel"></label>
+                      
                     </div>
 
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <h2 class="entry-title">Restaurante</h2>
-                        <p>--</p>
+                        <label class="in" id="Restaurante" name="Restaurante" placeholder="Restaurante"></label>
+                    
                     </div>
                     <div class="field">
                         <h2 class="entry-title">Precio</h2>
-                        <p>--</p>
+                        <label class="in" id="Precio" name="Precio" placeholder="Precio"></label>
+
                     </div>
 
                 </div>

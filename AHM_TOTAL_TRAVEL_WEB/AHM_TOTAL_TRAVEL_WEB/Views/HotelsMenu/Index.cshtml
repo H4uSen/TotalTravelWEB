@@ -76,7 +76,7 @@
                             <button class="ui large icon btn-edit button" id="UpdateBottomHotelsMenu" onclick="editar(@item.ID)">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </button>
-                            <button class="ui large icon negative button" onclick="Delete(@item.ID)">
+                            <button class="ui large icon negative button" onclick="Deletehm(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a href="@Url.Action("Details","HotelsMenu",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
@@ -181,6 +181,7 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const izziSuccess = params.get("success");
+
         if (izziSuccess == "true") {
             iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
         }
@@ -207,12 +208,11 @@
 
         //------------------------------------Funciones------------------------
 
-        function Delete(id) {
+        function Deletehm(id) {
             const capsulahm = () => {
-                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/HotelsMenu?success=true';
-                }
+                ajaxRequest("/HotelsMenu/Delete?id=" + id, null, "POST")
+                window.location.href = '/HotelsMenu?success=true';
+                
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsulahm);

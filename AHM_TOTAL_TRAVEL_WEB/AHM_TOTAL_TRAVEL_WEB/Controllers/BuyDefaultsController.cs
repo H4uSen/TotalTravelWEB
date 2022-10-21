@@ -12,11 +12,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class BuyDefaultsController : Controller
     {
         SaleServices _saleServices;
+        AccessService _accessService;
 
-
-        public BuyDefaultsController(SaleServices saleServices)
+        public BuyDefaultsController(SaleServices saleServices, AccessService accessService)
         {
-            _saleServices = saleServices;          
+            _saleServices = saleServices;
+            _accessService = accessService;
         }
 
         [HttpGet]
@@ -26,6 +27,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var model = new List<DefaultPackagesListViewModel>();
             var list = await _saleServices.DefaultPackagesList(token);
             return View(list.Data);
+        }
+
+        //[HttpGet]
+        public async Task<IActionResult> Compra(string id)
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var paquete = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
+            var iduser = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(iduser, token)).Data;
+
+            ViewData["Nombre"] = cuenta.Nombre;
+            ViewData["Apellido"] = cuenta.Apellido;
+            ViewData["DNI"] = cuenta.DNI;
+            ViewData["FechaNaci"] = cuenta.Fecha_Nacimiento;
+            ViewData["Correo"] = cuenta.Email;
+
+            return View(paquete);
         }
     }
 }

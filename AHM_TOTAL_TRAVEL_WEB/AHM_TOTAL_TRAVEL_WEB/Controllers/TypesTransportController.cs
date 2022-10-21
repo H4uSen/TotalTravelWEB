@@ -40,7 +40,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var id = HttpContext.User.FindFirst("User_Id").Value;
                 transporte.TiTr_UsuarioCreacion = int.Parse(id);
                 var list = await _transportService.TypesTransportCreate(transporte, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/TypesTransport?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -57,8 +65,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var list = await _transportService.TypesTransportDelete(transporte, id, token);
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/TypesTransport?success=true");
+                }
+                else
+                {
+                    return View();
+                }
 
-                return RedirectToAction("Index");
             }
             else
             {
