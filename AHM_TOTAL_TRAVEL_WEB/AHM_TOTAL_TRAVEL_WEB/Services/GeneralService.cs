@@ -135,6 +135,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+
+        public async Task<ServiceResult> CitiesFind(int City_ID, string Token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<CityListViewModel, CityListViewModel>(req => {
+                    req.Path = $"/API/Cities/Find?id={City_ID}";
+                    req.Content = null;
+                }, Token );
+
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
         #endregion
 
         #region Direccion

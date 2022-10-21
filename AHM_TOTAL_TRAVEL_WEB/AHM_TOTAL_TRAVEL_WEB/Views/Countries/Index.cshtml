@@ -38,14 +38,14 @@
                     <th>ISO</th>
                     <th>Código</th>
                     <th>País</th>
-                    <th>@Html.DisplayNameFor(model => model.Nacionalidad)</th>
+                    <th>Nacionalidad</th>
                     <th width="300px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr data-value="@item.ID">
+                 <tr data-value="@item.ID">
                     <td>
                         @Html.DisplayFor(modelItem => item.ISO)
                     </td>
@@ -70,7 +70,7 @@
                             <i class="bi bi-info-circle fa-lg icon-crud"></i>
                         </a>
                     </td>
-                </tr>
+                 </tr>
                 }
             </tbody>
         </table><br>
