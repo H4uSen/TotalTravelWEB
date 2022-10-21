@@ -36,14 +36,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var model = new List<ReservationExtraActivitiesViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
-            var reservasion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservasion.Data;
+            var reservacion = await _reservationService.ReservationList(token);
+            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservacion.Data;
             ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete");
 
+            var hotel = await _hotelsService.HotelsActivitiesList(token);
+            IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
+            ViewBag.Hote_ID = new SelectList(data_hotel, "ID_Hotel", "Hotel");
 
             var hotelactividad = await _hotelsService.HotelsActivitiesList(token);
-            IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotelactividad.Data;
-            ViewBag.AcEx_ID = new SelectList(data_hotel, "ID", "Actividad");
+            IEnumerable<HotelsActivitiesListViewModel> data_hotelactividad = (IEnumerable<HotelsActivitiesListViewModel>)hotelactividad.Data;
+            ViewBag.AcEx_ID = new SelectList(data_hotelactividad, "ID_Actividad", "Actividad");
 
 
 
@@ -88,11 +91,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var actividad = await _hotelsService.HotelsActivitiesList(token);
             IEnumerable<HotelsActivitiesListViewModel> data_actividad = (IEnumerable<HotelsActivitiesListViewModel>)actividad.Data;
-            ViewBag.AcEx_ID = new SelectList(data_actividad, "ID", "Actividad", element.ID_Actividad);
+            ViewBag.AcEx_ID = new SelectList(data_actividad, "ID", "Actividad");
+
+            var hotel = await _hotelsService.HotelsActivitiesList(token);
+            IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
+            ViewBag.Hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
             var reservacion = await _reservationService.ReservationList(token);
             IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete", element.ReservacionID);
+            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete");
 
             return View(item);
         }

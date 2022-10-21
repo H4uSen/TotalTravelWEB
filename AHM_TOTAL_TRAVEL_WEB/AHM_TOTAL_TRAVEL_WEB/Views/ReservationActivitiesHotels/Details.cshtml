@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationActivitiesHotelsListViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -12,11 +12,11 @@
                 <i class="fa-sharp fa-solid fa-a"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Detalles Reservacion Actividades Extras
+                        Detalles Reservación Actividades Hoteles
                     </div>
                 </div>
                 <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationActivitiesHotels")">
                         Regresar
                         <i class="left arrow icon"></i>
                     </a>
@@ -27,18 +27,21 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Cliente</label>
-                                @Html.DisplayFor(model => model.Reservacion)
+                                <label>ID Reservación</label>
+                                @Html.DisplayFor(model => model.ReservacionID)
 
                             </div>
-                            
+                            <div class="field">
+                                <label>Cliente</label>
+                                @Html.DisplayFor(model => model.Cliente)
+                            </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Actividad Extra</label>
-                                @Html.DisplayFor(model => model.Actividad_Extra)
+                                <label>Nombre Paquete</label>
+                                @Html.DisplayFor(model => model.Nombre)
 
                             </div>
                             <div class="field">
@@ -50,12 +53,12 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Fecha Reservacion</label>
+                                <label>Fecha Reservación</label>
                                 @Html.DisplayFor(model => model.Fecha_Reservacion)
 
                             </div>
                             <div class="field">
-                                <label>Hora Reservacion</label>
+                                <label>Hora Reservación</label>
                                 @Html.DisplayFor(model => model.Hora_Reservacion)
                             </div>
                         </div>
@@ -79,10 +82,10 @@
                             Fecha Creación
                         </th>
                         <th>
-                            Usuario modifica
+                            Usuario Modifica
                         </th>
                         <th>
-                            Fecha modifica
+                            Fecha Modifica
                         </th>
                     </tr>
                 </thead>
@@ -109,6 +112,64 @@
 </div>
 
 
-
-
- 
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReservacionID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReservacionID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID_Cliente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID_Cliente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cliente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID_Actividad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID_Actividad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha_Reservacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fecha_Reservacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Hora_Reservacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Hora_Reservacion)
+        </dd>*@
+        

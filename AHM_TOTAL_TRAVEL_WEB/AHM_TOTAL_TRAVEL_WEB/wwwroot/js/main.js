@@ -655,6 +655,5 @@
         dateConfig.datetime = `${dateConfig.date} a las ${dateConfig.time}`
         dateConfig.datetime_data = datetime;
 
-        console.log(dateConfig);
         return dateConfig;
     }

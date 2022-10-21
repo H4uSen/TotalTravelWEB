@@ -64,7 +64,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Update(int City_ID)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            // get current city data
+            CityListViewModel requestCity = 
+                    (CityListViewModel)(await _generalService.CitiesFind(City_ID, token)).Data;
 
+            // get list of suburbs
+            IEnumerable<SuburbsListViewModel> suburbsList = 
+                    (IEnumerable<SuburbsListViewModel>)(await _generalService.SuburbsList()).Data;
+
+            // fill contries dropdown
+            IEnumerable<CountriesListViewModel> countryList =
+                (IEnumerable<CountriesListViewModel>)(await _generalService.CountriesList()).Data;
+
+            ViewBag.CountriesList = new SelectList(countryList, "ID", "Pais", requestCity.PaisID);
+            ViewData["suburbsList"] = suburbsList.Where(suburb => suburb.CiudadID == City_ID).ToList();
+
+            return View(requestCity);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Update(CityViewModel city)

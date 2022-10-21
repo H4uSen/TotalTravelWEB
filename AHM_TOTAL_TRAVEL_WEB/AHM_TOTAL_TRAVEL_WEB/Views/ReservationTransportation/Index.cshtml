@@ -42,19 +42,19 @@
             <thead>
                 <tr>
                     <th>
-                        Capacidad
+                        Capacidad (Personas)
                     </th>
                     <th>
-                        Precio
+                        Precio (L)
                     </th>
                     <th>
-                        Reservacion
+                        Cliente
                     </th>
                     <th>
                         Asiento
                     </th>
                     <th>
-                        Cancelado
+                        Pagado
                     </th>
                     <th>
                         Fecha Cancelado
@@ -65,41 +65,50 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Capacidad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Precio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Reservacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Asientos)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cancelado)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fecha_Cancelado)
-                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Asientos)
+                    </td>
+                    <td>
+                        @{ if (item.Cancelado == true)
+                            {
+                                <span class="ui green label">Pagado</span>
+                            }
+                            else
+                            {
+                                <span class="ui red label">No Pagado</span>
+                            }
+                            }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha_Cancelado)
+                    </td>
 
 
-                        <td>
+                    <td>
 
-                            <a href="@Url.Action("Update","ReservationTransportation",new {  id=item.Id})" class="ui large icon btn-edit button">
-                                <i class="pencil alternate icon  icon-crud"></i>
-                            </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteReservacionTransporte('@item.Id')">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a href="@Url.Action("Details","ReservationTransportation",new {  id=item.Id})" class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        <a href="@Url.Action("Update","ReservationTransportation",new {  id=item.Id})" class="ui large icon btn-edit button">
+                            <i class="pencil alternate icon  icon-crud"></i>
+                        </a>
+                        <button class="ui large icon btn-delete button" onclick="DeleteReservacionTransporte('@item.Id')">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a href="@Url.Action("Details","ReservationTransportation",new {  id=item.Id})" class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table><br>
@@ -111,41 +120,8 @@
 
 @section Scripts{
 
-    <script src="~/js/ReservacionTransporte/Update.js"></script>
+    <script src="~/js/ReservacionTransporte/Delete.js"></script>
 
-    <script>
-        // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdReservationTransportation tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-
-            $("#grdReservationTransportation").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
-        $("#grdReservationTransportation").paginationTdA({
-            elemPerPage: 10
-        });
-
-        function DeleteReservacionTransporte(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("ReservationTransportation/Delete?id=" + id, null, "POST");
-
-                window.location.href = '/ReservationTransportation?success=true';
-            };
-
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
-        };
-    </script>
 }
 
 @section HighlightTile{
