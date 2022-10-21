@@ -41,9 +41,7 @@
         <table class="ui compact selectable celled table" id="grdReservationExtraActivities">
             <thead>
                 <tr>
-                    <th>
-                        Reservacion
-                    </th>
+                 
                     <th>
                         Clientes
                     </th>
@@ -67,9 +65,7 @@
                 {
                     <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Reservacion)
-                        </td>
+                     
                         <td>
                             @Html.DisplayFor(modelItem => item.Cliente)
                         </td>
@@ -111,46 +107,13 @@
 
 
 @section Scripts{
-    <script>
-        // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdReservationExtraActivities tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
 
-            $("#grdReservationExtraActivities").paginationTdA({
-                elemPerPage: 10
-            });
-        });
-
-        $("#grdReservationExtraActivities").paginationTdA({
-            elemPerPage: 10
-        });
+        <script src="~/js/ReservationActivitiesExtrasJS/Delete.js"></script>
 
 
-
-        function DeleteReservacionActividadesextras(id) {
-            const capsula1 = () => {
-                var response = ajaxRequest("ReservationExtraActivities/Delete?id=" + id, null, "POST");
-              
-                    window.location.href = '/ReservationExtraActivities?success=true';
-               
-            };
-
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
-
-        };
- 
-    </script>
 }
 
-    @section HighlightTile{
+@section HighlightTile{
     <script>
 
         $("#ReservationModule").addClass("active");
@@ -162,4 +125,4 @@
 
         $("#ReservationExtraActivitiesTile").addClass("activeTile");
     </script>
-    }
+}

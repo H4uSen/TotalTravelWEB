@@ -1,26 +1,37 @@
 ﻿/*/*RESERVACION RESTAURANTE*/
-
 $(".ui.dropdown").dropdown();
 
-getSchedule();
-function getSchedule() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/ReservationRestaurant/List");
 
-    if (response.code == 200) {
+const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
 
-        var hoTr = response.data;
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
 
-        ClearDropDownItem($('#HoTr_ID'));
-        $("#HoTr_ID").append(
-            `<option value="">Seleccione un horario. (required)</option>`
-        );
-        AddDropDownItem($('#HoTr_ID'), item = { value: "", text: "Seleccione un horario" });
-        for (var i = 0; i < hoTr.length; i++) {
-            var item = hoTr[i];
-            AddDropDownItem($('#HoTr_ID'), item = { value: item.id, text: item.ciudad_Salida + " - " + item.ciudad_Destino + "/ " + item.hora_Salida + "-" + item.hora_Llegada });
+
+
+function updateReservacionRestaurant() {
+
+ 
+        const ValidateArray = [
+            { validateMessage: "Seleccione una reservacion", Jqueryinput: $("#Resv_ID") },
+            { validateMessage: "Seleccione un restaurante", Jqueryinput: $("#Rest_ID") },
+            { validateMessage: "Ingrese una Fecha", Jqueryinput: $("#ReRe_FechaReservacion") },
+            { validateMessage: "Ingrese la Hora", Jqueryinput: $("#ReRe_HoraReservacion") },
+
+        ];
+        const userValidate = ValidateForm(ValidateArray);
+    if (userValidate)
+    {
+            $("#FrmReservationRestaurante").submit();
         }
+    
+    var response = ajaxRequest("ReservationRestaurant/Update?id=" + id, null, "PUT");
+        if (response.data.codeStatus > 0) {
+            window.location.href = '/ReservationRestaurant?success=true';
+        } else {
 
-        SetDropDownValue($('#HoTr_ID'), horarioID);
-        // $('#HoTr_ID').parent().find('.text').html('Seleccione un horario');
-    }
-};
+            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
+        }
+}
