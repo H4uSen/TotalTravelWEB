@@ -67,9 +67,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 reservationRestaurants.ReRe_UsuarioCreacion = 1;
                 var list = await _reservationService.RestaurantsReservationCreate(reservationRestaurants, token);
-                if (list.Success)
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
                 {
-                    return RedirectToAction("Index");
+                    return Redirect("~/ReservationRestaurant?success=true");
                 }
                 else
                 {
@@ -126,7 +127,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 reservacionrestaurante.ReRe_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _reservationService.RestaurantsReservationUpdate(reservacionrestaurante, id, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/ReservationRestaurant?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

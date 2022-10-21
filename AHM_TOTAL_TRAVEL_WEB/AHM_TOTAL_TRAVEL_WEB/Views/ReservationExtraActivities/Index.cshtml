@@ -41,7 +41,7 @@
         <table class="ui compact selectable celled table" id="grdReservationExtraActivities">
             <thead>
                 <tr>
-                 
+
                     <th>
                         Clientes
                     </th>
@@ -65,7 +65,7 @@
                 {
                     <tr>
 
-                     
+
                         <td>
                             @Html.DisplayFor(modelItem => item.Cliente)
                         </td>
@@ -108,9 +108,17 @@
 
 @section Scripts{
 
-        <script src="~/js/ReservationActivitiesExtrasJS/Delete.js"></script>
+    <script src="~/js/ReservationActivitiesExtrasJS/Delete.js"></script>
 
+    <script>
 
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+    </script>
 }
 
 @section HighlightTile{
