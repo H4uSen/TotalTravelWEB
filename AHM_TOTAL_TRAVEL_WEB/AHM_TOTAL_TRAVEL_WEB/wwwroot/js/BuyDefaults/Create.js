@@ -6,7 +6,12 @@ function editar(id) {
     var response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/Find?id=" + id);
     if (response.code == 200) {
         $("#id").val(id);
-        $("#Nombre").val(response.data.nombre);    
+        $("#Nombre").html(response.data.nombre);
+        $("#Descripcion").html(response.data.descripcion_Paquete);
+        $("#Duracion").html(response.data.duracion_Paquete);
+        $("#Hotel").html(response.data.hotel);
+        $("#Restaurante").html(response.data.restaurante);
+        $("#Precio").html(response.data.precio);
         $("#modalUpdate").modal("show");
     }
 }
