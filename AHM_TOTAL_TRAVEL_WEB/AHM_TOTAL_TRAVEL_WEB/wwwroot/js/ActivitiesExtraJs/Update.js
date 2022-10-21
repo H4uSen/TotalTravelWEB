@@ -10,9 +10,9 @@ $("#UpdateBottomActivities").click(() => {
     $("#modalUpdate").modal('show');
 });
 
+
 $(document).ready(async function () {
     await GetImage();
-
 });
 
 $("#Calle").val(Calle);
