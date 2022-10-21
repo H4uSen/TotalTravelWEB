@@ -21,10 +21,10 @@
 
 
 
-    <main class="content">
+    <div class="content back">
         <div class="slider">
             <ul class="slides">
-                <li style="background-image: url('https://images.ecestaticos.com/WonlqyJjfs3y3x_XilOtDSL00d8=/0x81:1440x890/1338x752/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fbdf%2Fd17%2F7ca%2Fbdfd177ca0879c1ae83cf48b430fe09d.jpg');">
+                <li class="imagen" style="background-image: url('https://images.ecestaticos.com/WonlqyJjfs3y3x_XilOtDSL00d8=/0x81:1440x890/1338x752/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fbdf%2Fd17%2F7ca%2Fbdfd177ca0879c1ae83cf48b430fe09d.jpg');">
 
                     <div class="container">
                         <div class="slide-caption col-md-4">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </li>
-                <li data-background="~/assets/dummy/offer-thumbnail-1.jpg">
+                <li class="imagen" style="background-image: url('https://www.isaacnewton.edu.ec/wp-content/uploads/2019/12/Viaje.jpg');">
                     <div class="container">
                         <div class="slide-caption col-md-4">
                             <h2 class="slide-title">Venenatis felis pulvinar ultrices</h2>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </li>
-                <li data-background="~/assets/dummy/offer-thumbnail-1.jpg">
+                <li class="imagen" style="background-image: url('https://www.bbva.com/wp-content/uploads/2017/12/billetes-avion-viajes-tarifas-comparacion-precios-ahorro-compra-vuelos-bbva-e1513873444593.jpg');">
                     <div class="container">
                         <div class="slide-caption col-md-4">
                             <h2 class="slide-title">Venenatis felis pulvinar ultrices</h2>
@@ -137,111 +137,55 @@
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row gy-4">
-                <!-- Trending Articles-->
-                <div class="col-lg-6">
-                    <div class="card mb-0">
-                        <div class="card-header position-relative">
-                            <div class="card-close">
-                                <div class="dropdown">
-                                    <button class="dropdown-toggle text-sm" type="button" id="closeCard1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1"><a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a><a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a></div>
-                                </div>
-                            </div>
-                            <h2 class="h3 mb-0 d-flex align-items-center">Hoteles en Tendencia<span class="badge rounded-pill bg-green ms-2 text-xs">4 New       </span></h2>
+        <div class="fullwidth-block testimonial-section">
+            <div class="container">
+                <h2 class="section-title">Testimonials</h2>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="testimonial wow fadeInUp">
+                            <figure class="avatar"><img src="dummy/person-1.jpg" alt=""></figure>
+                            <blockquote class="testimonial-body">
+                                <p>Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                                <cite>Jessica Tracy</cite>
+                                <span>Creative agency CEO</span>
+                            </blockquote>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="p-3 d-flex align-items-center">
-                                <img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="~/assets/img/hote1.jpg" alt="..." width="50">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#">
-                                        <h3 class="h5 fw-normal text-dark mb-0">Atlantic Hotel</h3>
-                                    </a><small class="text-gray-500">Posted on 5th June 2017 by Aria Smith.   </small>
-                                </div>
-                            </div>
-                            <div class="p-3 d-flex align-items-center bg-light">
-                                <img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="~/assets/img/hote2.png" alt="..." width="50">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#">
-                                        <h3 class="h5 fw-normal text-dark mb-0">Gran Hotel</h3>
-                                    </a><small class="text-gray-500">Posted on 5th June 2017 by Frank Williams.   </small>
-                                </div>
-                            </div>
-                            <div class="p-3 d-flex align-items-center">
-                                <img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="~/assets/img/hote3.png" alt="..." width="50">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#">
-                                        <h3 class="h5 fw-normal text-dark mb-0">Premium Hotel</h3>
-                                    </a><small class="text-gray-500">Posted on 5th June 2017 by Ashley Wood.   </small>
-                                </div>
-                            </div>
-                            <div class="p-3 d-flex align-items-center bg-light">
-                                <img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="~/assets/img/hote4.png" alt="..." width="50">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#">
-                                        <h3 class="h5 fw-normal text-dark mb-0">Overton Hotel</h3>
-                                    </a><small class="text-gray-500">Posted on 5th June 2017 by Jason Doe.   </small>
-                                </div>
-                            </div>
-                            <div class="p-3 d-flex align-items-center">
-                                <img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="~/assets/img/hote5.png" alt="..." width="50">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#">
-                                        <h3 class="h5 fw-normal text-dark mb-0">Rosemary Hotel</h3>
-                                    </a><small class="text-gray-500">Posted on 5th June 2017 by Sam Martinez.   </small>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="testimonial wow fadeInUp" data-wow-delay=".2s">
+                            <figure class="avatar"><img src="dummy/person-2.jpg" alt=""></figure>
+                            <blockquote class="testimonial-body">
+                                <p>Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                                <cite>John Smith</cite>
+                                <span>Traveler</span>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="testimonial wow fadeInUp" data-wow-delay=".4s">
+                            <figure class="avatar"><img src="dummy/person-3.jpg" alt=""></figure>
+                            <blockquote class="testimonial-body">
+                                <p>Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                                <cite>Susan Webb</cite>
+                                <span>Hairdresser</span>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="testimonial wow fadeInUp" data-wow-delay=".6s">
+                            <figure class="avatar"><img src="dummy/person-4.jpg" alt=""></figure>
+                            <blockquote class="testimonial-body">
+                                <p>Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                                <cite>Sarah Brown</cite>
+                                <span>Athlete</span>
+                            </blockquote>
                         </div>
                     </div>
                 </div>
-                <!-- Recent Activities -->
-                <div class="col-lg-6">
-                    <div class="card mb-0">
-                        <div class="card-header position-relative">
-                            <div class="card-close">
-                                <div class="dropdown">
-                                    <button class="dropdown-toggle text-sm" type="button" id="closeCard1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1"><a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a><a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a></div>
-                                </div>
-                            </div>
-                            <h3 class="h4 mb-0">Actividades Recreativas</h3>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="row g-0 border-bottom border-gray-200" style="height: 100px;">
-                                <div class="col-sm-4 col-3 text-end" style="background-image:url('assets/img/balneario.png'); background-size: 100%; ">
-                                    <ul class="list-inline mb-0">
-                                    </ul>
-                                </div>
-                                <div class="col-sm-8 col-9 border-start border-gray-200 p-3">
-                                    <h5 class="fw-normal">Balnearios</h5>
-                                    <p class="small mb-0 text-gray-600">Disfruta de nuestras albercas 100% sanitizadas, tenemos areas para todo tipo de publico</p>
-                                </div>
-                            </div>
-                            <div class="row g-0 border-bottom border-gray-200" style="height: 100px;">
-                                <div class="col-sm-4 col-3 text-end" style="background-image:url('assets/img/delfines.jpg'); background-size: 100%;">
-                                    <ul class="list-inline mb-0">
-                                    </ul>
-                                </div>
-                                <div class="col-sm-8 col-9 border-start border-gray-200 p-3">
-                                    <h5 class="fw-normal">Delfines</h5>
-                                    <p class="small mb-0 text-gray-600">Ven a ver a uno de los animales mas fantásticos y simpáticos que existen</p>
-                                </div>
-                            </div>
-                            <div class="row g-0 border-bottom border-gray-200" style="height: 100px;">
-                                <div class="col-sm-4 col-3 text-end" style="background-image:url('assets/img/sala de juegos.jpg'); background-size: 100%;">
-                                    <ul class="list-inline mb-0">
-                                    </ul>
-                                </div>
-                                <div class="col-sm-8 col-9 border-start border-gray-200 p-3">
-                                    <h5 class="fw-normal">Sala de Juegos</h5>
-                                    <p class="small mb-0 text-gray-600">Date una vuelta por la sala de juegos con tus amigos, diversión 100% aseguradas</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    </main> <!-- .content -->
+            </div>
+        </div>
+       
+    </div> <!-- .content -->
 
         <footer class="site-footer wow fadeInUp">
             <div class="footer-top">

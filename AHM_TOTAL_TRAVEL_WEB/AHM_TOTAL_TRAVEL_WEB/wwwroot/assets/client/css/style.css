@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Project_Name: Themezy Travel Theme
  * Author: Themezy
  * Email: info@themezy.com
@@ -7,6 +7,15 @@
 /*=========================================== 
  * Importing CSS Libraries
  *===========================================*/
+ 
+.imagen {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.back{
+    margin-top:-30px;
+}
 article,
 aside,
 details,

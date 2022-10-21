@@ -100,6 +100,11 @@
 @section Scripts{
     <script src="~/js/TypesTransport/Create.js"></script>
     <script>
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
         // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;

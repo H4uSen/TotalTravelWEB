@@ -2,278 +2,122 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="./style.css">
+<!-- Loading third party fonts -->
+<!-- Loading main css file -->
+<link rel="stylesheet" href="~/assets/client/css/animate.min.css">
+<link rel="stylesheet" href="~/assets/client/css/style.css">
 
-</head>
 <style>
-
-    /*PEN STYLES*/
-    .blog-card {
-        display: flex;
-        flex-direction: column;
-        margin: 1rem auto;
-        box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
-        margin-bottom: 1.6%;
-        background: #fff;
-        line-height: 1.4;
-        font-family: sans-serif;
-        border-radius: 5px;
-        overflow: hidden;
-        z-index: 0;
+    .carta {
     }
 
-        .blog-card a {
-            color: inherit;
+        .carta:hover {
+            background-color: #F8E8FF;
         }
 
-            .blog-card a:hover {
-                color: #5ad67d;
-            }
-
-        .blog-card .meta {
-            position: relative;
-            z-index: 0;
-            height: 200px;
-        }
-
-        .blog-card .photo {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.2s;
-        }
-
-        .blog-card .details,
-        .blog-card .details ul {
-            margin: auto;
-            padding: 0;
-            list-style: none;
-        }
-
-        .blog-card .details {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: -100%;
-            margin: auto;
-            transition: left 0.2s;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 10px;
-            width: 100%;
-            font-size: 0.9rem;
-        }
-
-            .blog-card .details a {
-                -webkit-text-decoration: dotted underline;
-                text-decoration: dotted underline;
-            }
-
-            .blog-card .details ul li {
-                display: inline-block;
-            }
-
-            .blog-card .details .author:before {
-                font-family: FontAwesome;
-                margin-right: 10px;
-                content: "";
-            }
-
-            .blog-card .details .date:before {
-                font-family: FontAwesome;
-                margin-right: 10px;
-                content: "";
-            }
-
-            .blog-card .details .tags ul:before {
-                font-family: FontAwesome;
-                content: "";
-                margin-right: 10px;
-            }
-
-            .blog-card .details .tags li {
-                margin-right: 2px;
-            }
-
-                .blog-card .details .tags li:first-child {
-                    margin-left: -4px;
-                }
-
-        .blog-card .description {
-            padding: 1rem;
-            background: #fff;
-            position: relative;
-            z-index: 1;
-        }
-
-            .blog-card .description h1,
-            .blog-card .description h2 {
-                font-family: Poppins, sans-serif;
-            }
-
-            .blog-card .description h1 {
-                line-height: 1;
-                margin: 0;
-                font-size: 1.7rem;
-            }
-
-            .blog-card .description h2 {
-                font-size: 1rem;
-                font-weight: 300;
-                text-transform: uppercase;
-                color: #a2a2a2;
-                margin-top: 5px;
-            }
-
-            .blog-card .description .read-more {
-                text-align: right;
-            }
-
-                .blog-card .description .read-more a {
-                    color: #5ad67d;
-                    display: inline-block;
-                    position: relative;
-                }
-
-                    .blog-card .description .read-more a:after {
-                        content: "";
-                        font-family: FontAwesome;
-                        margin-left: -10px;
-                        opacity: 0;
-                        vertical-align: middle;
-                        transition: margin 0.3s, opacity 0.3s;
-                    }
-
-                    .blog-card .description .read-more a:hover:after {
-                        margin-left: 5px;
-                        opacity: 1;
-                    }
-
-        .blog-card p {
-            position: relative;
-            margin: 1rem 0 0;
-        }
-
-            .blog-card p:first-of-type {
-                margin-top: 1.25rem;
-            }
-
-                .blog-card p:first-of-type:before {
-                    content: "";
-                    position: absolute;
-                    height: 5px;
-                    background: #5ad67d;
-                    width: 35px;
-                    top: -0.75rem;
-                    border-radius: 3px;
-                }
-
-        .blog-card:hover .details {
-            left: 0%;
-        }
-
-    @@media (min-width: 640px) {
-        .blog-card {
-            flex-direction: row;
-            max-width: 1000px;
-        }
-
-            .blog-card .meta {
-                flex-basis: 40%;
-                height: auto;
-            }
-
-            .blog-card .description {
-                flex-basis: 60%;
-            }
-
-                .blog-card .description:before {
-                    transform: skewX(-3deg);
-                    content: "";
-                    background: #fff;
-                    width: 30px;
-                    position: absolute;
-                    left: -10px;
-                    top: 0;
-                    bottom: 0;
-                    z-index: -1;
-                }
-
-            .blog-card.alt {
-                flex-direction: row-reverse;
-            }
-
-                .blog-card.alt .description:before {
-                    left: inherit;
-                    right: -10px;
-                    transform: skew(3deg);
-                }
-
-                .blog-card.alt .details {
-                    padding-left: 25px;
-                }
+    .bot {
+        background-color: transparent;
+        border-color: transparent;
+        color: #19bdce;
     }
 </style>
 
-@*<div class="ui grid two column stackable">
-        <div class="column">
-            <div class="blog-card">
-                <div class="meta">
-                    <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
-                </div>
-                <div class="description">
-                    <h1>Learning to Code</h1>
-                    <h2>Opening a door to the future</h2>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-                    <p class="read-more">
-                        <a href="#">Read More</a>
-                    </p>
-                </div>
+
+<div class="content">
+    <div class="fullwidth-block">
+        <div class="container">
+
+            <div class="filterable-items">
+                @foreach (var item in Model)
+                {
+
+                    <div class="filterable-item south-america ">
+                        <article class="offer-item">
+                            <figure class="featured-image">
+                                <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
+                            </figure>
+                            <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
+                            <p>@Html.DisplayFor(modelItem => item.Id)</p>
+                            <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
+                            <div class="price">
+                                <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
+                                <small>/<button class="bot" id="DetailsBottom" onclick="editar(@item.Id)">Ver detalles</button></small>
+
+                            </div>
+                        </article>
+                    </div>
+
+                }
             </div>
+
+            <div class="pagination wow fadeInUp">
+                <span class="page-numbers current">1</span>
+                <a href="#" class="page-numbers">2</a>
+                <a href="#" class="page-numbers">3</a>
+                <a href="#" class="page-numbers">4</a>
+            </div>
+
         </div>
-        <div class="column">
-            <div class="blog-card">
-                <div class="meta">
-                    <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
-                </div>
-                <div class="description">
-                    <h1>Learning to Code</h1>
-                    <h2>Opening a door to the future</h2>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-                    <p class="read-more">
-                        <a href="#">Read More</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>*@
-@foreach (var item in Model)
-{
-    <div class="column">
-        <div class="blog-card">
-            <div class="meta">
-                <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
-            </div>
-            <div class="description">
-                <h1>@Html.DisplayFor(modelItem => item.Nombre)</h1>
-                <h2>@Html.DisplayFor(modelItem => item.precio) L</h2>
-                <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
-                <p class="read-more">
-                    <a href="#">Ver Detalles</a>
-                </p>
-            </div>
-        </div>
+
     </div>
-}
-   
+</div>
+<div class="ui modal" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Detalles
+    </div>
+    <form asp-action="Update" asp-controller="HotelsMenu" id="updateForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <input id="id" style="display:none" />
+                <div class="two fields">
+                    <div class="field">
+                        <h2 class="entry-title">Nombre</h2>
+                        <input id="Nombre" name="Nombre" placeholder="Nombre" readonly/>
+                    </div>
+                    <div class="field">
+                        <h2 class="entry-title">Descripcion</h2>
+                        <p>--</p>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <h2 class="entry-title">Duracion</h2>
+                        <p>--</p>
+                    </div>
+                    <div class="field">
+                        <h2 class="entry-title">Hotel</h2>
+                        <p>--</p>
+                    </div>
+
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <h2 class="entry-title">Restaurante</h2>
+                        <p>--</p>
+                    </div>
+                    <div class="field">
+                        <h2 class="entry-title">Precio</h2>
+                        <p>--</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeMenu">Cerrar</button>
+        <button class="ui button" id="sendMenu" onclick="actualizar()">Hacer Reserva</button>
+    </div>
+</div>
+
+<script src="~/assets/client/js/jquery-1.11.1.min.js"></script>
+<script src="~/assets/client/js/min/plugins-min.js"></script>
+<script src="~/assets/client/js/min/app-min.js"></script>
+<script src="~/js/BuyDefaults/Create.js"></script>
+
