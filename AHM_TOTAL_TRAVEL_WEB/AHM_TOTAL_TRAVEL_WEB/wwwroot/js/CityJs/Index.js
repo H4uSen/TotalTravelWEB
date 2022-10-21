@@ -50,11 +50,9 @@ function SuburbsListDetails(idCiudad) {
 
                 Detail +=
                     `<a class="item">
-                    <h1 class="ui medium header">${colonia.colonia}</h1>
-                    <p>Ciudad: ${colonia.ciudad}</p>
-                    <p>Codigo de ciudad: COD-00${colonia.id}</p>
-                    <p>Creado el: ${fechaCreacion.datetime}</p>
-                </a>`;
+                        <h1 class="ui medium header">Colonia: ${colonia.colonia}</h1>
+                        <p>Creado el: ${fechaCreacion.datetime}</p>
+                    </a>`;
             }
 
             Detail +=

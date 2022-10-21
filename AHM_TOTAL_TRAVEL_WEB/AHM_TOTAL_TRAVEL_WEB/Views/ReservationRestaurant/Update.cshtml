@@ -29,9 +29,9 @@
                     <div class="content">
                         <div class="two fields">
                             <div class="required field">
-                                <label>Reservacion</label>
+                                <label>cliente</label>
                                 <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID" asp-for="Resv_ID">
-                                    <option value="">Seleccione una Reservacion</option>
+                                    <option value="">Seleccione un cliente</option>
                                 </select>
                             </div>
                             <div class="required field">
@@ -55,7 +55,7 @@
                         </div>
 
 
-                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                        <input @*id="updateReservacionRestaurant"*@ onclick="updateReservacionRestaurant()" type="button" value="Guardar" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "ReservationRestaurant")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
@@ -68,22 +68,7 @@
 
 @section Scripts{
 
-    <script>
-
-        $("#btnGuardar").click(() => {
-            const ValidateArray = [
-                { validateMessage: "Seleccione una reservacion", Jqueryinput: $("#Resv_ID") },
-                { validateMessage: "Seleccione un restaurante", Jqueryinput: $("#Rest_ID") },
-                { validateMessage: "Ingrese una Fecha", Jqueryinput: $("#ReRe_FechaReservacion") },
-                { validateMessage: "Ingrese la Hora", Jqueryinput: $("#ReRe_HoraReservacion") },
-
-            ];
-            const userValidate = ValidateForm(ValidateArray);
-            if (userValidate) {
-                $("#FrmReservationRestaurante").submit();
-            }
-        });
-    </script>
+    <script src="~/js/ReservationRestauranteJS/Update.js"></script>
 
 }
 

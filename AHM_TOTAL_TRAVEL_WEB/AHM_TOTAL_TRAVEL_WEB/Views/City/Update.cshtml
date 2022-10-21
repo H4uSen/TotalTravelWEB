@@ -1,40 +1,82 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CityViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CityListViewModel
 
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Update</h1>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon food"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar restaurante
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "City")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
 
-<h4>CityViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ciud_Descripcion" class="control-label"></label>
-                <input asp-for="ciud_Descripcion" class="form-control" />
-                <span asp-validation-for="ciud_Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <select id="pais_ID" name="pais_ID" class="ui dropdown search" asp-items="ViewBag.pais_ID">
-                </select>
-                <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorPais"></label>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Pais</label>
+                                    <select id="pais_ID" class="ui dropdown search" asp-items="ViewBag.CountriesList">
+                                        <option value="">Seleccione un partner</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Nombre de ciudad</label>
+                                    <input id="ciud_Descripcion" value="@Model.Ciudad" placeholder="Nombre de ciudad" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- suburbs table -->
+                        <table class="ui compact selectable celled table" id="grdCity">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                                <input type="button" value="Guardar" onclick="updateRestaurant()" class="btn btn-edit ui positive button" />
+                                <a type="button" href="@Url.Action("Index", "City")" class="ui button mb-3 ms-3">Cancelar</a>
+</div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
     </div>
 </div>
+@section Scripts{
+    <script>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        const folderName = '@ViewData["RestaurantFolder"]';
+        const restaurantID = '@ViewData["RestaurantID"]';
+        const countID = '@ViewData["PaisID"]';
+        const ciudID = '@ViewData["CiudadID"]';
+        const coloID = '@ViewData["ColoID"]';
+        const partID = '@ViewData["PartID"]';
+    </script>
+    <script src="~/js/RestaurantJs/Update.js"></script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

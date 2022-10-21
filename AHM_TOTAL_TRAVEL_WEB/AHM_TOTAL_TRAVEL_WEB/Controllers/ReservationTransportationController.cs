@@ -37,10 +37,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var model = new List<ReservationExtraActivitiesViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
-            var reservasion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservasion.Data;
-            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete");
-
+            var reservacion = await _reservationService.ReservationList(token);
+            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
+   
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
 
             var transporte = await _transportService.TransportDetailsList(token);
             IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
@@ -99,9 +100,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte", element.ID_detalle_Transporte);
 
 
+
             var reservacion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete", element.Reservacion);
+            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto", element.Reservacion);
+
 
             return View(item);
 
