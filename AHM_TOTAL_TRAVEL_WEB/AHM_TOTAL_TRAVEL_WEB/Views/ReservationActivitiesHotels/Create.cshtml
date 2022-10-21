@@ -32,17 +32,15 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label class="ui label">Reservacion</label>
+                                    <label class="ui label">Reservación</label>
                                     <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
                                         <option value="">Seleccione una reservación</option>
                                     </select>
                                 </div>
                                 <div class="required field">
-                                    <label>Cantidad</label>
+                                    <label class="ui label">Cantidad</label>
                                     <input id="ReAH_Cantidad" name="ReAE_Cantidad" placeholder="Cantidad" />
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -55,15 +53,15 @@
                                     </select>
                                 </div>
                                 <div class="required field">
-                                    <label>Fecha Reservacion</label>
+                                    <label class="ui label">Fecha Reservación</label>
                                     <input id="ReAE_FechaReservacion" name="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
                                 </div>
                             </div>
                         </div>
-                        <div class="two fields">
-                            <div class="required field">
+                        <div class="field">
+                            <div class="two fields">
                                 <div class="required field">
-                                    <label>Hora Reservacion</label>
+                                    <label class="ui label">Hora Reservación</label>
                                     <input id="ReAE_HoraReservacion" name="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
                                 </div>
                                 <div class="required field">
@@ -72,16 +70,16 @@
                                         <option value="">Selecciona un hotel</option>
                                     </select>
                                 </div>
+                            </div>
                         </div>
-                    </div>
-                        
+
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra" class="bbtn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "ReservationActivitiesHotels")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
-                </div>
+                    </div>
 
             </form>
             <!-- fin formulario-->

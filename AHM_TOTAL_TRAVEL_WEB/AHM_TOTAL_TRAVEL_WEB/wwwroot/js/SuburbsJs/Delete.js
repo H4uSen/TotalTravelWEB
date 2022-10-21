@@ -1,14 +1,14 @@
 ﻿
-const izziSuccess = FindGetValue("success");
+//const izziSuccess = FindGetValue("success");
 
-const City_ID = FindGetValue("City_ID");
-if (City_ID != null) {
-    fillSuburbs(City_ID);
-}
+//const City_ID = FindGetValue("City_ID");
+//if (City_ID != null) {
+//    fillSuburbs(City_ID);
+//}
 
-if (izziSuccess == "true") {
-    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
-}
+//if (izziSuccess == "true") {
+//    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+//}
 
 // ----------------------------------- EVENTS ------------------------------------
 

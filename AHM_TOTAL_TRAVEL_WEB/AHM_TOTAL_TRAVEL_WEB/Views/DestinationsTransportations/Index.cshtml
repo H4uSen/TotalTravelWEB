@@ -159,6 +159,13 @@
     }
 
 @section Scripts{
+    <script>
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+    </script>
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
     <script src="~/js/DestinationsTransportationsJs/Delete.js"></script>
 }

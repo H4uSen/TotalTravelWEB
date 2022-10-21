@@ -42,11 +42,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var hotel = await _hotelsService.HotelsActivitiesList(token);
             IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
-            ViewBag.Hote_ID = new SelectList(data_hotel, "ID_Hotel", "Hotel");
+            ViewBag.Hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
             var hotelactividad = await _hotelsService.HotelsActivitiesList(token);
             IEnumerable<HotelsActivitiesListViewModel> data_hotelactividad = (IEnumerable<HotelsActivitiesListViewModel>)hotelactividad.Data;
-            ViewBag.AcEx_ID = new SelectList(data_hotelactividad, "ID_Actividad", "Actividad");
+            ViewBag.AcEx_ID = new SelectList(data_hotelactividad, "ID", "Actividad");
 
 
 
