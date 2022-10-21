@@ -81,7 +81,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var partners = await _generalServices.PartnerTypeList();
             IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
             ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion", element.TipoPartner_Id);
-            ViewData["PartnersFolder"] = $"Images/UsersProfilePics/Partner-{element.ID}";
+            ViewData["PartnersFolder"] = $"UsersProfilePics/Partner-{element.ID}";
             ViewData["partnersID"] = element.ID;
 
 

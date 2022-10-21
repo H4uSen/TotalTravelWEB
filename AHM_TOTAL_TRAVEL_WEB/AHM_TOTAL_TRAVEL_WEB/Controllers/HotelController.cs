@@ -159,7 +159,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             string token = HttpContext.User.FindFirst("Token").Value;
             var hotel = (HotelListViewModel)(await _hotelService.HotelFind(id, token)).Data;
-
+            ViewData["HotelFolder"] = $"Hotels/Hotel-{id}/Place/Hotel_Images-{id}";
 
             return View(hotel);
         }
