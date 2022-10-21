@@ -99,6 +99,7 @@
 
 @section Scripts{
     <script>
+
         // ----------------------------------- EVENTS ------------------------------------
         $("#txtSearch").keyup(function () {
             _this = this;
@@ -121,11 +122,18 @@
         });
     </script>
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+
         function DeletePartners(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("Partners/Delete?id=" + id, null, "POST");
 
-                location.reload();
+                window.location.href = '/Partners?success=true';
 
             };
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);

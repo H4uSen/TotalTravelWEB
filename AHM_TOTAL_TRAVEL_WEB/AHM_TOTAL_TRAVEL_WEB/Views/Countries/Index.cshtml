@@ -174,10 +174,16 @@
     <script src="~/js/CountriesJS/Index.js"></script>
     <script src="~/js/CountriesJS/Countries.js"></script>
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
         function Delete(id) {
             const capsula1 = () => {
                 ajaxRequest("/Countries/Delete?id=" + id, null, "POST")
-                location.reload();
+                window.location.href = '/Countries?success=true';
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);

@@ -12,26 +12,40 @@ function createDefaultPackages() {
         { validateMessage: "Seleccione un hotel.", Jqueryinput: $("#hote_ID") },
         
     ];
+    validateArrayForm2 = [
+        { validateMessage: "Seleccione un restaurante.", Jqueryinput: $("#rest_ID") },
+        
+    ];
 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
-    const callback = function () {
-        var validate = false;
-        if ($("#checkResta").prop("checked") == true) {
-            if ($("#rest_ID").val() != 0) {
-                validate = true;
+    const ValidateFormStatus2 = ValidateForm(validateArrayForm2);
+  
+    //const callback = function () {
+    //    var validate = false;
+    //    if ($("#checkResta").prop("checked") == true) {
+    //        if ($("#rest_ID").val() != 0) {
+    //            validate = true;
 
-            }
-        }
-        return validate;
-    }
-    const restaurantvalidate = ManualValidateForm(
-        callback,
-        $("#rest_ID").parent(),
-        "Seleccione un restaurante"
-    )
+    //        }
+    //    }
+    //    return validate;
+    //}
+    //const restaurantvalidate = ManualValidateForm(
+    //    callback,
+    //    $("#restau").parent(),
+    //    "Seleccione un restaurante"
+    //)
     
-    if (ValidateFormStatus && restaurantvalidate) {
-        $("#frmCreateDefaultPackagues").submit();
+    if ($("#checkResta").prop("checked") == true) {
+        if (ValidateFormStatus && ValidateFormStatus2) {
+            $("#frmCreateDefaultPackagues").submit();
+        }
     }
+    else {
+        if (ValidateFormStatus) {
+            $("#frmCreateDefaultPackagues").submit();
+        }
+    }
+    
 
 }

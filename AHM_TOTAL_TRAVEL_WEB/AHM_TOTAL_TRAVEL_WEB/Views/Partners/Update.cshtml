@@ -25,7 +25,7 @@
             </div>
 
             <!-- formulario-->
-           <form asp-action="Update" asp-controller="Partners" id="frmUpdatePartners">
+            <form asp-action="Update" asp-controller="Partners" id="frmUpdatePartners">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
@@ -51,7 +51,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Teléfono</label>
-                                    <input asp-for="Part_Telefono" id="Telefono" placeholder="Telefono" />
+                                    <input asp-for="Part_Telefono"  id="Telefono" placeholder="Telefono" type="number"/>
                                 </div>
                                 <div class="required field">
                                     <label>Tipo de socio</label>
@@ -61,17 +61,47 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="field">
-                            <div class="required field">
-                                <label>Imagen</label>
-                                <input id="File" type="file" multiple />
+                        <div class="ui grid three column stackable mt-4">
+
+                            <div class="column">
+                                <label class="ui label">Imagenes en fila.</label>
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imagenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+
+
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="PartnersCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        
+
 
                         <input type="button" value="Guardar" onclick="updatePartners()" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "Partners")" class="ui button mb-3 ms-3">Cancelar</a>
-                        
+
                     </div>
                 </div>
 
@@ -81,7 +111,39 @@
     </div>
 </div>
 @section Scripts{
-    <script>const partnersID = '@ViewData["partnersID"]';</script>
+    <script>
+        $('.ui.checkbox').checkbox();
+        const campoNumerico = document.getElementById('Telefono');
+
+        campoNumerico.addEventListener('keydown', function (evento) {
+            const teclaPresionada = evento.key;
+            const teclaPresionadaEsUnNumero =
+                Number.isInteger(parseInt(teclaPresionada));
+
+            const sePresionoUnaTeclaNoAdmitida =
+                teclaPresionada != 'ArrowDown' &&
+                teclaPresionada != 'ArrowUp' &&
+                teclaPresionada != 'ArrowLeft' &&
+                teclaPresionada != 'ArrowRight' &&
+                teclaPresionada != 'Backspace' &&
+                teclaPresionada != 'Delete' &&
+                teclaPresionada != 'Enter' &&
+                !teclaPresionadaEsUnNumero;
+            const comienzaPorCero =
+                campoNumerico.value.length === 0 &&
+                teclaPresionada == 0;
+
+            if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+                evento.preventDefault();
+            }
+
+        });    
+    </script>
+    <script>
+        const folderName = '@ViewData["PartnersFolder"]';
+        const partnersID = '@ViewData["partnersID"]';
+
+    </script>
     <script src="~/js/PartnersJS/Update.js"></script>
 }
 @section HighlightTile{

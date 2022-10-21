@@ -64,7 +64,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 string token = HttpContext.User.FindFirst("Token").Value;              
                 var list = await _saleServices.DefaultPackagesCreate(actividad, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/DefaultPackages?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -116,7 +124,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.paqu_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _saleServices.DefaultPackagesUpdate(actividad, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l>0)
+                {
+                    return Redirect("~/DefaultPackages?success=true");
+                }
+                else
+                {
+                    return View();
+                }                
             }
             else
             {

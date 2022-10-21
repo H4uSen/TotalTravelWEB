@@ -39,7 +39,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.Pais_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.CountriesCreate(actividad, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/Countries?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -80,7 +88,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.CountriesUpdate(actividad, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/Countries?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

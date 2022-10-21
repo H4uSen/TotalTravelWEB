@@ -36,11 +36,11 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Nombre</label>
-                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />                                
+                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />
                                 </div>
                                 <div class="required field">
                                     <label>Descripción</label>
-                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />            
+                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="required field">
                                     <label>Duración</label>
-                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />                               
+                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -61,15 +61,15 @@
                                 <div class="required field">
                                     <label>¿Desea agregar restaurante?</label>
                                     <div class="field">
-                                        <div class="ui toggle checkbox" >
-                                            <input type="checkbox" id="checkResta" tabindex="0" checked>
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" id="checkResta" tabindex="0" class="hidden">
                                             <label>Si</label>
                                         </div>
                                     </div>
                                     <div class="required field" id="restau" hidden>
                                         <label>Restaurante</label>
                                         <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
-                                            <option value="0" >Seleccione un restaurante</option>
+                                            <option value="0" selected="selected">Seleccione un restaurante</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,14 +78,14 @@
                                     <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
-                                    <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorHotel"></span>
+
                                 </div>
                             </div>
-                        </div>
+                        </div>                      
 
                         <input type="button" value="Guardar" onclick="updateDefaultPackages()" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "DefaultPackages")" class="ui button mb-3 ms-3">Cancelar</a>
-                        
+
                     </div>
                 </div>
 
@@ -123,20 +123,24 @@
 
         });
 
-        if ($("#checkResta").prop("checked") == true) {
+       
+        if ($("#rest_ID").val() == 0) {
+            $("#restau").hide();
+            $("#checkResta").removeAttr("checked");            
+        }
+        else {           
             $("#restau").removeAttr('hidden');
             $("#restau").show();
-            
         }
+        
         $("#checkResta").change(function () {
             if ($("#checkResta").prop("checked") == true) {
                 $("#restau").removeAttr('hidden');
                 $("#restau").show();
-                SetDropDownPlaceholder($("#rest_ID"))
             }
             else {
                 $("#restau").hide();
-                SetDropDownPlaceholder($("#rest_ID"))
+                SetDropDownValue($("#rest_ID"), "0");
             }
         });
 
