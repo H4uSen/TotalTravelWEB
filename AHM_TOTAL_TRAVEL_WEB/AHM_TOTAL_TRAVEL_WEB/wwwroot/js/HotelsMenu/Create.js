@@ -1,4 +1,6 @@
-﻿$("#errorDiv").hide();
+﻿
+
+$("#errorDiv").hide();
 
 $('.ui.dropdown').dropdown();
 
@@ -36,7 +38,8 @@ function validar() {
         }
         var status = uploadFile("https://totaltravel.somee.com/API/HotelsMenu/Insert", data,"POST");
         if (status.code == 200) {
-            location.reload();
+            window.location.href = '/HotelsMenu?success=true';
+
         }
     }
 
@@ -78,7 +81,7 @@ function actualizar() {
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {
-                location.reload();
+                window.location.href = '/HotelsMenu?success=true';
             }
         }
         
