@@ -1,0 +1,403 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.DefaultPackagesListViewModel
+
+@{
+    ViewData["Title"] = "Comprar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="./style.css">*@
+</head>
+<style>
+    
+    .row > * {
+        max-width: 94%;
+    }
+        /*
+    .blog-card {
+        display: flex;
+        flex-direction: column;
+        margin: 1rem auto;
+        box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.6%;
+        background: #fff;
+        line-height: 1.4;
+        font-family: sans-serif;
+        border-radius: 5px;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+        .blog-card a {
+            color: inherit;
+        }
+
+            .blog-card a:hover {
+                color: #5ad67d;
+            }
+
+        .blog-card .meta {
+            position: relative;
+            z-index: 0;
+            height: 200px;
+        }
+
+        .blog-card .photo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.2s;
+        }
+
+        .blog-card .details,
+        .blog-card .details ul {
+            margin: auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .blog-card .details {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -100%;
+            margin: auto;
+            transition: left 0.2s;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+            .blog-card .details a {
+                -webkit-text-decoration: dotted underline;
+                text-decoration: dotted underline;
+            }
+
+            .blog-card .details ul li {
+                display: inline-block;
+            }
+
+            .blog-card .details .author:before {
+                font-family: FontAwesome;
+                margin-right: 10px;
+                content: "";
+            }
+
+            .blog-card .details .date:before {
+                font-family: FontAwesome;
+                margin-right: 10px;
+                content: "";
+            }
+
+            .blog-card .details .tags ul:before {
+                font-family: FontAwesome;
+                content: "";
+                margin-right: 10px;
+            }
+
+            .blog-card .details .tags li {
+                margin-right: 2px;
+            }
+
+                .blog-card .details .tags li:first-child {
+                    margin-left: -4px;
+                }
+
+        .blog-card .description {
+            padding: 1rem;
+            background: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+            .blog-card .description h1,
+            .blog-card .description h2 {
+                font-family: Poppins, sans-serif;
+            }
+
+            .blog-card .description h1 {
+                line-height: 1;
+                margin: 0;
+                font-size: 1.7rem;
+            }
+
+            .blog-card .description h2 {
+                font-size: 1rem;
+                font-weight: 300;
+                text-transform: uppercase;
+                color: #a2a2a2;
+                margin-top: 5px;
+            }
+
+            .blog-card .description .read-more {
+                text-align: right;
+            }
+
+                .blog-card .description .read-more a {
+                    color: #5ad67d;
+                    display: inline-block;
+                    position: relative;
+                }
+
+                    .blog-card .description .read-more a:after {
+                        content: "";
+                        font-family: FontAwesome;
+                        margin-left: -10px;
+                        opacity: 0;
+                        vertical-align: middle;
+                        transition: margin 0.3s, opacity 0.3s;
+                    }
+
+                    .blog-card .description .read-more a:hover:after {
+                        margin-left: 5px;
+                        opacity: 1;
+                    }
+
+        .blog-card p {
+            position: relative;
+            margin: 1rem 0 0;
+        }
+
+            .blog-card p:first-of-type {
+                margin-top: 1.25rem;
+            }
+
+                .blog-card p:first-of-type:before {
+                    content: "";
+                    position: absolute;
+                    height: 5px;
+                    background: #5ad67d;
+                    width: 35px;
+                    top: -0.75rem;
+                    border-radius: 3px;
+                }
+
+        .blog-card:hover .details {
+            left: 0%;
+        }
+
+    @@media (min-width: 640px) {
+        .blog-card {
+            flex-direction: row;
+            max-width: 1000px;
+        }
+
+            .blog-card .meta {
+                flex-basis: 40%;
+                height: auto;
+            }
+
+            .blog-card .description {
+                flex-basis: 60%;
+            }
+
+                .blog-card .description:before {
+                    transform: skewX(-3deg);
+                    content: "";
+                    background: #fff;
+                    width: 30px;
+                    position: absolute;
+                    left: -10px;
+                    top: 0;
+                    bottom: 0;
+                    z-index: -1;
+                }
+
+            .blog-card.alt {
+                flex-direction: row-reverse;
+            }
+
+                .blog-card.alt .description:before {
+                    left: inherit;
+                    right: -10px;
+                    transform: skew(3deg);
+                }
+
+                .blog-card.alt .details {
+                    padding-left: 25px;
+                }
+    }
+    */
+</style>
+
+@*<div class="column">
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
+        </div>
+        <div class="description">
+            <h1>@Html.DisplayFor(model => model.Nombre)</h1>
+            <h2>Duración: @Html.DisplayFor(model => model.Duracion_Paquete)</h2>
+            <h2>@Html.DisplayFor(model => model.precio) L</h2>
+            <p>@Html.DisplayFor(model => model.Descripcion_Paquete)</p>
+        </div>
+    </div>
+    <div class="ui form attached fluid segment" style="max-width:91%; margin:auto; top:0;">
+        <div class="content">
+            <div class="field">
+                <h3 class="ui horizontal divider header">
+                    <i class="folder open icon"></i>
+                    Datos Cliente
+                </h3>
+                <div class="two fields">
+                    <div class="field">
+                        <label class="label">Nombre</label>
+                        <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
+                    </div>
+                    <div class="field">
+                        <label class="label">DNI</label>
+                        <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div class="two fields">
+                    <div class="field">
+                        <label class="label">Teléfono</label>
+                        <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
+                    </div>
+                    <div class="field">
+                        <label class="label">E-mail</label>
+                        <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+<section class="forms">
+    <div class="container-fluid">
+        <h1 align="center">Datos cliente</h1>
+        <div class="row">
+            <!-- Basic Form-->
+            <div class="col-lg-4">
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h4 mb-0">Los datos de tu reserva</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="text-sm">Entrada<br><b>mar, 6 sep 2022</b><br>12:00 - 17:00</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-sm">Salida<br><b>mié, 7 sep 2022</b><br>A 13:00</p>
+                            </div>
+                            <hr>
+                            <p class="text-sm">Duración de la estancia:<br><b>@Html.DisplayFor(model => model.Duracion_Paquete)</b></p>
+                            <hr>
+                            <p class="text-sm">Tu selección:<br><b>Paquete @Html.DisplayFor(model => model.Nombre)</b></p>
+                            <p class="text-sm">Capacidad máxima<br><b>3 adultos</b></p>
+                            <div>
+                                <p class="text-md text-success"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANhJREFUSEvtlDEOgkAQRR8JCRYWexM5gh7Fylh5BOEGdpYeRY+gN9mCRmMiWQIGNyyzuNIYaGiG9zJ/hokY+YlG5jMJxISniKqI1Emp54NdsdG5nVlwRBX8zhlIeZEXW521JUGCDzjc4oSlXmv9E4EP3Ii+6sAX3iuYH1UWzzjYLQ+BOwUGTsQeuMYJq0YyFO4U1KALsGgkpvi9LY6Bdv3WzhnYkvrjlAFwcciWxNR3rmLfQRK3qCWha8+laycKmlNg3vZGSXAxIh+AVOPVgQQJmkEI/D8iKgHNW2kZYuGG4gAAAABJRU5ErkJggg==" /> ¡Esta opción encaja bien!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h4 mb-0">Desglose del precio</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <p class="text-sm">Habitación Doble<br>16% IVA</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-sm" align="right">HNL @Html.DisplayFor(model => model.precio) <br> HNL 160.00</p>
+                            </div>
+                            <div class="col-sm-7">
+                                <p class="text-md"><b>Subtotal:</b></p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-md" align="right"><b>HNL 1160.00</b></p>
+                            </div>
+                            <hr>
+                            <div>
+                                <p class="text-md text-danger"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAblJREFUSEu9VUFSg0AQ7OELwFl9QZIXxCfoC8zVjVWSlyQ5BI/qC4w/0BdIfpCcWZ4gYw0BaiELhGjcKg7A7PT0TG8v4cyLzpwfnQAr3584aTpmoiEAeWRFxBx9A+uHJHlvK7IRIHTdGwBzEF22smTeApipJFnb4qwAT667YKLHfMMOgLx/TOM4km8r3x8S8zWAAMBFHrdQWs/qIAcAteQzpfWijUHoeQIylxhiXt4nibyXqwKQtYXoTf4y0aiouEsIOaOvLI751mxXFcDzpJ9C2Vp56HksOZTWB8xLJsxblSRXRVFloKiFmJ8B7JTW1sG2AUjCsCjQYFEChL7/Aua7puq72pQD7OdB9KrieJLNpdgYep4oZNCn93VQYxaR0npUB2jsr1FE7xiTQe/NtrbV59SrRV1DNlq0UVpnttJryF0ApVStQy4OWU3HZhuOANifI5tMKzr+zUGrnaP/tQphYZodEwXTOF7+mdkViSqOyrxlxxFH/TTtGsCY0jQo7gubk1ZUVK8yd1ZJXPh9E5EdmINeF05FOaIux7kBs+h6kP/bgChCmq6bEh+46TFmdkpM56V/SlJzzw/RHRko+BZp2AAAAABJRU5ErkJggg==" /> No reembolsable</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h4 mb-0">Ingresa los siguientes datos</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nombre</label><label class="text-danger">*</label>
+                                    <input class="form-control" type="text" required value="@ViewData["Nombre"]">
+                                    <br>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Apellido</label><label class="text-danger">*</label>
+                                    <input class="form-control" type="text" required value="@ViewData["Apellido"]">
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="exampleInputEmail1">E-mail</label><label class="text-danger">*</label>
+                                <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" required value="@ViewData["Correo"]">
+                                <div class="form-text" id="emailHelp">El correo de confirmación se enviará a esta dirección.</div>
+                                <br>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">¿Para quién es la reserva?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Para mí
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Para otra persona
+                                    </label>
+                                </div>
+                                <br>
+                            </div>
+                            <div align="center" class="d-grid gap-2 col-4 mx-auto">
+                                <button class="btn btn-primary" type="submit">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!--<div>
+            <dd class = "col-sm-10">
+
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Hotel)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Restaurante)
+            </dd>
+
+    </div>-->
