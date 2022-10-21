@@ -50,6 +50,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? Id_UsuarioModifica { get; set; }
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
+
+        public string NombreCompleto { get; set; }
     }
 
 }

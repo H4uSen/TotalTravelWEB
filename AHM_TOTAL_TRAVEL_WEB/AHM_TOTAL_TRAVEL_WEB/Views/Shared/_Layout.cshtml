@@ -156,7 +156,7 @@
                             <a class="navbar-brand d-none d-sm-inline-block" href="@Url.Action("Index","Home")">
                                 <div class="brand-text d-none d-lg-inline-block img-fluid"><img src="~/assets/img/logo-AHM-Fondo-Morao.png" width="45px" height="45px" alt="imagen de logo"><span>Total</span><strong>Travel</strong></div>
                                 <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong><img src="~/assets/img/logo-AHM-Fondo-Morao.png" width="45px" height="45px" alt="imagen de logo"></strong></div>
-                            </a> 
+                            </a>
                             <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" onclick="sideBarState()" href="#"><span></span><span></span><span></span></a>
                         </div>
                         <!-- Navbar Menu -->
@@ -202,16 +202,33 @@
             <nav class="side-navbar">
                 <!-- Sidebar Header-->
                 <div class="sidebar-header d-flex align-items-center py-4 px-3">
-                    <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize"  asp-area="" asp-controller="Account" asp-action="Index" style="color: black; text-decoration: inherit;">
-                        <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;margin-left: 25%;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
-                    </a>
-                    
-                    <div class="ms-3 title">
 
-                        <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize" asp-area="" asp-controller="Account" asp-action="Index" style="color: black; text-decoration: inherit;">
-                            @Context.Session.GetString("Name")
-                        </a>
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="popButton">
+                        <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;margin-left: 25%;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
+                        <div class="ms-3 title">
+                            <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize" style="color: black; text-decoration: inherit;">
+                                @Context.Session.GetString("Name")
+                            </a>
+                        </div>
+                    </a>
+                    <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                        <div class="ui vertical menu">
+                            <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                <i class="bi bi-person"></i>
+                                <span>Mi Cuenta</span>
+                            </a>
+                            <a class="item" id="comprasb" asp-area="" asp-controller="Home" asp-action="PayHistory">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de compras</span>
+                            </a>
+                            <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
+                                <i class="bi bi-person"></i>
+                                <span>Historial de transacciones</span>
+                            </a>
+                        </div>
                     </div>
+
+
                     <!-- End Profile Image Icon -->
                 </div>
                 @{
@@ -247,11 +264,11 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="GeneralModule" href="#General_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo General
                                 </a>
                                 <ul class="collapse list-unstyled" id="General_Schema">
-                                    <li ><a id="CountriesTile" class="sidebar-link" href="@Url.Action("Index","Countries")">Países</a></li>
+                                    <li><a id="CountriesTile" class="sidebar-link" href="@Url.Action("Index","Countries")">Países</a></li>
                                     <li><a id="CitiesTile" class="sidebar-link" href="@Url.Action("Index","City")">Ciudades</a></li>
                                     <li><a id="SuburbsTile" class="sidebar-link" href="@Url.Action("Index","Suburbs")">Colonias</a></li>
                                     <li><a id="AddressTile" class="sidebar-link" href="@Url.Action("Index","Address")">Direcciones</a></li>
@@ -262,7 +279,7 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="RestaurantModule" href="#Restaurant_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo de Restaurantes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Restaurant_Schema">
@@ -274,7 +291,7 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="TransportModule" href="#Transport_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo de Transportes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Transport_Schema">
@@ -286,21 +303,21 @@
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item" >
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="ActivitiesModule" href="#Activity_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo de Actividades
                                 </a>
                                 <ul class="collapse list-unstyled" id="Activity_Schema">
                                     <li><a id="ActivitiesTile" class="sidebar-link" href="@Url.Action("Index","Activities")">Actividades</a></li>
                                     <li><a id="ActivitiesExtraTile" class="sidebar-link" href="@Url.Action("Index","ActivitiesExtra")">Actividades Extra</a></li>
-                                    <li><a id="TypeActivitiesTile"  class="sidebar-link" href="@Url.Action("Index","TypesActivities")">Tipos de Actividades</a></li>
+                                    <li><a id="TypeActivitiesTile" class="sidebar-link" href="@Url.Action("Index","TypesActivities")">Tipos de Actividades</a></li>
                                 </ul>
                             </li>
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo de Hoteles
                                 </a>
                                 <ul class="collapse list-unstyled" id="Hotels_Schema">
@@ -314,7 +331,7 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="SalesModule" href="#Sale_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo de Ventas
                                 </a>
                                 <ul class="collapse list-unstyled" id="Sale_Schema">
@@ -328,9 +345,9 @@
 
 
 
-                            <li class="sidebar-item" >
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" id="ReservationModule" href="#Reservation_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                                            
+
                                     Módulo de Reservaciones
                                 </a>
                                 <ul class="collapse list-unstyled" id="Reservation_Schema">
@@ -447,6 +464,7 @@
     <!-- Proyect files -->
     <script src="~/js/main.js"></script>
     <script src="~/assets/js/Layout.js"></script>
+    <script src="~/js/site.js"></script>
     <script src="~/js/JSON_Models.js"></script>
     @RenderSection("Scripts", required: false)
     @RenderSection("HighlightTile", required: false)
@@ -504,7 +522,7 @@
     <script type="text/javascript">
         /* <![CDATA[ */
         eval(function (p, a, c, k, e, r) { e = function (c) { return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!''.replace(/^/, String)) { while (c--) r[e(c)] = k[c] || e(c); k = [function (e) { return r[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]); return p }('6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}', 43, 43, '||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'.split('|'), 0, {}))
-                    /* ]]> */
+                        /* ]]> */
     </script>
 
 
