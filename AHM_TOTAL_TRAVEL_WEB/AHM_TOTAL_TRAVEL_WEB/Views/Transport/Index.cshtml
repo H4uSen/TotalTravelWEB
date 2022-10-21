@@ -94,23 +94,16 @@
 @section Scripts{
 
     <script>
-        // -------------------------------------- EVENTS ---------------------------------------
 
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#tabla tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
+        const success = FindGetValue("success");
 
-            $("#tabla").paginationTdA({
-                elemPerPage: 10
-            });
-        });
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+        TableSearchInput($("#txtSearch"), $("#tabla"), 10);
+
+        // -------------------------------------- EVENTS ---------------------------------------        
 
         $("#tabla").paginationTdA({
             elemPerPage: 10

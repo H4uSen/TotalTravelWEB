@@ -25,9 +25,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             var token = HttpContext.User.FindFirst("Token").Value;
             var list = await _transportService.TransportList();
-            //var direccion = (AddressListViewModel)(await _generalService.AddressFind(.ToString(), token)).Data;
-
-            //ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
+            
             return View(list.Data);
         }
 
@@ -42,6 +40,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var country = await _generalService.CountriesList();
             IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+            var suburb = await _generalService.SuburbsList();
+            IEnumerable<SuburbsListViewModel> data_Subu = (IEnumerable<SuburbsListViewModel>)suburb.Data;
+            ViewBag.City_ID = new SelectList(data_Subu, "ID", "Colonia");
 
             var partners = await _generalService.PartnersList();
             IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
@@ -91,7 +93,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Avenida"] = direccion.Avenida;
             ViewData["Pais"] = direccion.ID_Pais;
             ViewData["Ciudad"] = direccion.ID_Ciudad;
-            ViewData["Colonia"] = direccion.Colonia;
+            ViewData["Colonia"] = direccion.ID_Colonia;
             ViewData["Partner"] = tra.PartnerID;
             ViewData["TipoTransporte"] = tra.TipoTransporteID;
 

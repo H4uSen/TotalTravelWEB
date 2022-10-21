@@ -54,12 +54,11 @@
 
                         <div class="required field">
                             <label>Actualizar dirección</label>
-                            <div class="ui labeled input">
-                                <div class="ui label">
-                                    Colonia
-                                </div>
-                                <input type="text" id="Colonia" value="@ViewData["Colonia"]" />
-                            </div>
+                        </div>
+
+                        <div class="required field">
+                            <label class="ui label">Colonia</label>
+                            <select id="Subu_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
                         </div>
 
                         <div class="field">
@@ -120,6 +119,7 @@
         const Ciudad = "@ViewData["Ciudad"]";
         const Part_ID = "@ViewData["Partner"]";
         const TiTr_ID = "@ViewData["TipoTransporte"]";
+        const Subu_ID = "@ViewData["Colonia"]";
     </script>
 
     <script src="~/js/TransportJs/Update.js"></script>
