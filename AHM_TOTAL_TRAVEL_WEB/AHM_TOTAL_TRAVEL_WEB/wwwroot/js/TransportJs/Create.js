@@ -1,11 +1,14 @@
 ﻿$("#errorDiv").hide();
 
+var ciudadesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+
 $('.ui.dropdown').dropdown();
 
 function createTransport() {
 
     validateArrayForm = [
-        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Colonia") },
+        { validateMessage: "Seleccione una colonia.", Jqueryinput: $("#Subu_ID") },
         { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
         { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
@@ -15,33 +18,16 @@ function createTransport() {
     ];
     const validacion = ValidateForm(validateArrayForm);
     if (validacion) {
-
-        var coloStatus = false;
-        var colo = SuburbsViewModel;
-
-        colo.colo_Descripcion = ($("#Colonia").val());
-        colo.ciud_ID = parseInt($("#City_ID").val());
-        var responseSuburb = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/Insert", colo, "POST");
-        var ColoID;
-        if (responseSuburb.code == 200) {
-
-            ColoID = responseSuburb.data.codeStatus;
-            coloStatus = true;
-        } else {
-            console.log(responseSuburb)
-        }
-
-        if (coloStatus) {
+       
             var direStatus = false;
             var dire = AdressViewModel;
 
-            dire.colo_ID = parseInt(ColoID);
+            dire.colo_ID = parseInt($('#Subu_ID').val());
             dire.dire_Calle = ($("#Calle").val());
             dire.dire_Avenida = ($("#Avenida").val());
             var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
-
                 DireID = responseAddress.data.codeStatus;
                 direStatus = true;
             } else {
@@ -60,7 +46,7 @@ function createTransport() {
 
             if (response.code == 200) {
                 if (response.data.codeStatus > 0) {
-                    window.location.href = '/Transport';
+                    window.location.href = '/Transport?success=true';
                 } else {
                     $("#errorDiv").show();
                     $("#errorDiv p").html(response.data.messageStatus);
@@ -70,28 +56,64 @@ function createTransport() {
         } else {
             $("#labelvalidatorError").html("Se han enviado parámetros incorrectos en los campos de dirección.");
         }
-    }
+    
 }
 
 
-$("#Count_ID").change(function () {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-    if (response.code == 200) {
+$('#Count_ID').change(function () {
+
+    if (ciudadesList.code == 200) {
         var Count_ID = $('#Count_ID').val();
-        var cities = response.data;
-        var cityFilter = jQuery.grep(cities, function (City, i) {
-            return City.paisID == Count_ID;
+        var cities = ciudadesList.data;
+        cities = jQuery.grep(cities, function (city, i) {
+            return city.paisID == Count_ID;
         });
-        //ClearDropDownItem($('#City_ID'));
-        if (cityFilter.length > 0) {
-            SetDropDownPlaceholder($('#City_ID'), "Seleccione una ciudad.");
-            for (var i = 0; i < cityFilter.length; i++) {
-                var item = cityFilter[i];
-                AddDropDownItem($('#City_ID'), item = { value: item.id, text: item.ciudad });
-            }
-            $('#City_ID').parent().find('.text').html('Seleccione una ciudad');
-        } else {
-            SetDropDownPlaceholder($('#City_ID'), "No hay ciudades disponibles.");
+        const dropdownData = {
+            dropdown: $("#City_ID"),
+            items: {
+                list: cities,
+                valueData: "id",
+                textData: "ciudad"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
         }
+
+        FillDropDown(dropdownData);
+        $("#City_ID").dropdown();
+
+        $("#City_ID").change((_this) => {
+            const City_Id = $(_this.target).val();
+            RellenarColonias(City_Id);
+        });
     }
 });
+
+function RellenarColonias(City_Id) {
+
+    if (coloniasList.code == 200) {
+
+        var colonias = coloniasList.data;
+        colonias = jQuery.grep(colonias, function (colonia, i) {
+            return colonia.ciudadID == City_Id;
+        });
+        const dropdownData = {
+            dropdown: $("#Subu_ID"),
+            items: {
+                list: colonias,
+                valueData: "id",
+                textData: "colonia"
+            },
+            placeholder: {
+                empty: "No se encontraron colonias disponibles",
+                default: "Seleccione una colonia",
+            },
+            semantic: true
+        }
+        FillDropDown(dropdownData);
+        $("#Subu_ID").dropdown();
+    }
+}
