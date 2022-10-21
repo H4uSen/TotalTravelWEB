@@ -100,9 +100,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte", element.ID_detalle_Transporte);
 
 
+
             var reservacion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservacion.Data;
+            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
             ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto", element.Reservacion);
+
 
             return View(item);
 

@@ -80,7 +80,16 @@
                         @Html.DisplayFor(modelItem => item.Asientos)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Cancelado)
+                        @{ if (item.Cancelado == true)
+                            {
+                                <span class="ui green label">Pagado</span>
+                            }
+                            else
+                            {
+                                <span class="ui red label">No Pagado</span>
+                            }
+                            }
+
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Fecha_Cancelado)
