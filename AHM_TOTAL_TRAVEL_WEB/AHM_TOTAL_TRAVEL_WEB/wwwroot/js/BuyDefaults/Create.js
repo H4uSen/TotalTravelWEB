@@ -12,7 +12,11 @@ function editar(id) {
         $("#Hotel").html(response.data.hotel);
         $("#Restaurante").html(response.data.restaurante);
         $("#Precio").html(response.data.precio);
+        $("#sendMenu").prop("href", "BuyDefaults/Compra?id="+id);
         $("#modalUpdate").modal("show");
+    }
+    else {
+        console.log(response);
     }
 }
 

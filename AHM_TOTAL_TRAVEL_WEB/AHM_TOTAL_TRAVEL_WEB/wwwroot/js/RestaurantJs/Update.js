@@ -11,7 +11,6 @@ SetDropDownValue($("#Col_ID"), coloID);
 
 $(document).ready(async function () {
     await GetImage();
-   
 });
 
 function GetCitiesUpdate(paisID) {
@@ -155,7 +154,7 @@ function deleteImage(index) {
 function updateRestaurant() {
 
     validateArrayForm = [
-        { validateMessage: "Ingrese una colonia.", Jqueryinput: $("#Col_ID") },
+        { validateMessage: "Seleccione una colonia.", Jqueryinput: $("#Col_ID") },
         { validateMessage: "Ingrese una calle.", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenida.", Jqueryinput: $("#Avenida") },
         { validateMessage: "Seleccione un país.", Jqueryinput: $("#Count_ID") },
