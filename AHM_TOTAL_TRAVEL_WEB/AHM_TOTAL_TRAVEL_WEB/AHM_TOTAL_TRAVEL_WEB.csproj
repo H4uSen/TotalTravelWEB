@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Views\NewFolder\" />
-    <Folder Include="wwwroot\js\ReservationActivitiesHotelsJs\" />
   </ItemGroup>
 
 </Project>
