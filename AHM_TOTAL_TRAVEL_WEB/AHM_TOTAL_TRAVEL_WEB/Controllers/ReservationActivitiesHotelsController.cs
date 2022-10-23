@@ -65,7 +65,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 reserva.ReAH_UsuarioCreacion = int.Parse(id);
                 var list = await _reservationService.ReservationActivitiesHotelsCreate(reserva, token);
 
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                var l = ((RequestStatus)list.Data).CodeStatus;
                 if (l > 0)
                 {
                     return Redirect("~/ReservationActivitiesHotels?success=true");
