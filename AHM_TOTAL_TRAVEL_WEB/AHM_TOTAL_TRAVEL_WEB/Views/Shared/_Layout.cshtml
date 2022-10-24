@@ -404,7 +404,25 @@
                     }
                     if (usersRole == "Moderador de Hotel")
                     {
+                        <!-- Sidebar Navigation Menus-->
+                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                            Modulo Hoteles
+                        </span>
 
+                        <ul class="list-unstyled py-4">
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+
+                               Hoteles
+                                </a>
+                                <ul class="collapse list-unstyled" id="Hotels_Schema">
+                                    <li><a id="HotelsTile" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
+                                    
+                                </ul>
+                            </li>
+
+                        </ul>
                     }
                     if (usersRole == "Moderador de Transporte")
                     {
