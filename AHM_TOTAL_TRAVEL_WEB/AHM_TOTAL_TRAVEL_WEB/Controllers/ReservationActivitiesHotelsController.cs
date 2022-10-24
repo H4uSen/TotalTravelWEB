@@ -25,7 +25,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
 
-            var model = new List<ReservationExtraActivitiesListViewModel>();
+            var model = new List<ReservationActivitiesHotelsListViewModel>();
             var list = await _reservationService.ReservationActivitiesHotelsList(token);
             return View(list.Data);
         }
@@ -33,7 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<ReservationExtraActivitiesViewModel>();
+            var model = new List<ReservationActivitiesHotelsViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var reservacion = await _reservationService.ReservationList(token);
@@ -41,9 +41,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
             ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
 
-            var hotel = await _hotelsService.HotelsActivitiesList(token);
-            IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
-            ViewBag.Hote_ID = new SelectList(data_hotel, "ID", "Hotel");
+            //var hotel = await _hotelsService.HotelsActivitiesList(token);
+            //IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
+            //ViewBag.Hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
             var hotelactividad = await _hotelsService.HotelsActivitiesList(token);
             IEnumerable<HotelsActivitiesListViewModel> data_hotelactividad = (IEnumerable<HotelsActivitiesListViewModel>)hotelactividad.Data;

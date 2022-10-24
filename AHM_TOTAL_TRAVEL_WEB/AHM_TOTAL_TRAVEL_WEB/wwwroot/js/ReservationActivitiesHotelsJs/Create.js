@@ -9,23 +9,19 @@ $("#enviar").click(() => {
 function CreatesReservationActivitiesHotels() {
 
 
-    const userValidateArray = [
+    validateArrayForm = [
         { validateMessage: "Required field: 'Seleccione una reservacion'", Jqueryinput: $("#Resv_ID") },
         { validateMessage: "Required field: 'Ingrese una cantidad' ", Jqueryinput: $("#ReAH_Cantidad") },
         { validateMessage: "Required field: 'Seleccione una actividad' ", Jqueryinput: $("#AcEx_ID") },
         { validateMessage: "Required field: 'Ingrese la fecha' ", Jqueryinput: $("#ReAH_FechaReservacion") },
-        { validateMessage: "Required field: 'Ingrese la hora' ", Jqueryinput: $("#ReAH_HoraReservacion") },
+        { validateMessage: "Required field: 'Ingrese la hora' ", Jqueryinput: $("#ReAH_HoraReservacion") }
 
     ];
 
-    const ReservacionActividadHotelValidate = ValidateForm(userValidateArray);
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
 
-
-
-    if (ReservacionActividadHotelValidate) {
-
-        $('#CreateReservationActivitiesHotels').submit()
-
+    if (ValidateFormStatus) {
+        $('#CreateReservationActivitiesHotels').submit();
     }
 
 
