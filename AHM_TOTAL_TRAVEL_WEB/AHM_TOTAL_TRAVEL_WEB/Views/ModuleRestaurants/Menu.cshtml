@@ -51,7 +51,7 @@
 }
 
     <div class="titulo">
-        <h1>Menús menús menús</h1>
+        <h1>Tipo de menú que será</h1>
     </div>
     <div class="ui clearing segment">
         <div class="ui grid">
@@ -128,7 +128,7 @@
             <div class="ui special card">
                 <div class="content">
                     <div class="right floated meta">
-                        <a><i class="ellipsis vertical icon"></i></a>
+                        <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
                     </div>
                     Nombre menú
                 </div>
@@ -182,7 +182,9 @@
             <div class="ui card" id="esconder">
                 <div class="blurring dimmable image">
                     <img src="https://avalos.sv/wp-content/uploads/default-featured-image.png" />
-                    <input type="file" />
+                    <div class="field">
+                        <input type="file" />
+                    </div>
                 </div>
                 <div class="content">
                     <div class="ui form">
@@ -247,7 +249,7 @@
             //        window.location.href = '/Menu?success=true';
             //    }
             //};
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning");
+            sweetAlertconfirm("¿Seguro de eliminar este menú?", "Este menú se borrará permanentemente.", "warning");
         };
     </script>
 }
