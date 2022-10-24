@@ -1,0 +1,200 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.DefaultPackagesListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/assets/client/css/animate.min.css">
+<link rel="stylesheet" href="~/assets/client/css/style.css">
+<div id="site-content">
+    <div class="fullwidth-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 wow fadeInLeft">
+                    <h2 class="section-title">@Html.DisplayFor(model => model.Nombre)</h2>
+                    <figure>
+                        <img src="~/assets/dummy/figure-1.jpg" alt="">
+                    </figure>
+
+                    <p>@Html.DisplayFor(model => model.Descripcion_Paquete)</p>
+                    <hr>
+                    <p>@Html.DisplayFor(model => model.Duracion_Paquete)</p>
+                    <hr>
+                    <p>@Html.DisplayFor(model => model.precio)</p>
+
+
+
+                </div>
+                <div class="col-md-4 col-md-push-1 wow fadeInRight">
+                    <h2 class="section-title">Actividades</h2>
+                    <hr>
+                    <ol class="circle-list" id="actividades(idm)">
+                        <li>Transformed into the incredibly powerful creature called the Hulk</li>
+                        <li>A gamma bomb explosion while trying to save the life of a teenager</li>
+                        <li>Featuring the work of Kurt Busiek, George Perez and other quintessential</li>
+                    </ol>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="fullwidth-block" data-bg-color="#f1f1f1">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4 wow fadeInUp">
+                    <h2 class="section-title">Hotel</h2>
+                    <figure class="team-image">
+                        <img src="~/assets/dummy/figure-1.jpg" alt="">
+                    </figure>
+                    <p>@Html.DisplayFor(model => model.Hotel)</p>
+                    <p>@Html.DisplayFor(model => model.Descripcion_Hotel)</p>
+
+                </div>
+                <div class="col-md-4 wow fadeInUp" data-wow-delay=".2s">
+                    <h2 class="section-title">Restaurante</h2>
+                    <figure class="team-image">
+                        <img src="~/assets/dummy/figure-1.jpg" alt="">
+                    </figure>
+                    <p>@Html.DisplayFor(model => model.Restaurante)</p>
+                    <p>Descripcion Restaurante</p>
+
+                </div>
+                <div class="col-md-4 wow fadeInUp" data-wow-delay=".4s">
+                    <p> @Html.DisplayFor(model => model.precio) LPS</p>
+                    <a href="#" class="boxed-link" onclick="Deletehm(idm)">Hacer Reserva</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="~/assets/client/js/jquery-1.11.1.min.js"></script>
+<script src="~/assets/client/js/min/plugins-min.js"></script>
+<script src="~/assets/client/js/min/app-min.js"></script>
+<script src="~/js/main.js"></script>
+<script src="~/js/BuyDefaults/Create.js"></script>
+<script>
+    var idm =@Html.DisplayNameFor(model => model.Id) ;
+</script>
+
+@*<h1>Details</h1>
+
+    <div>
+        <h4>DefaultPackagesListViewModel</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Descripcion_Paquete)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Descripcion_Paquete)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Duracion_Paquete)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Duracion_Paquete)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.precio)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.precio)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ID_Hotel)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ID_Hotel)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Hotel)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Hotel)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Descripcion_Hotel)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Descripcion_Hotel)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ID_Restaurante)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ID_Restaurante)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Restaurante)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Restaurante)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ID_Usuario_Creacion)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ID_Usuario_Creacion)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Usuario_Creacion)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Usuario_Creacion)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Fecha_Creacion)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Fecha_Creacion)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ID_Usuario_Modifica)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ID_Usuario_Modifica)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Usuario_Modifica)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Usuario_Modifica)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Fecha_Modifcia)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Fecha_Modifcia)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

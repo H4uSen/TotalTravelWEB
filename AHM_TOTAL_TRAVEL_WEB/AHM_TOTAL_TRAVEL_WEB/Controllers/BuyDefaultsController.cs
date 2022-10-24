@@ -45,5 +45,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View(paquete);
         }
+        public async Task<IActionResult> Details(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
+            return View(detalle);
+        }
+        public async Task<IActionResult> Comprar(string id)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var detalle = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
+            return View(detalle);
+        }
     }
 }

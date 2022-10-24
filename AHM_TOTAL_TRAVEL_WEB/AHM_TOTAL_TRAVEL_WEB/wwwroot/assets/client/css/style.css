@@ -7,7 +7,15 @@
 /*=========================================== 
  * Importing CSS Libraries
  *===========================================*/
- 
+div.avatar {
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    background-size: cover;
+}
 .imagen {
     background-position: center;
     background-repeat: no-repeat;
@@ -548,13 +556,7 @@ table {
   border-radius: 5px;
   text-align: center;
 }
-.testimonial .avatar {
-  width: 98px;
-  height: 98px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto 20px;
-}
+
 .testimonial blockquote {
   margin: 0;
   padding: 0;

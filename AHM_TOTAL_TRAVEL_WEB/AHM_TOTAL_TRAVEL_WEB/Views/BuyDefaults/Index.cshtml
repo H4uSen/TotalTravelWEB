@@ -23,6 +23,7 @@
         background-color: transparent;
         border-color: transparent;
         color: #19bdce;
+        text-decoration: none;
     }
     .in {
         font-weight: 300;
@@ -52,7 +53,7 @@
                             <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
                             <div class="price">
                                 <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
-                                <small>/<button class="bot" id="DetailsBottom" onclick="editar(@item.Id)">Ver detalles</button></small>
+                                <small>/<a class="bot"  href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
 
                             </div>
                         </article>
@@ -80,7 +81,7 @@
     <form asp-action="Update" asp-controller="HotelsMenu" id="updateForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <input id="id" style="display:none" />
+                <input id="ID" style="display:none" />
                 <div class="two fields">
                     <div class="field">
                         <h2 class="entry-title">Nombre</h2>
@@ -123,7 +124,8 @@
     </form>
     <div class="actions">
         <button class="ui button" id="closeMenu">Cerrar</button>
-        <button class="ui button" id="sendMenu" onclick="actualizar()">Hacer Reserva</button>
+
+        @*<a class="ui button" id="sendMenu"   href="@Url.Action("Details","DefaultPackages", new { id=item.Id })>Hacer Reserva</a>*@
     </div>
 </div>
 
