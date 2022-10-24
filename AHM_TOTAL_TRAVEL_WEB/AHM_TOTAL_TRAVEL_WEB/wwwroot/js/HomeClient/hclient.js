@@ -5,6 +5,9 @@ function package() {
         "https://totaltravel.somee.com/API/DefaultPackages/List",
         null, "GET", false
     );
+    $("#loaderAnimation").hide();
+    //jQuery.grep(request.data, function (item,i) {
+    //return item.})
     $("#paquetes").empty();
     for (var i = 0; i <= 3; i++) {
         const package = request.data[i];

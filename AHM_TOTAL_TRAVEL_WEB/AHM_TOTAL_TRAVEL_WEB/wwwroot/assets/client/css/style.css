@@ -7,6 +7,20 @@
 /*=========================================== 
  * Importing CSS Libraries
  *===========================================*/
+.space {
+    font-size: 36px;
+    font-size: 2.25em;
+    font-weight: 300;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.spacep {
+    margin-bottom: 50px;
+}
+.link{
+    text-decoration:none;
+    color:#652D90;
+}
 div.avatar {
     height: 100px;
     width: 100px;
@@ -23,6 +37,9 @@ div.avatar {
 }
 .back{
     margin-top:-30px;
+}
+.btn{
+    background-color:;
 }
 article,
 aside,
@@ -2319,7 +2336,7 @@ body {
 }
 .slider .slides li .slide-title {
   font-size: 36px;
-  font-size: 2.25em;
+  font-size: 3.25em;
   font-weight: 100;
   line-height: normal;
   margin: 0 0 20px;

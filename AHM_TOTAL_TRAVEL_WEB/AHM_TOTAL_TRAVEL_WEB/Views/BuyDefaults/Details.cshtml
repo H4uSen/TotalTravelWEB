@@ -29,9 +29,9 @@
                     <h2 class="section-title">Actividades</h2>
                     <hr>
                     <ol class="circle-list" id="actividades(idm)">
-                        <li>Transformed into the incredibly powerful creature called the Hulk</li>
-                        <li>A gamma bomb explosion while trying to save the life of a teenager</li>
-                        <li>Featuring the work of Kurt Busiek, George Perez and other quintessential</li>
+                        <li>ejemplo 1</li>
+                        <li>ejemplo 2</li>
+                        <li>ejemplo 3</li>
                     </ol>
 
 
@@ -64,9 +64,8 @@
                     <p>Descripcion Restaurante</p>
 
                 </div>
-                <div class="col-md-4 wow fadeInUp" data-wow-delay=".4s">
-                    <p> @Html.DisplayFor(model => model.precio) LPS</p>
-                    <a href="#" class="boxed-link" onclick="Deletehm(idm)">Hacer Reserva</a>
+                <div class="col-md-4 wow fadeInUp" data-wow-delay=".4s">                  
+                    <a  class="boxed-link" href="@Url.Action("Compra", "BuyDefaults", new { id=Model.Id })">Hacer Reserva</a>
 
                 </div>
             </div>
@@ -75,14 +74,16 @@
 
 
 </div>
-<script src="~/assets/client/js/jquery-1.11.1.min.js"></script>
-<script src="~/assets/client/js/min/plugins-min.js"></script>
-<script src="~/assets/client/js/min/app-min.js"></script>
-<script src="~/js/main.js"></script>
-<script src="~/js/BuyDefaults/Create.js"></script>
-<script>
-    var idm =@Html.DisplayNameFor(model => model.Id) ;
-</script>
+
+
+@section Scripts
+{
+    <script src="~/assets/client/js/min/plugins-min.js"></script>
+    <script src="~/assets/client/js/min/app-min.js"></script>
+
+    <script src="~/js/BuyDefaults/Create.js"></script>
+
+}
 
 @*<h1>Details</h1>
 
