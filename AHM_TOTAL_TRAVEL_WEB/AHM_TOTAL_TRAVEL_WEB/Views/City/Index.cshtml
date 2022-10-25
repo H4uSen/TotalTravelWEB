@@ -50,12 +50,8 @@
         <table class="ui compact selectable celled table" id="grdCity">
             <thead>
                 <tr>
-                    <th>
-                        País
-                    </th>
-                    <th>
-                        Ciudad
-                    </th>
+                    <th>País</th>
+                    <th>Ciudad</th>
                     <th width="200px"></th>
                 </tr>
             </thead>
@@ -73,9 +69,9 @@
                         </td>
 
                         <td>
-                            <button class="ui large icon btn-edit button" id="UpdateCity" onclick="GetCity(@item.ID)">
+                            <a class="ui large icon btn-edit button" href="@Url.Action("Update", "City", new { City_ID = item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
-                            </button>
+                            </a>
 
                             <a class="ui large icon button" href="@Url.Action("Details", "City", new { id=item.ID })">
                                 <i class="bi bi-info-circle fa-lg icon-crud"></i>
@@ -126,48 +122,8 @@
 </div>
 
 
-
-@*//////////////////////////////////////////////////////MODAL update ////////////////////////////////////////////////////////////////////////////////////////*@
-
-<div class="ui modal" id="modalUpdate">
-    <i class="close icon"></i>
-    <div class="header">
-        Edita una ciudad
-    </div>
-    <form asp-action="Update" asp-controller="City" id="updateCityform">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <div class="field">
-                    <div class="two fields">
-                        <div class="required field">
-                            <label class="ui label">Ciudad</label>
-                            <input name="Ciud_ID" id="Ciud_ID" />
-                            <input id="ciud_DescripUpdate" name="ciud_Descripcion" placeholder="Ciudad" />
-                        </div>
-
-                        <div class="required field">
-                            <label class="ui label">País</label>
-                            <select id="pais_IdUpdate" name="pais_Id" class="ui dropdown search" asp-items="ViewBag.pais_ID">
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="actions">
-        <button class="ui button" id="sendEditCity">Guardar</button>
-        <button class="ui button" id="closeEditCity">Cerrar</button>
-    </div>
-
-</div>
-
-
-
 @section Scripts{
     <script src="~/js/CityJs/City.js"></script>
-    <script src="~/js/CityJs/Update.js"></script>
     <script src="~/js/CityJs/Index.js"></script>
 
 

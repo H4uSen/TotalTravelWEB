@@ -98,3 +98,10 @@ var TipoPartnerViewModel = {
     "rol_Id": 0,
     "rol_Descripcion": "string"
 };
+
+var CitiesViewModel = {
+    "ciud_Descripcion": "string",
+    "pais_ID": 0,
+    "ciud_UsuarioCreacion": Client_User_ID,
+    "ciud_UsuarioModifica": Client_User_ID
+}

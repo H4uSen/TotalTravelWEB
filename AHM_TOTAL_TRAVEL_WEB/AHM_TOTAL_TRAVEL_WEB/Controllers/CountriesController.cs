@@ -49,42 +49,47 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(string id)
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            CountriesListViewModel CountryRequest = 
+                (CountriesListViewModel)(await _generalServices.CountriesFind(id, token)).Data;
 
-            var item = new CountriesViewModel();
-            var list = await _generalServices.CountriesList();
-            IEnumerable<CountriesListViewModel> data = (IEnumerable<CountriesListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            item.Pais_ID = element.ID;
-            item.Pais_Descripcion = element.Pais;
-            item.Pais_Codigo = element.Codigo;  
-            item.Pais_Nacionalidad = element.Nacionalidad;
-            item.Pais_ISO = element.ISO;
+            ViewData["Pais_ID"] = CountryRequest.ID;
 
-            //IEnumerable<EstablecimientoListViewModel> model_Est = null;
-            //var Establecimiento = await _generalServices.EstablecimientosList(model_Est);
-            //IEnumerable<EstablecimientoListViewModel> data_Establecimiento = (IEnumerable<EstablecimientoListViewModel>)Establecimiento.Data;
-            //ViewBag.Est_ID = new SelectList(data_Establecimiento, "ID", "Descripcion", element.EstablecimientoID);
-
-            return View(item);
+            return View(CountryRequest);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(CountriesViewModel actividad)
+        public async Task<IActionResult> Update(CountriesViewModel country)
         {
 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
-                var list = await _generalServices.CountriesUpdate(actividad, token);
-                return RedirectToAction("Index");
+                country.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+                var response = (RequestStatus)(await _generalServices.CountriesUpdate(country, token)).Data;
+
+                if(response.CodeStatus > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    CountriesListViewModel CountryRequest =
+                        (CountriesListViewModel)(await _generalServices.CountriesFind(country.Pais_ID.ToString(), token)).Data;
+                    ViewData["Pais_ID"] = CountryRequest.ID;
+                    return View(CountryRequest);
+                }
             }
             else
             {
-                return View();
+                string token = HttpContext.User.FindFirst("Token").Value;
+                CountriesListViewModel CountryRequest =
+                        (CountriesListViewModel)(await _generalServices.CountriesFind(country.Pais_ID.ToString(), token)).Data;
+                ViewData["Pais_ID"] = CountryRequest.ID;
+                return View(CountryRequest);
             }
 
         }

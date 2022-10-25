@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CityListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CountriesListViewModel
 
 @{
     ViewData["Title"] = "Update";
@@ -24,11 +24,11 @@
             <i class="icon food"></i>
             <div class="content">
                 <div class="header text-capitalize">
-                    Actualizar Ciudad
+                    Actualizar Pais
                 </div>
             </div>
             <div class="right floated content" style="text-align: end;">
-                <a class="ui left labeled icon button" href="@Url.Action("Index", "City")">
+                <a class="ui left labeled icon button" href="@Url.Action("Index", "Countries")">
                     Regresar
                     <i class="left arrow icon"></i>
                 </a>
@@ -36,38 +36,52 @@
         </div><br />
 
         <!-- formulario-->
-        <form asp-action="Update" asp-controller="City" id="UpdateCityForm">
+        <form asp-action="Update" asp-controller="Countries" id="createCountriesForm">
             <div class="ui form attached fluid">
                 <div class="content">
-                    <input id="Ciud_ID" name="Ciud_ID" value="@Model.ID" hidden />
-                    <div class="field">
+                    <input id="Pais_ID" name="Pais_ID" value="@Model.ID" hidden />
+                    <div class="required field">
                         <div class="two fields">
                             <div class="required field">
                                 <label>Nombre</label>
-                                <input name="ciud_Descripcion" id="ciud_Descripcion" value="@Model.Ciudad" class="form-control" />
+                                <input name="Pais_Descripcion" id="Pais_Descripcion" value="@Model.Pais" class="form-control" />
+
                             </div>
                             <div class="required field">
-                                <label>Pais</label>
-                                <select name="pais_ID" id="pais_ID" class="ui dropdown search" asp-items="ViewBag.CountriesList"></select>
+                                <label>Código</label>
+                                <input name="Pais_Codigo" id="Pais_Codigo" value="@Model.Codigo" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="required field">
+                                <label>Nacionalidad</label>
+                                <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" value="@Model.Nacionalidad" class="form-control" />
+
+                            </div>
+                            <div class="required field">
+                                <label>ISO</label>
+                                <input name="Pais_ISO" id="Pais_ISO" value="@Model.ISO" class="form-control" />
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-edit ui positive button" href="javascript: ActualizarCiudad()">Guardar</a>
-                <a class="ui large icon button" href="@Url.Action("Index", "city")">Cancelar</a>
+                <a class="btn btn-edit ui positive button" href="javascript: ActualizarPais()">Guardar</a>
+                <a class="ui large icon button" href="@Url.Action("Index", "Countries")">Cancelar</a>
             </div>
         </form>
         <!-- fin formulario-->
 
         <br />
-        <h2 class="ui header">colonias</h2>
+        <h2 class="ui header">Ciudades</h2>
         <br />
         <div class="ui two columns stackabled grid">
             <div class="column overflow-auto" style="max-height:300px">
-                <table class="ui compact selectable celled table" id="grdColonias">
+                <table class="ui compact selectable celled table" id="grdCiudades">
                     <thead style="visibility:collapse">
                         <tr>
-                            <th>Colonia</th>
+                            <th>Ciudad</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -81,7 +95,7 @@
                     <div class="content" id="form_content" data-action-target="">
                         <div class="required field">
                             <label>Nombre de la ciudad</label>
-                            <input id="colonia" />
+                            <input id="Ciudad" />
                         </div>
                         <br />
                         <a class="btn btn-edit ui positive button" href="#" id="btnGuardar">Guardar</a>
@@ -98,7 +112,7 @@
 
 @section Scripts {
     <script>
-        const Ciudad_Id = "@ViewData["City_ID"]";
+        const Pais_ID = "@ViewData["Pais_ID"]";
     </script>
-    <script src="~/js/CityJs/Update.js"></script>
+    <script src="~/js/CountriesJS/Update.js"></script>
 }

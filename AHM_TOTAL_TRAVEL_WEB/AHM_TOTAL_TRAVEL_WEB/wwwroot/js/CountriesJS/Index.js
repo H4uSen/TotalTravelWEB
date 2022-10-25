@@ -25,6 +25,7 @@ $("#grdPaises tbody tr .details_button").click((_this) => {
         }
     );
 
+    /*
     // do details of level two in table
     if (contentData.state) {
         TableDetailsConstructor($(`#grdCiudades_id_pais_${id_pais}`));
@@ -77,7 +78,7 @@ $("#grdPaises tbody tr .details_button").click((_this) => {
             });
 
         });
-    }
+    }*/
 });
 
 // ----------------------------------- FUNCTIONS ------------------------------------
@@ -90,7 +91,7 @@ function citiesListDetails(id_pais) {
 
         var Detail =
             `
-            <h4>Lista de ciudades<h4>
+            <h5 class="ui large header">Lista de ciudades</h5>
             <table class="ui compact selectable celled table" id="grdCiudades_id_pais_${id_pais}">
                 <thead style="visibility:collapse">
                     <tr>
@@ -115,7 +116,7 @@ function citiesListDetails(id_pais) {
                     `<tr data-value="${city.id}">
                         <td class="ui fluid vertical menu" style="margin:unset">
                             <a class="item">
-                                <h1 class="ui medium header">Colonia: ${city.ciudad}</h1>
+                                <h1 class="ui medium header">Ciudad: ${city.ciudad}</h1>
                                 <p>Creado el: ${fechaCreacion.datetime}</p>
                             </a>
                         </td>
@@ -133,57 +134,57 @@ function citiesListDetails(id_pais) {
     }
 }
 
-function suburbsListDetails(id_ciudad) {
-    var state = false;
-    var Suburbs = SuburbsList.data;
+//function suburbsListDetails(id_ciudad) {
+//    var state = false;
+//    var Suburbs = SuburbsList.data;
 
-    if (SuburbsList.code == 200) {
-        var Detail =
-            `<h4>Lista de colonias<h4>
-            <div class="ui fluid vertical menu" data-show="5" id="grd_colonias_id_ciudad_${id_ciudad}">`;
+//    if (SuburbsList.code == 200) {
+//        var Detail =
+//            `<h4>Lista de colonias<h4>
+//            <div class="ui fluid vertical menu" data-show="5" id="grd_colonias_id_ciudad_${id_ciudad}">`;
 
-        Suburbs = jQuery.grep(Suburbs, function (Suburb, i) {
-            return Suburb.ciudadID == id_ciudad;
-        });
+//        Suburbs = jQuery.grep(Suburbs, function (Suburb, i) {
+//            return Suburb.ciudadID == id_ciudad;
+//        });
 
-        if (Suburbs.length > 0) {
-            for (var i = 0; i < Suburbs.length; i++) {
+//        if (Suburbs.length > 0) {
+//            for (var i = 0; i < Suburbs.length; i++) {
 
-                const Suburb = Suburbs[i];
-                const fechaCreacion = GetDateFormat({
-                    string_date: Suburb.fecha_Creacion, hour_format: 12, date_format: "default"
-                });
-                Detail +=
-                    `<a class="item">
-                        <h1 class="ui medium header">Colonia: ${Suburb.colonia}</h1>
-                        <p>Creado el: ${fechaCreacion.datetime}</p>
-                    </a>`;
-            }
-            Detail += "</div>";
-            Detail +=
-                `<div class="ui fluid vertical menu">
-                    <a class="item" id="btnSuburbs_ShowMore">Ver Mas...</a>
-                    <a class="item" id="btnSuburbs_ShowLess">Ver Menos...</a>
-                </div>`;
+//                const Suburb = Suburbs[i];
+//                const fechaCreacion = GetDateFormat({
+//                    string_date: Suburb.fecha_Creacion, hour_format: 12, date_format: "default"
+//                });
+//                Detail +=
+//                    `<a class="item">
+//                        <h1 class="ui medium header">Colonia: ${Suburb.colonia}</h1>
+//                        <p>Creado el: ${fechaCreacion.datetime}</p>
+//                    </a>`;
+//            }
+//            Detail += "</div>";
+//            Detail +=
+//                `<div class="ui fluid vertical menu">
+//                    <a class="item" id="btnSuburbs_ShowMore">Ver Mas...</a>
+//                    <a class="item" id="btnSuburbs_ShowLess">Ver Menos...</a>
+//                </div>`;
 
-            state = true;
-        } else {
-            Detail = `<h5 class='ui large red header text-center'>NO SE ENCOTRARON COLONIAS</h5>`;
-        }
+//            state = true;
+//        } else {
+//            Detail = `<h5 class='ui large red header text-center'>NO SE ENCOTRARON COLONIAS</h5>`;
+//        }
 
-        return { content: Detail, state: state };
-    }
-}
+//        return { content: Detail, state: state };
+//    }
+//}
 
-function show(ListQuerySelector, indexToShow = 5) {
-    for (var i = 0; i < ListQuerySelector.length; i++) {
-        $(ListQuerySelector[i]).hide();
-    }
+//function show(ListQuerySelector, indexToShow = 5) {
+//    for (var i = 0; i < ListQuerySelector.length; i++) {
+//        $(ListQuerySelector[i]).hide();
+//    }
 
-    for (var i = 0; i < indexToShow; i++) {
-        $(ListQuerySelector[i]).show();
-    }
-}
+//    for (var i = 0; i < indexToShow; i++) {
+//        $(ListQuerySelector[i]).show();
+//    }
+//}
 
 function Delete(id) {
     const capsula1 = () => {

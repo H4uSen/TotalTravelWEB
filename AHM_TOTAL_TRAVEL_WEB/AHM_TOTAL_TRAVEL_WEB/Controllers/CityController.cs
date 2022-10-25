@@ -72,16 +72,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             CityListViewModel requestCity = 
                     (CityListViewModel)(await _generalService.CitiesFind(City_ID, token)).Data;
 
-            // get list of suburbs
-            IEnumerable<SuburbsListViewModel> suburbsList = 
-                    (IEnumerable<SuburbsListViewModel>)(await _generalService.SuburbsList()).Data;
-
             // fill contries dropdown
             IEnumerable<CountriesListViewModel> countryList =
                 (IEnumerable<CountriesListViewModel>)(await _generalService.CountriesList()).Data;
 
             ViewBag.CountriesList = new SelectList(countryList, "ID", "Pais", requestCity.PaisID);
-            ViewData["suburbsList"] = suburbsList.Where(suburb => suburb.CiudadID == City_ID).ToList();
+            ViewData["City_ID"] = City_ID;
 
             return View(requestCity);
         }

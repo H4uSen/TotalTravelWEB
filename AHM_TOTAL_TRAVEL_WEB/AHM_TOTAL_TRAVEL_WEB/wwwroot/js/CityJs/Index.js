@@ -13,32 +13,61 @@ $("#grdCity tbody tr .details_button").click((_this) => {
 
     const tr = $(_this.target).parents("tr");
     const index = $("#grdCity tbody tr").index(tr);
-    const idCiudad = $(tr).attr("data-value");
+    const id_ciudad = $(tr).attr("data-value");
 
     MostrarDetalle(
         detail_row = {
             table: $("#grdCity"),
             row_Index: index,
-            content: SuburbsListDetails(idCiudad)
+            content: SuburbsListDetails(id_ciudad)
         }
     );
+
+    $("#btnSuburbs_ShowMore").click(() => {
+
+        var indexToShow = $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show");
+        if ($(`#grd_colonias_id_ciudad_${id_ciudad} .item`).length >= indexToShow) {
+
+            $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show", parseInt(indexToShow) + 5);
+
+            show(
+                $(`#grd_colonias_id_ciudad_${id_ciudad} .item`),
+                parseInt(indexToShow) + 5
+            );
+        }
+    });
+
+    $("#btnSuburbs_ShowLess").click(() => {
+
+        var indexToShow = $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show");
+
+        if (5 < indexToShow) {
+            $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show", parseInt(indexToShow) - 5);
+
+            show(
+                $(`#grd_colonias_id_ciudad_${id_ciudad} .item`),
+                parseInt(indexToShow) - 5
+            );
+        }
+    });
 });
 
 
 
-function SuburbsListDetails(idCiudad) {
+function SuburbsListDetails(id_ciudad) {
     var colonias = ColoniasList.data;
 
     if (ColoniasList.code == 200 && colonias.length > 0) {
 
         colonias = jQuery.grep(colonias, function (colonia, i) {
-            return colonia.ciudadID == idCiudad;
+            return colonia.ciudadID == id_ciudad;
         });
 
         if (colonias.length > 0) {
 
             var Detail =
-                `<div class="ui fluid vertical menu">`;
+                `<h4>Lista de colonias<h4>
+                <div class="ui fluid vertical menu" data-show="5" id="grd_colonias_id_ciudad_${id_ciudad}">`;
 
             for (var i = 0; i < 5; i++) {
 
@@ -55,15 +84,29 @@ function SuburbsListDetails(idCiudad) {
                     </a>`;
             }
 
+            Detail += "</div>";
             Detail +=
-                `<a class="item" href="Suburbs/Index?City_ID=${idCiudad}">Ver Mas...</a>`;
+                `<div class="ui fluid vertical menu">
+                    <a class="item" id="btnSuburbs_ShowMore">Ver Mas...</a>
+                    <a class="item" id="btnSuburbs_ShowLess">Ver Menos...</a>
+                </div>`;
         } else {
-            var Detail = "<h5 class='ui large red header text-center'>NO DATA AVALIABLE</h5>";
+            var Detail = "<h5 class='ui large red header text-center'>NO HAY COLONIAS DISPONIBLES</h5>";
         }
 
         return Detail;
     } else {
-        return "<h5 class='ui large red header text-center'>NO DATA AVALIABLE</h5>";
+        return "<h5 class='ui large red header text-center'>NO HAY COLONIAS DISPONIBLES</h5>";
     }
 
+}
+
+function show(ListQuerySelector, indexToShow = 5) {
+    for (var i = 0; i < ListQuerySelector.length; i++) {
+        $(ListQuerySelector[i]).hide();
+    }
+
+    for (var i = 0; i < indexToShow; i++) {
+        $(ListQuerySelector[i]).show();
+    }
 }
