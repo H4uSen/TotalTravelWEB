@@ -17,65 +17,60 @@
             height: 40%;
             text-align:center;
         }
-
         h1 {
             margin-top: 2% !important;
         }
-
         .container {
             max-width: 95%;
             margin: 5.125em 1.5em;
             top: 0;
+            background-color: #f4fafd;
+        }
+        .ui.attached.segment {
+            background-color: transparent;
+            border: none;
         }
     </style>
 }
 
 <div class="titulo">
-    <h1>Nombre restaurante</h1>
+    <h1>RESTAURANTE "@Model.Restaurante.ToUpper()"</h1>
 </div>
 <div class="container card">
     <div class="ui basic segment">
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="field">
-                    <div class="three fields">
+                    <div class="two fields">
                         <div class="field">
-                            <label>Hotel</label>
-                            Nombre restaurante
-                        </div>
-                        <div class="field">
-                            <label>Partner</label>
-                            Nombre partner
+                            <label>Restaurante</label>
+                            @Html.DisplayFor(model => model.Restaurante)
                         </div>
                         <div class="field">
                             <label>Teléfono</label>
-                            9585-9858
+                            @ViewData["Telefono"]
                         </div>
                     </div>
                 </div>
                 <div class="field">
-                    <div class="three fields">
+                    <div class="two fields">
                         <div class="field">
                             <label>E-mail</label>
-                            restaurante@gmail.com
+                            @ViewData["Email"]
                         </div>
                         <div class="field">
                             <label>Dirección</label>
-                            Dirección exacta
-                        </div>
-                        <div class="field">
-                            <label></label>
-
+                            @ViewData["DireccionExacta"]
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; max-width:40%; margin:auto;">
-                        <div class="ui icon header" id="HotelCarousel">
+                        <div class="ui icon header" id="RestaurantCarousel">
                             <i class="images icon"></i>
                             Tus imágenes aparecerán aquí.
                         </div>
-                        <div class="ui centered fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
+                        <div class="ui centered fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
                         </div>
                     </div>
                 </div>
@@ -85,73 +80,9 @@
     </div>
 </div>
 
-
-
-@*@section Scripts{
-
-        <script>
-            $("#Cuenta").addClass("active");
-        </script>
-
-        <script>
-
-            $('.ui.dropdown').dropdown();
-            $('#formedit').hide();
-
-            $("#editar").click(() => {
-                $("#info").transition('slide down');
-                $('#editar').hide();
-                $("#formedit").transition('slide up');
-            });
-
-            $("#cancelar").click(() => {
-                $("#info").transition('slide up');
-                $('#editar').show();
-                $("#formedit").transition('slide down');
-            });
-
-            const Ciud_ID = "@ViewData["Ciudad"]";
-            const Pais_ID = "@ViewData["Pais"]";
-
-        </script>
-        <script src="~/js/UsersJs/UsersAccount.js"></script>
-    }*@
-
-
-
-
-
-
-
-
-
-
-@*<div>
-        <dl class="row">
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Partner)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Restaurante)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Ciudad)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Colonia)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Calle)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Avenida)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Image_URL)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>*@
+@section Scripts{
+    <script src="~/js/ModuleRestaurantsJs/Carrusel.js"></script>
+    <script>
+        const folderName = '@ViewData["RestaurantFolder"]';
+    </script>
+ }
