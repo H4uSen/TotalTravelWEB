@@ -1,0 +1,308 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.MenusListViewModel
+
+@{
+    ViewData["Title"] = "Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        .titulo {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: rgb(238,245,249);
+            background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
+            color: #fff;
+            height: 40%;
+        }
+
+        h1 {
+            margin-top: 2% !important;
+            margin-left: 2% !important;
+        }
+
+        a {
+            text-decoration: none;
+            margin: auto;
+        }
+
+        .ui.search.dropdown {
+            min-width: 40% !important;
+        }
+
+        .ui.cards > .card {
+            margin: 1.875em 1.5em !important;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: -5.150em 1.5em;
+            top: 0;
+        }
+
+        .ui.segment {
+            margin: 5.125em 1.5em;
+            max-width: 95%;
+        }
+
+        .content-inner {
+            overflow: hidden;
+        }
+    </style>
+}
+
+<div class="titulo">
+    <h1>Tipo de menú que será</h1>
+</div>
+<div class="ui clearing segment">
+    <div class="ui grid">
+        <div class="eight wide column">
+            <select id="Tipo_Menu" class="ui dropdown search">
+                <option value="">Menú</option>
+                <option value="">Menú</option>
+                <option value="">Menú</option>
+            </select>
+        </div>
+        <div class="eight wide column">
+            <a class="ui small btn-edit text-white labeled icon button" id="agregar" style="float:right">
+                <i class="plus icon"></i> Agregar menú
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container card">
+    <div class="ui cards centered">
+        <div class="ui special card">
+            <div class="content">
+                <div class="right floated meta">
+                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
+                </div>
+                Nombre menú
+            </div>
+            <div class="image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui inverted button">Editar</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
+            </div>
+            <div class="content">
+                <span>Las baleadas de doña Tula</span>
+            </div>
+            <div class="extra content">
+                <p>
+                    <b>L </b>
+                    150000.00
+                </p>
+            </div>
+        </div>
+        <div class="ui special card">
+            <div class="content">
+                <div class="right floated meta">
+                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
+                </div>
+                Nombre menú
+            </div>
+            <div class="image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui inverted button">Editar</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
+            </div>
+            <div class="content">
+                <span>Las baleadas de doña Tula</span>
+            </div>
+            <div class="extra content">
+                <p>
+                    <b>L </b>
+                    150000.00
+                </p>
+            </div>
+        </div>
+        <div class="ui special card">
+            <div class="content">
+                <div class="right floated meta">
+                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
+                </div>
+                Nombre menú
+            </div>
+            <div class="image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui inverted button">Editar</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
+            </div>
+            <div class="content">
+                <span>Las baleadas de doña Tula</span>
+            </div>
+            <div class="extra content">
+                <p>
+                    <b>L </b>
+                    150000.00
+                </p>
+            </div>
+        </div>
+        <div class="ui special card">
+            <div class="content">
+                <div class="right floated meta">
+                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
+                </div>
+                Nombre menú
+            </div>
+            <div class="image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui inverted button">Editar</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
+            </div>
+            <div class="content">
+                <span>Las baleadas de doña Tula</span>
+            </div>
+            <div class="extra content">
+                <p>
+                    <b>L </b>
+                    150000.00
+                </p>
+            </div>
+        </div>
+        <div class="ui card" id="esconder">
+            <div class="blurring dimmable image">
+                <img src="https://avalos.sv/wp-content/uploads/default-featured-image.png" />
+                <div class="field">
+                    <input type="file" />
+                </div>
+            </div>
+            <div class="content">
+                <div class="ui form">
+                    <div class="field">
+                        <div class="ui input">
+                            <input type="text" placeholder="Nombre del menú">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui input">
+                            <textarea rows="2" placeholder="Descripción del menú"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui right labeled input">
+                            <label for="amount" class="ui label">L</label>
+                            <input type="number" step="0.01" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui card align-items-center" id="mas">
+            <a>
+                <i class="massive plus icon"></i>
+                @*<img src="~/assets/client/images/mas.png" style="width:100%;">*@
+            </a>
+        </div>
+        <div class="ui card align-items-center" id="equis">
+            <a>
+                <i class="massive close icon"></i>
+                @*<img src="~/assets/client/images/mas.png" style="width:100%;">*@
+            </a>
+        </div>
+        <br />
+    </div>
+</div>
+
+<br /><br />
+
+@section Scripts{
+    <script>
+        $('#esconder').hide();
+        $('#equis').hide();
+
+        $('#agregar, #mas').click(() => {
+            $('#esconder').show();
+            $('#mas').hide();
+            $('#equis').show();
+        });
+
+        $("#equis").click(() => {
+            $('#esconder').hide();
+            $('#mas').show();
+            $('#equis').hide();
+        });
+
+        //$('select.dropdown')
+        //    .dropdown()
+        //    ;
+
+        $('.special.card .image').dimmer({
+            on: 'hover'
+        });
+
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+    </script>
+
+    <script>
+        function EliminarMenu() {
+            //const capsula1 = () => {
+            //    var response = ajaxRequest("Menu/Delete?id=" + id, null, "POST");
+            //    if (response > 0) {
+            //        window.location.href = '/Menu?success=true';
+            //    }
+            //};
+            sweetAlertconfirm("¿Seguro de eliminar este menú?", "Este menú se borrará permanentemente.", "warning");
+        };
+    </script>
+}
+
+
+
+
+
+
+
+
+
+@*<div>
+        <dl class="row">
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ID)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Restaurante)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TipoMenu)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Menu)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Precio)
+            </dd>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Image_Url)
+            </dd>
+        </dl>
+    </div>*@

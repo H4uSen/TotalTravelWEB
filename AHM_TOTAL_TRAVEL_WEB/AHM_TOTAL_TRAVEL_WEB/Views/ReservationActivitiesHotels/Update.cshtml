@@ -1,0 +1,123 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationActivitiesHotelsViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="fa-sharp fa-solid fa-a"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Editar
+                    </div>
+                    <p>Editar Reservación Actividad Hotel</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationActivitiesHotels")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <form asp-action="Update" id="FrmReservationActividadHotels">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Cliente</label>
+                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID" asp-for="Resv_ID">
+                                        <option value="">Seleccione un cliente</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Cantidad</label>
+                                    <input asp-for="ReAH_Cantidad" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Actividad</label>
+                                    <select id="AcEx_ID" name="HoAc_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID" asp-for="HoAc_ID">
+                                        <option value="">Selecciona actividad</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Fecha Reservación</label>
+                                    <input asp-for="ReAH_FechaReservacion" type="date" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Hora Reservación</label>
+                                    <input asp-for="ReAH_HoraReservacion" />
+                                </div>
+                                @*<div class="required field">
+                    <label class="ui label">Hotel</label>
+                    <select id="Hote_ID" name="Hote_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
+                        <option value="">Selecciona un hotel</option>
+                    </select>
+                </div>*@
+                            </div>
+                        </div>
+
+
+                        <input id="btnGuardar" type="button" value="Guardar" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ReservationActivitiesHotels")" class="ui button mb-3 ms-3">Cancelar</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        var actividadID = '@ViewData["ActividadID"]';
+    </script>
+    @*<script src="~/js/ActivitiesExtraJs/Update.js"></script>*@
+    <script>
+        $("#btnGuardar").click(() => {
+            const ValidateArray = [
+                { validateMessage: "Required field: 'Seleccione una reservacion'", Jqueryinput: $("#Resv_ID") },
+                { validateMessage: "Required field: 'Ingrese una cantidad' ", Jqueryinput: $("#ReAH_Cantidad") },
+                { validateMessage: "Required field: 'Seleccione una actividad' ", Jqueryinput: $("#AcEx_ID") },
+                { validateMessage: "Required field: 'Ingrese la fecha' ", Jqueryinput: $("#ReAH_FechaReservacion") },
+                { validateMessage: "Required field: 'Ingrese la hora' ", Jqueryinput: $("#ReAH_HoraReservacion") }
+
+
+            ];
+            const userValidate = ValidateForm(ValidateArray);
+            if (userValidate) {
+                $("#FrmReservationActividadHotels").submit();
+            }
+        });
+    </script>
+
+}
+
+@section HighlightTile{
+    <script>
+
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationActivitiesHotelsTile").addClass("activeTile");
+    </script>
+}
+

@@ -25,7 +25,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
 
-            var model = new List<ReservationExtraActivitiesListViewModel>();
+            var model = new List<ReservationActivitiesHotelsListViewModel>();
             var list = await _reservationService.ReservationActivitiesHotelsList(token);
             return View(list.Data);
         }
@@ -33,20 +33,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<ReservationExtraActivitiesViewModel>();
+            var model = new List<ReservationActivitiesHotelsViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var reservacion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_reservacion = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "DescripcionPaquete");
+            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
 
-            var hotel = await _hotelsService.HotelsActivitiesList(token);
-            IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
-            ViewBag.Hote_ID = new SelectList(data_hotel, "ID_Hotel", "Hotel");
+            //var hotel = await _hotelsService.HotelsActivitiesList(token);
+            //IEnumerable<HotelsActivitiesListViewModel> data_hotel = (IEnumerable<HotelsActivitiesListViewModel>)hotel.Data;
+            //ViewBag.Hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
             var hotelactividad = await _hotelsService.HotelsActivitiesList(token);
             IEnumerable<HotelsActivitiesListViewModel> data_hotelactividad = (IEnumerable<HotelsActivitiesListViewModel>)hotelactividad.Data;
-            ViewBag.AcEx_ID = new SelectList(data_hotelactividad, "ID_Actividad", "Actividad");
+            ViewBag.AcEx_ID = new SelectList(data_hotelactividad, "ID", "Actividad");
 
 
 
@@ -63,7 +64,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var id = HttpContext.User.FindFirst("User_Id").Value;
                 reserva.ReAH_UsuarioCreacion = int.Parse(id);
                 var list = await _reservationService.ReservationActivitiesHotelsCreate(reserva, token);
-                return RedirectToAction("Index");
+
+                var l = ((RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/ReservationActivitiesHotels?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -98,8 +108,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
             var reservacion = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data_Horario = (IEnumerable<ReservationListViewModel>)reservacion.Data;
-            ViewBag.Resv_ID = new SelectList(data_Horario, "ID", "DescripcionPaquete");
+            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
+
+            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
 
             return View(item);
         }
@@ -112,8 +124,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var idd = HttpContext.User.FindFirst("User_Id").Value;
                 reserva.ReAH_UsuarioModifica = int.Parse(idd);
-                var lista = await _reservationService.ReservationActivitiesHotelsUpdate(reserva, token);
-                return RedirectToAction("Index");
+                var list = await _reservationService.ReservationActivitiesHotelsUpdate(reserva, token);
+
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/ReservationActivitiesHotels?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

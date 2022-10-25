@@ -49,7 +49,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var id = HttpContext.User.FindFirst("User_Id").Value;
                 colonia.Colo_UsuarioCreacion = int.Parse(id);
                 var list = await _generalService.SuburbsCreate(colonia, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/Suburbs?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -85,8 +93,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var idd = HttpContext.User.FindFirst("User_Id").Value;
                 colonia.Colo_UsuarioModifica = int.Parse(idd);
-                var lista = await _generalService.SuburbsUpdate(colonia, token);
-                return RedirectToAction("Index");
+                var list = await _generalService.SuburbsUpdate(colonia, token);
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/Suburbs?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

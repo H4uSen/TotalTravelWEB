@@ -66,15 +66,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 reservationExtraActivities.ReAE_UsuarioCreacion = 1;
                 var list = await _reservationService.ExtraActivitiesReservationCreate(reservationExtraActivities, token);
 
-                if (list.Success)
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
                 {
-                    return RedirectToAction("Index");
+                    return Redirect("~/ReservationExtraActivities?success=true");
                 }
                 else
                 {
                     return View();
                 }
-
 
             }
             else
@@ -128,7 +128,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 reservacionActividadExtra.ReAE_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var lista = await _reservationService.ExtraActivitiesReservationUpdate(reservacionActividadExtra, id, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/ReservationExtraActivities?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

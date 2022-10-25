@@ -82,8 +82,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var list = await _hotelService.HotelsActivitiesDelete(actividad, id, token);
-
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/HotelsActivities?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

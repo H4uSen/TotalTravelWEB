@@ -10,7 +10,7 @@
     <div class="container card">
         <div class="ui basic segment">
             <div class="ui icon attached message">
-                <i class="icon bus"></i>
+                <i class="icon building"></i>
                 <div class="content">
                     <div class="header text-capitalize">
                         Detalles de un Hotel
@@ -28,32 +28,34 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>ID</label>
-                                @Html.DisplayFor(model => model.ID)
-                            </div>
-                            <div class="field">
                                 <label>Hotel</label>
                                 @Html.DisplayFor(model => model.Hotel)
                             </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
                             <div class="field">
                                 <label>Descripción</label>
                                 @Html.DisplayFor(model => model.Descripcion)
                             </div>
-                            <div class="field">
-                                <label>Dirección</label>
-                                Calle @Html.DisplayFor(model => model.Calle), Avenida @Html.DisplayFor(model => model.Avenida), Colonia @Html.DisplayFor(model => model.Colonia), Ciudad de @Html.DisplayFor(model => model.Ciudad)
-                            </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
+                                <label>Dirección</label>
+                                Calle @Html.DisplayFor(model => model.Calle), Avenida @Html.DisplayFor(model => model.Avenida), Colonia @Html.DisplayFor(model => model.Colonia), Ciudad de @Html.DisplayFor(model => model.Ciudad)
+                            </div>
+                            <div class="field">
                                 <label>Socio</label>
                                 @Html.DisplayFor(model => model.Partners)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; max-width:40%; margin:auto;">
+                            <div class="ui icon header" id="HotelCarousel">
+                                <i class="images icon"></i>
+                                Tus imágenes aparecerán aquí.
+                            </div>
+                            <div class="ui centered fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
                             </div>
                         </div>
                     </div>
@@ -105,7 +107,13 @@
 </div>
 
 @section HighlightTile{
+
+    <script src="~/js/HotelJs/Details.js"></script>
+
     <script>
+
+        const folderName = '@ViewData["HotelFolder"]';
+
         $("#HotelModule").addClass("active");
         $("#HotelModule").addClass("expandedList");
         $("#HotelModule").prop("aria-expanded");

@@ -25,24 +25,20 @@
 
             <!-- formulario-->
             <form asp-action="Create" asp-controller="ReservationActivitiesHotels" id="CreateReservationActivitiesHotels">
-
                 <div class="ui form attached fluid segment">
                     <div class="content">
-
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label class="ui label">Reservacion</label>
+                                    <label class="ui label">Cliente</label>
                                     <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
-                                        <option value="">Seleccione una reservación</option>
+                                        <option value="">Seleccione un cliente</option>
                                     </select>
                                 </div>
                                 <div class="required field">
-                                    <label>Cantidad</label>
-                                    <input id="ReAH_Cantidad" name="ReAE_Cantidad" placeholder="Cantidad" />
+                                    <label class="ui label">Cantidad</label>
+                                    <input id="ReAH_Cantidad" name="ReAH_Cantidad" placeholder="Cantidad" />
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -50,34 +46,34 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Actividad</label>
-                                    <select id="AcEx_ID" name="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
+                                    <select id="AcEx_ID" name="HoAc_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
                                         <option value="">Selecciona actividad</option>
                                     </select>
                                 </div>
                                 <div class="required field">
-                                    <label>Fecha Reservacion</label>
-                                    <input id="ReAE_FechaReservacion" name="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
+                                    <label class="ui label">Fecha Reservación</label>
+                                    <input id="ReAH_FechaReservacion" name="ReAH_FechaReservacion" placeholder="Fecha Reservación" type="date" />
                                 </div>
                             </div>
                         </div>
-                        <div class="two fields">
-                            <div class="required field">
+                        <div class="field">
+                            <div class="two fields">
                                 <div class="required field">
-                                    <label>Hora Reservacion</label>
-                                    <input id="ReAE_HoraReservacion" name="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
+                                    <label class="ui label">Hora Reservación</label>
+                                    <input id="ReAH_HoraReservacion" name="ReAH_HoraReservacion" placeholder="Hora Reservación" />
                                 </div>
-                                <div class="required field">
-                                    <label class="ui label">Actividad</label>
-                                    <select id="Hote_ID" name="Hote_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
-                                        <option value="">Selecciona un hotel</option>
-                                    </select>
-                                </div>
+                                @*<div class="required field">
+                                        <label class="ui label">Hotel</label>
+                                        <select id="Hote_ID" name="Hote_ID" class="ui dropdown search" asp-items="ViewBag.Hote_ID">
+                                            <option value="">Selecciona un hotel</option>
+                                        </select>
+                                    </div>*@
+                            </div>
                         </div>
-                    </div>
-                        
+
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra" class="btn btn-purple ui positive button" />
+                        <input type="button" value="Crear" id="enviar" class="bbtn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "ReservationActivitiesHotels")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
@@ -89,77 +85,92 @@
     </div>
 </div>
 
-
-@*<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ReAH_ID" class="control-label"></label>
-                <input asp-for="ReAH_ID" class="form-control" />
-                <span asp-validation-for="ReAH_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Resv_ID" class="control-label"></label>
-                <input asp-for="Resv_ID" class="form-control" />
-                <span asp-validation-for="Resv_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoAc_ID" class="control-label"></label>
-                <input asp-for="HoAc_ID" class="form-control" />
-                <span asp-validation-for="HoAc_ID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_Cantidad" class="control-label"></label>
-                <input asp-for="ReAH_Cantidad" class="form-control" />
-                <span asp-validation-for="ReAH_Cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_FechaReservacion" class="control-label"></label>
-                <input asp-for="ReAH_FechaReservacion" class="form-control" />
-                <span asp-validation-for="ReAH_FechaReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_HoraReservacion" class="control-label"></label>
-                <input asp-for="ReAH_HoraReservacion" class="form-control" />
-                <span asp-validation-for="ReAH_HoraReservacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_UsuarioCreacion" class="control-label"></label>
-                <input asp-for="ReAH_UsuarioCreacion" class="form-control" />
-                <span asp-validation-for="ReAH_UsuarioCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_FechaCreacion" class="control-label"></label>
-                <input asp-for="ReAH_FechaCreacion" class="form-control" />
-                <span asp-validation-for="ReAH_FechaCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_UsuarioModifica" class="control-label"></label>
-                <input asp-for="ReAH_UsuarioModifica" class="form-control" />
-                <span asp-validation-for="ReAH_UsuarioModifica" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_FechaModifica" class="control-label"></label>
-                <input asp-for="ReAH_FechaModifica" class="form-control" />
-                <span asp-validation-for="ReAH_FechaModifica" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReAH_Estado" class="control-label"></label>
-                <input asp-for="ReAH_Estado" class="form-control" />
-                <span asp-validation-for="ReAH_Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts{
+    <script src="~/js/ReservationActivitiesHotelsJs/Create.js"></script>
 }
+
+@section HighlightTile{
+    <script>
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationActivitiesHotelsTile").addClass("activeTile");
+    </script>
+}
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ReAH_ID" class="control-label"></label>
+                    <input asp-for="ReAH_ID" class="form-control" />
+                    <span asp-validation-for="ReAH_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Resv_ID" class="control-label"></label>
+                    <input asp-for="Resv_ID" class="form-control" />
+                    <span asp-validation-for="Resv_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HoAc_ID" class="control-label"></label>
+                    <input asp-for="HoAc_ID" class="form-control" />
+                    <span asp-validation-for="HoAc_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_Cantidad" class="control-label"></label>
+                    <input asp-for="ReAH_Cantidad" class="form-control" />
+                    <span asp-validation-for="ReAH_Cantidad" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_FechaReservacion" class="control-label"></label>
+                    <input asp-for="ReAH_FechaReservacion" class="form-control" />
+                    <span asp-validation-for="ReAH_FechaReservacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_HoraReservacion" class="control-label"></label>
+                    <input asp-for="ReAH_HoraReservacion" class="form-control" />
+                    <span asp-validation-for="ReAH_HoraReservacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_UsuarioCreacion" class="control-label"></label>
+                    <input asp-for="ReAH_UsuarioCreacion" class="form-control" />
+                    <span asp-validation-for="ReAH_UsuarioCreacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_FechaCreacion" class="control-label"></label>
+                    <input asp-for="ReAH_FechaCreacion" class="form-control" />
+                    <span asp-validation-for="ReAH_FechaCreacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_UsuarioModifica" class="control-label"></label>
+                    <input asp-for="ReAH_UsuarioModifica" class="form-control" />
+                    <span asp-validation-for="ReAH_UsuarioModifica" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_FechaModifica" class="control-label"></label>
+                    <input asp-for="ReAH_FechaModifica" class="form-control" />
+                    <span asp-validation-for="ReAH_FechaModifica" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReAH_Estado" class="control-label"></label>
+                    <input asp-for="ReAH_Estado" class="form-control" />
+                    <span asp-validation-for="ReAH_Estado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@*@section Scripts {*@
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+<!--}-->

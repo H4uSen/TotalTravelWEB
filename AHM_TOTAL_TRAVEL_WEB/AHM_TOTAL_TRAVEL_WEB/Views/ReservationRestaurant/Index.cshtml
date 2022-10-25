@@ -106,6 +106,16 @@
 
     <script src="~/js/ReservationRestauranteJS/Delete.js"></script>
 
+    <script>
+
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+    </script>
+
 }
 
 @section HighlightTile{

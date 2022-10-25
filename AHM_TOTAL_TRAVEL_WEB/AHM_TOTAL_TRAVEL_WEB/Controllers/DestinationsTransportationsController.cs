@@ -51,7 +51,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var id = HttpContext.User.FindFirst("User_Id").Value;
                 transportedestino.DsTr_UsuarioCreacion = int.Parse(id);
                 var list = await _transportService.TransportDestionationsCreate(transportedestino, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/DestinationsTransportations?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -81,8 +89,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var idd = HttpContext.User.FindFirst("User_Id").Value;
                 transportedestino.DsTr_UsuarioModifica = int.Parse(idd);
-                var lista = await _transportService.TransportDestionationsUpdate(transportedestino, token);
-                return RedirectToAction("Index");
+                var list = await _transportService.TransportDestionationsUpdate(transportedestino, token);
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/DestinationsTransportations?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

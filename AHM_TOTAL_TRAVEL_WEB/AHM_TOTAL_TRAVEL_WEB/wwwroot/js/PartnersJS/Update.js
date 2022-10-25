@@ -1,4 +1,92 @@
-﻿$('.ui.dropdown').dropdown();
+﻿const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
+
+var imagesArray = [];
+var imagesArrayPure = [];
+$('.ui.dropdown').dropdown();
+$(document).ready(async function () {
+    await GetImage();
+
+});
+async function GetImage() {
+    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + folderName)
+    if (responseImage.code == 200) {
+        var list = responseImage.data
+        for (var i = 0; i < list.length; i++) {
+            var imageUrl = list[i].imageUrl;
+
+            var split = imageUrl.split("/");
+            var fileName = split[split.length - 1];
+            var file = await createBlob(imageUrl)
+                .then(function (data) {
+                    return data;
+                });
+
+            imagesArrayPure.push(file);
+            const fileData = await convertImage(file)
+                .then(function (data) {
+                    return data;
+                });
+
+            fileData.fileName = fileName;
+            imagesArray.push(fileData);
+        }
+        LoadImage();
+    }
+}
+//FIN
+
+$("#File").change(async function () {
+    $("#PartnersCarouselHeader").hide();
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+    imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
+    LoadImage();
+
+});
+function LoadImage() {
+
+    var PartnersCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="PartnersCarousel" data-auto="false"></div>`;
+    $("#PartnersCarousel").replaceWith(PartnersCarousel);
+    $("#image-upload-list").html("");
+
+    for (let i = 0; i < imagesArray.length; i++) {
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
+
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
+
+        $("#image-upload-list").append(fileItem);
+        $("#PartnersCarousel").append(HTML_img);
+    }
+    $("#PartnersCarousel").fotorama();
+}
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
+    LoadImage();
+}
 
 function updatePartners() {
 
@@ -20,13 +108,14 @@ function updatePartners() {
         data.append("part_Email", $("#Email").val());
         data.append("part_Telefono", $("#Telefono").val());
         data.append("tiPart_Id", parseInt($("#TiPart_Id").val()));
-        data.append("part_UsuarioCreacion", parseInt(Client_User_ID));
-        if ($("#File").prop("files")[0] != undefined) {
-            data.append("File", $("#File").prop("files")[0]);
+        data.append("part_UsuarioModifica", parseInt(Client_User_ID));
+        for (let i = 0; i < imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
-        else {
+        if ($("#File").prop("files")[0] == undefined) {
             data.append("File", null);
         }
+        
         var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update?id=" + partnersID, data, "PUT");
 
         if (response.data.codeStatus > 0) {

@@ -36,7 +36,7 @@ function validar() {
         }
         var status = uploadFile("https://totaltravel.somee.com/API/HotelsActivities/Insert", data,"POST");
         if (status.code == 200) {
-            location.reload();
+            window.location.href = '/HotelsActivities?success=true';
         }
     }
 
@@ -78,7 +78,7 @@ function actualizar() {
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {
-                location.reload();
+                window.location.href = '/HotelsActivities?success=true';
             }
         }
 

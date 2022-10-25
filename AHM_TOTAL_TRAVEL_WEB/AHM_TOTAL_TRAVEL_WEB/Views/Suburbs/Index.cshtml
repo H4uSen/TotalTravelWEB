@@ -168,6 +168,15 @@
 }
 
 @section Scripts{
+
+    <script>
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+    </script>
+
     <script src="~/js/SuburbsJs/Create.js"></script>
     <script src="~/js/SuburbsJs/Update.js"></script>
     <script src="~/js/SuburbsJs/Delete.js"></script>
