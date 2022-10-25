@@ -15,212 +15,84 @@
             background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
             color: #fff;
             height: 40%;
+            text-align: center;
         }
 
         h1 {
             margin-top: 2% !important;
-            margin-left: 2% !important;
         }
 
         .container {
-            max-width: 95% !important;
-            margin: -5.150em 1.5em !important;
+            max-width: 95%;
+            margin: -8.875em 1.5em;
             top: 0;
             background-color: #f4fafd;
         }
 
-        .ui.segment {
-            margin: 5.125em 1.5em;
-            max-width: 95%;
+        .content {
+            margin: 8.125em 1.5em;
         }
 
-        a {
-            text-decoration: none;
+        .ui.attached.segment {
+            background-color: transparent;
+            border: none;
+        }
+
+        #img {
             margin: auto;
+            border: 1px solid black;
+            z-index: 80;
+            height: auto;
+            max-height: 230px !important;
         }
-
-        .ui.search.dropdown {
-            min-width: 40% !important;
+        h3{
+            margin:auto;
         }
-
-        .ui.cards > .card {
-            margin: 1.875em 1.5em !important;
-        }
-
     </style>
 }
 
 <div class="titulo">
-    <h1>ACTIVIDADES</h1>
 </div>
-<div class="ui clearing segment">
-    <div class="ui grid">
-        <div class="eight wide column">
-            <select id="Tipo_Actividad" class="ui dropdown search">
-                <option value="">Actividad 1</option>
-                <option value="">Actividad 2</option>
-                <option value="">Actividad 3</option>
-            </select>
-        </div>
-        <div class="eight wide column">
-            <a class="ui small btn-edit text-white labeled icon button" id="agregar" style="float:right">
-                <i class="plus icon"></i> Agregar actividad
-            </a>
-        </div>
-    </div>
-</div>
-<div class="container card attached">
-    <div class="ui cards centered">
-        <div class="ui special card">
+    <img id="img" class="ui medium circular image" src="https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/temas/test-madurez_1.jpg">
+<div class="container card">
+    <div class="ui basic segment">
+        <div class="ui form attached fluid segment">
             <div class="content">
-                <div class="right floated meta">
-                    <a href="javascript:EliminarActividadExtra()"><i class="large times icon"></i></a>
-                </div>
-                Nombre actividad
-            </div>
-            <div class="image">
-                <div class="ui dimmer">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">Editar</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://w0.peakpx.com/wallpaper/554/937/HD-wallpaper-dolphin-flying-above-the-waves-waves-dolphin-flying-animals.jpg">
-            </div>
-            <div class="content">
-                <span>Aquí va a ir la descripción de la actividad</span>
-            </div>
-            <div class="extra content">
-                <p>
-                    <b>L </b>
-                    150000.00
-                </p>
-            </div>
-        </div>
-        <div class="ui special card">
-            <div class="content">
-                <div class="right floated meta">
-                    <a href="javascript:EliminarActividadExtra()"><i class="large times icon"></i></a>
-                </div>
-                Nombre actividad
-            </div>
-            <div class="image">
-                <div class="ui dimmer">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">Editar</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://w0.peakpx.com/wallpaper/554/937/HD-wallpaper-dolphin-flying-above-the-waves-waves-dolphin-flying-animals.jpg">
-            </div>
-            <div class="content">
-                <span>Aquí va a ir la descripción de la actividad</span>
-            </div>
-            <div class="extra content">
-                <p>
-                    <b>L </b>
-                    150000.00
-                </p>
-            </div>
-        </div>       
-        <div class="ui card" id="esconder">
-            <div class="blurring dimmable image">
-                <img src="https://avalos.sv/wp-content/uploads/default-featured-image.png" />
                 <div class="field">
-                    <input type="file" />
-                </div>
-            </div>
-            <div class="content">
-                <div class="ui form">
-                    <div class="field">
-                        <div class="ui input">
-                            <select>
-                                Seleccione el nombre de la actividad
-                                <option>Actividad 1</option>
-                                <option>Actividad 2</option>
-                                <option>Actividad 3</option>
-                            </select>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Socio</label>
+                            Nombre partner
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui input">
-                            <textarea rows="2" placeholder="Descripción de la actividad"></textarea>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui right labeled input">
-                            <label for="amount" class="ui label">L</label>
-                            <input type="number" step="0.01" min="0">
+                        <div class="field">
+                            <label>Teléfono</label>
+                            9645-6526
+                            @*@ViewData["Telefono"]*@
                         </div>
                     </div>
                 </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>E-mail</label>
+                            holpartner@gmail.com
+                            @*@ViewData["Email"]*@
+                        </div>
+                        <div class="field">
+                            <label>Dirección</label>
+                            Calle 9 Sur, Avenida 1, Colonia Kennedy, Ciudad de El Progreso, nose
+                            @*@ViewData["DireccionExacta"]*@
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="ui card align-items-center" id="mas">
-            <a>
-                <i class="massive plus icon"></i>
-                @*<img src="~/assets/client/images/mas.png" style="width:100%;">*@
-            </a>
-        </div>
-        <div class="ui card align-items-center" id="equis">
-            <a>
-                <i class="massive close icon"></i>
-                @*<img src="~/assets/client/images/mas.png" style="width:100%;">*@
-            </a>
         </div>
         <br />
     </div>
 </div>
 
-<br />
-<br />
-
 @section Scripts{
-    <script>
-        $('#esconder').hide();
-        $('#equis').hide();
-
-        $('#agregar, #mas').click(() => {
-            $('#esconder').show();
-            $('#mas').hide();
-            $('#equis').show();
-        });
-
-        $("#equis").click(() => {
-            $('#esconder').hide();
-            $('#mas').show();
-            $('#equis').hide();
-        });
-
-        //$('select.dropdown')
-        //    .dropdown()
-        //    ;
-
-        $('.special.card .image').dimmer({
-            on: 'hover'
-        });
-
-        const success = FindGetValue("success");
-
-        if (success) {
-            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
-        }
-
-    </script>
-
-    <script>
-        function EliminarActividadExtra() {
-            //const capsula1 = () => {
-            //    var response = ajaxRequest("Menu/Delete?id=" + id, null, "POST");
-            //    if (response > 0) {
-            //        window.location.href = '/Menu?success=true';
-            //    }
-            //};
-            sweetAlertconfirm("¿Seguro de eliminar esta actividad?", "Esta actividad se borrará permanentemente.", "warning");
-        };
-    </script>
+    <script src="~/js/ModuleRestaurantsJs/Carrusel.js"></script>
 }
 
 

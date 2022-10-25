@@ -12,5 +12,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             return View();
         }
+        public IActionResult Activities()
+        {
+            return View();
+        }
     }
 }
