@@ -1,0 +1,219 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ActivitiesExtrasListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        .titulo {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: rgb(238,245,249);
+            background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
+            color: #fff;
+            height: 40%;
+        }
+
+        h1 {
+            margin-top: 2% !important;
+            margin-left: 2% !important;
+        }
+
+        .container {
+            max-width: 95% !important;
+            margin: 5.150em 1.5em !important;
+            top: 0;
+            background-color: #f4fafd;
+        }
+
+        .card {
+            margin: 1.15em 14em;
+        }
+
+        #precio{
+            font-size:0.7em !important;
+        }
+    </style>
+}
+
+<div class="titulo">
+    <h1>ACTIVIDADES</h1>
+</div>
+
+<div class="container card">
+    <br />
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-5">
+                <img src="http://4.bp.blogspot.com/-0HM99T9FBJg/T_c1bHQR8NI/AAAAAAAAjVY/lhD5lg02z2k/s1600/fotografiasdedelfines1.jpg" class="card-img" alt="...">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Nombre Actividad
+                        <p class="card-text" id="precio"><small class="text-muted">L. 8000.00</small></p>
+                    </h4>
+                    <p class="card-text">Aquí va a ir la descripción de la actividad. Aquí va a ir la descripción de la actividad.</p>
+                    <p class="card-text"><small class="text-muted">Ciudad de twice</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-5">
+                <img src="http://4.bp.blogspot.com/-0HM99T9FBJg/T_c1bHQR8NI/AAAAAAAAjVY/lhD5lg02z2k/s1600/fotografiasdedelfines1.jpg" class="card-img" alt="...">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Nombre Actividad
+                        <p class="card-text" id="precio"><small class="text-muted">L. 8000.00</small></p>
+                    </h4>
+                    <p class="card-text">Aquí va a ir la descripción de la actividad. Aquí va a ir la descripción de la actividad.</p>
+                    <p class="card-text"><small class="text-muted">Ciudad de twice</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-5">
+                <img src="http://4.bp.blogspot.com/-0HM99T9FBJg/T_c1bHQR8NI/AAAAAAAAjVY/lhD5lg02z2k/s1600/fotografiasdedelfines1.jpg" class="card-img" alt="...">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Nombre Actividad
+                        <p class="card-text" id="precio"><small class="text-muted">L. 8000.00</small></p>
+                    </h4>
+                    <p class="card-text">Aquí va a ir la descripción de la actividad. Aquí va a ir la descripción de la actividad.</p>
+                    <p class="card-text"><small class="text-muted">Ciudad de twice</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@*<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID_Partner)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID_Partner)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Partner)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Partner)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CiudadID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CiudadID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ciudad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID_Actividad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID_Actividad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Actividad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Actividad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID_Crea)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID_Crea)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImageURL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioCrea)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioCrea)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID_Modifica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID_Modifica)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioModifica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioModifica)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaModifica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaModifica)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>*@
