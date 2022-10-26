@@ -29,12 +29,30 @@ function ViewReservation(hoteid,transid) {
             $('#imagen').attr("src", imagenes[0]);
             $('#hotename').html(hotels.hotel);
         }
-        var response2 = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/Find?id=" + 6);
+        
+        var response2 = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/List");
 
-        if (response2.code == 200) {          
-            var transp = response2.data;                    
-            $('#trcategory').html(transp.tipo_Transporte);
+        if (response2.code == 200) {
+            var transp = response2.data;
+            var transpo = transp.filter(resv => resv.reservacion = transid);
+            var transpor = transpo[0];
+            
+            $('#trcategory').html(transpor.tipo_Transporte);
+            var response3 = ajaxRequest("https://totaltravel.somee.com/API/Transports/Find?id=" + transpor.iD_detalle_Transporte);
+            if (response3.code == 200) {
+                var t = response3.data;
+                var response4 = ajaxRequest("https://totaltravel.somee.com/API/Partners/Find?id=" + t.partnerID);
+                if (response4.code == 200) {
+                    var partner = response4.data;                   
+                    $('#partnername').html(partner.nombre);
+                    var imagenes = partner.image_Url.split(',');
+                    $('#imagenpar').attr("src", imagenes[0]);
+                }
+                             
+            }
         }
+        
+        
 
     $('#Reservation_Details_Info .item').removeClass("disabled");
     ShowContent("frmReservation_Info", 0);
