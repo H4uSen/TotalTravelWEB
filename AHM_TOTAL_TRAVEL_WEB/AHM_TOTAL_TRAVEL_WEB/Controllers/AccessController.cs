@@ -204,6 +204,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
                     HttpContext.Session.SetString("Name", LogInVerify.Nombre);
                     HttpContext.Session.SetString("Role", LogInVerify.Rol);
+                    HttpContext.Session.SetString("PartnerID", LogInVerify.PartnerID.ToString());
 
                     //2.- CONFIGURACION DE LA AUTENTICACION
                     #region AUTENTICACTION

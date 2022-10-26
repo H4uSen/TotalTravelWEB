@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="~/assets/css/style.default.css">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel="stylesheet" href="~/css/ErrorPage.css">
     <link rel="stylesheet" type="text/css" href="~/css/TableStyles.css" />
     <!-- Frameworks alerts -->
     <link rel="stylesheet" href="~/assets/css/iziToast.min.css">
@@ -446,6 +447,19 @@
             <div class="content-inner w-100">
                 <br />
                 @RenderBody()
+                <footer class="position-absolute bottom-0 bg-darkBlue text-white text-center py-3 w-100 " style="font-size: large;" id="footer">
+                    <div class="container-fluid">
+                        <div class="row gy-2">
+                            <div class="col-sm-6 text-sm-start">
+                                <p class="mb-0">TotalTravel  &copy; 2022-2023</p>
+                            </div>
+                            <div class="col-sm-6 text-sm-end">
+                                <p class="mb-0">Diseñado por <a href="https://github.com/orgs/AcademiaProgramadoresAHM/repositories" class="text-white text-decoration-none">AHM generación 5.2</a></p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>
@@ -478,6 +492,7 @@
 
     <!-- Proyect files -->
     <script src="~/js/main.js"></script>
+    <script src="~/js/ErrorPage.js"></script>
     <script src="~/assets/js/Layout.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/JSON_Models.js"></script>
@@ -524,8 +539,6 @@
 
         -->
     </style>
-
-    <br />
 
 
     <div id="google_translate_element2"></div>

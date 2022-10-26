@@ -1,0 +1,125 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PaymentRecordListViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="RegistrationPayment">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon dollar sign"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "RegistrationPayments")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <!--Cliente-->
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Registro de pago
+            </h3>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="field">
+                        <div class="four fields">
+                            <div class="field">
+                                <label>Cliente</label>
+                                @Html.DisplayFor(model => model.NombreCompleto)
+                            </div>
+                            <div class="field">
+                                <label>Teléfono</label>
+                                @Html.DisplayFor(model => model.Telefono)
+                            </div>
+                            <div class="field">
+                                <label>DNI</label>
+                                @Html.DisplayFor(model => model.DNI)
+                            </div>
+                            <div class="field">
+                                <label>Forma de Pago</label>
+                                @Html.DisplayFor(model => model.TipoPago)
+                            </div>
+                        </div>
+                        <div class="four fields">
+                            <div class="field">
+                                <label>Monto pagado</label>
+                                L. @Html.DisplayFor(model => model.MontoPago)
+                            </div>
+                            <div class="field">
+                                <label>Fecha y hora del pago</label>
+                                @Html.DisplayFor(model => model.fechaPago)
+                            </div>
+                            <div class="field">
+                                <label>Paquete Reservado</label>
+                                @Html.DisplayFor(model => model.Descripcion_Paquete)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Fin Cliente-->
+            <br />
+
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Auditoría
+            </h3>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario creación
+                        </th>
+                        <th>
+                            Fecha creación
+                        </th>
+                        <th>
+                            Usuario modifica
+                        </th>
+                        <th>
+                            Fecha modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioCrea)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaModifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    @section HighlightTile{
+    <script>
+
+        $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
+
+        $("#Sale_Schema").addClass("show");
+
+        $("#RegistrationPaymentsTile").addClass("activeTile");
+    </script>
+    }
+

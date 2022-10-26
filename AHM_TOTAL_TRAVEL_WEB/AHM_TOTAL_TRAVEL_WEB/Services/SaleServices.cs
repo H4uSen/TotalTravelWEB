@@ -586,13 +586,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public async Task<ServiceResult> PaymentTypesFind(string id, string token)
         {
             var Result = new ServiceResult();
-            var tipe = new TipeofpayListViewModel();
+            var type = new TipeofpayListViewModel();
 
             try
             {
                 var response = await _api.Get<TipeofpayListViewModel, TipeofpayListViewModel>(req => {
                     req.Path = $"/API/PaymentTypes/Find?Id=" + id;
-                    req.Content = tipe;
+                    req.Content = type;
                 },
                 token
                 );
@@ -618,6 +618,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public async Task<ServiceResult> PaymentRecordsList()
         {
             var result = new ServiceResult();
+            var cuenta = new PaymentRecordViewModel();
             try
             {
                 var response = await _api.Get<IEnumerable<PaymentRecordListViewModel>, IEnumerable<PaymentRecordListViewModel>>(req => {
@@ -640,16 +641,103 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
-
-        public async Task<ServiceResult> PaymentRecordsFind(string id, string token)
+        public async Task<ServiceResult> PaymentRecordCreate(PaymentRecordViewModel payment, string token)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Get<PaymentRecordViewModel, PaymentRecordViewModel>(req => {
-                    req.Path = $"/API/RecordPayment/Find?id=" + id;
+                var response = await _api.Post<PaymentRecordViewModel, PaymentRecordViewModel>(req => {
+                    req.Path = $"/API/RecordPayment/Insert";
+                    req.Content = payment;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> PaymentRecordUpdate(PaymentRecordViewModel payment, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<PaymentRecordViewModel, PaymentRecordViewModel>(req =>
+                {
+                    req.Path = $"/API/RecordPayment/Update?id=" + payment.RePa_ID;
+                    req.Content = payment;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> PaymentRecordDelete(PaymentRecordViewModel payment, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<PaymentRecordViewModel, PaymentRecordViewModel>(req =>
+                {
+                    req.Path = $"/API/RecordPayment/Delete?id=" + id + "&Mod=" + payment.RePa_UsuarioModifica;
                     req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> PaymentRecordsFind(string id, string token)
+        {
+            var Result = new ServiceResult();
+            var payment = new PaymentRecordListViewModel();
+            try
+            {
+                var response = await _api.Get<PaymentRecordListViewModel, PaymentRecordListViewModel>(req => {
+                    req.Path = $"/API/RecordPayment/Find?Id=" + id;
+                    req.Content = payment;
                 },
                 token
                 );

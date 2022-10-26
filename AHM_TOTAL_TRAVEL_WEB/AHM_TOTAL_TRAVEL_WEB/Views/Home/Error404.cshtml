@@ -1,0 +1,46 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error404";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div id="ErrorSection" class="loading">
+        <h1 style="margin-bottom: 12px; font-size: 8rem; font-style: italic; font-variant: petite-caps;">
+            Error 404 <i class="server icon"></i>            
+        </h1>
+        
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Código de seguimiento:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+        <span style="margin-bottom: 20px; font-size: 4rem;">
+            No se ha encontrado el recurso, revise el url o refresque la página. <b>:(</b>
+
+        </span>
+        <span style="margin-bottom: 40px;">
+            <a href="javascript:history.back()" class="ui button">Regresar</a>
+        </span>
+
+        <div class="gears">
+            <div class="gear one">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="gear two">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="gear three">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

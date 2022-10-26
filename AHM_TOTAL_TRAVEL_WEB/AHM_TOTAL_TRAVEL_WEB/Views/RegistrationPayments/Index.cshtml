@@ -1,24 +1,29 @@
 ﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PaymentRecordListViewModel>
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   
 }
 
 <div class="container card">
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="icon food"></i>
+            <i class="icon dollar sign"></i>
             <div class="content">
                 <div class="header">
-                    Regsitros de pago
+                    Registros de pago
                 </div>
             </div>
         </div>
 
         <br>
         <div class="ui grid">
+            <div class="eight wide column">
+                <div class="eight wide column">
+                    <button id="createPayments" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                </div>
+            </div>
             <div class="eight wide column">
             </div>
             <div class="eight wide column">
@@ -27,6 +32,7 @@
                     <i class="search icon"></i>
                 </div>
             </div>
+
         </div>
         
 
@@ -34,24 +40,23 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        # de Factura
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.MontoPago)
+                        Monto Pagado
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.fechaPago)
+                        Forma de pago
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TipoPago)
+                        Fecha y hora de pago
+                    </th>
+                    <th>
+                        Reservacion
                     </th>
                     <th>
                         Cliente
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Telefono)
-                    </th>
-
                     <th>
                         Acciones
                     </th>
@@ -60,72 +65,207 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr data-value="@item.ID">
                         <td>
                             @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MontoPago)
+                            L. @Html.DisplayFor(modelItem => item.MontoPago)
+                        </td>
+                        <td>
+                            @{
+                                if (item.Id_TipoPago == 1)
+                                {
+
+                                    <i class="paypal icon"></i>
+
+                                }
+                                else if (item.Id_TipoPago == 2)
+                                {
+                                    <i class="credit card icon"></i>
+
+                                }
+                                else if (item.Id_TipoPago == 3)
+                                {
+                                    <i class="money bill"></i>
+
+                                }
+                                else if (item.Id_TipoPago == 4)
+                                {
+                                    <i class="dollar sign icon"></i>
+
+                                }
+                            }
+                            @Html.DisplayFor(modelItem => item.TipoPago)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.fechaPago)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TipoPago)
+                            @Html.DisplayFor(modelItem => item.Descripcion_Paquete)
                         </td>
-
                         <td>
                             @string.Concat( item.Nombre, " ", item.Apellido)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Telefono)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Detalles", "Details", new {id = item.ID /* id=item.PrimaryKey */ }) 
+                            <a href="@Url.Action("Details","RegistrationPayments",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
+                            
                         </td>
                     </tr>
-                }
-            </tbody>
-        </table><br>
+                        }
+                    </tbody>
+                </table><br>
 
+            </div>
+</div>
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un Registro de pago
+    </div>
+    <form asp-action="Create" asp-controller="RegistrationPayments" id="createPaymentForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Reservación</label>
+                            <input name="Resv_ID" id="Resv_ID" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Forma de pago</label>
+                            <input name="TiPa_ID" id="TiPa_ID" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Cantidad</label>
+                            <input type="number" min="1" name="RePa_Monto" id="RePa_Monto" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Fecha</label>
+                            <input type="datetime" name="RePa_FechaPago" id="RePa_FechaPago" class="form-control" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="btn btn-edit ui positive button" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
     </div>
 </div>
-@section Scripts{
-    <script>
-        // ----------------------------------- EVENTS ------------------------------------
-        //TableSearchInput(SearchInput, Table, elemPerPage = 10)
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdPaymentRecord tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
 
-            $("#grdPaymentRecord").paginationTdA({
-                elemPerPage: 10
-            });
+
+<div class="ui modal longer" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un Registro de pago
+    </div>
+    <form asp-action="Update" asp-controller="RegistrationPayments" id="updatePaymentsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Reservación</label>
+                            <input name="resv_ID" id="resv_ID" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Forma de pago</label>
+                            <input name="tiPa_ID" id="tiPa_ID" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Cantidad</label>
+                            <input type="number" min="1" name="rePa_Monto" id="rePa_Monto" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Fecha</label>
+                            <input type="datetime" name="rePa_FechaPago" id="rePa_FechaPago" class="form-control" />
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    <div class="actions">
+        <button class="btn btn-edit ui positive button" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/RegistrationPayments/Index.js"></script>
+    <script src="~/js/RegistrationPayments/Payments.js"></script>
+<script>
+    // ----------------------------------- EVENTS ------------------------------------
+    //TableSearchInput(SearchInput, Table, elemPerPage = 10)
+    $("#txtSearch").keyup(function () {
+        _this = this;
+        $.each($("#grdPaymentRecord tbody tr"), function () {
+            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            }
         });
 
         $("#grdPaymentRecord").paginationTdA({
             elemPerPage: 10
         });
+    });
 
-    </script>
+    $("#grdPaymentRecord").paginationTdA({
+        elemPerPage: 10
+    });
+
+</script>
+<script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+        function Delete(id) {
+            const capsula1 = () => {
+                ajaxRequest("/RegistrationPayments/Delete?id=" + id, null, "POST")
+                window.location.href = '/RegistrationPayments?success=true';
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+
+
+        };
+</script>
 }
 @section HighlightTile{
-    <script>
+<script>
 
-        $("#SalesModule").addClass("active");
-        $("#SalesModule").addClass("expandedList");
-        $("#SalesModule").prop("aria-expanded");
-        $("#SalesModule").attr("aria-expanded", "true");
+    $("#SalesModule").addClass("active");
+    $("#SalesModule").addClass("expandedList");
+    $("#SalesModule").prop("aria-expanded");
+    $("#SalesModule").attr("aria-expanded", "true");
 
-        $("#Sale_Schema").addClass("show");
+    $("#Sale_Schema").addClass("show");
 
-        $("#RegistrationPaymentsTile").addClass("activeTile");
-    </script>
+    $("#RegistrationPaymentsTile").addClass("activeTile");
+</script>
 }
