@@ -105,3 +105,10 @@ var CitiesViewModel = {
     "ciud_UsuarioCreacion": Client_User_ID,
     "ciud_UsuarioModifica": Client_User_ID
 }
+
+var ReservationDetailsViewModel = {
+    "habi_ID": 0,
+    "reHo_ID": 0,
+    "reDe_UsuarioCreacion": Client_User_ID,
+    "reDe_UsuarioModifica": Client_User_ID
+}

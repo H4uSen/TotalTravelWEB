@@ -18,7 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         }
         #region Habitaciones
         //RoomsListViewModel LIST
-        public async Task<ServiceResult> RoomsList()
+        public async Task<ServiceResult> RoomsList(string token)
             {
                 var result = new ServiceResult();
                 try
@@ -26,7 +26,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                     var response = await _api.Get<IEnumerable<RoomsListViewModel>, IEnumerable<RoomsListViewModel>>(req => {
                         req.Path = $"/API/Rooms/List";
                         req.Content = null;
-                    }
+                    },
+                    token
                     );
                     if (!response.Success)
                     {

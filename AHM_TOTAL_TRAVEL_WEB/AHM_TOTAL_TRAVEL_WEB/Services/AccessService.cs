@@ -129,7 +129,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         #endregion
 
         #region Usuarios
-        public async Task<ServiceResult> UsersList()
+        public async Task<ServiceResult> UsersList(string token)
         {
             var Result = new ServiceResult();
 
@@ -138,7 +138,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<UserListViewModel>, IEnumerable<UserListViewModel>>(req => {
                     req.Path = $"/API/Users/List";
                     req.Content = new List<UserListViewModel>();
-                });
+                },
+                token
+                );
 
                 if (!response.Success)
                     return Result.FromApi(response);

@@ -22,9 +22,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-
+            string token = HttpContext.User.FindFirst("Token").Value;
             var model = new List<RoomsListViewModel>();
-            var list = await _hotelsServices.RoomsList();
+            var list = await _hotelsServices.RoomsList(token);
             return View(list.Data);
         }
 
@@ -67,9 +67,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+
             var item = new RoomsListViewModel();
             string token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _hotelsServices.RoomsList();
+            var list = await _hotelsServices.RoomsList(token);
             IEnumerable<RoomsListViewModel> data = (IEnumerable<RoomsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.ID = element.ID;

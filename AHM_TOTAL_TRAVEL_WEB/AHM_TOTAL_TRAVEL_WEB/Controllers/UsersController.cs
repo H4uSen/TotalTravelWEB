@@ -24,7 +24,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IEnumerable<UserListViewModel> UserList = (IEnumerable<UserListViewModel>)(await _AccessService.UsersList()).Data;
+            string token = HttpContext.User.FindFirst("Token").Value;
+            IEnumerable<UserListViewModel> UserList = (IEnumerable<UserListViewModel>)(await _AccessService.UsersList(token)).Data;
             return View(UserList);
         }
 
