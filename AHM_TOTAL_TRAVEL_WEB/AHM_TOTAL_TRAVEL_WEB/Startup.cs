@@ -51,7 +51,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             .AddCookie(option => {
                 option.LoginPath = "/Access/LandingPage";
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-                option.AccessDeniedPath = "/Home/Error";
+                option.AccessDeniedPath = "/Home/Error401";
             });
             services.AddAuthorization(options => {
                 options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
@@ -85,9 +85,24 @@ namespace AHM_TOTAL_TRAVEL_WEB
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
                 app.UseHsts();
             }
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/Home/Error404";
+                    await next();
+                }
+                if (context.Response.StatusCode == 500) 
+                {
+                    context.Request.Path = "/Home/Error500";
+                    await next();
+                }
+
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -98,7 +113,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             app.UseAuthorization();
 
             app.UseRequestLocalization();
-
+            
 
             app.UseEndpoints(endpoints =>
             {
