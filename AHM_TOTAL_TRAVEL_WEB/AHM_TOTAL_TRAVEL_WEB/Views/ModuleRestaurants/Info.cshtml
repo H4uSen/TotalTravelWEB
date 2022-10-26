@@ -1,0 +1,88 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RestaurantListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        .titulo {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: rgb(238,245,249);
+            background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
+            color: #fff;
+            height: 40%;
+            text-align:center;
+        }
+        h1 {
+            margin-top: 2% !important;
+        }
+        .container {
+            max-width: 95%;
+            margin: 5.125em 1.5em;
+            top: 0;
+            background-color: #f4fafd;
+        }
+        .ui.attached.segment {
+            background-color: transparent;
+            border: none;
+        }
+    </style>
+}
+
+<div class="titulo">
+    <h1>RESTAURANTE "@Model.Restaurante.ToUpper()"</h1>
+</div>
+<div class="container card">
+    <div class="ui basic segment">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Restaurante</label>
+                            @Html.DisplayFor(model => model.Restaurante)
+                        </div>
+                        <div class="field">
+                            <label>Teléfono</label>
+                            @ViewData["Telefono"]
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>E-mail</label>
+                            @ViewData["Email"]
+                        </div>
+                        <div class="field">
+                            <label>Dirección</label>
+                            @ViewData["DireccionExacta"]
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; max-width:40%; margin:auto;">
+                        <div class="ui icon header" id="RestaurantCarousel">
+                            <i class="images icon"></i>
+                            Tus imágenes aparecerán aquí.
+                        </div>
+                        <div class="ui centered fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/ModuleRestaurantsJs/Carrusel.js"></script>
+    <script>
+        const folderName = '@ViewData["RestaurantFolder"]';
+    </script>
+ }

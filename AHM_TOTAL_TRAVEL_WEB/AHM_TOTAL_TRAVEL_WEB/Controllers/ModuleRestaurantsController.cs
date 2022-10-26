@@ -33,6 +33,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
             var partner = (PartnersListViewModel)(await _generalService.PartnersFind(id, token)).Data;
+
+            var list = await _restaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
+            var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
+            ViewData["restauranteID"] = element.ID;
+
+            var typeMenus = await _restaurantService.TypeMenusList();
+            IEnumerable<TypeMenusListViewModel> data_TypeMenus = (IEnumerable<TypeMenusListViewModel>)typeMenus.Data;
+            ViewBag.TiMe_ID = new SelectList(data_TypeMenus, "ID", "descripcion");
+            return View();
+        }
+
+        public async Task<IActionResult> Info()
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(id, token)).Data;
             ViewData["Telefono"] = partner.Telefono;
             ViewData["Email"] = partner.Email;
 
@@ -53,23 +72,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View(element);
         }
 
-        public async Task<IActionResult> Menu()
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(MenusViewModel Menus, int id)
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var id = HttpContext.User.FindFirst("User_Id").Value;
-            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+            if (ModelState.IsValid)
+            {
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                Menus.Menu_UsuarioModifica = int.Parse(idd);
 
-            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(id, token)).Data;
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _restaurantService.MenusDelete(Menus, id, token)).Data;
 
-            var list = await _restaurantService.RestaurantsList(token);
-            IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
-            var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
-            ViewData["restauranteID"] = element.ID;
-
-            var typeMenus = await _restaurantService.TypeMenusList();
-            IEnumerable<TypeMenusListViewModel> data_TypeMenus = (IEnumerable<TypeMenusListViewModel>)typeMenus.Data;
-            ViewBag.TiMe_ID = new SelectList(data_TypeMenus, "ID", "descripcion");
-            return View();
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

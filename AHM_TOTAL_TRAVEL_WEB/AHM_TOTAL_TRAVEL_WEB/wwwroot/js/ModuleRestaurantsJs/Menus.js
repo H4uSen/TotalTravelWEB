@@ -28,7 +28,7 @@ function fillMenu(idtipomenu) {
         var card = `<div class="ui special card">
             <div class="content">
                 <div class="right floated meta">
-                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
+                    <a href="javascript:EliminarMenu(${item.id})"><i class="large times icon"></i></a>
                 </div>
                 ${item.menu}
             </div>
