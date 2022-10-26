@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ActivitiesExtrasListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PartnersListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -44,16 +44,18 @@
             z-index: 80;
             height: auto;
             max-height: 230px !important;
+            max-width: 230px !important;
         }
-        h3{
-            margin:auto;
+
+        h3 {
+            margin: auto;
         }
     </style>
 }
 
 <div class="titulo">
 </div>
-    <img id="img" class="ui medium circular image" src="https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/temas/test-madurez_1.jpg">
+<img id="img" class="ui medium circular image" src="https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/temas/test-madurez_1.jpg">
 <div class="container card">
     <div class="ui basic segment">
         <div class="ui form attached fluid segment">
@@ -61,13 +63,12 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
-                            <label>Socio</label>
-                            Nombre partner
+                            <label>Nombre socio</label>
+                            @Html.DisplayFor(model => model.Nombre)
                         </div>
                         <div class="field">
                             <label>Teléfono</label>
-                            9645-6526
-                            @*@ViewData["Telefono"]*@
+                            @ViewData["Telefono"]
                         </div>
                     </div>
                 </div>
@@ -75,141 +76,22 @@
                     <div class="two fields">
                         <div class="field">
                             <label>E-mail</label>
-                            holpartner@gmail.com
-                            @*@ViewData["Email"]*@
-                        </div>
-                        <div class="field">
-                            <label>Dirección</label>
-                            Calle 9 Sur, Avenida 1, Colonia Kennedy, Ciudad de El Progreso, nose
-                            @*@ViewData["DireccionExacta"]*@
+                            @ViewData["Email"]
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br />
     </div>
 </div>
 
 @section Scripts{
-    <script src="~/js/ModuleRestaurantsJs/Carrusel.js"></script>
+    <script>
+
+        const partnerID = "@ViewData["PartnerID"]";
+        const FileName = `Partner-${partnerID}`;
+        const image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${FileName}/${FileName}_photo-1.jpg`;
+        $("#img").prop("src", "https://" + image);
+
+    </script>
 }
-
-
-
-
-
-
-
-
-
-@*<div>
-        <dl class="row">
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ID)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ID)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ID_Partner)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ID_Partner)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Partner)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Partner)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.CiudadID)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.CiudadID)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Ciudad)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Ciudad)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ID_Actividad)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ID_Actividad)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Actividad)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Actividad)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Precio)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Precio)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Descripcion)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ID_Crea)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ID_Crea)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ImageURL)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UsuarioCrea)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UsuarioCrea)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.FechaCreacion)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ID_Modifica)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ID_Modifica)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UsuarioModifica)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UsuarioModifica)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.FechaModifica)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.FechaModifica)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Estado)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Estado)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>*@

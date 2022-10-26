@@ -35,8 +35,6 @@ function fillDetails(Reservacion_HotelID) {
     var details = jQuery.grep(detailsList.data, function (detail, i) {
         return detail.reservacionHotelID == Reservacion_HotelID;
     });
-    console.log(detailsList);
-    console.log(details);
     if (detailsList.code == 200) {
 
         if (details.length > 0) {

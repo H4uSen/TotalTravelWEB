@@ -54,15 +54,13 @@
 }
 
 <div class="titulo">
-    <h1>Tipo de menú que será</h1>
+    <h1 id="tipomenutext">TODOS</h1>
 </div>
 <div class="ui clearing segment">
     <div class="ui grid">
         <div class="eight wide column">
-            <select id="Tipo_Menu" class="ui dropdown search">
-                <option value="">Menú</option>
-                <option value="">Menú</option>
-                <option value="">Menú</option>
+            <select id="Tipo_Menu" class="ui dropdown search" asp-items="ViewBag.TiMe_ID">
+                <option value="0" selected>Todos</option>
             </select>
         </div>
         <div class="eight wide column">
@@ -73,177 +71,22 @@
     </div>
 </div>
 <div class="container card">
-    <div class="ui cards centered">
-        <div class="ui special card">
-            <div class="content">
-                <div class="right floated meta">
-                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
-                </div>
-                Nombre menú
-            </div>
-            <div class="image">
-                <div class="ui dimmer">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">Editar</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
-            </div>
-            <div class="content">
-                <span>Las baleadas de doña Tula</span>
-            </div>
-            <div class="extra content">
-                <p>
-                    <b>L </b>
-                    150000.00
-                </p>
-            </div>
-        </div>
-        <div class="ui special card">
-            <div class="content">
-                <div class="right floated meta">
-                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
-                </div>
-                Nombre menú
-            </div>
-            <div class="image">
-                <div class="ui dimmer">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">Editar</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
-            </div>
-            <div class="content">
-                <span>Las baleadas de doña Tula</span>
-            </div>
-            <div class="extra content">
-                <p>
-                    <b>L </b>
-                    150000.00
-                </p>
-            </div>
-        </div>
-        <div class="ui special card">
-            <div class="content">
-                <div class="right floated meta">
-                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
-                </div>
-                Nombre menú
-            </div>
-            <div class="image">
-                <div class="ui dimmer">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">Editar</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
-            </div>
-            <div class="content">
-                <span>Las baleadas de doña Tula</span>
-            </div>
-            <div class="extra content">
-                <p>
-                    <b>L </b>
-                    150000.00
-                </p>
-            </div>
-        </div>
-        <div class="ui special card">
-            <div class="content">
-                <div class="right floated meta">
-                    <a href="javascript:EliminarMenu()"><i class="large times icon"></i></a>
-                </div>
-                Nombre menú
-            </div>
-            <div class="image">
-                <div class="ui dimmer">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">Editar</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://www.cocinacaserayfacil.net/wp-content/uploads/2020/04/Recetas-de-comidas-para-ni%C3%B1os.jpg">
-            </div>
-            <div class="content">
-                <span>Las baleadas de doña Tula</span>
-            </div>
-            <div class="extra content">
-                <p>
-                    <b>L </b>
-                    150000.00
-                </p>
-            </div>
-        </div>
-        <div class="ui card" id="esconder">
-            <div class="blurring dimmable image">
-                <img src="https://avalos.sv/wp-content/uploads/default-featured-image.png" />
-                <div class="field">
-                    <input type="file" />
-                </div>
-            </div>
-            <div class="content">
-                <div class="ui form">
-                    <div class="field">
-                        <div class="ui input">
-                            <input type="text" placeholder="Nombre del menú">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui input">
-                            <textarea rows="2" placeholder="Descripción del menú"></textarea>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui right labeled input">
-                            <label for="amount" class="ui label">L</label>
-                            <input type="number" step="0.01" min="0">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui card align-items-center" id="mas">
-            <a>
-                <i class="massive plus icon"></i>
-                @*<img src="~/assets/client/images/mas.png" style="width:100%;">*@
-            </a>
-        </div>
-        <div class="ui card align-items-center" id="equis">
-            <a>
-                <i class="massive close icon"></i>
-                @*<img src="~/assets/client/images/mas.png" style="width:100%;">*@
-            </a>
-        </div>
-        <br />
+    <div class="ui cards centered" id="menusContainer">
     </div>
 </div>
 
 <br /><br />
 
 @section Scripts{
+
     <script>
-        $('#esconder').hide();
-        $('#equis').hide();
+        const RestauranteID = "@ViewData["restauranteID"]";
+    </script>
 
-        $('#agregar, #mas').click(() => {
-            $('#esconder').show();
-            $('#mas').hide();
-            $('#equis').show();
-        });
+    <script src="~/js/ModuleRestaurantsJs/Menus.js"></script>
 
-        $("#equis").click(() => {
-            $('#esconder').hide();
-            $('#mas').show();
-            $('#equis').hide();
-        });
+    <script>
+          
 
         //$('select.dropdown')
         //    .dropdown()
