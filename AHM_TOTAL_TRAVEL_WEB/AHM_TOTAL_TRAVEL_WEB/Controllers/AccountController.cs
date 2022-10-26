@@ -35,13 +35,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
             var direccion = (AddressListViewModel)(await _generalService.AddressFind(cuenta.DireccionID.ToString(), token)).Data;
+            if (direccion != null)
+            {
+                ViewData["Calle"] = direccion.Calle;
+                ViewData["Avenida"] = direccion.Avenida;
+                ViewData["Pais"] = direccion.ID_Pais;
+                ViewData["Ciudad"] = direccion.ID_Ciudad;
+                ViewData["Colonia"] = direccion.Colonia;
+                ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
 
-            ViewData["Calle"] = direccion.Calle;
-            ViewData["Avenida"] = direccion.Avenida;
-            ViewData["Pais"] = direccion.ID_Pais;
-            ViewData["Ciudad"] = direccion.ID_Ciudad;
-            ViewData["Colonia"] = direccion.Colonia;
-            ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
+            }
 
             var fechanaci = cuenta.Fecha_Nacimiento.ToString().Split(" ");
             ViewData["Fechanaci"] = fechanaci[0];
