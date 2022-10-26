@@ -19,15 +19,21 @@ $(button).addClass("active");
         }
     }
 
-function ViewReservation(hoteid) {
+function ViewReservation(hoteid,transid) {
         var response = ajaxRequest("https://totaltravel.somee.com/API/Hotels/Find?id="+hoteid);
 
         if (response.code == 200) {
-            var imagen = $('#imagen').val();
+            
             var hotels = response.data;
             var imagenes = hotels.image_URL.split(',');
             $('#imagen').attr("src", imagenes[0]);
             $('#hotename').html(hotels.hotel);
+        }
+        var response2 = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/Find?id=" + 6);
+
+        if (response2.code == 200) {          
+            var transp = response2.data;                    
+            $('#trcategory').html(transp.tipo_Transporte);
         }
 
     $('#Reservation_Details_Info .item').removeClass("disabled");
