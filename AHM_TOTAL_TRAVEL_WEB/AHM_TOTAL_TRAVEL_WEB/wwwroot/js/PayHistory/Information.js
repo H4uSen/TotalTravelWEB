@@ -33,9 +33,7 @@ function ViewReservation(hoteid,transid) {
             $('#imagen').attr("src", imagenes[0]);
             $('#hotename').html(hotels.hotel);
         }
-        
-        
-
+    
         if (response2.code == 200) {
             var transp = response2.data;
             var transpo = transp.filter(resv => resv.reservacion = transid);
@@ -66,7 +64,7 @@ function ViewReservation(hoteid,transid) {
             if (ReservacionDetView.code == 200) {
 
                 var resv = ReservacionDetView.data;
-                var rooms = resv.filter(resva => resva.reservacionHotelID = reshotid);
+                var rooms = resv.filter(resva => resva.reservacionHotelID == reshotid);
                 $('#rooms').empty();
                 for (var i=0; i < rooms.length; i++){
                     const item = rooms[i];
@@ -112,8 +110,8 @@ function ViewReservation(hoteid,transid) {
 
         if (ReservacionActView.code == 200) {
 
-            var resvact = ReservacionActView.data;
-            var activities = resvact.filter(resva => resva.reservacion = transid);
+            var resvacts = ReservacionActView.data;
+            var activities = resvacts.filter(resva => resva.reservacion == transid);
             $('#actext').empty();
             for (var i = 0; i < activities.length; i++) {
                 const item = activities[i];
@@ -134,7 +132,7 @@ function ViewReservation(hoteid,transid) {
         if (ReservacionActHotView.code == 200) {
 
             var resvact = ReservacionActHotView.data;
-            var activitiesh = resvact.filter(resva => resva.reservacion = transid);
+            var activitiesh = resvact.filter(resva => resva.reservacionID == transid);
             $('#acthot').empty();
             for (var i = 0; i < activitiesh.length; i++) {
                 const item = activitiesh[i];                            

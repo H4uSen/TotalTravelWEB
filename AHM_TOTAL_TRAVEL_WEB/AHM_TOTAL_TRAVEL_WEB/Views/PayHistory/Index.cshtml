@@ -54,11 +54,14 @@
                       <div class="ui cards overflow-auto" style="max-height: 55em;">
                           @foreach (var item in Model){
                               
-                          <div class="ui card">
+                            var entrada= item.Fecha_Entrada.ToString().Split(' ');
+                            var salida = item.Fecha_Salida.ToString().Split(' ');
+                               
+                           <div class="ui card w-100">
                               <div class="content">
                                   <div class="header">@item.Nombre_Hotel</div>
                                   <div class="description">
-                                      @item.Fecha_Entrada a @item.Fecha_Salida
+                                      @entrada[0] al @salida[0]
                                   </div>
                                   
                                   <div class="ui green header">@item.precio</div>
@@ -332,6 +335,7 @@
                         </h4>
                         <div class="ui attached">
                             <div class="ui divided items" id="acthot">
+
                             </div>
                         </div>
                         <br>
@@ -340,6 +344,7 @@
                         </h4>
                         <div class="ui attached">
                             <div class="ui divided items" id="actext">
+
                             </div>
                         </div>
                     </div>
