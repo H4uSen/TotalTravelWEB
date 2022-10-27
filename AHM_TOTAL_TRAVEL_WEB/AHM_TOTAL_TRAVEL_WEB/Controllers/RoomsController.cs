@@ -54,13 +54,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 habitacion.Habi_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _hotelsServices.RoomsCreate(habitacion, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/Rooms?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
                 return View();
             }
-
         }
 
 
@@ -95,6 +102,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             ViewData["RoomsFolder"] = $"Hotels/Hotel-{element.HotelID}/Rooms";
             ViewData["RoomFolder"] = $"Hotels/CaHa-{element.CategoriaHabitacionID}/Rooms";
+            ViewData["HotelID"] = item.HotelID;
             ViewData["ID_Update"] = element.HotelID;
 
             return View(item);

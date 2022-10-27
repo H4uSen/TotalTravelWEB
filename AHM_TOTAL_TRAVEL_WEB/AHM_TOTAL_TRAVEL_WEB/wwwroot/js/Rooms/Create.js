@@ -54,7 +54,7 @@ function createRooms() {
         { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_Nombre") },
         { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hote_ID") },
         { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
-        { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Habi_Descripcion") },
+        { validateMessage: "Ingrese una descripcion", Jqueryinput: $("#Habi_Descripcion") },
         { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
         { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
         { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
@@ -76,7 +76,7 @@ function createRooms() {
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
         data.append("Habi_Precio", $("#Habi_Precio").val());
         data.append("Habi_balcon", $("#Habi_balcon").val());
-        data.append("Habi_wifi", $("#Habi_wifi").val());
+        /*data.append("Habi_wifi", $("#Habi_wifi").val());*/
         data.append("Habi_camas", $("#Habi_camas").val());
         data.append("Habi_capacidad", $("#Habi_capacidad").val());
         data.append("Habi_UsuarioCreacion", Client_User_ID);
@@ -95,4 +95,17 @@ function createRooms() {
 
     }
     else { console.log("error") }
+    if (ReservacionActividadValidate) {
+
+        $("#Habi_Wifi").val(false);
+
+        if ($("#Habi_Wifi").prop('checked')) {
+
+            $("#Habi_Wifi").val(true);
+        }
+        $('#CreateRooms').submit()
+
+
+    }
+
 }

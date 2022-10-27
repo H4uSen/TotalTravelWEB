@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
-                                    <input type="number"  id="Habi_Precio" value="@Model.Precio" placeholder="Precio" />
+                                    <input type="number" id="Habi_Precio" value="@Model.Precio" placeholder="Precio" />
                                 </div>
                             </div>
                         </div>
@@ -60,66 +60,70 @@
 
                         <div class="field">
                             <div class="three fields">
-                                <div class="required field">
-                                    <label class="ui label">Wifi</label>
-                                    <input id="Habi_wifi" value="@Model.Wifi" placeholder="Wifi" />
-                                </div>
-                                <div class="required field">
-                                    <label class="ui label">Cama</label>
-                                    <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
-                                </div>
-                                <div class="required field">
-                                    <label class="ui label">Capacidad</label>
-                                    <input type="number" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="ui grid three column stackable mt-4">
-
-                            <div class="column">
-                                <label class="ui label">Imagenes en fila.</label>
                                 <div class="ui segment">
-                                    <div class="ui middle aligned divided list" id="image-upload-list">
-
+                                    <div class="grouped fields">
+                                        <div class="field">
+                                            <div class="ui toggle checkbox">
+                                                <input type="checkbox" value="false" id="Habi_Wifi" name="Habi_Wifi" tabindex="0" class="hidden">
+                                                <label>Wifi</label>
+                                            </div>
+                                            <div class="required field">
+                                                <label class="ui label">Cama</label>
+                                                <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
+                                            </div>
+                                            <div class="required field">
+                                                <label class="ui label">Capacidad</label>
+                                                <input type="number" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="column">
-                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
-                                    <div class="ui icon header">
-                                        <i class="pdf file outline icon"></i>
-                                        Sube tus imagenes al sistema.
+
+                                    <div class="ui grid three column stackable mt-4">
+
+                                        <div class="column">
+                                            <label class="ui label">Imagenes en fila.</label>
+                                            <div class="ui segment">
+                                                <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                                <div class="ui icon header">
+                                                    <i class="pdf file outline icon"></i>
+                                                    Sube tus imagenes al sistema.
+                                                </div>
+                                                <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                                       id="File" />
+                                                <label for="File" class="ui primary button">
+                                                    Añade una imagen
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                                <div class="ui icon header" id="RoomsCarousel">
+                                                    <i class="images icon"></i>
+                                                    Tus imagenes aparecerán aquí.
+                                                </div>
+
+                                                <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
-                                           id="File" />
-                                    <label for="File" class="ui primary button">
-                                        Añade una imagen
-                                    </label>
+                                    <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                                    <input type="button" value="Guardar" onclick="updateRooms()" class="btn btn-edit ui positive button" />
+                                    <a type="button" href="@Url.Action("Index", "Rooms")" class="ui button mb-3 ms-3">Cancelar</a>
                                 </div>
-
                             </div>
-
-                            <div class="column">
-                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
-                                    <div class="ui icon header" id="RoomsCarousel">
-                                        <i class="images icon"></i>
-                                        Tus imagenes aparecerán aquí.
-                                    </div>
-
-                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="labelvalidator" id="labelvalidatorError"></span>
-
-                        <input type="button" value="Guardar" onclick="updateRooms()" class="btn btn-edit ui positive button" />
-                        <a type="button" href="@Url.Action("Index", "Rooms")" class="ui button mb-3 ms-3">Cancelar</a>
-                    </div>
-                </div>
 
             </form>
             <!-- fin formulario-->
@@ -127,6 +131,10 @@
     </div>
 </div>
 @section Scripts{
+
+    <script>
+        $('.ui.checkbox').checkbox();
+    </script>
     <script>
         var RoomsFolder = '@ViewData["RoomsFolder"]';
          var ID_Update = '@ViewData["ID_Update"]';

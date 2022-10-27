@@ -113,7 +113,7 @@ function deleteImage(index) {
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
         data.append("Habi_Precio", $("#Habi_Precio").val());
         data.append("Habi_balcon", $("#Habi_balcon").val());
-        data.append("Habi_wifi", $("#Habi_wifi").val());
+       /* data.append("Habi_wifi", $("#Habi_wifi").val());*/
         data.append("Habi_camas", $("#Habi_camas").val());
         data.append("Habi_capacidad", $("#Habi_capacidad").val());
         data.append("Habi_UsuarioModificar", parseInt(Client_User_ID));

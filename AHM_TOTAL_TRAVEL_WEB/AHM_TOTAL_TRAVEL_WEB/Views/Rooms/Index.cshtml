@@ -95,7 +95,15 @@
                             @Html.DisplayFor(modelItem => item.Balcon)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Wifi)
+                            @{ if (item.Wifi == true)
+                                {
+                                    <span class="ui green label">Pagado</span>
+                                }
+                                else
+                                {
+                                    <span class="ui red label">No Pagado</span>
+                                }
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Camas)
