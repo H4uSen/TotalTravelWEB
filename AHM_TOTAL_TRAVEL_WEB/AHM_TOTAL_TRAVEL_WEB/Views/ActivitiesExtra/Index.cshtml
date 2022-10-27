@@ -75,7 +75,7 @@
                         <td>
                             <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
                             @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
-                            <button class="ui large icon btn-delete button" onclick="DeleteActividadExtra(@item.ID)">
+                            <button class="ui large icon btn-delete button" onclick="DeleteActiExtra('@item.ID')">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a href="@Url.Action("Details","ActivitiesExtra",new {  id=item.ID})" class="ui large icon button">
@@ -106,22 +106,24 @@
             });
 
             $("#grdActividadesExtra").paginationTdA({
-                elemPerPage: 5
+                elemPerPage: 10
             });
         });
 
         $("#grdActividadesExtra").paginationTdA({
-            elemPerPage: 5
+            elemPerPage: 10
         });
 
         //------------------------------------Funciones------------------------
 
-        function DeleteActividadExtra(id) {
-            const capsula3 = () => {
-                ajaxRequest("/ActivitiesExtra/Delete?id=" + id, null, "POST")
+        function DeleteActiExtra(id) {
+            const capsula13 = () => {
+                var response = ajaxRequest("ActivitiesExtra/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/ActivitiesExtra?success=true';
+                }
             };
-
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula3);
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula13);
 
         };
     </script>
