@@ -20,77 +20,125 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var destiny = await _transportService.TransportDestionationsList();
-            IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
-            ViewBag.DsTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
-            var list =  await _transportService.ScheduleTransportationList();
-            return View(list.Data);
+            try
+            {
+                var destiny = await _transportService.TransportDestionationsList();
+                IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
+                ViewBag.DsTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
+                var list =  await _transportService.ScheduleTransportationList();
+                return View(list.Data);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var destiny = await _transportService.TransportDestionationsList();
-            IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
-            ViewBag.HoTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
-            return View();
+            try
+            {
+                var destiny = await _transportService.TransportDestionationsList();
+                IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
+                ViewBag.HoTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
+                return View();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ScheduleTransportationViewModel horarios)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            horarios.HoTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-            string horaSalida = horarios.HoTr_HoraSalida;
-            string horaLlegada = horarios.HoTr_HoraLlegada;
-            string[] HoraSalidaResult = horaSalida.Split(":", 2, StringSplitOptions.None);
-            string[] HoraLlegadaResult = horaLlegada.Split(":", 2, StringSplitOptions.None);
-            horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
-            horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
-            RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationCreate(horarios, token)).Data;
-            return RedirectToAction("Index");
+            try
+            { 
+                string token = HttpContext.User.FindFirst("Token").Value;
+                horarios.HoTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                string horaSalida = horarios.HoTr_HoraSalida;
+                string horaLlegada = horarios.HoTr_HoraLlegada;
+                string[] HoraSalidaResult = horaSalida.Split(":", 2, StringSplitOptions.None);
+                string[] HoraLlegadaResult = horaLlegada.Split(":", 2, StringSplitOptions.None);
+                horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
+                horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
+                RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationCreate(horarios, token)).Data;
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
         
         [HttpPost]
         public async Task<IActionResult> Update(ScheduleTransportationViewModel horarios, int id)
         {
-            string Fecha = horarios.HoTr_Fecha.ToString();
-            string horaSalida = horarios.HoTr_HoraSalida;
-            string horaLlegada = horarios.HoTr_HoraLlegada;
-            string[] HoraSalidaResult = horaSalida.Split(":",2,StringSplitOptions.None);
-            string[] HoraLlegadaResult = horaLlegada.Split(":", 2, StringSplitOptions.None);
-            string[] FechaResult = Fecha.Split(" ", 2, StringSplitOptions.None);
-            horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
-            horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
-            horarios.HoTr_Fecha = FechaResult[0];
-            string token = HttpContext.User.FindFirst("Token").Value;
-            horarios.HoTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-            RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationUpdate(horarios, token)).Data;
-            return RedirectToAction("Index");
+            try
+            {
+                string Fecha = horarios.HoTr_Fecha.ToString();
+                string horaSalida = horarios.HoTr_HoraSalida;
+                string horaLlegada = horarios.HoTr_HoraLlegada;
+                string[] HoraSalidaResult = horaSalida.Split(":",2,StringSplitOptions.None);
+                string[] HoraLlegadaResult = horaLlegada.Split(":", 2, StringSplitOptions.None);
+                string[] FechaResult = Fecha.Split(" ", 2, StringSplitOptions.None);
+                horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
+                horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
+                horarios.HoTr_Fecha = FechaResult[0];
+                string token = HttpContext.User.FindFirst("Token").Value;
+                horarios.HoTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationUpdate(horarios, token)).Data;
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(ScheduleTransportationViewModel horarios, int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                horarios.HoTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                if (ModelState.IsValid)
+                {
+                    horarios.HoTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
 
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _transportService.ScheduleTransportationDelete(horarios, id,token);
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = await _transportService.ScheduleTransportationDelete(horarios, id,token);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+
+                return RedirectToAction("Error", "Home");
             }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var detalle = (ScheduleTransportationListViewModel)(await _transportService.ScheduleFind(id, token)).Data;
-            return View(detalle);
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var detalle = (ScheduleTransportationListViewModel)(await _transportService.ScheduleFind(id, token)).Data;
+                return View(detalle);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

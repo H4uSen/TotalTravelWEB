@@ -31,6 +31,8 @@ function ViewReservation(hoteid,transid) {
             var hotels = response.data;
             var imagenes = hotels.image_URL.split(',');
             $('#imagen').attr("src", imagenes[0]);
+            $('#hotedescription').html(hotels.descripcion);
+           
             $('#hotename').html(hotels.hotel);
         }
     
@@ -40,12 +42,14 @@ function ViewReservation(hoteid,transid) {
             var transpor = transpo[0];
             
             $('#trcategory').html(transpor.tipo_Transporte);
+            
             var response3 = ajaxRequest("https://totaltravel.somee.com/API/Transports/Find?id=" + transpor.iD_detalle_Transporte);
             if (response3.code == 200) {
                 var t = response3.data;
                 var response4 = ajaxRequest("https://totaltravel.somee.com/API/Partners/Find?id=" + t.partnerID);
                 if (response4.code == 200) {
-                    var partner = response4.data;                   
+                    var partner = response4.data;
+                    $('#trciudad').html(t.ciudad);
                     $('#partnername').html(partner.nombre);
                     var imagenes = partner.image_Url.split(',');
                     $('#imagenpar').attr("src", imagenes[0]);

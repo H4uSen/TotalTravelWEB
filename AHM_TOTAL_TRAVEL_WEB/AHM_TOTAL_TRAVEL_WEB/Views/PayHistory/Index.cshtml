@@ -39,17 +39,7 @@
             <div class="ui segment">
 
                 <!-- top reservation filter menu -->
-                <div class="ui top attached menu" id="hotel_nav">
-
-                    <div class="item">
-                        <select class="ui search dropdown">
-                            <option value="AZ" selected>Todos</option>
-                            <option value="AL">Confirmados</option>
-                            <option value="AK">Pendientes</option>
-                        </select>
-                    </div>
-
-                </div><br>
+                
 
                       <div class="ui cards overflow-auto" style="max-height: 55em;">
                           @foreach (var item in Model){
@@ -131,18 +121,13 @@
                                                 (9
                                                 Persons)
                                             </b>
-                                        </a>
+                                        </a>                                       
                                         <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
+                                            <span class="cinema" id="hotedescription">
+                                               
                                             </span>
                                         </div>
-                                        
-                                        <div class="extra">
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                        </div><br>
+                                       
                                     </div>
                                     
                                 </div>
@@ -170,13 +155,11 @@
                                         </a>
                                         <div class="ui large label" id="trcategory"></div>
                                         <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
+                                            <span class="cinema" id="trciudad">
+                                                
                                             </span>
                                         </div>
-                                        <div class="description">
-                                            Reserved at Sep. 09, 2022 at 12:00pm
-                                        </div>
+                                        
                                     </div>
                                    
                                 </div>

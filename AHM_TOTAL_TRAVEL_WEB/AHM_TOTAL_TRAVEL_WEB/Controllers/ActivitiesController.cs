@@ -24,28 +24,47 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var type = await _activitiesServices.TypesActivitiesList();
-            IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
-            ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
-            var model = new List<ActivitiesListViewModel>();
-            var list = await _activitiesServices.ActivityList();
+            try
+            {
+                var type = await _activitiesServices.TypesActivitiesList();
+                IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
+                ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
+                var model = new List<ActivitiesListViewModel>();
+                var list = await _activitiesServices.ActivityList();
 
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            IEnumerable<TypesActivitiesListViewModel> model = null;
-            var type = await _activitiesServices.TypesActivitiesList();
-            IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
-            ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
-            return View();
+            try
+            {
+                IEnumerable<TypesActivitiesListViewModel> model = null;
+                var type = await _activitiesServices.TypesActivitiesList();
+                IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
+                ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
+                return View();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ActivitiesViewModel actividad)
         {
+            try
+            {
+
                 string token = HttpContext.User.FindFirst("Token").Value;
                 actividad.actv_UsuarioCreacion = 1;
                 RequestStatus response = (RequestStatus)(await _activitiesServices.ActivitiesCreate(actividad, token)).Data;
@@ -62,6 +81,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
                     return View();
                 };
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
           
 
         }
@@ -69,60 +94,91 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try
+            {
+                var item = new ActivitiesViewModel();
+                IEnumerable<ActivitiesListViewModel> model = null;
+                var list = await _activitiesServices.ActivityList();
+                IEnumerable<ActivitiesListViewModel> data = (IEnumerable<ActivitiesListViewModel>)list.Data;
+                var element = data.Where(x => x.ID == id).ToList()[0];
+                item.actv_Descripcion = element.Descripcion;
+                ViewData["TipoActividad"] = element.ID_TiAc;
 
-            var item = new ActivitiesViewModel();
-            IEnumerable<ActivitiesListViewModel> model = null;
-            var list = await _activitiesServices.ActivityList();
-            IEnumerable<ActivitiesListViewModel> data = (IEnumerable<ActivitiesListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            item.actv_Descripcion = element.Descripcion;
-            ViewData["TipoActividad"] = element.ID_TiAc;
+                return View(item);
+            }
+            catch (Exception)
+            {
 
-            return View(item);
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(ActivitiesViewModel actividad, int id)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    actividad.actv_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                    var lista = await _activitiesServices.ActivitiesUpdate(actividad, id, token);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
 
-            if (ModelState.IsValid)
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.actv_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                var lista = await _activitiesServices.ActivitiesUpdate(actividad, id, token);
-                return RedirectToAction("Index");
+                return RedirectToAction("Error", "Home");
             }
-            else
-            {
-                return View();
-            }
+
 
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(ActivitiesViewModel actividad, int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                actividad.actv_UsuarioModifica = 1;
+                if (ModelState.IsValid)
+                {
+                    actividad.actv_UsuarioModifica = 1;
 
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _activitiesServices.ActivitiesDelete(actividad, id, token);
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = await _activitiesServices.ActivitiesDelete(actividad, id, token);
                 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+
+                return RedirectToAction("Error", "Home");
             }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var detalle = (ActivitiesListViewModel)(await _activitiesServices.ActivitiesFind(id, token)).Data;
-            return View(detalle);
+            try
+            { 
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var detalle = (ActivitiesListViewModel)(await _activitiesServices.ActivitiesFind(id, token)).Data;
+                return View(detalle);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

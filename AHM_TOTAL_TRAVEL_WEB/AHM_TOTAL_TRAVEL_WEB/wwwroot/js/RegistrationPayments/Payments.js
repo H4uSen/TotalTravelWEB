@@ -1,5 +1,9 @@
 ﻿$("#errorDiv").hide();
 
+$('#example4').calendar({
+    startMode: 'year'
+});
+
 $('.ui.dropdown').dropdown();
 
 $("#createPayments").click(() => {
@@ -15,21 +19,18 @@ $("#modalUpdate #close").click(() => {
     $("#modalUpdate").modal('hide');
 });
 
-$("#send").click(() => {
-    validar();
-})
 
 function validar() {
 
     validateArrayForm = [
         { validateMessage: "Ingrese una reservación.", Jqueryinput: $("#modalCreate #Resv_ID") },
-        { validateMessage: "Ingrese una forma de pago.", Jqueryinput: $("#modalCreate TiPa_ID") },
+        { validateMessage: "Ingrese una forma de pago.", Jqueryinput: $("#modalCreate #TiPa_ID") },
         { validateMessage: "Ingrese un monto.", Jqueryinput: $("#modalCreate #RePa_Monto") },
         { validateMessage: "Ingrese una fecha.", Jqueryinput: $("#modalCreate #RePa_FechaPago") },
 
 
     ];
-
+    
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 

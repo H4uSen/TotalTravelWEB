@@ -11,12 +11,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int Id_TipoPago { get; set; }
         public string TipoPago { get; set; }
         public int Id_Reservacion { get; set; }
-        public int Id_Paquete { get; set; }
-        public string Descripcion_Paquete { get; set; }
+        public int? Id_Paquete { get; set; }
+        public string nombre_paquete { get; set; }
+        public string descripcion_paquete { get; set; }
+        public decimal? precio_paquete { get; set; }
         public int Id_Cliente { get; set; }
-        public string NombreCompleto { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string Nombre_Completo { get; set; }
         public string DNI { get; set; }
         public string Telefono { get; set; }
         public int? Id_UsuarioCrea { get; set; }
