@@ -6,7 +6,7 @@
 <div class="container">
     <div id="ErrorSection" class="loading" >
         <h1 style="margin-bottom: 12px; font-size: 8rem; font-style: italic; font-variant: petite-caps;">
-            Error 500 <i class="server icon"></i>
+            Error 500
         </h1>
         @if (Model.ShowRequestId)
         {
@@ -18,8 +18,8 @@
             Ha ocurrido un error al procesar la solicitud, refresque la página o inténtelo de nuevo más tarde. <b>:(</b>
             
         </span>
-        <span style="margin-bottom: 40px;">
-            <a href="javascript:history.back()" class="ui button">Regresar</a>
+        <span style="margin-bottom: 40px;display: flex;justify-content: flex-end;">
+            <a href="javascript:history.back()" class="ui button" style="font-size: 22px;margin-right: 13%;">Regresar</a>
         </span>
         
         <div class="gears">

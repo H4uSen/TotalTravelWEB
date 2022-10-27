@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -626,6 +627,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                     req.Content = null;
                 }
                 );
+                if (response == null)
+                {
+                    return result.FromApi(response);
+                }
                 if (!response.Success)
                 {
                     return result.FromApi(response);
@@ -653,6 +658,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 },
                 token
                 );
+                if (response == null)
+                {
+                    return Result.FromApi(response);
+                }
                 if (!response.Success)
                 {
                     return Result.FromApi(response);
@@ -683,6 +692,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 },
                 token
                 );
+                if (response == null)
+                {
+                    return Result.FromApi(response);
+                }
                 if (!response.Success)
                 {
                     return Result.FromApi(response);
@@ -713,6 +726,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 },
                 token
                 );
+                if (response == null)
+                {
+                    return Result.FromApi(response);
+                }
                 if (!response.Success)
                 {
                     return Result.FromApi(response);
@@ -741,7 +758,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 },
                 token
                 );
-                if (!response.Success)
+                if(response == null)
+                {
+                    return Result.FromApi(response);
+                }
+                if ( !response.Success)
                 {
                     return Result.FromApi(response);
                 }

@@ -1,6 +1,7 @@
-﻿// ----------------------------------- TABLE INIZIALIZE ------------------------------------
-const CitiesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-const SuburbsList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+﻿
+// ----------------------------------- TABLE INIZIALIZE ------------------------------------
+const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+const SuburbsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
 TableSearchInput($("#txtSearch"), $("#grdPaymentRecord"), elemPerPage = 10);
 TableDetailsConstructor($("#grdPaymentRecord"));
 
@@ -10,9 +11,10 @@ $("#grdPaymentRecord").paginationTdA({
 
 
 
+
 function Delete(id) {
     const capsula1 = () => {
-        ajaxRequest("/RecordPayment/Delete?id=" + id, null, "POST")
+        ajaxRequest("/RecordPayment/Delete?Id=" + id, null, "POST")
         location.reload();
     };
 
