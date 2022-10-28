@@ -1,6 +1,7 @@
 ﻿var imagesArray = [];
 var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
+SetDropDownValue($("#Hote_ID"), HotelID);
 
 /*SetDropDownValue($("#Hote_ID"), HoteID);*/
 
@@ -107,7 +108,7 @@ function deleteImage(index) {
 
     if (ValidateFormStatus) {
                 var data = new FormData();
-        data.append("Hote_ID", $("#Hotel").val());
+        data.append("Hote_ID", $("#Hote_ID").val());
         data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
         data.append("Habi_Nombre", $("#Habi_Nombre").val());
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
@@ -120,6 +121,7 @@ function deleteImage(index) {
         for (let i = 0; i < imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
+
         
     var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Update?id=" + roomsID, data, "PUT");
 
