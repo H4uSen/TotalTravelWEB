@@ -1,7 +1,8 @@
 ﻿var imagesArray = [];
 var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
-SetDropDownValue($("#Hote_ID"), HotelID);
+/*SetDropDownValue($("#Hote_ID"), HotelID);*/
+/*SetDropDownValue($("#CaHa_ID"), CaHaID);*/
 
 /*SetDropDownValue($("#Hote_ID"), HoteID);*/
 
@@ -113,8 +114,9 @@ function deleteImage(index) {
         data.append("Habi_Nombre", $("#Habi_Nombre").val());
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
         data.append("Habi_Precio", $("#Habi_Precio").val());
-        data.append("Habi_balcon", $("#Habi_balcon").val());
-       /* data.append("Habi_wifi", $("#Habi_wifi").val());*/
+        data.append("Habi_balcon", $("#Habi_balcon").prop("checked") == true ? 1 : 0);
+
+        data.append("Habi_wifi", $("#Habi_wifi").prop("checked") == true ? 1 : 0);
         data.append("Habi_camas", $("#Habi_camas").val());
         data.append("Habi_capacidad", $("#Habi_capacidad").val());
         data.append("Habi_UsuarioModificar", parseInt(Client_User_ID));

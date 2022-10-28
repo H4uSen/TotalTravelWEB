@@ -92,16 +92,24 @@
                             @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Balcon)
+                            @{ if (item.Balcon == 1 )
+                                {
+                                    <span class="ui green label">Si</span>
+                                }
+                                else
+                                {
+                                    <span class="ui red label"> No </span>
+                                }
+                            }
                         </td>
                         <td>
                             @{ if (item.Wifi == true)
                                 {
-                                    <span class="ui green label">Pagado</span>
+                                    <span class="ui green label">Si</span>
                                 }
                                 else
                                 {
-                                    <span class="ui red label">No Pagado</span>
+                                    <span class="ui red label">No </span>
                                 }
                             }
                         </td>

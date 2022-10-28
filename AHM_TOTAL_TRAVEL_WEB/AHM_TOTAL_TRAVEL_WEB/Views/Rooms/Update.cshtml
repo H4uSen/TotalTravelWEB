@@ -30,7 +30,7 @@
                     <div class="content">
 
                         <div class="field">
-                            <div class=" two fields">
+                            <div class=" three  fields">
                                 <div class="required field">
                                     <label class="ui label">Descripcion</label>
                                     <input id="Habi_Nombre" value="@Model.Habitacion" placeholder="Habitacion" />
@@ -41,45 +41,52 @@
                                         <option value="">Seleccione un Hotel</option>
                                     </select>
                                 </div>
+                                <div class="required field">
+                                    <label class="ui label">Capacidad</label>
+                                    <input type="number" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
+                                </div>
                             </div>
                         </div>
                         <div class="field">
-                            <div class="two fields">
+                            <div class="three fields">
                                 <div class="required field">
                                     <label class="ui label">Categoria</label>
-                                    <input id="CaHa_ID" value="@Model.CategoriaHabitacionID" placeholder="Categoria" />
+                                    <select id="CaHa_ID" class="ui dropdown search" asp-items="ViewBag.CaHa_ID">
+                                        <option value="">Seleccione una categoria </option>
+                                    </select>
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
-                                    <input  id="Habi_Precio" value="@Model.Precio" placeholder="Precio" />
+                                    <input id="Habi_Precio" value="@Model.Precio" placeholder="Precio" />
                                 </div>
+
+                                <div class="required field">
+                                    <div class="required field">
+                                        <label class="ui label">Cama</label>
+                                        <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
+                                    </div>
+                                  
+
+                                </div>
+
                             </div>
                         </div>
-                        <div class="required field">
-                            <label class="ui label">Balcon</label>
-                            <input id="Habi_balcon" value="@Model.Balcon" placeholder="Balcon" />
+                        <div class="two fields">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" value="1" id="Habi_balcon" name="Habi_balcon" tabindex="0" class="hidden">
+                                <label>Balcon</label>
+                            </div>
+                            <div class="required field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" value="1" id="Habi_wifi" name="Habi_wifi" tabindex="0" class="hidden">
+                                    <label>Wifi</label>
+                                </div>
+
+
+                              
+                            </div>
                         </div>
 
-                        
-                            <div class="three fields">
-                                
-                                   
-                                        <div class="required field">
-                                            <div class="required field">
-                                                <label class="ui label">Wifi</label>
-                                                <input id="Habi_Wifi" value="@Model.Wifi" placeholder="Balcon" />
-                                            </div>
-                                        </div>
-                                        <div class="required field">
-                                            <label class="ui label">Cama</label>
-                                            <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
-                                        </div>
-                                        <div class="required field">
-                                            <label class="ui label">Capacidad</label>
-                                            <input type="number" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
-                                        </div>
-                                    
-                                </div>
 
                                 <div class="ui grid three column stackable mt-4">
 
@@ -142,12 +149,12 @@
     <script>
         var RoomsFolder = '@ViewData["RoomsFolder"]';
         var ID_Update = '@ViewData["ID_Update"]';
-        var HotelID  =  '@ViewData["HotelID"]';
-           
+
 
     </script>
 
     <script src="~/js/Rooms/Update.js"></script>
+    <script src="~/js/Rooms/Creta.js"></script>
 
 }
 @section HighlightTile{

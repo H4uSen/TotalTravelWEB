@@ -41,6 +41,7 @@
                                         <option value="">Seleccione un hotel</option>
                                     </select>
                                 </div>
+                            </div>
                                 <div class="required field">
                                     <label class="ui label">Descripcion</label>
                                     <input id="Habi_Descripcion" placeholder="Descripcion" />
@@ -51,8 +52,9 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Categoria</label>
-
-                                    <input id="CaHa_ID" placeholder="Categoria" />
+                                    <select id="CaHa_ID" class="ui dropdown search" asp-items="ViewBag.CaHa_ID">
+                                        <option value="">Seleccione una categoria </option>
+                                    </select>
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
@@ -61,14 +63,16 @@
                             </div>
                         </div>
                         <div class="required field">
-                            <label class="ui label">Balcon</label>
-                            <input id="Habi_balcon" placeholder="Balcon" />
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" value="1" id="Habi_balcon" name="Habi_balcon" tabindex="0" class="hidden">
+                                <label>balcon</label>
+                            </div>
                         </div>
                         <div class="ui segment">
                             <div class="grouped fields">
                                 <div class="field">
                                     <div class="ui toggle checkbox">
-                                        <input type="checkbox" value="No" id="Habi_Wifi" name="Habi_Wifi" tabindex="0" class="hidden">
+                                        <input type="checkbox" value="1" id="Habi_wifi" name="Habi_wifi" tabindex="0" class="hidden">
                                         <label>Wifi</label>
                                     </div>
                                     <div class="required field">
