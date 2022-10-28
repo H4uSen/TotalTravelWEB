@@ -1,6 +1,7 @@
 ﻿package();
 
 function package() {
+
     const request = ajaxRequest(
         "https://totaltravel.somee.com/API/DefaultPackages/List",
         null, "GET", false
