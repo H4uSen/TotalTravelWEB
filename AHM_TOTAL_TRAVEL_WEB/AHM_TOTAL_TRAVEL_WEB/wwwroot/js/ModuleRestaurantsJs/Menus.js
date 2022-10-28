@@ -87,6 +87,11 @@ function agregar() {
                             <input type="number" step="0.01" min="0">
                         </div>
                     </div>
+                    <div class="field">
+                        <div class="ui right labeled input">
+                            <button class="ui button btn-edit text-white" id="send" onclick="actualizar()">Guardar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
