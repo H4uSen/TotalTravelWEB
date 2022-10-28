@@ -89,7 +89,7 @@ function agregar() {
                     </div>
                     <div class="field">
                         <div class="ui right labeled input">
-                            <button class="ui button btn-edit text-white" id="send" onclick="actualizar()">Guardar</button>
+                            <button class="ui button btn-edit text-white" id="send">Guardar</button>
                         </div>
                     </div>
                 </div>
