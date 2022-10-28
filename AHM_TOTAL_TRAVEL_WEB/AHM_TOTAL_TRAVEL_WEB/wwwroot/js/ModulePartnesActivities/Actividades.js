@@ -73,18 +73,23 @@ function agregar() {
                 <div class="ui form">
                     <div class="field">
                         <div class="ui input">
-                            <input type="text" placeholder="Nombre del menú">
+                            <input type="text" placeholder="Nombre de la actividad">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui input">
-                            <textarea rows="2" placeholder="Descripción del menú"></textarea>
+                            <textarea rows="2" placeholder="Descripción de la actividad"></textarea>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui right labeled input">
                             <label for="amount" class="ui label">L</label>
                             <input type="number" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui right labeled input">
+                            <button class="ui button btn-edit text-white" id="send">Guardar</button>
                         </div>
                     </div>
                 </div>
