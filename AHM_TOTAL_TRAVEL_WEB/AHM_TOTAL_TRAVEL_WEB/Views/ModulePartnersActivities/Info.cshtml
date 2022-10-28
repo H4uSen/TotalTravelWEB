@@ -1,0 +1,97 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PartnersListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        .titulo {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: rgb(238,245,249);
+            background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
+            color: #fff;
+            height: 40%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 2% !important;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: -8.875em 1.5em;
+            top: 0;
+            background-color: #f4fafd;
+        }
+
+        .content {
+            margin: 8.125em 1.5em;
+        }
+
+        .ui.attached.segment {
+            background-color: transparent;
+            border: none;
+        }
+
+        #img {
+            margin: auto;
+            border: 1px solid black;
+            z-index: 80;
+            height: auto;
+            max-height: 230px !important;
+            max-width: 230px !important;
+        }
+
+        h3 {
+            margin: auto;
+        }
+    </style>
+}
+
+<div class="titulo">
+</div>
+<img id="img" class="ui medium circular image" src="https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/temas/test-madurez_1.jpg">
+<div class="container card">
+    <div class="ui basic segment">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Nombre socio</label>
+                            @Html.DisplayFor(model => model.Nombre)
+                        </div>
+                        <div class="field">
+                            <label>Teléfono</label>
+                            @ViewData["Telefono"]
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>E-mail</label>
+                            @ViewData["Email"]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        const partnerID = "@ViewData["PartnerID"]";
+        const FileName = `Partner-${partnerID}`;
+        const image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${FileName}/${FileName}_photo-1.jpg`;
+        $("#img").prop("src", "https://" + image);
+
+    </script>
+}
