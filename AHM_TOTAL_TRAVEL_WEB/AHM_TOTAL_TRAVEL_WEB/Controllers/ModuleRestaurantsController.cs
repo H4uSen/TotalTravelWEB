@@ -15,14 +15,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly AccessService _accessService;
         private readonly RestaurantService _restaurantService;
         private readonly GeneralService _generalService;
+        private readonly ReservationService _reservationService;
 
         private readonly IMapper _mapper;
 
-        public ModuleRestaurantsController(AccessService accessService, RestaurantService restaurantService, GeneralService generalService, IMapper mapper)
+        public ModuleRestaurantsController(AccessService accessService, RestaurantService restaurantService, GeneralService generalService, ReservationService reservationService, IMapper mapper)
         {
             _accessService = accessService;
             _restaurantService = restaurantService;
             _generalService = generalService;
+            _reservationService = reservationService;
             _mapper = mapper;
         }
 
@@ -90,6 +92,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<IActionResult> Reservations()
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+            var list = await _restaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
+            var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
+
+            var restaurante = element.ID;
+
+            var list1 = await _reservationService.RestaurantsReservationList(token);
+            IEnumerable<ReservationRestaurantsListViewModel> data1 = (IEnumerable<ReservationRestaurantsListViewModel>)list1.Data;
+            var element1 = data1.Where(x => x.ID_Restaurante == element.ID).ToList()[0];
+
+            //ViewData["nose"] = element1.Cliente;
+
+            return View();
         }
     }
 }
