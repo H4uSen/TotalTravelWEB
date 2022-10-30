@@ -10,17 +10,20 @@ function fillReservaciones() {
     
     for (var i = 0; i < reservaciones.length; i++) {
         const item = reservaciones[i];
+        var fecha = item.fecha_Reservacion;
+        var split = fecha.split('T');
+        var fechaspliteada = split[0];
         var card = `<div class="ui special card">
             <div class="content">
-                ${item.cliente}
+                Cliente: ${item.cliente}
             </div>
             <div class="content">
-                <span>${item.fecha_Reservacion}</span>
+                Fecha: <span>${fechaspliteada}</span>
             </div>
             <div class="extra content">
                 <p>
-                    <b>L </b>
-                    ${item.hora_Reservacion}
+                    
+                    Hora: ${item.hora_Reservacion}:00
                 </p>
             </div>
         </div>`;
