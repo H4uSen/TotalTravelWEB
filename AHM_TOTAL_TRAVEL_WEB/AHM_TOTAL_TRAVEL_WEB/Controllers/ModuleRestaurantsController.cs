@@ -44,6 +44,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var typeMenus = await _restaurantService.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data_TypeMenus = (IEnumerable<TypeMenusListViewModel>)typeMenus.Data;
             ViewBag.TiMe_ID = new SelectList(data_TypeMenus, "ID", "descripcion");
+
             return View();
         }
 
@@ -94,6 +95,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> Reservations()
         {
             var token = HttpContext.User.FindFirst("Token").Value;
@@ -104,11 +106,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
             var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
 
-            var restaurante = element.ID;
+            //var restaurante = element.ID;
+            ViewData["RestauranteID"] = element.ID;
 
-            var list1 = await _reservationService.RestaurantsReservationList(token);
-            IEnumerable<ReservationRestaurantsListViewModel> data1 = (IEnumerable<ReservationRestaurantsListViewModel>)list1.Data;
-            var element1 = data1.Where(x => x.ID_Restaurante == element.ID).ToList()[0];
+            //IEnumerable<ReservationRestaurantsListViewModel> model = null;
+            //var list1 = await _reservationService.RestaurantsReservationList(token);
+            //IEnumerable<ReservationRestaurantsListViewModel> data1 = (IEnumerable<ReservationRestaurantsListViewModel>)list1.Data;
+            //var element1 = data1.Where(x => x.ID_Restaurante == element.ID).ToList()[0];
 
             //ViewData["nose"] = element1.Cliente;
 
