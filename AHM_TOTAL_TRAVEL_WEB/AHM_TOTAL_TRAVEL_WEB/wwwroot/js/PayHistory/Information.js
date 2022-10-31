@@ -70,18 +70,31 @@ function ViewReservation(hoteid,transid) {
                 var resv = ReservacionDetView.data;
                 var rooms = resv.filter(resva => resva.reservacionHotelID == reshotid);
                 $('#rooms').empty();
+                if (rooms.length == 0)
+                {
+                    actexth =
+                        `<div class="item">
+                                <div class="content">
+                                    <a class="header">No se han asignado habitaciones a este registro</a>                                                      
+                                </div>
+                            </div>`
+                    $('#rooms').append(actexth);
+                }
+                else
+                {
                 for (var i=0; i < rooms.length; i++){
                     const item = rooms[i];
                     var RoomFind = ajaxRequest("https://totaltravel.somee.com/API/Rooms/Find?id=" + item.habitacionID);
-                    var room = RoomFind.data;
-                    var imagenes = room.imageUrl.split(',');
-                    var wifi, balcon;
-                    if (room.wifi = true) {wifi = "si"; }
-                    else { wifi = "no"; }
-                    if (room.balcon == 1) { balcon = "si"; }
-                    else { balcon = "no";}
-                    divroom =
-                    `<div class="item">
+                    try {
+                        var room = RoomFind.data;
+                        var imagenes = room.imageUrl.split(',');
+                        var wifi, balcon;
+                        if (room.wifi = true) { wifi = "si"; }
+                        else { wifi = "no"; }
+                        if (room.balcon == 1) { balcon = "si"; }
+                        else { balcon = "no"; }
+                        divroom =
+                            `<div class="item">
                         <div class="image">
                             <img
                                 src="${imagenes[0]}">
@@ -103,9 +116,25 @@ function ViewReservation(hoteid,transid) {
                         <div class="content left floated" style="text-align: end;">
                             <a class="ui huge green tag label">${room.precio}</a>
                         </div>
-                     </div>`                   
-                    $('#rooms').append(divroom);
-                }            
+                     </div>`
+                        $('#rooms').append(divroom);
+                    }
+                    catch {
+                        divroom =
+                            `<div class="item">
+                                <div class="image">
+                                    <img
+                                        src="https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header">ESTA HABITACION FUE ELIMINADA
+                                    </a>
+                                </div>                     
+                            </div>`
+                        $('#rooms').append(divroom);
+                    }
+                    }
+                }
             }
             
         }
@@ -117,20 +146,44 @@ function ViewReservation(hoteid,transid) {
             var resvacts = ReservacionActView.data;
             var activities = resvacts.filter(resva => resva.reservacion == transid);
             $('#actext').empty();
-            for (var i = 0; i < activities.length; i++) {
-                const item = activities[i];
-                var ActivitieFind = ajaxRequest("https://totaltravel.somee.com/API/Activities/Find?id=" + item.id_Actividad_Extra);
-                var Activitie = ActivitieFind.data;               
-                actext =
+            if (activities.length == 0) {
+                actexth =
                     `<div class="item">
-                        <div class="content">
-                            <a class="header">${item.actividad_Extra}</a>
-                            <div class="description">
-                                Tipo de actividad: ${Activitie.tipo}
-                            </div>                         
-                        </div>
-                    </div>`
-                $('#actext').append(actext);
+                                <div class="content">
+                                    <a class="header">Esta reservacion no tiene actividades extras</a>                                                      
+                                </div>
+                            </div>`
+                $('#actext').append(actexth);
+            }
+            else {
+                for (var i = 0; i < activities.length; i++)
+                {
+                    const item = activities[i];
+                                       
+                    var ActivitieFind = ajaxRequest("https://totaltravel.somee.com/API/Activities/Find?id=" + item.id_Actividad_Extra);
+                    
+                    var Activitie = ActivitieFind.data;
+                    try {
+                        actext =
+                            `<div class="item">
+                            <div class="content">
+                                <a class="header">${item.actividad_Extra}</a>
+                                <div class="description">
+                                    Tipo de actividad: ${Activitie.tipo}
+                                </div>                         
+                            </div>
+                        </div>`
+                        $('#actext').append(actext);
+                    } catch {
+                        actext =
+                            `<div class="item">
+                                <div class="content">
+                                    <a class="header">Actividad Borrada</a>                                                      
+                                </div>
+                            </div>`
+                        $('#actext').append(actext);
+                    }
+                }
             }
         }
         if (ReservacionActHotView.code == 200) {
@@ -138,19 +191,40 @@ function ViewReservation(hoteid,transid) {
             var resvact = ReservacionActHotView.data;
             var activitiesh = resvact.filter(resva => resva.reservacionID == transid);
             $('#acthot').empty();
-            for (var i = 0; i < activitiesh.length; i++) {
-                const item = activitiesh[i];                            
-                
-                actext =
+            if (activitiesh.length == 0) {
+                actexth =
                     `<div class="item">
-                            <div class="content">
-                                <a class="header">${item.nombre}</a>
-                                <div class="description">
-                                    Descripción: ${item.descripcion}
-                                </div>                         
-                            </div>
-                        </div>`
-                $('#acthot').append(actext);
+                                <div class="content">
+                                    <a class="header">Esta reservacion no tiene actividades de hoteles</a>                                                      
+                                </div>
+                            </div>`
+                $('#acthot').append(actexth);
+            }
+            else {
+                for (var i = 0; i < activitiesh.length; i++)
+                {
+                    const item = activitiesh[i];                            
+                    try {
+                        actexth =
+                            `<div class="item">
+                                <div class="content">
+                                    <a class="header">${item.nombre}</a>
+                                    <div class="description">
+                                        Descripción: ${item.descripcion}
+                                    </div>                         
+                                </div>
+                            </div>`
+                        $('#acthot').append(actexth);
+                    } catch {
+                        actexth =
+                            `<div class="item">
+                                <div class="content">
+                                    <a class="header">Actividad Borrada</a>                                                      
+                                </div>
+                            </div>`
+                        $('#acthot').append(actexth);
+                    }
+                }
             }
         }
 
