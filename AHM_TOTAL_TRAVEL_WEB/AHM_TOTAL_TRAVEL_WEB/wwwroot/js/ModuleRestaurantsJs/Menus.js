@@ -28,7 +28,7 @@ function fillMenu(idtipomenu) {
         var card = `<div class="ui special card">
             <div class="content">
                 <div class="right floated meta">
-                    <a href="javascript:EliminarMenu(${item.id})"><i class="large times icon"></i></a>
+                    <a id="a" href="javascript:EliminarMenu(${item.id})"><i class="large times icon"></i></a>
                 </div>
                 ${item.menu}
             </div>
@@ -36,11 +36,11 @@ function fillMenu(idtipomenu) {
                 <div class="ui dimmer">
                     <div class="content">
                         <div class="center">
-                            <div class="ui inverted button">Editar</div>
+                            <a class="ui inverted button" href="javascript:ObtenerDatos(${item.id})">Editar</a>
                         </div>
                     </div>
                 </div>
-                <img src="${item.image_Url}">
+                <img src="${item.image_Url}" id="imagen">
             </div>
             <div class="content">
                 <span>${item.descripcion}</span>
@@ -48,7 +48,7 @@ function fillMenu(idtipomenu) {
             <div class="extra content">
                 <p>
                     <b>L </b>
-                    ${item.precio}
+                    ${item.precio}.00
                 </p>
             </div>
         </div>`;
@@ -96,12 +96,12 @@ function agregar() {
             </div>
         </div>
         <div class="ui card align-items-center" id="mas">
-            <a>
+            <a id="a">
                 <i class="massive plus icon"></i>
             </a>
         </div>
         <div class="ui card align-items-center" id="equis">
-            <a>
+            <a id="a">
                 <i class="massive close icon"></i>
             </a>
         </div>
