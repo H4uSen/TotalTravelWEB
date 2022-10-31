@@ -17,15 +17,19 @@
             height: 40%;
         }
 
-        h1 {
+        #imagen{
+            max-height:230px !important;
+        }
+
+        #a {
+            text-decoration: none;
+            margin:auto;
+        }
+
+        .h1 {
             margin-top: 2% !important;
             margin-left: 2% !important;
             color: white;
-        }
-
-        a {
-            text-decoration: none;
-            margin: auto;
         }
 
         .ui.search.dropdown {
@@ -55,7 +59,7 @@
 }
 
 <div class="titulo">
-    <h1 id="tipomenutext">TODOS</h1>
+    <h1 id="tipomenutext" class="h1">TODOS</h1>
 </div>
 <div class="ui clearing segment">
     <div class="ui grid">
@@ -77,18 +81,68 @@
     </div>
 </div>
 
+
+<div class="ui modal longer" id="modalUpdate">
+    <div class="header">
+        Actualiza un Menú
+    </div>
+    <form asp-action="Update" asp-controller="ModuleRestaurants" id="updateModuleRestaurantsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <input id="Menu_ID" name="Menu_ID" class="desaparezco" />
+                <input id="Rest_ID" name="Rest_ID" class="desaparezco" />
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label class="ui label">Tipo</label>
+                            <select id="TiMe_ID" name="TiMe_ID" class="ui dropdown search" asp-items="ViewBag.TiMe_ID">
+                                <option value="">Seleccione el tipo de menú</option>
+                            </select>
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Nombre</label>
+                            <input type="text" id="Menu_Nombre" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label class="ui label">Descripción</label>
+                            <input type="text" id="Menu_Descripcion" class="form-control" />
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Precio</label>
+                            <input type="number" id="Menu_Precio" step="0.01" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="required field">
+                        <label class="ui label">Imagen</label>
+                        <input type="file" id="Imagen" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="send" onclick="updateMenus()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
 <br /><br />
 
 @section Scripts{
 
     <script>
+
         const RestauranteID = "@ViewData["restauranteID"]";
     </script>
 
     <script src="~/js/ModuleRestaurantsJs/Menus.js"></script>
+    <script src="~/js/ModuleRestaurantsJs/Update.js"></script>
 
     <script>
-          
+
+        $('.desaparezco').hide();
 
         //$('select.dropdown')
         //    .dropdown()
