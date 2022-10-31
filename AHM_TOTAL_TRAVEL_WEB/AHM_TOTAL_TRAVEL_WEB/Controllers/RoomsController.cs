@@ -108,8 +108,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             ViewData["RoomsFolder"] = $"Hotels/Hotel-{element.HotelID}/Rooms";
             ViewData["RoomFolder"] = $"Hotels/CaHa-{element.CategoriaHabitacionID}/Rooms";
-           
-         
+            ViewData["RoomsID"] = element.ID;
+
+
             ViewData["ID_Update"] = element.HotelID;
 
             return View(item);

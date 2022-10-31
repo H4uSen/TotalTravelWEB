@@ -51,13 +51,29 @@
                             </div>
                             <div class="field">
                                 <label>Balcon</label>
-                                @Html.DisplayFor(model => model.Balcon)
+                                @{ if (Model.Balcon == 1)
+                                    {
+                                        <span >Si</span>
+                                    }
+                                    else
+                                    {
+                                        <span > No </span>
+                                    }
+                                }
                             </div>
                         </div>
                         <div class="three fields">
                             <div class="field">
                                 <label>Wifi</label>
-                                @Html.DisplayFor(model => model.Wifi)
+                                @{ if (Model.Wifi == true)
+                                    { 
+                                        <span >Si</span>
+                                    }
+                                    else
+                                    {
+                                        <span > No </span>
+                                    }
+                                }
                             </div>
                             <div class="field">
                                 <label>Camas</label>
