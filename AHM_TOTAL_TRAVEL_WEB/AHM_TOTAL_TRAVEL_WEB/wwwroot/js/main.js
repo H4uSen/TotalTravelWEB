@@ -3,6 +3,7 @@
 
     $("input[type=text]").prop("autocomplete", "off");
     var Client_User_ID = parseInt(GetCookie("User_Id"));
+    var Client_Partner_ID = parseInt(GetCookie("Partner_Id"));
     var Client_User_Name = GetCookie("User_Name");
     $("#loaderAnimation").hide();
 

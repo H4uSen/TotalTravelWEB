@@ -187,7 +187,7 @@ function ViewReservation(hoteid,transid) {
             }
         }
         if (ReservacionActHotView.code == 200) {
-
+            
             var resvact = ReservacionActHotView.data;
             var activitiesh = resvact.filter(resva => resva.reservacionID == transid);
             $('#acthot').empty();
