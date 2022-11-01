@@ -44,6 +44,96 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+
+        public async Task<ServiceResult> ReservationCreate(ReservationViewModel reservationViewModel, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<ReservationViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/Reservation/Insert";
+                    req.Content = reservationViewModel;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> ReservationUpdate(ReservationViewModel reservationViewModel, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Put<ReservationViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Reservation/Update?id=" + id;
+                    req.Content = reservationViewModel;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+        }
+
+        public async Task<ServiceResult> ReservationDelete( int idMod,int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<ReservationViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Reservation/Delete?id=" + id + "&Mod=" + idMod;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         public async Task<ServiceResult> ReservationFind(int id, string token)
         {
             var Result = new ServiceResult();

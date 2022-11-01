@@ -1,0 +1,354 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ReservationViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-action="Create" asp-controller="Reservation" method="post" id="formReservation">
+<div id="frmCreateReservation">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="user plus icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Crea una reservación
+                    </div>
+                    <p>Crea una nueva reservación</p>
+                </div>
+            </div>
+
+            <!-- form-->
+            <div class="ui form attached fluid segment">
+                <div class="content">
+
+                    <!-- client data section -->
+                    <div class="field">
+                        <h3 class="ui block header">
+                            Datos generales
+                        </h3>
+                        
+                        <div class="three fields">
+                            <!--DNI-->
+                            <div class="field">
+                                <label>DNI</label>
+                                <select class="ui search dropdown" id="ddlDNI" autofocus>
+                                    <option value="">Ingrese un DNI</option>
+                                </select>
+                            </div>
+                            <!--First name-->
+                            <div class="field">
+                                <label>Nombre</label>
+                                <input type="text" id="txtNombre" placeholder="Primer Nombre" readonly />
+                            </div>
+                            <!--Last name-->
+                            <div class="field">
+                                <label>Apellido</label>
+                                <input type="text" id="txtApellido" placeholder="Apellido" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="three fields">
+                        <!--Phone number-->
+                        <div class="field">
+                            <label>Teléfono</label>
+                            <input type="text" id="txtTelefono" placeholder="Teléfono" readonly>
+                        </div>
+                        <!--Email-->
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="text" id="txtEmail" placeholder="Email" readonly>
+                        </div>
+                        <!--Birth date-->
+                        <div class="field">
+                            <label>Fecha de nacimiento</label>
+                            <input type="text" id="txtFechaNacimiento" placeholder="Fecha de nacimiento" readonly>
+                        </div>
+                        <!--
+
+                        <div class="field checkButton_container">
+                            <label>Gender (required)</label>
+                            <div class="inline fields">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
+                                        <label>Male</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
+                                        <label>Female</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="field">
+                                <label>Contry</label>
+                                <select class="ui search dropdown" id="cbbPaises" asp-items="ViewBag.Counties">
+                                    <option value="">Select your Country Residence</option>
+                                </select>
+                            </div>
+                        -->
+                    </div>
+
+                    <!-- General data of the reservation -->
+                    <div class="field" >
+                        <h3 class="ui block header">
+                            Datos generales de la reservación
+                        </h3>
+                        
+                        <div class="three fields">
+                            <!--Amount of people-->
+                            <div class="field">
+                                <label>Cantida de personas</label>
+                                <input type="number" min="1" max="100" id="Resv_NumeroPersonas" placeholder="Cantidad de personas">
+                            </div>
+                            <!--Amount of payments-->
+                            <div class="field">
+                                <label>Cantidad de cuotas</label>
+                                <select class="ui search dropdown" id="Resv_CantidadPagos">
+                                    <option value="">Selecciona la cantidad de coutas</option>
+                                    <option value="1">1</option>
+                                    <option value="3">2</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                            <!--Default or Personalized packages-->
+                            <div class="field">
+                                <label>Tipo de paquete</label>
+                                <select class="ui search dropdown" id="ddlTipoPaquete">
+                                    <option value="">Seleccione un tipo de paquete</option>
+                                    <option value="1">Personalizado</option>
+                                    <option value="2">Nuestras ofertas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="three fields">
+                            <!--Filter by countries-->
+                            <div class="field">
+                                <label>Paises</label>
+                                <select class="ui search dropdown" id="ddlPaises" autocomplete="nope">
+                                    <option value="">Seleccione un país de destino </option>
+                                </select>
+                            </div>
+                            <!--Filter by cities-->
+                            <div class="field">
+                                <label>Ciudades</label>
+                                <select class="ui search dropdown" id="ddlCiudades" >
+                                    <option value="">Seleccione una ciudad de destino</option>
+                                </select>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                    <!-- Default packages selection -->
+                    <div id="frmDefaultPackages">
+                        <h3 class="ui block header">
+                            Selecciona alguno de nuestros paquetes para poder ver sus detalles
+                        </h3>
+                        <div class="field">
+                            <div class="three fields">
+                                <!--Select a package-->
+                                <div class="field">
+                                    <label>Nuestros paquetes</label>
+                                    <select class="ui search dropdown" id="Paqu_ID">
+                                        <option value="">Selecciona paquete</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+
+                        <!-- Default package details-->
+                        <div id="frmDefaultPackagesDetails">
+                            <div class="ui segment">
+                                <h2 class="ui header" id="txtDefaultPackageName"></h2>
+                                <div class="field">
+                                    <div class="ui very relaxed items">
+                                        <div class="item">
+                                            <div class="image">
+                                                <img id="imgDefaultPackage" src="" width="100px" height="100px">
+                                            </div>
+                                            <div class="content">
+                                                
+                                                <div class="ui card" style="width: auto;">
+                                                  <div class="content">
+                                                    <div class="header">Descripción:</div>
+                                                    <div class="description">
+                                                            <p id="txtDefaultPackageDesc"></p>
+                                                            Duración: <p id="txtDefaultPackageDuracion"></p>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="ui list">
+                                                    <div class="item">
+                                                        <div class="header">Hotel: </div>
+                                                        <span id="txtDefaultPackageHotel"></span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <div class="header">Restaurante: </div>
+                                                        <span id="txtDefaultPackageRest"></span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <div class="header">Actividades incluidas</div>
+                                                        <div class="description">
+                                                            <div class="ui middle aligned divided list" id="txtDefaultPackagesActividades">
+                                                      
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                            </div>
+                                            <div class="content">
+                                                <h2 >
+                                                    Precio: L. <span  id="lblDefaultPackagePrice" style="font-size: inherit;"></span>
+                                                </h2>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br>
+
+                        </div>
+                    </div>
+
+                    <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear una reservación</div>
+                    <div class="ui button" tabindex="0">Cancel</div>
+                </div>
+            </div>
+            <div class="ui negative attached message" id="msgErrorForm">
+                <div class="header">
+                    A error ocurred while perfoming the action
+                </div>
+                <p></p>
+            </div>
+            <!-- fin formulario-->
+        </div>
+    </div>
+</div>
+</form>
+@section Scripts{
+    <script src="~/js/ReservationJS/Create.js"></script>
+}
+    @section HighlightTile{
+    <script>
+
+        $("#ReservationModule").addClass("active");
+        $("#ReservationModule").addClass("expandedList");
+        $("#ReservationModule").prop("aria-expanded");
+        $("#ReservationModule").attr("aria-expanded", "true");
+
+        $("#Reservation_Schema").addClass("show");
+
+        $("#ReservationTile").addClass("activeTile");
+    </script>
+}
+<!--
+
+<h1>Create</h1>
+
+<h4>ReservationViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Resv_ID" class="control-label"></label>
+                <input asp-for="Resv_ID" class="form-control" />
+                <span asp-validation-for="Resv_ID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Paqu_ID" class="control-label"></label>
+                <input asp-for="Paqu_ID" class="form-control" />
+                <span asp-validation-for="Paqu_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_esPersonalizado" class="control-label"></label>
+                <input asp-for="Resv_esPersonalizado" class="form-control" />
+                <span asp-validation-for="Resv_esPersonalizado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_CantidadPagos" class="control-label"></label>
+                <input asp-for="Resv_CantidadPagos" class="form-control" />
+                <span asp-validation-for="Resv_CantidadPagos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_NumeroPersonas" class="control-label"></label>
+                <input asp-for="Resv_NumeroPersonas" class="form-control" />
+                <span asp-validation-for="Resv_NumeroPersonas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_ConfirmacionPago" class="control-label"></label>
+                <input asp-for="Resv_ConfirmacionPago" class="form-control" />
+                <span asp-validation-for="Resv_ConfirmacionPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_ConfirmacionHotel" class="control-label"></label>
+                <input asp-for="Resv_ConfirmacionHotel" class="form-control" />
+                <span asp-validation-for="Resv_ConfirmacionHotel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_ConfirmacionRestaurante" class="control-label"></label>
+                <input asp-for="Resv_ConfirmacionRestaurante" class="form-control" />
+                <span asp-validation-for="Resv_ConfirmacionRestaurante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_ConfirmacionTrans" class="control-label"></label>
+                <input asp-for="Resv_ConfirmacionTrans" class="form-control" />
+                <span asp-validation-for="Resv_ConfirmacionTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_Precio" class="control-label"></label>
+                <input asp-for="Resv_Precio" class="form-control" />
+                <span asp-validation-for="Resv_Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_UsuarioCreacion" class="control-label"></label>
+                <input asp-for="Resv_UsuarioCreacion" class="form-control" />
+                <span asp-validation-for="Resv_UsuarioCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_FechaCreacion" class="control-label"></label>
+                <input asp-for="Resv_FechaCreacion" class="form-control" />
+                <span asp-validation-for="Resv_FechaCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_UsuarioModifica" class="control-label"></label>
+                <input asp-for="Resv_UsuarioModifica" class="form-control" />
+                <span asp-validation-for="Resv_UsuarioModifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_FechaModifica" class="control-label"></label>
+                <input asp-for="Resv_FechaModifica" class="form-control" />
+                <span asp-validation-for="Resv_FechaModifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resv_Estado" class="control-label"></label>
+                <input asp-for="Resv_Estado" class="form-control" />
+                <span asp-validation-for="Resv_Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+    -->

@@ -16,7 +16,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly AccessService _accessService;
         private readonly SaleServices _saleServices;
 
-        public ReservationController(ReservationService reservationService, HotelsService hotelsService, AccessService accessService, 
+        public ReservationController(ReservationService reservationService, HotelsService hotelsService, AccessService accessService,
             SaleServices saleServices)
         {
             _reservationService = reservationService;
@@ -32,6 +32,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View(list.Data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {   
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] ReservationViewModel reservation)
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            string UserID = HttpContext.User.FindFirst("User_Id").Value;
+            reservation.Resv_UsuarioCreacion = int.Parse(UserID);
+
+            if (ModelState.IsValid)
+            {
+                var result = await _reservationService.ReservationCreate(reservation, token);
+                if (result.Success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+            return View();
+        }
+
+
+
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -71,6 +102,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete( int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ServiceResult result = new ServiceResult();
+                    var idMod = HttpContext.User.FindFirst("User_Id").Value;
+                    
+
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = (RequestStatus)(await _reservationService.ReservationDelete(int.Parse(idMod), id, token)).Data;
+
+                    return Ok(list.CodeStatus);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
+
         }
     }
 }

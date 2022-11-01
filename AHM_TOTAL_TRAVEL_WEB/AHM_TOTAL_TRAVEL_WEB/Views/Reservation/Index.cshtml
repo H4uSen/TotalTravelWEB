@@ -20,7 +20,9 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createDestinationsTransportations" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                <a class="ui small btn-purple text-white labeled icon button" href="@Url.Action("Create","Reservation")">
+                    <i class="plus icon"></i> Nuevo
+                </a>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -73,18 +75,13 @@
                             @{
                                 if (item.ConfirmacionPago == true)
                                 {
-                                    <div class="ui green tag label">
-                                        <i class="check icon"></i>
-                                        <span>Realizado</span>
-                                    </div>
+                                    <span class="ui green label">Realizado</span>
+                                    
                                 }
                                 else
                                 {
+                                    <span class="ui blue label">Pendiente</span>
                                     
-                                    <div class="ui blue tag label">
-                                        <i class="x icon"></i>
-                                        <span>Pendiente</span>
-                                    </div>
                                 }
                                 
                             }
@@ -100,7 +97,7 @@
                             <a class="ui large icon btn-edit button" id="UpdateBottomDsTr" href="@Url.Action("Update", "Reservation", new { id=item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteDsTr(@item.ID)">
+                            <button class="ui large icon btn-delete button" onclick="DeleteReservation(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
                             <a class="ui large icon button" href="@Url.Action("Details", "Reservation", new { id=item.ID })">
