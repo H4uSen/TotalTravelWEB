@@ -25,7 +25,7 @@ function fillMenu(idtipomenu) {
     $("#menusContainer").empty();
     for (var i = 0; i < menus.length; i++) {
         const item = menus[i];
-        var card = `<div class="ui special card">
+        var card = `<div class="ui special card" id="menu_${item.id}">
             <div class="content">
                 <div class="right floated meta">
                     <a id="a" href="javascript:EliminarMenu(${item.id})"><i class="large times icon"></i></a>
@@ -62,64 +62,12 @@ function fillMenu(idtipomenu) {
 
 function agregar() {
     $("#menusContainer").append(
-        `<div class="ui card" id="esconder">
-            <div class="blurring dimmable image">
-                <img src="https://avalos.sv/wp-content/uploads/default-featured-image.png" />
-                <div class="field">
-                    <input type="file" />
-                </div>
-            </div>
-            <div class="content">
-                <div class="ui form">
-                    <div class="field">
-                        <div class="ui input">
-                            <input type="text" placeholder="Nombre del menú">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui input">
-                            <textarea rows="2" placeholder="Descripción del menú"></textarea>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui right labeled input">
-                            <label for="amount" class="ui label">L</label>
-                            <input type="number" step="0.01" min="0">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui right labeled input">
-                            <button class="ui button btn-edit text-white" id="send">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui card align-items-center" id="mas">
+        `<div class="ui card align-items-center" id="mas">
             <a id="a">
                 <i class="massive plus icon"></i>
             </a>
         </div>
-        <div class="ui card align-items-center" id="equis">
-            <a id="a">
-                <i class="massive close icon"></i>
-            </a>
-        </div>
         <br />`);
-
-    $('#esconder').hide();
-    $('#equis').hide();
-
-    $('#agregar, #mas').click(() => {
-        $('#esconder').show();
-        $('#mas').hide();
-        $('#equis').show();
-    });
-
-    $("#equis").click(() => {
-        $('#esconder').hide();
-        $('#mas').show();
-        $('#equis').hide();
-    });
+        
 }
 

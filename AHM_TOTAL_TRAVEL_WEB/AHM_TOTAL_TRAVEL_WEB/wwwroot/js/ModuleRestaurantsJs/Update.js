@@ -1,5 +1,4 @@
-﻿//GetObtener();
-
+﻿
 $("#modalUpdate #close").click(() => {
     $("#modalUpdate").modal('hide');
 });
@@ -19,16 +18,15 @@ function ObtenerDatos(id) {
     }
 }
 
-function updateMenus() {
+async function updateMenus() {
 
     validateArrayForm = [
         { validateMessage: "Ingrese el nombre del menú.", Jqueryinput: $("#Menu_Nombre") },
         { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#Menu_Descripcion") },
         { validateMessage: "Ingrese el precio.", Jqueryinput: $("#Menu_Precio") },
-        { validateMessage: "Seleccione una tipo menú.", Jqueryinput: $("#TiMe_ID") }
+        { validateMessage: "Seleccione un tipo de menú.", Jqueryinput: $("#TiMe_ID") }
     ];
 
-    // retorna bool
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     if (ValidateFormStatus) {
@@ -42,14 +40,16 @@ function updateMenus() {
 
         var menuID = $("#Menu_ID").val();
 
-        //for (let i = 0; i < imagesArrayPure.length; i++) {
-        //    data.append("File", imagesArrayPure[i]);
-        //}
         if ($("#Imagen").prop("files")[0] != undefined) {
-            data.append("Menu_Url", $("#Imagen").prop("files")[0]);
+            data.append("File", $("#Imagen").prop("files")[0]);
         }
         else {
-            data.append("Menu_Url", null);
+            var imageUrl = $(`#menu_${menuID} #imagen`).prop("src");
+            var file = await createBlob(imageUrl)
+                .then(function (data) {
+                    return data;
+                });
+            data.append("File", file);
         }
         var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT");
 
