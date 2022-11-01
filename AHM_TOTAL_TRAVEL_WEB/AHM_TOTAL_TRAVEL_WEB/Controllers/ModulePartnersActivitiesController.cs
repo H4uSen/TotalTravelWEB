@@ -75,5 +75,37 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+                var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
+                ViewData["partnerID"] = partner.ID;
+
+                var city = await _generalService.CitiesList();
+                IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+                ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+                var country = await _generalService.CountriesList();
+                IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+                ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+                var Acti = await _activitiesService.ActivityList();
+                IEnumerable<ActivitiesListViewModel> data_acti = (IEnumerable<ActivitiesListViewModel>)Acti.Data;
+                ViewBag.Actv_ID = new SelectList(data_acti, "ID", "Descripcion");
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }
