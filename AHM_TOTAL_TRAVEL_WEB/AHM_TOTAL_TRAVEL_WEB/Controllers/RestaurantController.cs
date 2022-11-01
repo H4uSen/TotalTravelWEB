@@ -102,6 +102,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var detalle = (RestaurantListViewModel)(await _restaurantServices.RestaurantFind(id, token)).Data;
+                ViewData["RestaurantFolder"] = $"Restaurants/Restaurant-{detalle.ID}/Place";
+                ViewData["RestaurantID"] = detalle.ID;
                 return View(detalle);
             }
             catch (Exception)
