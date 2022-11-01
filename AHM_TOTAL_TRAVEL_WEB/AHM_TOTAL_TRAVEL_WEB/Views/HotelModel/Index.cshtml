@@ -52,7 +52,7 @@
 
                 </div><br>
 
-                <div class="ui cards overflow-auto" style="max-height: 55em;">
+                <div class="ui cards overflow-auto" style="max-height: 55em;" id="TargetRese">
                     @*@foreach (var item in Model)
                     {
 
@@ -78,7 +78,7 @@
 
         <div class="eleven wide column">
             <div class="ui segment">
-                <div class="ui top attached tabular menu" id="Reservation_Details_Info">
+                @*<div class="ui top attached tabular menu" id="Reservation_Details_Info">
                     <a class="item active" onclick="ShowContent('frmReservation_Info',0)">
                         Reservation
                         Info
@@ -88,7 +88,7 @@
                         Activities
                         Info
                     </a>
-                </div>
+                </div>*@
                 <div class="ui bottom attached segment overflow-auto" id="Reservation_Details_Content"
                      style="padding: 1em !important; max-height: 55em;">
 
@@ -475,6 +475,6 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/PayHistory/Information.js"></script>
+    <script src="~/js/HotelModel/Information.js"></script>
 
     }
