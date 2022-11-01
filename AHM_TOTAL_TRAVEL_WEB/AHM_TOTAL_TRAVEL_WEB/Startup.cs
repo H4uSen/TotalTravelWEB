@@ -96,11 +96,30 @@ namespace AHM_TOTAL_TRAVEL_WEB
                     context.Request.Path = "/Home/Error404";
                     await next();
                 }
-                if (context.Response.StatusCode == 500) 
+
+                switch (context.Response.StatusCode)
                 {
-                    context.Request.Path = "/Home/Error500";
-                    await next();
+                    case 200:
+                        break;
+                    case 404:
+
+                        break;
+                    case 401:
+                    case 405:
+                        context.Request.Path = "/Home/Error401";
+                        await next();
+                        break;
+                    case 500:
+                        context.Request.Path = "/Home/Error500";
+                        await next();
+                        break;
+                    default:
+                        context.Request.Path = "/Home/Error500";
+                        await next();
+                        break;
                 }
+
+
 
             });
             app.UseHttpsRedirection();

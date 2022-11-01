@@ -46,6 +46,27 @@
                     </div>
                 </div>
             </div>
+            <div class="ui grid three column stackable mt-4">
+
+                <div class="column">
+                    <label class="ui label">Imagenes en fila.</label>
+                    <div class="ui segment">
+                        <div class="ui middle aligned divided list" id="image-upload-list">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+
+
+                        <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <br />
 
             <h3 class="ui horizontal divider header">
@@ -53,7 +74,7 @@
                 Auditoría
             </h3>
 
-            <table class="ui compact selectable celled table" id="tabla">
+            <table class="ui compact selectable celled table mb-4" id="tabla">
                 <thead>
                     <tr>
                         <th>
@@ -90,6 +111,14 @@
         </div>
     </div>
 </div>
+@section Scripts{
+
+    <script>
+        var restaurantFolder = '@ViewData["RestaurantFolder"]';
+        var restaurantID = '@ViewData["RestaurantID"]';
+    </script>
+    <script src="~/js/RestaurantJs/Details.js"></script>
+}
 @section HighlightTile{
     <script>
         $("#RestaurantModule").addClass("active");

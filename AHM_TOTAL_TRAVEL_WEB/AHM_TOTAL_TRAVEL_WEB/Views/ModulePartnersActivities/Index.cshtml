@@ -1,7 +1,7 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.PartnersListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ActivitiesExtrasListViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Activities";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,83 +15,100 @@
             background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
             color: #fff;
             height: 40%;
-            text-align: center;
         }
 
         h1 {
             margin-top: 2% !important;
+            margin-left: 2% !important;
         }
 
         .container {
-            max-width: 95%;
-            margin: -8.875em 1.5em;
+            max-width: 95% !important;
+            margin: -5.150em 1.5em !important;
             top: 0;
             background-color: #f4fafd;
         }
 
-        .content {
-            margin: 8.125em 1.5em;
+        .ui.segment {
+            margin: 5.125em 1.5em;
+            max-width: 95%;
         }
 
-        .ui.attached.segment {
-            background-color: transparent;
-            border: none;
-        }
-
-        #img {
+        a {
+            text-decoration: none;
             margin: auto;
-            border: 1px solid black;
-            z-index: 80;
-            height: auto;
-            max-height: 230px !important;
-            max-width: 230px !important;
         }
 
-        h3 {
-            margin: auto;
+        .ui.search.dropdown {
+            min-width: 40% !important;
+        }
+
+        .ui.cards > .card {
+            margin: 1.875em 1.5em !important;
         }
     </style>
 }
 
 <div class="titulo">
+    <h1 id="tipoactividadtext">TODOS</h1>
 </div>
-<img id="img" class="ui medium circular image" src="https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/temas/test-madurez_1.jpg">
-<div class="container card">
-    <div class="ui basic segment">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <div class="field">
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Nombre socio</label>
-                            @Html.DisplayFor(model => model.Nombre)
-                        </div>
-                        <div class="field">
-                            <label>Teléfono</label>
-                            @ViewData["Telefono"]
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="two fields">
-                        <div class="field">
-                            <label>E-mail</label>
-                            @ViewData["Email"]
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="ui clearing segment">
+    <div class="ui grid">
+        <div class="eight wide column">
+            <select id="Tipo_Actividad" class="ui dropdown search" asp-items="ViewBag.TiAc_ID">
+                <option value="0">Todos</option>
+            </select>
+        </div>
+        <div class="eight wide column">
+            <a class="ui small btn-edit text-white labeled icon button" id="agregar" style="float:right">
+                <i class="plus icon"></i> Agregar actividad
+            </a>
         </div>
     </div>
 </div>
+<div class="container card">
+    <div class="ui cards centered" id="actividadesContainer">
+    </div>
+</div>
+
+<br />
+<br />
 
 @section Scripts{
+
+    <script>
+        const PartnerID = "@ViewData["partnerID"]";
+    </script>
+
+    <script src="~/js/ModulePartnesActivities/Actividades.js"></script>
+
     <script>
 
-        const partnerID = "@ViewData["PartnerID"]";
-        const FileName = `Partner-${partnerID}`;
-        const image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${FileName}/${FileName}_photo-1.jpg`;
-        $("#img").prop("src", "https://" + image);
+        //$('select.dropdown')
+        //    .dropdown()
+        //    ;
 
+        $('.special.card .image').dimmer({
+            on: 'hover'
+        });
+
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+    </script>
+
+    <script>
+        function EliminarActividad(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("ModulePartnersActivities/Delete?id=" + id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/ModulePartnersActivities?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar esta actividad?", "Esta actividad se borrará permanentemente.", "warning", capsula1);
+        };
     </script>
 }

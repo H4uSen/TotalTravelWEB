@@ -1,6 +1,8 @@
 ﻿var imagesArray = [];
 var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
+/*SetDropDownValue($("#Hote_ID"), HotelID);*/
+/*SetDropDownValue($("#CaHa_ID"), CaHaID);*/
 
 /*SetDropDownValue($("#Hote_ID"), HoteID);*/
 
@@ -92,10 +94,10 @@ function deleteImage(index) {
 
         validateArrayForm = [
             { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_Nombre") },
-            { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hotel") },
+            { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hote_ID") },
             { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
-            { validateMessage: "Ingrese el descripcion", Jqueryinput: $("#Habi_Descripcion") },
-            { validateMessage: "Ingrese la categoria", Jqueryinput: $("#Categoria") },
+            { validateMessage: "Ingrese una descripcion", Jqueryinput: $("#Habi_Descripcion") },
+            { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
             { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
             { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
             { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Habi_wifi") },
@@ -106,29 +108,66 @@ function deleteImage(index) {
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     if (ValidateFormStatus) {
-                var data = new FormData();
-        data.append("Hote_ID", $("#Hotel").val());
+        var data = new FormData();
+        data.append("Hote_ID", $("#Hote_ID").val());
+
         data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
+
         data.append("Habi_Nombre", $("#Habi_Nombre").val());
+
         data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
+
         data.append("Habi_Precio", $("#Habi_Precio").val());
-        data.append("Habi_balcon", $("#Habi_balcon").val());
-        data.append("Habi_wifi", $("#Habi_wifi").val());
+
+        data.append("Habi_balcon", $("#Habi_balcon").prop("checked") == true ? 1 : 0);
+
+        data.append("Habi_wifi", $("#Habi_wifi").prop("checked") == true ? 1 : 0);
+
         data.append("Habi_camas", $("#Habi_camas").val());
+
         data.append("Habi_capacidad", $("#Habi_capacidad").val());
-        data.append("Habi_UsuarioModificar", parseInt(Client_User_ID));
-        for (let i = 0; i < imagesArrayPure.length; i++) {
+
+        data.append("Habi_UsuarioModifica", parseInt(Client_User_ID));
+        for (var i = 0; i != imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        
-    var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Update?id=" + roomsID, data, "PUT");
+
+
+        var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Update?id=" + roomsID, data, "PUT");
 
                 if (response.data.codeStatus > 0) {
         window.location.href = '/Rooms?success=true';
                 }
 
         }
-    else { console.log("error") }
+        else { console.log("error") }
+      
+        //if (ReservacionActividadValidate) {
+
+        //    $("#Habi_wifi").val(false);
+
+        //    if ($("#Habi_wifi").prop('checked')) {
+
+        //        $("#Habi_wifi").val(true);
+        //    }
+        //    $('#updateRooms').submit()
+
+
+        //}
+
+        //if (ReservacionActividadValidate) {
+
+        //    $("#Habi_balcon").val(false);
+
+        //    if ($("#Habi_balcon").prop('checked')) {
+
+        //        $("#Habi_balcon").val(true);
+        //    }
+        //    $('#updateRooms').submit()
+
+
+        //}
+
         }
 
 

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationRestaurantsListViewModel>
+
+@{
+    ViewData["Title"] = "Reservations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        .titulo {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: rgb(238,245,249);
+            background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
+            color: #fff;
+            height: 40%;
+        }
+
+        #aidi {
+            margin-top: 2% !important;
+            margin-left: 2% !important;
+            color: #605d5d;
+        }
+
+        .ui.search.dropdown {
+            min-width: 40% !important;
+        }
+
+        .ui.cards > .card {
+            margin: 1.875em 1.5em !important;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: -5.150em 1.5em;
+            top: 0;
+            background-color: #f4fafd;
+        }
+
+        .ui.segment {
+            margin: 5.125em 1.5em;
+            max-width: 95%;
+        }
+
+        .content-inner {
+            overflow: hidden;
+        }
+    </style>
+}
+
+<div class="titulo">
+</div>
+<div class="ui clearing segment">
+    <div class="ui grid">
+        <h1 id="aidi">Reservaciones</h1>
+    </div>
+    <br />
+</div>
+<div class="container card">
+    <div class="ui cards centered" id="reservacionesContainer">
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        const RestauranteID = "@ViewData["RestauranteID"]";
+    </script>
+
+    <script src="~/js/ModuleRestaurantsJs/Reservaciones.js"></script>
+}

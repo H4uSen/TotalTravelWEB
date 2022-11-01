@@ -1,9 +1,16 @@
-﻿const RoomReservationList = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
-const ReservacionesActividadesHotelesList = ajaxRequest("https://totaltravel.somee.com/API/ReservationActivitiesHotels/List");
-const ReservationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
+﻿const ReservationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
+const PaymentsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/List");
 
 TableSearchInput($("#txtSearch"), $("#grdReservacion"), elemPerPage = 10);
 TableDetailsConstructor($("#grdReservacion"));
+
+const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
+
 
 $("#grdReservacion").paginationTdA({
     elemPerPage: 10
@@ -22,35 +29,39 @@ $("#grdReservacion tbody tr .details_button").click((_this) => {
         detail_row = {
             table: $("#grdReservacion"),
             row_Index: index,
-            content: roomsListDetails(id_Reservacion)
+            content: paymentsListDetails(id_Reservacion)
         }
     );
 });
 function Reservation(id_Reservacion) {
 
-    var Reservation = ReservationList.data;
+    var Payments = PaymentsList.data;
 
-    if (ReservationList.code == 200 && Reservation.length > 0) {
+    if (PaymentsList.code == 200 && Payments.length > 0) {
 
         var Detail =
             `<div class="ui fluid vertical menu">`;
 
-        Reservation = jQuery.grep(Reservation, function (item, i) {
-            return item.id == id_Reservacion;
+        Payments = jQuery.grep(Payments, function (item, i) {
+            return item.ID == id_Reservacion;
         });
 
-        for (var i = 0; i < RoomReservation.length; i++) {
+        for (var i = 0; i < Payments.length; i++) {
 
-            const detail = RoomReservation[i];
-            const fecha_Creacion = new Date(detail.fecha_Creacion);
+            const detail = Payments[i];
+            
+            const fechaCreacion = GetDateFormat({
+                string_date: detail.fechaPago, hour_format: 12, date_format: "default"
+            });
+
 
             Detail +=
                 `<a class="item">
-                    <h1 class="ui medium header">${detail.nombre_Habitacion}</h1>
-                    <p>Descripción: ${detail.descripcion_Habitacion}</p>
-                    <p>Categoría: ${detail.categoria_Habitacion}</p>
-                    <p>Precio: L ${parseFloat(detail.precio_Habitacion).toFixed(2)}</p>
-                    <p>Creado en: ${fecha_Creacion.toDateString()}</p>
+                    <h1 class="ui medium header">#${detail.id}</h1>
+                    <p>Nombre: ${detail.nombre_Completo}</p>
+                    <p>Monto: L ${parseFloat(detail.montoPago).toFixed(2)}</p>
+                    <p>Forma de pago: ${detail.tipoPago}</p>
+                    <p>Realizado el: ${fechaCreacion.datetime}</p>
                 </a>`;
         }
         Detail += "</div>";
@@ -58,32 +69,35 @@ function Reservation(id_Reservacion) {
         return Detail;
     }
 }
-/*
-function roomsListDetails(id_reservacionHotel) {
 
-    var RoomReservation = RoomReservationList.data;
+function paymentsListDetails(id_reservacionHotel) {
 
-    if (RoomReservationList.code == 200 && RoomReservation.length > 0) {
+    //var RoomReservation = RoomReservationList.data;
+    var Payments = PaymentsList.data;
+    if (PaymentsList.code == 200 && Payments.length > 0) {
 
         var Detail =
             `<div class="ui fluid vertical menu">`;
 
-        RoomReservation = jQuery.grep(RoomReservation, function (item, i) {
-            return item.reservacionHotelID == id_reservacionHotel;
+        Payments = jQuery.grep(Payments, function (item, i) {
+            return item.id_Reservacion == id_reservacionHotel;
         });
 
-        for (var i = 0; i < RoomReservation.length; i++) {
+        for (var i = 0; i < Payments.length; i++) {
 
-            const detail = RoomReservation[i];
-            const fecha_Creacion = new Date(detail.fecha_Creacion);
+            const detail = Payments[i];
+            
+            const fechaCreacion = GetDateFormat({
+                string_date: detail.fechaPago, hour_format: 12, date_format: "default"
+            });
+
 
             Detail +=
                 `<a class="item">
-                    <h1 class="ui medium header">${detail.nombre_Habitacion}</h1>
-                    <p>Descripción: ${detail.descripcion_Habitacion}</p>
-                    <p>Categoría: ${detail.categoria_Habitacion}</p>
-                    <p>Precio: L ${parseFloat(detail.precio_Habitacion).toFixed(2)}</p>
-                    <p>Creado en: ${fecha_Creacion.toDateString()}</p>
+                    <h1 class="ui medium header">${detail.tipoPago}</h1>
+                    <p>Nombre: ${detail.nombre_Completo}</p>
+                    <p>Monto: L ${parseFloat(detail.montoPago).toFixed(2)}</p>
+                    <p>Realizado el: ${fechaCreacion.datetime}</p>
                 </a>`;
         }
         Detail += "</div>";
@@ -91,4 +105,16 @@ function roomsListDetails(id_reservacionHotel) {
         return Detail;
     }
 }
-*/
+
+
+
+function DeleteReservation(id) {
+    const capsula1 = () => {
+        var response = ajaxRequest("/Reservation/Delete?id=" + id, null, "POST");
+        if (response > 0) {
+            window.location.href = '/Reservation?success=true';
+        }
+    };
+    sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+};

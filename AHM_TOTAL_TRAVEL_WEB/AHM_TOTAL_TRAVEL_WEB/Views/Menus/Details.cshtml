@@ -50,14 +50,36 @@
                     </div>
                 </div>
             </div>
+            <div class="ui grid three column stackable mt-4">
+
+                <div class="column">
+                    <label class="ui label">Imagenes en fila.</label>
+                    <div class="ui segment">
+                        <div class="ui middle aligned divided list" id="image-upload-list">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                        <div class="ui icon header" id="MenusCarousel">
+                            <i class="images icon"></i>
+                            Tus imagenes aparecerán aquí.
+                        </div>
+
+                        <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <br />
 
-            <h3 class="ui horizontal divider header">
+            <h3 class="ui horizontal divider header ">
                 <i class="folder open icon"></i>
                 Auditoría
             </h3>
 
-            <table class="ui compact selectable celled table" id="tabla">
+            <table class="ui compact selectable celled table mb-4" id="tabla">
                 <thead>
                     <tr>
                         <th>
@@ -92,17 +114,25 @@
                 </tbody>
             </table>
         </div>
+
     </div>
 </div>
+@section Scripts{
+
+    <script>
+        var menuFolder = '@ViewData["MenusFolder"]';
+        var menuID = '@ViewData["MenuID"]';
+    </script>
+    <script src="~/js/MenusJs/Details.js"></script>
+}
 @section HighlightTile{
     <script>
         $("#RestaurantModule").addClass("active");
         $("#RestaurantModule").addClass("expandedList");
         $("#RestaurantModule").prop("aria-expanded");
         $("#RestaurantModule").attr("aria-expanded", "true");
-
         $("#Restaurant_Schema").addClass("show");
-
         $("#MenusTile").addClass("activeTile");
+
     </script>
 }

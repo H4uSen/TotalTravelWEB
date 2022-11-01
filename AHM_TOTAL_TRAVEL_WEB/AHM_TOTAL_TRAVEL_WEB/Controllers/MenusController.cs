@@ -69,6 +69,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (MenusListViewModel)(await _restaurantServices.MenusFind(id, token)).Data;
+            ViewData["MenusFolder"] = $"Restaurants/Restaurant-{detalle.ID_Restaurante}/Food";
+            ViewData["MenuID"] = id;
             return View(detalle);
         }
 

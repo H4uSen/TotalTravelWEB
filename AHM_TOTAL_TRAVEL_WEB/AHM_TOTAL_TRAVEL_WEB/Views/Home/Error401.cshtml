@@ -33,11 +33,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
     </head>
-<body style="background-color:#A97BC4">
+<body style="background-color:#bdbdbd">
     <div class="container">
         <div id="ErrorSection" class="loading">
             <h1 style="margin-bottom: 12px; font-size: 8rem; font-style: italic; font-variant: petite-caps;">
-                Error 401 <i class="server icon"></i>
+                Error 401 
             </h1>
 
             @if (Model.ShowRequestId)
@@ -50,8 +50,8 @@
                 No tienes los permisos requeridos para acceder a este recurso, comuniquese con el administrador. <b>:(</b>
 
             </span>
-            <span style="margin-bottom: 40px;">
-                <a href="javascript:history.back()" class="ui button">Regresar</a>
+            <span style="margin-bottom: 40px;display: flex;justify-content: flex-end;">
+                <a href="javascript:history.back()" class="ui button" style="font-size: 22px;margin-right: 13%;">Regresar</a>
             </span>
 
             <div class="imagen center" style="display: flex;justify-content: center;">

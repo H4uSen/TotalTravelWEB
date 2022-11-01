@@ -43,13 +43,13 @@
             <thead>
                 <tr>
                     <th>
-                        Habitacion
+                        Habitación
                     </th>
                     <th>
-                        Descripcion
+                        Descripción
                     </th>
                     <th>
-                        Categoria
+                        Categoría
                     </th>
                     <th>
                         Hotel
@@ -92,10 +92,26 @@
                             @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Balcon)
+                            @{ if (item.Balcon == 1 )
+                                {
+                                    <span >Si</span>
+                                }
+                                else
+                                {
+                                    <span > No </span>
+                                }
+                            }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Wifi)
+                            @{ if (item.Wifi == true)
+                                {
+                                    <span >Si</span>
+                                }
+                                else
+                                {
+                                    <span >No </span>
+                                }
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Camas)

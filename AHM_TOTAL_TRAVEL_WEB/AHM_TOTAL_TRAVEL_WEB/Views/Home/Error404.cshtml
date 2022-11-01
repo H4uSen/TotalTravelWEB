@@ -7,7 +7,7 @@
 <div class="container">
     <div id="ErrorSection" class="loading">
         <h1 style="margin-bottom: 12px; font-size: 8rem; font-style: italic; font-variant: petite-caps;">
-            Error 404 <i class="server icon"></i>            
+            Error 404           
         </h1>
         
         @if (Model.ShowRequestId)
@@ -20,8 +20,8 @@
             No se ha encontrado el recurso, revise el url o refresque la página. <b>:(</b>
 
         </span>
-        <span style="margin-bottom: 40px;">
-            <a href="javascript:history.back()" class="ui button">Regresar</a>
+        <span style="margin-bottom: 40px;display: flex;justify-content: flex-end;">
+            <a href="javascript:history.back()" class="ui button" style="font-size: 22px;margin-right: 13%;">Regresar</a>
         </span>
 
         <div class="gears">

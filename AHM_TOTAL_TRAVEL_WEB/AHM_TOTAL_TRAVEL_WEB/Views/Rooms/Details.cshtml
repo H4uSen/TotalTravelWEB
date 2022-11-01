@@ -27,15 +27,15 @@
                     <div class="field">
                         <div class="three fields">
                             <div class="field">
-                                <label>Habitacion</label>
+                                <label>Habitación</label>
                                 @Html.DisplayFor(model => model.Habitacion)
                             </div>
                             <div class="field">
-                                <label>Descripcion</label>
+                                <label>Descripción</label>
                                 @Html.DisplayFor(model => model.Descripcion)
                             </div>
                             <div class="field">
-                                <label>Categoria</label>
+                                <label>Categoría</label>
                                 @Html.DisplayFor(model => model.Categoria)
                             </div>
                         </div>
@@ -51,13 +51,29 @@
                             </div>
                             <div class="field">
                                 <label>Balcon</label>
-                                @Html.DisplayFor(model => model.Balcon)
+                                @{ if (Model.Balcon == 1)
+                                    {
+                                        <span >Si</span>
+                                    }
+                                    else
+                                    {
+                                        <span > No </span>
+                                    }
+                                }
                             </div>
                         </div>
                         <div class="three fields">
                             <div class="field">
                                 <label>Wifi</label>
-                                @Html.DisplayFor(model => model.Wifi)
+                                @{ if (Model.Wifi == true)
+                                    { 
+                                        <span >Si</span>
+                                    }
+                                    else
+                                    {
+                                        <span > No </span>
+                                    }
+                                }
                             </div>
                             <div class="field">
                                 <label>Camas</label>
@@ -89,10 +105,10 @@
                             Fecha Creación
                         </th>
                         <th>
-                            Usuario modifica
+                            Usuario Modifica
                         </th>
                         <th>
-                            Fecha modifica
+                            Fecha Modifica
                         </th>
                     </tr>
                 </thead>

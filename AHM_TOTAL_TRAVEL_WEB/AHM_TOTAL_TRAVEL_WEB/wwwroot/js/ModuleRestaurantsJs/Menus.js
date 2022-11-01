@@ -25,10 +25,10 @@ function fillMenu(idtipomenu) {
     $("#menusContainer").empty();
     for (var i = 0; i < menus.length; i++) {
         const item = menus[i];
-        var card = `<div class="ui special card">
+        var card = `<div class="ui special card" id="menu_${item.id}">
             <div class="content">
                 <div class="right floated meta">
-                    <a href="javascript:EliminarMenu(${item.id})"><i class="large times icon"></i></a>
+                    <a id="a" href="javascript:EliminarMenu(${item.id})"><i class="large times icon"></i></a>
                 </div>
                 ${item.menu}
             </div>
@@ -36,11 +36,11 @@ function fillMenu(idtipomenu) {
                 <div class="ui dimmer">
                     <div class="content">
                         <div class="center">
-                            <div class="ui inverted button">Editar</div>
+                            <a class="ui inverted button" href="javascript:ObtenerDatos(${item.id})">Editar</a>
                         </div>
                     </div>
                 </div>
-                <img src="${item.image_Url}">
+                <img src="${item.image_Url}" id="imagen">
             </div>
             <div class="content">
                 <span>${item.descripcion}</span>
@@ -48,7 +48,7 @@ function fillMenu(idtipomenu) {
             <div class="extra content">
                 <p>
                     <b>L </b>
-                    ${item.precio}
+                    ${item.precio}.00
                 </p>
             </div>
         </div>`;
@@ -62,59 +62,12 @@ function fillMenu(idtipomenu) {
 
 function agregar() {
     $("#menusContainer").append(
-        `<div class="ui card" id="esconder">
-            <div class="blurring dimmable image">
-                <img src="https://avalos.sv/wp-content/uploads/default-featured-image.png" />
-                <div class="field">
-                    <input type="file" />
-                </div>
-            </div>
-            <div class="content">
-                <div class="ui form">
-                    <div class="field">
-                        <div class="ui input">
-                            <input type="text" placeholder="Nombre del menú">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui input">
-                            <textarea rows="2" placeholder="Descripción del menú"></textarea>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui right labeled input">
-                            <label for="amount" class="ui label">L</label>
-                            <input type="number" step="0.01" min="0">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui card align-items-center" id="mas">
-            <a>
+        `<div class="ui card align-items-center" id="mas">
+            <a id="a">
                 <i class="massive plus icon"></i>
             </a>
         </div>
-        <div class="ui card align-items-center" id="equis">
-            <a>
-                <i class="massive close icon"></i>
-            </a>
-        </div>
         <br />`);
-
-    $('#esconder').hide();
-    $('#equis').hide();
-
-    $('#agregar, #mas').click(() => {
-        $('#esconder').show();
-        $('#mas').hide();
-        $('#equis').show();
-    });
-
-    $("#equis").click(() => {
-        $('#esconder').hide();
-        $('#mas').show();
-        $('#equis').hide();
-    });
+        
 }
 
