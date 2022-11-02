@@ -262,6 +262,15 @@
                                 </ul>
                             </li>
 
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="AccessModule" href="#Access_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    Módulo de reportes
+                                </a>
+                                <ul class="collapse list-unstyled" id="Access_Schema">
+                                    <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte</a></li>
+                                </ul>
+                            </li>
+
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="GeneralModule" href="#General_Schema" data-bs-toggle="collapse" data-toggle="collapse">
@@ -361,6 +370,7 @@
                                     @*<li><a id="ReservationDetailsTile" class="sidebar-link" href="@Url.Action("Index","ReservationDetails")">Detalles de Reservaciones</a></li>*@
                                 </ul>
                             </li>
+                            
                         </ul>
                     }
                     if (usersRole == "Cliente")
@@ -370,39 +380,40 @@
                         General
                       </span>
 
-                        <ul class="list-unstyled py-4">
+                    <ul class="list-unstyled py-4">
 
-                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","ClientHome")">Inicio</a></li>
+                        <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","ClientHome")">Inicio</a></li>
 
-                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Paquetes de viajes</a></li>
-                            <li class="sidebar-item" id="CustomPackages">
-                                <a class="sidebar-link" href="#">
-                                    <i class="bi bi-person"></i>
-                                    <span>Crea tus propios paquetes</span>
-                                </a>
-                            </li>
+                        <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Paquetes de viajes</a></li>
+                        <li class="sidebar-item" id="CustomPackages">
+                            <a class="sidebar-link" href="#">
+                                <i class="bi bi-person"></i>
+                                <span>Crea tus propios paquetes</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item" id="PurchasesRecords">
-                                <a class="sidebar-link" href="#">
-                                    Historial de compras
-                                </a>
-                            </li>
-                            <li class="sidebar-item" id="PaymentsRecords">
-                                <a class="sidebar-link" href="#">
-                                    Historial de transacciones
-                                </a>
-                            </li>
-                            <li class="sidebar-item" id="PurchaseModule">
-                                <a class="sidebar-link" id="PurchaseModule" href="#Purchase_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                        <li class="sidebar-item" id="PurchasesRecords">
+                            <a class="sidebar-link" href="#">
+                                Historial de compras
+                            </a>
+                        </li>
+                        <li class="sidebar-item" id="PaymentsRecords">
+                            <a class="sidebar-link" href="#">
+                                Historial de transacciones
+                            </a>
+                        </li>
+                        <li class="sidebar-item" id="PurchaseModule">
+                            <a class="sidebar-link" id="PurchaseModule" href="#Purchase_Schema" data-bs-toggle="collapse" data-toggle="collapse">
 
-                                    Compra
-                                </a>
-                                <ul class="collapse list-unstyled" id="Reservation_Schema">
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Ver paquetes predeterminados</a></li>
-                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservación Actividades Extra</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                                Compra
+                            </a>
+                            <ul class="collapse list-unstyled" id="Reservation_Schema">
+                                <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Ver paquetes predeterminados</a></li>
+                                <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservación Actividades Extra</a></li>
+                            </ul>
+                        </li>
+                       
+                    </ul>
                     }
                     if (usersRole == "Moderador de Hotel")
                     {
