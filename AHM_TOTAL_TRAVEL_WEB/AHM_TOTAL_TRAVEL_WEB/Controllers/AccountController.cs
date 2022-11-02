@@ -41,7 +41,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 ViewData["Avenida"] = direccion.Avenida;
                 ViewData["Pais"] = direccion.ID_Pais;
                 ViewData["Ciudad"] = direccion.ID_Ciudad;
-                ViewData["Colonia"] = direccion.Colonia;
+                ViewData["Colonia"] = direccion.ID_Colonia;
                 ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
 
             }
