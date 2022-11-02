@@ -133,5 +133,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+        public IActionResult PersonalizePackages()
+        {
+            return View();
+        }
     }
 }
