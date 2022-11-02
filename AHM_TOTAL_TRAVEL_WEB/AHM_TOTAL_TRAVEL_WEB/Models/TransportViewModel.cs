@@ -41,18 +41,5 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public bool? Estado { get; set; }
     }
 
-    public class TransportReportListViewModel
-    {
-        public int ID { get; set; }
-
-        public int? TipoTransporteID { get; set; }
-
-        public string TipoTransporte { get; set; }
-        public string NombrePartner { get; set; }
-        public string Ciudad { get; set; }
-        public string Colonia { get; set; }
-        public string Calle { get; set; }
-        public string Avenida { get; set; }
-       
-    }
+ 
 }
