@@ -1,0 +1,119 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ActivitiesExtrasViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon bicycle"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar Actividad
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ModulePartnersActivities")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- formulario-->
+            <form>
+
+                <div class="ui form attached fluid segment">
+                    <div class="content" id="activi">
+
+                        <div class="field">
+                            <div class=" two fields">
+                                <input id="Part_ID" class="desaparezco" value="@ViewData["partnerID"]" hidden/>
+                                <div class="required field">
+                                    <label class="ui label">Actividad</label>
+                                    <select id="Actv_IDUpdate" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                        <option value="">Seleccione una actividad</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Descripción</label>
+                                    <input id="AcEx_Descripcion" value="@Model.AcEx_Descripcion" placeholder="Descripción de la Actividad Extra" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Precio</label>
+                                    <input id="AcEx_Precio" value="@Model.AcEx_Precio" placeholder="Precio de la Actividad" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">País</label>
+                                    <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                        <option value="">Seleccione un país</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Ciudad</label>
+                                    <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Colonia</label>
+                                    <select id="Subu_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Calle</label>
+                                    <input id="Calle" placeholder="Calle" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Avenida</label>
+                                    <input id="Avenida" placeholder="Avenida" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="required field">
+                                <label>Imagen</label>
+                                <input id="Imagen" type="file" class="form-control" />
+                            </div>
+                        </div>
+
+                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
+
+                        <input type="button" value="Guardar" onclick="UpdateActivitiesExtras()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ModulePartnersActivities")" class="ui button mb-3 ms-3">Cancelar</a>
+                    </div>
+                </div>
+
+            </form>
+            <!-- fin formulario-->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const ID_ActvExtra = '@ViewData["ActivitiesExtra"]';
+        const ID_Actv = '@ViewData["ActvID"]';
+        const partID = '@ViewData["PartnerID"]';
+        const Avenida = '@ViewData["Avenida"]';
+        const Calle = '@ViewData["Calle"]';
+        const countID = '@ViewData["PaisID"]';
+        const ciudID = '@ViewData["CiudadID"]';
+        const coloID = '@ViewData["ColoID"]';
+    </script>
+    <script src="~/js/ModulePartnesActivities/Update.js"></script>
+    <script>$('.desaparezco').hide();</script>
+
+}
