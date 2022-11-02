@@ -13,11 +13,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     {
         SaleServices _saleServices;
         AccessService _accessService;
+        TransportService _transportService;
 
-        public BuyDefaultsController(SaleServices saleServices, AccessService accessService)
+        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService)
         {
             _saleServices = saleServices;
             _accessService = accessService;
+            _transportService = transportService;
         }
 
         [HttpGet]
@@ -56,6 +58,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
             return View(detalle);
+        }
+
+        public async Task<IActionResult> Transport()
+        {
+            //string token = HttpContext.User.FindFirst("Token").Value;
+            var list = await _transportService.TransportList();
+            return View(list.Data);
         }
     }
 }
