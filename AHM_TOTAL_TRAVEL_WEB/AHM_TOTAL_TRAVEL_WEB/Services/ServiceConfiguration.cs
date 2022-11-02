@@ -23,6 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             services.AddTransient<RestaurantService>();
             services.AddTransient<TransportService>();
             services.AddTransient<ReservationService>();
+            services.AddTransient<ReportService>();
             services.AddTransient<HttpClient>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<appSettings>();
