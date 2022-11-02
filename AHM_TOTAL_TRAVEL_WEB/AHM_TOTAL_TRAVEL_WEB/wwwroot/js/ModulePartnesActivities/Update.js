@@ -16,11 +16,11 @@ $("#Avenida").val(Avenida);
 
 SetDropDownValue($("#Part_ID"), partID);
 SetDropDownValue($("#Count_ID"), countID);
+GetCitiesUpdate(countID);
 SetDropDownValue($("#Actv_IDUpdate"), ID_Actv);
 SetDropDownValue($("#City_ID"), ciudID);
-SetDropDownValue($("#Subu_ID"), coloID);
-GetCitiesUpdate(countID);
 GetSuburbUpdate(ciudID);
+SetDropDownValue($("#Subu_ID"), coloID);
 
 //=====================Actividades Funciones=======================
 
