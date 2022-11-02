@@ -5,8 +5,7 @@
 const filterSource = {
     "transport": [
         { filter: "artista", source: "getArtist" },
-        { filter: "concierto", source: "getConcert" },
-        { filter: "establecimiento", source: "getEstablishment" }
+       
     ],
 };
 
@@ -26,7 +25,7 @@ var iframeData = {
 $(document).ready(() => {
     //inicializa la pantalla con el reporte de conciertos como default
     $("#cbbRouteValue").prop("disabled", true);
-    GetReport('ConciertoReport', 'concierto');
+    GetReport('transportReport', 'transport');
 });
 
 $("#cbbRouteValue").change(function () {
@@ -54,7 +53,7 @@ $("#btnFiltro").click(function () {
 
 //----------------------------------------------- REPORT FUNCTIONS  ---------------------------------------------------------
 
-function GetReport(action = "ConciertoReport", report = "concierto") {
+function GetReport(action = "transportReport", report = "transport") {
 
     //devuelve al valor default del filtro cada vez que se cambia de informe
     $("#lblfiltro").html("TODOS");
@@ -67,7 +66,7 @@ function GetReport(action = "ConciertoReport", report = "concierto") {
     //setea accion (nombre de metodo de informe)
     iframeData.action = action;
     //asigna el nuevo informe al iframe
-    $("#ifrReport").prop("src", `/Report/${action}`);
+    $("#ifrReport").prop("src", `/API/Report/${action}`);
     $("#lblReport").html(report.toUpperCase());
 
     //busca dentro de JSON de restricciones el informe solicitado
@@ -120,20 +119,11 @@ function filterReport(filterType, filterSource) {
 
 //----------------------------------------------- GENERAL FUNCTIONS  ---------------------------------------------------------
 
-function getGender() {
-    $("#cbbRouteValue").empty();
-    var value =
-        `<option value='0' disabled selected> Seleccione un genero </option>
-        <option value='Femenino'> Femenino </option>
-        <option value='Masculino'> Masculino </option>
-        `
-    $("#cbbRouteValue").append(value);
-}
 
 function getArtist() {
 
     $.ajax({
-        url: 'https://www.cattickets.somee.com/Artistas/List',
+        url: 'https://totaltravel.somee.com/API/Transports/list',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -149,91 +139,6 @@ function getArtist() {
                 const element = data[i];
 
                 const option = `<option value="${element.id}">${element.nombres} ${element.apellidos} / ${element.alias}</option>`;
-                $("#cbbRouteValue").append(option);
-            }
-        },
-        error: function () {
-            console.log("error");
-        }
-    });
-}
-
-function getConcert() {
-
-    $.ajax({
-        url: 'https://www.cattickets.somee.com/Conciertos/List',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        type: "GET",
-        dataType: "json",
-        async: true,
-        success: function (result) {
-            const data = result.data;
-            $("#cbbRouteValue").empty();
-            $("#cbbRouteValue").append("<option value-'0' disabled selected> Seleccione un concierto </option>");
-
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-                const fecha = element.fecha.split("T");
-
-                const option = `<option value="${element.id}"> Evento ${element.nombreArtista} en ${element.establecimiento} (${fecha[0]}) </option>`;
-                $("#cbbRouteValue").append(option);
-            }
-        },
-        error: function () {
-            console.log("error");
-        }
-    });
-}
-
-function getEstablishment() {
-
-    $.ajax({
-        url: 'https://www.cattickets.somee.com/Establecimientos/List',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        type: "GET",
-        dataType: "json",
-        async: true,
-        success: function (result) {
-            const data = result.data;
-            $("#cbbRouteValue").empty();
-            $("#cbbRouteValue").append("<option value-'0' disabled selected> Seleccione un establecimiento </option>");
-
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-
-                const option = `<option value="${element.id}"> ${element.descripcion} de ${element.municipio} </option>`;
-                $("#cbbRouteValue").append(option);
-            }
-        },
-        error: function () {
-            console.log("error");
-        }
-    });
-}
-
-function getClient() {
-
-    $.ajax({
-        url: 'https://www.cattickets.somee.com/Clientes/List',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        type: "GET",
-        dataType: "json",
-        async: true,
-        success: function (result) {
-            const data = result.data;
-            $("#cbbRouteValue").empty();
-            $("#cbbRouteValue").append("<option value='0' disabled selected> Seleccione un cliente </option>");
-
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-
-                const option = `<option value="${element.id}"> ${element.nombres} ${element.apellidos} / ${element.dni} </option>`;
                 $("#cbbRouteValue").append(option);
             }
         },
