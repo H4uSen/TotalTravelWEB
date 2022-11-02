@@ -25,7 +25,7 @@ function fillActividad(idTipoActividad) {
     $("#actividadesContainer").empty();
     for (var i = 0; i < actividades.length; i++) {
         const item = actividades[i];
-        var card = `<div class="ui special card">
+        var card = `<div class="ui special card" id="actv_${item.id}">
             <div class="content">
                 <div class="right floated meta">
                     <a id="a" href="javascript:EliminarActividad(${item.id})"><i class="large times icon"></i></a>
@@ -36,7 +36,7 @@ function fillActividad(idTipoActividad) {
                 <div class="ui dimmer">
                     <div class="content">
                         <div class="center">
-                            <div class="ui inverted button">Editar</div>
+                            <a class="ui inverted button" href="/ModulePartnersActivities/Update/${item.id}">Editar</a>
                         </div>
                     </div>
                 </div>

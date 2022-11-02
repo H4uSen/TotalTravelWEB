@@ -12,6 +12,10 @@
             text-align: left;
             background-color: #e2e8f0;
         }
+        .ui.search.dropdown {
+            min-width: 0 !important;
+            width: 100% !important;
+        }
 
         .main-body {
             padding: 15px;
@@ -76,8 +80,8 @@
             }
 
         .min-width-0 {
-            width:100% !important; 
-            min-width:auto !important;
+            width: 100% !important;
+            min-width: auto !important;
         }
     </style>
 }
@@ -93,7 +97,7 @@
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" id="image_profile">
                             <div class="mt-3">
-                                <h4>@string.Concat(Model.Nombre," ",Model.Apellido)</h4>
+                                <h4>@string.Concat(Model.Nombre, " ", Model.Apellido)</h4>
                                 <p class="text-secondary mb-1"> @Html.DisplayFor(model => model.Rol)</p>
                                 <p class="text-muted font-size-sm">@Html.DisplayFor(model => model.Telefono)</p>
                                 <a class="btn btn-edit w-100" href="#" id="editar">Editar</a>
@@ -122,7 +126,7 @@
                         </div>
                         <hr>
                         @{ if (Model.Partner != null)
-                           {
+                            {
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <h6 class="mb-0">Socio</h6>
@@ -131,7 +135,7 @@
                                         @Html.DisplayFor(model => model.Partner)
                                     </div>
                                 </div>
-                           }
+                            }
                         }
                     </div>
                 </div>
@@ -223,7 +227,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Telefono</h6>
+                                <h6 class="mb-0">Teléfono</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" class="form-control" id="Usua_Telefono" value="@Model.Telefono">
@@ -240,19 +244,19 @@
                                             <option value="">Seleccione un país</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-6 field">
-                                        <div>
+                                    <div class="col-sm-6">
+                                        <div class="field">
                                             <select class="ui dropdown search min-width-0" id="Ciudad">
+                                                <option value="">Seleccione una ciudad</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12">                                    
-                                        <br />
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1">Colonia</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="Colonia" value="@ViewData["Colonia"]">
+                                    <div class="col-sm-12">
+                                        <div class="field">
+                                            <br />
+                                            <select class="ui dropdown search min-width-0" id="Colonia">
+                                                <option value="">Seleccione una colonia</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -302,9 +306,22 @@
 
     <script>
         $("#Cuenta").addClass("active");
+
+        const Ciud_ID = "@ViewData["Ciudad"]";
+        const Pais_ID = "@ViewData["Pais"]";
+        const Colo_ID = "@ViewData["Colonia"]";
+
     </script>
 
+    <script src="~/js/UsersJs/UsersAccount.js"></script>
+
     <script>
+
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
 
         $('.ui.dropdown').dropdown();
         $('#formedit').hide();
@@ -321,9 +338,5 @@
             $("#formedit").transition('slide down');
         });
 
-        const Ciud_ID = "@ViewData["Ciudad"]";
-        const Pais_ID = "@ViewData["Pais"]";
-
     </script>
-    <script src="~/js/UsersJs/UsersAccount.js"></script>
 }
