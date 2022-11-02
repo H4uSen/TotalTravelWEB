@@ -18,13 +18,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         }
 
-        public async Task<ServiceResult> TransporteReportList(IEnumerable<TransportReportListViewModel> model)
+        public async Task<ServiceResult> TransporteReportList(IEnumerable<TransportListViewModel> model)
         {
             var Result = new ServiceResult();
 
             try
             {
-                var response = await _api.Get<IEnumerable<TransportReportListViewModel>, IEnumerable<TransportReportListViewModel>>(req => {
+                var response = await _api.Get<IEnumerable<TransportListViewModel>, IEnumerable<TransportListViewModel>>(req => {
                     req.Path = $"/API/Transport/Report";
                     req.Content = model;
                 }

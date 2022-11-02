@@ -4,7 +4,6 @@ using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,33 +41,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> TransportReport( )
         {
-            var data = 
- 
+            var data  =(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
+
             //crea y asigna direccion url de ubicacion de archivo .rdlc
-            var path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\TransportReport.rdlc";
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Transportestotal.rdlc";
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
             localReport.AddDataSource("Transporte", data);
 
             // crea y asigna parametros
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
+         //   Dictionary<string, string> parameters = new Dictionary<string, string>();
             
 
             //crea y retorna pdf reader
-            var result = localReport.Execute(RenderType.Pdf, 1, parameters);
+            var result = localReport.Execute(RenderType.Pdf);
             return File(result.MainStream, "application/pdf");
         }
-
-
-
-
-
-
-
-
-
-
 
     }
 }

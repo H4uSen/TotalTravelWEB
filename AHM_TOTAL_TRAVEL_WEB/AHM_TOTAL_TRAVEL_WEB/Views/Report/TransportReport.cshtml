@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "TransportReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>TransportReport</h1>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card card-body">
+            <iframe src="@Url.Action("TransportReport", "Report")  " frameborder="0" height="500" id="ifrReport"></iframe>
+        </div>
+    </div>
+</div>
+
