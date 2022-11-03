@@ -21,10 +21,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly AccessService _AccessService;
         private readonly HotelsService _HotelsService;
         private readonly ActivitiesServices _ActivitiesServices;
+        private readonly RestaurantService _restaurantService;
 
         public HomeController(ILogger<HomeController> logger, GeneralService GeneralService, SaleServices SaleServices,
                               ReservationService ReservationService, AccessService AccessService, HotelsService HotelsService,
-                              ActivitiesServices ActivitiesServices)
+                              ActivitiesServices ActivitiesServices, RestaurantService restaurantService)
         {
             _generalServices = GeneralService;
             _SaleServices = SaleServices;
@@ -32,6 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _AccessService = AccessService;
             _HotelsService = HotelsService;
             _ActivitiesServices = ActivitiesServices;
+            _restaurantService = restaurantService;
             _logger = logger;
         }
 
@@ -111,6 +113,63 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> restaurantDashboard()
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _AccessService.AccountFind(id, token)).Data;
+
+            var partner = (PartnersListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
+
+            var list = await _restaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
+            var restaurante = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
+
+            IEnumerable<PartnersListViewModel> partnerss =
+                (IEnumerable<PartnersListViewModel>)(await _generalServices.PartnersList()).Data;
+
+            IEnumerable<TypeMenusListViewModel> tiposmenus =
+                (IEnumerable<TypeMenusListViewModel>)(await _restaurantService.TypeMenusList()).Data;
+
+            IEnumerable<MenusListViewModel> menus =
+                (IEnumerable<MenusListViewModel>)(await _restaurantService.MenusList()).Data;
+
+            IEnumerable<ReservationRestaurantsListViewModel> reservations =
+               (IEnumerable<ReservationRestaurantsListViewModel>)(await _ReservationService.RestaurantsReservationList(token)).Data;
+
+            ViewData["NombreRestaurante"] = restaurante.Restaurante;
+            ViewData["Partner"] = restaurante.Partner;
+            ViewData["Direccion"] = "Calle " + restaurante.Calle + ", Avenida " + restaurante.Avenida + ", Colonia " + restaurante.Colonia + ", Ciudad de " + restaurante.Ciudad;
+
+            ViewData["TiposMenus"] = tiposmenus.LongCount();
+            ViewData["Reservaciones"] = reservations.LongCount();
+            ViewData["CantidadMenus"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID).LongCount();
+
+            ViewData["CantidadDesayunos"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 1012).LongCount();
+            ViewData["CantidadAlmuerzos"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 3).LongCount();
+            ViewData["CantidadCenas"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 2).LongCount();
+            ViewData["CantidadPostres"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 1014).LongCount();
+
+            IEnumerable<ReservationRestaurantsListViewModel> reservacionespendientes =
+               (IEnumerable<ReservationRestaurantsListViewModel>)(await _ReservationService.RestaurantsReservationList(token)).Data;
+
+            var d = new List<restaurantsDashboardDetail>();
+
+            foreach (var item in reservacionespendientes)
+            {
+                var x = new restaurantsDashboardDetail();
+                var r = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.DescripcionReservacion, token)).Data;
+                if (r.ConfirmacionRestaurante == true)
+                {
+                    x.detalle = item;
+                    x.reservacion = r;
+                }
+                d.Add(x);
+            }
+
+            return View(d);
         }
 
         public IActionResult Privacy()
