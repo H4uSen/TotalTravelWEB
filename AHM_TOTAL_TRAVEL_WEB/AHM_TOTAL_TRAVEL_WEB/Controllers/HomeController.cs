@@ -173,6 +173,45 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View(d);
         }
 
+        public async Task<IActionResult> activitiesDashboard()
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _AccessService.AccountFind(id, token)).Data;
+
+            var partner = (PartnersListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
+
+            IEnumerable<PartnersListViewModel> partnerss =
+                (IEnumerable<PartnersListViewModel>)(await _generalServices.PartnersList()).Data;
+
+            IEnumerable<TypesActivitiesListViewModel> tiposactividades =
+                (IEnumerable<TypesActivitiesListViewModel>)(await _ActivitiesServices.TypesActivitiesList()).Data;
+
+            IEnumerable<ActivitiesExtrasListViewModel> actividades =
+                (IEnumerable<ActivitiesExtrasListViewModel>)(await _ActivitiesServices.ExtraActivitiesList(token)).Data;
+
+            IEnumerable<ReservationExtraActivitiesListViewModel> reservations =
+               (IEnumerable<ReservationExtraActivitiesListViewModel>)(await _ReservationService.ExtraActivitiesReservationList(token)).Data;
+
+            ViewData["Partner"] = cuenta.Partner;
+            ViewData["Direccion"] = "Calle " + cuenta.Calle + ", Avenida " + cuenta.Avenida + ", Colonia " + cuenta.Colonia;
+            ViewData["Imagen"] = partner.Image_Url;
+
+            ViewData["TiposActividades"] = tiposactividades.LongCount();
+            ViewData["Reservaciones"] = reservations.LongCount();
+            ViewData["CantidadActividades"] = actividades.Where(x => x.ID_Partner == cuenta.PartnerID).LongCount();
+
+            ViewData["CantidadAventura"] = actividades.Where(actividades => actividades.TipoActividadID == 2).LongCount();
+            ViewData["CantidadAerea"] = actividades.Where(actividades => actividades.TipoActividadID == 3).LongCount();
+            ViewData["CantidadAcuatico"] = actividades.Where(actividades => actividades.TipoActividadID == 8).LongCount();
+            ViewData["CantidadSenderismo"] = actividades.Where(actividades => actividades.TipoActividadID == 1008).LongCount();
+
+            IEnumerable<ReservationExtraActivitiesListViewModel> reservacionespendientes =
+               (IEnumerable<ReservationExtraActivitiesListViewModel>)(await _ReservationService.ExtraActivitiesReservationList(token)).Data;
+
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

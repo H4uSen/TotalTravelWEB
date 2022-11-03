@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "activitiesDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        #a {
+            text-decoration: none;
+        }
+
+        #carta {
+            max-height: 300px !important;
+        }
+    </style>
+}
+
+<header class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Dashboard</h2>
+    </div>
+</header>
+
+<section class="pb-0">
+    <div class="container-fluid">
+        <div class="row align-items-stretch">
+            <!-- Statistics -->
+            <div class="col-lg-3 col-12">
+                <div class="card mb-0">
+                    <div class="card-body text-center">
+                        <div class="client-avatar mb-3">
+                            <img class="img-fluid rounded-circle shadow-0" src="@ViewData["Imagen"]">
+                        </div>
+                        <h3 class="fw-normal">@ViewData["Partner"]</h3>
+                        <p class="text-sm text-gray-500 mb-1">@ViewData["Direccion"]</p>
+                    </div>
+                </div>
+                <br />
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-green"><i class="far fa-calendar"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["TiposActividades"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">TIPOS DE ACTIVIDADES</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-green"><i class="far fa-calendar"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["CantidadActividades"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">ACTIVIDADES</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-green"><i class="far fa-calendar"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["Reservaciones"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">VISITAS</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-red"><i class="fas fa-tasks"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["CantidadAventura"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">AVENTURA</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-green"><i class="far fa-calendar"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["CantidadAerea"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">AÉREA</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-orange"><i class="far fa-paper-plane"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["CantidadSenderismo"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">SENDERISMO</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-red"><i class="fas fa-tasks"></i></div>
+                            <div class="ms-3">
+                                <strong class="text-lg d-block lh-1 mb-1">@ViewData["CantidadAcuatico"]</strong>
+                                <small class="text-uppercase text-gray-500 small d-block lh-1">ACUÁTICO</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Line Chart -->
+            <div class="col-lg-9 col-12">
+                @*<div class="card mb-0">
+                    <div class="card-header position-relative">
+                        <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
+                    </div>
+                    <div class="card-body p-0 overflow-auto" id="carta">
+                        @foreach (var item in Model)
+                        {
+                            <div class="p-3 d-flex align-items-center">
+                                <div class="ms-3">
+                                    <a class="d-block" href="#" id="a">
+                                        <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
+                                    </a><small class="text-gray-500">@item.detalle.Fecha_Reservacion a las @item.detalle.Hora_Reservacion </small>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>*@
+                <br />
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class="">
+                                </div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class="">
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="lineCahrt" @*style="display: block; width: 458px; height: 229px;" width="458" height="229"*@ class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+    <script src="~/js/activitiesDashboard/Functions.js"></script>
+}
