@@ -42,7 +42,7 @@
                     <th>Pago minimo del 40%</th>
                     <th>Precio</th>
                     <th>Cantidad de pagos</th>
-                    <th width="200px"></th>
+                    <th width="200px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,11 +56,11 @@
                             @string.Concat(item.Nombre, " ", item.Apellido)
                         </td>
                         <td>
-                            @string.Concat(item.Fecha_Entrada, " - ", item.Fecha_Salida)
+                            @string.Concat(item.Fecha_Entrada.GetValueOrDefault().ToString("dd/MM/yyyy"), " - ", item.Fecha_Salida.GetValueOrDefault().ToString("dd/MM/yyyy"))
                         </td>
                         <td>
                             @{
-                                if (item.Id_Paquete == null)
+                                if (item.Id_Paquete != null)
                                 {
                                         <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
                                 }
@@ -87,10 +87,10 @@
                             }
                         </td>
                         <td>
-                            L. @Html.DisplayFor(modelItem => item.precio)
+                            L.@Html.DisplayFor(modelItem => item.precio)
                         </td>
                         <td>
-                            0/@Html.DisplayFor(modelItem => item.CantidadPagos)
+                            @Html.DisplayFor(modelItem => item.AmountOfPayments)/@Html.DisplayFor(modelItem => item.CantidadPagos)
                         </td>
                         
                         <td>

@@ -4,7 +4,6 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form asp-action="Create" asp-controller="Reservation" method="post" id="formReservation">
 <div id="frmCreateReservation">
     <div class="container card">
         <div class="ui basic segment">
@@ -160,6 +159,10 @@
                                         <option value="">Selecciona paquete</option>
                                     </select>
                                 </div>
+                                <div class="field">
+                                    <label>Fecha de Entrada - Salida</label>
+                                    <input type="text" id="dateRangePicker" name="datefilter" value="" />
+                                </div>
                                 
                             </div>
                         </div>
@@ -172,8 +175,8 @@
                                 <div class="field">
                                     <div class="ui very relaxed items">
                                         <div class="item">
-                                            <div class="image">
-                                                <img id="imgDefaultPackage" src="" width="100px" height="100px">
+                                            <div class="image" style="width:300px">
+                                                <img id="imgDefaultPackage" src="" >
                                             </div>
                                             <div class="content">
                                                 
@@ -182,7 +185,7 @@
                                                     <div class="header">Descripción:</div>
                                                     <div class="description">
                                                             <p id="txtDefaultPackageDesc"></p>
-                                                            Duración: <p id="txtDefaultPackageDuracion"></p>
+                                                            Duración: <p id="txtDefaultPackageDuracion"></p> días
                                                     </div>
                                                   </div>
                                                 </div>
@@ -238,7 +241,6 @@
         </div>
     </div>
 </div>
-</form>
 @section Scripts{
     <script src="~/js/ReservationJS/Create.js"></script>
 }
