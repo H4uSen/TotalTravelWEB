@@ -142,6 +142,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["NombreRestaurante"] = restaurante.Restaurante;
             ViewData["Partner"] = restaurante.Partner;
             ViewData["Direccion"] = "Calle " + restaurante.Calle + ", Avenida " + restaurante.Avenida + ", Colonia " + restaurante.Colonia + ", Ciudad de " + restaurante.Ciudad;
+            ViewData["Imagen"] = partner.Image_Url;
 
             ViewData["TiposMenus"] = tiposmenus.LongCount();
             ViewData["Reservaciones"] = reservations.LongCount();
