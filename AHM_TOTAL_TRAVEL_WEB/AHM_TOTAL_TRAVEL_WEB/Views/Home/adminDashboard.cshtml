@@ -1,4 +1,4 @@
-﻿
+﻿@model AdminDashboardViewModel
 @{
     ViewData["Title"] = "adminDashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -155,63 +155,35 @@
                     <div class="col-lg-6 border-lg-end">
                         <div class="card mb-0" style="border: none; box-shadow: none;">
                             <div class="card-body d-flex flex-column">
-                                <h3 class="mb-1">TOP 5 HOTELES MAS CONCURRIDOS</h3>
+                                <h3 class="mb-1">TOP 3 HOTELES MAS POPULARES</h3>
                                 <div class="ui divided items">
-
-                                    <div class="item">
-                                        <h2 class="align-middle" style="padding: 0 1em; color: #f5d671; font-weight: bold;"><br>#1</h2>
-                                        <div class="image">
-                                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                        </div>
-                                        <div class="content">
-                                            <h3><b>Hotel Name</b></h3>
-                                            <h5 class="blue_text">
-                                                <i class="map marker alternate blue icon"></i>
-                                                <b>San Pedro Sula, Honduras</b>
-                                            </h5>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
+                                    @{ 
+                                        List<string> colors = new List<string> {
+                                            "#D4AF37","#C0C0C0","#CD7F32"
+                                        };
+                                    }
+                                    @for (int i = 0; i < 3; i++)
+                                    {
+                                        var item = Model.Hotel_Top_3[i];
+                                        <div class="item">
+                                            <h2 class="align-middle" style="padding: 0 1em; color: @colors[i]; font-weight: bold;"><br>@(i+1)</h2>
+                                            <div class="image">
+                                                <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
                                             </div>
+                                            <div class="content">
+                                                <h3><b>@item.Hotel</b></h3>
+                                                <h5 class="blue_text">
+                                                    <i class="map marker alternate blue icon"></i>
+                                                    <b>@($"{item.Ciudad}")</b>
+                                                </h5>
+                                                <div class="extra d-flex">
+                                                    <b>Rating:</b>
+                                                    <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
+                                                </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <h2 class="align-middle" style="padding: 0 1em; color: #C0C0C0; font-weight: bold;"><br>#2</h2>
-                                        <div class="image">
-                                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                        </div>
-                                        <div class="content">
-                                            <h3><b>Hotel Name</b></h3>
-                                            <h5 class="blue_text">
-                                                <i class="map marker alternate blue icon"></i>
-                                                <b>San Pedro Sula, Honduras</b>
-                                            </h5>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
                                             </div>
-
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                        <h2 class="align-middle" style="padding: 0 1em; color: #CD7F32; font-weight: bold;"><br>#3</h2>
-                                        <div class="image">
-                                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                        </div>
-                                        <div class="content">
-                                            <h3><b>Hotel Name</b></h3>
-                                            <h5 class="blue_text">
-                                                <i class="map marker alternate blue icon"></i>
-                                                <b>San Pedro Sula, Honduras</b>
-                                            </h5>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                    }
 
                                 </div>
                             </div>
@@ -221,62 +193,22 @@
 
                         <div class="card mb-0" style="border: none; box-shadow: none;">
                             <div class="card-body d-flex flex-column">
-                                <h3 class="mb-1">TOP 5 ACTIVIDADES MAS CONCURRIDOS</h3>
+                                <h3 class="mb-1">TOP 5 ACTIVIDADES MAS POPULARES</h3>
                                 <div class="ui divided items">
 
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
+                                    @foreach (var item in Model.Activities_top_5)
+                                    {
+                                        <div class="item">
+                                            <div class="content">
+                                                <h3><b>@item.Descripcion</b></h3>
+                                                <div class="extra d-flex">
+                                                    <b>Rating:</b>
+                                                    <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
+                                                </div>
+
                                             </div>
-
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-
+                                    }
                                 </div>
                             </div>
                         </div>
