@@ -139,7 +139,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>30.03561mm</Top>
-            <Left>42.40947mm</Left>
+            <Left>0mm</Left>
             <Height>11.03125mm</Height>
             <Width>158.27167mm</Width>
             <Style>
@@ -158,7 +158,7 @@
             <Value>ID44d9bc6d2cb643a1ba29df5f96cfb77c</Value>
             <Sizing>Fit</Sizing>
             <Top>0mm</Top>
-            <Left>13.9975mm</Left>
+            <Left>0mm</Left>
             <Height>21.87916mm</Height>
             <Width>58.12708mm</Width>
             <ZIndex>1</ZIndex>
@@ -205,8 +205,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>4.23333mm</Top>
-            <Left>115.72748mm</Left>
+            <Top>0mm</Top>
+            <Left>59.89097mm</Left>
             <Height>12.87916mm</Height>
             <Width>97.43933mm</Width>
             <ZIndex>2</ZIndex>
@@ -225,27 +225,27 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>28.43958mm</Width>
+                  <Width>27.72142mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>24.28184mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>24.28184mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>20.31309mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>16.60893mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25mm</Width>
+                  <Width>14.22769mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.26458mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -262,7 +262,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox89</rd:DefaultName>
@@ -316,7 +318,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox137</rd:DefaultName>
@@ -369,7 +373,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox91</rd:DefaultName>
@@ -422,7 +428,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox93</rd:DefaultName>
@@ -476,7 +484,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox131</rd:DefaultName>
@@ -530,7 +540,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox133</rd:DefaultName>
@@ -571,7 +583,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.26458mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -909,7 +921,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>27.63758mm</Size>
+                    <Size>26.91942mm</Size>
                     <CellContents>
                       <Textbox Name="Textbox129">
                         <CanGrow>true</CanGrow>
@@ -925,7 +937,9 @@
                                 </Style>
                               </TextRun>
                             </TextRuns>
-                            <Style />
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox129</rd:DefaultName>
@@ -980,7 +994,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>27.63758mm</Size>
+                    <Size>26.91942mm</Size>
                     <CellContents>
                       <Textbox Name="TipoTransporte1">
                         <CanGrow>true</CanGrow>
@@ -1044,9 +1058,9 @@
             </TablixRowHierarchy>
             <DataSetName>Transporte</DataSetName>
             <Top>42.83075mm</Top>
-            <Left>32.08965mm</Left>
-            <Height>12mm</Height>
-            <Width>181.07716mm</Width>
+            <Left>0.03727mm</Left>
+            <Height>12.52917mm</Height>
+            <Width>154.35425mm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1096,8 +1110,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Fecha</rd:DefaultName>
-              <Top>1.41111mm</Top>
-              <Left>13.9975mm</Left>
+              <Top>0.70556mm</Top>
+              <Left>0.03727mm</Left>
               <Height>6mm</Height>
               <Width>74.4625mm</Width>
               <Style>
@@ -1145,8 +1159,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>1.41111mm</Top>
-              <Left>175.32837mm</Left>
+              <Top>0.70556mm</Top>
+              <Left>108.84181mm</Left>
               <Height>6mm</Height>
               <Width>49.42986mm</Width>
               <ZIndex>1</ZIndex>

@@ -44,7 +44,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var data  =(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
 
             //crea y asigna direccion url de ubicacion de archivo .rdlc
-            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Transportestotal.rdlc";
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Transporte.rdlc";
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
