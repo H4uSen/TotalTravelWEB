@@ -370,80 +370,100 @@
                                     @*<li><a id="ReservationDetailsTile" class="sidebar-link" href="@Url.Action("Index","ReservationDetails")">Detalles de Reservaciones</a></li>*@
                                 </ul>
                             </li>
-                            
+
                         </ul>
                     }
                     if (usersRole == "Cliente")
                     {
                         <!-- Sidebar Navigation Menus-->
-                    <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
-                        General
-                      </span>
+                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                            General
+                        </span>
 
-                    <ul class="list-unstyled py-4">
+                        <ul class="list-unstyled py-4">
 
-                        <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","ClientHome")">Inicio</a></li>
+                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","ClientHome")">Inicio</a></li>
 
-                        <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Paquetes de viajes</a></li>
-                        <li class="sidebar-item" id="CustomPackages">
-                            <a class="sidebar-link" href="#">
-                                <i class="bi bi-person"></i>
-                                <span>Crea tus propios paquetes</span>
-                            </a>
-                        </li>
+                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Paquetes de viajes</a></li>
+                            <li class="sidebar-item" id="CustomPackages">
+                                <a class="sidebar-link" href="#">
+                                    <i class="bi bi-person"></i>
+                                    <span>Crea tus propios paquetes</span>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item" id="PurchasesRecords">
-                            <a class="sidebar-link" href="#">
-                                Historial de compras
-                            </a>
-                        </li>
-                        <li class="sidebar-item" id="PaymentsRecords">
-                            <a class="sidebar-link" href="#">
-                                Historial de transacciones
-                            </a>
-                        </li>
-                        <li class="sidebar-item" id="PurchaseModule">
-                            <a class="sidebar-link" id="PurchaseModule" href="#Purchase_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                            <li class="sidebar-item" id="PurchasesRecords">
+                                <a class="sidebar-link" href="#">
+                                    Historial de compras
+                                </a>
+                            </li>
+                            <li class="sidebar-item" id="PaymentsRecords">
+                                <a class="sidebar-link" href="#">
+                                    Historial de transacciones
+                                </a>
+                            </li>
+                            <li class="sidebar-item" id="PurchaseModule">
+                                <a class="sidebar-link" id="PurchaseModule" href="#Purchase_Schema" data-bs-toggle="collapse" data-toggle="collapse">
 
-                                Compra
-                            </a>
-                            <ul class="collapse list-unstyled" id="Reservation_Schema">
-                                <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Ver paquetes predeterminados</a></li>
-                                <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservación Actividades Extra</a></li>
-                            </ul>
-                        </li>
-                       
-                    </ul>
+                                    Compra
+                                </a>
+                                <ul class="collapse list-unstyled" id="Reservation_Schema">
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","BuyDefaults")">Ver paquetes predeterminados</a></li>
+                                    <li><a id="User_Index" class="sidebar-link" href="@Url.Action("Index","ReservationExtraActivities")">Reservación Actividades Extra</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
                     }
                     if (usersRole == "Moderador de Hotel")
                     {
                         <!-- Sidebar Navigation Menus-->
-                      <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
-                         General
-                      </span>
+                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                            General
+                        </span>
 
-                      <ul class="list-unstyled py-4">
-                          <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">Inicio</a></li>
-                          <li><a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","HotelModel")">Reservacion Hoteles</a></li>
-                          <li class="sidebar-item">
-                              <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                        <ul class="list-unstyled py-4">
+                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">Inicio</a></li>
+                            <li><a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","HotelModel")">Reservacion Hoteles</a></li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
 
-                                  Hoteles
-                              </a>
-                              <ul class="collapse list-unstyled" id="Hotels_Schema">
-                                  <li><a id="HotelsTile" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
-                                  <li><a id="RoomsTile" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
-                                  <li><a id="HotelsMenuTile" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Menú de Hoteles</a></li>
-                                  <li><a id="HotelsActivitiesTile" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Actividades de Hoteles</a></li>
-                                  <li><a id="CategoriesRoomsTile" class="sidebar-link" href="@Url.Action("Index","CategoriesRooms")">Categorías de Habitaciones</a></li>
+                                    Hoteles
+                                </a>
+                                <ul class="collapse list-unstyled" id="Hotels_Schema">
+                                    <li><a id="HotelsTile" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
+                                    <li><a id="RoomsTile" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
+                                    <li><a id="HotelsMenuTile" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Menú de Hoteles</a></li>
+                                    <li><a id="HotelsActivitiesTile" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Actividades de Hoteles</a></li>
+                                    <li><a id="CategoriesRoomsTile" class="sidebar-link" href="@Url.Action("Index","CategoriesRooms")">Categorías de Habitaciones</a></li>
 
-                              </ul>
-                          </li>
+                                </ul>
+                            </li>
 
-                      </ul>
+                        </ul>
                     }
                     if (usersRole == "Moderador de Transporte")
                     {
+                        <!-- Sidebar Navigation Menus-->
+                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                            <a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TransportModule")">Reservacion Transportes</a>
+                        </span>
+
+                        <ul class="list-unstyled py-4">
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" id="TransportModule" href="#Transport_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                    Módulo de Transportes
+                                </a>
+                                <ul class="collapse list-unstyled" id="Transport_Schema">
+                                    <li><a id="TransportDetailsTile" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
+                                    <li><a id="TransportTile" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
+                                    <li><a id="DestinationsTransportationsTile" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
+                                    <li><a id="ScheduleTransportationTile" class="sidebar-link" href="@Url.Action("Index","ScheduleTransportation")">Horarios Transporte</a></li>
+                                    <li><a id="TypesTransportTile" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos de Transportes</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
                     }
                     if (usersRole == "Moderador de Agencia Turistica")

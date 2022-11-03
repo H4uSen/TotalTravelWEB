@@ -38,15 +38,15 @@ function ViewReservation(hoteid,transid) {
     
         if (response2.code == 200) {
             var transp = response2.data;
-            var transpo = transp.filter(resv => resv.reservacion = transid);
+            var transpo = transp.filter(resv => resv.reservacion == transid);
             var transpor = transpo[0];
             
             $('#trcategory').html(transpor.tipo_Transporte);
+            var transporte = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
             
-            var response3 = ajaxRequest("https://totaltravel.somee.com/API/Transports/Find?id=" + transpor.iD_detalle_Transporte);
-            if (response3.code == 200) {
-                var t = response3.data;
-                var response4 = ajaxRequest("https://totaltravel.somee.com/API/Partners/Find?id=" + t.partnerID);
+            if (transporte.code == 200) {
+                var t = transporte.data;
+                var response4 = ajaxRequest("https://totaltravel.somee.com/API/Partners/Find?id=" + t.partner_ID);
                 if (response4.code == 200) {
                     var partner = response4.data;
                     $('#trciudad').html(t.ciudad);

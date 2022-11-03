@@ -1,7 +1,29 @@
-﻿GraficaPastel();
+﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
+var Hoteles = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
+GraficaPastel();
 
 function GraficaPastel() {
+    var HotelsList = Hoteles.data;
+    var arrayhote = [];
+    var HoteFiltro = HotelsList.filter(resva => resva.iD_Partner == parseInt(Client_Partner_ID));
+    for (var i = 0; i < HoteFiltro.length; i++) {
+        const item = HoteFiltro[i];
+        var objeto = {
+            name: item.hotel,
+            y: 0,
+            idd:item.id
+        }       
+        arrayhote.push(objeto);
+    }
+    var ResvHotList = Reservacion.data;   
+    
+    for (var i = 0; i < arrayhote.length; i++) {
+        const item = arrayhote[i];
+        var ResvHotFiltro = ResvHotList.filter(resva => resva.hotel_ID == item.idd);
+        item.y = ResvHotFiltro.length;
+    }
     //Construccion del grafico
+    
     Highcharts.chart('container', {
         chart: {
             plotBackgroundColor: null,
@@ -33,27 +55,7 @@ function GraficaPastel() {
         series: [{
             name: 'Brands',
             colorByPoint: true,
-            data: [{
-                name: 'Chrome',
-                y: 74.77,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Edge',
-                y: 12.82
-            }, {
-                name: 'Firefox',
-                y: 4.63
-            }, {
-                name: 'Safari',
-                y: 2.44
-            }, {
-                name: 'Internet Explorer',
-                y: 2.02
-            }, {
-                name: 'Other',
-                y: 3.28
-            }]
+            data: arrayhote
         }]
     });
 
