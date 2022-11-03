@@ -39,7 +39,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> TransportReport( )
+        public async Task<IActionResult> TransportReport()
         {
             var data  =(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
 
