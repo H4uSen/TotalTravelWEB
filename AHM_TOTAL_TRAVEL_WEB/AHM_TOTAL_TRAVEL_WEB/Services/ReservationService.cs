@@ -52,7 +52,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             try
             {
                 var response = await _api.Post<ReservationViewModel, RequestStatus>(req => {
-                    req.Path = $"/API/Reservation/Insert";
+                    req.Path=  $"/API/Reservation/Insert";
                     req.Content = reservationViewModel;
                 },
                 token
