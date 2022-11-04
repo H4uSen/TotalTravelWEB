@@ -39,10 +39,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> TransportReport()
+        public async Task<IActionResult> TransportReport(string filtertype,string filtervalue)
         {
             var data=(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
-
+            switch (filtertype)
+            {
+                case "id":
+                    data.Where(x => x.ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransportesReport.rdlc";
             LocalReport localReport = new LocalReport(path);

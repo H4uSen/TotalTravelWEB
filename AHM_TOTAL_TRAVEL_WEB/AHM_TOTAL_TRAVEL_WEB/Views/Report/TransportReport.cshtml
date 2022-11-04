@@ -3,27 +3,76 @@
     ViewData["Title"] = "TransportReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h1>TransportReport</h1>
 <div class="container-fluid">
-    <div class="card">
-        <div class="card card-body">
-            <iframe src="@Url.Action("TransportReport", "Report")  " frameborder="0" height="500" id="ifrReport"></iframe>
+    <div class="row">
+        <div class="btn-group" role="group">
+            <div class="btn-group" role="group">
+
+                <!-- dropdown de filtros de reportes -->
+                <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" id="cbbReportes">
+                    Reporte de:  <b id="lblReport">Reportes</b>
+                </button>
+                <!-- elementos de dropdown -->
+                @*<ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="javascript: GetReport('ConciertoReport','concierto')">Conciertos</a></li>
+                        <li><a class="dropdown-item" href="javascript: GetReport('ClientReport','cliente')">Clientes</a></li>
+                        <li><a class="dropdown-item" href="javascript: GetReport('SalesReport','venta')">Ventas</a></li>
+                        <li><a class="dropdown-item" href="javascript: GetReport('ArtistReport','artista')">Artistas</a></li>
+                    </ul>*@
+
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="card">
+            <div class="card card-body">
+
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <!-- dropdown de filtros de reporte -->
+                    <div class="btn-group" role="group" id="cbbFiltro">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                            Filtrar por:  <b id="lblfiltro">TODOS</b>
+                        </button>
+                        <!-- elementos de dropdown -->
+                        @*<ul class="dropdown-menu" id="cbbFiltro-body">
+                                <li><a class="dropdown-item" href="javascript: filterReport('CONCIERTOS')">Concierto</a></li>
+                                <li><a class="dropdown-item" href="javascript: filtrar('ARTISTAS')">Artista</a></li>
+                                <li><a class="dropdown-item" href="javascript: filtrar('ESTABLECIMIENTOS')">Establecimiento</a></li>
+                            </ul>*@
+                    </div>
+                </div><br>
+
+                <iframe src="@Url.Action("TransportReport", "Report")  " frameborder="0" height="500" id="ifrReport"></iframe>
+
+            </div>
         </div>
     </div>
 </div>
 
+        @*<h1>TransportReport</h1>
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card card-body">
+                    <iframe src="@Url.Action("TransportReport", "Report")  " frameborder="0" height="500" id="ifrReport"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>*@
 
-@section HighlightTile{
-    <script>
 
-        $("#ReportModule").addClass("active");
-        $("#ReportModule").addClass("expandedList");
-        $("#ReportModule").prop("aria-expanded");
-        $("#ReportModule").attr("aria-expanded", "true");
+    @section HighlightTile{
+        <script>
 
-        $("#Report_Schema").addClass("show");
+            $("#ReportModule").addClass("active");
+            $("#ReportModule").addClass("expandedList");
+            $("#ReportModule").prop("aria-expanded");
+            $("#ReportModule").attr("aria-expanded", "true");
 
-        $("#ReportTile").addClass("activeTile");
-    </script>
-}
+            $("#Report_Schema").addClass("show");
+
+            $("#ReportTile").addClass("activeTile");
+        </script>
+    }
