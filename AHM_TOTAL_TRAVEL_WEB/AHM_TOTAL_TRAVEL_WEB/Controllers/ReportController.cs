@@ -18,11 +18,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly TransportService _transportService;
         private readonly RestaurantService _restaurantService;
         private readonly HotelsService _hotelsService;
+        private readonly ReservationService _reservationService;
         public readonly IHttpContextAccessor _IHttpContextAccessor;
         public readonly AccessService _accessService;
 
 
-        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService)
+        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService)
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
@@ -30,6 +31,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _transportService = transportService;
             _restaurantService = restaurantService;
             _hotelsService = hotelsService;
+            _reservationService = reservationService;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
     public IActionResult Index()
@@ -60,6 +62,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         public IActionResult ClientReport()
+        {
+
+            return View();
+        }
+
+        public IActionResult ReservacionesReport()
         {
 
             return View();
@@ -194,6 +202,42 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
             localReport.AddDataSource("usuario", data);
+
+            // crea y asigna parametros
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
+
+        public async Task<IActionResult> ReservacionesReportPDF(string filtertype, string filtervalue)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var data = (IEnumerable<ReservationListViewModel>)(await _reservationService.ReservationList(token)).Data;
+            switch (filtertype)
+            {
+               
+                case "tipo_Parnert":
+                    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Hotel":
+                    data = data.Where(x => x.Hotel_ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Paquete":
+                    data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Reservaciones.rdlc";
+            LocalReport localReport = new LocalReport(path);
+
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("Reservaciones", data);
 
             // crea y asigna parametros
             //Dictionary<string, string> parameters = new Dictionary<string, string>();
