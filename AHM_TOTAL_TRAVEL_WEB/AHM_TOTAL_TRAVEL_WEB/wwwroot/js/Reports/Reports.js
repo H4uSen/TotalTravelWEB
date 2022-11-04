@@ -21,7 +21,15 @@ const filterSource = {
         { filter: "sexo", source: getSexo, text: "Sexo" },
         { filter: "colonia", source: getColonias, text: "Colonia" },
         { filter: "partner", source: getPartners, text: "Socio" }
-    ]
+    ],
+    "DefaultPackagesReportPDF": [
+        { filter: "id_hotel", source: gethotel, text: "Hotel" },
+
+    ],
+    "DefaultPackagesReportPDF": [
+        { filter: "id_restaurante", source: getrestaurant, text: "restaurante" },
+
+    ],
 };
 
 $(".ui.dropdown").dropdown();
@@ -253,6 +261,129 @@ function getPartners() {
             },
             semantic: true
         }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            //setea el valor de el parametro de filtro (ID)
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+//rellena el segundo dronwdon funcion de registro de pagos 
+function getClient() {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Users/List");
+
+
+
+    if (response.code == 200) {
+
+        response = jQuery.grep(response.data, function (item, i) {
+            return item.role_ID == 2;
+
+        });
+
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response,
+                valueData: "id",
+                textData: "nombrecompleto"
+            },
+            placeholder: {
+                empty: "No se encontraron clientes disponibles",
+                default: "Seleccione un cliente",
+            },
+            semantic: true
+        }
+        console.log("prueba")
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            //setea el valor de el parametro de filtro (ID)
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+
+//rellena el segundo dronwdon funcion de registro paquetes predeterminados 
+function getHotel() {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
+
+
+
+    if (response.code == 200) {
+
+        response = jQuery.grep(response.data, function (item, i) {
+            return item.ID_Hotel == 2;
+
+        });
+
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response,
+                valueData: "id",
+                textData: "hotel"
+            },
+            placeholder: {
+                empty: "No se encontraron hotelesdisponibles",
+                default: "Seleccione un hotel",
+            },
+            semantic: true
+        }
+        console.log("prueba")
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            //setea el valor de el parametro de filtro (ID)
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+//rellena el segundo dronwdon funcion de registro paquetes restaurante
+function getrestaurant() {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Restaurants/List");
+
+
+
+    if (response.code == 200) {
+
+        response = jQuery.grep(response.data, function (item, i) {
+            return item.ID_restaurante == 2;
+
+        });
+
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response,
+                valueData: "id",
+                textData: "restaurante"
+            },
+            placeholder: {
+                empty: "No se encontraron restaurantes disponibles",
+                default: "Seleccione un restaurante",
+            },
+            semantic: true
+        }
+        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();

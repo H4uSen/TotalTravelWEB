@@ -21,9 +21,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly ReservationService _reservationService;
         public readonly IHttpContextAccessor _IHttpContextAccessor;
         public readonly AccessService _accessService;
+        public readonly SaleServices _saleService;
 
 
-        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService)
+        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService, SaleServices saleServices)
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
@@ -72,6 +73,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View();
         }
+        public IActionResult RecordPaymentReport()
+        {
+
+            return View();
+        }
+
+        public IActionResult DefaultPackagesReport()
+        {
+
+            return View();
+        }
+
 
 
         public async Task<IActionResult> TransportReportPDF(string filtertype,string filtervalue)
@@ -250,5 +263,65 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return File(result.MainStream, "application/pdf");
         }
 
+        public async Task<IActionResult> RecordPaymentReportPDF(string filtertype, string filtervalue)
+        {
+            var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
+            switch (filtertype)
+            {
+                case "Id_cliente":
+                    data = data.Where(x => x.Id_Cliente == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+
+
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RegistrospagosReporst.rdlc";
+            LocalReport localReport = new LocalReport(path);
+
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("datoscliente", data);
+
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
+
+
+        public async Task<IActionResult> DefaultPackagesReportPDF(string filtertype, string filtervalue)
+        {
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
+                switch (filtertype)
+                {
+                    case "ID_Hotel":
+                        data = data.Where(x => x.ID_Hotel == Convert.ToInt32(filtervalue)).ToList();
+                        break;
+                    case "Id_restaurante":
+                        data = data.Where(x => x.ID_Restaurante == Convert.ToInt32(filtervalue)).ToList();
+                        break;
+                }
+                //crea y asigna direccion url de ubicacion de archivo .rdlc
+                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Paquetespredeterminadosreporst.rdlc";
+                LocalReport localReport = new LocalReport(path);
+
+                //añade valores recibidos de el endpoint de la API al dataset indicado
+                localReport.AddDataSource("paquetepredeterminado", data);
+
+
+
+                //crea y retorna pdf reader
+                var result = localReport.Execute(RenderType.Pdf);
+
+
+                return File(result.MainStream, "application/pdf");
+            }
+
+
+        }
     }
 }
