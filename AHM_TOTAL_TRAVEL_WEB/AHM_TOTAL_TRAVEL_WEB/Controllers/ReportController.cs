@@ -16,20 +16,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ReportService _reportServices;
         private readonly TransportService _transportService;
+        private readonly RestaurantService _restaurantService;
+        private readonly HotelsService _hotelsService;
         public readonly IHttpContextAccessor _IHttpContextAccessor;
         public readonly AccessService _accessService;
 
 
-        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService,TransportService transportService )
+        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService)
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
-            _reportServices = reportService;
             _accessService = accessService;
             _transportService = transportService;
+            _restaurantService = restaurantService;
+            _hotelsService = hotelsService;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
-        public IActionResult Index()
+    public IActionResult Index()
         {
             ViewData["Usuario"] = HttpContext.Request.Cookies["usuario"];
 
@@ -38,6 +41,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         public IActionResult TransportReport()
+        {
+
+            return View();
+        }
+
+        public IActionResult HotelesReport()
+        {
+
+            return View();
+
+        }
+
+        public IActionResult RestauranteReport()
         {
 
             return View();
@@ -77,7 +93,80 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return File(result.MainStream, "application/pdf");
         }
 
-      
+        public async Task<IActionResult> RestauranteReportPDF(string filtertype, string filtervalue)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var data = (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
+            switch (filtertype)
+            {
+                case "tipo_transporte":
+                    data = data.Where(x => x.ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "tipo_Parnert":
+                    data = data.Where(x => x.ID_Partner == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Ciudad":
+                    data = data.Where(x => x.CiudadID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RestaurantesReport.rdlc";
+            LocalReport localReport = new LocalReport(path);
+
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("restaurante", data);
+
+            // crea y asigna parametros
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
+
+        public async Task<IActionResult> HotelesReportPDF(string filtertype, string filtervalue)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var data = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+            switch (filtertype)
+            {
+                case "hotel":
+                    data = data.Where(x => x.ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "tipo_Parnert":
+                    data = data.Where(x => x.ID_Partner == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Ciudad":
+                    data = data.Where(x => x.CiudadID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Colonia":
+                    data = data.Where(x => x.ColoniaID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\HotelesReport.rdlc";
+            LocalReport localReport = new LocalReport(path);
+
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("hotel", data);
+
+            // crea y asigna parametros
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
+
+
 
     }
 }
