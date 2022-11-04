@@ -45,7 +45,7 @@
                         Dirección
                     </th>
                     <th>
-                        Partners
+                        Socio
                     </th>
                     <th width="300px"></th>
                 </tr>
@@ -53,6 +53,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
+                    var partner = string.IsNullOrEmpty(item.Partners) ? "No hay socios afiliados" : item.Partners;
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Hotel)
@@ -64,7 +65,7 @@
                             Calle @(item.Calle), Avenida @(item.Avenida), Colonia @(item.Colonia), Ciudad de @item.Ciudad
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Partners)
+                            @partner
                         </td>
                         <td>
                             <a class="ui large icon btn-edit button" href="@Url.Action("Update", "Hotel", new { id=item.ID })">

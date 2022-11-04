@@ -79,7 +79,8 @@ function prueba() {
     }
   
 }
-function ViewReservation(hoteid, resvid) {
+function ViewReservation(hoteid, resvid)
+{
     $('#tarjetas').empty();
     if (response2.code == 200) {
         var transp = response2.data;
@@ -89,10 +90,11 @@ function ViewReservation(hoteid, resvid) {
 
         if (transporte.code == 200) {
             var t = transporte.data;
+            var fech = GetDateFormat(dateConfig = { string_date: t.fecha_Salida, hour_format: 12, date_format: "large" });
             var fecha = t.fecha_Salida.split('T');
             actexth =
                 `<li>
-                        <span>${fecha[0]}</span>
+                        <span>${fech.date}</span>
                         <div class="content">
                             <h3>Llegada del transporte</h3>
                             <h4>se abordara en los servicios de ${t.parter}</h4>
@@ -114,13 +116,14 @@ function ViewReservation(hoteid, resvid) {
 
         if (hotels.code == 200) {
             var h = hotels.data;
+            var fech2 = GetDateFormat(dateConfig = { string_date: hotel.fecha_Entrada, hour_format: 12, date_format: "large" });
             var fecha = hotel.fecha_Entrada.split('T');
             actexth =
                 `<li>
-                        <span>${fecha[0]}</span>
+                        <span>${fech2.date}</span>
                         <div class="content">
                             <h3>Llegada al hotel</h3>
-                            <h4>se alojara en el hotel ${h.hotel}</h4>                           
+                            <h4 >se alojara en el hotel ${h.hotel}</h4>
                         </div>
                     </li>`
             $('#tarjetas').append(actexth);
@@ -128,59 +131,77 @@ function ViewReservation(hoteid, resvid) {
         }
     }
 
-    for (var i = 0; i < rooms.length; i++) {
-        const item = rooms[i];
-        var RoomFind = ajaxRequest("https://totaltravel.somee.com/API/Rooms/Find?id=" + item.habitacionID);
-        try {
-            var room = RoomFind.data;
-            var imagenes = room.imageUrl.split(',');
-            var wifi, balcon;
-            if (room.wifi = true) { wifi = "si"; }
-            else { wifi = "no"; }
-            if (room.balcon == 1) { balcon = "si"; }
-            else { balcon = "no"; }
-            divroom =
-                `<div class="item">
-                        <div class="image">
-                            <img
-                                src="${imagenes[0]}">
-                        </div>
-                        <div class="content">
-                            <a class="header">${item.nombre_Habitacion} <div class="ui large label">${item.categoria_Habitacion}
-                            </div></a>
-                            <div class="meta">
-                                <span class="cinema">
-                                    ${room.descripcion}
-                                </span>
-                            </div>
-                            <div class="extra">
-                                <div class="ui label">Wifi: ${wifi}</div>
-                                <div class="ui label">Balcon: ${balcon}</div>
-                                <div class="ui label">Camas ${room.camas}</div>
-                            </div><br>
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <a class="ui huge green tag label">${room.precio}</a>
-                        </div>
-                     </div>`
-            $('#rooms').append(divroom);
+    var arraydates = [];
+    var ActivitiesHotels = ReservacionActHotView.data;
+    var ActivitiesHotelsFilter = ActivitiesHotels.filter(resv => resv.reservacionID == resvid);
+    for (var i = 0; i < ActivitiesHotelsFilter.length; i++) {
+        const item = ActivitiesHotelsFilter[i];                          
+            var objeto = {
+                fecha: item.fecha_Reservacion,
+            }
+            arraydates.push(item.fecha_Reservacion);
+    }
+
+    let data = arraydates;
+    
+    let result = data.filter((item, index) => {
+        return data.indexOf(item) === index;
+    })
+  
+    console.log(result);
+    for (var i = 0; i < result.length; i++)
+    {
+        
+        const item = result[i];       
+       
+        var ActivitiesHotelsFilter2 = ActivitiesHotelsFilter.filter(resv => resv.fecha_Reservacion == item);
+        var html = "";
+        
+        for (var j = 0; j < ActivitiesHotelsFilter2.length; j++) {
+            const item = ActivitiesHotelsFilter2[j];
+            html +=                              
+                `<h4>${item.nombre}</h4 >`
+
+                       
         }
-        catch {
-            divroom =
-                `<div class="item">
-                                <div class="image">
-                                    <img
-                                        src="https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg">
-                                </div>
-                                <div class="content">
-                                    <a class="header">ESTA HABITACION FUE ELIMINADA
-                                    </a>
-                                </div>                     
-                            </div>`
-            $('#rooms').append(divroom);
+
+        var fech = GetDateFormat(dateConfig = { string_date: item, hour_format: 12, date_format: "large" });
+        actexth =
+            `<li>
+                <span>${fech.date}</span>
+                <div class="content" id="${i}_acti">
+                    <h3>actividades de esta fecha</h3>
+                    <h4 >se realizaran las siguientes actividades</h4>
+                    -${html}
+                </div>
+            </li>`
+        $('#tarjetas').append(actexth);
+    }
+    if (ReservacionHot.code == 200) {
+        var hot = ReservacionHot.data;
+        var hote = hot.filter(resv => resv.reservacionID == resvid);
+        var hotel = hote[0];
+        var hotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
+
+        if (hotels.code == 200) {
+            var h = hotels.data;
+            var fech2 = GetDateFormat(dateConfig = { string_date: hotel.fecha_Salida, hour_format: 12, date_format: "large" });
+            var fecha = hotel.fecha_Entrada.split('T');
+            actexth =
+                `<li>
+                        <span>${fech2.date}</span>
+                        <div class="content">
+                            <h3>Salida del hotel</h3>
+                            <h4 >se desalojara del hotel ${h.hotel}</h4>
+                        </div>
+                    </li>`
+            $('#tarjetas').append(actexth);
+
         }
     }
 }
-}
+
+
+
 
 

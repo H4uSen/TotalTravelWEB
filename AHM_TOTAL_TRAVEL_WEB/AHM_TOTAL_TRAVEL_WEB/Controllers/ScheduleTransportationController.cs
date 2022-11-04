@@ -55,7 +55,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Create(ScheduleTransportationViewModel horarios)
         {
             try
-            { 
+            {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 horarios.HoTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 string horaSalida = horarios.HoTr_HoraSalida;
@@ -64,8 +64,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string[] HoraLlegadaResult = horaLlegada.Split(":", 2, StringSplitOptions.None);
                 horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
                 horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
-                RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationCreate(horarios, token)).Data;
-                return RedirectToAction("Index");
+                var response = await _transportService.ScheduleTransportationCreate(horarios, token);
+
+                var destiny = await _transportService.TransportDestionationsList();
+                IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
+                ViewBag.DsTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
+                var list = await _transportService.ScheduleTransportationList();
+                return View("Index",list.Data);
             }
             catch (Exception)
             {
