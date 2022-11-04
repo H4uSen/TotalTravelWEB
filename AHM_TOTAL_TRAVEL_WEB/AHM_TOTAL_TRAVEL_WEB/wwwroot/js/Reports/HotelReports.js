@@ -12,10 +12,11 @@ var iframeData = {
 //lista de filtros por cada reporte, formato JSON
 
 const filterSource = {
-    "RestauranteReportPDF": [
-        { filter: "tipo_transporte", source: getRestaurante, text: "tipo de transporte" },
+    "HotelesReportPDF": [
+        { filter: "hotel", source: getHotels, text: "Hotel" },
         { filter: "tipo_Parnert", source: getTipoParnet, text: "partners" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
+        { filter: "Colonia", source: getcolonia, text: "Colonia" },
     ],
 };
 
@@ -99,8 +100,8 @@ function getTipoParnet() {
     }
 }
 
-function getRestaurante() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Restaurants/List");
+function getHotels() {
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
 
     if (response.code == 200) {
 
@@ -109,11 +110,11 @@ function getRestaurante() {
             items: {
                 list: response.data,
                 valueData: "id",
-                textData: "restaurante"
+                textData: "hotel"
             },
             placeholder: {
-                empty: "No se encontraron restaurantes disponibles",
-                default: "Seleccione un restaurante",
+                empty: "No se encontraron hoteles disponibles",
+                default: "Seleccione un hotel",
             },
             semantic: true
         }
@@ -145,6 +146,37 @@ function getCiudad() {
             placeholder: {
                 empty: "No se encontraron ciudades disponibles",
                 default: "Seleccione una ciudad",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+
+function getcolonia() {
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "colonia"
+            },
+            placeholder: {
+                empty: "No se encontraron colonias disponibles",
+                default: "Seleccione una colonia",
             },
             semantic: true
         }

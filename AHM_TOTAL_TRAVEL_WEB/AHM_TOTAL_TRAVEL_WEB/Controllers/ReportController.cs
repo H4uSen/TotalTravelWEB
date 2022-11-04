@@ -17,11 +17,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly ReportService _reportServices;
         private readonly TransportService _transportService;
         private readonly RestaurantService _restaurantService;
+        private readonly HotelsService _hotelsService;
         public readonly IHttpContextAccessor _IHttpContextAccessor;
         public readonly AccessService _accessService;
 
 
-        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService,TransportService transportService, RestaurantService restaurantService )
+        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService,TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService )
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
@@ -29,6 +30,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _accessService = accessService;
             _transportService = transportService;
             _restaurantService = restaurantService;
+            _hotelsService = hotelsService;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
         public IActionResult Index()
@@ -51,6 +53,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View();
         }
 
+        public IActionResult HotelesReport()
+        {
+
+            return View();
+        }
 
 
         public async Task<IActionResult> TransportReportPDF(string filtertype,string filtervalue)
@@ -67,6 +74,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "Ciudad":
                     data = data.Where(x => x.Ciudad_ID == Convert.ToInt32(filtervalue)).ToList();
                     break;
+
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransportesReport.rdlc";
@@ -109,6 +117,44 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
             localReport.AddDataSource("restaurante", data);
+
+            // crea y asigna parametros
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
+
+        public async Task<IActionResult> HotelesReportPDF(string filtertype, string filtervalue)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+
+            var data = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+            switch (filtertype)
+            {
+                case "hotel":
+                    data = data.Where(x => x.ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "tipo_Parnert":
+                    data = data.Where(x => x.ID_Partner == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Ciudad":
+                    data = data.Where(x => x.CiudadID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "Colonia":
+                    data = data.Where(x => x.ColoniaID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\HotelesReport.rdlc";
+            LocalReport localReport = new LocalReport(path);
+
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("hotel", data);
 
             // crea y asigna parametros
             //Dictionary<string, string> parameters = new Dictionary<string, string>();
