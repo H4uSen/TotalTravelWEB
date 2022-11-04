@@ -642,12 +642,12 @@
         // create date format
         dateConfig.date = datetimeArray[0];
         if (dateConfig.date_format.toLowerCase() == "large") {
-            datetime.month_name = months[datetime.month];
-            dateConfig.date = `${datetime.day} de ${months[datetime.month]}, ${datetime.year}`;
+            datetime.month_name = months[datetime.month-1];
+            dateConfig.date = `${datetime.day} de ${months[datetime.month-1]}, ${datetime.year}`;
         }
         else if (dateConfig.date_format.toLowerCase() == "short") {
 
-            const month_name = months[datetime.month].substring(0, 3);
+            const month_name = months[datetime.month-1].substring(0, 3);
             datetime.month_name = month_name;
             dateConfig.date = `${datetime.day} de ${month_name}, ${datetime.year}`;
         }
