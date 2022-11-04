@@ -90,10 +90,11 @@ function ViewReservation(hoteid, resvid)
 
         if (transporte.code == 200) {
             var t = transporte.data;
+            var fech = GetDateFormat(dateConfig = { string_date: t.fecha_Salida, hour_format: 12, date_format: "large" });
             var fecha = t.fecha_Salida.split('T');
             actexth =
                 `<li>
-                        <span>${fecha[0]}</span>
+                        <span>${fech.date}</span>
                         <div class="content">
                             <h3>Llegada del transporte</h3>
                             <h4>se abordara en los servicios de ${t.parter}</h4>
@@ -115,13 +116,14 @@ function ViewReservation(hoteid, resvid)
 
         if (hotels.code == 200) {
             var h = hotels.data;
+            var fech2 = GetDateFormat(dateConfig = { string_date: hotel.fecha_Entrada, hour_format: 12, date_format: "large" });
             var fecha = hotel.fecha_Entrada.split('T');
             actexth =
                 `<li>
-                        <span>${fecha[0]}</span>
+                        <span>${fech2.date}</span>
                         <div class="content">
                             <h3>Llegada al hotel</h3>
-                            <h4>se alojara en el hotel ${h.hotel}</h4>                           
+                            <h4 >se alojara en el hotel ${h.hotel}</h4>
                         </div>
                     </li>`
             $('#tarjetas').append(actexth);
@@ -166,14 +168,36 @@ function ViewReservation(hoteid, resvid)
         var fech = GetDateFormat(dateConfig = { string_date: item, hour_format: 12, date_format: "large" });
         actexth =
             `<li>
-                <span>${fech.datetime}</span>
+                <span>${fech.date}</span>
                 <div class="content" id="${i}_acti">
-                    <h3>Llegada al hotel</h3>
-                    <h4 >se alojara en el hotel </h4>
-                    ${html}
+                    <h3>actividades de esta fecha</h3>
+                    <h4 >se realizaran las siguientes actividades</h4>
+                    -${html}
                 </div>
             </li>`
         $('#tarjetas').append(actexth);
+    }
+    if (ReservacionHot.code == 200) {
+        var hot = ReservacionHot.data;
+        var hote = hot.filter(resv => resv.reservacionID == resvid);
+        var hotel = hote[0];
+        var hotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
+
+        if (hotels.code == 200) {
+            var h = hotels.data;
+            var fech2 = GetDateFormat(dateConfig = { string_date: hotel.fecha_Salida, hour_format: 12, date_format: "large" });
+            var fecha = hotel.fecha_Entrada.split('T');
+            actexth =
+                `<li>
+                        <span>${fech2.date}</span>
+                        <div class="content">
+                            <h3>Salida del hotel</h3>
+                            <h4 >se desalojara del hotel ${h.hotel}</h4>
+                        </div>
+                    </li>`
+            $('#tarjetas').append(actexth);
+
+        }
     }
 }
 
