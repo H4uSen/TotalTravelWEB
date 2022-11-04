@@ -5,19 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="./style.css">*@
-</head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <style>
-    
+
     .row > * {
         max-width: 94%;
     }
-  
+
     .blog-card {
         display: flex;
         flex-direction: column;
@@ -227,54 +223,53 @@
                     padding-left: 25px;
                 }
     }
-    
 </style>
 
 @*<div class="column">
-    <div class="blog-card">
-        <div class="meta">
-            <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
+        <div class="blog-card">
+            <div class="meta">
+                <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
+            </div>
+            <div class="description">
+                <h1>@Html.DisplayFor(model => model.Nombre)</h1>
+                <h2>Duración: @Html.DisplayFor(model => model.Duracion_Paquete)</h2>
+                <h2>@Html.DisplayFor(model => model.precio) L</h2>
+                <p>@Html.DisplayFor(model => model.Descripcion_Paquete)</p>
+            </div>
         </div>
-        <div class="description">
-            <h1>@Html.DisplayFor(model => model.Nombre)</h1>
-            <h2>Duración: @Html.DisplayFor(model => model.Duracion_Paquete)</h2>
-            <h2>@Html.DisplayFor(model => model.precio) L</h2>
-            <p>@Html.DisplayFor(model => model.Descripcion_Paquete)</p>
-        </div>
-    </div>
-    <div class="ui form attached fluid segment" style="max-width:91%; margin:auto; top:0;">
-        <div class="content">
-            <div class="field">
-                <h3 class="ui horizontal divider header">
-                    <i class="folder open icon"></i>
-                    Datos Cliente
-                </h3>
-                <div class="two fields">
-                    <div class="field">
-                        <label class="label">Nombre</label>
-                        <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
+        <div class="ui form attached fluid segment" style="max-width:91%; margin:auto; top:0;">
+            <div class="content">
+                <div class="field">
+                    <h3 class="ui horizontal divider header">
+                        <i class="folder open icon"></i>
+                        Datos Cliente
+                    </h3>
+                    <div class="two fields">
+                        <div class="field">
+                            <label class="label">Nombre</label>
+                            <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
+                        </div>
+                        <div class="field">
+                            <label class="label">DNI</label>
+                            <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
+                        </div>
                     </div>
-                    <div class="field">
-                        <label class="label">DNI</label>
-                        <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label class="label">Teléfono</label>
+                            <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
+                        </div>
+                        <div class="field">
+                            <label class="label">E-mail</label>
+                            <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="field">
-                <div class="two fields">
-                    <div class="field">
-                        <label class="label">Teléfono</label>
-                        <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
-                    </div>
-                    <div class="field">
-                        <label class="label">E-mail</label>
-                        <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 <section class="forms">
@@ -290,11 +285,9 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p class="text-sm">Entrada<br><b>mar, 6 sep 2022</b><br>12:00 - 17:00</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-sm">Salida<br><b>mié, 7 sep 2022</b><br>A 13:00</p>
+                            <div class="field">
+                                <label>Fecha de Entrada - Salida</label>
+                                <input type="text" id="dateRangePicker" name="datefilter" value="" />
                             </div>
                             <hr>
                             <p class="text-sm">Duración de la estancia:<br><b>@Html.DisplayFor(model => model.Duracion_Paquete)</b></p>
@@ -387,17 +380,24 @@
     </div>
 </section>
 
+@section Scripts{
+    <script src="~/js/BuyDefaults/Reserva.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+}
+    <!--<div>
+                <dd class = "col-sm-10">
 
-<!--<div>
-            <dd class = "col-sm-10">
+                </dd>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Hotel)
+                </dd>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Restaurante)
+                </dd>
 
-            </dd>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Hotel)
-            </dd>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Restaurante)
-            </dd>
-
-    </div>-->
+        </div>-->
