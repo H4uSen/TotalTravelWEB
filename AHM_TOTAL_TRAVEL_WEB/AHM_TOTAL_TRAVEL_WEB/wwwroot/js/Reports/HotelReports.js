@@ -14,7 +14,7 @@ var iframeData = {
 const filterSource = {
     "HotelesReportPDF": [
         { filter: "hotel", source: getHotels, text: "Hotel" },
-        { filter: "tipo_Parnert", source: getTipoParnet, text: "partners" },
+        { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
         { filter: "Colonia", source: getcolonia, text: "Colonia" },
     ],
@@ -37,8 +37,8 @@ function getFilter() {
             textData: "text"
         },
         placeholder: {
-            empty: "No se encontraron transporte disponibles",
-            default: "Seleccione un transporte",
+            empty: "No se encontraron filtros disponibles",
+            default: "Seleccione un filtro",
         },
         semantic: true
     }
@@ -81,8 +81,8 @@ function getTipoParnet() {
                 textData: "nombre"
             },
             placeholder: {
-                empty: "No se encontraron Partner disponibles",
-                default: "Seleccione un Partner",
+                empty: "No se encontraron socios disponibles",
+                default: "Seleccione un socio",
             },
             semantic: true
         }

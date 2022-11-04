@@ -13,7 +13,7 @@ var iframeData = {
 
 const filterSource = {
     "ReservacionesReportPDF": [
-        { filter: "tipo_Parnert", source: getTipoParnet, text: "partners" },
+        { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Hotel", source: getHotels, text: "Hotel" },
         { filter: "Paquete", source: getpaquetes, text: "Paquete" },
     ],
@@ -36,8 +36,8 @@ function getFilter() {
             textData: "text"
         },
         placeholder: {
-            empty: "No se encontraron reservaciones disponibles",
-            default: "Seleccione una reservacion",
+            empty: "No se encontraron filtros disponibles",
+            default: "Seleccione un filtro",
         },
         semantic: true
     }
@@ -80,8 +80,8 @@ function getTipoParnet() {
                 textData: "nombre"
             },
             placeholder: {
-                empty: "No se encontraron Partner disponibles",
-                default: "Seleccione un Partner",
+                empty: "No se encontraron socios disponibles",
+                default: "Seleccione un socio",
             },
             semantic: true
         }

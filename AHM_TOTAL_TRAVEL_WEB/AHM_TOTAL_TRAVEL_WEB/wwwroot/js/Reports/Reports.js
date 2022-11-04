@@ -13,8 +13,8 @@ var iframeData = {
 
 const filterSource = {
     "TransportReportPDF": [
-        { filter: "tipo_transporte", source: getTipoTransporte, text: "tipo de transporte" },
-        { filter: "tipo_Parnert", source: getTipoParnet, text: "partners" },
+        { filter: "tipo_transporte", source: getTipoTransporte, text: "Tipo de transporte" },
+        { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
     ],
     "ClientReportPDF": [
@@ -41,8 +41,8 @@ function getFilter() {
             textData: "text"
         },
         placeholder: {
-            empty: "No se encontraron transporte disponibles",
-            default: "Seleccione un transporte",
+            empty: "No se encontraron filtros disponibles",
+            default: "Seleccione un filtro",
         },
         semantic: true
     }
@@ -85,8 +85,8 @@ function getTipoParnet() {
                 textData: "nombre"
             },
             placeholder: {
-                empty: "No se encontraron Partner disponibles",
-                default: "Seleccione un Partner",
+                empty: "No se encontraron socios disponibles",
+                default: "Seleccione un socio",
             },
             semantic: true
         }
@@ -117,7 +117,7 @@ function getTipoTransporte() {
                 textData: "trasporte"
             },
             placeholder: {
-                empty: "No se encontraron transporte disponibles",
+                empty: "No se encontraron transportes disponibles",
                 default: "Seleccione un transporte",
             },
             semantic: true
