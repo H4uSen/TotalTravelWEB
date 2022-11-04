@@ -18,17 +18,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly TransportService _transportService;
         public readonly IHttpContextAccessor _IHttpContextAccessor;
         public readonly AccessService _accessService;
-        public readonly SaleServices _saleService;
 
 
-        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService,TransportService transportService, SaleServices saleServices)
+        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService,TransportService transportService )
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
             _reportServices = reportService;
             _accessService = accessService;
             _transportService = transportService;
-            _saleService = saleServices;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
         public IActionResult Index()
@@ -79,39 +77,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return File(result.MainStream, "application/pdf");
         }
 
-        //registros pagos---------------------------------------
-        public IActionResult RecordPaymentReport()
-        {
-
-            return View();
-        }
-
-        public async Task<IActionResult> RecordPaymentReportPDF(string filtertype, string filtervalue)
-        {
-            var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
-            switch (filtertype)
-            {
-                case "Id_cliente":
-                    data = data.Where(x => x.Id_Cliente == Convert.ToInt32(filtervalue)).ToList();
-                    break;
-               
-            }
-            //crea y asigna direccion url de ubicacion de archivo .rdlc
-            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RegistrospagosReporst.rdlc";
-            LocalReport localReport = new LocalReport(path);
-
-            //añade valores recibidos de el endpoint de la API al dataset indicado
-            localReport.AddDataSource("datoscliente", data);
-
-          
-
-            //crea y retorna pdf reader
-            var result = localReport.Execute(RenderType.Pdf);
-
-
-            return File(result.MainStream, "application/pdf");
-        }
-
+      
 
     }
 }
