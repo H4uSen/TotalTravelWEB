@@ -273,8 +273,12 @@
                                 </a>
                                 <ul class="collapse list-unstyled" id="Report_Schema">
                                     <li> <a id="ReportTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte Transporte</a></li>
+                                    <li> <a id="HotelReportTile" class="sidebar-link" href="@Url.Action("HotelesReport","Report")">Reporte Hoteles</a></li>
                                     <li> <a id="RestaurantReportTile" class="sidebar-link" href="@Url.Action("RestauranteReport","Report")">Reporte Restaurante</a></li>
-                                    <li> <a id="HotelReportTile" class="sidebar-link" href="@Url.Action("HotelesReport","Report")">Reporte Hotel</a></li>
+                                    <li> <a id="ClientReportTile" class="sidebar-link" href="@Url.Action("ClientReport","Report")">Reporte Cliente</a></li>
+                                    <li> <a id="ReservationReportTile" class="sidebar-link" href="@Url.Action("ReservacionesReport","Report")">Reporte Reservacion</a></li>
+
+
                                     <li> <a id="DasboharTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">DashBoard Modulo Hoteles</a></li>
 
                                 </ul>
@@ -454,9 +458,10 @@
                     if (usersRole == "Moderador de Transporte")
                     {
                         <!-- Sidebar Navigation Menus-->
-                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
-                            <a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TransportModule")">Reservacion Transportes</a>
-                        </span>
+            <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","DashBoardTransportsHome")">DashBoard</a></li>
+                <a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TranportsModule")">Reservacion Transportes</a>
+            </span>
 
                         <ul class="list-unstyled py-4">
 
