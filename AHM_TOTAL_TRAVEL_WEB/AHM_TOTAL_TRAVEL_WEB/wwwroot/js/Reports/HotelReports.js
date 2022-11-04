@@ -12,16 +12,12 @@ var iframeData = {
 //lista de filtros por cada reporte, formato JSON
 
 const filterSource = {
-    "TransportReportPDF": [
-        { filter: "tipo_transporte", source: getTipoTransporte, text: "tipo de transporte" },
+    "HotelesReportPDF": [
+        { filter: "hotel", source: getHotels, text: "Hotel" },
         { filter: "tipo_Parnert", source: getTipoParnet, text: "partners" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
+        { filter: "Colonia", source: getcolonia, text: "Colonia" },
     ],
-    "ClientReportPDF": [
-        { filter: "sexo", source: getSexo, text: "Sexo" },
-        { filter: "colonia", source: getColonias, text: "Colonia" },
-        { filter: "partner", source: getPartners, text: "Socio" }
-    ]
 };
 
 $(".ui.dropdown").dropdown();
@@ -104,8 +100,8 @@ function getTipoParnet() {
     }
 }
 
-function getTipoTransporte() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/TypesTransport/List");
+function getHotels() {
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
 
     if (response.code == 200) {
 
@@ -114,11 +110,11 @@ function getTipoTransporte() {
             items: {
                 list: response.data,
                 valueData: "id",
-                textData: "trasporte"
+                textData: "hotel"
             },
             placeholder: {
-                empty: "No se encontraron transporte disponibles",
-                default: "Seleccione un transporte",
+                empty: "No se encontraron hoteles disponibles",
+                default: "Seleccione un hotel",
             },
             semantic: true
         }
@@ -165,46 +161,8 @@ function getCiudad() {
     }
 }
 
-function getSexo() {
-    var response = [
-        {
-            id: "Femenino",
-            text: "Femenino"
-        },
-        {
-            id: "Masculino",
-            text: "Masculino"
-        }
-    ];
 
-
-
-    const dropdownData = {
-        dropdown: $("#cbbValor"),
-        items: {
-            list: response,
-            valueData: "id",
-            textData: "text"
-        },
-        placeholder: {
-            empty: "No se encontraron resultados disponibles",
-            default: "Seleccione un sexo",
-        },
-        semantic: true
-    }
-
-    FillDropDown(dropdownData);
-    $("#cbbValor").dropdown();
-
-    $("#cbbValor").change(function () {
-        //setea el valor de el parametro de filtro (ID)
-        iframeData.routeValue = $("#cbbValor").val();
-        const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
-        $("#ifrReport").prop("src", url);
-    });
-}
-
-function getColonias() {
+function getcolonia() {
     const response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
 
     if (response.code == 200) {
@@ -227,7 +185,6 @@ function getColonias() {
         $("#cbbValor").dropdown();
 
         $("#cbbValor").change(function () {
-            //setea el valor de el parametro de filtro (ID)
             iframeData.routeValue = $("#cbbValor").val();
             const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
             $("#ifrReport").prop("src", url);
@@ -235,36 +192,7 @@ function getColonias() {
     }
 }
 
-function getPartners() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
 
-    if (response.code == 200) {
-
-        const dropdownData = {
-            dropdown: $("#cbbValor"),
-            items: {
-                list: response.data,
-                valueData: "id",
-                textData: "nombre"
-            },
-            placeholder: {
-                empty: "No se encontraron socios disponibles",
-                default: "Seleccione un socio",
-            },
-            semantic: true
-        }
-
-        FillDropDown(dropdownData);
-        $("#cbbValor").dropdown();
-
-        $("#cbbValor").change(function () {
-            //setea el valor de el parametro de filtro (ID)
-            iframeData.routeValue = $("#cbbValor").val();
-            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
-            $("#ifrReport").prop("src", url);
-        });
-    }
-}
 
 
 

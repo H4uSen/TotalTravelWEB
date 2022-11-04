@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "RestauranteReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- inicio columna contenedora -->
+        <div class="col-12">
+            <br>
+
+            <div class="ui segment form">
+                <div class="fields two">
+                    <div class="field">
+                        <label>Escoge un filtro</label>
+                        <select class="ui dropdown search" id="cbbFiltro">
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Seleccione una opcion</label>
+                        <select class="ui dropdown search" id="cbbValor">
+                            <option value="">Seleccione un filtro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+            <div class="card">
+                <div class="card card-body">
+
+                    <iframe src="@Url.Action("RestauranteReportPDF", "Report")" frameborder="0" height="500" id="ifrReport"></iframe>
+
+                </div>
+            </div>
+        </div>
+        <!-- fin columna contenedora -->
+
+    </div>
+</div>
+
+
+@section HighlightTile{
+    <script>
+
+        $("#ReportModule").addClass("active");
+        $("#ReportModule").addClass("expandedList");
+        $("#ReportModule").prop("aria-expanded");
+        $("#ReportModule").attr("aria-expanded", "true");
+
+        $("#Report_Schema").addClass("show");
+
+        $("#RestaurantReportTile").addClass("activeTile");
+    </script>
+}
+
+
+@section Scripts{
+
+    <script>
+        const action = "RestauranteReportPDF";
+    </script>
+
+    <script src="~/js/Reports/RestaurantReports.js"></script>
+}
+
+
