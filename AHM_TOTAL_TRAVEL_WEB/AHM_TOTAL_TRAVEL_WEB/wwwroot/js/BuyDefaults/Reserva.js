@@ -1,4 +1,5 @@
-﻿$("#DetailsBottom").click(() => {
+﻿
+$("#DetailsBottom").click(() => {
     $("#modalUpdate").modal('show');
 });
 $("#msgErrorForm").hide();
