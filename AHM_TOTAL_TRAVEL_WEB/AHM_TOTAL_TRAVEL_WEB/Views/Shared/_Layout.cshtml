@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="~/assets/css/custom.css">
     <link rel="stylesheet" href="~/css/ErrorPage.css">
     <link rel="stylesheet" type="text/css" href="~/css/TableStyles.css" />
+
     <!-- Frameworks alerts -->
     <link rel="stylesheet" href="~/assets/css/iziToast.min.css">
     <!-- Favicon-->
@@ -267,11 +268,13 @@
                             </li>
 
                             <li class="sidebar-item">
-                                <a class="sidebar-link" id="AccessModule" href="#Access_Schema" data-bs-toggle="collapse" data-toggle="collapse">
+                                <a class="sidebar-link" id="ReportModule" href="#Report_Schema" data-bs-toggle="collapse" data-toggle="collapse">
                                     Módulo de reportes
                                 </a>
-                                <ul class="collapse list-unstyled" id="Access_Schema">
-                                    <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte</a></li>
+                                <ul class="collapse list-unstyled" id="Report_Schema">
+                                    <li> <a id="ReportTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte</a></li>
+                                    <li> <a id="DasboharTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">DashBoard Modulo Hoteles</a></li>
+
                                 </ul>
                             </li>
 
@@ -516,12 +519,13 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Libraries -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <!--
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
     <script type="text/javascript" src="~/js/Pagination.js"></script>
     <script type="text/javascript" src="~/assets/js/front.js"></script>

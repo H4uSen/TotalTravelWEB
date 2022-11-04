@@ -28,9 +28,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _reservationService.ReservationList(token);
-
-            return View(list.Data);
+            List<PaymentRecordListViewModel> payments = (List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data;
+            List<ReservationListViewModel> list = (List<ReservationListViewModel>)(await _reservationService.ReservationList(token)).Data;
+            list.ForEach(item =>
+            {
+                item.AmountOfPayments = (payments.Where(x => x.Id_Reservacion == item.ID)).Count();
+            });
+            return View(list);
         }
 
         [HttpGet]
@@ -45,20 +49,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirst("User_Id").Value;
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
-
-            if (ModelState.IsValid)
-            {
-                var result = await _reservationService.ReservationCreate(reservation, token);
+            //reservation.Resv_FechaEntrada = reservation.Resv_FechaEntradaUnformatted.ToString("yyyy-MM-dd");
+            //reservation.Resv_FechaSalida = reservation.Resv_FechaSalidaUnformatted.ToString("yyyy-MM-dd");
+            var result = await _reservationService.ReservationCreate(reservation, token);
                 if (result.Success)
                 {
-                    return RedirectToAction("Index");
+                    return View();
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
-            }
-            return View();
+            
+            return View(reservation);
         }
 
 
