@@ -41,17 +41,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> TransportReport()
         {
-            var data  =(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
+            var data=(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
 
             //crea y asigna direccion url de ubicacion de archivo .rdlc
-            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Transporte.rdlc";
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransportesReport.rdlc";
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
-            localReport.AddDataSource("Transporte", data);
+            localReport.AddDataSource("transporte", data);
 
             // crea y asigna parametros
-         //   Dictionary<string, string> parameters = new Dictionary<string, string>();
+         //Dictionary<string, string> parameters = new Dictionary<string, string>();
             
 
             //crea y retorna pdf reader
