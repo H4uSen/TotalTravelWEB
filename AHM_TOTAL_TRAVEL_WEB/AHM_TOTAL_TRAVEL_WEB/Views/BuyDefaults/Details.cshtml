@@ -28,10 +28,8 @@
                 <div class="col-md-4 col-md-push-1 wow fadeInRight">
                     <h2 class="section-title">Actividades</h2>
                     <hr>
-                    <ol class="circle-list" id="actividades(idm)">
-                        <li>ejemplo 1</li>
-                        <li>ejemplo 2</li>
-                        <li>ejemplo 3</li>
+                    <ol class="circle-list" id="actividades">
+                        
                     </ol>
 
 
@@ -78,6 +76,9 @@
 
 @section Scripts
 {
+    <script>
+        var idpaquete = "@Html.DisplayFor(model => model.Id)";
+    </script>
     <script src="~/assets/client/js/min/plugins-min.js"></script>
     <script src="~/assets/client/js/min/app-min.js"></script>
 
