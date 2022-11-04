@@ -55,6 +55,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "tipo_Parnert":
                     data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
                     break;
+                case "Ciudad":
+                    data = data.Where(x => x.Ciudad_ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransportesReport.rdlc";
@@ -73,6 +76,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             
             return File(result.MainStream, "application/pdf");
         }
+
+      
 
     }
 }
