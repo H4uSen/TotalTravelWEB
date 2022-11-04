@@ -4,6 +4,7 @@ var ReservacionActView = ajaxRequest("https://totaltravel.somee.com/API/Reservat
 var response2 = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/List");
 var ReservacionDetView = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
 var ReservacionActHotView = ajaxRequest("https://totaltravel.somee.com/API/ReservationActivitiesHotels/List");
+var ReservacionHot = ajaxRequest("https://totaltravel.somee.com/API/ReservationHotels/List");
 
 $("document").ready(function () {
     prueba();
@@ -88,9 +89,10 @@ function ViewReservation(hoteid, resvid) {
 
         if (transporte.code == 200) {
             var t = transporte.data;
+            var fecha = t.fecha_Salida.split('T');
             actexth =
                 `<li>
-                        <span>${t.fecha_Salida.split('T')}</span>
+                        <span>${fecha[0]}</span>
                         <div class="content">
                             <h3>Llegada del transporte</h3>
                             <h4>se abordara en los servicios de ${t.parter}</h4>
@@ -104,24 +106,21 @@ function ViewReservation(hoteid, resvid) {
 
         }
     }
-    if (response2.code == 200) {
-        var transp = response2.data;
-        var transpo = transp.filter(resv => resv.reservacion == resvid);
-        var transpor = transpo[0];
-        var transporte = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
+    if (ReservacionHot.code == 200) {
+        var hot = ReservacionHot.data;
+        var hote = hot.filter(resv => resv.reservacionID == resvid);
+        var hotel = hote[0];
+        var hotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
 
-        if (transporte.code == 200) {
-            var t = transporte.data;
+        if (hotels.code == 200) {
+            var h = hotels.data;
+            var fecha = hotel.fecha_Entrada.split('T');
             actexth =
                 `<li>
-                        <span>${t.fecha_Salida.split('T')}</span>
+                        <span>${fecha[0]}</span>
                         <div class="content">
-                            <h3>Llegada del transporte</h3>
-                            <h4>se abordara en los servicios de ${t.parter}</h4>
-                            <p> 
-                              a la hora: ${t.hora_Salida}.
-                              y se llegara al destino a la hora: ${t.hora_Llegada}.
-                            </p>
+                            <h3>Llegada al hotel</h3>
+                            <h4>se alojara en el hotel ${h.hotel}</h4>                           
                         </div>
                     </li>`
             $('#tarjetas').append(actexth);
@@ -129,6 +128,59 @@ function ViewReservation(hoteid, resvid) {
         }
     }
 
+    for (var i = 0; i < rooms.length; i++) {
+        const item = rooms[i];
+        var RoomFind = ajaxRequest("https://totaltravel.somee.com/API/Rooms/Find?id=" + item.habitacionID);
+        try {
+            var room = RoomFind.data;
+            var imagenes = room.imageUrl.split(',');
+            var wifi, balcon;
+            if (room.wifi = true) { wifi = "si"; }
+            else { wifi = "no"; }
+            if (room.balcon == 1) { balcon = "si"; }
+            else { balcon = "no"; }
+            divroom =
+                `<div class="item">
+                        <div class="image">
+                            <img
+                                src="${imagenes[0]}">
+                        </div>
+                        <div class="content">
+                            <a class="header">${item.nombre_Habitacion} <div class="ui large label">${item.categoria_Habitacion}
+                            </div></a>
+                            <div class="meta">
+                                <span class="cinema">
+                                    ${room.descripcion}
+                                </span>
+                            </div>
+                            <div class="extra">
+                                <div class="ui label">Wifi: ${wifi}</div>
+                                <div class="ui label">Balcon: ${balcon}</div>
+                                <div class="ui label">Camas ${room.camas}</div>
+                            </div><br>
+                        </div>
+                        <div class="content left floated" style="text-align: end;">
+                            <a class="ui huge green tag label">${room.precio}</a>
+                        </div>
+                     </div>`
+            $('#rooms').append(divroom);
+        }
+        catch {
+            divroom =
+                `<div class="item">
+                                <div class="image">
+                                    <img
+                                        src="https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header">ESTA HABITACION FUE ELIMINADA
+                                    </a>
+                                </div>                     
+                            </div>`
+            $('#rooms').append(divroom);
+        }
+    }
+}
 }
 
 
