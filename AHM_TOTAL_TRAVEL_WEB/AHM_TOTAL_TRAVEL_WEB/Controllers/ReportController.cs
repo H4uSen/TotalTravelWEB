@@ -37,15 +37,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
 
+        public IActionResult TransportReport()
+        {
 
-        [HttpGet]
-        public async Task<IActionResult> TransportReport(string filtertype,string filtervalue)
+            return View();
+        }
+
+
+        public async Task<IActionResult> TransportReportPDF(string filtertype,string filtervalue)
         {
             var data=(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
             switch (filtertype)
             {
-                case "id":
-                    data.Where(x => x.ID == Convert.ToInt32(filtervalue)).ToList();
+                case "tipo_transporte":
+                   data = data.Where(x => x.TipoTransporteID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "tipo_Parnert":
+                    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
                     break;
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
@@ -56,11 +64,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             localReport.AddDataSource("transporte", data);
 
             // crea y asigna parametros
-         //Dictionary<string, string> parameters = new Dictionary<string, string>();
-            
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
 
             //crea y retorna pdf reader
             var result = localReport.Execute(RenderType.Pdf);
+
+            
             return File(result.MainStream, "application/pdf");
         }
 
