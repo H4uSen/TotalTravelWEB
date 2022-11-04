@@ -15,6 +15,8 @@ const filterSource = {
     "TransportReportPDF": [
         { filter: "tipo_transporte", source: getTipoTransporte, text: "tipo de transporte" },
         { filter: "tipo_Parnert", source: getTipoParnet, text: "partners" },
+        { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
+
 
     ],
 };
@@ -46,7 +48,6 @@ function getFilter() {
     $("#cbbFiltro").dropdown();
 
     $("#cbbFiltro").change(() => {
-        console.log ("prueba")
 
         var filtertype = $("#cbbFiltro").val();
         iframeData.filterType = filtertype;
@@ -61,14 +62,15 @@ function getFilter() {
     });
 
 }
+
 //rellena el segundo dronwdon
 function getTipoParnet() {
     var response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
 
-    response = jQuery.grep(response.data, function (item, i) {
-        return item.tipoPartner_Id == 2;
+    //response = jQuery.grep(response.data, function (item, i) {
+    //    return item.tipoPartner_Id == 2;
 
-    });
+    //});
 
     if (response.code == 200) {
 
@@ -85,6 +87,7 @@ function getTipoParnet() {
             },
             semantic: true
         }
+        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -121,13 +124,44 @@ function getTipoTransporte() {
         $("#cbbValor").dropdown();
 
         $("#cbbValor").change(function () {
-            //setea el valor de el parametro de filtro (ID)
             iframeData.routeValue = $("#cbbValor").val();
             const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
             $("#ifrReport").prop("src", url);
         });
     }
 }
+
+
+function getCiudad() {
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "ciudad"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
 
 
 
