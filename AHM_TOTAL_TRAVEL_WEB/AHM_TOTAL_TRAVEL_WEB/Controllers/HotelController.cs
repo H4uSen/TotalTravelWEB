@@ -24,23 +24,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
-            var id = HttpContext.Session.GetString("PartnerID");           
             var token = HttpContext.User.FindFirst("Token").Value;
             //var model = new List<HotelListViewModel>();
             var list = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> lista = (IEnumerable<HotelListViewModel>)list.Data;
-            var element = lista.ToList()[0];
-                      
-            if(string.IsNullOrEmpty(id))
-            {
-                return View(lista);
-            }
-            else
-            {
-                var list2 = lista.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
-                return View(list2);
-                
-            }                                             
+            return View(list.Data);
         }
 
         [HttpGet]
