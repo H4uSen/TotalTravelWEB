@@ -59,6 +59,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View();
         }
 
+        public IActionResult ClientReport()
+        {
+
+            return View();
+        }
+
 
         public async Task<IActionResult> TransportReportPDF(string filtertype,string filtervalue)
         {
@@ -167,7 +173,39 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return File(result.MainStream, "application/pdf");
         }
 
+        public async Task<IActionResult> ClientReportPDF(string filtertype, string filtervalue)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var data = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+            switch (filtertype)
+            {
+                case "sexo":
+                    data = data.Where(x => x.Sexo == filtervalue).ToList();
+                    break;
+                case "colonia":
+                    data = data.Where(x => x.ColoniaID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "partner":
+                    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\UsuariosReport.rdlc";
+            LocalReport localReport = new LocalReport(path);
 
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("usuario", data);
+
+            // crea y asigna parametros
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
 
     }
 }
