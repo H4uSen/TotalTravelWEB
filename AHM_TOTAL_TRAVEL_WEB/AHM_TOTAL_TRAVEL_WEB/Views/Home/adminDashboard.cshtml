@@ -162,16 +162,17 @@
                                             "#D4AF37","#C0C0C0","#CD7F32"
                                         };
                                     }
-                                    @for (int i = 0; i < 3; i++)
+                                    @for (int i = 0; i < Model.Hotel_Top_3.Count; i++)
                                     {
                                         var item = Model.Hotel_Top_3[i];
+                                        var hotel = item.Hotel == null ? item.Hotel : "";
                                         <div class="item">
                                             <h2 class="align-middle" style="padding: 0 1em; color: @colors[i]; font-weight: bold;"><br>@(i+1)</h2>
                                             <div class="image">
                                                 <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
                                             </div>
                                             <div class="content">
-                                                <h3><b>@item.Hotel</b></h3>
+                                                <h3><b>@($"{hotel}")</b></h3>
                                                 <h5 class="blue_text">
                                                     <i class="map marker alternate blue icon"></i>
                                                     <b>@($"{item.Ciudad}")</b>
