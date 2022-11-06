@@ -269,10 +269,16 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link" id="ReportModule" href="#Report_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    Módulo de reportes
+                                    Módulo de Reportes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Report_Schema">
-                                    <li> <a id="ReportTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte</a></li>
+                                    <li> <a id="ReportTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte Transportes</a></li>
+                                    <li> <a id="HotelReportTile" class="sidebar-link" href="@Url.Action("HotelesReport","Report")">Reporte Hoteles</a></li>
+                                    <li> <a id="RestaurantReportTile" class="sidebar-link" href="@Url.Action("RestauranteReport","Report")">Reporte Restaurantes</a></li>
+                                    <li> <a id="ClientReportTile" class="sidebar-link" href="@Url.Action("ClientReport","Report")">Reporte Clientes</a></li>
+                                    <li> <a id="ReservationReportTile" class="sidebar-link" href="@Url.Action("ReservacionesReport","Report")">Reporte Reservaciones</a></li>
+                                    <li> <a id="ReporstTile" class="sidebar-link" href="@Url.Action("RecordPaymentReport","Report")">Registro Pagos</a></li>
+                                    <li> <a id="ReporTile" class="sidebar-link" href="@Url.Action("DefaultPackagesReport","Report")">Paquetes predeterminados</a></li>
                                     <li> <a id="DasboharTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">DashBoard Modulo Hoteles</a></li>
 
                                 </ul>
@@ -452,9 +458,10 @@
                     if (usersRole == "Moderador de Transporte")
                     {
                         <!-- Sidebar Navigation Menus-->
-                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
-                            <a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TransportModule")">Reservacion Transportes</a>
-                        </span>
+            <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
+                <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","DashBoardTransportsHome")">DashBoard</a></li>
+                <a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TranportsModule")">Reservacion Transportes</a>
+            </span>
 
                         <ul class="list-unstyled py-4">
 

@@ -1,9 +1,10 @@
-﻿
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PaymentRecordListViewModel>
+
 @{
-    ViewData["Title"] = "TransportReport";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "RecordPaymentReport";
 }
-<h1>Reporte Transportes</h1>
+
+<h1>RecordPaymentReport</h1>
 
 <div class="container-fluid">
     <div class="row">
@@ -20,9 +21,9 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label>Seleccione una opción</label>
+                        <label>Seleccione una opcion</label>
                         <select class="ui dropdown search" id="cbbValor">
-                            <option value="">Seleccione una opción</option>
+                            <option value="">Seleccione un filtro</option>
                         </select>
                     </div>
                 </div>
@@ -32,7 +33,7 @@
             <div class="card">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("TransportReportPDF", "Report")" frameborder="0" height="500" id="ifrReport"></iframe>
+                    <iframe src="@Url.Action("RecordPaymentReportPDF", "Report")" frameborder="0" height="500" id="ifrReport"></iframe>
 
                 </div>
             </div>
@@ -53,7 +54,7 @@
 
         $("#Report_Schema").addClass("show");
 
-        $("#ReportTile").addClass("activeTile");
+        $("#ReporstTile").addClass("activeTile");
     </script>
 }
 
@@ -61,9 +62,18 @@
 @section Scripts{
 
     <script>
-        const action = "TransportReportPDF";
+        const action = "RecordPaymentReportPDF";
     </script>
 
-          <script src="~/js/Reports/Reports.js"></script>
+    <script src="~/js/Reports/Reports.js"></script>
 }
+
+
+
+
+
+
+
+
+
 

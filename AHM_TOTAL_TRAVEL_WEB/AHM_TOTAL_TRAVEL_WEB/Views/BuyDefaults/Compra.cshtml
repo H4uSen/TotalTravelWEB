@@ -5,19 +5,205 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="./style.css">*@
-</head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <style>
-    
+
     .row > * {
         max-width: 94%;
     }
-  
+    .card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    border-radius: 0;
+}
+
+    .card > hr {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .card > .list-group {
+        border-top: inherit;
+        border-bottom: inherit;
+    }
+
+        .card > .list-group:first-child {
+            border-top-width: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .card > .list-group:last-child {
+            border-bottom-width: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .card > .card-header + .list-group,
+        .card > .list-group + .card-footer {
+            border-top: 0;
+        }
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.5rem 1.5rem;
+}
+
+.card-title {
+    margin-bottom: 1rem;
+}
+
+.card-subtitle {
+    margin-top: -0.5rem;
+    margin-bottom: 0;
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+}
+
+.card-link:hover {
+    text-decoration: none;
+}
+
+.card-link + .card-link {
+    margin-left: 1.5rem;
+}
+
+.card-header {
+    padding: 1.125rem 1.5rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 0 solid rgba(0, 0, 0, 0.125);
+}
+
+    .card-header:first-child {
+        border-radius: 0 0 0 0;
+    }
+
+.card-footer {
+    padding: 1.125rem 1.5rem;
+    background-color: #fff;
+    border-top: 0 solid rgba(0, 0, 0, 0.125);
+}
+
+    .card-footer:last-child {
+        border-radius: 0 0 0 0;
+    }
+
+.card-header-tabs {
+    margin-right: -0.75rem;
+    margin-bottom: -1.125rem;
+    margin-left: -0.75rem;
+    border-bottom: 0;
+}
+
+.card-header-pills {
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    border-radius: 0;
+}
+
+.card-img,
+.card-img-top,
+.card-img-bottom {
+    width: 100%;
+}
+
+.card-img,
+.card-img-top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.card-img,
+.card-img-bottom {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.card-group > .card {
+    margin-bottom: 0.75rem;
+}
+
+@@media (min-width: 576px) {
+    .card-group {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+    }
+
+        .card-group > .card {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 0%;
+            flex: 1 0 0%;
+            margin-bottom: 0;
+        }
+
+            .card-group > .card + .card {
+                margin-left: 0;
+                border-left: 0;
+            }
+
+            .card-group > .card:not(:last-child) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+                .card-group > .card:not(:last-child) .card-img-top,
+                .card-group > .card:not(:last-child) .card-header {
+                    border-top-right-radius: 0;
+                }
+
+                .card-group > .card:not(:last-child) .card-img-bottom,
+                .card-group > .card:not(:last-child) .card-footer {
+                    border-bottom-right-radius: 0;
+                }
+
+            .card-group > .card:not(:first-child) {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+                .card-group > .card:not(:first-child) .card-img-top,
+                .card-group > .card:not(:first-child) .card-header {
+                    border-top-left-radius: 0;
+                }
+
+                .card-group > .card:not(:first-child) .card-img-bottom,
+                .card-group > .card:not(:first-child) .card-footer {
+                    border-bottom-left-radius: 0;
+                }
+}
+
     .blog-card {
         display: flex;
         flex-direction: column;
@@ -227,59 +413,16 @@
                     padding-left: 25px;
                 }
     }
-    
+    .ca{
+        height:480px;
+    }
 </style>
-
-@*<div class="column">
-    <div class="blog-card">
-        <div class="meta">
-            <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
-        </div>
-        <div class="description">
-            <h1>@Html.DisplayFor(model => model.Nombre)</h1>
-            <h2>Duración: @Html.DisplayFor(model => model.Duracion_Paquete)</h2>
-            <h2>@Html.DisplayFor(model => model.precio) L</h2>
-            <p>@Html.DisplayFor(model => model.Descripcion_Paquete)</p>
-        </div>
-    </div>
-    <div class="ui form attached fluid segment" style="max-width:91%; margin:auto; top:0;">
-        <div class="content">
-            <div class="field">
-                <h3 class="ui horizontal divider header">
-                    <i class="folder open icon"></i>
-                    Datos Cliente
-                </h3>
-                <div class="two fields">
-                    <div class="field">
-                        <label class="label">Nombre</label>
-                        <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
-                    </div>
-                    <div class="field">
-                        <label class="label">DNI</label>
-                        <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <div class="two fields">
-                    <div class="field">
-                        <label class="label">Teléfono</label>
-                        <input id="Usuario" placeholder="Usuario" value="@ViewData["Usuario"]" />
-                    </div>
-                    <div class="field">
-                        <label class="label">E-mail</label>
-                        <input id="DNI" placeholder="DNI" value="@ViewData["DNI"]" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 
 <section class="forms">
     <div class="container-fluid">
         <h1 align="center">Datos cliente</h1>
+        
         <div class="row">
             <!-- Basic Form-->
             <div class="col-lg-4">
@@ -290,20 +433,19 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p class="text-sm">Entrada<br><b>mar, 6 sep 2022</b><br>12:00 - 17:00</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-sm">Salida<br><b>mié, 7 sep 2022</b><br>A 13:00</p>
-                            </div>
-                            <hr>
-                            <p class="text-sm">Duración de la estancia:<br><b>@Html.DisplayFor(model => model.Duracion_Paquete)</b></p>
-                            <hr>
-                            <p class="text-sm">Tu selección:<br><b>Paquete @Html.DisplayFor(model => model.Nombre)</b></p>
-                            <p class="text-sm">Capacidad máxima<br><b>3 adultos</b></p>
-                            <div>
-                                <p class="text-md text-success"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANhJREFUSEvtlDEOgkAQRR8JCRYWexM5gh7Fylh5BOEGdpYeRY+gN9mCRmMiWQIGNyyzuNIYaGiG9zJ/hokY+YlG5jMJxISniKqI1Emp54NdsdG5nVlwRBX8zhlIeZEXW521JUGCDzjc4oSlXmv9E4EP3Ii+6sAX3iuYH1UWzzjYLQ+BOwUGTsQeuMYJq0YyFO4U1KALsGgkpvi9LY6Bdv3WzhnYkvrjlAFwcciWxNR3rmLfQRK3qCWha8+laycKmlNg3vZGSXAxIh+AVOPVgQQJmkEI/D8iKgHNW2kZYuGG4gAAAABJRU5ErkJggg==" /> ¡Esta opción encaja bien!</p>
-                            </div>
+                            @*<div class="field">
+            <label>Fecha de Entrada - Salida</label>
+            <input type="text" id="dateRangePicker" name="datefilter" value="" />
+        </div>*@         <p class="text-sm">Tu selección:<br><b>Paquete @Html.DisplayFor(model => model.Nombre)</b></p>
+                        <p class="text-sm">Capacidad máxima<br><b>3 adultos</b></p>
+                        <hr>
+                        <p class="text-sm">Duración de la estancia:<br><b>@Html.DisplayFor(model => model.Duracion_Paquete)</b></p>
+                        <hr>
+                        <p class="text-sm">Hotel:<br><b>@Html.DisplayFor(model => model.Hotel)</b></p>
+                        <p class="text-sm">Restaurante:<br><b>@Html.DisplayFor(model => model.Restaurante)</b></p>
+                        <div>
+                            <p class="text-md text-success"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANhJREFUSEvtlDEOgkAQRR8JCRYWexM5gh7Fylh5BOEGdpYeRY+gN9mCRmMiWQIGNyyzuNIYaGiG9zJ/hokY+YlG5jMJxISniKqI1Emp54NdsdG5nVlwRBX8zhlIeZEXW521JUGCDzjc4oSlXmv9E4EP3Ii+6sAX3iuYH1UWzzjYLQ+BOwUGTsQeuMYJq0YyFO4U1KALsGgkpvi9LY6Bdv3WzhnYkvrjlAFwcciWxNR3rmLfQRK3qCWha8+laycKmlNg3vZGSXAxIh+AVOPVgQQJmkEI/D8iKgHNW2kZYuGG4gAAAABJRU5ErkJggg==" /> ¡Esta opción encaja bien!</p>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -340,9 +482,26 @@
                     <div class="card-header">
                         <h3 class="h4 mb-0">Ingresa los siguientes datos</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body ca">
                         <form>
+                           
                             <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Cantidad Personas</label><label class="text-danger">*</label>
+                                    <input class="form-control" type="text" >
+                                    <br>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Fecha Entrada - Salida</label><label class="text-danger">*</label>
+                                    <input type="text" name="daterange"  id="dateRangePicker" class="form-control">
+                                    <div class="ui right corner label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
+                                    <br>
+                                </div>
+
+                               
                                 <div class="col-md-6">
                                     <label class="form-label">Nombre</label><label class="text-danger">*</label>
                                     <input class="form-control" type="text" required value="@ViewData["Nombre"]">
@@ -387,17 +546,24 @@
     </div>
 </section>
 
+@section Scripts{
+    <script src="~/js/BuyDefaults/Reserva.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+}
+    <!--<div>
+                <dd class = "col-sm-10">
 
-<!--<div>
-            <dd class = "col-sm-10">
+                </dd>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Hotel)
+                </dd>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Restaurante)
+                </dd>
 
-            </dd>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Hotel)
-            </dd>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Restaurante)
-            </dd>
-
-    </div>-->
+        </div>-->
