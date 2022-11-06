@@ -321,12 +321,12 @@ function getHotel() {
 
 
 
-    if (response.code == 200) {
+    //if (response.code == 200) {
 
-        response = jQuery.grep(response.data, function (item, i) {
-            return item.ID_Hotel == 2;
+    //    response = jQuery.grep(response.data, function (item, i) {
+    //        return item.ID_Hotel == 2;
 
-        });
+    //    });
 
 
         const dropdownData = {
@@ -354,7 +354,7 @@ function getHotel() {
             $("#ifrReport").prop("src", url);
         });
     }
-}
+/*}*/
 
 //rellena el segundo dronwdon funcion de registro paquetes restaurante
 function getrestaurant() {
@@ -362,12 +362,12 @@ function getrestaurant() {
 
 
 
-    if (response.code == 200) {
+    //if (response.code == 200) {
 
-        response = jQuery.grep(response.data, function (item, i) {
-            return item.ID_restaurante == 2;
+    //    response = jQuery.grep(response.data, function (item, i) {
+    //        return item.ID_restaurante == 2;
 
-        });
+    //    });
 
 
         const dropdownData = {
@@ -395,7 +395,7 @@ function getrestaurant() {
             $("#ifrReport").prop("src", url);
         });
     }
-}
+/*}*/
 
 
 

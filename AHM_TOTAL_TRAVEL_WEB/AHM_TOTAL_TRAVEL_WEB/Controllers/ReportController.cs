@@ -33,6 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _restaurantService = restaurantService;
             _hotelsService = hotelsService;
             _reservationService = reservationService;
+            _saleService = saleServices;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
     public IActionResult Index()
@@ -265,6 +266,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> RecordPaymentReportPDF(string filtertype, string filtervalue)
         {
+
             var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
             switch (filtertype)
             {
@@ -295,6 +297,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
+
                 var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
                 switch (filtertype)
                 {
