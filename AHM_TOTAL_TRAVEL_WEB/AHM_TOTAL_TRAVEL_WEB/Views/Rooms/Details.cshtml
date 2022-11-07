@@ -53,11 +53,11 @@
                                 <label>Balcon</label>
                                 @{ if (Model.Balcon == 1)
                                     {
-                                        <span >Si</span>
+                                        <span>Si</span>
                                     }
                                     else
                                     {
-                                        <span > No </span>
+                                        <span> No </span>
                                     }
                                 }
                             </div>
@@ -66,12 +66,12 @@
                             <div class="field">
                                 <label>Wifi</label>
                                 @{ if (Model.Wifi == true)
-                                    { 
-                                        <span >Si</span>
+                                    {
+                                        <span>Si</span>
                                     }
                                     else
                                     {
-                                        <span > No </span>
+                                        <span> No </span>
                                     }
                                 }
                             </div>
@@ -85,6 +85,28 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+            <div class="ui grid three column stackable mt-4">
+
+                <div class="column">
+                    <label class="ui label">Imagenes en fila.</label>
+                    <div class="ui segment">
+                        <div class="ui middle aligned divided list" id="image-upload-list">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                        <div class="ui icon header" id="RoomsCarousel">
+                            <i class="images icon"></i>
+                            Tus imagenes aparecerán aquí.
+                        </div>
+
+                        <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,6 +155,7 @@
     </div>
 </div>
 @section HighlightTile{
+    <script src="~/js/Rooms/details.js"></script>
     <script>
         $("#HotelModule").addClass("active");
         $("#Hotel_Schema").addClass("show");
