@@ -44,13 +44,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] ReservationViewModel reservation)
+        public async Task<IActionResult> Create( ReservationViewModel reservation)
         {
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirst("User_Id").Value;
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
-            //reservation.Resv_FechaEntrada = reservation.Resv_FechaEntradaUnformatted.ToString("yyyy-MM-dd");
-            //reservation.Resv_FechaSalida = reservation.Resv_FechaSalidaUnformatted.ToString("yyyy-MM-dd");
             var result = await _reservationService.ReservationCreate(reservation, token);
                 if (result.Success)
                 {
@@ -111,29 +109,42 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete( int id)
         {
+            
             try
             {
-                if (ModelState.IsValid)
-                {
-                    ServiceResult result = new ServiceResult();
-                    var idMod = HttpContext.User.FindFirst("User_Id").Value;
-                    
+                string idMod = HttpContext.User.FindFirst("User_Id").Value;
+                string token = HttpContext.User.FindFirst("Token").Value;
 
-                    string token = HttpContext.User.FindFirst("Token").Value;
-                    var list = (RequestStatus)(await _reservationService.ReservationDelete(int.Parse(idMod), id, token)).Data;
-
-                    return Ok(list.CodeStatus);
-                }
-                else
+                try
                 {
-                    return View();
+                    if (ModelState.IsValid)
+                    {
+                        ServiceResult result = new ServiceResult();
+
+                        var list = (RequestStatus)(await _reservationService.ReservationDelete(int.Parse(idMod), id, token)).Data;
+
+                        return Ok(list.CodeStatus);
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
+                catch (Exception)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+
+
             }
             catch (Exception)
             {
 
-                return RedirectToAction("Error", "Home");
+                RedirectToAction("Login", "Access");
             }
+
+
+            return View();
 
         }
 

@@ -111,6 +111,97 @@
 
     </div>
 </div>
+
+
+<div class="ui modal longer" id="modalCreate">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un Registro de pago
+    </div>
+    <form asp-action="Create" asp-controller="RegistrationPayments" method="post" id="createPaymentForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label># de reservación</label>
+                            <input name="Resv_ID" id="Resv_ID" class="form-control" readonly />
+
+                        </div>
+                        <div class="required field">
+                            <label>Forma de pago</label>
+                            <select class="ui search dropdown" id="TiPa_ID">
+                                <option value="">Selecciona paquete</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Monto</label> 
+                            <input type="number" min="1" name="RePa_Monto" id="RePa_Monto" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Fecha</label>
+                            <input type="text" name="RePa_Fecha" value="10/24/2000" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="btn btn-edit ui positive button" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+<div class="ui modal longer" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un Registro de pago
+    </div>
+    <form asp-action="Update" asp-controller="RegistrationPayments" id="updatePaymentsForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Reservación</label>
+                            <input name="resv_ID" id="resv_ID" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Forma de pago</label>
+                            <input name="tiPa_ID" id="tiPa_ID" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Cantidad</label>
+                            <input type="number" min="1" name="rePa_Monto" id="rePa_Monto" class="form-control" />
+
+                        </div>
+                        <div class="required field">
+                            <label>Fecha</label>
+                            <input type="text" name="RePa_Fecha" value="10/24/2000" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    <div class="actions">
+        <button class="btn btn-edit ui positive button" id="send" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
+
 @section Scripts{ 
 <script src="~/js/ReservationJs/Index.js"></script>
 }

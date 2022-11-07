@@ -13,7 +13,7 @@ var iframeData = {
 
 const filterSource = {
     "RestauranteReportPDF": [
-        { filter: "tipo_transporte", source: getRestaurante, text: "Tipo de transporte" },
+        { filter: "tipo_transporte", source: getRestaurante, text: "Restaurante" },
         { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
     ],
