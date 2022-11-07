@@ -39,6 +39,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> IndexHistory()
+        {
+            try
+            {
+                List<PaymentRecordListViewModel> payments = ((List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data);
+                return View(payments);
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
