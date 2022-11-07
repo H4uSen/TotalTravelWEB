@@ -291,6 +291,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "TipoPaquete":
                     data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
                     break;
+                case "TipoPago":
+                    data = data.Where(x => x.Id_TipoPago == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+
 
 
             }

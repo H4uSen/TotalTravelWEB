@@ -29,6 +29,7 @@ const filterSource = {
         { filter: "Id_cliente", source: getClient, text: "Cliente" },
         { filter: "fecha", source: getDate, text: "Fecha" },
         { filter: "TipoPaquete", source: getpaquete, text: "Paquetes " },
+        { filter: "TipoPago", source: getpago, text: "Tipo pago " },
  
     ],
   
@@ -513,6 +514,38 @@ function getpaquete() {
             placeholder: {
                 empty: "No se encontraron paquetes disponibles",
                 default: "Seleccione un paquete",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+function getpago() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
+    const response = ajaxRequest("https://totaltravel.somee.com/API/PaymentTypes/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "descripcion"
+            },
+            placeholder: {
+                empty: "No se encontraron tipo de pagos disponibles",
+                default: "Seleccione un tipo de pagos",
             },
             semantic: true
         }
