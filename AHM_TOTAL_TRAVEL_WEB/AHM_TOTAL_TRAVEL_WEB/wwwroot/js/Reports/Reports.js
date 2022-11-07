@@ -22,9 +22,19 @@ const filterSource = {
         { filter: "colonia", source: getColonias, text: "Colonia" },
         { filter: "partner", source: getPartners, text: "Socio" }
     ],
+    
+
+    "RecordPaymentReportPDF": [
+        { filter: "Id_cliente", source: getClient, text: "Cliente" },
+        { filter: "fecha", source: getDate, text: "Fecha" },
+
+
+    ],
+  
     "DefaultPackagesReportPDF": [
-        { filter: "id_hotel", source: gethotel, text: "Hotel" },
-        { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" }
+        { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" },
+        { filter: "id_hotel", source: getHotel, text: "Hotel" },
+        { filter: "nombre", source: getNombre, text: "Paquete" },
     ],
 };
 
@@ -33,6 +43,7 @@ $(".ui.dropdown").dropdown();
 iframeData.action = action;
 
 getFilter();
+$("#txtValor").parents(".field").hide();
 
 function getFilter() {
 
@@ -271,6 +282,8 @@ function getPartners() {
 }
 //rellena el segundo dronwdon funcion de registro de pagos 
 function getClient() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
     var response = ajaxRequest("https://totaltravel.somee.com/API/Users/List");
 
 
@@ -317,18 +330,16 @@ function getHotel() {
 
 
 
-    //if (response.code == 200) {
+    if (response.code == 200) {
 
-    //    response = jQuery.grep(response.data, function (item, i) {
-    //        return item.ID_Hotel == 2;
-
-    //    });
+   
+        
 
 
         const dropdownData = {
             dropdown: $("#cbbValor"),
             items: {
-                list: response,
+                list: response.data,
                 valueData: "id",
                 textData: "hotel"
             },
@@ -350,7 +361,7 @@ function getHotel() {
             $("#ifrReport").prop("src", url);
         });
     }
-/*}*/
+}
 
 //rellena el segundo dronwdon funcion de registro paquetes restaurante
 function getrestaurant() {
@@ -358,18 +369,14 @@ function getrestaurant() {
 
 
 
-    //if (response.code == 200) {
+    if (response.code == 200) {
 
-    //    response = jQuery.grep(response.data, function (item, i) {
-    //        return item.ID_restaurante == 2;
-
-    //    });
-
+ 
 
         const dropdownData = {
             dropdown: $("#cbbValor"),
             items: {
-                list: response,
+                list: response.data,
                 valueData: "id",
                 textData: "restaurante"
             },
@@ -391,7 +398,71 @@ function getrestaurant() {
             $("#ifrReport").prop("src", url);
         });
     }
-/*}*/
+}
+
+function getDate() {
+    $("txtValor").val("");
+    $("#cbbValor").parents(".field").hide();
+    $("#txtValor").parents(".field").show();
+    $('#standard_calendar').calendar({ type: 'date' });
+    $("#filtrar").click(function () {
+        iframeData.routeValue = getCalendarDate($("#txtValor").val());
+        const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+        $("#ifrReport").prop("src", url);
+    });
+}
+
+
+
+
+//rellena el segundo dronwdon funcion de registro paquetes nombre
+function getNombre() {
+    var response = ajaxRequest("https://totaltravel.somee.com/API/Restaurants/List");
+
+
+
+    if (response.code == 200) {
+
+
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "nombre"
+            },
+            placeholder: {
+                empty: "No se encontraron restaurantes disponibles",
+                default: "Seleccione un restaurante",
+            },
+            semantic: true
+        }
+        console.log("prueba")
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            //setea el valor de el parametro de filtro (ID)
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+function getDate() {
+    $("txtValor").val("");
+    $("#cbbValor").parents(".field").hide();
+    $("#txtValor").parents(".field").show();
+    $('#standard_calendar').calendar({ type: 'date' });
+    $("#filtrar").click(function () {
+        iframeData.routeValue = getCalendarDate($("#txtValor").val());
+        const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+        $("#ifrReport").prop("src", url);
+    });
+}
 
 
 
