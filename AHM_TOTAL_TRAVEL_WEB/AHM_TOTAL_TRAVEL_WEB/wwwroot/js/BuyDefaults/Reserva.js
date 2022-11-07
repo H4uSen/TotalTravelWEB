@@ -75,7 +75,7 @@ function createReservationBuy() {
         reservation.append("Resv_UsuarioCreacion", $("#frmCreateReservation #usuario").val());
         reservation.append("Resv_CantidadPagos", $("#frmCreateReservation #pagos").val());
         reservation.append("Resv_NumeroPersonas", $("#frmCreateReservation #personas").val());
-        reservation.append("Resv_Precio", $("#frmCreateReservation #precio").text());
+        reservation.append("Resv_Precio", $("#frmCreateReservation #lblDefaultPackagePrice").text());
         reservation.append("Usua_ID", $("#frmCreateReservation #usuario").val());
         reservation.append("ReHo_FechaEntrada", $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
         reservation.append("ReHo_FechaSalida", $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));

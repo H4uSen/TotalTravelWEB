@@ -457,7 +457,7 @@
                                 <p class="text-sm">Habitación Doble<br>16% IVA</p>
                             </div>
                             <div class="col-sm-5">
-                                <p class="text-sm" align="right" id="precio">@Html.DisplayFor(model => model.precio)</p>
+                                <p class="text-sm" align="right" >@Html.DisplayFor(model => model.precio)</p>
                             </div>
                             <div class="col-sm-7">
                                 <p class="text-md"><b>Subtotal:</b></p>
@@ -537,7 +537,8 @@
 
                             <input class="form-control" type="text" required value="@Html.DisplayFor(model => model.Duracion_Paquete)" id="duracion" style="display:none">
                             <input class="form-control" type="text" required value="@Html.DisplayFor(model => model.Id)" id="paquete" style="display:none">
-                            <input class="form-control" type="text" required value="@Html.DisplayFor(model => model.precio)" id="precio" style="display:none">
+                            <span id="lblDefaultPackagePrice" style="display:none">@Html.DisplayFor(model => model.precio)</span>
+                            @*<input class="form-control" type="text" required value="@Html.DisplayFor(model => model.precio)" id="precio" style="display:none">*@
                             <input class="form-control" type="text" required value="@ViewData["ID"]" id="usuario" style="display:none">
 
 
