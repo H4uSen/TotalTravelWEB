@@ -321,7 +321,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     case "id_restaurante":
                         data = data.Where(x => x.ID_Restaurante == Convert.ToInt32(filtervalue)).ToList();
                         break;
-                   
+                    case "TipoPaquete":
+                        data = data.Where(x => x.Id == Convert.ToInt32(filtervalue)).ToList();
+                        break;
+                        
+
+
 
                 }
                 //crea y asigna direccion url de ubicacion de archivo .rdlc

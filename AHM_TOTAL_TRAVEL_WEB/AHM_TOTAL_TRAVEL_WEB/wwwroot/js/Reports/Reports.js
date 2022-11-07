@@ -34,7 +34,9 @@ const filterSource = {
     "DefaultPackagesReportPDF": [
         { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" },
         { filter: "id_hotel", source: getHotel, text: "Hotel" },
-      
+        { filter: "TipoPaquete", source: getpaquetes, text: "Paquetes " },
+
+        
     ],
 };
 
@@ -460,4 +462,36 @@ function getDate() {
     });
 }
 
+
+function getpaquetes() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
+    const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "descripcion_Paquete"
+            },
+            placeholder: {
+                empty: "No se encontraron paquetes disponibles",
+                default: "Seleccione un paquete",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
 
