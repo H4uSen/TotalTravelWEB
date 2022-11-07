@@ -3,14 +3,21 @@
 @{
     ViewData["Title"] = "RecordPaymentReport";
 }
+@section CSS{
+    <style>
 
+        #a {
+            margin: -3.150em .0em !important;
+        }
+    </style>
+}
 <h1>RecordPaymentReport</h1>
 
 <div class="container-fluid">
     <div class="row">
 
         <!-- inicio columna contenedora -->
-        <div class="col-12">
+        <div class="col-10" style="margin: auto">
             <br>
 
             <div class="ui segment form">
@@ -39,10 +46,10 @@
             </div>
             <br><br>
 
-            <div class="card">
+            <div class="card" id="a">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("RecordPaymentReportPDF", "Report")" frameborder="0" height="500" id="ifrReport"></iframe>
+                    <iframe src="@Url.Action("RecordPaymentReportPDF", "Report")" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>
