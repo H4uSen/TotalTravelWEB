@@ -43,7 +43,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string UserID = HttpContext.User.FindFirst("User_Id").Value;
                 typeMenus.Time_UsuarioCreacion = Convert.ToInt32(UserID);
                 var list = await _restaurantServices.typeMenusCreate(typeMenus, token);
-                return RedirectToAction("Index");
+                var listData = await _restaurantServices.TypeMenusList();
+                return View("Index",listData.Data);
             }
             else
             {

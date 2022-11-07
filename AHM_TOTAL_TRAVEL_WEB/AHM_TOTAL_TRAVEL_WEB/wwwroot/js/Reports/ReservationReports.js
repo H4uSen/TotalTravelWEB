@@ -16,6 +16,7 @@ const filterSource = {
         { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Hotel", source: getHotels, text: "Hotel" },
         { filter: "Paquete", source: getpaquetes, text: "Paquete" },
+        { filter: "fecha", source: getDate, text: "Fecha" },
     ],
 };
 
@@ -24,6 +25,7 @@ $(".ui.dropdown").dropdown();
 iframeData.action = action;
 
 getFilter();
+$("#txtValor").parents(".field").hide();
 
 function getFilter() {
 
@@ -63,6 +65,8 @@ function getFilter() {
 
 //rellena el segundo dronwdon
 function getTipoParnet() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
     var response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
 
     //response = jQuery.grep(response.data, function (item, i) {
@@ -100,6 +104,8 @@ function getTipoParnet() {
 }
 
 function getHotels() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
     const response = ajaxRequest("https://totaltravel.somee.com/API/Pa/List");
 
     if (response.code == 200) {
@@ -129,11 +135,9 @@ function getHotels() {
     }
 }
 
-
-
-
-
 function getpaquetes() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
     const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
 
     if (response.code == 200) {
@@ -161,6 +165,18 @@ function getpaquetes() {
             $("#ifrReport").prop("src", url);
         });
     }
+}
+
+function getDate() {
+    $("txtValor").val("");
+    $("#cbbValor").parents(".field").hide();
+    $("#txtValor").parents(".field").show();
+    $('#standard_calendar').calendar({ type: 'date' });
+    $("#filtrar").click(function () {
+        iframeData.routeValue = getCalendarDate($("#txtValor").val());
+        const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+        $("#ifrReport").prop("src", url);
+    });
 }
 
 

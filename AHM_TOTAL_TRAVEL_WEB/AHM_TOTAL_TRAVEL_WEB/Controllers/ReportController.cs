@@ -198,6 +198,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var data = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+            //data = data.Where(x => x.Role_ID == 2);
             switch (filtertype)
             {
                 case "sexo":
@@ -209,6 +210,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "partner":
                     data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
                     break;
+                case "rol":
+                    data = data.Where(x => x.Role_ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\UsuariosReport.rdlc";
@@ -245,6 +250,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "Paquete":
                     data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
                     break;
+                case "fecha":
+                    DateTime fecha = DateTime.Parse(filtervalue);
+                    data = data.Where(x => x.Fecha_Entrada == fecha).ToList();
+                    break;
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Reservaciones.rdlc";
@@ -274,6 +283,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     data = data.Where(x => x.Id_Cliente == Convert.ToInt32(filtervalue)).ToList();
                     break;
 
+                case "fecha":
+                    DateTime fecha = DateTime.Parse(filtervalue);
+                    data = data.Where(x => x.fechaPago == fecha).ToList();
+                    break;
+
 
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
@@ -301,12 +315,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
                 switch (filtertype)
                 {
-                    case "ID_Hotel":
+                    case "id_hotel":
                         data = data.Where(x => x.ID_Hotel == Convert.ToInt32(filtervalue)).ToList();
                         break;
-                    case "Id_restaurante":
+                    case "id_restaurante":
                         data = data.Where(x => x.ID_Restaurante == Convert.ToInt32(filtervalue)).ToList();
                         break;
+                    case "nombre":
+                        data = data.Where(x => x.Nombre == filtervalue).ToList();
+                        break;
+
                 }
                 //crea y asigna direccion url de ubicacion de archivo .rdlc
                 var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Paquetespredeterminadosreporst.rdlc";

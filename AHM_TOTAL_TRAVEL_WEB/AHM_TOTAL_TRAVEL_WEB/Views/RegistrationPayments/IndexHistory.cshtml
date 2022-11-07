@@ -1,0 +1,113 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PaymentRecordListViewModel>
+
+@{
+    ViewData["Title"] = "IndexHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="figure icon"></i>
+            <div class="content">
+                <div class="header">
+                    Historial de transacciones
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid">
+            <div class="eight wide column">
+                </a>
+            </div>
+            <div class="eight wide column">
+                <div class="ui icon input" style="float:right;">
+                    <input type="text" placeholder="Buscar..." id="txtSearch">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <table class="ui compact selectable celled table" id="grdReservationActivitiesHotels">
+            <thead>
+                <tr>
+                    <th>
+                        Monto Pago
+                    </th>
+                    <th>
+                        Fecha Pago
+                    </th>
+                    <th>
+                        Tipo Pago
+                    </th>
+                    <th>
+                        Nombre Paquete
+                    </th>
+                    <th>
+                        Descripcion Paquete
+                    </th>
+                    <th>
+                        Precio Paquete
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        DNI
+                    </th>
+                    <th>
+                        Telefono 
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MontoPago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fechaPago)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPago)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre_paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcion_paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precio_paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre_Completo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DNI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+
+                        
+                    </tr>
+                }
+            </tbody>
+        </table><br>
+
+    </div>
+</div>
+<br>
+
