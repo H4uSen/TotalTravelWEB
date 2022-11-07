@@ -133,4 +133,14 @@
 <script src="~/assets/client/js/min/plugins-min.js"></script>
 <script src="~/assets/client/js/min/app-min.js"></script>
 <script src="~/js/BuyDefaults/Create.js"></script>
+<script>
 
+    const success = FindGetValue("success");
+
+    if (success) {
+        iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+    }
+
+    TableSearchInput($("#txtSearch"), $("#tabla"), 10);
+
+</script>

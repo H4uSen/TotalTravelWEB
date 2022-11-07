@@ -46,6 +46,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["DNI"] = cuenta.DNI;
             ViewData["FechaNaci"] = cuenta.Fecha_Nacimiento;
             ViewData["Correo"] = cuenta.Email;
+            ViewData["noches"] = int.Parse(paquete.Duracion_Paquete) - 1;
 
             return View(paquete);
         }
