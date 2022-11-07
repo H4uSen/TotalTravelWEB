@@ -245,6 +245,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "Paquete":
                     data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
                     break;
+                case "fecha":
+                    DateTime fecha = DateTime.Parse(filtervalue);
+                    data = data.Where(x => x.Fecha_Entrada == fecha).ToList();
+                    break;
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Reservaciones.rdlc";
