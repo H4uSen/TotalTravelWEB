@@ -20,15 +20,14 @@ const filterSource = {
     "ClientReportPDF": [
         { filter: "sexo", source: getSexo, text: "Sexo" },
         { filter: "colonia", source: getColonias, text: "Colonia" },
-        { filter: "partner", source: getPartners, text: "Socio" }
+        { filter: "partner", source: getPartners, text: "Socio" },
+        { filter: "rol", source: getRoles, text: "Rol" }
     ],
     
 
     "RecordPaymentReportPDF": [
         { filter: "Id_cliente", source: getClient, text: "Cliente" },
         { filter: "fecha", source: getDate, text: "Fecha" },
-
-
     ],
   
     "DefaultPackagesReportPDF": [
@@ -234,6 +233,37 @@ function getColonias() {
             placeholder: {
                 empty: "No se encontraron colonias disponibles",
                 default: "Seleccione una colonia",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            //setea el valor de el parametro de filtro (ID)
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+function getRoles() {
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Roles/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "descripcion"
+            },
+            placeholder: {
+                empty: "No se encontraron roles disponibles",
+                default: "Seleccione un rol",
             },
             semantic: true
         }

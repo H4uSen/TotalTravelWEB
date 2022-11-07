@@ -198,7 +198,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var data = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
-            data = data.Where(x => x.Role_ID == 2);
+            //data = data.Where(x => x.Role_ID == 2);
             switch (filtertype)
             {
                 case "sexo":
@@ -209,7 +209,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     break;
                 case "partner":
                     data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
-                    break; 
+                    break;
+                case "rol":
+                    data = data.Where(x => x.Role_ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
 
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc

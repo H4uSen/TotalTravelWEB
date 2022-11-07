@@ -3,16 +3,21 @@
     ViewData["Title"] = "ClientReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section CSS{
+    <style>
 
-<h1>Reporte Clientes</h1>
+        #a {
+            margin: -3.150em .0em !important;
+        }
+    </style>
+}
+<h1>Reporte Usuarios</h1>
 
 <div class="container-fluid">
     <div class="row">
 
         <!-- inicio columna contenedora -->
-        <div class="col-12">
-            <br>
-
+        <div class="col-10" style="margin: auto">
             <div class="ui segment form">
                 <div class="fields two">
                     <div class="field">
@@ -30,7 +35,7 @@
             </div>
             <br><br>
 
-            <div class="card">
+            <div class="card" id="a">
                 <div class="card card-body">
 
                     <iframe src="@Url.Action("ClientReportPDF", "Report")" frameborder="0" height="500" id="ifrReport"></iframe>
