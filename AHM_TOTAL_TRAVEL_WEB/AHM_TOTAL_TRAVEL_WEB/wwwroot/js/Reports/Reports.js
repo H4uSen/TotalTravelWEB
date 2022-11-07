@@ -24,11 +24,7 @@ const filterSource = {
     ],
     "DefaultPackagesReportPDF": [
         { filter: "id_hotel", source: gethotel, text: "Hotel" },
-
-    ],
-    "DefaultPackagesReportPDF": [
-        { filter: "id_restaurante", source: getrestaurant, text: "restaurante" },
-
+        { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" }
     ],
 };
 
@@ -337,7 +333,7 @@ function getHotel() {
                 textData: "hotel"
             },
             placeholder: {
-                empty: "No se encontraron hotelesdisponibles",
+                empty: "No se encontraron hoteles disponibles",
                 default: "Seleccione un hotel",
             },
             semantic: true
