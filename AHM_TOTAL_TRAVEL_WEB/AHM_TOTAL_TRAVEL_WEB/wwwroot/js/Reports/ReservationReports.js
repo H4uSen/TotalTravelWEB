@@ -106,7 +106,7 @@ function getTipoParnet() {
 function getHotels() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Pa/List");
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
 
     if (response.code == 200) {
 
