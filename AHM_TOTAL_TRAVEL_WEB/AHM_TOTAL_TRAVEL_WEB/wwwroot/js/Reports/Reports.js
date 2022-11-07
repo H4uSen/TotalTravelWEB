@@ -28,6 +28,7 @@ const filterSource = {
     "RecordPaymentReportPDF": [
         { filter: "Id_cliente", source: getClient, text: "Cliente" },
         { filter: "fecha", source: getDate, text: "Fecha" },
+        { filter: "TipoPaquete", source: getpaquete, text: "Paquetes " },
  
     ],
   
@@ -475,7 +476,39 @@ function getpaquetes() {
             items: {
                 list: response.data,
                 valueData: "id",
-                textData: "descripcion_Paquete"
+                textData: "nombre"
+            },
+            placeholder: {
+                empty: "No se encontraron paquetes disponibles",
+                default: "Seleccione un paquete",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+function getpaquete() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
+    const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "nombre"
             },
             placeholder: {
                 empty: "No se encontraron paquetes disponibles",
