@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    
+
 
 }
 
@@ -25,13 +25,13 @@
         color: #19bdce;
         text-decoration: none;
     }
+
     .in {
         font-weight: 300;
         font-size: 15px;
         line-height: 24px;
         color: #818c8d;
     }
-      
 </style>
 
 
@@ -49,11 +49,11 @@
                                 <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
                             </figure>
                             <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
- 
+
                             <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
                             <div class="price">
                                 <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
-                                <small>/<a class="bot"  href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
+                                <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
 
                             </div>
                         </article>
@@ -85,7 +85,7 @@
                 <div class="two fields">
                     <div class="field">
                         <h2 class="entry-title">Nombre</h2>
-                        <label class="in" id="Nombre" name="Nombre" placeholder="Nombre"  ></label>
+                        <label class="in" id="Nombre" name="Nombre" placeholder="Nombre"></label>
                     </div>
                     <div class="field">
                         <h2 class="entry-title">Descripcion</h2>
@@ -96,12 +96,12 @@
                     <div class="field">
                         <h2 class="entry-title">Duracion</h2>
                         <label class="in" id="Duracion" name="Duracion" placeholder="Duracion"></label>
-                        
+
                     </div>
                     <div class="field">
                         <h2 class="entry-title">Hotel</h2>
                         <label class="in" id="Hotel" name="Hotel" placeholder="Hotel"></label>
-                      
+
                     </div>
 
                 </div>
@@ -109,7 +109,7 @@
                     <div class="field">
                         <h2 class="entry-title">Restaurante</h2>
                         <label class="in" id="Restaurante" name="Restaurante" placeholder="Restaurante"></label>
-                    
+
                     </div>
                     <div class="field">
                         <h2 class="entry-title">Precio</h2>
@@ -129,8 +129,18 @@
     </div>
 </div>
 
-<script src="~/assets/client/js/jquery-1.11.1.min.js"></script>
-<script src="~/assets/client/js/min/plugins-min.js"></script>
-<script src="~/assets/client/js/min/app-min.js"></script>
-<script src="~/js/BuyDefaults/Create.js"></script>
+@section Scripts{
+    @*<script src="~/assets/client/js/jquery-1.11.1.min.js"></script>*@
+    <script src="~/assets/client/js/min/plugins-min.js"></script>
+    <script src="~/assets/client/js/min/app-min.js"></script>
+    <script src="~/js/BuyDefaults/Create.js"></script>
+    <script>
 
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
+    </script>
+}

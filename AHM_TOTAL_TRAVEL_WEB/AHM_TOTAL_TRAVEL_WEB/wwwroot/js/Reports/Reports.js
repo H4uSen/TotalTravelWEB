@@ -20,15 +20,25 @@ const filterSource = {
     "ClientReportPDF": [
         { filter: "sexo", source: getSexo, text: "Sexo" },
         { filter: "colonia", source: getColonias, text: "Colonia" },
-        { filter: "partner", source: getPartners, text: "Socio" }
+        { filter: "partner", source: getPartners, text: "Socio" },
+        { filter: "rol", source: getRoles, text: "Rol" }
     ],
-    "DefaultPackagesReportPDF": [
-        { filter: "id_hotel", source: gethotel, text: "Hotel" },
+    
 
+    "RecordPaymentReportPDF": [
+        { filter: "Id_cliente", source: getClient, text: "Cliente" },
+        { filter: "fecha", source: getDate, text: "Fecha" },
+        { filter: "TipoPaquete", source: getpaquete, text: "Paquetes " },
+        { filter: "TipoPago", source: getpago, text: "Tipo pago " },
+ 
     ],
+  
     "DefaultPackagesReportPDF": [
-        { filter: "id_restaurante", source: getrestaurant, text: "restaurante" },
+        { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" },
+        { filter: "id_hotel", source: getHotel, text: "Hotel" },
+        { filter: "TipoPaquete", source: getpaquetes, text: "Paquetes " },
 
+        
     ],
 };
 
@@ -37,6 +47,7 @@ $(".ui.dropdown").dropdown();
 iframeData.action = action;
 
 getFilter();
+$("#txtValor").parents(".field").hide();
 
 function getFilter() {
 
@@ -98,7 +109,6 @@ function getTipoParnet() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -243,6 +253,37 @@ function getColonias() {
     }
 }
 
+function getRoles() {
+    const response = ajaxRequest("https://totaltravel.somee.com/API/Roles/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "descripcion"
+            },
+            placeholder: {
+                empty: "No se encontraron roles disponibles",
+                default: "Seleccione un rol",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            //setea el valor de el parametro de filtro (ID)
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
 function getPartners() {
     const response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
 
@@ -275,6 +316,8 @@ function getPartners() {
 }
 //rellena el segundo dronwdon funcion de registro de pagos 
 function getClient() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
     var response = ajaxRequest("https://totaltravel.somee.com/API/Users/List");
 
 
@@ -300,7 +343,6 @@ function getClient() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -323,26 +365,23 @@ function getHotel() {
 
     if (response.code == 200) {
 
-        response = jQuery.grep(response.data, function (item, i) {
-            return item.ID_Hotel == 2;
-
-        });
+   
+        
 
 
         const dropdownData = {
             dropdown: $("#cbbValor"),
             items: {
-                list: response,
+                list: response.data,
                 valueData: "id",
                 textData: "hotel"
             },
             placeholder: {
-                empty: "No se encontraron hotelesdisponibles",
+                empty: "No se encontraron hoteles disponibles",
                 default: "Seleccione un hotel",
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -364,16 +403,12 @@ function getrestaurant() {
 
     if (response.code == 200) {
 
-        response = jQuery.grep(response.data, function (item, i) {
-            return item.ID_restaurante == 2;
-
-        });
-
+ 
 
         const dropdownData = {
             dropdown: $("#cbbValor"),
             items: {
-                list: response,
+                list: response.data,
                 valueData: "id",
                 textData: "restaurante"
             },
@@ -383,7 +418,6 @@ function getrestaurant() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -397,5 +431,129 @@ function getrestaurant() {
     }
 }
 
+function getDate() {
+    $("txtValor").val("");
+    $("#cbbValor").parents(".field").hide();
+    $("#txtValor").parents(".field").show();
+    $('#standard_calendar').calendar({ type: 'date' });
+    $("#filtrar").click(function () {
+        iframeData.routeValue = getCalendarDate($("#txtValor").val());
+        const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+        $("#ifrReport").prop("src", url);
+    });
+}
 
+
+
+
+
+
+function getDate() {
+    $("txtValor").val("");
+    $("#cbbValor").parents(".field").hide();
+    $("#txtValor").parents(".field").show();
+    $('#standard_calendar').calendar({ type: 'date' });
+    $("#filtrar").click(function () {
+        iframeData.routeValue = getCalendarDate($("#txtValor").val());
+        const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+        $("#ifrReport").prop("src", url);
+    });
+}
+
+
+function getpaquetes() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
+    const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "nombre"
+            },
+            placeholder: {
+                empty: "No se encontraron paquetes disponibles",
+                default: "Seleccione un paquete",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+function getpaquete() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
+    const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "nombre"
+            },
+            placeholder: {
+                empty: "No se encontraron paquetes disponibles",
+                default: "Seleccione un paquete",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
+
+function getpago() {
+    $("#cbbValor").parents(".field").show();
+    $("#txtValor").parents(".field").hide();
+    const response = ajaxRequest("https://totaltravel.somee.com/API/PaymentTypes/List");
+
+    if (response.code == 200) {
+
+        const dropdownData = {
+            dropdown: $("#cbbValor"),
+            items: {
+                list: response.data,
+                valueData: "id",
+                textData: "descripcion"
+            },
+            placeholder: {
+                empty: "No se encontraron tipo de pagos disponibles",
+                default: "Seleccione un tipo de pagos",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#cbbValor").dropdown();
+
+        $("#cbbValor").change(function () {
+            iframeData.routeValue = $("#cbbValor").val();
+            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+            $("#ifrReport").prop("src", url);
+        });
+    }
+}
 

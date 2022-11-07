@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -22,18 +23,49 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var type = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
-            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+            try
+            {
 
-            var ac = await _activitiesServices.ActivityList();
-            IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
-            ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 
-            var model = new List<HotelsActivitiesListViewModel>();
-            var list = await _hotelService.HotelsActivitiesList(token);
-            return View(list.Data);
+                var id = HttpContext.Session.GetString("PartnerID");
+                var rol = HttpContext.Session.GetString("Role");
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var type = await _hotelService.HotelsList(token);
+                IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
+                ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+
+                var ac = await _activitiesServices.ActivityList();
+                IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
+                ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
+
+                var model = new List<HotelsActivitiesListViewModel>();
+                var list = await _hotelService.HotelsActivitiesList(token);
+                IEnumerable<HotelsActivitiesListViewModel> lista = (IEnumerable<HotelsActivitiesListViewModel>)list.Data;
+                var element = lista.ToList()[0];
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        var list2 = lista.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                        return View(list2);
+                    }
+
+                }
+            }
+            catch
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
         }
 
         [HttpGet]

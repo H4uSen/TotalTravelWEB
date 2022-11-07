@@ -86,7 +86,6 @@ function getClient() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();

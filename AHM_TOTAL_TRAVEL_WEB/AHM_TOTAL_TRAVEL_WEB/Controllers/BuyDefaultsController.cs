@@ -14,12 +14,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         SaleServices _saleServices;
         AccessService _accessService;
         TransportService _transportService;
+        private readonly ReservationService _reservationService;
 
-        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService)
+        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService, ReservationService reservationService)
         {
             _saleServices = saleServices;
             _accessService = accessService;
             _transportService = transportService;
+            _reservationService = reservationService;
         }
 
         [HttpGet]
@@ -38,12 +40,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var paquete = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
             var iduser = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(iduser, token)).Data;
-
+            ViewData["ID"] = cuenta.ID;
             ViewData["Nombre"] = cuenta.Nombre;
             ViewData["Apellido"] = cuenta.Apellido;
             ViewData["DNI"] = cuenta.DNI;
             ViewData["FechaNaci"] = cuenta.Fecha_Nacimiento;
             ViewData["Correo"] = cuenta.Email;
+            ViewData["noches"] = int.Parse(paquete.Duracion_Paquete) - 1;
 
             return View(paquete);
         }
@@ -65,6 +68,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //string token = HttpContext.User.FindFirst("Token").Value;
             var list = await _transportService.TransportList();
             return View(list.Data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<int> Create(ReservationViewModel reservation)
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            string UserID = HttpContext.User.FindFirst("User_Id").Value;
+            reservation.Resv_UsuarioCreacion = int.Parse(UserID);
+            var result = (RequestStatus)(await _reservationService.ReservationCreate(reservation, token)).Data;
+
+            return result.CodeStatus;
         }
     }
 }

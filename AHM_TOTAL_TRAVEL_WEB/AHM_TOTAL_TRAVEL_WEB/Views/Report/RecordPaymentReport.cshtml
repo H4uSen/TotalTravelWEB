@@ -3,14 +3,21 @@
 @{
     ViewData["Title"] = "RecordPaymentReport";
 }
+@section CSS{
+    <style>
 
-<h1>RecordPaymentReport</h1>
+        #a {
+            margin: -3.150em .0em !important;
+        }
+    </style>
+}
+<h1>Reporte Registros Pagos</h1>
 
 <div class="container-fluid">
     <div class="row">
 
         <!-- inicio columna contenedora -->
-        <div class="col-12">
+        <div class="col-10" style="margin: auto">
             <br>
 
             <div class="ui segment form">
@@ -21,19 +28,28 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label>Seleccione una opcion</label>
+                        <label>Seleccione una opción</label>
                         <select class="ui dropdown search" id="cbbValor">
-                            <option value="">Seleccione un filtro</option>
+                            <option value="">Seleccione una opción</option>
                         </select>
+                    </div>
+                    <div class="field">
+                        <label>Seleccione una opción</label>
+                        <div class="ui calendar" id="standard_calendar">
+                            <div class="ui input action">
+                                <input id="txtValor" type="text" placeholder="Fecha">
+                                <button class="ui button" id="filtrar">Filtrar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <br><br>
 
-            <div class="card">
+            <div class="card" id="a">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("RecordPaymentReportPDF", "Report")" frameborder="0" height="500" id="ifrReport"></iframe>
+                    <iframe src="@Url.Action("RecordPaymentReportPDF", "Report")" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>

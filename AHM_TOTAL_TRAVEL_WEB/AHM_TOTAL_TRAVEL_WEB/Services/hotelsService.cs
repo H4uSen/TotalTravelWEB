@@ -474,7 +474,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Hoteles Menu
 
-        public async Task<ServiceResult> HotelsMenuList(IEnumerable<HotelsMenuListViewModel> model)
+        public async Task<ServiceResult> HotelsMenuList(string token)
         {
             var result = new ServiceResult();
             try
@@ -482,7 +482,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<HotelsMenuListViewModel>, IEnumerable<HotelsMenuListViewModel>>(req => {
                     req.Path = $"/API/HotelsMenu/List";
                     req.Content = null;
-                }
+                },
+                token
                 );
                 if (!response.Success)
                 {

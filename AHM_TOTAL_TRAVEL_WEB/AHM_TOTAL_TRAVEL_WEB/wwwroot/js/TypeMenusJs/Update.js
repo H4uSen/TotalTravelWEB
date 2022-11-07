@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     $("#Time_ID").hide();
-
 });
 
 function GetTypeMenus(id) {
@@ -19,14 +18,13 @@ function GetTypeMenus(id) {
     }
 }
 
+
 $("#closeEditTypeMenus").click(() => {
     $("#modalUpdate").modal('hide');
 });
 
 
 $("#sendEditTypeMenus").click(() => {
-
-
 
     validateArrayForm = [
         { validateMessage: "Ingrese un tipo menú.", Jqueryinput: $("#Time_DescripcionUpdate") },

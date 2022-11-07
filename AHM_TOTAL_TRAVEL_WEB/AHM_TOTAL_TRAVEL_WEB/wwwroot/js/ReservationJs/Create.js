@@ -21,6 +21,10 @@ $('.ui.dropdown').dropdown();
 
 $("#frmDefaultPackages").hide();
 
+function goBack() {
+    window.location.href = "/Reservation/Index";
+}
+
 
 // ----------------------------------- EVENTS ------------------------------------
 $(document).ready(function () {
@@ -335,7 +339,6 @@ function createReservation() {
         }
         else if ($("#ddlTipoPaquete").val() == 1) {
             reservation.append("Resv_esPersonalizado", true);
-
         }
 
 
@@ -378,7 +381,7 @@ function createReservation() {
                 $.ajax({
                     url: url,
                     data: data,
-                    mimeType: "multipart/form-data",
+                    mimeType: "application/json",
                     async: false,
                     processData: false,
                     contentType: false,
@@ -390,6 +393,8 @@ function createReservation() {
                         $("#loaderAnimation").hide();
                     },
                     success: function (httpResponse) {
+
+                        console.log(httpResponse);
                         window.location.href = "/Reservation/Index";
                     }
                     

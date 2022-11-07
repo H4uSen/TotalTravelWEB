@@ -50,7 +50,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(option => {
                 option.LoginPath = "/Access/LandingPage";
-                option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                option.ExpireTimeSpan = TimeSpan.FromDays(30);
                 option.AccessDeniedPath = "/Home/Error401";
             });
             services.AddAuthorization(options => {
@@ -100,9 +100,9 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 switch (context.Response.StatusCode)
                 {
                     case 200:
+                    case 302:
                         break;
                     case 404:
-
                         break;
                     case 401:
                     case 405:

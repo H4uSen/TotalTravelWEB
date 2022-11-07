@@ -338,6 +338,65 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
         }
 
+        public async Task<ServiceResult> RolesCreate(RolViewModel Roles, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Post<RolViewModel, RequestStatus>(req => {
+                    req.Path = $"/API/Roles/Insert";
+                    req.Content = Roles;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
+        public async Task<ServiceResult> RolesUpdate(RolViewModel roles, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Put<RolViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Roles/Update?id=" + roles.Role_ID;
+                    req.Content = roles;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
         #endregion
 
         #region Permisos

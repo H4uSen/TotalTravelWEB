@@ -33,6 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _restaurantService = restaurantService;
             _hotelsService = hotelsService;
             _reservationService = reservationService;
+            _saleService = saleServices;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
     public IActionResult Index()
@@ -197,6 +198,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var data = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+            //data = data.Where(x => x.Role_ID == 2);
             switch (filtertype)
             {
                 case "sexo":
@@ -208,6 +210,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 case "partner":
                     data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
                     break;
+                case "rol":
+                    data = data.Where(x => x.Role_ID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\UsuariosReport.rdlc";
@@ -235,14 +241,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             switch (filtertype)
             {
                
-                case "tipo_Parnert":
-                    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
-                    break;
+                //case "tipo_Parnert":
+                //    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
+                //    break;
                 case "Hotel":
                     data = data.Where(x => x.Hotel_ID == Convert.ToInt32(filtervalue)).ToList();
                     break;
                 case "Paquete":
                     data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "fecha":
+                    DateTime fecha = DateTime.Parse(filtervalue);
+                    data = data.Where(x => x.Fecha_Entrada == fecha).ToList();
                     break;
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
@@ -265,12 +275,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> RecordPaymentReportPDF(string filtertype, string filtervalue)
         {
+
             var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
             switch (filtertype)
             {
                 case "Id_cliente":
                     data = data.Where(x => x.Id_Cliente == Convert.ToInt32(filtervalue)).ToList();
                     break;
+
+                case "fecha":
+                    DateTime fecha = DateTime.Parse(filtervalue);
+                    data = data.Where(x => x.fechaPago == fecha).ToList();
+                    break;
+
+                case "TipoPaquete":
+                    data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+                case "TipoPago":
+                    data = data.Where(x => x.Id_TipoPago == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+
 
 
             }
@@ -295,15 +319,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
+
                 var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
                 switch (filtertype)
                 {
-                    case "ID_Hotel":
+                    case "id_hotel":
                         data = data.Where(x => x.ID_Hotel == Convert.ToInt32(filtervalue)).ToList();
                         break;
-                    case "Id_restaurante":
+                    case "id_restaurante":
                         data = data.Where(x => x.ID_Restaurante == Convert.ToInt32(filtervalue)).ToList();
                         break;
+                    case "TipoPaquete":
+                        data = data.Where(x => x.Id == Convert.ToInt32(filtervalue)).ToList();
+                        break;
+                        
+
+
+
                 }
                 //crea y asigna direccion url de ubicacion de archivo .rdlc
                 var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Paquetespredeterminadosreporst.rdlc";

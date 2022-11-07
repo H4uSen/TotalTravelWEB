@@ -24,26 +24,6 @@ function editar(id) {
     }
 }
 
-//actividades();
-
-//function actividades(id) {
-//    const request = ajaxRequest(
-//        "https://totaltravel.somee.com/API/DefaultPackagesDetails/Find?id=" + id);
-//    $("#actividades").empty();
-//    for (var i = 0; i < request.data.length; i++) {
-//        const package = request.data[i];
-//        const card =
-//            `
-//               <li>${package.descripcionActividad}</li>
-//            `;
-
-//        $("#actividades").append(card);
-
-//    }
-//    console.log(request);
-//}
-
-
 
 function getActivities(id) {
     var actividades = jQuery.grep(detallesList.data, function (detalle, i) {
@@ -56,5 +36,87 @@ function getActivities(id) {
         const item = actividades[i];
         var card = `<li>${item.descripcionActividad}</li>`;
         $("#actividades").append(card);
+    }
+}
+
+
+// create reservation 
+function createReservation() {
+    var reservation = new FormData();
+
+    const reservationValidateArray = [
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #ddlDNI") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #Resv_NumeroPersonas") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #Resv_CantidadPagos") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #ddlTipoPaquete") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #ddlPaises") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #ddlCiudades") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #Paqu_ID") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #dateRangePicker") },
+
+    ];
+
+    const reservationValidate = ValidateForm(reservationValidateArray);
+
+
+    // create reservation model
+    if (reservationValidate) {
+
+        reservation.append("Paqu_ID", $("#frmCreateReservation #Paqu_ID").val());
+        if ($("#ddlTipoPaquete").val() == 2) {
+            reservation.append("Resv_esPersonalizado", false);
+        }
+        else if ($("#ddlTipoPaquete").val() == 1) {
+            reservation.append("Resv_esPersonalizado", true);
+
+        }
+
+        reservation.append("Resv_CantidadPagos", $("#frmCreateReservation #Resv_CantidadPagos").val());
+        reservation.append("Resv_NumeroPersonas", $("#frmCreateReservation #Resv_NumeroPersonas").val());
+        reservation.append("Resv_Precio", $("#frmCreateReservation #lblDefaultPackagePrice").text());
+        reservation.append("Usua_ID", $("#frmCreateReservation #ddlDNI").val());
+        reservation.append("ReHo_FechaEntrada", $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+        reservation.append("ReHo_FechaSalida", $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+
+        ReservationInsert();
+
+        function ReservationInsert() {
+            const SendToken = true;
+            const method = "POST";
+            const data = reservation;
+            const url = "/Reservation/Create"
+
+            var dataResponse = null;
+            var Token = null;
+            var HTTPError = {
+                message: "",
+                code: 0,
+                success: false,
+                data: null
+            }
+
+            if (SendToken == true) {
+                Token = GetCookie("Token");
+            }
+
+            $.ajax({
+                url: url,
+                data: data,
+                mimeType: "multipart/form-data",
+                async: false,
+                processData: false,
+                contentType: false,
+                type: method,
+                beforeSend: function () {
+                    $("#loaderAnimation").show();
+                },
+                complete: function () {
+                    $("#loaderAnimation").hide();
+                },
+                success: function (httpResponse) {
+                    window.location.href = "/Reservation/Index";
+                }
+            });
+        }
     }
 }

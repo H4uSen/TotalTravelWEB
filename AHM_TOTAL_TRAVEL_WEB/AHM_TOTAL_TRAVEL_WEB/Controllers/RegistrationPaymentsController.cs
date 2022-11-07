@@ -39,6 +39,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> IndexHistory()
+        {
+            try
+            {
+                List<PaymentRecordListViewModel> payments = ((List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data);
+                return View(payments);
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -133,16 +149,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
-        public async Task<IActionResult> Delete(PaymentRecordViewModel RePa, int id)
+        public async Task<IActionResult> Delete( int id)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    RePa.RePa_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+                    int UserMod = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
 
                     string token = HttpContext.User.FindFirst("Token").Value;
-                    var list = await _saleServices.PaymentRecordDelete(RePa, id, token);
+                    var list = await _saleServices.PaymentRecordDelete(UserMod, id, token);
 
                     return RedirectToAction("Index");
                 }
