@@ -54,7 +54,7 @@ $('#dateRangePicker').daterangepicker({
 });
 
 // create reservation 
-function createReservation() {
+function createReservationBuy() {
     var reservation = new FormData();
 
     const reservationValidateArray = [

@@ -482,41 +482,55 @@
                     <div class="card-header">
                         <h3 class="h4 mb-0">Ingresa los siguientes datos</h3>
                     </div>
-                    <div class="card-body ca">
-                        <div id="frmCreateReservation">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label">Fecha Entrada - Salida</label>
-                                    <input type="text" name="daterange" id="dateRangePicker" class="form-control" >
-                                    <div class="ui right corner label">
-                                        <i class="asterisk icon"></i>
+                    <div class="card-body ">
+                        <div id="frmCreateReservation" class="ui form attached fluid segment">
+                                <div class="content">
+                                <div class="row">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Fecha Entrada - Salida</label>
+                                                <input type="text" name="daterange" id="dateRangePicker" class="form-control">
+                                                <div class="ui right corner label">
+                                                    <i class="asterisk icon"></i>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Numero de Personas</label>
+                                                <input class="form-control" type="text" id="personas">
+                                                <br>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <br>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Numero de Personas</label>
-                                    <input class="form-control" type="number" min="1" max="12" id="personas">
-                                    <br>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Cantidade de pagos</label>
-                                    <input class="form-control" type="number"  min="1" max="6" id="pagos">
-                                    <br>
-                                </div>
-
-                                <hr />
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Nombre</label><label class="text-danger">*</label>
-                                    <input class="form-control" type="text" required value="@ViewData["Nombre"]">
-                                    <br>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Apellido</label><label class="text-danger">*</label>
-                                    <input class="form-control" type="text" required value="@ViewData["Apellido"]">
-                                    <br>
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Cantidade de pagos</label>
+                                                <input class="form-control" type="text" id="pagos">
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Nombre</label><label class="text-danger">*</label>
+                                                <input class="form-control" type="text" required value="@ViewData["Nombre"]">
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Apellido</label><label class="text-danger">*</label>
+                                                <input class="form-control" type="text" required value="@ViewData["Apellido"]">
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -532,7 +546,7 @@
 
                                 <div align="center" class="d-grid gap-2 col-4 mx-auto">
 
-                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear una reservación</div>
+                                    <input type="button" class="ui btn-edit text-white button" onclick="createReservationBuy()" id="btnCreateReservation" value="Enviar">
                                 </div>
                         </div>
                     </div>
