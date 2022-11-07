@@ -340,5 +340,32 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region Permisos
+        public async Task<ServiceResult> PermissionsList(string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<PermissionsViewModel>, IEnumerable<PermissionsViewModel>>(req => {
+                    req.Path = $"/API/Permissions/List";
+                    req.Content = null;
+                },
+                token
+                );
+
+                if (!response.Success)
+                    return Result.FromApi(response);
+                else
+                    return Result.Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+            }
+
+        }
+        #endregion
+
     }
 }

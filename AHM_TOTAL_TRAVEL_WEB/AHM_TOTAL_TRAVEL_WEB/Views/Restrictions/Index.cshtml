@@ -1,0 +1,88 @@
+﻿@model IEnumerable<PermissionsViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <br />
+    <div class="ui grid two column">
+        <div class="column">
+            <div class="ui segment">
+
+                <div class="ui styled accordion" id="treeViewContainer">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        ROL #1
+                    </div>
+                    <div class="content">
+
+                        <div class="ui celled list">
+                            <div class="item">
+                                <br />
+                                <div class="ui master checkbox">
+                                    <input type="checkbox" name="fruits">
+                                    <label>MODULO #1</label>
+                                </div>
+                                <div class="list">
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="apple">
+                                            <label>PANTALLA #1</label>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="orange">
+                                            <label>PANTALLA #2</label>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="pear">
+                                            <label>PANTALLA #3</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <br />
+                                <div class="ui master checkbox">
+                                    <input type="checkbox" name="vegetables">
+                                    <label>MODULO #2</label>
+                                </div>
+                                <div class="list">
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="apple">
+                                            <label>PANTALLA #1</label>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="orange">
+                                            <label>PANTALLA #2</label>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui child checkbox">
+                                            <input type="checkbox" name="pear">
+                                            <label>PANTALLA #3</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/Permissions/index.js"></script>
+}
