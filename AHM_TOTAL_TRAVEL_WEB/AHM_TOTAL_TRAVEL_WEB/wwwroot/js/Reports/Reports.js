@@ -13,11 +13,13 @@ var iframeData = {
 
 const filterSource = {
     "TransportReportPDF": [
+        { filter: "todos", source: getAll, text: "Todos" },
         { filter: "tipo_transporte", source: getTipoTransporte, text: "Tipo de transporte" },
         { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
     ],
     "ClientReportPDF": [
+        { filter: "todos", source: getAll, text: "Todos" },
         { filter: "sexo", source: getSexo, text: "Sexo" },
         { filter: "colonia", source: getColonias, text: "Colonia" },
         { filter: "partner", source: getPartners, text: "Socio" },
@@ -26,6 +28,7 @@ const filterSource = {
     
 
     "RecordPaymentReportPDF": [
+        { filter: "todos", source: getAll, text: "Todos" },
         { filter: "Id_cliente", source: getClient, text: "Cliente" },
         { filter: "fecha", source: getDate, text: "Fecha" },
         { filter: "TipoPaquete", source: getpaquete, text: "Paquetes " },
@@ -34,6 +37,7 @@ const filterSource = {
     ],
   
     "DefaultPackagesReportPDF": [
+        { filter: "todos", source: getAll, text: "Todos" },
         { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" },
         { filter: "id_hotel", source: getHotel, text: "Hotel" },
         { filter: "TipoPaquete", source: getpaquetes, text: "Paquetes " },
@@ -51,7 +55,6 @@ $("#txtValor").parents(".field").hide();
 
 function getFilter() {
 
-    console.log()
     const dropdownData = {
         dropdown: $("#cbbFiltro"),
         items: {
@@ -69,6 +72,23 @@ function getFilter() {
     FillDropDown(dropdownData);
     $("#cbbFiltro").dropdown();
 
+    const dropdownData1 = {
+        dropdown: $("#cbbValor"),
+        items: {
+            list: [],
+            valueData: "",
+            textData: ""
+        },
+        placeholder: {
+            empty: "Seleccione un filtro",
+            default: "Seleccione un filtro",
+        },
+        semantic: true
+    }
+
+    FillDropDown(dropdownData1);
+    $("#cbbValor").dropdown();
+
     $("#cbbFiltro").change(() => {
 
         var filtertype = $("#cbbFiltro").val();
@@ -83,6 +103,12 @@ function getFilter() {
 
     });
 
+}
+
+function getAll() {
+    getFilter();
+    const url = `/Report/${iframeData.action}`;
+    $("#ifrReport").prop("src", url);
 }
 
 //rellena el segundo dronwdon

@@ -13,6 +13,7 @@ var iframeData = {
 
 const filterSource = {
     "HotelesReportPDF": [
+        { filter: "todos", source: getAll, text: "Todos" },
         { filter: "hotel", source: getHotels, text: "Hotel" },
         { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Ciudad", source: getCiudad, text: "Ciudad" },
@@ -28,7 +29,6 @@ getFilter();
 
 function getFilter() {
 
-    console.log()
     const dropdownData = {
         dropdown: $("#cbbFiltro"),
         items: {
@@ -46,6 +46,23 @@ function getFilter() {
     FillDropDown(dropdownData);
     $("#cbbFiltro").dropdown();
 
+    const dropdownData1 = {
+        dropdown: $("#cbbValor"),
+        items: {
+            list: [],
+            valueData: "",
+            textData: ""
+        },
+        placeholder: {
+            empty: "Seleccione un filtro",
+            default: "Seleccione un filtro",
+        },
+        semantic: true
+    }
+
+    FillDropDown(dropdownData1);
+    $("#cbbValor").dropdown();
+
     $("#cbbFiltro").change(() => {
 
         var filtertype = $("#cbbFiltro").val();
@@ -60,6 +77,12 @@ function getFilter() {
 
     });
 
+}
+
+function getAll() {
+    getFilter();
+    const url = `/Report/${iframeData.action}`;
+    $("#ifrReport").prop("src", url);
 }
 
 //rellena el segundo dronwdon
