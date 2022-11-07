@@ -185,7 +185,7 @@
                                                     <div class="header">Descripción:</div>
                                                     <div class="description">
                                                             <p id="txtDefaultPackageDesc"></p>
-                                                            Duración: <p id="txtDefaultPackageDuracion"></p> días
+                                                            Duración: <span id="txtDefaultPackageDuracion"></span> días
                                                     </div>
                                                   </div>
                                                 </div>
@@ -228,7 +228,7 @@
                     </div>
 
                     <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear una reservación</div>
-                    <div class="ui button" tabindex="0">Cancel</div>
+                    <div class="ui button" onclick="goBack()" tabindex="0">Cancel</div>
                 </div>
             </div>
             <div class="ui negative attached message" id="msgErrorForm">

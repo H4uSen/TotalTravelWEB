@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using AHM_TOTAL_TRAVEL_WEB.Controllers;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,36 +13,45 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
 
         [DisplayName("ID")]
-        public int Resv_ID { get; set; }
+        public int Resv_ID { get; set; }= 0;
         [DisplayName("Cliente")]
         public int? Usua_ID { get; set; }
         [DisplayName("Paquete")]
-        public int? Paqu_ID { get; set; }
+        public int? Paqu_ID { get; set; } = 0;
         [DisplayName("Paquete personalizado")]
         public bool? Resv_esPersonalizado { get; set; }
         [DisplayName("Cantidad de pagos")]
         public int? Resv_CantidadPagos { get; set; }
         [Required(ErrorMessage = "Ingrese una cantidad de personas")]
-        public int? Resv_NumeroPersonas { get; set; }
+        public int? Resv_NumeroPersonas { get; set; } 
         [DefaultValue (false)]
-        public bool? Resv_ConfirmacionPago { get; set; }
+        public bool? Resv_ConfirmacionPago { get; set; } = false;
         [DefaultValue(false)]
-        public bool? Resv_ConfirmacionHotel { get; set; }
+        public bool? Resv_ConfirmacionHotel { get; set; } = false;
         [DefaultValue(false)]
-        public bool? Resv_ConfirmacionRestaurante { get; set; }
+        public bool? Resv_ConfirmacionRestaurante { get; set; } = false;
         [DefaultValue(false)]
-        public bool? Resv_ConfirmacionTrans { get; set; }
+        public bool? Resv_ConfirmacionTrans { get; set; } = false;
         public decimal? Resv_Precio { get; set; }
-        public int? Resv_UsuarioCreacion { get; set; }
-
+        public int? Resv_UsuarioCreacion { get; set; } = 0;
+        public int? Resv_UsuarioModifica { get; set; } = 0;
         public DateTime? ReHo_FechaEntrada { get; set; }
         public DateTime? ReHo_FechaSalida { get; set; }
-        public string Resv_FechaEntradaUnformatted { get; set; }
-        public string Resv_FechaSalidaUnformatted { get; set; }
-        public string Usua_DNI { get; set; }
-        
+        //public string Resv_FechaEntradaUnformatted { get; set; }
+        //public string Resv_FechaSalidaUnformatted { get; set; }
+        //public string Usua_DNI { get; set; }
 
+        //Need this in order to make a reservation of a custom package
+        public int? Hote_ID { get; set; }
+        public List<ReservationExtraActivitiesViewModel> ActividadesExtras { get; set; } = null;
+        public List<ReservationRestaurantsViewModel> Restaurantes { get; set; } = null;
+        public List<ReservationActivitiesHotelsViewModel> ActividadesHoteles { get; set; } = null;
+        public int? TipoPago { get; set; }
+        public int? Habi_ID { get; set; }
+        public int? Habi_Cantidad { get; set; }
 
+        //Need this to make the reservation of a transport
+        public List<ReservationTransportationViewModel> reservacionTransportes { get; set; }
 
     }
     public class ReservationListViewModel

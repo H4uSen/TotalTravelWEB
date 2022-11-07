@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Services
 {
@@ -48,7 +50,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public async Task<ServiceResult> ReservationCreate(ReservationViewModel reservationViewModel, string token)
         {
             var Result = new ServiceResult();
-
+            string jsonString = JsonSerializer.Serialize(reservationViewModel);
             try
             {
                 var response = await _api.Post<ReservationViewModel, RequestStatus>(req => {

@@ -712,7 +712,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
-        public async Task<ServiceResult> PaymentRecordDelete(PaymentRecordViewModel payment, int id, string token)
+        public async Task<ServiceResult> PaymentRecordDelete(int usuMod, int id, string token)
         {
             var Result = new ServiceResult();
 
@@ -721,7 +721,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var response = await _api.Delete<PaymentRecordViewModel, PaymentRecordViewModel>(req =>
                 {
-                    req.Path = $"/API/RecordPayment/Delete?id=" + id + "&Mod=" + payment.RePa_UsuarioModifica;
+                    req.Path = $"/API/RecordPayment/Delete?id=" + id + "&Mod=" + usuMod;
                     req.Content = null;
                 },
                 token
