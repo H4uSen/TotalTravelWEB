@@ -13,7 +13,7 @@ var iframeData = {
 
 const filterSource = {
     "ReservacionesReportPDF": [
-        { filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
+        //{ filter: "tipo_Parnert", source: getTipoParnet, text: "Socio" },
         { filter: "Hotel", source: getHotels, text: "Hotel" },
         { filter: "Paquete", source: getpaquetes, text: "Paquete" },
         { filter: "fecha", source: getDate, text: "Fecha" },
@@ -64,44 +64,44 @@ function getFilter() {
 }
 
 //rellena el segundo dronwdon
-function getTipoParnet() {
-    $("#cbbValor").parents(".field").show();
-    $("#txtValor").parents(".field").hide();
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
+//function getTipoParnet() {
+//    $("#cbbValor").parents(".field").show();
+//    $("#txtValor").parents(".field").hide();
+//    var response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
 
-    //response = jQuery.grep(response.data, function (item, i) {
-    //    return item.tipoPartner_Id == 2;
+//    //response = jQuery.grep(response.data, function (item, i) {
+//    //    return item.tipoPartner_Id == 2;
 
-    //});
+//    //});
 
-    if (response.code == 200) {
+//    if (response.code == 200) {
 
-        const dropdownData = {
-            dropdown: $("#cbbValor"),
-            items: {
-                list: response.data,
-                valueData: "id",
-                textData: "nombre"
-            },
-            placeholder: {
-                empty: "No se encontraron socios disponibles",
-                default: "Seleccione un socio",
-            },
-            semantic: true
-        }
-        console.log("prueba")
+//        const dropdownData = {
+//            dropdown: $("#cbbValor"),
+//            items: {
+//                list: response.data,
+//                valueData: "id",
+//                textData: "nombre"
+//            },
+//            placeholder: {
+//                empty: "No se encontraron socios disponibles",
+//                default: "Seleccione un socio",
+//            },
+//            semantic: true
+//        }
+//        console.log("prueba")
 
-        FillDropDown(dropdownData);
-        $("#cbbValor").dropdown();
+//        FillDropDown(dropdownData);
+//        $("#cbbValor").dropdown();
 
-        $("#cbbValor").change(function () {
-            //setea el valor de el parametro de filtro (ID)
-            iframeData.routeValue = $("#cbbValor").val();
-            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
-            $("#ifrReport").prop("src", url);
-        });
-    }
-}
+//        $("#cbbValor").change(function () {
+//            //setea el valor de el parametro de filtro (ID)
+//            iframeData.routeValue = $("#cbbValor").val();
+//            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
+//            $("#ifrReport").prop("src", url);
+//        });
+//    }
+//}
 
 function getHotels() {
     $("#cbbValor").parents(".field").show();

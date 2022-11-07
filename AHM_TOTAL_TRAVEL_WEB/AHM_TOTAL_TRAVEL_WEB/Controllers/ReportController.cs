@@ -241,9 +241,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             switch (filtertype)
             {
                
-                case "tipo_Parnert":
-                    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
-                    break;
+                //case "tipo_Parnert":
+                //    data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
+                //    break;
                 case "Hotel":
                     data = data.Where(x => x.Hotel_ID == Convert.ToInt32(filtervalue)).ToList();
                     break;

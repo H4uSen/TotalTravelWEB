@@ -85,7 +85,6 @@ function getTipoParnet() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();

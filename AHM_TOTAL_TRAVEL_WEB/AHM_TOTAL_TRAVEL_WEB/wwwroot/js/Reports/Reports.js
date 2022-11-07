@@ -109,7 +109,6 @@ function getTipoParnet() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -344,7 +343,6 @@ function getClient() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -384,7 +382,6 @@ function getHotel() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
@@ -421,7 +418,6 @@ function getrestaurant() {
             },
             semantic: true
         }
-        console.log("prueba")
 
         FillDropDown(dropdownData);
         $("#cbbValor").dropdown();
