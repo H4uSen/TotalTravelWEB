@@ -28,12 +28,13 @@ const filterSource = {
     "RecordPaymentReportPDF": [
         { filter: "Id_cliente", source: getClient, text: "Cliente" },
         { filter: "fecha", source: getDate, text: "Fecha" },
+ 
     ],
   
     "DefaultPackagesReportPDF": [
         { filter: "id_restaurante", source: getrestaurant, text: "Restaurante" },
         { filter: "id_hotel", source: getHotel, text: "Hotel" },
-        { filter: "nombre", source: getNombre, text: "Paquete" },
+      
     ],
 };
 
@@ -445,42 +446,7 @@ function getDate() {
 
 
 
-//rellena el segundo dronwdon funcion de registro paquetes nombre
-function getNombre() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Restaurants/List");
 
-
-
-    if (response.code == 200) {
-
-
-
-        const dropdownData = {
-            dropdown: $("#cbbValor"),
-            items: {
-                list: response.data,
-                valueData: "id",
-                textData: "nombre"
-            },
-            placeholder: {
-                empty: "No se encontraron restaurantes disponibles",
-                default: "Seleccione un restaurante",
-            },
-            semantic: true
-        }
-        console.log("prueba")
-
-        FillDropDown(dropdownData);
-        $("#cbbValor").dropdown();
-
-        $("#cbbValor").change(function () {
-            //setea el valor de el parametro de filtro (ID)
-            iframeData.routeValue = $("#cbbValor").val();
-            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
-            $("#ifrReport").prop("src", url);
-        });
-    }
-}
 
 function getDate() {
     $("txtValor").val("");
@@ -493,6 +459,5 @@ function getDate() {
         $("#ifrReport").prop("src", url);
     });
 }
-
 
 
