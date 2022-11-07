@@ -100,9 +100,9 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 switch (context.Response.StatusCode)
                 {
                     case 200:
+                    case 302:
                         break;
                     case 404:
-
                         break;
                     case 401:
                     case 405:
