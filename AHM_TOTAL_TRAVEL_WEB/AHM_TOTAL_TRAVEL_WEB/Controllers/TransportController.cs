@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -22,11 +23,40 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         //[HttpGet]
         public async Task<IActionResult> Index()
-        {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _transportService.TransportList();
-            
-            return View(list.Data);
+        {                                         
+            try
+            {
+                var id = HttpContext.Session.GetString("PartnerID");
+                var rol = HttpContext.Session.GetString("Role");
+                var token = HttpContext.User.FindFirst("Token").Value;
+                //var model = new List<HotelListViewModel>();
+
+                var list = await _transportService.TransportList();
+                IEnumerable<TransportListViewModel> lista = (IEnumerable<TransportListViewModel>)list.Data;
+                var element = lista.ToList()[0];
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        var list2 = lista.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                        return View(list2);
+                    }
+                }
+            }
+            catch
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
         }
 
         [HttpGet]

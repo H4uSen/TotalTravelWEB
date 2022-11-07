@@ -6,26 +6,61 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
     public class TransportDetailsController : Controller
     {
         private readonly TransportService _transportService;
+        private readonly AccessService _AccessService;
 
-        public TransportDetailsController(TransportService transportService)
+        public TransportDetailsController(TransportService transportService, AccessService AccessService)
         {
             _transportService = transportService;
+            _AccessService = AccessService;
         }
 
         //[HttpGet]
         public async Task<IActionResult> Index()
-        {
-            var token = HttpContext.User.FindFirst("Token").Value;
+        {                  
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.Session.GetString("PartnerID");              
+                var rol = HttpContext.Session.GetString("Role");
+                var DsTr = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
+                var DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
 
-            var model = new List<TransportDetailsListViewModel>();
-            var list = await _transportService.TransportDetailsList(token);
-            return View(list.Data);
+
+                var list = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> lista = (IEnumerable<TransportDetailsListViewModel>)list.Data;
+
+                var element = lista.ToList()[0];
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        var list2 = lista.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+                        return View(list2);
+                    }
+                }
+            }
+            catch
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
         }
 
         [HttpGet]

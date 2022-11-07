@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
@@ -23,16 +24,61 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var type = await _generalService.CitiesList();
-            IEnumerable<CityListViewModel> data_type = (IEnumerable<CityListViewModel>)type.Data;
-            ViewBag.DsTr_CiudadSalida = new SelectList(data_type, "ID", "Ciudad");
-            var type1 = await _generalService.CitiesList();
-            IEnumerable<CityListViewModel> data_type1 = (IEnumerable<CityListViewModel>)type1.Data;
-            ViewBag.DsTr_CiudadDestino = new SelectList(data_type1, "ID", "Ciudad");
-            var model = new List<DestinationsTransportationsListViewModel>();
-            var list = await _transportService.TransportDestionationsList();
-            return View(list.Data);
+            
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var type = await _generalService.CitiesList();
+                IEnumerable<CityListViewModel> data_type = (IEnumerable<CityListViewModel>)type.Data;
+                ViewBag.DsTr_CiudadSalida = new SelectList(data_type, "ID", "Ciudad");
+                var type1 = await _generalService.CitiesList();
+                IEnumerable<CityListViewModel> data_type1 = (IEnumerable<CityListViewModel>)type1.Data;
+                ViewBag.DsTr_CiudadDestino = new SelectList(data_type1, "ID", "Ciudad");
+
+                var id = HttpContext.Session.GetString("PartnerID");
+                var rol = HttpContext.Session.GetString("Role");
+                var DsTr = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
+                IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+
+
+                var list = await _transportService.TransportDestionationsList();
+                IEnumerable<DestinationsTransportationsListViewModel> lista = (IEnumerable<DestinationsTransportationsListViewModel>)list.Data;
+                List<DestinationsTransportationsListViewModel> ListNuevaTrDe=new List<DestinationsTransportationsListViewModel>();
+                
+
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        foreach(var item in lista)
+                        {
+                            var data= DesTrFilter.Where(x => x.DestinoDetalle_ID==item.ID).ToList();                           
+                            foreach (var item2 in data)
+                            {
+                                var data2 = lista.Where(z => z.ID == item2.DestinoDetalle_ID).ToList();
+                                if(!ListNuevaTrDe.Contains(data2[0]))
+                                {
+                                    ListNuevaTrDe.Add(data2[0]);
+                                }
+                                                            
+                            }                     
+                        } 
+                        
+                        return View((IEnumerable<DestinationsTransportationsListViewModel>)ListNuevaTrDe);
+                    }
+                }
+            
+           
+
         }
 
         [HttpGet]

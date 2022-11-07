@@ -13,6 +13,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int Horario_ID { get; set; }
         public DateTime? Fecha_Salida { get; set; }
         public int DestinoDetalle_ID { get; set; }
+        public int Partner_ID { get; set; }
         public int Ciudad_Salida_ID { get; set; }
         public string Ciudad_Salida { get; set; }
         public int Ciudad_Llegada_ID { get; set; }

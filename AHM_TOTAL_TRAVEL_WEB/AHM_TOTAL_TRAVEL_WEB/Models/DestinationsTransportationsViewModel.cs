@@ -31,5 +31,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModificaID { get; set; }
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
+
+        public static explicit operator List<object>(DestinationsTransportationsListViewModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
