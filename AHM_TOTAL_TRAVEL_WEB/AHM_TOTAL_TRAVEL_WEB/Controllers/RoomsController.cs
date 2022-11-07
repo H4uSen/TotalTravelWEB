@@ -198,7 +198,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var rooms = (RoomsListViewModel)(await _hotelsServices.RoomsFind(id, token)).Data;
-
+            ViewData["RoomsFolder"] = $"Rooms/Rooms-{rooms.HotelID}/Food";
+            ViewData["HotelID"] = id;
             return View(rooms);
         }
     }
