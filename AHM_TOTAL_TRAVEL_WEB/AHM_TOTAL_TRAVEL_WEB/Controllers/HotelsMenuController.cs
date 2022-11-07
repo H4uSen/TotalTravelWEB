@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -22,18 +23,45 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
+            var id = HttpContext.Session.GetString("PartnerID");
+            var rol = HttpContext.Session.GetString("Role");
             string token = HttpContext.User.FindFirst("Token").Value;
             var type = await _hotelService.HotelsList(token);
             IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
             ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
-            
+
             var type2 = await _restaurantServices.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
             ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
 
             var model = new List<HotelsMenuListViewModel>();
-            var list = await _hotelService.HotelsMenuList(model);
-            return View(list.Data);
+            var list = await _hotelService.HotelsMenuList(token);
+            IEnumerable<HotelsMenuListViewModel> lista = (IEnumerable<HotelsMenuListViewModel>)list.Data;
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        var list2 = lista.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                        return View(list2);
+                    }
+
+                }
+
+            }
+            catch
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
         }
 
 
@@ -92,16 +120,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-
+            string token = HttpContext.User.FindFirst("Token").Value;
             var item = new HotelsMenuViewModel();
             IEnumerable<HotelsMenuListViewModel> model = null;
-            var list = await _hotelService.HotelsMenuList(model);
+            var list = await _hotelService.HotelsMenuList(token);
             IEnumerable<HotelsMenuListViewModel> data = (IEnumerable<HotelsMenuListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
             item.HoMe_Descripcion = element.Menu;
             item.HoMe_Precio = element.Precio;
 
-            string token = HttpContext.User.FindFirst("Token").Value;
+            
             IEnumerable<HotelListViewModel> model2 = null;
             var type = await _hotelService.HotelsList(token);
             IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;

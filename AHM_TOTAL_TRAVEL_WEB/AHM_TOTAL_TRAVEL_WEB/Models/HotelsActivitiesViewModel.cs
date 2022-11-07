@@ -17,6 +17,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
+        public int PartnerID { get; set; }
+
     }
     public class HotelsActivitiesViewModel
     {
