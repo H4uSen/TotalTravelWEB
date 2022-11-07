@@ -87,39 +87,44 @@ function createReservationBuy() {
             const method = "POST";
             const data = reservation;
             const url = "/BuyDefaults/Create"
-
-            var dataResponse = null;
-            var Token = null;
-            var HTTPError = {
-                message: "",
-                code: 0,
-                success: false,
-                data: null
+            const response = uploadFile(url, reservation, method);
+            console.log(response);
+            if (response > 0) {
+                window.location.href = "/BuyDefaults/Index?success=true";
             }
 
-            if (SendToken == true) {
-                Token = GetCookie("Token");
-            }
+            //var dataResponse = null;
+            //var Token = null;
+            //var HTTPError = {
+            //    message: "",
+            //    code: 0,
+            //    success: false,
+            //    data: null
+            //}
 
-            $.ajax({
-                url: url,
-                data: data,
-                mimeType: "multipart/form-data",
-                async: false,
-                processData: false,
-                contentType: false,
-                type: method,
-                beforeSend: function () {
-                    $("#loaderAnimation").show();
-                },
-                complete: function () {
-                    $("#loaderAnimation").hide();
-                },
-                success: function (httpResponse) {
-                    window.location.href = "/BuyDefaults/Index?success=true";
+            //if (SendToken == true) {
+            //    Token = GetCookie("Token");
+            //}
 
-                }
-            });
+            //$.ajax({
+            //    url: url,
+            //    data: data,
+            //    mimeType: "multipart/form-data",
+            //    async: false,
+            //    processData: false,
+            //    contentType: false,
+            //    type: method,
+            //    beforeSend: function () {
+            //        $("#loaderAnimation").show();
+            //    },
+            //    complete: function () {
+            //        $("#loaderAnimation").hide();
+            //    },
+            //    success: function (httpResponse) {
+            //        window.location.href = "/BuyDefaults/Index?success=true";
+
+            //    }
+            //});
         }
     }
 }

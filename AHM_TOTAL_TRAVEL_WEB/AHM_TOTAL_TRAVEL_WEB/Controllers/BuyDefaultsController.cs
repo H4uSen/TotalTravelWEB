@@ -76,22 +76,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ReservationViewModel reservation)
+        public async Task<int> Create(ReservationViewModel reservation)
         {
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirst("User_Id").Value;
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
-            var result = await _reservationService.ReservationCreate(reservation, token);
-            if (result.Success)
-            {
-                return View();
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-            }
+            var result = (RequestStatus)(await _reservationService.ReservationCreate(reservation, token)).Data;
 
-            return View(reservation);
+            return result.CodeStatus;
         }
     }
 }
