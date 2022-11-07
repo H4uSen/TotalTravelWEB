@@ -6,7 +6,7 @@ function GetTypeMenus(id) {
     $(document).ready(function () {
         $("#Time_DescripcionUpdate");
     });
-    var response = ajaxRequest("https://totaltravel.somee.com/API/MenuTypes/Find?Id=" + id);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/MenuTypes/Find?Id=" + id);
     if (response.code == 200) {
         $('#Time_ID').val(id);
         $('#Time_DescripcionUpdate').val(response.data.descripcion);

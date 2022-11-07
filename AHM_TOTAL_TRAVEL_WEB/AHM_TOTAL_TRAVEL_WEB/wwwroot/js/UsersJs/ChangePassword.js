@@ -15,6 +15,6 @@ function changePassword() {
 
     data.append("file", images);
 
-    var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Insert", data, "POST");
+    var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Restaurants/Insert", data, "POST");
     console.log(response);
 }

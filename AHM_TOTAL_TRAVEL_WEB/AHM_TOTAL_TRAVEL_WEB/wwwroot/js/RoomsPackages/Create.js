@@ -1,5 +1,5 @@
-﻿const RoomsList = ajaxRequest("https://totaltravel.somee.com/API/Rooms/List");
-const PackagesList = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+﻿const RoomsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Rooms/List");
+const PackagesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
 
 $('#Paqu_ID').change(function (_this) {
 

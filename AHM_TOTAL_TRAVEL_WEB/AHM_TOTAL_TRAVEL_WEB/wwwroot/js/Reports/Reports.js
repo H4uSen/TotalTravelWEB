@@ -113,7 +113,7 @@ function getAll() {
 
 //rellena el segundo dronwdon
 function getTipoParnet() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
 
     //response = jQuery.grep(response.data, function (item, i) {
     //    return item.tipoPartner_Id == 2;
@@ -149,7 +149,7 @@ function getTipoParnet() {
 }
 
 function getTipoTransporte() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/TypesTransport/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/TypesTransport/List");
 
     if (response.code == 200) {
 
@@ -180,7 +180,7 @@ function getTipoTransporte() {
 
 
 function getCiudad() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 
     if (response.code == 200) {
 
@@ -249,7 +249,7 @@ function getSexo() {
 }
 
 function getColonias() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
 
     if (response.code == 200) {
 
@@ -280,7 +280,7 @@ function getColonias() {
 }
 
 function getRoles() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Roles/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Roles/List");
 
     if (response.code == 200) {
 
@@ -311,7 +311,7 @@ function getRoles() {
 }
 
 function getPartners() {
-    const response = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
 
     if (response.code == 200) {
 
@@ -344,7 +344,7 @@ function getPartners() {
 function getClient() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Users/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/List");
 
 
 
@@ -385,7 +385,7 @@ function getClient() {
 
 //rellena el segundo dronwdon funcion de registro paquetes predeterminados 
 function getHotel() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
 
 
 
@@ -423,7 +423,7 @@ function getHotel() {
 
 //rellena el segundo dronwdon funcion de registro paquetes restaurante
 function getrestaurant() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Restaurants/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
 
 
 
@@ -490,7 +490,7 @@ function getDate() {
 function getpaquetes() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
 
     if (response.code == 200) {
 
@@ -522,7 +522,7 @@ function getpaquetes() {
 function getpaquete() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    const response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
 
     if (response.code == 200) {
 
@@ -554,7 +554,7 @@ function getpaquete() {
 function getpago() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    const response = ajaxRequest("https://totaltravel.somee.com/API/PaymentTypes/List");
+    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PaymentTypes/List");
 
     if (response.code == 200) {
 

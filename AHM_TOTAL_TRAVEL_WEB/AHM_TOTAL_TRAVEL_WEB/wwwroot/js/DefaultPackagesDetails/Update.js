@@ -11,7 +11,7 @@ $("#UpdateBottomActivities").click(() => {
 
 
 function GetActivities(id) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Activities/Find?id=" + id);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Activities/Find?id=" + id);
     if (response.code == 200) {
         $('#Actv_ID').val(id);
         $('#ActividadUpdate').val(response.data.descripcion);

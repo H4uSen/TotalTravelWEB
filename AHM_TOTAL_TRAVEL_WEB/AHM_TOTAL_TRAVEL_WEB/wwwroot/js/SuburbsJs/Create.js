@@ -5,7 +5,7 @@ $('.ui.dropdown').dropdown();
 $("#createSuburbs").click(() => {
     $("#modalCreate").modal('show');
     $("#Pais_ID").change(function () {
-        var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+        var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
         if (response.code == 200) {
             var Count_ID = $('#Pais_ID').val();
             var cities = response.data;

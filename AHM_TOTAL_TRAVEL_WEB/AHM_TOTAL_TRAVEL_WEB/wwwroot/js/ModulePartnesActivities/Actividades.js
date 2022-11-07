@@ -1,4 +1,4 @@
-﻿var actividadesList = ajaxRequest("https://totaltravel.somee.com/API/ActivitiesExtra/List");
+﻿var actividadesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
 
 fillActividad(0);
 

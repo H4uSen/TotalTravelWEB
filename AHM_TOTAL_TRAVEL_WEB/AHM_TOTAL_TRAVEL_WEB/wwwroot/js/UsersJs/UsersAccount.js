@@ -36,7 +36,7 @@ function UpdateUser() {
             dire.colo_ID = parseInt($("#Colonia").val());
             dire.dire_Calle = ($("#Calle").val());
             dire.dire_Avenida = ($("#Avenida").val());
-            var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
                 DireID = responseAddress.data.codeStatus;
@@ -80,7 +80,7 @@ function UpdateUser() {
 
 function RellenarCiudades(Pais_ID) {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         cities = jQuery.grep(cities, function (city, i) {
@@ -111,7 +111,7 @@ function RellenarCiudades(Pais_ID) {
 
 function RellenarColonias(Ciud_Id) {
 
-    var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    var coloniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
     if (coloniasList.code == 200) {
         var colonias = coloniasList.data;
         colonias = jQuery.grep(colonias, function (colonia, i) {

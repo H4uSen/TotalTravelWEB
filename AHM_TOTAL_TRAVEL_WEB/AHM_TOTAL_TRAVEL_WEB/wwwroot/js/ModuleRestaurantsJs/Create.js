@@ -32,7 +32,7 @@ async function createMenus() {
         else {
             data.append("File", null);
         }
-        var response = uploadFile("https://totaltravel.somee.com/API/Menus/Insert", data, "POST");
+        var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Menus/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/ModuleRestaurants?success=true';

@@ -1,5 +1,5 @@
-﻿var ciudadesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+﻿var ciudadesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+var coloniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -85,7 +85,7 @@ function CreateActividad() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseDireccion = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var responseDireccion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DirecID;
         if (responseDireccion.code == 200) {
             DirecID = responseDireccion.data.codeStatus;
@@ -108,7 +108,7 @@ function CreateActividad() {
                 data.append("file", null);
             }
 
-            var response = uploadFile("https://totaltravel.somee.com/API/ActivitiesExtra/Insert", data, "POST");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/Insert", data, "POST");
 
             if (response.code == 200) {
                 if (response.data.codeStatus > 0) {

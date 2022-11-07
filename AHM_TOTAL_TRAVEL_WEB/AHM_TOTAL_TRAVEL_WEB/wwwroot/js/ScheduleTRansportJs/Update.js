@@ -15,7 +15,7 @@ $("#closeScheduleEdit").click(() => {
 });
 
 function GetScheduleID(id) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/ScheduleTransportation/Find?id=" + id);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ScheduleTransportation/Find?id=" + id);
     if (response.code == 200) {
         $('#ID_Horario').val(id);
         $('#FechaViajeUpdate').val(response.data.fecha);

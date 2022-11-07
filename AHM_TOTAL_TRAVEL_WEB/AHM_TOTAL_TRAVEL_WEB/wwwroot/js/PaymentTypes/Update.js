@@ -4,7 +4,7 @@
 });
 
 function Updatepaymet(id) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/PaymentTypes/Find?Id=" + id);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PaymentTypes/Find?Id=" + id);
     if (response.code == 200) {
         $('#TiPa_ID').val(id);
         $('#TiPa_DescripcionUpdate').val(response.data.descripcion);

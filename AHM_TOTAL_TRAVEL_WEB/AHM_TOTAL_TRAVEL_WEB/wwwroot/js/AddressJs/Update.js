@@ -5,7 +5,7 @@
 function GetAddress(id) {
 
     var AddressModel = AdressListViewModel;
-    var request = ajaxRequest("https://totaltravel.somee.com/API/Address/Find?Id=" + id);
+    var request = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Find?Id=" + id);
     var calle = request.data.calle;
     var avenida = request.data.avenida;
     AddressModel.id = request.data.id;
@@ -50,7 +50,7 @@ $("#sendAddressUpdate").click(() => {
         dire.dire_Avenida = $('#AvenidaUpdate').val();
         dire.dire_UsuarioModifica = dire.id;
 
-        var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Update?id=" + dire.id, dire, "PUT");
+        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Update?id=" + dire.id, dire, "PUT");
         var DireID;
         if (responseAddress.code == 200) {
 
@@ -73,7 +73,7 @@ $('#City_IDUpdate').change(function () {
 });
 function GetCitiesUpdate(paisID) {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         var cityFilter = jQuery.grep(cities, function (City, i) {
@@ -95,7 +95,7 @@ function GetCitiesUpdate(paisID) {
 
 function GetSuburbUpdate(ciudID) {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var suburbs = response.data;

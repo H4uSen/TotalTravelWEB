@@ -36,7 +36,7 @@ function validar() {
 }
 
 function editar(TipoActividadID) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/TypeActivities/Find?id=" + TipoActividadID);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/TypeActivities/Find?id=" + TipoActividadID);
     if (response.code == 200) {
         var item = response.data;
 

@@ -139,7 +139,7 @@ function createRooms() {
         for (var i = 0; i != imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Insert", data, "POST");
+        var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Rooms/Insert", data, "POST");
         if (response.data.codeStatus > 0) {
             window.location.href = '/Rooms?success=true';
         } else {

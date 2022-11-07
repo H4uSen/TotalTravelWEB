@@ -30,7 +30,7 @@ function validar() {
 }
 
 function editar(ID) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackagesDetails/Find?id=" + ID);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackagesDetails/Find?id=" + ID);
     if (response.code == 200) {
         var item = response.data;
         SetDropDownValue($("#modalUpdate #Paqu_ID"), defaultValue = item.paqueteID);

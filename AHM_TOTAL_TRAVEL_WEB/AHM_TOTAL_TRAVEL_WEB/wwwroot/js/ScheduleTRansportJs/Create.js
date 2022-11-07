@@ -28,7 +28,7 @@ function ValidarCampos() {
 }
 
 function getDestiny() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/DestinationsTransportations/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DestinationsTransportations/List");
 
     if (response.code == 200) {
 

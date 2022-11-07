@@ -1,4 +1,4 @@
-﻿var Reservacion = ajaxRequest("https://totaltravel.somee.com/API/Reservation/List");
+﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
 $("document").ready(function () {
     Tarjeta();
 });

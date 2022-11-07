@@ -1,10 +1,10 @@
 ﻿
-var Reservacion = ajaxRequest("https://totaltravel.somee.com/API/Reservation/List");
-var ReservacionActView = ajaxRequest("https://totaltravel.somee.com/API/ReservationActivitiesExtra/List");
-var response2 = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/List");
-var ReservacionDetView = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
-var ReservacionActHotView = ajaxRequest("https://totaltravel.somee.com/API/ReservationActivitiesHotels/List");
-var ReservacionHot = ajaxRequest("https://totaltravel.somee.com/API/ReservationHotels/List");
+var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
+var ReservacionActView = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesExtra/List");
+var response2 = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationTransportation/List");
+var ReservacionDetView = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
+var ReservacionActHotView = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesHotels/List");
+var ReservacionHot = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
 
 $("document").ready(function () {
     prueba();

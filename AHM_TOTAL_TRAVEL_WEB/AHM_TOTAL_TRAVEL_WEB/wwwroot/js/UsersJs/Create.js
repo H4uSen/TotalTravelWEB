@@ -1,10 +1,10 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const PartnerList = ajaxRequest("https://totaltravel.somee.com/API/Partners/List");
-const PartnerTypeList = ajaxRequest("https://totaltravel.somee.com/API/PartnerType/List");
-const CitiesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-const SuburbsList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+const PartnerList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+const PartnerTypeList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PartnerType/List");
+const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+const SuburbsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
 
 
 
@@ -352,7 +352,7 @@ function CreatePartner() {
         if (PartnerInsertStatus.code == 200) {
 
             const NewPartnerData = ajaxRequest(
-                "https://totaltravel.somee.com/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
+                "https://totaltravelapi.azurewebsites.net/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
             );
 
             // fill data
@@ -382,7 +382,7 @@ function CreateUserDirection() {
     userAdress.dire_Calle = $("#frmCreateUser #txtCalle").val();
 
     const USerAddressStatus = ajaxRequest(
-        "https://totaltravel.somee.com/API/Address/Insert",
+        "https://totaltravelapi.azurewebsites.net/API/Address/Insert",
         userAdress, "POST"
     );
 

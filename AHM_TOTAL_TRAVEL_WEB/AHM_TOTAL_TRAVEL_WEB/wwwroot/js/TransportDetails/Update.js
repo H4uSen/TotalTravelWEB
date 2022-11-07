@@ -2,7 +2,7 @@
 
 getSchedule();
 function getSchedule() {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/ScheduleTransportation/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ScheduleTransportation/List");
 
     if (response.code == 200) {
 

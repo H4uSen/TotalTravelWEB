@@ -2,7 +2,7 @@
 $(".ui.dropdown").dropdown();
 $('.ui.checkbox').checkbox();
 $("#Paquetes").parent().hide();
-var detailsList = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
+var detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
 fillDetails(Reservacion_HotelID);
 
 //------------ EVENTS --------------------------
@@ -96,13 +96,13 @@ function crear() {
         detail.habi_ID = parseInt($("#Habi_ID").val());
         detail.reHo_ID = parseInt(Reservacion_HotelID);
 
-        var ReservationDetailsInsertStatus = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/Insert", detail, "POST");
+        var ReservationDetailsInsertStatus = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/Insert", detail, "POST");
 
         if (ReservationDetailsInsertStatus.code == 200) {
             iziToastAlert(
                 "¡Registro creado con éxito!", "", "success"
             );
-            detailsList = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
+            detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
             fillDetails(Reservacion_HotelID);
             getDefault();
         }
@@ -137,13 +137,13 @@ function actualizar(id_detalle) {
         ReservationDetailsViewModel.habi_ID = parseInt($("#Habi_ID").val());
         ReservationDetailsViewModel.reHo_ID = parseInt(Reservacion_HotelID);
 
-        var reservationDetailsInsertStatus = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/Update?id=" + id_detalle, detail, "PUT");
+        var reservationDetailsInsertStatus = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/Update?id=" + id_detalle, detail, "PUT");
 
         if (reservationDetailsInsertStatus.code == 200) {
             iziToastAlert(
                 "¡Registro actualizado con éxito!", "", "success"
             ); 
-            detailsList = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
+            detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
             fillDetails(Reservacion_HotelID);
             getDefault();
         }
@@ -178,12 +178,12 @@ function getDefault() {
 
 function eliminar(id) {
     const capsula1 = () => {
-        var response = ajaxRequest(`https://totaltravel.somee.com/API/ReservationDetails/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
+        var response = ajaxRequest(`https://totaltravelapi.azurewebsites.net/API/ReservationDetails/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
         if (response.data.codeStatus > 0) {
             iziToastAlert(
                 "¡Registro eliminado con éxito!", "", "success"
             );
-            detailsList = ajaxRequest("https://totaltravel.somee.com/API/ReservationDetails/List");
+            detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
             fillDetails(Reservacion_HotelID);
         }
     };

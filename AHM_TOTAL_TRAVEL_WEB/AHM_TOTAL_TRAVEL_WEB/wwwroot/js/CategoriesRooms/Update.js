@@ -4,7 +4,7 @@
 });
 
 function Updatecategory(id) {
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Categoriesrooms/Find?Id=" + id);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Categoriesrooms/Find?Id=" + id);
     if (response.code == 200) {
         $('#CaHa_ID').val(id);
         $('#CaHa_DescripcionUpdate').val(response.data.descripcion);

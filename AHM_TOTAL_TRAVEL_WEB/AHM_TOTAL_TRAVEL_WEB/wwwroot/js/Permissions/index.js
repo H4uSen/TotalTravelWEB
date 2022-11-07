@@ -1,8 +1,8 @@
 ﻿
 //----------------------------- VARIABLES --------------------------------------------
 
-const ViewsList = ajaxRequest("https://totaltravel.somee.com/API/Permissions/List");
-const RolesList = ajaxRequest("https://totaltravel.somee.com/API/Roles/List");
+const ViewsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Permissions/List");
+const RolesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Roles/List");
 const ModulesList = getModules();
 
 //----------------------------- INIZIALIZE --------------------------------------------

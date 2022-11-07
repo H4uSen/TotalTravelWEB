@@ -15,7 +15,7 @@ $(document).ready(async function () {
 
 function GetCitiesUpdate(paisID) {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         var cityFilter = jQuery.grep(cities, function (City, i) {
@@ -37,7 +37,7 @@ function GetCitiesUpdate(paisID) {
 
 function GetSuburbUpdate(ciudID) {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var suburbs = response.data;
@@ -73,7 +73,7 @@ $('#City_ID').change(function () {
 
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -175,7 +175,7 @@ function updateRestaurant() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
@@ -194,7 +194,7 @@ function updateRestaurant() {
 
                 data.append("File", imagesArrayPure[i]);
             }
-            var response = uploadFile("https://totaltravel.somee.com/API/Restaurants/Update?id=" + restaurantID, data, "PUT");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Restaurants/Update?id=" + restaurantID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/Restaurant?success=true';
             } else {

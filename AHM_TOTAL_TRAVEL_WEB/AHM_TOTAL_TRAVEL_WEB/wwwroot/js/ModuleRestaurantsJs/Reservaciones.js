@@ -1,4 +1,4 @@
-﻿var reservacionesList = ajaxRequest("https://totaltravel.somee.com/API/ReservationRestaurant/List");
+﻿var reservacionesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationRestaurant/List");
 
 fillReservaciones();
 

@@ -11,7 +11,7 @@
 //});
 
 //function GetReservacion(id) {
-//    var response = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/Find?id=" + id);
+//    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationTransportation/Find?id=" + id);
 //    if (response.code == 200) {
 //        $('#TrasporteUpdateID').val(id);
 //        $('#ReTr_CantidadAsientos').val(response.data.asientos);
@@ -60,7 +60,7 @@
 
 //        data.append("ReTr_UsuarioModifica", parseInt(Client_User_ID));
 
-//        var response = ajaxRequest("https://totaltravel.somee.com/API/ReservationTransportation/Update?id=" + idd, data, "POST");
+//        var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationTransportation/Update?id=" + idd, data, "POST");
 
 //        if (response.code == 200) {
 //            if (response.data.codeStatus > 0) {

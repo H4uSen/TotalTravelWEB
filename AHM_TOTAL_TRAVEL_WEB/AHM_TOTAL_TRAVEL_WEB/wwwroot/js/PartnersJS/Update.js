@@ -13,7 +13,7 @@ $(document).ready(async function () {
 
 });
 async function GetImage() {
-    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -116,7 +116,7 @@ function updatePartners() {
             data.append("File", null);
         }
         
-        var response = uploadFile("https://totaltravel.somee.com/API/Partners/Update?id=" + partnersID, data, "PUT");
+        var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Partners/Update?id=" + partnersID, data, "PUT");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Partners?success=true';

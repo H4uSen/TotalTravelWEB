@@ -6,7 +6,7 @@ const DefaultPackagesDetailsList = ajaxRequest("https://totaltravelapi.azurewebs
 const CountriesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Countries/List");
 const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
 const ReservationHotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
-const CitiesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 
 
 

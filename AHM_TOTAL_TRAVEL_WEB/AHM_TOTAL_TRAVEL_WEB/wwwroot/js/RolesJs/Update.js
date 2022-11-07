@@ -6,7 +6,7 @@ function GetRoles(id) {
     $(document).ready(function () {
         $("#Rol_DescripcionUpdate");
     });
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Roles/Find?Id=" + id);
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Roles/Find?Id=" + id);
     if (response.code == 200) {
         $('#Rol_ID').val(id);
         $('#Rol_DescripcionUpdate').val(response.data.descripcion);

@@ -1,4 +1,4 @@
-﻿var menusList = ajaxRequest("https://totaltravel.somee.com/API/Menus/List");
+﻿var menusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
 
 fillMenu(0);
 

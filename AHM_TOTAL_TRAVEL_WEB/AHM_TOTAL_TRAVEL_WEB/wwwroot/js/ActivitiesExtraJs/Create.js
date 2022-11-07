@@ -36,7 +36,7 @@ $("#btnGuardarActvExtra").click(() => {
 
 $('#Count_ID').change(function () {
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var Count_ID = $('#Count_ID').val();
         var cities = response.data;
@@ -61,7 +61,7 @@ $('#Count_ID').change(function () {
 $('#City_ID').change(function () {
 
 
-    var response = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var City_ID = $('#City_ID').val();
@@ -105,7 +105,7 @@ function CreateActivityExtra() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseDireccion = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var responseDireccion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DirecID;
         if (responseDireccion.code == 200) {
             DirecID = responseDireccion.data.codeStatus;
@@ -122,7 +122,7 @@ function CreateActivityExtra() {
             data.append("Dire_ID", parseInt(DirecID));
 
             data.append("file", $("#FileAct").prop("files")[0]);
-            var response = uploadFile("https://totaltravel.somee.com/API/ActivitiesExtra/Insert", data, "POST");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/Insert", data, "POST");
 
             if (response.code == 200) {
                 if (response.data.codeStatus > 0) {
@@ -143,43 +143,3 @@ function CreateActivityExtra() {
         
     }
 }
-
-////                 ."-,.__
-////                 `.     `.  ,
-////              .--'  .._,'"-' `.
-////             .    .'         `'
-////             `.   /          ,'
-////               `  '--.   ,-"'
-////                `"`   |  \
-////                   -. \, |
-////                    `--Y.'      ___.
-////                         \     L._, \
-////               _.,        `.   <  <\                _
-////             ,' '           `, `.   | \            ( `
-////          ../, `.            `  |    .\`.           \ \_
-////         ,' ,..  .           _.,'    ||\l            )  '".
-////        , ,'   \           ,'.-.`-._,'  |           .  _._`.
-////      ,' /      \ \        `' ' `--/   | \          / /   ..\
-////    .'  /        \ .         |\__ - _ ,'` `        / /     `.`.
-////    |  '          ..         `-...-"  |  `-'      / /        . `.
-////    | /           |L__           |    |          / /          `. `.
-////   , /            .   .          |    |         / /             ` `
-////  / /          ,. ,`._ `-_       |    |  _   ,-' /               ` \
-//// / .           \"`_/. `-_ \_,.  ,'    +-' `-'  _,        ..,-.    \`.
-////.  '         .-f    ,'   `    '.       \__.---'     _   .'   '     \ \
-////' /          `.'    l     .' /          \..      ,_|/   `.  ,'`     L`
-////|'      _.-""` `.    \ _,'  `            \ `.___`.'"`-.  , |   |    | \
-////||    ,'      `. `.   '       _,...._        `  |    `/ '  |   '     .|
-////||  ,'          `. ;.,.---' ,'       `.   `.. `-'  .-' /_ .'    ;_   ||
-////|| '              V      / /           `   | `   ,'   ,' '.    !  `. ||
-////||/            _,-------7 '              . |  `-'    l         /    `||
-////. |          ,' .-   ,' ||               | .-.        `.      .'     ||
-//// `'        ,'    `".'    |               |    `.        '. -.'       `'
-////          /      ,'      |               |,'    \-.._,.'/'
-////          .     /        .               .       \    .''
-////        .`.    |         `.             /         :_,'.'
-////          \ `...\   _     ,'-.        .'         /_.-'
-////           `-.__ `,  `'   .  _.>----''.  _  __  /
-////                .'        /"'          |  "'   '_
-////               /_|.-'\ ,".             '.'`__'-( \
-////                 / ,"'"\,'               `/  `-.|" R.P

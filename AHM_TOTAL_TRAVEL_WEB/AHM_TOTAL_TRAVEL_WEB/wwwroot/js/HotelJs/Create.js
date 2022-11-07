@@ -1,6 +1,6 @@
 ﻿
-var ciudadesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+var ciudadesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+var coloniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
 
 var imagesArray = [];
 var imagesArrayPure = [];
