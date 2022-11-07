@@ -419,11 +419,11 @@
 </style>
 
 
-<section class="forms">
+<div class="forms">
     <div class="container-fluid">
         <h1 align="center">Datos cliente</h1>
         
-        <div class="row" id="frmCreateReservation">
+        <div class="row">
             <!-- Basic Form-->
             <div class="col-lg-4">
                 <br>
@@ -483,25 +483,31 @@
                         <h3 class="h4 mb-0">Ingresa los siguientes datos</h3>
                     </div>
                     <div class="card-body ca">
-                        <form>
-                           
+                        <div id="frmCreateReservation">
+
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="form-label">Cantidad Personas</label><label class="text-danger">*</label>
-                                    <input class="form-control" type="text" >
-                                    <br>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Fecha Entrada - Salida</label><label class="text-danger">*</label>
-                                    <input type="text" name="daterange"  id="dateRangePicker" class="form-control">
+                                    <label class="form-label">Fecha Entrada - Salida</label>
+                                    <input type="text" name="daterange" id="dateRangePicker" class="form-control" >
                                     <div class="ui right corner label">
                                         <i class="asterisk icon"></i>
                                     </div>
                                     <br>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Numero de Personas</label>
+                                    <input class="form-control" type="number" min="1" max="12" id="personas">
+                                    <br>
+                                </div>
 
-                               
+                                <div class="col-md-6">
+                                    <label class="form-label">Cantidade de pagos</label>
+                                    <input class="form-control" type="number"  min="1" max="6" id="pagos">
+                                    <br>
+                                </div>
+
+                                <hr />
+
                                 <div class="col-md-6">
                                     <label class="form-label">Nombre</label><label class="text-danger">*</label>
                                     <input class="form-control" type="text" required value="@ViewData["Nombre"]">
@@ -519,32 +525,22 @@
                                 <div class="form-text" id="emailHelp">El correo de confirmación se enviará a esta dirección.</div>
                                 <br>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-check-label">¿Para quién es la reserva?</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Para mí
-                                    </label>
+
+              
+                                <input class="form-control" type="text" required value="@ViewData["ID"]" id="usuario" style="display:none">
+
+
+                                <div align="center" class="d-grid gap-2 col-4 mx-auto">
+
+                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear una reservación</div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Para otra persona
-                                    </label>
-                                </div>
-                                <br>
-                            </div>
-                            <div align="center" class="d-grid gap-2 col-4 mx-auto">
-                                <a class="btn btn-primary" type="submit" href="@Url.Action("", "")">Enviar</a>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
 @section Scripts{
     <script src="~/js/BuyDefaults/Reserva.js"></script>

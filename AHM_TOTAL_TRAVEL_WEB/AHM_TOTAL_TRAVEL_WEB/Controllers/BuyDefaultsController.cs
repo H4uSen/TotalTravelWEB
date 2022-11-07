@@ -38,7 +38,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var paquete = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
             var iduser = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(iduser, token)).Data;
-
+            ViewData["ID"] = cuenta.ID;
             ViewData["Nombre"] = cuenta.Nombre;
             ViewData["Apellido"] = cuenta.Apellido;
             ViewData["DNI"] = cuenta.DNI;
