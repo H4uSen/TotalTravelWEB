@@ -39,10 +39,10 @@ async function GetImage() {
         LoadImage();
     }
 }
+}
 //FIN
 
 $("#File").change(async function () {
-
 
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
@@ -66,16 +66,16 @@ function LoadImage() {
         HTML_img.src = item.src;
         const fileItem =
             `<div class="item">
-                        <div class="right floated content">
-                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-                                <i class="trash icon"></i>
-                            </button>
-                        </div>
-                        <i class="image big icon"></i>
-                        <div class="content text-grap">
-                            ${item.fileName}
-                        </div>
-                    </div>`;
+                                <div class="right floated content">
+                                    <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                        <i class="trash icon"></i>
+                                    </button>
+                                </div>
+                                <i class="image big icon"></i>
+                                <div class="content text-grap">
+                                    ${item.fileName}
+                                </div>
+                            </div>`;
 
         $("#image-upload-list").append(fileItem);
         $("#RoomsCarousel").append(HTML_img);
@@ -88,6 +88,7 @@ function deleteImage(index) {
     imagesArrayPure.splice(index, 1);
     LoadImage();
 }
+
 
     function updateRooms() {
 
@@ -107,37 +108,39 @@ function deleteImage(index) {
     // retorna bool
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
-    if (ValidateFormStatus) {
-        var data = new FormData();
-        data.append("Hote_ID", $("#Hote_ID").val());
+    
+        if (ValidateFormStatus) {
+            var data = new FormData();
+            data.append("Hote_ID", $("#Hote_ID").val());
 
-        data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
+            data.append("Habi_Descripcion", $("#Habi_Descripcion").val());
 
-        data.append("Habi_Nombre", $("#Habi_Nombre").val());
+            data.append("Habi_Nombre", $("#Habi_Nombre").val());
 
-        data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
+            data.append("CaHa_ID", parseInt($("#CaHa_ID").val()));
 
-        data.append("Habi_Precio", $("#Habi_Precio").val());
+            data.append("Habi_Precio", $("#Habi_Precio").val());
 
-        data.append("Habi_balcon", $("#Habi_balcon").prop("checked") == true ? 1 : 0);
+            data.append("Habi_balcon", $("#Habi_balcon").prop("checked") == true ? 1 : 0);
 
-        data.append("Habi_wifi", $("#Habi_wifi").prop("checked") == true ? 1 : 0);
+            data.append("Habi_wifi", $("#Habi_wifi").prop("checked") == true ? 1 : 0);
 
-        data.append("Habi_camas", $("#Habi_camas").val());
+            data.append("Habi_camas", $("#Habi_camas").val());
 
-        data.append("Habi_capacidad", $("#Habi_capacidad").val());
+            data.append("Habi_capacidad", $("#Habi_capacidad").val());
 
-        data.append("Habi_UsuarioModifica", parseInt(Client_User_ID));
-        for (var i = 0; i != imagesArrayPure.length; i++) {
-            data.append("File", imagesArrayPure[i]);
-        }
+            data.append("Habi_UsuarioModifica", Client_User_ID);
 
+            for (var i = 0; i != imagesArrayPure.length; i++) {
+                data.append("File", imagesArrayPure[i]);
+            }
+            var response = uploadFile("https://totaltravel.somee.com/API/Update/Insert", data, "POST");
+            if (response.data.codeStatus > 0) {
+                window.location.href = '/Rooms?success=true';
+            } else {
 
-        var response = uploadFile("https://totaltravel.somee.com/API/Rooms/Update?id=" + roomsID, data, "PUT");
-
-                if (response.data.codeStatus > 0) {
-        window.location.href = '/Rooms?success=true';
-                }
+                $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
+            }
 
         }
         else { console.log("error") }

@@ -8,7 +8,7 @@ $(document).ready(async function () {
 
 async function GetImage() {
 
-    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + roomsFolder)
+    var responseImage = ajaxRequest("https://totaltravel.somee.com/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
