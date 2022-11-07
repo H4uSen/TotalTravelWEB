@@ -20,6 +20,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? Habi_UsuarioCreacion { get; set; }
         public int? Habi_UsuarioModifica { get; set; }
      
+
     }
 
     public class RoomsListViewModel
@@ -42,5 +43,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
+        public int? PartnerID { get; set; }
     }
 }

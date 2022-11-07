@@ -8,7 +8,7 @@ $('#standard_calendar').calendar({
 $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
 
-paqueteDuracion = 10;
+paqueteDuracion = $("#frmCreateReservation #duracion").val();
 $('#dateRangePicker').daterangepicker({
     "maxSpan": {
         "days": paqueteDuracion
@@ -70,19 +70,13 @@ function createReservationBuy() {
     // create reservation model
     if (reservationValidate) {
 
-        reservation.append("Paqu_ID", $("#frmCreateReservation #Paqu_ID").val());
-        if ($("#ddlTipoPaquete").val() == 2) {
-            reservation.append("Resv_esPersonalizado", false);
-        }
-        else if ($("#ddlTipoPaquete").val() == 1) {
-            reservation.append("Resv_esPersonalizado", true);
-
-        }
-
-        reservation.append("Resv_CantidadPagos", $("#frmCreateReservation #Resv_CantidadPagos").val());
-        reservation.append("Resv_NumeroPersonas", $("#frmCreateReservation #Resv_NumeroPersonas").val());
-        reservation.append("Resv_Precio", $("#frmCreateReservation #lblDefaultPackagePrice").text());
-        reservation.append("Usua_ID", $("#frmCreateReservation #ddlDNI").val());
+        reservation.append("Resv_esPersonalizado", false);
+        reservation.append("Paqu_ID", $("#frmCreateReservation #paquete").val());
+        reservation.append("Resv_UsuarioCreacion", $("#frmCreateReservation #usuario").val());
+        reservation.append("Resv_CantidadPagos", $("#frmCreateReservation #pagos").val());
+        reservation.append("Resv_NumeroPersonas", $("#frmCreateReservation #personas").val());
+        reservation.append("Resv_Precio", $("#frmCreateReservation #precio").text());
+        reservation.append("Usua_ID", $("#frmCreateReservation #usuario").val());
         reservation.append("ReHo_FechaEntrada", $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
         reservation.append("ReHo_FechaSalida", $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
 
@@ -92,7 +86,7 @@ function createReservationBuy() {
             const SendToken = true;
             const method = "POST";
             const data = reservation;
-            const url = "/Reservation/Create"
+            const url = "/BuyDefaults/Create"
 
             var dataResponse = null;
             var Token = null;
@@ -122,7 +116,7 @@ function createReservationBuy() {
                     $("#loaderAnimation").hide();
                 },
                 success: function (httpResponse) {
-                    window.location.href = "/Reservation/Index";
+                    window.location.href = "/BuyDefaults/Index";
                 }
             });
         }

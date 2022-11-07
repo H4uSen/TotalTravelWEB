@@ -14,12 +14,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         SaleServices _saleServices;
         AccessService _accessService;
         TransportService _transportService;
+        private readonly ReservationService _reservationService;
 
-        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService)
+        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService, ReservationService reservationService)
         {
             _saleServices = saleServices;
             _accessService = accessService;
             _transportService = transportService;
+            _reservationService = reservationService;
         }
 
         [HttpGet]
@@ -65,6 +67,30 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //string token = HttpContext.User.FindFirst("Token").Value;
             var list = await _transportService.TransportList();
             return View(list.Data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ReservationViewModel reservation)
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            string UserID = HttpContext.User.FindFirst("User_Id").Value;
+            reservation.Resv_UsuarioCreacion = int.Parse(UserID);
+            var result = await _reservationService.ReservationCreate(reservation, token);
+            if (result.Success)
+            {
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
+
+            return View(reservation);
         }
     }
 }

@@ -433,19 +433,17 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            @*<div class="field">
-            <label>Fecha de Entrada - Salida</label>
-            <input type="text" id="dateRangePicker" name="datefilter" value="" />
-        </div>*@         <p class="text-sm">Tu selección:<br><b>Paquete @Html.DisplayFor(model => model.Nombre)</b></p>
-                        <p class="text-sm">Capacidad máxima<br><b>3 adultos</b></p>
-                        <hr>
-                        <p class="text-sm">Duración de la estancia:<br><b>@Html.DisplayFor(model => model.Duracion_Paquete)</b></p>
-                        <hr>
-                        <p class="text-sm">Hotel:<br><b>@Html.DisplayFor(model => model.Hotel)</b></p>
-                        <p class="text-sm">Restaurante:<br><b>@Html.DisplayFor(model => model.Restaurante)</b></p>
-                        <div>
-                            <p class="text-md text-success"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANhJREFUSEvtlDEOgkAQRR8JCRYWexM5gh7Fylh5BOEGdpYeRY+gN9mCRmMiWQIGNyyzuNIYaGiG9zJ/hokY+YlG5jMJxISniKqI1Emp54NdsdG5nVlwRBX8zhlIeZEXW521JUGCDzjc4oSlXmv9E4EP3Ii+6sAX3iuYH1UWzzjYLQ+BOwUGTsQeuMYJq0YyFO4U1KALsGgkpvi9LY6Bdv3WzhnYkvrjlAFwcciWxNR3rmLfQRK3qCWha8+laycKmlNg3vZGSXAxIh+AVOPVgQQJmkEI/D8iKgHNW2kZYuGG4gAAAABJRU5ErkJggg==" /> ¡Esta opción encaja bien!</p>
-                        </div>
+                            
+                            <p class="text-sm">Tu selección:<br><b>Paquete @Html.DisplayFor(model => model.Nombre)</b></p>
+                            <p class="text-sm">Capacidad máxima<br><b>3 adultos</b></p>
+                            <hr>
+                            <p class="text-sm">Duración de la estancia:<br><b>@Html.DisplayFor(model => model.Duracion_Paquete)</b></p>
+                            <hr>
+                            <p class="text-sm">Hotel:<br><b>@Html.DisplayFor(model => model.Hotel)</b></p>
+                            <p class="text-sm">Restaurante:<br><b>@Html.DisplayFor(model => model.Restaurante)</b></p>
+                            <div>
+                                <p class="text-md text-success"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANhJREFUSEvtlDEOgkAQRR8JCRYWexM5gh7Fylh5BOEGdpYeRY+gN9mCRmMiWQIGNyyzuNIYaGiG9zJ/hokY+YlG5jMJxISniKqI1Emp54NdsdG5nVlwRBX8zhlIeZEXW521JUGCDzjc4oSlXmv9E4EP3Ii+6sAX3iuYH1UWzzjYLQ+BOwUGTsQeuMYJq0YyFO4U1KALsGgkpvi9LY6Bdv3WzhnYkvrjlAFwcciWxNR3rmLfQRK3qCWha8+laycKmlNg3vZGSXAxIh+AVOPVgQQJmkEI/D8iKgHNW2kZYuGG4gAAAABJRU5ErkJggg==" /> ¡Esta opción encaja bien!</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -459,7 +457,7 @@
                                 <p class="text-sm">Habitación Doble<br>16% IVA</p>
                             </div>
                             <div class="col-sm-5">
-                                <p class="text-sm" align="right">HNL @Html.DisplayFor(model => model.precio) <br> HNL 160.00</p>
+                                <p class="text-sm" align="right" id="precio">@Html.DisplayFor(model => model.precio)</p>
                             </div>
                             <div class="col-sm-7">
                                 <p class="text-md"><b>Subtotal:</b></p>
@@ -484,16 +482,13 @@
                     </div>
                     <div class="card-body ">
                         <div id="frmCreateReservation" class="ui form attached fluid segment">
-                                <div class="content">
+                            <div class="content">
                                 <div class="row">
                                     <div class="two fields">
                                         <div class="field">
                                             <div class="col-md-12">
                                                 <label class="form-label">Fecha Entrada - Salida</label>
                                                 <input type="text" name="daterange" id="dateRangePicker" class="form-control">
-                                                <div class="ui right corner label">
-                                                    <i class="asterisk icon"></i>
-                                                </div>
                                                 <br>
                                             </div>
                                         </div>
@@ -540,14 +535,16 @@
                                 <br>
                             </div>
 
-              
-                                <input class="form-control" type="text" required value="@ViewData["ID"]" id="usuario" style="display:none">
+                            <input class="form-control" type="text" required value="@Html.DisplayFor(model => model.Duracion_Paquete)" id="duracion" style="display:none">
+                            <input class="form-control" type="text" required value="@Html.DisplayFor(model => model.Id)" id="paquete" style="display:none">
+                            <input class="form-control" type="text" required value="@Html.DisplayFor(model => model.precio)" id="precio" style="display:none">
+                            <input class="form-control" type="text" required value="@ViewData["ID"]" id="usuario" style="display:none">
 
 
-                                <div align="center" class="d-grid gap-2 col-4 mx-auto">
+                            <div align="center" class="d-grid gap-2 col-4 mx-auto">
 
-                                    <input type="button" class="ui btn-edit text-white button" onclick="createReservationBuy()" id="btnCreateReservation" value="Enviar">
-                                </div>
+                                <input type="button" class="ui btn-edit text-white button" onclick="createReservationBuy()" id="btnCreateReservation" value="Enviar">
+                            </div>
                         </div>
                     </div>
                 </div>
