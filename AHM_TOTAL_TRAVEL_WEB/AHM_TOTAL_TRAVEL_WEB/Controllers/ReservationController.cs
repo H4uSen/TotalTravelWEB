@@ -152,5 +152,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Details(int  id)
+        {
+
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var reservation = (ReservationListViewModel)(await _reservationService.ReservationFind(id, token)).Data;
+           
+            return View(reservation);
+        }
     }
 }
