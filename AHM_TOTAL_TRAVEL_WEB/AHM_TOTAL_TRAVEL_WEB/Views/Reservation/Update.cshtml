@@ -34,86 +34,308 @@
                 </a>
             </div>
         </div><br />
-
         <!-- formulario-->
         <form asp-action="Update" asp-controller="Reservation" id="updateReservationForm">
-            <div class="ui form attached fluid">
-                <div class="content">
-                    <input id="Resv_ID" name="Resv_ID" value="@Model.ID" hidden />
-                    <div class="required field">
-                        <div class="two fields">
-                            <div class="required field">
-                                <label>Cliente</label>
-                                <select name="Usua_ID" id="Usua_ID" asp-items="ViewBag.Cliente" class="ui dropdown search">
-                                </select>
-                            </div>
-                            <div class="required field">
-                                <label>Precio</label>
-                                <input name="Resv_Precio" id="Resv_Precio" value="@Convert.ToDouble(Model.precio)" type="number" />
+            
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+
+                        <!-- client data section -->
+                        <div class="field">
+                            <h3 class="ui block header">
+                                Datos generales
+                            </h3>
+
+                            <div class="three fields">
+                                <!--DNI-->
+                                <div class="field">
+                                    <label>DNI</label>
+                                    <select class="ui search dropdown" id="ddlDNI" autofocus>
+                                        <option value="">Ingrese un DNI</option>
+                                    </select>
+                                </div>
+                                <!--First name-->
+                                <div class="field">
+                                    <label>Nombre</label>
+                                    <input type="text" id="txtNombre" placeholder="Primer Nombre" readonly />
+                                </div>
+                                <!--Last name-->
+                                <div class="field">
+                                    <label>Apellido</label>
+                                    <input type="text" id="txtApellido" placeholder="Apellido" readonly>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="required field">
-                        <label>Paquete</label>
-                        <select name="Paqu_ID" id="Paqu_ID" asp-items="ViewBag.Paquetes" class="ui dropdown search">
-                            <option value="">
-                                Seleccione un paquete
-                            </option>
-                        </select>
+
+                        <div class="three fields">
+                            <!--Phone number-->
+                            <div class="field">
+                                <label>Teléfono</label>
+                                <input type="text" id="txtTelefono" placeholder="Teléfono" readonly>
+                            </div>
+                            <!--Email-->
+                            <div class="field">
+                                <label>Email</label>
+                                <input type="text" id="txtEmail" placeholder="Email" readonly>
+                            </div>
+                            <!--Birth date-->
+                            <div class="field">
+                                <label>Fecha de nacimiento</label>
+                                <input type="text" id="txtFechaNacimiento" placeholder="Fecha de nacimiento" readonly>
+                            </div>
+                            
+                        </div>
+
+                        <!-- General data of the reservation -->
+                        <div class="field">
+                            <h3 class="ui block header">
+                                Datos generales de la reservación
+                            </h3>
+
+                            <div class="three fields">
+                                <!--Amount of people-->
+                                <div class="field">
+                                    <label>Cantida de personas</label>
+                                    <input type="number" min="1" max="100" id="Resv_NumeroPersonas" placeholder="Cantidad de personas">
+                                </div>
+                                <!--Amount of payments-->
+                                <div class="field">
+                                    <label>Cantidad de cuotas</label>
+                                    <select class="ui search dropdown" id="Resv_CantidadPagos">
+                                        <option value="">Selecciona la cantidad de coutas</option>
+                                        <option value="1">1</option>
+                                        <option value="3">2</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <!--Default or Personalized packages-->
+                                <div class="field">
+                                    <label>Tipo de paquete</label>
+                                    <select class="ui search dropdown" id="ddlTipoPaquete">
+                                        <option value="">Seleccione un tipo de paquete</option>
+                                        <option value="1">Personalizado</option>
+                                        <option value="2">Nuestras ofertas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <!--Filter by countries-->
+                                <div class="field">
+                                    <label>Paises</label>
+                                    <select class="ui search dropdown" id="ddlPaises" autocomplete="nope">
+                                        <option value="">Seleccione un país de destino </option>
+                                    </select>
+                                </div>
+                                <!--Filter by cities-->
+                                <div class="field">
+                                    <label>Ciudades</label>
+                                    <select class="ui search dropdown" id="ddlCiudades">
+                                        <option value="">Seleccione una ciudad de destino</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="three fields">
+                                <!--Add extra activities of the Hotel-->
+                                <div class="field">
+                                    <div class="ui toggle button" id="btnAddExtraHotelActivities">+ Añadir actividades del hotel</div>
+                                </div>
+                                <!--Add extra activities on the zone-->
+                                <div class="field">
+                                    <div class="ui toggle button" id="btnAddExtraActivities">+ Añadir actividades por la zona</div>
+                                </div>
+                            </div>
+                        </div>
+
+                     
+
+
+                        <!-- Default packages selection -->
+                        <div id="frmDefaultPackages">
+                            <h3 class="ui block header">
+                                Selecciona alguno de nuestros paquetes para poder ver sus detalles
+                            </h3>
+                            <div class="field">
+                                <div class="three fields">
+                                    <!--Select a package-->
+                                    <div class="field">
+                                        <label>Nuestros paquetes</label>
+                                        <select class="ui search dropdown" id="Paqu_ID">
+                                            <option value="">Selecciona paquete</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <label>Fecha de Entrada - Salida</label>
+                                        <input type="text" id="dateRangePicker" name="datefilter" value="" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Default package details-->
+                            <div id="frmDefaultPackagesDetails">
+                                <div class="ui segment">
+                                    <h2 class="ui header" id="txtDefaultPackageName"></h2>
+                                    <div class="field">
+                                        <div class="ui very relaxed items">
+                                            <div class="item">
+                                                <div class="image" style="width:300px">
+                                                    <img id="imgDefaultPackage" src="">
+                                                </div>
+                                                <div class="content">
+
+                                                    <div class="ui card" style="width: auto;">
+                                                        <div class="content">
+                                                            <div class="header">Descripción:</div>
+                                                            <div class="description">
+                                                                <p id="txtDefaultPackageDesc"></p>
+                                                                Duración: <span id="txtDefaultPackageDuracion"></span> días
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="ui list">
+                                                        <div class="item">
+                                                            <div class="header">Hotel: </div>
+                                                            <span id="txtDefaultPackageHotel"></span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <div class="header">Restaurante: </div>
+                                                            <span id="txtDefaultPackageRest"></span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <div class="header">Actividades incluidas</div>
+                                                            <div class="description">
+                                                                <div class="ui middle aligned divided list" id="txtDefaultPackagesActividades">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="content">
+                                                    <h2>
+                                                        Precio: L. <span id="lblDefaultPackagePrice" style="font-size: inherit;"></span>
+                                                    </h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+
+                            </div>
+                            <!--Add extra activities in the hotel-->
+                            <div id="frmAddExtraHotelsActivities">
+                                <div class="ui segment">
+                                    <h3 class="ui block header">
+                                        Selecciona algunas actividades para realizar en el hotel
+                                    </h3>
+                                    <div class="three fields">
+                                        <div class="field">
+                                            <label>Actividades</label>
+                                            @Html.DropDownList("ID_HotelsActivities", ViewBag.hotelActivities as MultiSelectList,"Seleccione algunas actividades", new { @class = "ui fluid search dropdown", multiple = "multiple" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+                            </div>
+                            <!--Add extra activities in the zone-->
+                            <div id="frmAddExtraActivities">
+                                <div class="ui segment">
+                                    <h3 class="ui block header">
+                                        Selecciona algunas actividades para realizar en el hotel
+                                    </h3>
+                                    <div class="three fields">
+                                        <div class="field">
+                                            <label>Actividades</label>
+                                            @Html.DropDownList("ID_ExtrasActivities", ViewBag.extraActivities as MultiSelectList,"Seleccione algunas actividades", new { @class = "ui fluid search dropdown", multiple = "multiple" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--
+                        <div class="container-fluid">
+                            <br />
+                            <h2 class="ui header">Detalles</h2>
+                            <br />
+                            <div class="ui two columns stackabled grid">
+                                <div class="column overflow-auto" style="max-height:300px">
+                                    <table class="ui compact selectable celled table" id="grdReservacionDetalles">
+                                        <thead style="visibility:collapse">
+                                            <tr>
+                                                <th>Detalles</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="column">
+                                    <button id="btnCrear" class="dotted_button">
+                                        <i class="plus icon"></i> Click para agregar un nuevo detalle
+                                    </button>
+                                    <div class="ui form attached fluid segment">
+                                        <div class="content" id="form_content" data-action-target="">
+                                            <div class="required field">
+                                                <label>Seleccione una habitación</label>
+                                                <select id="Habi_ID" asp-items="ViewBag.Habitaciones" class="ui dropdown search">
+                                                    <option value="">
+                                                        Seleccione una habitación
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <br />
+                                            <a class="btn btn-edit ui positive button" href="#" id="btnGuardar">Guardar</a>
+                                            <a class="ui large icon button" id="btnCancelar">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <br />
+
+                        </div>
+                        -->
+
+
+                        <div class="ui btn-edit text-white button" tabindex="0" onclick="updateReservation()" id="btnUpdateReservation">Actualizar la reservación</div>
+                        <div class="ui button" onclick="goBack()" tabindex="0">Cancel</div>
                     </div>
                 </div>
-                <a class="btn btn-edit ui positive button" href="javascript: ActualizarReservacion()">Guardar</a>
-                <a class="ui large icon button" href="@Url.Action("Index", "Reservation")">Cancelar</a>
-            </div>
+
+                <div class="ui negative attached message" id="msgErrorForm">
+                    <div class="header">
+                        Ha ocurrido un error al intentar ejecutar la petición
+                    </div>
+                    <p></p>
+                </div>
         </form>
         <!-- fin formulario-->
-
-        <br />
-        <h2 class="ui header">Detalles</h2>
-        <br />
-        <div class="ui two columns stackabled grid">
-            <div class="column overflow-auto" style="max-height:300px">
-                <table class="ui compact selectable celled table" id="grdReservacionDetalles">
-                    <thead style="visibility:collapse">
-                        <tr>
-                            <th>Detalles</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="column">
-                <button id="btnCrear" class="dotted_button">
-                    <i class="plus icon"></i> Click para agregar un nuevo detalle
-                </button>
-                <div class="ui form attached fluid segment">
-                    <div class="content" id="form_content" data-action-target="">
-                        <div class="required field">
-                            <label>Seleccione una habitación</label>
-                            <select id="Habi_ID" asp-items="ViewBag.Habitaciones" class="ui dropdown search">
-                                <option value="">
-                                    Seleccione una habitación
-                                </option>
-                            </select>
-                        </div>
-                        <br />
-                        <a class="btn btn-edit ui positive button" href="#" id="btnGuardar">Guardar</a>
-                        <a class="ui large icon button" id="btnCancelar">Cancelar</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <br />
-        <br />
+        
+        
     </div>
 </div>
 
 @section Scripts {
+    
+       
+    
     <script>
         const Reservacion_HotelID = "@ViewData["Reservacion_HotelID"]";
         const Hotel_ID = "@ViewData["Hotel_ID"]";
         const Paquete_ID = "@Model.Id_Paquete";
+        const Usua_ID = "@ViewData["Usua_ID"]";
+        const Reservation = "@ViewData["Reservation"]";
     </script>
+    
     <script src="~/js/ReservationJs/Update.js"></script>
 }

@@ -58,7 +58,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? TipoActividadID { get; set; }
         public string TipoActividad { get; set; }
 
-
+        public string ddlItem => $"{Actividad} - L.{string.Format("{0:C2}", Precio)} ";
 
     }
     

@@ -1,192 +1,455 @@
-﻿$("#form_content").parent().hide();
-$(".ui.dropdown").dropdown();
+﻿// ----------------------------------- INIZIALIZE ------------------------------------
+//varaibles
+const UsersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/List");
+const DefaultPackagesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
+const DefaultPackagesDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackagesDetails/List");
+const CountriesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Countries/List");
+const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+const ReservationHotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
+const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+
+
+
+
+
+
+$("#msgErrorForm").hide();
+$('#standard_calendar').calendar({
+    type: 'date'
+});
 $('.ui.checkbox').checkbox();
-$("#Paquetes").parent().hide();
-var detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
-fillDetails(Reservacion_HotelID);
+$('.ui.dropdown').dropdown();
 
-//------------ EVENTS --------------------------
+$("#frmDefaultPackages").hide();
 
-$("#btnCrear").click((_this) => {
-    $("#form_content").attr("data-action-target", "create");
-    $("#btnGuardar").prop("href", `javascript: crear()`);
-    $(_this.target).hide();
-    $("#colonia").val("");
-    $("#form_content").parent().show();
-});
+function goBack() {
+    window.location.href = "/Reservation/Index";
+}
 
-$("#btnCancelar").click((_this) => {
-    getDefault();
-});
-
-$("#PaqueteCheck").change((_this) => {
-    if ($("#PaqueteCheck").prop("checked")) {
-        $("#Paquetes").parent().show();
-    } else {
-        $("#Paquetes").parent().hide();
+$('#btnAddExtraHotelActivities').click(function () {
+    $(this).toggleClass('active');
+    if ($(this).hasClass('active')) {
+        $(this).text("Ingresar actividades de su hotel");
+        $("#frmAddExtraHotelsActivities").show();
+    }
+    else {
+        $(this).text("Ingrese actividades de su hotel");
+        $("#frmAddExtraHotelsActivities").hide();
     }
 });
 
-
-
-//------------ FUNCTIONS --------------------------
-
-function fillDetails(Reservacion_HotelID) {
-    var details = jQuery.grep(detailsList.data, function (detail, i) {
-        return detail.reservacionHotelID == Reservacion_HotelID;
-    });
-    if (detailsList.code == 200) {
-
-        if (details.length > 0) {
-
-            $("#grdReservacionDetalles").empty();
-            for (var i = 0; i < details.length; i++) {
-
-                const detail = details[i];
-                const fecha_Creacion = GetDateFormat({
-                    string_date: detail.fecha_Creacion, hour_format: 12, date_format: "default"
-                });
-
-                $("#grdReservacionDetalles").append(
-                    `<tr id="detalle_${detail.id}">
-                        <td class="ui fluid vertical menu" style="margin:unset">
-                            <a class="item">
-                                <h1 class="ui medium header" id="colonia_header">Habitación: ${detail.nombre_Habitacion}</h1>
-                                <p>Creado el: ${fecha_Creacion.datetime}</p>
-                            </a>
-                        </td>
-                        <td style="text-align:end; vertical-align:middle">
-                            <a class="item">
-                                <a class="ui large icon btn-edit button" href="javascript: editar(${detail.id})">
-                                    <i class="pencil alternate icon icon-crud"></i>
-                                </a>
-                                <a class="ui large icon btn-delete button" href="javascript: eliminar(${detail.id})">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </a>
-                            </a>
-                        </td>
-                    </tr>
-                    `
-                );
-            }
-        }
-        else {
-            $("#grdReservacionDetalles").append(
-                `<tr>
-                    <td class="ui fluid vertical menu" style="margin:unset">
-                        <h5 class='ui large red header text-center'>NO SE ENCONTRARON DETALLES DE LA RESERVACIÓN</h5>
-                    </td>
-                </tr>`
-            );
-        }
+$('#frmAddExtraActivities').click(function () {
+    $(this).toggleClass('active');
+    if ($(this).hasClass('active')) {
+        $(this).text("Ingresar actividades de la zona");
+        $("#frmAddExtraActivities").show();
     }
-
-}
-
-function crear() {
-    validateArrayForm = [
-        { validateMessage: "Este campo no puede estar vacío.", Jqueryinput: $("#Habi_ID") }
-    ];
-
-    // retorna bool 
-    const ValidateFormStatus = ValidateForm(validateArrayForm);
-     
-    if (ValidateFormStatus) {
-        var detail = ReservationDetailsViewModel;
-        detail.habi_ID = parseInt($("#Habi_ID").val());
-        detail.reHo_ID = parseInt(Reservacion_HotelID);
-
-        var ReservationDetailsInsertStatus = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/Insert", detail, "POST");
-
-        if (ReservationDetailsInsertStatus.code == 200) {
-            iziToastAlert(
-                "¡Registro creado con éxito!", "", "success"
-            );
-            detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
-            fillDetails(Reservacion_HotelID);
-            getDefault();
-        }
+    else {
+        $(this).text("Ingrese actividades de la zona");
+        $("#frmAddExtraActivities").hide();
     }
-}
+});
 
-function editar(id_detalle) {
-
-    $("#form_content").attr("data-action-target", "update");
-    var detail = jQuery.grep(detailsList.data, function (detail, i) {
-        return detail.id == id_detalle;
-    });
-  
-    SetDropDownValue($("#Habi_ID"), detail[0].habitacionID);
-    $("#form_content").parent().show();
-    $(".dotted_button").hide();
-    $("#btnGuardar").prop("href", `javascript: actualizar(${id_detalle})`);
-
-} 
-
-function actualizar(id_detalle) {
-    validateArrayForm = [
-        { validateMessage: "Este campo no puede estar vacío.", Jqueryinput: $("#Habi_ID") }
-    ];
-    
-    // retorna bool 
-    const ValidateFormStatus = ValidateForm(validateArrayForm);
-   
-    if (ValidateFormStatus) {
-
-        var detail = ReservationDetailsViewModel; 
-        ReservationDetailsViewModel.habi_ID = parseInt($("#Habi_ID").val());
-        ReservationDetailsViewModel.reHo_ID = parseInt(Reservacion_HotelID);
-
-        var reservationDetailsInsertStatus = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/Update?id=" + id_detalle, detail, "PUT");
-
-        if (reservationDetailsInsertStatus.code == 200) {
-            iziToastAlert(
-                "¡Registro actualizado con éxito!", "", "success"
-            ); 
-            detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
-            fillDetails(Reservacion_HotelID);
-            getDefault();
-        }
-
-        $("#btnGuardar").prop("href", `javascript: crear()`);
-        getDefault();
-    }
-}
-
-function ActualizarReservacion() {
-    validateArrayForm = [
-        { validateMessage: "Seleccione un cliente", Jqueryinput: $("#Usua_ID") },
-        { validateMessage: "Ingrese un precio", Jqueryinput: $("#Resv_Precio") }
-    ];
-
-    // retorna bool 
-    const ValidateFormStatus = ValidateForm(validateArrayForm);
-
-    if (ValidateFormStatus) {
-        
-            $("#updateReservationForm").submit();
-    }
-}
-
-function getDefault() {
-
-    $("#form_content").attr("data-action-target", "");
-    $("#form_content").parent().hide();
-    $(".dotted_button").show();
-    SetDropDownPlaceholder($("#Habi_ID"));
-}
-
-function eliminar(id) {
-    const capsula1 = () => {
-        var response = ajaxRequest(`https://totaltravelapi.azurewebsites.net/API/ReservationDetails/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
-        if (response.data.codeStatus > 0) {
-            iziToastAlert(
-                "¡Registro eliminado con éxito!", "", "success"
-            );
-            detailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
-            fillDetails(Reservacion_HotelID);
-        }
+// ----------------------------------- EVENTS ------------------------------------
+$(document).ready(function () {
+    //Fill the Users DNI Dropdown
+    const Users = UsersList.data;
+    for (var i = 0; i < Users.length; i++) {
+        $('#ddlDNI').append('<option value="' + Users[i].id + '">' + Users[i].dni + '</option>');
     };
-    sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
 
-};
+    //Fill the countries Dropdown
+    const Countries = CountriesList.data;
+    for (var i = 0; i < Countries.length; i++) {
+        $('#ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
+    }
+
+
+});
+
+//Hides details for Default packages
+$("#frmDefaultPackagesDetails").hide();
+
+
+$(document).on('change', '#ddlCiudades', function () {
+    //Reset the default packages dropdown after changing the cities
+    $('#Paqu_ID').empty();
+    //Fill the default packages Dropdown and can be filtered by cities
+    $("#Paqu_ID").val("");
+    const DefaultPackages = DefaultPackagesList.data;
+    city = $('#ddlCiudades').val();
+    const Hotels = HotelsList.data;
+    const filteredHotels = Hotels.filter(function (htel) { return htel.ciudadID == city });
+    var hotelIDs = filteredHotels.map(x => x.id);
+
+    const filteredDefaultPackages = DefaultPackages.filter((item) => hotelIDs.includes(item.iD_Hotel));
+
+    $('#Paqu_ID').append('<option value="">' + "Seleccione un paquete" + '</option>');
+    for (var i = 0; i < filteredDefaultPackages.length; i++) {
+        $('#Paqu_ID').append('<option value="' + filteredDefaultPackages[i].id + '">' + filteredDefaultPackages[i].nombre + '</option>');
+    };
+});
+
+
+
+
+
+//Change the data of the user depending on the selected DNI
+$("#ddlDNI").change(function () {
+    const Users = UsersList.data;
+    const UserID = $("#ddlDNI").val();
+
+    const User = Users.filter(function (userID) {
+        return userID.id == UserID
+    });
+    User[0].fecha_Nacimiento = User[0].fecha_Nacimiento.split("T")[0];
+    User[0].fecha_Nacimiento = User[0].fecha_Nacimiento.split("-").reverse().join("-");
+
+    $("#txtNombre").val(User[0].nombre);
+    $("#txtApellido").val(User[0].apellido);
+    $("#txtTelefono").val(User[0].telefono);
+    $("#txtEmail").val(User[0].email);
+    $("#txtFechaNacimiento").val(User[0].fecha_Nacimiento);
+
+});
+
+
+//Change cities depending on the country selected
+$("#ddlPaises").change((_this) => {
+    const Country_Id = $(_this.target).val();
+    FillCities(Country_Id);
+});
+
+
+let paqueteDuracion = 7;
+//Details of the Default packages card 
+$("#Paqu_ID").change(function () {
+
+
+    const DefaultPackages = DefaultPackagesList.data;
+    const Hotels = HotelsList.data;
+
+    const DefaultPackagesDetails = DefaultPackagesDetailsList.data;
+    const PackageID = $("#Paqu_ID").val();
+
+    const DefaultPackage = DefaultPackages.filter(function (Package) {
+        return Package.id == PackageID
+    });
+
+    const Hotel = Hotels.filter((x) => { return x.id == DefaultPackage[0].iD_Hotel })
+
+    const DefaultPackageAct = DefaultPackagesDetails.filter(function (PackageDetails) {
+        return PackageDetails.paqueteID == PackageID
+    });
+
+    const package = DefaultPackage[0];
+
+    //Descripcion
+    $("#txtDefaultPackageName").text(package.nombre);
+    $("#txtDefaultPackageDesc").text(package.descripcion_Paquete);
+    $("#txtDefaultPackageDuracion").text(package.duracion_Paquete);
+    paqueteDuracion = package.duracion_Paquete;
+    //Hotel
+    $("#txtDefaultPackageHotel").text(package.hotel);
+    $("#imgDefaultPackage").attr("src", Hotel[0].image_URL);
+    //Restaurante
+    $("#txtDefaultPackageRest").text(package.restaurante);
+    //Precio
+    $("#lblDefaultPackagePrice").text(package.precio);
+
+
+    for (var i = 0; i < DefaultPackageAct.length; i++) {
+        $("#txtDefaultPackagesActividades")
+            .append("<div class='item'>" +
+                "<img class= 'ui avatar image' src=''>" +
+                "<div class='content'>" +
+                "<p class='header'>" + DefaultPackageAct[i].descripcionActividad + "</p></div></div> ");
+    }
+
+    $('#dateRangePicker').daterangepicker({
+        "maxSpan": {
+            "days": paqueteDuracion
+        },
+        "locale": {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Aplicar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Personalizado",
+            "weekLabel": "S",
+            "daysOfWeek": [
+                "Lun",
+                "Mar",
+                "Mie",
+                "Jue",
+                "Vie",
+                "Sab",
+                "Dom"
+            ],
+            "monthNames": [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ],
+            "firstDay": 1
+        },
+        "startDate": "11/01/2022",
+        "endDate": "11/01/2022"
+    }, function (start, end, label) {
+        //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    });
+});
+
+//Date range picker limited based on the duration of the package
+$('#dateRangePicker').daterangepicker({
+    "maxSpan": {
+        "days": paqueteDuracion
+    },
+    "locale": {
+        "format": "DD/MM/YYYY",
+        "separator": " - ",
+        "applyLabel": "Aplicar",
+        "cancelLabel": "Cancelar",
+        "fromLabel": "Desde",
+        "toLabel": "Hasta",
+        "customRangeLabel": "Personalizado",
+        "weekLabel": "S",
+        "daysOfWeek": [
+            "Lun",
+            "Mar",
+            "Mie",
+            "Jue",
+            "Vie",
+            "Sab",
+            "Dom"
+        ],
+        "monthNames": [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ],
+        "firstDay": 1
+    },
+    "startDate": "11/01/2022",
+    "endDate": "11/01/2022"
+}, function (start, end, label) {
+    //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
+
+
+
+
+
+
+
+
+//-------------- ADDRESS DROPDOWNS EVENTS
+
+
+
+
+//Show or hide between default and personalized packages
+$("#ddlTipoPaquete").change(function () {
+    if ($("#ddlTipoPaquete").val() == 2) {
+        $("#frmDefaultPackages").show();
+    }
+    else if ($("#ddlTipoPaquete").val() == 1) {
+        $("#frmDefaultPackages").hide();
+    }
+    else {
+        $("#frmDefaultPackages").hide();
+    }
+});
+
+
+
+$("#Paqu_ID").change(function () {
+    if ($("#Paqu_ID").val() == "") {
+        $("#frmDefaultPackagesDetails").hide();
+    } else {
+        $("#frmDefaultPackagesDetails").show();
+    }
+
+});
+
+
+// ----------------------------------- FUNCTIONS ------------------------------------
+
+function FillCities(Country_Id) {
+
+    if (CitiesList.code == 200) {
+
+        var cities = CitiesList.data;
+        cities = jQuery.grep(cities, function (city, i) {
+            return city.paisID == Country_Id;
+        });
+
+        var ListItems = [];
+        for (let i = 0; i < cities.length; i++) {
+            const city = cities[i];
+            ListItems.push({ value: city.id, text: city.ciudad });
+        }
+
+        const dropdownData = {
+            dropdown: $("#ddlCiudades"),
+            items: {
+                list: ListItems,
+                valueData: "value",
+                textData: "text"
+            },
+            placeholder: {
+                empty: "No se encontraron ciudades disponibles",
+                default: "Seleccione una ciudad",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#ddlCiudades").dropdown();
+
+    }
+}
+
+
+
+// Create reservation
+function updateReservation() {
+    var reservation = new FormData();
+
+    const reservationValidateArray = [
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #ddlDNI") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #Resv_NumeroPersonas") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #Resv_CantidadPagos") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #ddlTipoPaquete") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #ddlPaises") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #ddlCiudades") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #Paqu_ID") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#updateReservationForm #dateRangePicker") },
+
+    ];
+
+    const reservationValidate = ValidateForm(reservationValidateArray);
+
+
+    // update reservation model
+    if (reservationValidate) {
+
+        reservation.append("Paqu_ID", $("#frmDefaultPackages #Paqu_ID").val());
+        if ($("#ddlTipoPaquete").val() == 2) {
+            reservation.append("Resv_esPersonalizado", false);
+        }
+        else if ($("#ddlTipoPaquete").val() == 1) {
+            reservation.append("Resv_esPersonalizado", true);
+        }
+
+
+
+        reservation.append("Resv_CantidadPagos", $("#updateReservationForm #Resv_CantidadPagos").val());
+        reservation.append("Resv_NumeroPersonas", $("#updateReservationForm #Resv_NumeroPersonas").val());
+        reservation.append("Resv_Precio", $("#updateReservationForm #lblDefaultPackagePrice").text());
+        reservation.append("Usua_ID", $("#updateReservationForm #ddlDNI").val());
+        reservation.append("ReHo_FechaEntrada", $("#updateReservationForm #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+        reservation.append("ReHo_FechaSalida", $("#updateReservationForm #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+        reservation.append("ReHo_FechaSalida", $("#updateReservationForm #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+
+        //reservation.append("ID_HotelsActivities", $("#ID_HotelsActivities option:selected").toArray().map(item => parseInt(item.value)));//.concat("T00:00:00"));
+        //reservation.append("ID_ExtrasActivities", $("#ID_HotelsActivities option:selected").toArray().map(item => parseInt(item.value)));//.concat("T00:00:00"));
+        reservation.append("Resv_ID", Usua_ID);
+
+
+
+        /*
+            const ReservationInsertStatus = uploadFile(
+                "https://totaltravelapi.azurewebsites.net/API/Reservation/Insert",
+                reservation, "POST"
+            );
+        */
+
+        ReservationInsert();
+
+        function ReservationInsert() {
+            const SendToken = true;
+            const method = "POST";
+            const data = reservation;
+            const url = "/Reservation/Update"
+
+            var dataResponse = null;
+            var Token = null;
+            var HTTPError = {
+                message: "",
+                code: 0,
+                success: false,
+                data: null
+            }
+
+            if (SendToken == true) {
+                Token = GetCookie("Token");
+            }
+
+            $.ajax({
+                url: url,
+                data: data,
+                mimeType: "application/json",
+                async: false,
+                processData: false,
+                contentType: false,
+                type: method,
+                beforeSend: function () {
+                    $("#loaderAnimation").show();
+                },
+                complete: function () {
+                    $("#loaderAnimation").hide();
+                },
+                success: function (httpResponse) {
+
+                    console.log(httpResponse);
+                    window.location.href = "/Reservation/Index";
+                }
+
+            });
+
+
+        }
+
+
+
+
+
+        /*
+        if (ReservationInsertStatus.code == 200) {
+                iziToastAlert(
+                    "!User Created Successfully! ", "", "success"
+                );
+                location.assign("Index");
+            }
+            else {
+                $("#msgErrorForm").show();
+            $("#msgErrorForm p").html(ReservationInsertStatus.message);
+            }
+            */
+    }
+
+
+
+}
+
