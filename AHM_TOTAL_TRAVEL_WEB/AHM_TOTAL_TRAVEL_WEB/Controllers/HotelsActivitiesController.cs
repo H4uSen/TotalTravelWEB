@@ -41,7 +41,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var model = new List<HotelsActivitiesListViewModel>();
                 var list = await _hotelService.HotelsActivitiesList(token);
                 IEnumerable<HotelsActivitiesListViewModel> lista = (IEnumerable<HotelsActivitiesListViewModel>)list.Data;
-                var element = lista.ToList()[0];
 
                 if (string.IsNullOrEmpty(id))
                 {

@@ -33,7 +33,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var model = new List<RoomsListViewModel>();
                 var list = await _hotelsServices.RoomsList(token);
                 IEnumerable<RoomsListViewModel> lista = (IEnumerable<RoomsListViewModel>)list.Data;
-                var element = lista.ToList()[0];
 
                 if (string.IsNullOrEmpty(id))
                 {
