@@ -7,7 +7,6 @@ $(document).ready(async function () {
 });
 
 async function GetImage() {
-
     var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
     if (responseImage.code == 200) {
         var list = responseImage.data

@@ -154,8 +154,24 @@
         </div>
     </div>
 </div>
-@section HighlightTile{
+
+
+@section Scripts{
+
+    <script>
+        var UserID = '@ViewData["UserID"]';
+        var RoomsFolder = '@ViewData["RoomsFolder"]';
+        var ID_Update = '@ViewData["ID_Update"]';
+    </script>
+    <script>
+        const roomsID = '@ViewData["RoomsID"]';
+    </script>
+
     <script src="~/js/Rooms/details.js"></script>
+}
+
+@section HighlightTile{
+
     <script>
         $("#HotelModule").addClass("active");
         $("#Hotel_Schema").addClass("show");
