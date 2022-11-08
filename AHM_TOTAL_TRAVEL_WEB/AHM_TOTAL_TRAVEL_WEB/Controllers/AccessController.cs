@@ -230,7 +230,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         case "Cliente":
                             return RedirectToAction(actionName: "Index", controllerName: "ClientHome");
                         case "Moderador de Hotel":
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                            return RedirectToAction(actionName: "Index", controllerName: "DashBoardHotelHome");
                         case "Moderador de Restaurante":
                             return RedirectToAction(actionName: "Index", controllerName: "Home");
                         case "Moderador de Agencia Turistica":

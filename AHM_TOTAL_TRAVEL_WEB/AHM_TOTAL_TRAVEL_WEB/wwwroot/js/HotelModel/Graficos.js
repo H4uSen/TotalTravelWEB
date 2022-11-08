@@ -27,7 +27,7 @@ function GraficaPastel() {
     Highcharts.chart('container', {
         chart: {
             plotBackgroundColor: null,
-            plotBorderWidth: null,
+            plotBorderWidth: 10,
             plotShadow: false,
             type: 'pie'
         },
@@ -35,7 +35,7 @@ function GraficaPastel() {
             text: 'Hoteles más reservados'
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}% = {point.y:.1f}</b>'
         },
         accessibility: {
             point: {
@@ -53,7 +53,7 @@ function GraficaPastel() {
             }
         },
         series: [{
-            name: 'Brands',
+            name: 'Cantidad',
             colorByPoint: true,
             data: arrayhote
         }]
