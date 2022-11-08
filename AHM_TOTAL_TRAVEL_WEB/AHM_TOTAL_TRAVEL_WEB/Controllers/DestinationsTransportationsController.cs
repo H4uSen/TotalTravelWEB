@@ -82,109 +82,146 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return RedirectToAction("Error", "Home");
             }
-
-
-
-
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(DestinationsTransportationsViewModel transportedestino)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var id = HttpContext.User.FindFirst("User_Id").Value;
-                transportedestino.DsTr_UsuarioCreacion = int.Parse(id);
-                var list = await _transportService.TransportDestionationsCreate(transportedestino, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/DestinationsTransportations?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var id = HttpContext.User.FindFirst("User_Id").Value;
+                    transportedestino.DsTr_UsuarioCreacion = int.Parse(id);
+                    var list = await _transportService.TransportDestionationsCreate(transportedestino, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/DestinationsTransportations?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var item = new DestinationsTransportationsViewModel();
-            var list = await _transportService.TransportDestionationsList();
-            IEnumerable<DestinationsTransportationsListViewModel> data = (IEnumerable<DestinationsTransportationsListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            item.DsTr_ID = element.ID;
-            item.DsTr_CiudadSalida = element.CiudadSalidaID;
-            item.DsTr_CiudadDestino = element.CiudadDestinoID;
+            try
+            {
+                var item = new DestinationsTransportationsViewModel();
+                var list = await _transportService.TransportDestionationsList();
+                IEnumerable<DestinationsTransportationsListViewModel> data = (IEnumerable<DestinationsTransportationsListViewModel>)list.Data;
+                var element = data.Where(x => x.ID == id).ToList()[0];
+                item.DsTr_ID = element.ID;
+                item.DsTr_CiudadSalida = element.CiudadSalidaID;
+                item.DsTr_CiudadDestino = element.CiudadDestinoID;
 
-            return View(item);
+                return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(DestinationsTransportationsViewModel transportedestino)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                transportedestino.DsTr_UsuarioModifica = int.Parse(idd);
-                var list = await _transportService.TransportDestionationsUpdate(transportedestino, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/DestinationsTransportations?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var idd = HttpContext.User.FindFirst("User_Id").Value;
+                    transportedestino.DsTr_UsuarioModifica = int.Parse(idd);
+                    var list = await _transportService.TransportDestionationsUpdate(transportedestino, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/DestinationsTransportations?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(DestinationsTransportationsViewModel destinotransporte, int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                ServiceResult result = new ServiceResult();
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                destinotransporte.DsTr_UsuarioModifica = int.Parse(idd);
+                if (ModelState.IsValid)
+                    {
+                        ServiceResult result = new ServiceResult();
+                        var idd = HttpContext.User.FindFirst("User_Id").Value;
+                        destinotransporte.DsTr_UsuarioModifica = int.Parse(idd);
 
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = (RequestStatus)(await _transportService.TransportDestionationsDelete(destinotransporte, id, token)).Data;
+                        string token = HttpContext.User.FindFirst("Token").Value;
+                        var list = (RequestStatus)(await _transportService.TransportDestionationsDelete(destinotransporte, id, token)).Data;
 
-                return Ok(list.CodeStatus);
+                        return Ok(list.CodeStatus);
+                    }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var destinotransporte = (DestinationsTransportationsListViewModel)(await _transportService.TransportDestionationsFind(id, token)).Data;
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var destinotransporte = (DestinationsTransportationsListViewModel)(await _transportService.TransportDestionationsFind(id, token)).Data;
 
-            return View(destinotransporte);
+                return View(destinotransporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

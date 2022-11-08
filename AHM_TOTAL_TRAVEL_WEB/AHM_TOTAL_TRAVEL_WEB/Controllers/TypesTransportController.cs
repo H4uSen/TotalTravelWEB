@@ -76,67 +76,95 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TypesTransportViewModel transporte)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var id = HttpContext.User.FindFirst("User_Id").Value;
-                transporte.TiTr_UsuarioCreacion = int.Parse(id);
-                var list = await _transportService.TypesTransportCreate(transporte, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/TypesTransport?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var id = HttpContext.User.FindFirst("User_Id").Value;
+                    transporte.TiTr_UsuarioCreacion = int.Parse(id);
+                    var list = await _transportService.TypesTransportCreate(transporte, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/TypesTransport?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
 
         }
         [HttpPost]
         public async Task<IActionResult> Delete(TypesTransportViewModel transporte, int id)
         {
-            if (ModelState.IsValid)
-            {
-                transporte.TiTr_UsuarioModifica = 1;
-
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _transportService.TypesTransportDelete(transporte, id, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+                try
                 {
-                    return Redirect("~/TypesTransport?success=true");
-                }
-                else
-                {
-                    return View();
-                }
+                    if (ModelState.IsValid)
+                    {
+                        transporte.TiTr_UsuarioModifica = 1;
 
-            }
-            else
-            {
-                return View();
-            }
+                        string token = HttpContext.User.FindFirst("Token").Value;
+                        var list = await _transportService.TypesTransportDelete(transporte, id, token);
+                        var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                        if (l > 0)
+                        {
+                            return Redirect("~/TypesTransport?success=true");
+                        }
+                        else
+                        {
+                            return View();
+                        }
+
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                catch
+                {
+                    return RedirectToAction("Error", "Home");
+                }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var detalle = (TypesTransportListViewModel)(await _transportService.TypesTransportFind(id, token)).Data;
-            return View(detalle);
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var detalle = (TypesTransportListViewModel)(await _transportService.TypesTransportFind(id, token)).Data;
+                return View(detalle);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
+
 
     }
 }

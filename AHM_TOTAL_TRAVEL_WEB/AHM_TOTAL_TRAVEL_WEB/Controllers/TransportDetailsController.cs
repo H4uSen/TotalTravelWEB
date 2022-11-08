@@ -63,129 +63,148 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
-            var id = HttpContext.Session.GetString("PartnerID");
-            var typeTransportation = await _transportService.TransportList();
-            IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
-            List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
-            IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
-            foreach (var item in data_TypeTransportation2)
+            try
             {
-                data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.NombrePartner + " - " + item.TipoTransporte });               
+                var id = HttpContext.Session.GetString("PartnerID");
+                var typeTransportation = await _transportService.TransportList();
+                IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
+                List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
+                IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                foreach (var item in data_TypeTransportation2)
+                {
+                    data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.NombrePartner + " - " + item.TipoTransporte });               
+                }                       
+                ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes");
+
+                return View();
             }
-            
-            
-            ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes");
-            
-
-            //IEnumerable<RestaurantViewModel> model_restaurant = null;
-            //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
-            //IEnumerable<PaisesListViewModel> data_Pais = (IEnumerable<PaisesListViewModel>)pais.Data;
-            //ViewBag.Pais_ID = new SelectList(data_Pais, "ID", "Descripcion");
-
-
-            return View();
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TransportDetailsViewModel transportdetails)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                var list = await _transportService.TransportDetailsCreate(transportdetails, token);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                    var list = await _transportService.TransportDetailsCreate(transportdetails, token);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
-
         }
-
-
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var idd = HttpContext.Session.GetString("PartnerID");
-            var item = new TransportDetailsViewModel();
-            IEnumerable<TransportDetailsListViewModel> model = null;
-            var list = await _transportService.TransportDetailsList(token);
-            IEnumerable<TransportDetailsListViewModel> data = (IEnumerable<TransportDetailsListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            item.DeTr_ID = element.ID;
-            item.DeTr_Capacidad = element.Capacidad;
-            //item.HoTr_ID = element.Fecha;
-            item.DeTr_Precio = element.Precio;
-            item.DeTr_Matricula = element.Matricula;
-            item.Tprt_ID = element.ID_Transporte;
-            item.HoTr_ID = element.Horario_ID;
-
-            ViewData["HorarioID"] = element.Horario_ID;
-
-            var typeTransportation = await _transportService.TransportList();
-            IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
-            List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
-            IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
-            foreach (var item2 in data_TypeTransportation2)
+            try
             {
-                data_Transp.Add(new TransportListViewBag() { ID = item2.ID, Transportes = item2.NombrePartner + " - " + item2.TipoTransporte });
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var idd = HttpContext.Session.GetString("PartnerID");
+                var item = new TransportDetailsViewModel();
+                IEnumerable<TransportDetailsListViewModel> model = null;
+                var list = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> data = (IEnumerable<TransportDetailsListViewModel>)list.Data;
+                var element = data.Where(x => x.ID == id).ToList()[0];
+                item.DeTr_ID = element.ID;
+                item.DeTr_Capacidad = element.Capacidad;
+                //item.HoTr_ID = element.Fecha;
+                item.DeTr_Precio = element.Precio;
+                item.DeTr_Matricula = element.Matricula;
+                item.Tprt_ID = element.ID_Transporte;
+                item.HoTr_ID = element.Horario_ID;
+
+                ViewData["HorarioID"] = element.Horario_ID;
+
+                var typeTransportation = await _transportService.TransportList();
+                IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
+                List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
+                IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                foreach (var item2 in data_TypeTransportation2)
+                {
+                    data_Transp.Add(new TransportListViewBag() { ID = item2.ID, Transportes = item2.NombrePartner + " - " + item2.TipoTransporte });
+                }
+                ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes", element.ID_Transporte);
+
+                return View(item);
             }
-
-
-            ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes", element.ID_Transporte);
-
-            //var horario = await _transportService.TypesTransportList();
-            //IEnumerable<TransportDetailsListViewModel> data_Horario = (IEnumerable<TransportDetailsListViewModel>)horario.Data;
-            //ViewBag.HoTr_ID = new SelectList(data_Horario, "ID", "Trasporte", element.Horario_ID);
-
-            return View(item);
-
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(TransportDetailsViewModel transportdetails, int id)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                transportdetails.DeTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                var lista = await _transportService.TransportDetailsUpdate(transportdetails, id, token);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    transportdetails.DeTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                    var lista = await _transportService.TransportDetailsUpdate(transportdetails, id, token);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
-
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete( int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = (RequestStatus)(await _transportService.TransportDetailsDelete(modifica, id, token)).Data;
+                if (ModelState.IsValid)
+                {
+                    int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = (RequestStatus)(await _transportService.TransportDetailsDelete(modifica, id, token)).Data;
 
-                return Ok(list.CodeStatus);
+                    return Ok(list.CodeStatus);
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var transporte = (TransportDetailsListViewModel)(await _transportService.TransportDetailsFind(id, token)).Data;
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var transporte = (TransportDetailsListViewModel)(await _transportService.TransportDetailsFind(id, token)).Data;
 
-            return View(transporte);
+                return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
