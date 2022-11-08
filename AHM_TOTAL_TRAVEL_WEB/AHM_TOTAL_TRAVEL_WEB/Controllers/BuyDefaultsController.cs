@@ -15,13 +15,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         AccessService _accessService;
         TransportService _transportService;
         private readonly ReservationService _reservationService;
+        private readonly GeneralService _generalService;
 
-        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService, ReservationService reservationService)
+        public BuyDefaultsController(SaleServices saleServices, AccessService accessService, TransportService transportService, ReservationService reservationService, GeneralService generalService)
         {
             _saleServices = saleServices;
             _accessService = accessService;
             _transportService = transportService;
             _reservationService = reservationService;
+            _generalService = generalService;
         }
 
         [HttpGet]
@@ -30,6 +32,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var token = HttpContext.User.FindFirst("Token").Value;
             var model = new List<DefaultPackagesListViewModel>();
             var list = await _saleServices.DefaultPackagesList(token);
+            var destinos = await _generalService.CitiesList();
+            IEnumerable<CityListViewModel> data_destinos = (IEnumerable<CityListViewModel>)destinos.Data;
+            ViewBag.Destinos = new SelectList(data_destinos, "ID", "Ciudad");
             return View(list.Data);
         }
 

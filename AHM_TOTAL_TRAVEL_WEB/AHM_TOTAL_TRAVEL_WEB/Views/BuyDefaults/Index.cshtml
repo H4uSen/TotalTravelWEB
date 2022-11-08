@@ -38,94 +38,44 @@
 <div class="content">
     <div class="fullwidth-block">
         <div class="container">
+            Destinos:
+            <select id="Destinos" class="ui dropdown search" asp-items="ViewBag.Destinos">
+                <option value="0" selected>Todos</option>
+            </select>
+            <br />
+            <div class="filterable-items" id="paquetesContainer">
+                <br />
+                @*@foreach (var item in Model)
+        {
 
-            <div class="filterable-items">
-                @foreach (var item in Model)
-                {
+            <div class="filterable-item south-america ">
+                <article class="offer-item">
+                    <figure class="featured-image">
+                        <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
+                    </figure>
+                    <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
 
-                    <div class="filterable-item south-america ">
-                        <article class="offer-item">
-                            <figure class="featured-image">
-                                <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
-                            </figure>
-                            <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
+                    <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
+                    <div class="price">
+                        <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
+                        <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
 
-                            <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
-                            <div class="price">
-                                <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
-                                <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
-
-                            </div>
-                        </article>
                     </div>
-
-                }
+                </article>
             </div>
 
-            <div class="pagination wow fadeInUp">
-                <span class="page-numbers current">1</span>
-                <a href="#" class="page-numbers">2</a>
-                <a href="#" class="page-numbers">3</a>
-                <a href="#" class="page-numbers">4</a>
+        }*@
             </div>
+
+            @*<div class="pagination wow fadeInUp">
+            <span class="page-numbers current">1</span>
+            <a href="#" class="page-numbers">2</a>
+            <a href="#" class="page-numbers">3</a>
+            <a href="#" class="page-numbers">4</a>
+        </div>*@
 
         </div>
 
-    </div>
-</div>
-<div class="ui modal" id="modalUpdate">
-    <i class="close icon"></i>
-    <div class="header">
-        Detalles
-    </div>
-    <form asp-action="Update" asp-controller="HotelsMenu" id="updateForm">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <input id="ID" style="display:none" />
-                <div class="two fields">
-                    <div class="field">
-                        <h2 class="entry-title">Nombre</h2>
-                        <label class="in" id="Nombre" name="Nombre" placeholder="Nombre"></label>
-                    </div>
-                    <div class="field">
-                        <h2 class="entry-title">Descripcion</h2>
-                        <label class="in" id="Descripcion" name="Descripcion" placeholder="Descripcion"></label>
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <h2 class="entry-title">Duracion</h2>
-                        <label class="in" id="Duracion" name="Duracion" placeholder="Duracion"></label>
-
-                    </div>
-                    <div class="field">
-                        <h2 class="entry-title">Hotel</h2>
-                        <label class="in" id="Hotel" name="Hotel" placeholder="Hotel"></label>
-
-                    </div>
-
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <h2 class="entry-title">Restaurante</h2>
-                        <label class="in" id="Restaurante" name="Restaurante" placeholder="Restaurante"></label>
-
-                    </div>
-                    <div class="field">
-                        <h2 class="entry-title">Precio</h2>
-                        <label class="in" id="Precio" name="Precio" placeholder="Precio"></label>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </form>
-    <div class="actions">
-        <button class="ui button" id="closeMenu">Cerrar</button>
-
-        @*<a class="ui button" id="sendMenu"   href="@Url.Action("Details","DefaultPackages", new { id=item.Id })>Hacer Reserva</a>*@
     </div>
 </div>
 
@@ -133,7 +83,7 @@
     @*<script src="~/assets/client/js/jquery-1.11.1.min.js"></script>*@
     <script src="~/assets/client/js/min/plugins-min.js"></script>
     <script src="~/assets/client/js/min/app-min.js"></script>
-    <script src="~/js/BuyDefaults/Create.js"></script>
+    <script src="~/js/BuyDefaults/Index.js"></script>
     <script>
 
         const success = FindGetValue("success");
