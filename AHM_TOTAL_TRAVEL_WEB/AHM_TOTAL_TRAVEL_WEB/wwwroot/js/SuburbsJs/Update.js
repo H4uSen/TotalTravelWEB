@@ -11,7 +11,7 @@ $("#modalUpdate #close").click(() => {
 });
 
 $("#updateSuburbs").click(() => {
-    $("#modalUpdate").modal('show');
+    $("#modalUpdate").modal({ autofocus: false, forceSelection: false }).modal('show');
     $('#Count_ID').change(function () {
         RellenarCiudades($('#Count_ID').val());
     })
