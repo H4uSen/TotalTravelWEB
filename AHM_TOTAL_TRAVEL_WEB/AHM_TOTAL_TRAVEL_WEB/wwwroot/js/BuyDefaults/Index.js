@@ -24,8 +24,7 @@ function fillPaquetes(iddestino) {
 
     for (var i = 0; i < paquetes.length; i++) {
         const item = paquetes[i];
-        var card = `<div class="card">
-            <div class="card-body">
+        var card = `
                 <div class="filterable-item south-america ">
                     <article class="offer-item">
                         <figure class="featured-image">
@@ -40,8 +39,7 @@ function fillPaquetes(iddestino) {
                         </div>
                     </article>
                 </div>
-            </div>
-        </div>`;
+           `;
         $("#paquetesContainer").append(card);
     }
 }

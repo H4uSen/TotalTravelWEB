@@ -32,14 +32,21 @@
         line-height: 24px;
         color: #818c8d;
     }
+    .ma{
+        margin:20px;
+    }
+    .con {
+        background-color: white;
+        border-radius: 10px
+    }
 </style>
 
 
 <div class="content">
     <div class="fullwidth-block">
-        <div class="container">
+        <div class="container con">
             Destinos:
-            <select id="Destinos" class="ui dropdown search" asp-items="ViewBag.Destinos">
+            <select id="Destinos" class="ui dropdown search ma" asp-items="ViewBag.Destinos">
                 <option value="0" selected>Todos</option>
             </select>
             <br />
