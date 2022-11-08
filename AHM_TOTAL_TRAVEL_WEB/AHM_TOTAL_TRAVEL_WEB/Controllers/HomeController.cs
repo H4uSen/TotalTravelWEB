@@ -63,16 +63,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                (IEnumerable<ReservationExtraActivitiesListViewModel>)(await _ReservationService.ExtraActivitiesReservationList(token)).Data;
 
             //header data
-            ViewData["agencias_hotel_count"] = partners.Where(partner => partner.TipoPartner_Id == 1).LongCount();
-            ViewData["agencias_transportes_count"] = partners.Where(partner => partner.TipoPartner_Id == 2).LongCount();
-            ViewData["agencias_turismo_count"] = partners.Where(partner => partner.TipoPartner_Id == 3).LongCount();
-            ViewData["agencias_restaurante_count"] = partners.Where(partner => partner.TipoPartner_Id == 4).LongCount();
+            ViewData["agencias_hotel_count"] = partners.Where(partner => partner.TipoPartner_Id == 1).ToList().Count();
+            ViewData["agencias_transportes_count"] = partners.Where(partner => partner.TipoPartner_Id == 2).ToList().Count();
+            ViewData["agencias_turismo_count"] = partners.Where(partner => partner.TipoPartner_Id == 3).ToList().Count();
+            ViewData["agencias_restaurante_count"] = partners.Where(partner => partner.TipoPartner_Id == 4).ToList().Count();
 
             //sub header data
-            ViewData["paquetes_count"] = packages.LongCount();
-            ViewData["reservarion_count"] = reservations.LongCount();
-            ViewData["partners_count"] = partners.LongCount();
-            ViewData["clientes_count"] = clientes.Where(cliente => cliente.Role_ID == 2).LongCount();
+            ViewData["paquetes_count"] = packages.ToList().Count();
+            ViewData["reservarion_count"] = reservations.ToList().Count();
+            ViewData["partners_count"] = partners.ToList().Count();
+            ViewData["clientes_count"] = clientes.Where(cliente => cliente.Role_ID == 2).ToList().Count();
 
 
             // top hotels

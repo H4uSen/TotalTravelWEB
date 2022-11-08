@@ -137,10 +137,28 @@
                 <div class="card mb-0 h-100">
                     <div class="card-body">
                         <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                        <canvas id="lineCahrt" style="display: block; width: 458px; height: 229px;" width="458" height="229" class="chartjs-render-monitor"></canvas>
+                        <canvas id="monthSales" style="display: block; width: 458px; height: 229px;" width="458" height="229" class="chartjs-render-monitor"></canvas>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="pb-0">
+    <div class="container-fluid">
+        <div class="row align-items-stretch">
+
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0 h-100">
+                    <div class="card-body">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="UsersSales" style="display: block; width: 458px; height: 229px;" width="458" height="229" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -156,66 +174,23 @@
                         <div class="card mb-0" style="border: none; box-shadow: none;">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="mb-1">TOP 3 HOTELES MAS POPULARES</h3>
-                                <div class="ui divided items">
-                                    @{ 
-                                        List<string> colors = new List<string> {
-                                            "#D4AF37","#C0C0C0","#CD7F32"
-                                        };
-                                    }
-                                    @for (int i = 0; i < Model.Hotel_Top_3.Count; i++)
-                                    {
-                                        var item = Model.Hotel_Top_3[i];
-                                        var hotel = item.Hotel == null ? item.Hotel : "";
-                                        <div class="item">
-                                            <h2 class="align-middle" style="padding: 0 1em; color: @colors[i]; font-weight: bold;"><br>@(i+1)</h2>
-                                            <div class="image">
-                                                <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                            </div>
-                                            <div class="content">
-                                                <h3><b>@($"{hotel}")</b></h3>
-                                                <h5 class="blue_text">
-                                                    <i class="map marker alternate blue icon"></i>
-                                                    <b>@($"{item.Ciudad}")</b>
-                                                </h5>
-                                                <div class="extra d-flex">
-                                                    <b>Rating:</b>
-                                                    <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    }
-
+                                <div class="ui divided items" id="container_hotels_3">
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-
                         <div class="card mb-0" style="border: none; box-shadow: none;">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="mb-1">TOP 5 ACTIVIDADES MAS POPULARES</h3>
-                                <div class="ui divided items">
+                                <div class="ui divided items" id="container_activities_top_5">
 
-                                    @foreach (var item in Model.Activities_top_5)
-                                    {
-                                        <div class="item">
-                                            <div class="content">
-                                                <h3><b>@item.Descripcion</b></h3>
-                                                <div class="extra d-flex">
-                                                    <b>Rating:</b>
-                                                    <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    }
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+
                 </div>
             </div>
         </div>
@@ -223,6 +198,8 @@
 </section>
 
     @section Scripts{
-
+        <script>
+            var modelo = @Html.Raw(Json.Serialize(Model));
+        </script>
         <script src="~/js/adminDashboard/functions.js"></script>
     }
