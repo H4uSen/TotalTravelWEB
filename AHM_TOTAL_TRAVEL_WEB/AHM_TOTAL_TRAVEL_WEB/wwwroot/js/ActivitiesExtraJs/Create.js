@@ -14,6 +14,8 @@ $("#sendActivity").click(() => {
     validar();
 })
 
+var imagesArray = [];
+var imagesArrayPure = [];
 
 function validar() {
 
@@ -84,6 +86,56 @@ $('#City_ID').change(function () {
 
 });
 
+$("#File").change(async function () {
+
+
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+
+    imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
+    LoadImage();
+
+});
+function LoadImage() {
+
+    var ActivityExtraCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="ActivityExtraCarousel" data-auto="false"></div>`;
+    $("#ActivityExtraCarousel").replaceWith(ActivityExtraCarousel);
+    $("#image-upload-list").html("");
+
+    for (let i = 0; i < imagesArray.length; i++) {
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
+
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
+
+        $("#image-upload-list").append(fileItem);
+        $("#ActivityExtraCarousel").append(HTML_img);
+    }
+    $("#ActivityExtraCarousel").fotorama();
+}
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
+    LoadImage();
+}
+
 
 function CreateActivityExtra() {
 
@@ -121,7 +173,9 @@ function CreateActivityExtra() {
             data.append("AcEx_UsuarioCreacion", parseInt(Client_User_ID));
             data.append("Dire_ID", parseInt(DirecID));
 
-            data.append("file", $("#FileAct").prop("files")[0]);
+            for (var i = 0; i != imagesArrayPure.length; i++) {
+                data.append("File", imagesArrayPure[i]);
+            }
             var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/Insert", data, "POST");
 
             if (response.code == 200) {
