@@ -8,6 +8,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class TransportDetailsListViewModel
     {
         public int ID { get; set; }
+        public int ID_Transporte { get; set; }
         public int Tipo_Transporte_ID { get; set; }
         public string Tipo_Transporte { get; set; }
         public int Horario_ID { get; set; }

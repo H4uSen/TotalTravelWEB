@@ -41,6 +41,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
     }
+    public class TransportListViewBag
+    {
+        public int ID { get; set; }
+        public string Transportes { get; set; }
+        
+    }
 
- 
+
 }

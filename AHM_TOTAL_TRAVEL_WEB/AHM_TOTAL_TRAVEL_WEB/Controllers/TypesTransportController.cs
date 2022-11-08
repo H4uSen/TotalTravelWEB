@@ -26,8 +26,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var token = HttpContext.User.FindFirst("Token").Value;
                 var id = HttpContext.Session.GetString("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
-                var DsTr = await _transportService.TransportDetailsList(token);
-                IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
+                var DsTr = await _transportService.TransportList();
+                IEnumerable<TransportListViewModel> DsTr1 = (IEnumerable<TransportListViewModel>)DsTr.Data;
                 
 
 
@@ -49,13 +49,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                     else
                     {
-                        IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+                        IEnumerable<TransportListViewModel> DesTrFilter = DsTr1.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
                         foreach (var item in lista)
                         {
-                            var data = DesTrFilter.Where(x => x.Tipo_Transporte_ID == item.ID).ToList();
+                            var data = DesTrFilter.Where(x => x.TipoTransporteID == item.ID).ToList();
                             foreach (var item2 in data)
                             {
-                                var data2 = lista.Where(z => z.ID == item2.Tipo_Transporte_ID).ToList();
+                                var data2 = lista.Where(z => z.ID == item2.TipoTransporteID).ToList();
                                 if (!ListNuevaTrDe.Contains(data2[0]))
                                 {
                                     ListNuevaTrDe.Add(data2[0]);

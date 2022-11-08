@@ -64,10 +64,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Create()
         {
 
-            var model = new List<TypesTransportListViewModel>();
-            var typeTransportation = await _transportService.TypesTransportList();
-            IEnumerable<TypesTransportListViewModel> data_TypeTransportation = (IEnumerable<TypesTransportListViewModel>)typeTransportation.Data;
-            ViewBag.Tprt_ID = new SelectList(data_TypeTransportation, "ID", "Trasporte");
+            var id = HttpContext.Session.GetString("PartnerID");
+            var typeTransportation = await _transportService.TransportList();
+            IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
+            List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
+            IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+            foreach (var item in data_TypeTransportation2)
+            {
+                data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.NombrePartner + " - " + item.TipoTransporte });               
+            }
+            
+            
+            ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes");
+            
 
             //IEnumerable<RestaurantViewModel> model_restaurant = null;
             //var restaurant = await _restaurantServices.RestaurantCreate(model_restaurant);
@@ -101,25 +110,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Update(int id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-
+            var idd = HttpContext.Session.GetString("PartnerID");
             var item = new TransportDetailsViewModel();
             IEnumerable<TransportDetailsListViewModel> model = null;
             var list = await _transportService.TransportDetailsList(token);
             IEnumerable<TransportDetailsListViewModel> data = (IEnumerable<TransportDetailsListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
-            item.Tprt_ID = element.ID;
+            item.DeTr_ID = element.ID;
             item.DeTr_Capacidad = element.Capacidad;
             //item.HoTr_ID = element.Fecha;
             item.DeTr_Precio = element.Precio;
             item.DeTr_Matricula = element.Matricula;
-            item.Tprt_ID = element.Tipo_Transporte_ID;
+            item.Tprt_ID = element.ID_Transporte;
             item.HoTr_ID = element.Horario_ID;
 
             ViewData["HorarioID"] = element.Horario_ID;
 
-            var typeTransportation = await _transportService.TypesTransportList();
-            IEnumerable<TypesTransportListViewModel> data_TypeTransportation = (IEnumerable<TypesTransportListViewModel>)typeTransportation.Data;
-            ViewBag.Tprt_ID = new SelectList(data_TypeTransportation, "ID", "Trasporte", element.Tipo_Transporte_ID);
+            var typeTransportation = await _transportService.TransportList();
+            IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
+            List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
+            IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+            foreach (var item2 in data_TypeTransportation2)
+            {
+                data_Transp.Add(new TransportListViewBag() { ID = item2.ID, Transportes = item2.NombrePartner + " - " + item2.TipoTransporte });
+            }
+
+
+            ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes", element.ID_Transporte);
 
             //var horario = await _transportService.TypesTransportList();
             //IEnumerable<TransportDetailsListViewModel> data_Horario = (IEnumerable<TransportDetailsListViewModel>)horario.Data;

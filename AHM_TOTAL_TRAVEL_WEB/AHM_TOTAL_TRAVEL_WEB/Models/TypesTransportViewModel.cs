@@ -18,6 +18,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? Fecha_Modifica { get; set; }
         public bool? Estado { get; set; }
     }
+    
     public class TypesTransportViewModel
     {
         public int TiTr_ID { get; set; }
