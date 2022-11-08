@@ -55,7 +55,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             catch
             {
-                return RedirectToAction("LogOut", "Access");
+                return RedirectToAction("Error", "Home");
             }
         }
 
