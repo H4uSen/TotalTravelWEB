@@ -236,7 +236,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         case "Moderador de Agencia Turistica":
                             return RedirectToAction(actionName: "Index", controllerName: "Home");
                         case "Moderador de Transporte":
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                            return RedirectToAction(actionName: "Index", controllerName: "DashBoardTransportsHome");
                         case "Moderador de Actividades":
                             return RedirectToAction(actionName: "Index", controllerName: "Home");
                         default:

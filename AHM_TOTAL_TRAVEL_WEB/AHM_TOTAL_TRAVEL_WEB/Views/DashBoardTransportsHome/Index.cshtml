@@ -1,0 +1,149 @@
+﻿@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "adminDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<header class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Dashboard Transportes</h2>
+    </div>
+</header>
+
+<section class="pb-0">
+    <div class="container-fluid">
+        <div class="card mb-0">
+            <div class="card-body">
+                <div class="row gx-5 bg-white">
+                    <!-- Item -->
+                    <div class="col-xl-4 col-sm-12 py-4 border-lg-end border-gray-200">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-violet">
+                                <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                                    <use xlink:href="#user-1"> </use>
+                                </svg>
+                            </div>
+                            <div class="mx-3">
+                                <h6 class="h4 fw-light text-gray-600 mb-3">TRANSPORTES</h6>
+                            </div>                          
+                            <a class="ui right labeled icon button btn-purple text-white" href="@Url.Action("Index","Transport")">
+                                <i class="right arrow icon"></i>
+                                GO
+                            </a>                          
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div class="col-xl-4 col-sm-12 py-4 border-lg-end border-gray-200">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-red">
+                                <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                                    <use xlink:href="#survey-1"> </use>
+                                </svg>
+                            </div>
+                            <div class="mx-3">
+                                <h6 class="h4 fw-light text-gray-600 mb-3">TIPOS DE<br>TRANSPORTE</h6>
+                            </div>                           
+                            <a class="ui right labeled icon button btn-purple text-white" href="@Url.Action("Index","TypesTransport")">
+                                <i class="right arrow icon"></i>
+                                GO
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div class="col-xl-4 col-sm-12 py-4 border-lg-end border-gray-200">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-green">
+                                <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                                    <use xlink:href="#numbers-1"> </use>
+                                </svg>
+                            </div>
+                            <div class="mx-3">
+                                <h6 class="h4 fw-light text-gray-600 mb-3">DETALLES DE <br>TRANSPORTE</h6>
+                            </div>                          
+                            <a class="ui right labeled icon button btn-purple text-white" href="@Url.Action("Index","TransportDetails")">
+                                <i class="right arrow icon"></i>
+                                GO
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="pb-0">
+    <div class="container-fluid">
+        <div class="card mb-0">
+            <div class="card-body">
+                <div class="row gx-5 bg-white">
+                    <!-- Item -->
+                    <div class="col-xl-4 col-sm-12 py-4 border-lg-end border-gray-200">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-violet">
+                                <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                                    <use xlink:href="#user-1"> </use>
+                                </svg>
+                            </div>
+                            <div class="mx-3">
+                                <h6 class="h4 fw-light text-gray-600 mb-3">HORARIOS DE<br>TRANSPORTE</h6>
+                            </div>                          
+                            <a class="ui right labeled icon button btn-purple text-white" href="@Url.Action("Index","ScheduleTransportation")">
+                                <i class="right arrow icon"></i>
+                                GO
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div class="col-xl-4 col-sm-12 py-4 border-lg-end border-gray-200">
+                        <div class="d-flex align-items-center">
+                            <div class="icon flex-shrink-0 bg-red">
+                                <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                                    <use xlink:href="#survey-1"> </use>
+                                </svg>
+                            </div>
+                            <div class="mx-3">
+                                <h6 class="h4 fw-light text-gray-600 mb-3">DESTINOS DE<br>TRANSPORTE</h6>
+                            </div>
+                            <a class="ui right labeled icon button btn-purple text-white" href="@Url.Action("Index","DestinationsTransportations")">
+                                <i class="right arrow icon"></i>
+                                GO
+                            </a>
+                        </div>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pb-0">
+    <div class="container-fluid">
+        <div class="row align-items-stretch">           
+            <!-- Line Chart            -->
+            <center>
+                <div class="col-lg-9 col-12">
+                    <div class="card mb-0 h-100">
+                        <div class="card-body">
+                            <div id="container"></div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script src="~/js/TransportModule/Graficos.js"></script>
+
+    <script>
+            var modelo = @Html.Raw(Json.Serialize(Model));
+    </script>
+}
