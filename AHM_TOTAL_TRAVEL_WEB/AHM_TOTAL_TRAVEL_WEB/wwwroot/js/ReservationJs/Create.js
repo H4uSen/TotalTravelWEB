@@ -311,7 +311,7 @@ function FillCities(Country_Id) {
 
 
 
-// create reservation 
+// Create reservation
 function createReservation() {
     var reservation = new FormData();
 

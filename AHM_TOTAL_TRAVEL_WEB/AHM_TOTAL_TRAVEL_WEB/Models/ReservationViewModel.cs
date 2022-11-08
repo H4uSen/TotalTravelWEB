@@ -53,6 +53,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         //Need this to make the reservation of a transport
         public List<ReservationTransportationViewModel> reservacionTransportes { get; set; }
 
+        public List<int> ID_HotelsActivities { get; set; }
+        public List<int> ID_ExtrasActivities { get; set; }
     }
     public class ReservationListViewModel
     {
@@ -89,6 +91,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string NombreCompleto { get; set; }
         [JsonIgnore]
         public int AmountOfPayments { get; set; }
+
+        public List<int> ID_HotelsActivities { get; set; } = null;
+        public List<int> ID_ExtrasActivities { get; set; } = null;
     }
 
 }
