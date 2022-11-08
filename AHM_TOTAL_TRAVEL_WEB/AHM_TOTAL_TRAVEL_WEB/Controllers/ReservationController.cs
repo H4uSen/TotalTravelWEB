@@ -44,7 +44,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create( ReservationViewModel reservation)
+        public async Task<IActionResult> Create(ReservationViewModel reservation)
         {
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirst("User_Id").Value;

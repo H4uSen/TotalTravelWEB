@@ -24,7 +24,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index()
-        {       
+        {
             try
             {
                 List<PaymentRecordListViewModel> payments = ((List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data);
@@ -57,7 +57,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return RedirectToAction("Index", "Reservation");
         }
 
         [HttpPost]
@@ -68,11 +68,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 try
                 {
+                 
+                    payment.RePa_FechaPago = DateTime.Now;
+                    
                     string token = HttpContext.User.FindFirst("Token").Value;
                     payment.RePa_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
                     var list = await _saleServices.PaymentRecordCreate(payment, token);
-                    return RedirectToAction("Index");
 
+                    return RedirectToAction("Index", "Reservation",list.Data);
                 }
                 catch (Exception)
                 {
@@ -83,7 +86,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             else
             {
-                return View();
+                return View(payment);
             }
 
         }
@@ -99,7 +102,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 ViewData["Payment_ID"] = PaymentRequest.ID;
 
-                return View(PaymentRequest);
+                return Ok(PaymentRequest);
             }
             catch (Exception)
             {
@@ -109,7 +112,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(PaymentRecordViewModel payment)
+        public async Task<IActionResult> Update(PaymentRecordViewModel payment, string id)
         {
 
             if (ModelState.IsValid)
@@ -149,7 +152,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
-        public async Task<IActionResult> Delete( int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
             if (ModelState.IsValid)
             {
@@ -160,7 +164,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     string token = HttpContext.User.FindFirst("Token").Value;
                     var list = await _saleServices.PaymentRecordDelete(UserMod, id, token);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Reservation");
                 }
                 catch (Exception)
                 {
@@ -171,7 +175,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index", "Reservation");
             }
         }
 

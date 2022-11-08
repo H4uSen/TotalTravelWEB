@@ -226,7 +226,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     switch (LogInVerify.Rol)
                     {
                         case "Administrador":
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                            return RedirectToAction(actionName: "adminDashboard", controllerName: "Home");
                         case "Cliente":
                             return RedirectToAction(actionName: "Index", controllerName: "ClientHome");
                         case "Moderador de Hotel":
