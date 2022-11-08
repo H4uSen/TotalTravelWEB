@@ -26,8 +26,52 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var destiny = await _transportService.TransportDestionationsList();
                 IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
                 ViewBag.DsTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
-                var list =  await _transportService.ScheduleTransportationList();
-                return View(list.Data);
+
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.Session.GetString("PartnerID");
+                var rol = HttpContext.Session.GetString("Role");
+                var DsTr = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
+               
+
+
+                var list = await _transportService.ScheduleTransportationList();
+                IEnumerable<ScheduleTransportationListViewModel> lista = (IEnumerable<ScheduleTransportationListViewModel>)list.Data;
+                List<ScheduleTransportationListViewModel> ListNuevaTrDe = new List<ScheduleTransportationListViewModel>();
+
+
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        foreach (var item in lista)
+                        {
+                            IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+                            var data = DesTrFilter.Where(x => x.Horario_ID == item.ID).ToList();
+                            foreach (var item2 in data)
+                            {
+                                var data2 = lista.Where(z => z.ID == item2.Horario_ID).ToList();
+                                if (!ListNuevaTrDe.Contains(data2[0]))
+                                {
+                                    ListNuevaTrDe.Add(data2[0]);
+                                }
+
+                            }
+                        }
+
+                        return View((IEnumerable<ScheduleTransportationListViewModel>)ListNuevaTrDe);
+                    }
+                }
             }
             catch (Exception)
             {
@@ -75,7 +119,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             catch (Exception)
             {
-
                 return RedirectToAction("Error", "Home");
             }
         }
