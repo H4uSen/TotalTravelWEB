@@ -26,6 +26,29 @@ function goBack() {
     window.location.href = "/Reservation/Index";
 }
 
+$('#btnAddExtraHotelActivities').click(function () {
+    $(this).toggleClass('active');
+    if ($(this).hasClass('active')) {
+        $(this).text("Ingresar actividades de su hotel");
+        $("#frmAddExtraHotelsActivities").show();
+    }
+    else {
+        $(this).text("Ingrese actividades de su hotel");
+        $("#frmAddExtraHotelsActivities").hide();
+    }
+});
+
+$('#frmAddExtraActivities').click(function () {
+    $(this).toggleClass('active');
+    if ($(this).hasClass('active')) {
+        $(this).text("Ingresar actividades de la zona");
+        $("#frmAddExtraActivities").show();
+    }
+    else {
+        $(this).text("Ingrese actividades de la zona");
+        $("#frmAddExtraActivities").hide();
+    }
+});
 
 // ----------------------------------- EVENTS ------------------------------------
 $(document).ready(function () {
@@ -349,9 +372,9 @@ function updateReservation() {
         reservation.append("ReHo_FechaSalida", $("#updateReservationForm #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
         reservation.append("ReHo_FechaSalida", $("#updateReservationForm #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
 
-        reservation.append("ID_HotelsActivities", $("#ID_HotelsActivities option:selected").toArray().map(item => parseInt(item.value)));//.concat("T00:00:00"));
-        reservation.append("ID_ExtrasActivities", $("#ID_HotelsActivities option:selected").toArray().map(item => parseInt(item.value)));//.concat("T00:00:00"));
-        reservation.append("Resv_ID", Usua_ID);//.concat("T00:00:00"));
+        //reservation.append("ID_HotelsActivities", $("#ID_HotelsActivities option:selected").toArray().map(item => parseInt(item.value)));//.concat("T00:00:00"));
+        //reservation.append("ID_ExtrasActivities", $("#ID_HotelsActivities option:selected").toArray().map(item => parseInt(item.value)));//.concat("T00:00:00"));
+        reservation.append("Resv_ID", Usua_ID);
 
 
 
@@ -430,4 +453,3 @@ function updateReservation() {
 
 }
 
-console.log(Reservation);
