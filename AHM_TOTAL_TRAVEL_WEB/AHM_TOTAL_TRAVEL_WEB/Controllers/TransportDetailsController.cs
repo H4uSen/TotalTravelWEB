@@ -69,13 +69,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var typeTransportation = await _transportService.TransportList();
                 IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
                 List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
-                IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                IEnumerable<TransportListViewModel> data_TypeTransportation2;
+                if (!String.IsNullOrEmpty(id))
+                {
+                    data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                }
+                else
+                {
+                     data_TypeTransportation2 = data_TypeTransportation.ToList();
+                }
                 foreach (var item in data_TypeTransportation2)
                 {
-                    data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.NombrePartner + " - " + item.TipoTransporte });               
-                }                       
-                ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes");
+                    data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.NombrePartner + " - " + item.TipoTransporte });
+                }
 
+                ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes");
                 return View();
             }
             catch (Exception)
