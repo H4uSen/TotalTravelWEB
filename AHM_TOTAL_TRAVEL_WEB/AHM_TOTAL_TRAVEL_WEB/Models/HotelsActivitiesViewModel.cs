@@ -16,6 +16,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? FechaCreacion { get; set; }
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
+
+        public string Image_Url { get; set; }
         public bool? Estado { get; set; }
         public int PartnerID { get; set; }
 

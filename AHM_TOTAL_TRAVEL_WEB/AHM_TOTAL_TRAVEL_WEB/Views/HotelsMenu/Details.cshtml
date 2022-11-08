@@ -44,18 +44,15 @@
                                 <label>Tipo</label>
                                 @Html.DisplayFor(model => model.Tipo)
                             </div>
-                            
+
                         </div>
-                        <div class="field">
-                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; max-width:40%; margin:auto;">
-                                <div class="ui icon header" id="HotelCarousel">
-                                    <i class="images icon"></i>
-                                    Tus imágenes aparecerán aquí.
-                                </div>
-                                <div class="ui centered fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false">
-                                </div>
+                        <div class="col">
+                            <div class="field">
+                                <label>Imagen del Menu</label>
+                                <img src="@Html.DisplayFor(model => model.Image_Url)" style="height:200px; width:250px;" />
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
