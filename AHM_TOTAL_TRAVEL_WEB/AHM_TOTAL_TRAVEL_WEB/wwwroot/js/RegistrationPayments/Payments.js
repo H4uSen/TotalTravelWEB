@@ -70,6 +70,6 @@ function actualizar() {
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     if (ValidateFormStatus) {
-        $("#updatePaymentsForm").submit();
+        
     }
 }

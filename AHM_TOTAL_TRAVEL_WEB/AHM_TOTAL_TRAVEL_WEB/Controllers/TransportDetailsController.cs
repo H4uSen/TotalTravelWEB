@@ -31,20 +31,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var rol = HttpContext.Session.GetString("Role");
                 var DsTr = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
-                var DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
-
-
+               
                 var list = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> lista = (IEnumerable<TransportDetailsListViewModel>)list.Data;
-
-                var element = lista.ToList()[0];
-
+               
                 if (string.IsNullOrEmpty(id))
                 {
                     return View(lista);
                 }
                 else
                 {
+                    IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
                     if (rol == "Cliente" || rol == "Administrador")
                     {
                         return View(lista);
@@ -59,7 +56,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             catch
             {
-                return RedirectToAction("LogOut", "Access");
+                return RedirectToAction("Error", "Home");
             }
         }
 

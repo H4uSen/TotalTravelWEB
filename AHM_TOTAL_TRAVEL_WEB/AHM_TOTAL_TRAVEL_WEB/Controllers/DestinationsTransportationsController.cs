@@ -24,7 +24,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            
+            try { 
                 var token = HttpContext.User.FindFirst("Token").Value;
                 var type = await _generalService.CitiesList();
                 IEnumerable<CityListViewModel> data_type = (IEnumerable<CityListViewModel>)type.Data;
@@ -37,7 +37,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var rol = HttpContext.Session.GetString("Role");
                 var DsTr = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
-                IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+                
 
 
                 var list = await _transportService.TransportDestionationsList();
@@ -52,6 +52,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 }
                 else
                 {
+                    IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
                     if (rol == "Cliente" || rol == "Administrador")
                     {
                         return View(lista);
@@ -76,8 +77,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         return View((IEnumerable<DestinationsTransportationsListViewModel>)ListNuevaTrDe);
                     }
                 }
-            
-           
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+
+
 
         }
 

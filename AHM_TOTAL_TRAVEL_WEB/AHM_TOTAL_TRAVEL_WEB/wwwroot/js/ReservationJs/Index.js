@@ -1,6 +1,6 @@
-﻿const ReservationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-const PaymentsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/List");
-const PaymentTypesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PaymentTypes/List");
+﻿const ReservationList = ajaxRequest("https://totaltravel.somee.com/API/Reservation/List");
+const PaymentsList = ajaxRequest("https://totaltravel.somee.com/API/RecordPayment/List");
+const PaymentTypesList = ajaxRequest("https://totaltravel.somee.com/API/PaymentTypes/List");
 
 
 TableSearchInput($("#txtSearch"), $("#grdReservacion"), elemPerPage = 10);
@@ -68,8 +68,10 @@ function paymentsListDetails(id_reservacion) {
                     <p>Nombre: ${detail.nombre_Completo}</p>
                     <p>Monto: L ${parseFloat(detail.montoPago).toFixed(2)}</p>
                     <p>Realizado el: ${fechaCreacion.datetime}</p>
-                </a><br /><div><button class="ui small btn-purple text-white labeled icon button" id="updatePayments" onclick="editar('${detail.id}')"> Editar</button> 
-                <button class="ui small btn-purple text-white labeled icon button" id="deletePayments" onclick="DeletePayment('${detail.id}')"> Eliminar</button>
+                </a><br />
+                <div style="margin-left: 10px;margin-bottom: 10px;">
+                <button class="ui small btn-purple text-white icon button" id="updatePayments" onclick="editar('${detail.id}')"> Editar</button>
+                <button class="ui small btn-purple text-white icon button" id="deletePayments" onclick="DeletePayment('${detail.id}')"> Eliminar</button>
                 </div>`;
         }
         Detail += "</div>";
@@ -104,10 +106,11 @@ function createPayment(resv_ID) {
 
 function DeletePayment(id) {
     const capsula1 = () => {
-        var response = ajaxRequest("/API/RecordPayment/Delete?id=" + id, null, "POST");
+        var response = ajaxRequest("/RegistrationPayments/Delete?id=" + id, null, "POST");
         if (response > 0) {
             window.location.href = '/Reservation?success=true';
         }
+        window.location.reload();
     };
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
 
@@ -123,46 +126,50 @@ for (var i = 0; i < paymentTypes.length; i++) {
 $("#modalCreate #close").click(() => {
     $("#modalCreate").modal('hide');
 });
-
-
-
-$('input[name="RePa_Fecha"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 2010,
-    maxYear: parseInt(moment().format('YYYY'), 10)
+$("#modalUpdate #close").click(() => {
+    $("#modalUpdate").modal('hide');
 });
 
 
-function validar() {
+
+
+function validar() {    
 
     validateArrayForm = [
         { validateMessage: "No se pudo recuperar el # de la reservación", Jqueryinput: $("#modalCreate #Resv_ID") },
         { validateMessage: "Ingrese una forma de pago.", Jqueryinput: $("#modalCreate #TiPa_ID") },
         { validateMessage: "Ingrese un monto.", Jqueryinput: $("#modalCreate #RePa_Monto") },
-        { validateMessage: "Ingrese una fecha.", Jqueryinput: $("#modalCreate #RePa_Fecha") },
     ];
 
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     if (ValidateFormStatus) {
-        $("#createPaymentForm").submit();
+
+        $("#createPaymentForm").submit();        
     }
 
 }
 
+//Fill the payments types Dropdown
+for (var i = 0; i < paymentTypes.length; i++) {
+    $('#modalUpdate #TiPa_ID').append('<option value="' + paymentTypes[i].id + '">' + paymentTypes[i].descripcion + '</option>');
+};
+
 
 function editar(PaymentID) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/Find?Id=" + PaymentID);
-    if (response.code == 200) {
-        var item = response.data;
+    var response = ajaxRequest("/RegistrationPayments/Update?id=" + PaymentID,null, "GET");
+    if (response != null) {
+        var item = response;
 
 
-        $("#modalUpdate #Resv_ID").val(item.id);
-        $("#modalUpdate #TiPa_ID").val(item.pais);
-        $("#modalUpdate #RePa_Monto").val(item.codigo);
-        $("#modalUpdate #RePa_FechaPago").val(item.nacionalidad);
+        var fecha = item.fechaPago.split("T")[0];
+
+        $("#modalUpdate #Resv_ID").val(item.id_Reservacion);
+        $("#modalUpdate #TiPa_ID").val(item.id_TipoPago);
+        $("#modalUpdate #RePa_Monto").val(item.montoPago);
+        $("#modalUpdate #RePa_ID").val(item.id);
+        $("#modalUpdate #RePa_FechaPago").val(fecha);
         $("#modalUpdate").modal("show");
 
     }
@@ -171,10 +178,10 @@ function editar(PaymentID) {
 
 function actualizar() {
     validateArrayForm = [
-        { validateMessage: "Ingrese una reservación.", Jqueryinput: $("#modalCreate #Resv_ID") },
-        { validateMessage: "Ingrese una forma de pago.", Jqueryinput: $("#modalCreate #TiPa_ID") },
-        { validateMessage: "Ingrese un monto.", Jqueryinput: $("#modalCreate #RePa_Monto") },
-        { validateMessage: "Ingrese una fecha.", Jqueryinput: $("#modalCreate #RePa_FechaPago") },
+        { validateMessage: "Ingrese una reservación.", Jqueryinput: $("#modalUpdate #Resv_ID") },
+        { validateMessage: "Ingrese una forma de pago.", Jqueryinput: $("#modalUpdate #TiPa_ID") },
+        { validateMessage: "Ingrese un monto.", Jqueryinput: $("#modalUpdate #RePa_Monto") },
+        { validateMessage: "Ingrese una fecha.", Jqueryinput: $("#modalUpdate #RePa_FechaPago") },
 
     ];
 

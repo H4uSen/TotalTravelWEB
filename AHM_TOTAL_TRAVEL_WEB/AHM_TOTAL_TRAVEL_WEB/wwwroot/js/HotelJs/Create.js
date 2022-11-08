@@ -141,7 +141,7 @@ function createHotel() {
             dire.dire_Calle = $('#Calle').val();
             dire.dire_Avenida = $('#Avenida').val();
 
-            var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
 
@@ -149,19 +149,27 @@ function createHotel() {
                 direStatus = true;
             }
 
-            if (direStatus) {
+        if (direStatus) {
+                var nombre = $("#Hote_Nombre").val();
+                var descripcion = $("#Hote_Descripcion").val();
+                var partid = $("#Part_ID").val();
+
                 var data = new FormData();
                 data.append("dire_ID", parseInt(DireID));
-                data.append("hote_Nombre", $("#Hote_Nombre").val());
-                data.append("hote_Descripcion", $("#Hote_Descripcion").val());
-                data.append("part_ID", parseInt($("#Part_ID").val()));
+                data.append("hote_Nombre", nombre);
+                data.append("hote_Descripcion", descripcion);
+                data.append("part_ID", parseInt(partid));
                 data.append("hote_UsuarioCreacion", parseInt(Client_User_ID));
-
-                for (var i = 0; i != imagesArrayPure.length; i++) {
-                    data.append("File", imagesArrayPure[i]);
+                if (imagesArrayPure.length > 0) {
+                    for (var i = 0; i != imagesArrayPure.length; i++) {
+                        data.append("File", imagesArrayPure[i]);
+                    }
+                }
+                else {
+                    data.append("File", null);
                 }
 
-                var response = uploadFile("https://totaltravel.somee.com/API/Hotels/Insert", data, "POST");
+                var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Hotels/Insert", data, "POST");
                 if (response.data.codeStatus > 0) {
                     window.location.href = '/Hotel?update_success=true';
                 } else {

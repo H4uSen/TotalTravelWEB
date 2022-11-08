@@ -130,7 +130,7 @@
                         </div>
                         <div class="required field">
                             <label>Forma de pago</label>
-                            <select class="ui search dropdown" id="TiPa_ID">
+                            <select class="ui search dropdown" name="TiPa_ID" id="TiPa_ID">
                                 <option value="">Selecciona paquete</option>
                             </select>
 
@@ -144,7 +144,7 @@
                         </div>
                         <div class="required field">
                             <label>Fecha</label>
-                            <input type="text" name="RePa_Fecha" value="10/24/2000" />
+                            <input type="date" name="RePa_Fecha" id="RePa_FechaPago" value="10/24/2022" />
                         </div>
                     </div>
                 </div>
@@ -168,25 +168,34 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Reservación</label>
-                            <input name="resv_ID" id="resv_ID" class="form-control" />
+                            <label># Número de factura</label>
+                            <input name="RePa_ID" id="RePa_ID" class="form-control" readonly />
+
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label># de Reservación</label>
+                            <input name="resv_ID" id="Resv_ID" class="form-control" readonly/>
 
                         </div>
                         <div class="required field">
                             <label>Forma de pago</label>
-                            <input name="tiPa_ID" id="tiPa_ID" class="form-control" />
+                            <select class="ui dropdown" name="TiPa_ID" id="TiPa_ID">
+                                <option value="">Selecciona paquete</option>
+                            </select>
 
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="required field">
                             <label>Cantidad</label>
-                            <input type="number" min="1" name="rePa_Monto" id="rePa_Monto" class="form-control" />
+                            <input type="number" min="1" name="RePa_Monto" id="RePa_Monto" class="form-control" />
 
                         </div>
                         <div class="required field">
                             <label>Fecha</label>
-                            <input type="text" name="RePa_Fecha" value="10/24/2000" />
+                            <input type="date" name="RePa_Fecha" id="RePa_FechaPago" value="10/24/2022" />
                         </div>
                     </div>
                 </div>

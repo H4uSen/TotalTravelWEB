@@ -33,7 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 var list = await _transportService.TransportList();
                 IEnumerable<TransportListViewModel> lista = (IEnumerable<TransportListViewModel>)list.Data;
-                var element = lista.ToList()[0];
+               
 
                 if (string.IsNullOrEmpty(id))
                 {
@@ -55,7 +55,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             catch
             {
-                return RedirectToAction("LogOut", "Access");
+                return RedirectToAction("Error", "Home");
             }
         }
 

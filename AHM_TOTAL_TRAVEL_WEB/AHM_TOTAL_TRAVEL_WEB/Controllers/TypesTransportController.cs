@@ -21,9 +21,57 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new List<TypesTransportListViewModel>();
-            var list = await _transportService.TypesTransportList();
-            return View(list.Data);
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.Session.GetString("PartnerID");
+                var rol = HttpContext.Session.GetString("Role");
+                var DsTr = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
+                
+
+
+                var list = await _transportService.TypesTransportList();
+                IEnumerable<TypesTransportListViewModel> lista = (IEnumerable<TypesTransportListViewModel>)list.Data;
+                List<TypesTransportListViewModel> ListNuevaTrDe = new List<TypesTransportListViewModel>();
+
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    if (rol == "Cliente" || rol == "Administrador")
+                    {
+                        return View(lista);
+                    }
+
+                    else
+                    {
+                        IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+                        foreach (var item in lista)
+                        {
+                            var data = DesTrFilter.Where(x => x.Tipo_Transporte_ID == item.ID).ToList();
+                            foreach (var item2 in data)
+                            {
+                                var data2 = lista.Where(z => z.ID == item2.Tipo_Transporte_ID).ToList();
+                                if (!ListNuevaTrDe.Contains(data2[0]))
+                                {
+                                    ListNuevaTrDe.Add(data2[0]);
+                                }
+
+                            }
+                        }
+
+                        return View((IEnumerable<TypesTransportListViewModel>)ListNuevaTrDe);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public IActionResult Create()

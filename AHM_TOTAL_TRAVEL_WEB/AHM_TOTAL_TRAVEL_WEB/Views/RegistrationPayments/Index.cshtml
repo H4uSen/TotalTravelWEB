@@ -74,22 +74,22 @@
                                 if (item.Id_TipoPago == 1)
                                 {
 
-                                    <i class="paypal icon"></i>
+                                            <i class="paypal icon"></i>
 
                                 }
                                 else if (item.Id_TipoPago == 2)
                                 {
-                                    <i class="credit card icon"></i>
+                                            <i class="credit card icon"></i>
 
                                 }
                                 else if (item.Id_TipoPago == 3)
                                 {
-                                    <i class="money bill"></i>
+                                            <i class="money bill"></i>
 
                                 }
                                 else if (item.Id_TipoPago == 4)
                                 {
-                                    <i class="dollar sign icon"></i>
+                                            <i class="dollar sign icon"></i>
 
                                 }
                             }
@@ -126,6 +126,14 @@
             <div class="content">
                 <div class="required field">
                     <div class="two fields">
+                        
+                        <div class="required field">
+                            <label>Forma de pago</label>
+                            <input name="TiPa_ID" id="TiPa_ID" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="two fields">
                         <div class="required field">
                             <label>Reservación</label>
                             <input name="Resv_ID" id="Resv_ID" class="form-control" />
@@ -148,7 +156,7 @@
                             <div class="ui calendar" id="standard_calendar">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input type="text" placeholder="Birth Date (required)" name="RePa_FechaPago" id="RePa_FechaPago">
+                                    <input type="text" placeholder="Fecha de pago" id="RePa_FechaPago">
                                 </div>
                             </div>
                         </div>
@@ -170,13 +178,20 @@
     <div class="header">
         Actualiza un Registro de pago
     </div>
-    <form asp-action="Update" asp-controller="RegistrationPayments" id="updatePaymentsForm">
+    <form asp-action="Update" asp-controller="RegistrationPayments" method="post" id="updatePaymentsForm">
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label>Reservación</label>
+                            <label># Número de factura</label>
+                            <input name="RePa_ID" id="RePa_ID" class="form-control" readonly />
+
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="required field">
+                            <label># Reservación</label>
                             <input name="resv_ID" id="resv_ID" class="form-control" />
 
                         </div>

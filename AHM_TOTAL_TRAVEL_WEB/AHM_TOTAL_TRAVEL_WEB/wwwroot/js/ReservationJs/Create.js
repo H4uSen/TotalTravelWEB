@@ -1,12 +1,12 @@
 ﻿// ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const UsersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/List");
-const DefaultPackagesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
-const DefaultPackagesDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackagesDetails/List");
-const CountriesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Countries/List");
-const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
-const ReservationHotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
-const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+const UsersList = ajaxRequest("https://totaltravel.somee.com/API/Users/List");
+const DefaultPackagesList = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
+const DefaultPackagesDetailsList = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackagesDetails/List");
+const CountriesList = ajaxRequest("https://totaltravel.somee.com/API/Countries/List");
+const HotelsList = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
+const ReservationHotels = ajaxRequest("https://totaltravel.somee.com/API/ReservationHotels/List");
+const CitiesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
 
 
 
