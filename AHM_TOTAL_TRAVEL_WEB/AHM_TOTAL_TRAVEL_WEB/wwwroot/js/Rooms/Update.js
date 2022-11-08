@@ -132,7 +132,7 @@ function deleteImage(index) {
             for (var i = 0; i != imagesArrayPure.length; i++) {
                 data.append("File", imagesArrayPure[i]);
             }
-            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Update/Insert", data, "POST");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Rooms/Update?id=" + roomsID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/Rooms?success=true';
             } else {
