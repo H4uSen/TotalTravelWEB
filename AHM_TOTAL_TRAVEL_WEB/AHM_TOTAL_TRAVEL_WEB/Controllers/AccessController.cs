@@ -232,7 +232,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         case "Moderador de Hotel":
                             return RedirectToAction(actionName: "HotelDashboard", controllerName: "DashBoardHotelHome");
                         case "Moderador de Restaurante":
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                            return RedirectToAction(actionName: "restaurantDashboard", controllerName: "Home");
                         case "Moderador de Agencia Turistica":
                             return RedirectToAction(actionName: "Index", controllerName: "Home");
                         case "Moderador de Transporte":
