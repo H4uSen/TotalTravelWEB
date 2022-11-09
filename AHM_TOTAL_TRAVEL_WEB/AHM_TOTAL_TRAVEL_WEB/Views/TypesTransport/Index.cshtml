@@ -22,7 +22,7 @@
         <br>
         <div class="ui grid">
             <div class="eight wide column">
-                <button id="createTypesTransport" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
+                <button id="createTypesTransport" class="ui small primary labeled icon btn-edit button"><i class="plus icon"></i>Nuevo</button>
             </div>
             <div class="eight wide column">
                 <div class="ui icon input" style="float:right;">
@@ -57,6 +57,9 @@
                         </td>
 
                         <td>
+                            <button class="ui large icon btn-edit button" id="UpdateBottom" onclick="editar(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
                             <button class="ui large icon negative button" onclick="Delete(@item.ID)">
                                 <i class="trash alternate icon icon-crud"></i>
                             </button>
@@ -92,6 +95,33 @@
     <div class="actions">
         <button class="ui button" id="closeTypesTransport">Cerrar</button>
         <button class="ui button" id="sendTypesTransport" onclick="validar()">Guardar</button>
+    </div>
+</div>
+
+<div class="ui modal longer" id="modalUpdate">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza tipo de transporte
+    </div>
+    <form asp-action="Update" asp-controller="TypesTransport" id="updateTypesTransportForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label>Tipo Transporte</label>
+                    <input id="id" style="display:none" />
+                    <div class="two fields">
+                        <div class="field">
+                            <input id="Transporte_up" name="TiTr_Descripcion" placeholder="Descripcion del tipo de transporte" />
+                            <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatort"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button" id="closeTypesTransport">Cerrar</button>
+        <button class="ui button" id="sendTypesTransport" onclick="actualizar()">Guardar</button>
     </div>
 </div>
 

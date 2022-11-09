@@ -103,7 +103,7 @@
                             <input id="Descripcion" name="HoAc_Descripcion" placeholder="Descripcion de la actividad hotel" />
                         </div>
                         <div class="field">
-                            <input id="Precio" name="HoAc_Precio" placeholder="Precio de la actividad hotel" />
+                            <input type="number" min="1" oninput="this.value = Math.abs(this.value)" id="Precio" name="HoAc_Precio" placeholder="Precio de la actividad hotel" />
                         </div>
                     </div>
                     <div class="two fields">
@@ -148,7 +148,7 @@
                         <input id="Descripcion_up" name="HoAc_Descripcion" placeholder="Descripcion del menu" />
                     </div>
                     <div class="field">
-                        <input id="Precio_up" name="HoAc_Precio" placeholder="Precio del menu" />
+                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" id="Precio_up" name="HoAc_Precio" placeholder="Precio del menu" />
                     </div>
                 </div>
                 <div class="two fields">

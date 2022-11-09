@@ -36,6 +36,10 @@
                                 <label>Precio</label>
                                 @Html.DisplayFor(model => model.Precio)
                             </div>
+                        </div>
+                    </div>
+                    <div class="field">                      
+                        <div class="two fields">
                             <div class="field">
                                 <label>Hotel</label>
                                 @Html.DisplayFor(model => model.Hotel)
@@ -46,58 +50,55 @@
                             </div>
 
                         </div>
-                        <div class="col">
-                            <div class="field">
-                                <label>Imagen del Menu</label>
-                                <img src="@Html.DisplayFor(model => model.Image_Url)" style="height:200px; width:250px;" />
-                            </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; max-width:40%; margin:auto;">
+                            <img src="@Html.DisplayFor(model => model.Image_Url)" style="height: 200px; width: 250px; margin: auto; display: block;"  />
                         </div>
-
                     </div>
                 </div>
+                <br />
+
+                <h3 class="ui horizontal divider header">
+                    <i class="folder open icon"></i>
+                    Auditoría
+                </h3>
+
+                <table class="ui compact selectable celled table" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>
+                                Usuario Creación
+                            </th>
+                            <th>
+                                Fecha Creación
+                            </th>
+                            <th>
+                                Usuario modifica
+                            </th>
+                            <th>
+                                Fecha modifica
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => model.UsuarioCreacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.FechaCreacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.UsuarioModifica)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.FechaModifica)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <br />
-
-            <h3 class="ui horizontal divider header">
-                <i class="folder open icon"></i>
-                Auditoría
-            </h3>
-
-            <table class="ui compact selectable celled table" id="tabla">
-                <thead>
-                    <tr>
-                        <th>
-                            Usuario Creación
-                        </th>
-                        <th>
-                            Fecha Creación
-                        </th>
-                        <th>
-                            Usuario modifica
-                        </th>
-                        <th>
-                            Fecha modifica
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => model.UsuarioCreacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.FechaCreacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.UsuarioModifica)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.FechaModifica)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
-</div>
 
