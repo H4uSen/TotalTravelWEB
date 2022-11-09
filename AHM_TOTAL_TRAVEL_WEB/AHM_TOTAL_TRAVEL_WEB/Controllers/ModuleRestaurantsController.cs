@@ -34,7 +34,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(id, token)).Data;
+            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
 
             var list = await _restaurantService.RestaurantsList(token);
             IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;

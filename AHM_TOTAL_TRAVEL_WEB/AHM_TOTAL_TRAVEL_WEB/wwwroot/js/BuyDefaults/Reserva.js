@@ -8,7 +8,7 @@ $('#standard_calendar').calendar({
 $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
 
-paqueteDuracion = $("#frmCreateReservation #duracion").val();
+paqueteDuracion = $("#frmCreateReservation #duracion").val() - 1;
 $('#dateRangePicker').daterangepicker({
     "maxSpan": {
         "days": paqueteDuracion
