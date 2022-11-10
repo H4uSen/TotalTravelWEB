@@ -1,5 +1,5 @@
 ﻿var menusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
-
+$('.ui.dropdown').dropdown();
 fillMenu(0);
 
 $("#Tipo_Menu").change(function (_this) {
@@ -62,12 +62,15 @@ function fillMenu(idtipomenu) {
 
 function agregar() {
     $("#menusContainer").append(
-        `<div class="ui card align-items-center" id="mas">
+        `<div class="ui card align-items-center" id="agregar">
             <a id="a">
                 <i class="massive plus icon"></i>
             </a>
         </div>
-        <br />`);
-        
+        <br />`
+    );
 }
 
+$("#agregar, #a").click(() => {
+    $("#modalCreate").modal('show');
+});

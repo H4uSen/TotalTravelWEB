@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Descripción</label>
-                                    <input id="AcEx_Descripcion" name="AcEx_Descripcion" placeholder="Descripción de la Actividad Extra" />
+                                    <input id="AcEx_Descripcion" name="AcEx_Descripcion" placeholder="Ingrese la descripción de la actividad" />
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,10 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
-                                    <input id="AcEx_Precio" name="AcEx_Precio" placeholder="Precio" />
+                                    <div class="ui labeled input">
+                                        <label for="amount" class="ui label">L</label>
+                                        <input type="number" id="AcEx_Precio" name="AcEx_Precio" placeholder="Ingrese el precio" step="0.01" min="1" />
+                                    </div>
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">País</label>
@@ -69,16 +72,16 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Calle</label>
-                                    <input id="Calle" placeholder="Calle" />
+                                    <input type="number" min="1" id="Calle" placeholder="Ingrese la calle" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Avenida</label>
-                                    <input id="Avenida" placeholder="Avenida" />
+                                    <input id="Avenida" placeholder="Ingrese la avenida" />
                                 </div>
                             </div>
                         </div>
                         <div class="field">
-                            <div class="required field">
+                            <div class="field">
                                 <label>Imagen</label>
                                 <input id="Imagen" type="file" class="form-control" />
                             </div>
@@ -86,6 +89,7 @@
                         <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
 
                         <input type="button" id="btnGuardarActvExtra" onclick="CreateActividad()" value="Guardar" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ModulePartnersActivities")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>
             </form>

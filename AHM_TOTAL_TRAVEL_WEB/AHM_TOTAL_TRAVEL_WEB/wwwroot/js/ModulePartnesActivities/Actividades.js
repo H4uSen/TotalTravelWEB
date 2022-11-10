@@ -1,5 +1,5 @@
 ﻿var actividadesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
-
+$('.ui.dropdown').dropdown();
 fillActividad(0);
 
 $("#Tipo_Actividad").change(function (_this) {

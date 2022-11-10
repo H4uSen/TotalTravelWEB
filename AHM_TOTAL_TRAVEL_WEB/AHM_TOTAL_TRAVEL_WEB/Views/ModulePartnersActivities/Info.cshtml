@@ -63,7 +63,7 @@
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
-                            <label>Nombre socio</label>
+                            <label>Socio</label>
                             @Html.DisplayFor(model => model.Nombre)
                         </div>
                         <div class="field">
@@ -80,6 +80,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="field" style="text-align:left">
+                <a class="ui left labeled icon button" href="@Url.Action("Index", "ModulePartnersActivities")">
+                    Regresar
+                    <i class="left arrow icon"></i>
+                </a>
             </div>
         </div>
     </div>
