@@ -34,13 +34,13 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Nombre</label>
-                                    <input asp-for="paqu_Nombre" id="Nombre" class="form-control" />
-                                    
+                                    <input id="Nombre" class="form-control" />
+
                                 </div>
                                 <div class="required field">
                                     <label>Descripción</label>
-                                    <input asp-for="paqu_Descripcion" id="Descripcion" class="form-control" />
-                                   
+                                    <input id="Descripcion" class="form-control" />
+
                                 </div>
                             </div>
                         </div>
@@ -48,13 +48,13 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label>Precio (L.)</label>
-                                    <input asp-for="paqu_Precio" id="Precio" class="form-control" type="number" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off />
-                                    
+                                    <input id="Precio" class="form-control" type="number" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off />
+
                                 </div>
                                 <div class="required field">
                                     <label>Duración</label>
-                                    <input asp-for="paqu_Duracion" id="Duracion" class="form-control" />
-                                    
+                                    <input id="Duracion" class="form-control" />
+
                                 </div>
                             </div>
                         </div>
@@ -70,15 +70,15 @@
                                     </div>
                                     <div class="required field" id="restau" hidden>
                                         <label>Restaurante</label>
-                                        <select asp-for="rest_ID" id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
+                                        <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
                                             <option value="0" selected="selected">Seleccione un restaurante</option>
                                         </select>
                                     </div>
 
-                                </div>                                
+                                </div>
                                 <div class="required field">
                                     <label>Hotel</label>
-                                    <select asp-for="hote_ID" id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
+                                    <select id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
 
@@ -86,6 +86,48 @@
                             </div>
                         </div>
 
+                        @*Agregar Imagenes*@
+
+                        <div class="ui grid three column stackable mt-4">
+
+                            <div class="column">
+                                <label class="ui label">Imagenes en fila.</label>
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imagenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui primary button">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header" id="DefaultPackageCarousel">
+                                        <i class="images icon"></i>
+                                        Tus imagenes aparecerán aquí.
+                                    </div>
+
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
 
                         <input type="button" value="Crear" onclick="createDefaultPackages()" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "DefaultPackages")" class="ui button mb-3 ms-3">Cancelar</a>

@@ -88,7 +88,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var item = new DefaultPackagesViewModel();
-            IEnumerable<DefaultPackagesListViewModel> model = null;
+            var Items = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id.ToString(), token)).Data;
             var list = await _saleServices.DefaultPackagesList(token);
             IEnumerable<DefaultPackagesListViewModel> data = (IEnumerable<DefaultPackagesListViewModel>)list.Data;
             var element = data.Where(x => x.Id == id).ToList()[0];
@@ -107,7 +107,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var rest = await _RestaurantService.RestaurantsList(token);
             IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;                             
             ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante",element.ID_Restaurante);
-                                   
+
+            ViewData["PackageFolder"] = $"DefaultPackage/DefaultPackage-{Items.Id}/Place";
+            ViewData["Descripcion"] = element.Descripcion_Paquete;
+            ViewData["Duracion"] = element.Duracion_Paquete;
+            ViewData["Nombre"] = element.Nombre;
+            ViewData["Precio"] = element.precio;
+            ViewData["HotelID"] = element.ID_Hotel;
+            ViewData["RestID"] = element.ID_Restaurante;
+            ViewData["ID"] = element.Id;
+
             return View(item);
 
         }
@@ -115,6 +124,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(DefaultPackagesViewModel actividad)
         {
+
             if (actividad.rest_ID == 0)
             {
                 actividad.rest_ID = null;
@@ -160,7 +170,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
-
+            ViewData["PackageFolder"] = $"DefaultPackage/DefaultPackage-{transporte.Id}/Place";
             return View(transporte);
         }
     }
