@@ -15,8 +15,8 @@
                     <div class="header text-capitalize">
                         Detalles
                     </div>
-                    
-                </div>                
+
+                </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "DefaultPackages")">
                         Regresar
@@ -46,7 +46,7 @@
                             </div>
                             <div class="field">
                                 <label>Precio</label>
-                               L. @Html.DisplayFor(model => model.precio)
+                                L. @Html.DisplayFor(model => model.precio)
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="ui grid three column stackable mt-4">
+
+                <div class="column">
+                    <label class="ui label">Imagenes en fila.</label>
+                    <div class="ui segment">
+                        <div class="ui middle aligned divided list" id="image-upload-list">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+
+
+                        <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultpackageCarousel" data-auto="false">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <br />
-            
+
             <h3 class="ui horizontal divider header">
                 <i class="folder open icon"></i>
                 Auditoría
@@ -108,10 +130,21 @@
         </div>
     </div>
 </div>
+@section Scripts{
+
+    <script>
+        var PackageFolder = '@ViewData["PackageFolder"]';
+    </script>
+    <script src="~/js/DefaultPackaguesJS/Details.js"></script>
+}
 @section HighlightTile{
     <script>
         $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
         $("#Sale_Schema").addClass("show");
-        $("#SalesModule").addClass("expandedList")
+
+        $("#SalesTile").addClass("activeTile");
     </script>
 }

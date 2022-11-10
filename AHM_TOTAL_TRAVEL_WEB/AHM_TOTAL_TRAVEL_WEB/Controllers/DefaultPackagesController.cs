@@ -160,7 +160,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
-
+            ViewData["PackageFolder"] = $"DefaultPackage/DefaultPackage-{transporte.Id}/Place";
             return View(transporte);
         }
     }
