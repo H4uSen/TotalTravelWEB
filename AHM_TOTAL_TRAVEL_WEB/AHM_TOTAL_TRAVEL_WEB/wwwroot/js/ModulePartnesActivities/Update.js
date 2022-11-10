@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     $("#Actv_ID").hide();
 });
+$('.ui.dropdown').dropdown();
 var imagesArray = [];
 var imagesArrayPure = [];
 $("#closeEditActivities").click(() => {

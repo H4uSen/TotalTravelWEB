@@ -466,16 +466,14 @@
                     }
                     if (usersRole == "Moderador de Restaurante")
                     {
-                        <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
-                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("restaurantDashboard","Home")">DashBoard</a></li>
-                        </span>
-
                         <ul class="list-unstyled py-4">
-
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" id="RestaurantModule" href="#Restaurant_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    Módulo de Restaurantes
+                            <li class="sidebar-item" id="">
+                                <a class="sidebar-link" href="@Url.Action("restaurantDashboard", "Home")">
+                                    Inicio
                                 </a>
+                            </li>
+                            <br />
+                            <li class="sidebar-item">                                
                                 <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
                                 <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
                                 <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
