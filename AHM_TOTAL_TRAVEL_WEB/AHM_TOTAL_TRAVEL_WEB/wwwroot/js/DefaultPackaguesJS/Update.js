@@ -117,7 +117,7 @@ function updateDefaultPackages() {
                 data.append("File", imagesArrayPure[i]);
             }
 
-            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Restaurants/Update?id=" + PaqueteID, data, "PUT");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/Update?id=" + PaqueteID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/DefaultPackages?success=true';
             } else {
@@ -140,7 +140,7 @@ function updateDefaultPackages() {
                 data.append("File", imagesArrayPure[i]);
             }
 
-            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Restaurants/Update?id=" + PaqueteID, data, "PUT");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/Update?id=" + PaqueteID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/DefaultPackages?success=true';
             } else {
