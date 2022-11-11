@@ -112,3 +112,55 @@ var ReservationDetailsViewModel = {
     "reDe_UsuarioCreacion": Client_User_ID,
     "reDe_UsuarioModifica": Client_User_ID
 }
+
+var ReservationCreateViewModel = {
+    "resv_ID": 0,
+    "usua_ID": 2,
+    "paqu_ID": 1,
+    "resv_esPersonalizado": true,
+    "resv_CantidadPagos": 2,
+    "resv_NumeroPersonas": 4,
+    "resv_ConfirmacionPago": false,
+    "resv_ConfirmacionHotel": false,
+    "resv_ConfirmacionRestaurante": false,
+    "resv_ConfirmacionTrans": false,
+    "resv_Precio": 4692.0,
+    "resv_UsuarioCreacion": 2,
+    "resv_UsuarioModifica": 0,
+    "reHo_FechaEntrada": "2022-11-08",
+    "reHo_FechaSalida": "2022-11-09",
+    "hote_ID": 1,
+    "actividadesExtras": [
+        {
+            "index": 0,
+            "acEx_ID": 1,
+            "acEx_Descripcion": "Caminata por la Montaña",
+            "reAE_Cantidad": 3,
+            "reAE_FechaReservacion": "2022-11-08",
+            "reAE_HoraReservacion": "95",
+            "reAE_Precio": "150.0"
+        }
+    ],
+    "restaurantes": [
+        {
+            "index": 0,
+            "rest_ID": 1,
+            "restaurante": "Hasta la Pasta",
+            "rest_numeroPersonas": 4,
+            "reRe_FechaReservacion": "2022-11-08",
+            "reRe_HoraReservacion": "95"
+        }
+    ],
+    "ReHo_PrecioTotal": "2680",
+    "Hote_numNoches": 1,
+    "actividadesHoteles": [],
+    "tipoPago": 1,
+    "habi_ID": 3,
+    "habi_Cantidad": 3,
+    "reservacionTransportes": [
+        {
+            "detr_ID": 15,
+            "reTr_CantidadAsientos": 3
+        }
+    ]
+}

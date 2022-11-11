@@ -70,6 +70,9 @@
             </select>
         </div>
         <div class="eight wide column">
+            <a class="ui small btn-edit text-white labeled icon button" id="agregartipo" style="float:right">
+                <i class="plus icon"></i> Agregar tipo de menú
+            </a>
             <a class="ui small btn-edit text-white labeled icon button" id="agregar" style="float:right">
                 <i class="plus icon"></i> Agregar menú
             </a>
@@ -82,7 +85,30 @@
     </div>
 </div>
 
-<!--MODAL CREATE-->
+<!--MODAL CREATE TIPO DE MENÚ-->
+
+<div class="ui modal" id="modalCreateTypeMenu">
+    <div class="header">
+        Ingresa un tipo de menú
+    </div>
+    <form asp-action="CreateTypeMenu" asp-controller="ModuleRestaurants" id="createTypeMenusForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label class="ui label">Tipo de menú</label>
+                    <input name="Time_Descripcion" id="Time_Descripcion" />
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendTypeMenus">Guardar</button>
+        <button class="ui button" id="closeTypeMenus">Cancelar</button>
+    </div>
+</div>
+
+<!--MODAL CREATE MENÚ-->
 
 <div class="ui modal longer" id="modalCreate">
     <div class="header">
@@ -132,7 +158,7 @@
     </div>
 </div>
 
-<!--MODAL UPDATE-->
+<!--MODAL UPDATE MENÚ-->
 
 <div class="ui modal longer" id="modalUpdate">
     <div class="header">
@@ -230,13 +256,14 @@
     </script>
 }
 
-
-
-
-
-
-
-
+@section HighlightTile{
+    <script>
+/*        $("#Restaurant_Schema").addClass("show");*/
+        $("#RestaurantsTile").addClass("activeTile");
+        //$("#MenusTile").addClass("activeTile");
+        //$("#TypeMenusTile").addClass("activeTile");
+    </script>
+}
 
 @*<div>
         <dl class="row">

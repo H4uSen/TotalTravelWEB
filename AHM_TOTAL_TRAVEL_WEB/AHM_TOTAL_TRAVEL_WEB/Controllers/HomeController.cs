@@ -121,14 +121,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _AccessService.AccountFind(id, token)).Data;
 
-            var partner = (PartnersListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
+            var partner = (PartnersListViewModel)(await _generalServices.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
 
             var list = await _restaurantService.RestaurantsList(token);
             IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
             var restaurante = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
-
-            IEnumerable<PartnersListViewModel> partnerss =
-                (IEnumerable<PartnersListViewModel>)(await _generalServices.PartnersList()).Data;
 
             IEnumerable<TypeMenusListViewModel> tiposmenus =
                 (IEnumerable<TypeMenusListViewModel>)(await _restaurantService.TypeMenusList()).Data;
@@ -136,41 +133,41 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<MenusListViewModel> menus =
                 (IEnumerable<MenusListViewModel>)(await _restaurantService.MenusList()).Data;
 
-            IEnumerable<ReservationRestaurantsListViewModel> reservations =
+            IEnumerable<ReservationRestaurantsListViewModel> reservacionespendientes =
                (IEnumerable<ReservationRestaurantsListViewModel>)(await _ReservationService.RestaurantsReservationList(token)).Data;
 
+            ViewData["IDRestaurante"] = restaurante.ID;
             ViewData["NombreRestaurante"] = restaurante.Restaurante;
             ViewData["Partner"] = restaurante.Partner;
             ViewData["Direccion"] = "Calle " + restaurante.Calle + ", Avenida " + restaurante.Avenida + ", Colonia " + restaurante.Colonia + ", Ciudad de " + restaurante.Ciudad;
             ViewData["Imagen"] = partner.Image_Url;
 
             ViewData["TiposMenus"] = tiposmenus.LongCount();
-            ViewData["Reservaciones"] = reservations.LongCount();
-            ViewData["CantidadMenus"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID).LongCount();
+            ViewData["Reservaciones"] = reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID).LongCount();
+            ViewData["CantidadMenus"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID).LongCount();
 
-            ViewData["CantidadDesayunos"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 1012).LongCount();
-            ViewData["CantidadAlmuerzos"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 3).LongCount();
-            ViewData["CantidadCenas"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 2).LongCount();
-            ViewData["CantidadPostres"] = menus.Where(menus => menus.ID_Restaurante == restaurante.ID && menus.ID_TipoMenu == 1014).LongCount();
+            ViewData["CantidadDesayunos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 1).LongCount();
+            ViewData["CantidadAlmuerzos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 2).LongCount();
+            ViewData["CantidadCenas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 3).LongCount();
+            ViewData["CantidadPostres"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 4).LongCount();
+            ViewData["CantidadEntradas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 5).LongCount();
 
-            IEnumerable<ReservationRestaurantsListViewModel> reservacionespendientes =
-               (IEnumerable<ReservationRestaurantsListViewModel>)(await _ReservationService.RestaurantsReservationList(token)).Data;
+            var detail = new List<restaurantsDashboardDetail>();
 
-            var d = new List<restaurantsDashboardDetail>();
-
-            foreach (var item in reservacionespendientes)
+            foreach (var item in reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID))
             {
-                var x = new restaurantsDashboardDetail();
-                var r = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.DescripcionReservacion, token)).Data;
-                if (r.ConfirmacionRestaurante == true)
+                var model = new restaurantsDashboardDetail();
+                var reservacion = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.DescripcionReservacion, token)).Data;
+                if (reservacion.ConfirmacionRestaurante == true)
                 {
-                    x.detalle = item;
-                    x.reservacion = r;
+                    model.detalle = item;
+                    model.reservacion = reservacion;
+                    var fecha = item.Fecha_Reservacion.ToString().Split(" ");
+                    ViewData["Fecha"] = fecha[0];
+                    detail.Add(model);
                 }
-                d.Add(x);
             }
-
-            return View(d);
+            return View(detail);
         }
 
         public async Task<IActionResult> activitiesDashboard()

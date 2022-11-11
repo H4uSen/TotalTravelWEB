@@ -1,12 +1,12 @@
 ﻿// ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const UsersList = ajaxRequest("https://totaltravel.somee.com/API/Users/List");
-const DefaultPackagesList = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackages/List");
-const DefaultPackagesDetailsList = ajaxRequest("https://totaltravel.somee.com/API/DefaultPackagesDetails/List");
-const CountriesList = ajaxRequest("https://totaltravel.somee.com/API/Countries/List");
-const HotelsList = ajaxRequest("https://totaltravel.somee.com/API/Hotels/List");
-const ReservationHotels = ajaxRequest("https://totaltravel.somee.com/API/ReservationHotels/List");
-const CitiesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
+const UsersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/List");
+const DefaultPackagesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
+const DefaultPackagesDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackagesDetails/List");
+const CountriesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Countries/List");
+const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+const ReservationHotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
+const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 
 
 
@@ -33,14 +33,14 @@ $(document).ready(function () {
     for (var i = 0; i < Users.length; i++) {
         $('#ddlDNI').append('<option value="' + Users[i].id + '">' + Users[i].dni + '</option>');
     };
-    
+
     //Fill the countries Dropdown
     const Countries = CountriesList.data;
     for (var i = 0; i < Countries.length; i++) {
         $('#ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
     }
 
-    
+
 });
 
 //Hides details for Default packages
@@ -57,22 +57,22 @@ $(document).on('change', '#ddlCiudades', function () {
     const Hotels = HotelsList.data;
     const filteredHotels = Hotels.filter(function (htel) { return htel.ciudadID == city });
     var hotelIDs = filteredHotels.map(x => x.id);
-    
+
     const filteredDefaultPackages = DefaultPackages.filter((item) => hotelIDs.includes(item.iD_Hotel));
-    
-    $('#Paqu_ID').append('<option value="">' + "Seleccione un paquete"+ '</option>');
+
+    $('#Paqu_ID').append('<option value="">' + "Seleccione un paquete" + '</option>');
     for (var i = 0; i < filteredDefaultPackages.length; i++) {
         $('#Paqu_ID').append('<option value="' + filteredDefaultPackages[i].id + '">' + filteredDefaultPackages[i].nombre + '</option>');
     };
 });
 
-    
+
 
 
 
 //Change the data of the user depending on the selected DNI
 $("#ddlDNI").change(function () {
-    const Users = UsersList.data; 
+    const Users = UsersList.data;
     const UserID = $("#ddlDNI").val();
 
     const User = Users.filter(function (userID) {
@@ -100,11 +100,11 @@ $("#ddlPaises").change((_this) => {
 let paqueteDuracion = 7;
 //Details of the Default packages card 
 $("#Paqu_ID").change(function () {
-    
+
 
     const DefaultPackages = DefaultPackagesList.data;
     const Hotels = HotelsList.data;
-    
+
     const DefaultPackagesDetails = DefaultPackagesDetailsList.data;
     const PackageID = $("#Paqu_ID").val();
 
@@ -112,7 +112,7 @@ $("#Paqu_ID").change(function () {
         return Package.id == PackageID
     });
 
-    const Hotel = Hotels.filter((x) => { return x.id == DefaultPackage[0].iD_Hotel})
+    const Hotel = Hotels.filter((x) => { return x.id == DefaultPackage[0].iD_Hotel })
 
     const DefaultPackageAct = DefaultPackagesDetails.filter(function (PackageDetails) {
         return PackageDetails.paqueteID == PackageID
@@ -139,7 +139,7 @@ $("#Paqu_ID").change(function () {
             .append("<div class='item'>" +
                 "<img class= 'ui avatar image' src=''>" +
                 "<div class='content'>" +
-                "<p class='header'>" + DefaultPackageAct[i].descripcionActividad+"</p></div></div> ");
+                "<p class='header'>" + DefaultPackageAct[i].descripcionActividad + "</p></div></div> ");
     }
 
     $('#dateRangePicker').daterangepicker({
@@ -246,16 +246,13 @@ $('#dateRangePicker').daterangepicker({
 
 //Show or hide between default and personalized packages
 $("#ddlTipoPaquete").change(function () {
-    if ($("#ddlTipoPaquete").val() == 2)
-    {
+    if ($("#ddlTipoPaquete").val() == 2) {
         $("#frmDefaultPackages").show();
     }
-    else if ($("#ddlTipoPaquete").val() == 1)
-    {
+    else if ($("#ddlTipoPaquete").val() == 1) {
         $("#frmDefaultPackages").hide();
     }
-    else
-    {
+    else {
         $("#frmDefaultPackages").hide();
     }
 });
@@ -330,7 +327,7 @@ function createReservation() {
     const reservationValidate = ValidateForm(reservationValidateArray);
 
 
-     // create reservation model
+    // create reservation model
     if (reservationValidate) {
 
         reservation.append("Paqu_ID", $("#frmCreateReservation #Paqu_ID").val());
@@ -349,7 +346,7 @@ function createReservation() {
         reservation.append("Usua_ID", $("#frmCreateReservation #ddlDNI").val());
         reservation.append("ReHo_FechaEntrada", $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
         reservation.append("ReHo_FechaSalida", $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
-        
+
         /*
             const ReservationInsertStatus = uploadFile(
                 "https://totaltravelapi.azurewebsites.net/API/Reservation/Insert",
@@ -359,54 +356,54 @@ function createReservation() {
 
         ReservationInsert();
 
-            function ReservationInsert() {
-                const SendToken = true;
-                const method = "POST";
-                const data = reservation;
-                const url = "/Reservation/Create"
+        function ReservationInsert() {
+            const SendToken = true;
+            const method = "POST";
+            const data = reservation;
+            const url = "/Reservation/Create"
 
-                var dataResponse = null;
-                var Token = null;
-                var HTTPError = {
-                    message: "",
-                    code: 0,
-                    success: false,
-                    data: null
-                }
-
-                if (SendToken == true) {
-                    Token = GetCookie("Token");
-                }
-
-                $.ajax({
-                    url: url,
-                    data: data,
-                    mimeType: "application/json",
-                    async: false,
-                    processData: false,
-                    contentType: false,
-                    type: method,
-                    beforeSend: function () {
-                        $("#loaderAnimation").show();
-                    },
-                    complete: function () {
-                        $("#loaderAnimation").hide();
-                    },
-                    success: function (httpResponse) {
-
-                        console.log(httpResponse);
-                        window.location.href = "/Reservation/Index";
-                    }
-                    
-                });
-
-                
+            var dataResponse = null;
+            var Token = null;
+            var HTTPError = {
+                message: "",
+                code: 0,
+                success: false,
+                data: null
             }
 
-            
-        
-        
-        
+            if (SendToken == true) {
+                Token = GetCookie("Token");
+            }
+
+            $.ajax({
+                url: url,
+                data: data,
+                mimeType: "application/json",
+                async: false,
+                processData: false,
+                contentType: false,
+                type: method,
+                beforeSend: function () {
+                    $("#loaderAnimation").show();
+                },
+                complete: function () {
+                    $("#loaderAnimation").hide();
+                },
+                success: function (httpResponse) {
+
+                    console.log(httpResponse);
+                    window.location.href = "/Reservation/Index";
+                }
+
+            });
+
+
+        }
+
+
+
+
+
         /*
         if (ReservationInsertStatus.code == 200) {
                 iziToastAlert(
@@ -420,7 +417,7 @@ function createReservation() {
             }
             */
     }
-        
 
-    
+
+
 }

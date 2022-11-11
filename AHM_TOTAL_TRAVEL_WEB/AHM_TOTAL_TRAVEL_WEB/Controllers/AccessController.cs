@@ -160,7 +160,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             
 
         }
-
+        [Route("/")]
         public IActionResult LandingPage()
         {
             return View();
@@ -238,7 +238,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         case "Moderador de Transporte":
                             return RedirectToAction(actionName: "Index", controllerName: "DashBoardTransportsHome");
                         case "Moderador de Actividades":
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                            return RedirectToAction(actionName: "activitiesDashboard", controllerName: "Home");
                         default:
                             return RedirectToAction(actionName: "Index", controllerName: "Home");
                     }
