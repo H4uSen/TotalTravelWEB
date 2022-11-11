@@ -2,10 +2,6 @@
 const PaymentsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/List");
 const PaymentTypesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PaymentTypes/List");
 
-
-TableSearchInput($("#txtSearch"), $("#grdReservacion"), elemPerPage = 10);
-TableDetailsConstructor($("#grdReservacion"));
-
 const params = new URLSearchParams(window.location.search);
 const izziSuccess = params.get("success");
 
@@ -14,30 +10,122 @@ if (izziSuccess == "true") {
 }
 
 
-$("#grdReservacion").paginationTdA({
-    elemPerPage: 10
-});
 
-//Show the amount of payments that the user has done 
+function format(detailData, rowId) {
+    // `d` is the original data object for the row
+    detailData = detailData.filter(x => x.id_Reservacion == rowId);
 
+    if (detailData.length <= 0) {
+        return (`
+    <div>
+        <h2>No hay registros para mostrar</h2>
+    </div>
+    <div class="eight wide column">
+        <button class="ui small btn-purple text-white labeled icon button" id="createPayments" onclick="createPayment('${rowId}')"><i class="plus icon"></i> Insertar un registro de pago</button>
+    </div>`);
+    }
+    else {
+        var structure = `<div class="ui fluid vertical menu">`;
+        for (var i = 0; i < detailData.length; i++) {
 
+            const detail = detailData[i];
 
-$("#grdReservacion tbody tr .details_button").click((_this) => {
+            const fechaCreacion = GetDateFormat({
+                string_date: detail.fechaPago, hour_format: 12, date_format: "default"
+            });
+            structure += `
+            <div class="ui form attached fluid segment">
+            <div class="content">
+            <div class="field">
+            <h3 class="ui block header">
+                Forma de pago: ${detail.tipoPago}
+            </h3>
+            <div class="four fields">
+            <div class="field">
+                <p># de factura: <span id="payment_id">${detail.id}</span></p>
+                
+            </div>
+            <div class="field">
+                <p>Cliente: ${detail.nombre_Completo}</p>
+                
+            </div>
+            <div class="field">
+                <p>Monto pagado: L ${parseFloat(detail.montoPago).toFixed(2)}</p>
+            </div>
+            <div class="field">
+                <p>Realizado el: ${fechaCreacion.datetime}</p>
+            </div>
+            <div class="field">
+                <div style="margin-left: 10px;margin-bottom: 10px;">
+                <button class="ui small btn-purple text-white icon button" id="updatePayments" onclick="editar('${detail.id}')"> Editar</button>
+                <button class="ui small btn-purple text-white icon button" id="deletePayments" onclick="DeletePayment('${detail.id}')"> Eliminar</button>
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
 
-    const tr = $(_this.target).parents("tr");
-    const index = $("#grdReservacion tbody tr").index(tr);
-    const id_Reservacion = $(tr).attr("data-value");
-    const id_ReservacionHotel = $(tr).attr("data-hotel");
-
-
-    MostrarDetalle(
-        detail_row = {
-            table: $("#grdReservacion"),
-            row_Index: index,
-            content: paymentsListDetails(id_Reservacion)
+            `;
         }
-    );
+        structure += `
+            <div class="eight wide column">
+                <button class="ui small btn-purple text-white labeled icon button" id="createPayments" onclick="createPayment('${rowId}')"><i class="plus icon"></i> Insertar un registro de pago</button>
+            </div>`;
+        return structure;
+    }
+    
+}
+
+$(document).ready(function () {
+    // Add event listener for opening and closing details
+    $("#grdReservacion").on('click', 'tbody td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        var id = $(tr).attr('data-value');        
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            $(tr).removeClass("dt-hasChild");
+        } else {
+            // Open this row
+            row.child(format(PaymentsList.data, id)).show();
+            $(tr).addClass("dt-hasChild");
+        }
+    });
+
+    $("#grdReservacion").on('requestChild.dt', function (e, row) {
+        row.child(format(PaymentsList.data, id)).show();
+    });
+    var table = $("#grdReservacion").DataTable({
+        stateSave: true,
+        language: {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        columns: [
+            {
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: '',
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+        ],
+        order: [[1, 'asc']]
+    });
 });
+
+
+
+
+//Show the amount of payments that the user has done
 
 function paymentsListDetails(id_reservacion) {
 
