@@ -109,7 +109,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(ActivitiesExtrasViewModel actividad, int id)
+        public async Task<IActionResult> Update(int id)
         {
             try
             {

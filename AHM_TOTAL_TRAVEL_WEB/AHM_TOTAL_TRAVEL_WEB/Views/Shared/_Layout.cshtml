@@ -304,6 +304,17 @@
                                 </div>
                             </div>
                         }
+                        if (usersRole == "Moderador de Actividades")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
 
                     }
 
@@ -520,12 +531,30 @@
                                 </ul>
                             </li>
                         </ul>
-
                     }
+
                     if (usersRole == "Moderador de Agencia Turistica")
                     {
 
                     }
+
+                    if (usersRole == "Moderador de Actividades")
+                    {
+                        <ul class="list-unstyled py-4">
+                            <li class="sidebar-item" id="">
+                                <a class="sidebar-link" href="@Url.Action("activitiesDashboard", "Home")">
+                                    Inicio
+                                </a>
+                            </li>
+                            <br />
+                            <li class="sidebar-item">
+                            <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModulePartnersActivities")">Actividades</a></li>
+                            <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModulePartnersActivities")">Mi socio</a></li>
+                            @*<li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>*@
+                            </li>
+                        </ul>
+                    }
+
                     if (usersRole == "Moderador de Restaurante")
                     {
                         <ul class="list-unstyled py-4">
@@ -535,10 +564,10 @@
                                 </a>
                             </li>
                             <br />
-                            <li class="sidebar-item">                                
-                                <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
-                                <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
-                                <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
+                            <li class="sidebar-item">
+                            <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
+                            <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
+                            <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
                             </li>
                         </ul>
                     }
@@ -555,7 +584,6 @@
                             </div>
                             <div class="col-sm-6 text-sm-end">
                                 <p class="mb-0">Diseñado por <a href="https://github.com/orgs/AcademiaProgramadoresAHM/repositories" class="text-white text-decoration-none">AHM generación 5.2</a></p>
-
                             </div>
                         </div>
                     </div>

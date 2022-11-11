@@ -69,8 +69,8 @@ function agregar() {
         </div>
         <br />`
     );
+    $("#agregar, #a").click(() => {
+        $("#modalCreate").modal('show');
+    });
 }
 
-$("#agregar, #a").click(() => {
-    $("#modalCreate").modal('show');
-});
