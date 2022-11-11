@@ -73,6 +73,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View();
         }
+        public IActionResult ClientsReport()
+        {
+
+            return View();
+        }
 
         public IActionResult ReservacionesReport()
         {
@@ -302,7 +307,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         #endregion
 
-        #region CLIENTE
+        #region USUARIOS
         public async Task<IActionResult> ClientReportPDF(int ReportTiype, string filtertype, string filtervalue)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
@@ -365,6 +370,75 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     {
                         wb.SaveAs(stream);
                         return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "usuariosReport.xls");
+
+                    }
+                }
+            }
+
+
+            //crea y retorna pdf reader
+            var result = localReport.Execute(RenderType.Pdf);
+
+
+            return File(result.MainStream, "application/pdf");
+        }
+        #endregion
+
+        #region CLIENTE
+        public async Task<IActionResult> ClientsReportPDF(int ReportTiype, string filtertype, string filtervalue)
+        {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var data = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+            data = data.Where(x => x.Role_ID == 2);
+            switch (filtertype)
+            {
+                case "sexo":
+                    data = data.Where(x => x.Sexo == filtervalue).ToList();
+                    break;
+                case "colonia":
+                    data = data.Where(x => x.ColoniaID == Convert.ToInt32(filtervalue)).ToList();
+                    break;
+            }
+            //crea y asigna direccion url de ubicacion de archivo .rdlc
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\clientesReport.rdlc";
+            LocalReport localReport = new LocalReport(path);
+
+            //añade valores recibidos de el endpoint de la API al dataset indicado
+            localReport.AddDataSource("Usuarios", data);
+
+            // crea y asigna parametros
+            //Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+            if (ReportTiype == 1)
+            {
+                var resultpdf = localReport.Execute(RenderType.Pdf);
+                return File(resultpdf.MainStream, "application/pdf");
+
+            }
+            else if (ReportTiype == 2)
+            {
+                DataTable dt = new DataTable("Grid");
+                dt.Columns.AddRange(new DataColumn[7]{
+                            new DataColumn("DNI"),
+                            new DataColumn("Nombrecompleto"),
+                            new DataColumn("Sexo"),
+                            new DataColumn("Fecha_Nacimiento"),
+                            new DataColumn("Email"),
+                            new DataColumn("Telefono"),
+                            new DataColumn("Direccion")});
+                var tra = from tran in data.ToList() select tran;
+
+                foreach (var tran in tra)
+                {
+                    dt.Rows.Add(tran.DNI, tran.Nombre + " " + tran.Apellido, tran.Sexo, tran.Fecha_Nacimiento, tran.Email, tran.Telefono, "Col." + tran.Colonia + "," + tran.Calle + "Calle" + "Ave." + tran.Avenida);
+                }
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        wb.SaveAs(stream);
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "clientesReport.xls");
 
                     }
                 }
