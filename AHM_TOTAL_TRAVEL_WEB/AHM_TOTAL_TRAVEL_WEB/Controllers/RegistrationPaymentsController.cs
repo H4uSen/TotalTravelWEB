@@ -68,8 +68,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 try
                 {
-                 
-                    payment.RePa_FechaPago = DateTime.Now;
+                    if (string.IsNullOrEmpty(payment.RePa_FechaPago.ToString()))
+                    {
+                        payment.RePa_FechaPago = DateTime.Now;
+                    }
                     
                     string token = HttpContext.User.FindFirst("Token").Value;
                     payment.RePa_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);

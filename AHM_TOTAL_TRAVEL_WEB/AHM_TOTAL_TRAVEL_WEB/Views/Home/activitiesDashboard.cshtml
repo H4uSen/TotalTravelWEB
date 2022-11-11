@@ -121,22 +121,22 @@
             <!-- Line Chart -->
             <div class="col-lg-9 col-12">
                 @*<div class="card mb-0">
-                    <div class="card-header position-relative">
-                        <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
-                    </div>
-                    <div class="card-body p-0 overflow-auto" id="carta">
-                        @foreach (var item in Model)
-                        {
-                            <div class="p-3 d-flex align-items-center">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#" id="a">
-                                        <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
-                                    </a><small class="text-gray-500">@item.detalle.Fecha_Reservacion a las @item.detalle.Hora_Reservacion </small>
+                        <div class="card-header position-relative">
+                            <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
+                        </div>
+                        <div class="card-body p-0 overflow-auto" id="carta">
+                            @foreach (var item in Model)
+                            {
+                                <div class="p-3 d-flex align-items-center">
+                                    <div class="ms-3">
+                                        <a class="d-block" href="#" id="a">
+                                            <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
+                                        </a><small class="text-gray-500">@item.detalle.Fecha_Reservacion a las @item.detalle.Hora_Reservacion </small>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    </div>
-                </div>*@
+                            }
+                        </div>
+                    </div>*@
                 <br />
                 <div class="card mb-0">
                     <div class="card-body">
@@ -161,4 +161,10 @@
 @section Scripts{
 
     <script src="~/js/activitiesDashboard/Functions.js"></script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#DashboardActivitiesTile").addClass("activeTile");
+    </script>
 }

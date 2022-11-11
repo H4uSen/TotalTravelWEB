@@ -94,8 +94,8 @@
                 <div class="required field">
                     <div class="field">
                         <div class="required field">
-                            <label>Descripción</label>
-                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />
+                            <label>Tipo de actividad</label>
+                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" placeholder="Ingrese una descripción" />
                         </div>
                     </div>
                 </div>
@@ -103,8 +103,7 @@
         </div>
     </form>
     <div class="actions">
-
-        <button class="btn btn-edit ui positive button" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button btn-edit text-white" id="sendTypeActivities">Guardar</button>
         <button class="ui button" id="close">Cancelar</button>
     </div>
 </div>
@@ -116,7 +115,7 @@
     </script>
 
     <script src="~/js/ModulePartnesActivities/Actividades.js"></script>
-<script src="~/js/ModulePartnesActivities/Create.js"></script>
+    <script src="~/js/ModulePartnesActivities/Create.js"></script>
 
     <script>
 
@@ -146,5 +145,11 @@
             };
             sweetAlertconfirm("¿Seguro de eliminar esta actividad?", "Esta actividad se borrará permanentemente.", "warning", capsula1);
         };
+    </script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#ActivitiesTile").addClass("activeTile");
     </script>
 }
