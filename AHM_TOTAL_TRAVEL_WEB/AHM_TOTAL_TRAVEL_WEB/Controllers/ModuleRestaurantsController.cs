@@ -54,7 +54,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(id, token)).Data;
+            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
             ViewData["Telefono"] = partner.Telefono;
             ViewData["Email"] = partner.Email;
 
@@ -123,6 +123,31 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Update(UserUpdateViewModel data)
         {
             return await Task.Run(() => View());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTypeMenu(TypeMenusViewModel typeMenus)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                typeMenus.Time_UsuarioCreacion = Convert.ToInt32(UserID);
+                var list = await _restaurantService.typeMenusCreate(typeMenus, token);
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/ModuleRestaurants?success=true");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

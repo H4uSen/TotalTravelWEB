@@ -109,7 +109,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(ActivitiesExtrasViewModel actividad, int id)
+        public async Task<IActionResult> Update(int id)
         {
             try
             {
@@ -161,6 +161,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
 
                 return RedirectToAction("Error", "Home");
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTypeActivities(TypesActivitiesViewModel typeActividad)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                typeActividad.TiAc_UsuarioCreacion = Convert.ToInt32(UserID);
+                var list = await _activitiesService.TypesActivitiesCreate(typeActividad, token);
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/ModulePartnersActivities?success=true");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
             }
 
         }

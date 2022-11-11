@@ -25,7 +25,7 @@
         .h1 {
             margin-top: 2% !important;
             margin-left: 2% !important;
-            color:white;
+            color: white;
         }
 
         .container {
@@ -66,6 +66,9 @@
             </select>
         </div>
         <div class="eight wide column">
+            <a class="ui small btn-edit text-white labeled icon button" id="createTypesActivities" style="float:right">
+                <i class="plus icon"></i> Agregar tipo de actividad
+            </a>
             <a class="ui small btn-edit text-white labeled icon button" id="agregar" style="float:right" href="@Url.Action("Create", "ModulePartnersActivities")">
                 <i class="plus icon"></i> Agregar actividad
             </a>
@@ -80,6 +83,32 @@
 <br />
 <br />
 
+<!--MODAL CREATE TIPO DE ACTIVIDAD-->
+<div class="ui modal longer" id="modalCreate">
+    <div class="header">
+        Ingresa un tipo de actividad
+    </div>
+    <form asp-action="CreateTypeActivities" asp-controller="ModulePartnersActivities" id="createTypesActivitiesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <div class="field">
+                        <div class="required field">
+                            <label>Descripción</label>
+                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+
+        <button class="btn btn-edit ui positive button" id="send" onclick="validar()">Guardar</button>
+        <button class="ui button" id="close">Cancelar</button>
+    </div>
+</div>
+
 @section Scripts{
 
     <script>
@@ -87,6 +116,7 @@
     </script>
 
     <script src="~/js/ModulePartnesActivities/Actividades.js"></script>
+<script src="~/js/ModulePartnesActivities/Create.js"></script>
 
     <script>
 

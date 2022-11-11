@@ -213,27 +213,110 @@
                             </a>
                         </div>
                     </a>
-                    <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                        <div class="ui vertical menu">
-                            <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                <i class="bi bi-person"></i>
-                                <span>Mi Cuenta</span>
-                            </a>
-                            <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
-                                <i class="bi bi-person"></i>
-                                <span>Historial de compras</span>
-                            </a>
-                            <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
-                                <i class="bi bi-person"></i>
-                                <span>Historial de transacciones</span>
-                            </a>
-                            <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
-                                <i class="bi bi-person"></i>
-                                <span>Calendario de reservaciones</span>
-                            </a>
-                        </div>
-                    </div>
+                    @{
+                        if (usersRole == "Administrador")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                    <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Historial de compras</span>
+                                    </a>
+                                    <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
+                                        <i class="bi bi-person"></i>
+                                        <span>Historial de transacciones</span>
+                                    </a>
+                                    <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Calendario de reservaciones</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        if (usersRole == "Cliente")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                    <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Historial de compras</span>
+                                    </a>
+                                    <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
+                                        <i class="bi bi-person"></i>
+                                        <span>Historial de transacciones</span>
+                                    </a>
+                                    <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Calendario de reservaciones</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        if (usersRole == "Moderador de Hotel")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        if (usersRole == "Moderador de Transporte")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        if (usersRole == "Moderador de Agencia Turistica")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        if (usersRole == "Moderador de Restaurante")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        if (usersRole == "Moderador de Actividades")
+                        {
+                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                <div class="ui vertical menu">
+                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                        <i class="bi bi-person"></i>
+                                        <span>Mi Cuenta</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
 
+                    }
 
                     <!-- End Profile Image Icon -->
                 </div>
@@ -416,23 +499,13 @@
                         </span>
 
                         <ul class="list-unstyled py-4">
-                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("DashboardHotel","DashBoardHotelHome")">Inicio</a></li>
+                            <li> <a id="UsersTile" class="sidebar-link" href="@Url.Action("HotelDashboard","DashBoardHotelHome")">Inicio</a></li>
                             <li><a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","HotelModel")">Reservacion Hoteles</a></li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" id="HotelModule" href="#Hotels_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-
-                                    Hoteles
-                                </a>
-                                <ul class="collapse list-unstyled" id="Hotels_Schema">
-                                    <li><a id="HotelsTile" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
-                                    <li><a id="RoomsTile" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
-                                    <li><a id="HotelsMenuTile" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Menú de Hoteles</a></li>
-                                    <li><a id="HotelsActivitiesTile" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Actividades de Hoteles</a></li>
-                                    <li><a id="CategoriesRoomsTile" class="sidebar-link" href="@Url.Action("Index","CategoriesRooms")">Categorías de Habitaciones</a></li>
-
-                                </ul>
-                            </li>
-
+                            <li><a id="HotelsTile" class="sidebar-link" href="@Url.Action("Index","Hotel")">Hoteles</a></li>
+                            <li><a id="RoomsTile" class="sidebar-link" href="@Url.Action("Index","Rooms")">Habitaciones</a></li>
+                            <li><a id="HotelsMenuTile" class="sidebar-link" href="@Url.Action("Index","HotelsMenu")">Menú de Hoteles</a></li>
+                            <li><a id="HotelsActivitiesTile" class="sidebar-link" href="@Url.Action("Index","HotelsActivities")">Actividades de Hoteles</a></li>
+                            <li><a id="CategoriesRoomsTile" class="sidebar-link" href="@Url.Action("Index","CategoriesRooms")">Categorías de Habitaciones</a></li>
                         </ul>
                     }
                     if (usersRole == "Moderador de Transporte")
@@ -458,25 +531,43 @@
                                 </ul>
                             </li>
                         </ul>
-
                     }
+
                     if (usersRole == "Moderador de Agencia Turistica")
                     {
 
                     }
-                    if (usersRole == "Moderador de Restaurante")
+
+                    if (usersRole == "Moderador de Actividades")
                     {
                         <ul class="list-unstyled py-4">
                             <li class="sidebar-item" id="">
-                                <a class="sidebar-link" href="@Url.Action("restaurantDashboard", "Home")">
+                                <a class="sidebar-link" href="@Url.Action("activitiesDashboard", "Home")">
                                     Inicio
                                 </a>
                             </li>
                             <br />
-                            <li class="sidebar-item">                                
-                                <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
-                                <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
-                                <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
+                            <li class="sidebar-item">
+                            <li><a id="ActivitiesTile" class="sidebar-link" href="@Url.Action("Index","ModulePartnersActivities")">Actividades</a></li>
+                            <li><a id="PartnerTile" class="sidebar-link" href="@Url.Action("Info","ModulePartnersActivities")">Mi socio</a></li>
+                            @*<li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>*@
+                            </li>
+                        </ul>
+                    }
+
+                    if (usersRole == "Moderador de Restaurante")
+                    {
+                        <ul class="list-unstyled py-4">
+                            <li class="sidebar-item" id="">
+                                <a class="sidebar-link" id="DashboardTile" href="@Url.Action("restaurantDashboard", "Home")">
+                                    Inicio
+                                </a>
+                            </li>
+                            <br />
+                            <li class="sidebar-item">
+                            <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
+                            <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
+                            <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
                             </li>
                         </ul>
                     }
@@ -493,7 +584,6 @@
                             </div>
                             <div class="col-sm-6 text-sm-end">
                                 <p class="mb-0">Diseñado por <a href="https://github.com/orgs/AcademiaProgramadoresAHM/repositories" class="text-white text-decoration-none">AHM generación 5.2</a></p>
-
                             </div>
                         </div>
                     </div>
