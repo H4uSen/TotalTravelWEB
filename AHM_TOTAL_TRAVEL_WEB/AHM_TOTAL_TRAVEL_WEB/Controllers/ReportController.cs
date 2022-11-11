@@ -6,8 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using ClosedXML;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
@@ -22,6 +26,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public readonly IHttpContextAccessor _IHttpContextAccessor;
         public readonly AccessService _accessService;
         public readonly SaleServices _saleService;
+
 
 
         public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService, SaleServices saleServices)
@@ -88,13 +93,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
 
-        public async Task<IActionResult> TransportReportPDF(string filtertype,string filtervalue)
+        public async Task<IActionResult> TransportReportPDF (int ReportTiype, string filtertype, string filtervalue)
         {
             var data=(IEnumerable<TransportListViewModel>) (await _transportService.TransportList()).Data;
+         
             switch (filtertype)
             {
                 case "tipo_transporte":
-                   data = data.Where(x => x.TipoTransporteID == Convert.ToInt32(filtervalue)).ToList();
+                    data = data.Where(x => x.TipoTransporteID == Convert.ToInt32(filtervalue)).ToList();
                     break;
                 case "tipo_Parnert":
                     data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
@@ -105,22 +111,52 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
             var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransportesReport.rdlc";
+           // Dictionary<string, string> parameters = new Dictionary<string, string>();
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
             localReport.AddDataSource("transporte", data);
 
-            // crea y asigna parametros
-            //Dictionary<string, string> parameters = new Dictionary<string, string>();
 
+                if (ReportTiype == 1)
+                {
+                    var resultpdf = localReport.Execute(RenderType.Pdf);
+                    return File(resultpdf.MainStream, "application/pdf");
 
-            //crea y retorna pdf reader
+                }
+                else if (ReportTiype == 2)
+                 {
+                    DataTable dt = new DataTable("Grid");
+                    dt.Columns.AddRange(new DataColumn[4]{
+                            new DataColumn("Tipo_Transporte"),
+                            new DataColumn("NombrePartner"),
+                            new DataColumn("Ciudad"),
+                            new DataColumn("Direccion")});  
+                     var tra = from tran in data.ToList() select tran;
+
+                    foreach (var tran in tra)
+                    {
+                        dt.Rows.Add(tran.TipoTransporte, tran.NombrePartner, tran.Ciudad, "Col." + tran.Colonia + "," + tran.Calle + "Calle" +  "Ave." + tran.Avenida);
+                    }
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        wb.Worksheets.Add(dt);
+                        using(MemoryStream stream = new MemoryStream() )
+                        {
+                            wb.SaveAs(stream);
+                            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "transporReport.xls");
+
+                        }
+                    }
+                }
+
             var result = localReport.Execute(RenderType.Pdf);
 
-            
+
             return File(result.MainStream, "application/pdf");
         }
-
+       
+        
         public async Task<IActionResult> RestauranteReportPDF(string filtertype, string filtervalue)
         {
             string token = HttpContext.User.FindFirst("Token").Value;

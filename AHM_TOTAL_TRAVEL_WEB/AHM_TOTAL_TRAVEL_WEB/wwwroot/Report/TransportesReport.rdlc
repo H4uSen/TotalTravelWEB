@@ -179,21 +179,21 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>33.09625mm</Width>
+                  <Width>44.04999mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>33.09625mm</Width>
+                  <Width>44.04999mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>33.09625mm</Width>
+                  <Width>44.04999mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>33.09625mm</Width>
+                  <Width>44.04999mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>8.25778mm</Height>
+                  <Height>11.61783mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -272,7 +272,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>8.25778mm</Height>
+                  <Height>11.61783mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -501,7 +501,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>8.25778mm</Height>
+                  <Height>11.61783mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -773,8 +773,8 @@
             <DataSetName>transporte</DataSetName>
             <Top>33.47519mm</Top>
             <Left>7.89025mm</Left>
-            <Height>24.77333mm</Height>
-            <Width>132.38501mm</Width>
+            <Height>34.85348mm</Height>
+            <Width>176.19997mm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -783,7 +783,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>61.3613mm</Height>
+        <Height>68.32867mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
