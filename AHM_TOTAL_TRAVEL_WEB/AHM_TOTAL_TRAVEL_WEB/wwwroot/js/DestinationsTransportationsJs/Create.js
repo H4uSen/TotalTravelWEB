@@ -44,7 +44,7 @@ function editar(destinoTransporteID) {
 
         $("#modalUpdate #DsTr_ID").val(item.id);
 
-        $("#modalUpdate").modal("show");
+        $("#modalUpdate").modal({ autofocus: false, forceSelection: false }).modal('show');
         
     }
 }

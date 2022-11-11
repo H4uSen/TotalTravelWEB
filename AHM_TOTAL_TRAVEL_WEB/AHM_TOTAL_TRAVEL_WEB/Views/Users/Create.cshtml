@@ -11,9 +11,14 @@
                 <i class="user plus icon"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        create a new users
+                        Crear un usuario
                     </div>
-                    <p class="text-capitalize">create a new user and/or add a partner account.</p>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Users")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
                 </div>
             </div>
 
@@ -23,94 +28,99 @@
 
                     <!-- user info section -->
                     <div class="field">
-                        <label>User Info</label>
+                        <label class="ui label">Información del usuario</label>
                         <div class="three fields">
-                            <div class="field">
-                                <input type="text" id="txtDNI" placeholder="DNI Number (required)">
+                            <div class="required field">
+                                <label class="ui label">DNI</label>
+                                <input type="text" id="txtDNI" placeholder="DNI">
                             </div>
-                            <div class="field">
-                                <input type="text" id="txtNombre" placeholder="First Name (required)">
+                            <div class="required field">
+                                <label class="ui label">Nombres</label>
+                                <input type="text" id="txtNombre" placeholder="Nombres">
                             </div>
-                            <div class="field">
-                                <input type="text" id="txtApellido" placeholder="Last Name (required)">
+                            <div class="required field">
+                                <label class="ui label">Apellidos</label>
+                                <input type="text" id="txtApellido" placeholder="Apellidos">
                             </div>
                         </div>
                     </div>
 
                     <div class="three fields">
-                        <div class="field">
-                            <input type="text" id="txtTelefono" placeholder="Phone Number (required)">
+                        <div class="required field">
+                            <label class="ui label">Teléfono</label>
+                            <input type="text" id="txtTelefono" placeholder="Teléfono">
                         </div>
-                        <div class="field">
+                        <div class="required field">
+                            <label class="ui label">Fecha de nacimiento</label>
                             <div class="ui calendar" id="standard_calendar">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input type="text" placeholder="Birth Date (required)"
+                                    <input type="text" placeholder="Fecha de nacimiento"
                                            id="txtFechaNacimiento">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="field checkButton_container">
-                            <label>Gender (required)</label>
-                            <div class="inline fields">
-                                <div class="field">
-                                    <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
-                                        <label>Male</label>
+                        <div class="required field checkButton_container">
+                                <label class="ui label">Sexo</label>
+                                <div class="inline fields">
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" id="rbGenero" value="M" name="rbGenero">
+                                            <label>Masculino</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
-                                        <label>Female</label>
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" id="rbGenero" value="F" name="rbGenero">
+                                            <label>Femenino</label>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     <!-- user adress section -->
                     <div class="field">
-                        <label>User Adress</label>
+                        <label>Dirección del usuario</label>
                         <div class="three fields">
-                            <div class="field">
-                                <label>Contry</label>
+                            <div class="required field">
+                                <label class="ui label">Pais</label>
                                 <select class="ui search dropdown" id="cbbPaises" asp-items="ViewBag.Counties">
-                                    <option value="">Select your Country Residence</option>
+                                    <option value="">Selecciona el país</option>
                                 </select>
                             </div>
-                            <div class="field">
-                                <label>City</label>
+                            <div class="required field">
+                                <label class="ui label">Ciudad</label>
                                 <select class="ui search dropdown" id="cbbCiudades">
-                                    <option value="">Select a City Residence (required)</option>
+                                    <option value="">Selecciona la ciudad</option>
                                 </select>
                             </div>
-                            <div class="field">
-                                <label>Suburb/hood</label>
+                            <div class="required field">
+                                <label class="ui label">Colonia</label>
                                 <select class="ui search dropdown" id="cbbColonias">
-                                    <option value="">Select a Suburbs/hood Residence (required)</option>
+                                    <option value="">Selecciona la colonia</option>
                                 </select>
                             </div>
                         </div>
                         <div class="field">
 
                             <div class="two fields">
-                                <div class="field">
-                                    <label>Street Number/Name</label>
+                                <div class="required field">
+                                    <label class="ui label">Calle</label>
                                     <div class="ui labeled input">
                                         <div class="ui label">
-                                            Street...
+                                            Calle
                                         </div>
                                         <input type="text" id="txtCalle">
                                     </div>
                                 </div>
-                                <div class="field">
-                                    <label>Avenue Number/Name</label>
+                                <div class="required field">
+                                    <label class="ui label">Avenida</label>
                                     <div class="ui labeled input">
                                         <div class="ui label">
-                                            Hood...
+                                            Avenida
                                         </div>
                                         <input type="text" id="txtAvenida">
                                     </div>
@@ -122,19 +132,20 @@
 
                     <!-- user acount section -->
                     <div class="field">
-                        <label>Acount Info</label>
                         <div class="three fields">
 
-                            <div class="field">
-                                <input type="email" id="txtEmail" placeholder="Email Address (required)">
+                            <div class="required field">
+                                <label class="ui label">Correo electrónico</label>
+                                <input type="email" id="txtEmail" placeholder="Correo electrónico">
                             </div>
-                            <div class="field">
+                            <div class="required field">
+                                <label class="ui label">Contraseña</label>
                                 <input type="password" id="txtPassword"
-                                       placeholder="Enter your Password (required)">
+                                       placeholder="Contraseña">
                             </div>
                             <div class="field">
                                 <input type="password" id="txtPasswordConfirm"
-                                       placeholder="Confirm your Password (required)">
+                                       placeholder="Confirmar contraseña">
                             </div>
                         </div>
                     </div>
@@ -142,25 +153,25 @@
                     <!-- role adress section -->
                     <div class="ui segment">
                         <div class="field">
-                            <label>Add a user Role</label>
+                            <label>Agrega un rol al usuario</label>
                             <div class="grouped fields">
                                 <div class="field">
                                     <div class="ui toggle checkbox">
                                         <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
-                                        <label>Administrator User</label>
+                                        <label>Administrador</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui toggle checkbox">
                                         <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
-                                        <label>Partner User</label>
+                                        <label>Socio</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui toggle checkbox">
                                         <input type="checkbox" id="checkExistingPartner" tabindex="0"
                                                class="hidden" disabled>
-                                        <label>Existing Partner</label>
+                                        <label>Socio ya existente</label>
                                     </div>
                                 </div>
                             </div>
@@ -171,43 +182,49 @@
                     <div id="frmSelectPartner">
 
                         <div class="field">
-                            <label>Select Partner</label>
+                            <label>Selecciona un socio</label>
                             <div class="fields">
-                                <div class="six wide field">
+                                <div class="six wide required field">
+                                    <label class="ui label">Tipo de socio</label>
                                     <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
-                                        <option value="">Select a Partner Type (required)</option>
+                                        <option value="">Selecciona un tipo de socio</option>
                                     </select>
                                 </div>
-                                <div class="six wide field">
+                                <div class="six wide required field">
+                                    <label class="ui label">Socio</label>
                                     <select class="ui dropdown" id="cbbPartners">
-                                        <option value="">Select a Partner (required)</option>
+                                        <option value="">Selecciona un socio)</option>
                                     </select>
                                 </div>
-                            </div>
+                                </div>
                         </div>
                     </div>
 
                     <!-- create partner section -->
                     <div id="frmCreatePartner">
                         <div class="field">
-                            <label>Partner Info</label>
+                            <label>Información del socio</label>
                             <div class="four fields">
-                                <div class="field">
+                                <div class="required field">
+                                    <label class="ui label">Tipo de socio</label>
                                     <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
-                                        <option value="">Select a Partner Type (required)</option>
+                                        <option value="">Selecciona una tipo de socio</option>
                                     </select>
                                 </div>
-                                <div class="field">
+                                <div class="required field">
+                                    <label class="ui label">Nombre</label>
                                     <input type="text" id="txtPartnerName"
-                                           placeholder="Partner Company Name (required)">
+                                           placeholder="Nombre del socio">
                                 </div>
-                                <div class="field">
+                                <div class="required field">
+                                    <label class="ui label">Correo electrónico</label>
                                     <input type="text" id="txtPartnerEmail"
-                                           placeholder="Partner Company Email (required)">
+                                           placeholder="Correo eletrónico">
                                 </div>
-                                <div class="field">
+                                <div class="required field">
+                                    <label class="ui label">Teléfono</label>
                                     <input type="text" id="txtPartnerPhone"
-                                           placeholder="Partner Company Phone (required)">
+                                           placeholder="Teléfono">
                                 </div>
                             </div>
                         </div>
@@ -215,13 +232,13 @@
 
                     </div>
 
-                    <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Create User</div>
-                    <div class="ui button" tabindex="0">Cancel</div>
+                    <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
+                    <div class="ui button" tabindex="0">Cancelar</div>
                 </div>
             </div>
             <div class="ui negative attached message" id="msgErrorForm">
                 <div class="header">
-                    A error ocurred while perfoming the action
+                    Ha ocurrido un error, intentelo de nuevo.
                 </div>
                 <p></p>
             </div>

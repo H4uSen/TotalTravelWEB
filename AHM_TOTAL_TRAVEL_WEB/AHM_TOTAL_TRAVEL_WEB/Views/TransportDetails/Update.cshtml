@@ -28,29 +28,32 @@
                     <div class="content">
                         <div class="three fields">
                             <div class="required field">
-                                <label>Tipo Transporte</label>
+                                <label class="ui label">Tipo de transporte</label>
                                 <select id="Tprt_ID" name="Tprt_ID" class="ui dropdown search" asp-items="ViewBag.Tprt_ID" asp-for="Tprt_ID">
                                     <option value="">Seleccione un tipo de transporte</option>
                                 </select>
                             </div>
-                            <div class="field">
-                                <label>Capacidad</label>
+                            <div class="required field">
+                                <label class="ui label">Capacidad</label>
                                 <input asp-for="DeTr_Capacidad" type="number" min="1" />
                             </div>
                             <div class="required field">
-                                <label>Horario</label>
+                                <label class="ui label">Horario</label>
                                 <select id="HoTr_ID" name="HoTr_ID" class="ui dropdown search" asp-for="HoTr_ID">
                                     <option value="">Seleccione un horario</option>
                                 </select>
                             </div>
                         </div>
                         <div class="three fields">
-                            <div class="field">
-                                <label>Precio</label>
-                                <input asp-for="DeTr_Precio" />
+                            <div class="required field">
+                                <label class="ui label">Precio</label>
+                                <div class="ui right labeled input">
+                                    <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio" asp-for="DeTr_Precio">
+                                    <div class="ui basic label">.00</div>
+                                </div>
                             </div>
-                            <div class="field">
-                                <label>Matricula</label>
+                            <div class="required field">
+                                <label class="ui label">Matricula</label>
                                 <input asp-for="DeTr_Matricula" />
                             </div>
 

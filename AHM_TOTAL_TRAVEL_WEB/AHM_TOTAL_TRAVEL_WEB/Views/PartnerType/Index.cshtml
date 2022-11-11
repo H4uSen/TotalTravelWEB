@@ -87,12 +87,12 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="two fields">
-                    <div class="field">
-                        <label>Descripcion</label>
+                    <div class="required field">
+                        <label class="ui label">Descripción</label>
                         <input name="TiPar_Descripcion" id="TiPar_Descripcion" />
                     </div>
                     <div class="required field">
-                        <label>Tipo de Rol</label>
+                        <label class="ui label">Tipo de rol</label>
                         <select id="Rol_ID" name="Rol_ID" class="ui dropdown search" asp-items="ViewBag.Rol_ID">
                             <option value="">Seleccione un Rol</option>
                         </select>
@@ -115,13 +115,13 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="two fields">
-                    <div class="field">
-                        <label>Descripcion</label>
-                        <input id="TiPar_IDUpdate" name="TiPar_ID" hidden/>
+                    <div class="required field">
+                        <label class="ui label">Descripción</label>
+                        <input id="TiPar_IDUpdate" name="TiPar_ID" hidden />
                         <input id="TiPar_DescripcionUpdate" name="TiPar_Descripcion" />
                     </div>
                     <div class="required field">
-                        <label>Tipo de Rol</label>
+                        <label class="ui label">Tipo de Rol</label>
                         <select id="Rol_IDUpdate" name="Rol_ID" class="ui dropdown search" asp-items="ViewBag.Rol_ID">
                             <option value="">Seleccione un Rol</option>
                         </select>
