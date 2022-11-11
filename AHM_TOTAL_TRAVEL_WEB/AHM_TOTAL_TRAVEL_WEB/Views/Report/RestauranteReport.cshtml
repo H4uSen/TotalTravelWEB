@@ -35,12 +35,18 @@
                     </div>
                 </div>
             </div>
-            <br><br>
+            <div class="ui segment form">
+                <a href="@Url.Action("RestauranteReportPDF", "Report", new { ReportTiype = "1" })" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("RestauranteReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
-            <div class="card"  id="a">
+            </div>
+            <br>
+            <br>
+
+            <div class="card" id="a">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("RestauranteReportPDF", "Report")" frameborder="0" height="650" id="ifrReport"></iframe>
+                    <iframe src="@Url.Action("RestauranteReportPDF", "Report", new { ReportTiype = "1" })" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>
