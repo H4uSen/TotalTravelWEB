@@ -61,11 +61,13 @@
                                     <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
                                 </div>
                                 <div class="required field">
-                                    <div class="required field">
-                                        <label class="ui label">Precio</label>
-                                        <input id="Habi_Precio" value="@Model.Precio" placeholder="Precio" />
+                                    <label class="ui label">Precio</label>
+                                    <div class="ui right labeled input">
+                                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio" id="Habi_Precio">
+                                        <div class="ui basic label">.00</div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="field">
@@ -162,7 +164,12 @@
 
     <script>
         $("#HotelModule").addClass("active");
-        $("#Hotel_Schema").addClass("show");
-        $("#HotelModule").addClass("expandedList")
+        $("#HotelModule").addClass("expandedList");
+        $("#HotelModule").prop("aria-expanded");
+        $("#HotelModule").attr("aria-expanded", "true");
+
+        $("#Hotels_Schema").addClass("show");
+
+        $("#RoomsTile").addClass("activeTile");
     </script>
 }

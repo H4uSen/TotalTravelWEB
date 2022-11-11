@@ -33,12 +33,12 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label>Nombre</label>
+                                    <label class="ui label">Nombre</label>
                                     <input id="Nombre" class="form-control" />
 
                                 </div>
                                 <div class="required field">
-                                    <label>Descripción</label>
+                                    <label class="ui label">Descripción</label>
                                     <input id="Descripcion" class="form-control" />
 
                                 </div>
@@ -47,12 +47,14 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label>Precio (L.)</label>
-                                    <input id="Precio" class="form-control" type="number" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off />
-
+                                    <label class="ui label">Precio</label>
+                                    <div class="ui right labeled input">
+                                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio" id="Precio">
+                                        <div class="ui basic label">.00</div>
+                                    </div>
                                 </div>
                                 <div class="required field">
-                                    <label>Duración</label>
+                                    <label class="ui label">Duración</label>
                                     <input id="Duracion" class="form-control" />
 
                                 </div>
@@ -61,7 +63,7 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label>¿Desea agregar restaurante?</label>
+                                    <label class="ui label">¿Desea agregar restaurante?</label>
                                     <div class="field">
                                         <div class="ui toggle checkbox">
                                             <input type="checkbox" id="checkResta" tabindex="0" class="hidden">
@@ -69,15 +71,15 @@
                                         </div>
                                     </div>
                                     <div class="required field" id="restau" hidden>
-                                        <label>Restaurante</label>
-                                        <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
-                                            <option value="0" selected="selected">Seleccione un restaurante</option>
-                                        </select>
-                                    </div>
+                                            <label class="ui label">Restaurante</label>
+                                            <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
+                                                <option value="0" selected="selected">Seleccione un restaurante</option>
+                                            </select>
+                                        </div>
 
                                 </div>
                                 <div class="required field">
-                                    <label>Hotel</label>
+                                    <label class="ui label">Hotel</label>
                                     <select id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
@@ -187,8 +189,14 @@
 }
 @section HighlightTile{
     <script>
+
         $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
+
         $("#Sale_Schema").addClass("show");
-        $("#SalesModule").addClass("expandedList")
+
+        $("#DefaultPackagesTile").addClass("activeTile");
     </script>
 }
