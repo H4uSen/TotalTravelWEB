@@ -109,12 +109,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     break;
             }
             //crea y asigna direccion url de ubicacion de archivo .rdlc
-            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransportesReport.rdlc";
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransporteReport.rdlc";
             // Dictionary<string, string> parameters = new Dictionary<string, string>();
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
-            localReport.AddDataSource("transporte", data);
+            localReport.AddDataSource("Transportes", data);
 
 
             if (ReportTiype == 1)
@@ -180,7 +180,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
-            localReport.AddDataSource("restaurante", data);
+            localReport.AddDataSource("Restaurante", data);
 
             // crea y asigna parametros
             //Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -254,7 +254,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             LocalReport localReport = new LocalReport(path);
 
             //añade valores recibidos de el endpoint de la API al dataset indicado
-            localReport.AddDataSource("hotel", data);
+            localReport.AddDataSource("hoteles", data);
 
             // crea y asigna parametros
             //Dictionary<string, string> parameters = new Dictionary<string, string>();
