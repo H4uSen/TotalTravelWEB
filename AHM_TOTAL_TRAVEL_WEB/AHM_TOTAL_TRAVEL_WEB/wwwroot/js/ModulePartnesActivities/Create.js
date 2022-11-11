@@ -3,6 +3,31 @@ var coloniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Sub
 
 $('.ui.dropdown').dropdown();
 
+$("#createTypesActivities").click(() => {
+    $("#modalCreate").modal('show');
+});
+
+$("#modalCreate #close").click(() => {
+    $("#modalCreate").modal('hide');
+});
+
+$("#send").click(() => {
+    validar();
+})
+
+function validar() {
+
+    validateArrayForm = [
+        { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#modalCreate #TiAc_Descripcion") },
+
+    ];
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+    if (ValidateFormStatus) {
+        $("#createTypesActivitiesForm").submit();
+    }
+}
+
 $('#Count_ID').change(function () {
 
     if (ciudadesList.code == 200) {

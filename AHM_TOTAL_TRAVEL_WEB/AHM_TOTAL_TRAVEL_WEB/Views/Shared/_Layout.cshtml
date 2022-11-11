@@ -548,8 +548,8 @@
                             </li>
                             <br />
                             <li class="sidebar-item">
-                            <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModulePartnersActivities")">Actividades</a></li>
-                            <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModulePartnersActivities")">Mi socio</a></li>
+                            <li><a id="ActivitiesTile" class="sidebar-link" href="@Url.Action("Index","ModulePartnersActivities")">Actividades</a></li>
+                            <li><a id="PartnerTile" class="sidebar-link" href="@Url.Action("Info","ModulePartnersActivities")">Mi socio</a></li>
                             @*<li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>*@
                             </li>
                         </ul>
@@ -559,7 +559,7 @@
                     {
                         <ul class="list-unstyled py-4">
                             <li class="sidebar-item" id="">
-                                <a class="sidebar-link" href="@Url.Action("restaurantDashboard", "Home")">
+                                <a class="sidebar-link" id="DashboardTile" href="@Url.Action("restaurantDashboard", "Home")">
                                     Inicio
                                 </a>
                             </li>

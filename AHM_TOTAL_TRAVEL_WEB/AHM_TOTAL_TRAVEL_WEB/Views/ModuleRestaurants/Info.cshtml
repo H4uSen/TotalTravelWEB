@@ -15,24 +15,28 @@
             background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
             color: #fff;
             height: 40%;
-            text-align:center;
+            text-align: center;
         }
+
         h1 {
             margin-top: 2% !important;
-            color:white;
+            color: white;
         }
+
         .container {
             max-width: 95%;
             margin: 5.125em 1.5em;
             top: 0;
             background-color: #f4fafd;
         }
+
         .ui.attached.segment {
             background-color: transparent;
             border: none;
         }
+
         .ui.placeholder.segment {
-            align-items:center !important;
+            align-items: center !important;
         }
     </style>
 }
@@ -89,4 +93,13 @@
     <script>
         const folderName = '@ViewData["RestaurantFolder"]';
     </script>
- }
+}
+
+@section HighlightTile{
+    <script>
+        /*        $("#Restaurant_Schema").addClass("show");*/
+        //$("#RestaurantsTile").addClass("activeTile");
+            $("#MenusTile").addClass("activeTile");
+            //$("#TypeMenusTile").addClass("activeTile");
+    </script>
+}
