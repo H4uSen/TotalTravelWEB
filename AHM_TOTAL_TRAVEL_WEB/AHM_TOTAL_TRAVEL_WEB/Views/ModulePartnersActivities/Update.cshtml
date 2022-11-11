@@ -31,7 +31,7 @@
 
                         <div class="field">
                             <div class=" two fields">
-                                <input id="Part_ID" class="desaparezco" value="@ViewData["partnerID"]" hidden/>
+                                <input id="Part_ID" class="desaparezco" value="@ViewData["partnerID"]" hidden />
                                 <div class="required field">
                                     <label class="ui label">Actividad</label>
                                     <select id="Actv_IDUpdate" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
@@ -119,4 +119,10 @@
     <script src="~/js/ModulePartnesActivities/Update.js"></script>
     <script>$('.desaparezco').hide();</script>
 
+}
+
+@section HighlightTile{
+    <script>
+        $("#ActivitiesTile").addClass("activeTile");
+    </script>
 }

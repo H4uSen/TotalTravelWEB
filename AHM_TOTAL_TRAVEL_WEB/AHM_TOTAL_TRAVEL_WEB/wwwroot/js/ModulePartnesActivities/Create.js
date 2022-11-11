@@ -1,7 +1,4 @@
-﻿var ciudadesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
-var coloniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
-
-$('.ui.dropdown').dropdown();
+﻿$('.ui.dropdown').dropdown();
 
 $("#createTypesActivities").click(() => {
     $("#modalCreate").modal('show');
@@ -11,12 +8,7 @@ $("#modalCreate #close").click(() => {
     $("#modalCreate").modal('hide');
 });
 
-$("#send").click(() => {
-    validar();
-})
-
-function validar() {
-
+$("#sendTypeActivities").click(() => {
     validateArrayForm = [
         { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#modalCreate #TiAc_Descripcion") },
 
@@ -26,7 +18,10 @@ function validar() {
     if (ValidateFormStatus) {
         $("#createTypesActivitiesForm").submit();
     }
-}
+})
+
+var ciudadesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+var coloniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
 
 $('#Count_ID').change(function () {
 
