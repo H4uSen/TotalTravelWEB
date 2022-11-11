@@ -49,7 +49,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(option => {
-                option.LoginPath = "/Access/LandingPage";
+                option.LoginPath = "/";
                 option.ExpireTimeSpan = TimeSpan.FromDays(30);
                 option.AccessDeniedPath = "/Home/Error401";
             });
@@ -85,7 +85,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             }
             else
             {
-                app.UseExceptionHandler("Home/Error");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
             app.Use(async (context, next) =>
@@ -138,7 +138,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

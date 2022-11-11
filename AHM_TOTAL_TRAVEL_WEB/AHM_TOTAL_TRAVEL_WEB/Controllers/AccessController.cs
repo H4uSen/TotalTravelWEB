@@ -160,7 +160,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             
 
         }
-
+        [Route("/")]
         public IActionResult LandingPage()
         {
             return View();

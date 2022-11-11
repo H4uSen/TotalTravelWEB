@@ -1,6 +1,6 @@
-﻿const ReservationList = ajaxRequest("https://totaltravel.somee.com/API/Reservation/List");
-const PaymentsList = ajaxRequest("https://totaltravel.somee.com/API/RecordPayment/List");
-const PaymentTypesList = ajaxRequest("https://totaltravel.somee.com/API/PaymentTypes/List");
+﻿const ReservationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
+const PaymentsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/List");
+const PaymentTypesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PaymentTypes/List");
 
 
 TableSearchInput($("#txtSearch"), $("#grdReservacion"), elemPerPage = 10);
@@ -43,10 +43,14 @@ function paymentsListDetails(id_reservacion) {
 
     //var RoomReservation = RoomReservationList.data;
     var Payments = PaymentsList.data;
-    if (PaymentsList.code == 200 && Payments.length > 0) {
+    if (PaymentsList.code == 200) {
 
         var Detail =
             `<div class="ui fluid vertical menu">`;
+        if (Payments.length == 0)
+        {
+            Detail = `<h2>No hay registros para mostrar</h2></div>`;
+        }
 
         Payments = jQuery.grep(Payments, function (item, i) {
             return item.id_Reservacion == id_reservacion;
@@ -100,7 +104,7 @@ function DeleteReservation(id) {
 
 function createPayment(resv_ID) {
     $("#modalCreate").modal('show');
-    $("#Resv_ID").val(resv_ID);
+    $("#modalCreate #Resv_ID").val(resv_ID);
 
 }
 
