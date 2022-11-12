@@ -298,7 +298,7 @@ $("#cbbCiudadDestino").change(function (_this) {
 
 //-------------------------- FUNCTIONS CONTADOR ------------------------------------------
 
-function createContador(querySelector) {
+function createContador(querySelector,startInCero = false) {
 
     $.each(querySelector, function (index, object) {
         var _this = $(object);
@@ -307,11 +307,11 @@ function createContador(querySelector) {
         var countInput = _this.find(".count_input");
 
         $(plusButton).click(function () {
-            contador($(countInput), true, cero = false)
+            contador($(countInput), true, startInCero)
         });
 
         $(minusButton).click(function () {
-            contador($(countInput), false, cero = false)
+            contador($(countInput), false, startInCero)
         });
     });
 }
@@ -365,14 +365,23 @@ function fillHotels(id_ciudad){
         });
 
         $("#hotel_container #frmHotels #frmItems").empty();
-        for (var i = 0; i < hotels.length; i++) {
-            const hotel = hotels[i];
-            const hotelImage = hotel.image_URL.split(",");
+        if (hotels.length > 0) {
+            for (var i = 0; i < hotels.length; i++) {
 
-            const card =
-                ` <div class="item hotel_item">
+                const hotel = hotels[i];
+                const hotelImage = hotel.image_URL.split(",");
+
+                // caroulse contruct
+                var carousel = `<div class="fotorama hotels_fotorama" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">`;
+                for (var j = 0; j < hotelImage.length; j++) {
+                    carousel += `<img src="${hotelImage[j]}">`;
+                }
+                carousel += "</div>";
+
+                const card =
+                    ` <div class="item hotel_item">
                     <div class="image">
-                        <img src="${hotelImage[0]}">
+                        ${carousel}
                     </div>
                     <div class="content">
                         <h3><b>${hotel.hotel}</b></h3>
@@ -393,22 +402,143 @@ function fillHotels(id_ciudad){
                     </div>
                 </div>`;
 
-            $("#hotel_container #frmHotels #frmItems").append(card);
+                $("#hotel_container #frmHotels #frmItems").append(card);
+            }
+
+            // INIZIALIZE OBJECT
+            $('.rating').rating({
+                initialRating: 2,
+                maxRating: 5
+            });
+
+            $('.rating.disabled').rating({
+                initialRating: 2,
+                maxRating: 5
+            }).rating('disable');
+
+            $(".hotels_fotorama").fotorama();
+
+        } else {
+            $("#hotel_container #frmHotels #frmItems").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                No hay hoteles disponibles en esta zona
+                            </div>
+                            <p>
+                                Selecciona una ciudad para empezar tu busqueda
+                            </p>
+                        </div>
+                    </div>
+                </div>`);
         }
-
-        // ratings
-        $('.rating').rating({
-            initialRating: 2,
-            maxRating: 5
-        });
-
-        $('.rating.disabled').rating({
-            initialRating: 2,
-            maxRating: 5
-        }).rating('disable');
     }
 }
 
 function fillRooms(id_hotel){
     console.log("id_hotel: " + id_hotel);
+    if (RoomsList.code == 200) {
+        const rooms = jQuery.grep(RoomsList.data, function (item, i) {
+            return item.hotelID == id_hotel;
+        });
+
+        $("#hotel_container #frmRooms").empty();
+        if (rooms.length > 0) {
+            
+            for (var i = 0; i < rooms.length; i++) {
+
+                const item = rooms[i];
+                const images = item.imageUrl.split(",");
+                console.log(item);
+                console.log(images);
+                
+                // carousel construct
+                var carousel = `<div class="fotorama rooms_fotorama" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">`;
+                for (var j = 0; j < images.length; j++) {
+                    carousel += `<img src="${images[j]}">`;
+                }
+                carousel += "</div>";
+
+                // room card construct
+                const card =
+                    `<div class="column room_item">
+                        <div class="ui card" style="width:100%; height:100%;">
+                            <div class="image">
+                               ${carousel}
+                            </div>
+                            <div class="content">
+                                <a class="header">
+                                    <h3>
+                                        <b>${item.habitacion}</b>
+                                        <div class="ui large gray horizontal label">${item.categoria}</div>
+                                    </h3>
+                                </a>
+                                <h5 class="description">
+                                     ${item.descripcion}
+                                </h5>
+                                <br>
+
+                                <div class="extra">
+                                    <b>Rating:</b><br>
+                                    <div class="ui huge star rating disabled" data-rating="5"></div>
+                                </div><br>
+                                <div class="ui labeled large button" tabindex="0">
+                                    <div class="ui green button">
+                                        <i class="tag icon"></i> Price
+                                    </div>
+                                    <h3 class="ui basic left pointing label">
+                                        Lps. ${parseFloat(item.precio).toFixed(2)}
+                                    </h3>
+                                </div>
+
+                            </div>
+                            <div class="extra content" style="text-align: end;">
+                                <div class="field">
+                                     <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="0"
+                                               style="text-align: center;" readonly>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>`;
+
+                $("#hotel_container #frmRooms").append(card);
+            }
+
+            //inizialize objects
+            createContador($(".contador"),true);
+            $(".rooms_fotorama").fotorama();
+            $('.rating').rating({
+                initialRating: 2,
+                maxRating: 5
+            });
+        }
+        else {
+            $("#hotel_container #frmRooms").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                No hay habitaciones disponibles en este hotel
+                            </div>
+                        </div>
+                        <a class="ui left floated button" href="javascript: steps.step_0() ">
+                            <i class="left chevron icon"></i> VOLVER
+                        </a>
+                    </div>
+                </div>`);
+        }
+
+    }
 }
