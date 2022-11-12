@@ -17,14 +17,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly AccessService _accessService;
         private readonly SaleServices _saleServices;
         private readonly ActivitiesServices _activitiesServices;
+        private readonly GeneralService _GeneralService;
 
-        public ReservationController(ReservationService reservationService, HotelsService hotelsService, AccessService accessService, SaleServices saleServices, ActivitiesServices activitiesServices)
+        public ReservationController(ReservationService reservationService, HotelsService hotelsService, AccessService accessService, SaleServices saleServices, ActivitiesServices activitiesServices,
+                                     GeneralService GeneralService)
         {
             _reservationService = reservationService;
             _hotelsService = hotelsService;
             _accessService = accessService;
             _saleServices = saleServices;
             _activitiesServices = activitiesServices;
+            _GeneralService = GeneralService;
         }
 
         [HttpGet]
@@ -194,8 +197,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
-        public IActionResult PersonalizePackages()
+        public async Task<IActionResult> PersonalizePackages()
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            var ciudades = (IEnumerable<CityListViewModel>)(await _GeneralService.CitiesList()).Data;
+            foreach (var item in ciudades)
+                item.Ciudad = $"{item.Ciudad}, {item.Pais}";
+
+            ViewBag.ciudades = new SelectList(ciudades, "ID", "Ciudad");
             return View();
         }
         public async Task<IActionResult> Details(int  id)

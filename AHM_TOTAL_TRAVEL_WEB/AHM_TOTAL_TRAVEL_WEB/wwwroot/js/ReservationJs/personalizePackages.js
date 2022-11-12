@@ -1,4 +1,25 @@
-﻿//------------------------- VARIABLES ---------------------------
+﻿//------------------------- MODELS VARIABLES ---------------------------
+
+//extra
+const PartnersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+const AddressList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/List");
+const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+// hotels
+const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+const HotelsActivitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsActivities/List");
+const RoomsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Rooms/List");
+
+// activities
+const ActivitiesExtraList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
+
+// transports
+const DetailsTransportationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/List");
+
+//restaurants
+const RestaurantsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
+const MenusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
+
+//------------------------- VARIABLES ---------------------------
 
 var data = {
     persons: 0,
@@ -13,32 +34,189 @@ var data = {
     activities: [0],
 };
 
-var pantallas = [
-    $("#frmHotels"),
-    $("#frmRooms"),
-    $("#frmActivities"),
-    $("#frmTransporte")
-];
+const helpers = {
+    hideAll: function () {
+        var pantallas = [
+            $("#hotel_container"),
+            $("#activities_container"),
+            $("#transport_container"),
+            $("#restaurant_container"),
+            $("#pago_container")
+        ];
+
+        $.each(pantallas, function (index, item) {
+            $(item).hide();
+        });
+    },
+
+    setStepDefault: function () {
+        $.each($("#StepsContainer .step"), function (index, item) {
+            $(item).removeClass("active");
+            $(item).removeClass("completed");
+            $(item).addClass("disabled");
+        });
+    }
+}
+
+const steps = {
+    step_0: function () {
+        $("#frmStepfooter button").prop("disabled", true);
+
+        helpers.setStepDefault();
+        $("#StepsProgressBar").css("width", "20%");
+        $("#StepsContainer .step").eq(0).addClass("active").removeClass("disabled");
+        helpers.hideAll();
+        $("#hotel_container").show();
+        $("#frmRooms").hide();
+        $("#frmHotels").show();
+    },
+
+    step_1: function () {
+        $('#main_content :input').attr('disabled', false);
+        $('#main_content :button').attr('disabled', false);
+
+        $("#frmStepfooter button").prop("disabled", true);
+
+        // set default
+        helpers.setStepDefault();
+
+        // set actual step
+        $("#StepsProgressBar").css("width", "20%");
+        $("#StepsContainer .step").eq(0).addClass("active").removeClass("disabled");
+
+        // show view
+        helpers.hideAll();
+        $("#hotel_container").show();
+        $("#frmRooms").hide();
+        $("#frmHotels").show();
+
+        //buttons item events
+        $("#frmHotels .hotel_item .hotel_button_trigger").click(function (_this_button) {
+            console.log($(_this_button.target));
+
+            //set default
+            $("#frmHotels .hotel_item .hotel_button_trigger").removeClass("positive").addClass("primary");
+            $("#frmHotels .hotel_item .hotel_button_trigger").html('RESERVAR <i class="right chevron icon"></i>');
+
+            //set actual
+            const id_hotel = $(_this_button.target).attr("data-value");
+            $(_this_button.target).addClass("positive").removeClass("primary");
+            $(_this_button.target).html('RESERVADO <i class="right chevron icon"></i>');
+
+            
+            if ($(_this_button.target).attr("data-selected") == "false") {
+                $("#frmHotels .hotel_item .hotel_button_trigger").attr("data-selected", "false");
+                $(_this_button.target).attr("data-selected", "true");
+                fillRooms(id_hotel);
+            }
+
+            $("#frmRooms").show();
+            $("#frmHotels").hide();
+            
+            $("#frmStepfooter button").prop("disabled", false);
+        });
+
+        // footer buttons events 
+        $("#btnNextStep").attr("data-step", "step_2");
+        $("#btnBeforeStep").attr("data-step", "step_0");
+    },
+
+    step_2: function () {
+
+        $("#frmStepfooter button").prop("disabled", false);
+
+        // set default
+        helpers.setStepDefault();
+
+        // set actual step
+        $("#StepsProgressBar").css("width", "40%");
+        $("#StepsContainer .step").eq(0).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(1).addClass("active").removeClass("disabled");
+
+        // show wide
+        helpers.hideAll();
+        $("#activities_container").show();
+        $("#frmExtraActivities").hide();
+        $("#frmHotelActivities").show();
+
+        // footer buttons events 
+        $("#btnNextStep").attr("data-step", "step_3");
+        $("#btnBeforeStep").attr("data-step", "step_1");
+
+    },
+
+    step_3: function () {
+        // set default
+        helpers.setStepDefault();
+
+        // set actual step
+        $("#StepsProgressBar").css("width", "60%");
+        $("#StepsContainer .step").eq(0).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(1).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(2).addClass("active").removeClass("disabled");
+
+        // show wide
+        helpers.hideAll();
+        $("#transport_container").show();
+        $("#frmPortuarios").hide();
+        $("#frmVuelos").hide();
+        $("#frmTransportes").show();
+
+        // footer buttons events 
+        $("#btnNextStep").attr("data-step", "step_4");
+        $("#btnBeforeStep").attr("data-step", "step_2");
+    },
+
+    step_4: function () {
+        helpers.setStepDefault();
+
+        // set actual step
+        $("#StepsProgressBar").css("width", "80%");
+        $("#StepsContainer .step").eq(0).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(1).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(2).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(3).addClass("active").removeClass("disabled");
+
+        // show wide
+        helpers.hideAll();
+        $("#restaurant_container").show();
+
+        // footer buttons events 
+        $("#btnNextStep").attr("disabled", false);
+        $("#btnNextStep").attr("data-step", "step_5");
+        $("#btnBeforeStep").attr("data-step", "step_3");
+    },
+
+    step_5: function () {
+        // set default
+        helpers.setStepDefault();
+
+        // set actual step
+        $("#StepsProgressBar").css("width", "100%");
+        $("#StepsContainer .step").eq(0).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(1).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(2).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(3).removeClass("disabled").addClass("completed");
+        $("#StepsContainer .step").eq(4).addClass("active").removeClass("disabled");
+
+        // show wide
+        helpers.hideAll();
+        $("#pago_container").show();
+
+        // footer buttons events 
+        $("#btnNextStep").attr("disabled", true);
+        $("#btnBeforeStep").attr("data-step", "step_4");
+    }
+}
+
 
 //------------------------- INIZIALIZE ---------------------------
-ShowWide(0);
+$('#main_content :input').attr('disabled', true);
+$('#main_content :button').attr('disabled', true);
+steps.step_0();
+createContador($(".contador"));
 
-$('.ui.dropdown').dropdown();
-$('.ui.checkbox').checkbox();
-$('.ui.sidebar').sidebar({
-    context: $('.bottom.segment')
-}).sidebar('attach events', '.menu #sidebutton');
-
-$('.rating').rating({
-    initialRating: 2,
-    maxRating: 5
-});
-
-$('.rating.disabled').rating({
-    initialRating: 2,
-    maxRating: 5
-}).rating('disable');
-
+// fechas 
 $('#txtFechaEntrada').calendar({
     type: 'date',
     endCalendar: $('#txtFechaSalida')
@@ -49,27 +227,93 @@ $('#txtFechaSalida').calendar({
     startCalendar: $('#txtFechaEntrada')
 });
 
+$('.activities_fecha').calendar({
+    type: 'date',
+    popupOptions: {
+        position: 'bottom right',
+        lastResort: 'bottom right',
+        hideOnScroll: false
+    }
+});
+
+$('.restaurant_fecha').calendar({
+    type: 'date',
+    popupOptions: {
+        position: 'bottom right',
+        lastResort: 'bottom right',
+        hideOnScroll: false
+    }
+});
+
+
+$('.ui.dropdown').dropdown();
+
+//-------------------------- EVENTS ------------------------------------------
+
 $("#frmTransporte_menu .item").click(function (_this) {
     $("#frmTransporte_menu .item").removeClass("active");
     $(_this.target).addClass("active");
 
     $.each($("#frmTransporte_menu .item"), (i, item) => {
         const object = $(item).attr("data-target");
-        $(`#frmTransporte ${object}`).hide();
+        $(`#transport_container ${object}`).hide();
     });
 
     const wideToShow = $(_this.target).attr("data-target");
     $(wideToShow).show();
 });
 
-//-------------------------- HELPERS ------------------------------------------
-function ShowWide(wide = null) {
-    $.each(pantallas, function (index, object) {
-        $(object).hide();
+$("#frmActivities_menu .item").click(function (_this) {
+    $("#frmActivities_menu .item").removeClass("active");
+    $(_this.target).addClass("active");
+
+    $.each($("#frmActivities_menu .item"), (i, item) => {
+        const object = $(item).attr("data-target");
+        $(`#activities_container ${object}`).hide();
     });
-    if (wide != null) {
-        pantallas[wide].show();
+
+    const wideToShow = $(_this.target).attr("data-target");
+    $(wideToShow).show();
+});
+
+$("#btnNextStep").click(function (_this) {
+    var step = $(_this.target).attr("data-step");
+    steps[step]();
+});
+
+$("#btnBeforeStep").click(function (_this) {
+    var step = $(_this.target).attr("data-step");
+    steps[step]();
+});
+
+$(".menu_trigger_button").click(function () {
+    $('#mdlMenus').modal('show');
+});
+
+$("#cbbCiudadDestino").change(function (_this) {
+    if ($(_this.target).val() != 0) {
+        fillMain($(_this.target).val());
     }
+});
+
+//-------------------------- FUNCTIONS CONTADOR ------------------------------------------
+
+function createContador(querySelector) {
+
+    $.each(querySelector, function (index, object) {
+        var _this = $(object);
+        var plusButton = _this.find(".plus_button");
+        var minusButton = _this.find(".minus_button");
+        var countInput = _this.find(".count_input");
+
+        $(plusButton).click(function () {
+            contador($(countInput), true, cero = false)
+        });
+
+        $(minusButton).click(function () {
+            contador($(countInput), false, cero = false)
+        });
+    });
 }
 
 function contador(input, mode, cero = false) {
@@ -102,63 +346,69 @@ function contador(input, mode, cero = false) {
     $(input).val(numero);
 }
 
+//-------------------------- MAIN FUNCTIONS PAGE ------------------------------------------
 
-//------------------------- FUNCTIONS ---------------------------
-
-function FormUserReveal() {
-    $('#frmCreateUser').transition('fade up');
+function fillMain(id_ciudad){
+    fillHotels(id_ciudad);
+    steps.step_1();
 }
 
-function ShowRooms() {
-    ShowWide(1);
-    $("#frmStepfooter button").prop("disabled", false);
+function fillHotels(id_ciudad){
 
-    //footer buttons functions
-    $("#btnNextStep").click(ShowActivities);
-    $("#btnBeforeStep").click(function () {
-        $("#frmStepfooter button").prop("disabled", true);
-        ShowWide(0);
-    });
+    if (HotelsList.code == 200) {
+        const ciudad = jQuery.grep(CitiesList.data, function (item, i) {
+            return item.id == id_ciudad;
+        })[0];
+
+        const hotels = jQuery.grep(HotelsList.data, function (item, i) {
+            return item.ciudadID == id_ciudad;
+        });
+
+        $("#hotel_container #frmHotels #frmItems").empty();
+        for (var i = 0; i < hotels.length; i++) {
+            const hotel = hotels[i];
+            const hotelImage = hotel.image_URL.split(",");
+
+            const card =
+                ` <div class="item hotel_item">
+                    <div class="image">
+                        <img src="${hotelImage[0]}">
+                    </div>
+                    <div class="content">
+                        <h3><b>${hotel.hotel}</b></h3>
+                        <h5 class="blue_text">
+                            <i class="map marker alternate blue icon"></i>
+                            <b>${ciudad.ciudad}, ${ciudad.pais}</b>
+                        </h5>
+                        <div class="extra">
+                            <b>Rating:</b><br>
+                            <div class="ui huge star rating disabled" data-rating="5"></div>
+                        </div>
+                    </div>
+                    <div class="content left floated" style="text-align: end;">
+                        <br>
+                        <button class="ui right floated primary button hotel_button_trigger" data-value="${hotel.id}" data-selected="false">
+                            RESERVAR <i class="right chevron icon"></i>
+                        </button>
+                    </div>
+                </div>`;
+
+            $("#hotel_container #frmHotels #frmItems").append(card);
+        }
+
+        // ratings
+        $('.rating').rating({
+            initialRating: 2,
+            maxRating: 5
+        });
+
+        $('.rating.disabled').rating({
+            initialRating: 2,
+            maxRating: 5
+        }).rating('disable');
+    }
 }
 
-function ShowActivities() {
-    $("#StepsProgressBar").css("width", "40%");
-    $("#StepsContainer .step").eq(0).addClass("completed").removeClass("active");
-    $("#StepsContainer .step").eq(1).addClass("active").removeClass("disabled");
-
-    ShowWide(2);
-
-    //footer buttons functions
-    $("#btnNextStep").click(function () {
-        ShowTransport();
-    });
-    $("#btnBeforeStep").click(function () {
-        $("#frmActivities").hide();
-        $("#StepsProgressBar").css("width", "20%");
-        ShowWide(0);
-        $("#frmStepfooter button").prop("disabled", true);
-    });
-}
-
-function ShowTransport() {
-    $.each($("#frmTransporte_menu .item"), (i, item) => {
-        const object = $(item).attr("data-target");
-        $(`#frmTransporte ${object}`).hide();
-    });
-    $("#frmTransportes").show();
-
-    $("#StepsProgressBar").css("width", "60%");
-    $("#StepsContainer .step").eq(1).addClass("completed").removeClass("active");
-    $("#StepsContainer .step").eq(2).addClass("active").removeClass("disabled");
-    ShowWide(3);
-
-    //footer buttons functions
-    $("#btnNextStep").click(function () {
-        //next step
-    });
-    $("#btnBeforeStep").click(function () {
-        $("#frmTransporte").hide();
-        ShowActivities();
-        $("#frmStepfooter button").prop("disabled", false);
-    });
+function fillRooms(id_hotel){
+    console.log("id_hotel: " + id_hotel);
 }
