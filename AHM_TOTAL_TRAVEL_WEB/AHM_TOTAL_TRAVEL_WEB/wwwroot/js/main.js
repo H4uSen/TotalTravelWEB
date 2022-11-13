@@ -1,19 +1,19 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 
-    $("input[type=text]").prop("autocomplete", "off");
-    var Client_User_ID = parseInt(GetCookie("User_Id"));
-    var Client_Partner_ID = parseInt(GetCookie("Partner_Id"));
-    var Client_User_Name = GetCookie("User_Name");
-    $("#loaderAnimation").hide();
+    var sessionData = JSON.parse(document.getElementById("sessionData").innerHTML);
 
+    $("input[type=text]").prop("autocomplete", "off");
+    var Client_User_ID = sessionData.userId;
+    var Client_Partner_ID = sessionData.partnerId;
+    var Client_User_Name = sessionData.userName;
+    var Client_Token = sessionData.Token;
+    $("#loaderAnimation").hide();
 // ----------------------------------- EVENTS ------------------------------------
 
     const user_FileName = `User-${Client_User_ID}`;
     const url_image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
     $("#user_image").prop("src", "https://" + url_image);
-
-
 // ----------------------------------- FUNCTIONS ------------------------------------
 
 
@@ -292,7 +292,7 @@
     function GetCookie(value) {
         var key = null;
         $.ajax({
-            url: "https://localhost:44366/read-claims?key=" + value,
+            url: "https://totaltravel.azurewebsites.net/read-claims?key=" + value,
             data: {},
             method: "GET",
             dataType: "json",
@@ -306,7 +306,7 @@
         });
 
         return key;
-        console.log("https://localhost:44366/read-claims?key=" + value);
+        console.log("https://totaltravel.azurewebsites.net/read-claims?key=" + value);
     }
 
     function ajaxRequest(url, data = {}, method = "GET", SendToken = true) {
@@ -321,7 +321,7 @@
         }
 
         if (SendToken == true) {
-            Token = GetCookie("Token");
+            Token = Client_Token;
         }
 
         $.ajax({
@@ -389,7 +389,7 @@
         }
 
         if (SendToken == true) {
-            Token = GetCookie("Token");
+            Token = Client_Token;
         }
 
         $.ajax({
