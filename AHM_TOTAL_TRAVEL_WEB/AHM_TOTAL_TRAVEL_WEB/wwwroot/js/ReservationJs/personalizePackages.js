@@ -24,7 +24,7 @@ const MenusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menu
 var data = {
     persons: 0,
     hotel: {
-        id: 0,
+        data: 0,
         rooms: [
             { id: 0, count: 0 }
         ]
@@ -92,7 +92,6 @@ const steps = {
 
         //buttons item events
         $("#frmHotels .hotel_item .hotel_button_trigger").click(function (_this_button) {
-            console.log($(_this_button.target));
 
             //set default
             $("#frmHotels .hotel_item .hotel_button_trigger").removeClass("positive").addClass("primary");
@@ -108,6 +107,7 @@ const steps = {
                 $("#frmHotels .hotel_item .hotel_button_trigger").attr("data-selected", "false");
                 $(_this_button.target).attr("data-selected", "true");
                 fillRooms(id_hotel);
+                fillHotelActivities(id_hotel);
             }
 
             $("#frmRooms").show();
@@ -138,6 +138,53 @@ const steps = {
         $("#activities_container").show();
         $("#frmExtraActivities").hide();
         $("#frmHotelActivities").show();
+
+        //activities button events
+        $("button.activityHotel_trigger_button").click(function (_this) {
+
+            console.log($(_this.target));
+            const id_actividad = $(_this.target).attr("data-value");
+
+            if ($(_this.target).attr("data-selected") == "true") {
+
+                console.log(true);
+                $(_this.target).addClass("primary").removeClass("positive");
+                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+                $(_this.target).attr("data-selected", "false");
+
+            }
+            else {
+
+                console.log(false);
+                $(_this.target).addClass("positive").removeClass("primary");
+                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
+                $(_this.target).attr("data-selected", "true");
+
+            }
+
+        });
+
+        $("button.activity_trigger_button").click(function (_this) {
+            console.log($(_this.target));
+            const id_actividad = $(_this.target).attr("data-value");
+
+            if ($(_this.target).attr("data-selected") == "true") {
+
+                console.log(true);
+                $(_this.target).addClass("primary").removeClass("positive");
+                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+                $(_this.target).attr("data-selected", "false");
+
+            }
+            else {
+
+                console.log(false);
+                $(_this.target).addClass("positive").removeClass("primary");
+                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
+                $(_this.target).attr("data-selected", "true");
+
+            }
+        });
 
         // footer buttons events 
         $("#btnNextStep").attr("data-step", "step_3");
@@ -350,6 +397,7 @@ function contador(input, mode, cero = false) {
 
 function fillMain(id_ciudad){
     fillHotels(id_ciudad);
+    fillExtraActivities(id_ciudad);
     steps.step_1();
 }
 
@@ -451,15 +499,22 @@ function fillRooms(id_hotel){
 
                 const item = rooms[i];
                 const images = item.imageUrl.split(",");
-                console.log(item);
-                console.log(images);
                 
                 // carousel construct
-                var carousel = `<div class="fotorama rooms_fotorama" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">`;
+                var carousel = `<div class="fotorama rooms_fotorama" data-allowfullscreen="true" data-nav="thumbs" data-width="100%" data-height="300">`;
                 for (var j = 0; j < images.length; j++) {
                     carousel += `<img src="${images[j]}">`;
                 }
                 carousel += "</div>";
+
+                //details list
+                var details = `<h6 style="font-weight:bold;">- Capacidad para ${item.capacidad} personas</h6>`;
+                if (item.balcon) {
+                    details += "<h6>- Vista de balcon</h6>";
+                }
+                if (item.wifi) {
+                    details += "<h6>- Conexion WI-FI</h6>";
+                }
 
                 // room card construct
                 const card =
@@ -475,18 +530,18 @@ function fillRooms(id_hotel){
                                         <div class="ui large gray horizontal label">${item.categoria}</div>
                                     </h3>
                                 </a>
-                                <h5 class="description">
-                                     ${item.descripcion}
-                                </h5>
-                                <br>
+                                <h5 class="description">${item.descripcion} </h5>
 
                                 <div class="extra">
+                                    <h5 class="blue_text">Detalles adicionales</h5>
+                                    ${details}
+                                    <br>
                                     <b>Rating:</b><br>
                                     <div class="ui huge star rating disabled" data-rating="5"></div>
                                 </div><br>
                                 <div class="ui labeled large button" tabindex="0">
                                     <div class="ui green button">
-                                        <i class="tag icon"></i> Price
+                                        <i class="tag icon"></i> Precio
                                     </div>
                                     <h3 class="ui basic left pointing label">
                                         Lps. ${parseFloat(item.precio).toFixed(2)}
@@ -496,11 +551,11 @@ function fillRooms(id_hotel){
                             </div>
                             <div class="extra content" style="text-align: end;">
                                 <div class="field">
-                                     <div class="ui right labeled input contador">
+                                     <div class="ui right labeled input room_contador">
                                         <div class="ui icon button label minus_button">
                                             <i class="minus icon"></i>
                                         </div>
-                                        <input class="count_input" id="txtCantidad" type="number" value="0"
+                                        <input class="count_input" type="number" value="0"
                                                style="text-align: center;" readonly>
                                         <div class="ui icon button label plus_button">
                                             <i class="plus icon"></i>
@@ -516,7 +571,7 @@ function fillRooms(id_hotel){
             }
 
             //inizialize objects
-            createContador($(".contador"),true);
+            createContador($(".room_contador"),true);
             $(".rooms_fotorama").fotorama();
             $('.rating').rating({
                 initialRating: 2,
@@ -538,6 +593,226 @@ function fillRooms(id_hotel){
                         </a>
                     </div>
                 </div>`);
+        }
+
+    }
+}
+
+function fillExtraActivities(id_ciudad) {
+    if (ActivitiesExtraList.code == 200) {
+
+        const activities = jQuery.grep(ActivitiesExtraList.data, function (item, i) {
+            return item.ciudadID == id_ciudad;
+        });
+
+        $("#activities_container #frmExtraActivities .ui.items").empty();
+        if (activities.length > 0) {
+
+            for (var i = 0; i < activities.length; i++) {
+
+                const item = activities[i];
+                const images = item.imageURL.split(",");
+
+                //carousel construct
+                var carousel =
+                    `<div class="fotorama activities_fotorama" data-allowfullscreen="true" data-nav="thumbs">`;
+                for (var j = 0; j < images.length; j++) {
+                    carousel += `<img src="${images[j]}">`;
+                }
+                carousel += "</div>";
+
+                const card =
+                    `<div class="item activity_item">
+                    <div class="image">
+                        ${carousel}
+                    </div>
+                    <div class="content" style="padding-right: 10em;">
+                        <h3>
+                            <b class="blue_text">${item.actividad}</b>
+                            <div class="ui large gray horizontal label">${item.tipoActividad}</div>
+                        </h3>
+                        <h4><b>${item.partner}</b></h4>
+                        <div class="description">
+                            ${item.descripcion}
+                        </div>
+                        <div class="extra">
+                            <h3 class="ui green header">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
+                        </div>
+                    </div>
+                    <div class="content left floated">
+                        <div class="fields">
+
+                            <div class="field">
+                                <label>No. de personas</label>
+                                <div class="field">
+                                    <div class="ui right labeled input ExtraActivity_contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required">
+                                <label>Fecha reservacion</label>
+                                <div class="ui calendar activities_fecha">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Fecha de reservacion" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <button class="ui right floated primary button activity_trigger_button" data-selected="false" data-value="${item.id}">
+                            RESERVAR
+                            <i class="right chevron icon"></i>
+                        </button>
+                    </div>
+                </div>`;
+
+                $("#activities_container #frmExtraActivities .ui.items").append(card);
+            }
+
+            // INIZIALIZE EVENTS
+            $(".activities_fotorama").fotorama();
+            createContador($(".ExtraActivity_contador"));
+            $('.activities_fecha').calendar({
+                type: 'date',
+                popupOptions: {
+                    position: 'bottom right',
+                    lastResort: 'bottom right',
+                    hideOnScroll: false
+                }
+            });
+
+        } else {
+            $("#activities_container #frmExtraActivities .ui.items").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <div class="header">
+                                No hay actividades turisticas disponibles en esta ciudad
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
+        }
+
+    }
+}
+
+function fillHotelActivities(id_hotel) {
+    if (HotelsActivitiesList.code == 200) {
+
+        const activities = jQuery.grep(HotelsActivitiesList.data, function (item, i) {
+            return item.iD_Hotel == id_hotel;
+        });
+
+        $("#activities_container #frmHotelActivities .ui.items").empty();
+        if (activities.length > 0) {
+
+            for (var i = 0; i < activities.length; i++) {
+
+                const item = activities[i];
+                const images = item.image_URL.split(",");
+
+                //carousel construct
+                var carousel =
+                    `<div class="fotorama activitiesHotels_fotorama" data-allowfullscreen="true" data-nav="thumbs">`;
+                for (var j = 0; j < images.length; j++) {
+                    carousel += `<img src="${images[j]}">`;
+                }
+                carousel += "</div>";
+
+                const card =
+                    `<div class="item activity_item">
+                    <div class="image">
+                        ${carousel}
+                    </div>
+                    <div class="content" style="padding-right: 10em;">
+                        <h3>
+                            <b class="blue_text">${item.actividad}</b>
+                            <div class="ui large gray horizontal label">Familiar</div>
+                        </h3>
+                        <h4><b>${item.hotelNombre}</b></h4>
+                        <div class="description">
+                            ${item.descripcion}
+                        </div>
+                        <div class="extra">
+                            <h3 class="ui green header">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
+                        </div>
+                    </div>
+                    <div class="content left floated">
+                        <div class="fields">
+
+                            <div class="field">
+                                <label>No. de personas</label>
+                                <div class="field">
+                                    <div class="ui right labeled input hotelActivity_contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required">
+                                <label>Fecha reservacion</label>
+                                <div class="ui calendar activitiesHotels_fecha">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Fecha de reservacion" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <button class="ui right floated primary button activityHotel_trigger_button" data-selected="false" data-value="${item.id}">
+                            RESERVAR
+                            <i class="right chevron icon"></i>
+                        </button>
+                    </div>
+                </div>`;
+
+                $("#activities_container #frmHotelActivities .ui.items").append(card);
+            }
+
+            // INIZIALIZE EVENTS
+            $(".activitiesHotels_fotorama").fotorama();
+            createContador($(".hotelActivity_contador"));
+            $('.activitiesHotels_fecha').calendar({
+                type: 'date',
+                popupOptions: {
+                    position: 'bottom right',
+                    lastResort: 'bottom right',
+                    hideOnScroll: false
+                }
+            });
+
+        } else {
+            $("#activities_container #frmHotelActivities .ui.items").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <div class="header">
+                                No hay actividades turisticas disponibles en este hotel
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
         }
 
     }

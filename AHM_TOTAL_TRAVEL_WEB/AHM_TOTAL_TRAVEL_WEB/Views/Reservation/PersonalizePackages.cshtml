@@ -41,22 +41,14 @@
             </div>
             <div class="field">
                 <label>Personas</label>
-                <div class="ui grid three column row">
-                    <div class="three wide column">
-                        <button class="column circular ui icon button"
-                                onclick="contador($('#txtCantidad'),false)">
-                            <i class="minus icon"></i>
-                        </button>
+                <div class="ui right labeled input contador">
+                    <div class="ui icon button label minus_button">
+                        <i class="minus icon"></i>
                     </div>
-                    <div class="ten wide column" style="padding: 1em 0 1em 0;">
-                        <input id="txtCantidad" type="number" value="1" style="text-align: center;"
-                               disabled>
-                    </div>
-                    <div class="three wide  column">
-                        <button class="column circular ui icon button"
-                                onclick="contador($('#txtCantidad'),true)">
-                            <i class="plus icon"></i>
-                        </button>
+                    <input class="count_input" id="txtCantidad" type="number" value="0"
+                           style="text-align: center;" readonly>
+                    <div class="ui icon button label plus_button">
+                        <i class="plus icon"></i>
                     </div>
                 </div>
             </div>
