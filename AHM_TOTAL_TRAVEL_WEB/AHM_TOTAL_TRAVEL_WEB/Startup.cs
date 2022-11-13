@@ -13,6 +13,7 @@ using AHM_TOTAL_TRAVEL_WEB.Services;
 using System.Net;
 using AHM_TOTAL_TRAVEL_WEB.Extensions;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 
 namespace AHM_TOTAL_TRAVEL_WEB
 {
@@ -49,8 +50,12 @@ namespace AHM_TOTAL_TRAVEL_WEB
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(option => {
+                option.Cookie.Name = "AHM_TOTAL_TRAVEL_WEB";
+                option.SlidingExpiration = true;
                 option.LoginPath = "/";
                 option.ExpireTimeSpan = TimeSpan.FromDays(30);
+                option.LogoutPath = "/Access/LogOut";
+                option.LoginPath = "/Access/LogIn";
                 option.AccessDeniedPath = "/Home/Error401";
             });
             services.AddAuthorization(options => {
@@ -60,6 +65,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 options.AddPolicy("Transport", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Transporte"));
                 options.AddPolicy("Restaurant", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Restaurante"));
             });
+            services.AddCors();
             services.AddControllersWithViews()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
@@ -69,7 +75,8 @@ namespace AHM_TOTAL_TRAVEL_WEB
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
-                options.IOTimeout = TimeSpan.FromMinutes(60);
+                options.IOTimeout = TimeSpan.FromHours(12);
+                options.IdleTimeout = TimeSpan.FromHours(12);
             });
             services.AddOptions();
 

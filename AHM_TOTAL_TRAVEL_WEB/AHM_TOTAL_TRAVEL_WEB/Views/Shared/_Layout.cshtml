@@ -625,6 +625,15 @@
 
 
     <!-- Proyect files -->
+    <script id="sessionData" type="application/json">
+        @Html.Raw(Json.Serialize(new
+        {
+            userId = Context.Session.GetInt32("UserID"),
+            partnerId = Context.Session.GetInt32("PartnerID"),
+            userName = Context.Session.GetString("Name"),
+            token = Context.Session.GetString("Token")
+        }))
+    </script>
     <script src="~/js/main.js"></script>
     <script src="~/js/ErrorPage.js"></script>
     <script src="~/assets/js/Layout.js"></script>
