@@ -2,7 +2,6 @@
 
 //extra
 const PartnersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
-const AddressList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/List");
 const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 // hotels
 const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
@@ -142,12 +141,10 @@ const steps = {
         //activities button events
         $("button.activityHotel_trigger_button").click(function (_this) {
 
-            console.log($(_this.target));
             const id_actividad = $(_this.target).attr("data-value");
 
             if ($(_this.target).attr("data-selected") == "true") {
 
-                console.log(true);
                 $(_this.target).addClass("primary").removeClass("positive");
                 $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
                 $(_this.target).attr("data-selected", "false");
@@ -155,7 +152,6 @@ const steps = {
             }
             else {
 
-                console.log(false);
                 $(_this.target).addClass("positive").removeClass("primary");
                 $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
                 $(_this.target).attr("data-selected", "true");
@@ -165,12 +161,11 @@ const steps = {
         });
 
         $("button.activity_trigger_button").click(function (_this) {
-            console.log($(_this.target));
+
             const id_actividad = $(_this.target).attr("data-value");
 
             if ($(_this.target).attr("data-selected") == "true") {
 
-                console.log(true);
                 $(_this.target).addClass("primary").removeClass("positive");
                 $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
                 $(_this.target).attr("data-selected", "false");
@@ -178,7 +173,6 @@ const steps = {
             }
             else {
 
-                console.log(false);
                 $(_this.target).addClass("positive").removeClass("primary");
                 $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
                 $(_this.target).attr("data-selected", "true");
@@ -207,6 +201,9 @@ const steps = {
         $("#transport_container").show();
         $("#frmPortuarios").hide();
         $("#frmVuelos").hide();
+
+        $("#frmTransporte_menu .item").removeClass("active");
+        $("#frmTransporte_menu .item").eq(0).addClass("active");
         $("#frmTransportes").show();
 
         // footer buttons events 
@@ -338,8 +335,20 @@ $(".menu_trigger_button").click(function () {
 });
 
 $("#cbbCiudadDestino").change(function (_this) {
-    if ($(_this.target).val() != 0) {
-        fillMain($(_this.target).val());
+    if ($("#cbbCiudadDestino").val() != 0) {
+        fillMain(
+            $("#cbbCiudadResidencia").val(),
+            $("#cbbCiudadDestino").val()
+        );
+    }
+});
+
+$("#cbbCiudadResidencia").change(function (_this) {
+    if ($("#cbbCiudadDestino").val() != 0) {
+        fillMain(
+            $("#cbbCiudadResidencia").val(),
+            $("#cbbCiudadDestino").val()
+        );
     }
 });
 
@@ -395,9 +404,10 @@ function contador(input, mode, cero = false) {
 
 //-------------------------- MAIN FUNCTIONS PAGE ------------------------------------------
 
-function fillMain(id_ciudad){
-    fillHotels(id_ciudad);
-    fillExtraActivities(id_ciudad);
+function fillMain(id_ciudad_salida, id_ciudad_destino){
+    fillHotels(id_ciudad_destino);
+    fillExtraActivities(id_ciudad_destino);
+    fillTransport(id_ciudad_salida, id_ciudad_destino)
     steps.step_1();
 }
 
@@ -485,8 +495,8 @@ function fillHotels(id_ciudad){
     }
 }
 
-function fillRooms(id_hotel){
-    console.log("id_hotel: " + id_hotel);
+function fillRooms(id_hotel) {
+
     if (RoomsList.code == 200) {
         const rooms = jQuery.grep(RoomsList.data, function (item, i) {
             return item.hotelID == id_hotel;
@@ -551,7 +561,7 @@ function fillRooms(id_hotel){
                             </div>
                             <div class="extra content" style="text-align: end;">
                                 <div class="field">
-                                     <div class="ui right labeled input room_contador">
+                                     <div class="ui right labeled input room_contador" style="width: 100%;">
                                         <div class="ui icon button label minus_button">
                                             <i class="minus icon"></i>
                                         </div>
@@ -815,5 +825,159 @@ function fillHotelActivities(id_hotel) {
             );
         }
 
+    }
+}
+
+function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
+
+    var transports = jQuery.grep(DetailsTransportationList.data, function (item, i) {
+        return item.ciudad_Salida_ID == id_ciudad_salida && item.ciudad_Llegada_ID == id_ciudad_llegada;
+    });
+    console.log(transports);
+
+    $("#transport_container #frmTransportes .ui.items").empty();
+    $("#transport_container #frmVuelos .ui.items").empty();
+    $("#transport_container #frmPortuarios .ui.items").empty();
+
+    //terrestres
+    if (!transports.filter(item => item.tipo_Transporte_ID == 2).length > 0) {
+        $("#transport_container #frmTransportes .ui.items").append(
+            `<div class="item">
+                <div class="content">
+                    <div class="ui negative message">
+                        <div class="header">
+                            No hay Transportes urbanos disponibles para esta area
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        );
+    }
+    //aereos
+    if (!transports.filter(item => item.tipo_Transporte_ID == 4).length > 0) {
+        $("#transport_container #frmVuelos .ui.items").append(
+            `<div class="item">
+                <div class="content">
+                    <div class="ui negative message">
+                        <div class="header">
+                             No hay vuelos disponibles para esta area
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        );
+    }
+    //acuaticos
+    if (!transports.filter(item => item.tipo_Transporte_ID == 1).length > 0) {
+        $("#transport_container #frmPortuarios .ui.items").append(
+            `<div class="item">
+                <div class="content">
+                    <div class="ui negative message">
+                        <div class="header">
+                            No hay servicios de transportes maritimos disponibles para esta area
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        );
+    }
+
+    if (transports.length > 0) {
+
+        for (var i = 0; i < transports.length; i++) {
+
+            const element = transports[i];
+            const images = element.image_URL.split(",");
+
+            const ciudadSalida = CitiesList.data.filter(item => item.id == id_ciudad_salida)[0];
+            const ciudadDestino = CitiesList.data.filter(item => item.id == id_ciudad_llegada)[0];
+            const hora_salida =
+                element.hora_Salida.split(":")[0] > 12
+                    ? element.hora_Salida + " PM"
+                    : element.hora_Salida + " AM"
+
+            const card =
+                `<div class="item transport_item">
+                    <div class="image">
+                        <img src="https://totaltravelapi.azurewebsites.net/Images/${images[0]}">
+                    </div>
+                    <div class="content" style="width: inherit;">
+                        <a class="header">${element.parter}</a>
+                        <div class="description">
+                            <h4 class="ui blue header">
+                                <i class="calendar check icon"></i>
+                                Hora de salida: ${hora_salida}
+                            </h4>
+                        </div>
+                        <div class="extra">
+                            <div class="ui label">
+                                <i class="map marker icon"></i> ${ciudadSalida.pais}, ${ciudadSalida.ciudad}
+                            </div>
+                            <div class="ui label">
+                                <i class="map marker alternate icon"></i> ${ciudadDestino.pais}, ${ciudadDestino.ciudad}
+                            </div>
+                            <h3 class="ui green header">L ${parseFloat(element.precio).toFixed(2)} por asiento</h3>
+                        </div>
+                    </div>
+                    <div class="content left floated">
+                        <br>
+                        <div class="fields">
+                            <div class="field">
+                                <label>No. de personas</label>
+                                <div class="ui right labeled input transport_contador">
+                                    <div class="ui icon button label minus_button">
+                                        <i class="minus icon"></i>
+                                    </div>
+                                    <input class="count_input" type="number" value="1"
+                                            style="text-align: center;" readonly>
+                                    <div class="ui icon button label plus_button">
+                                        <i class="plus icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required">
+                                <label>Fecha reservacion</label>
+                                <div class="ui calendar transport_fecha">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Fecha de reservacion" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="ui right floated primary button transport_trigger_button"
+                                data-selected="false">
+                            Reservar
+                            <i class="right chevron icon"></i>
+                        </div>
+                    </div>
+                </div>`;
+
+            switch (element.tipo_Transporte_ID) {
+                case 1:
+                    $("#transport_container #frmPortuarios .ui.items").append(card);
+                    break;
+                case 2:
+                    $("#transport_container #frmTransportes .ui.items").append(card);
+                    break;
+                case 4:
+                    $("#transport_container #frmVuelos .ui.items").append(card);
+                    break;
+            }
+
+        }
+
+        $('.transport_fecha').calendar({
+            type: 'date',
+            popupOptions: {
+                position: 'bottom right',
+                lastResort: 'bottom right',
+                hideOnScroll: false
+            }
+        });
+        createContador($(".transport_contador"));
     }
 }
