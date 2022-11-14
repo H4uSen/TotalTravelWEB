@@ -25,7 +25,12 @@ const filterSource = {
         { filter: "partner", source: getPartners, text: "Socio" },
         { filter: "rol", source: getRoles, text: "Rol" }
     ],
-    
+
+    "ClientsReportPDF": [
+        { filter: "todos", source: getAll, text: "Todos" },
+        { filter: "sexo", source: getSexo, text: "Sexo" },
+        { filter: "colonia", source: getColonias, text: "Colonia" }
+    ],
 
     "RecordPaymentReportPDF": [
         { filter: "todos", source: getAll, text: "Todos" },

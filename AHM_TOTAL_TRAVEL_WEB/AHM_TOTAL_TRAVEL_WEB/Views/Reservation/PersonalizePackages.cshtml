@@ -6,10 +6,6 @@
 
 @section CSS{ 
     <style>
-        .pushable > .pusher.dimmed:after {
-            opacity: 0 !important;
-        }
-
         input:disabled {
             opacity: inherit !important;
         }
@@ -34,39 +30,27 @@
 
         <div class="fields">
             <div class="field">
-                <label>Ciudad Origen</label>
-                <input type="text" value="Honduras, San Pedro Sula" placeholder="" disabled>
-            </div>
-            <div class="field">
-                <label>Ciudad Destino</label>
-                <select class="ui search dropdown">
-                    <option value="">Escoje tu destino</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
+                <label>Ciudad de origen</label>
+                <select class="ui search dropdown" asp-items="ViewBag.ciudadesResidencia" id="cbbCiudadResidencia">
+                    <option value="">Escoje tu Residencia actual</option>
                 </select>
             </div>
             <div class="field">
-                <label>Personas</label>
-                <div class="ui grid three column row">
-                    <div class="three wide column">
-                        <button class="column circular ui icon button"
-                                onclick="contador($('#txtCantidad'),false)">
-                            <i class="minus icon"></i>
-                        </button>
+                <label>Ciudad de destino</label>
+                <select class="ui search dropdown" asp-items="ViewBag.ciudades" id="cbbCiudadDestino">
+                    <option value="">Escoje tu destino</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Cantidad de personas</label>
+                <div class="ui right labeled input contador">
+                    <div class="ui icon button label minus_button">
+                        <i class="minus icon"></i>
                     </div>
-                    <div class="ten wide column" style="padding: 1em 0 1em 0;">
-                        <input id="txtCantidad" type="number" value="1" style="text-align: center;"
-                               disabled>
-                    </div>
-                    <div class="three wide  column">
-                        <button class="column circular ui icon button"
-                                onclick="contador($('#txtCantidad'),true)">
-                            <i class="plus icon"></i>
-                        </button>
+                    <input class="count_input" id="txtCantidad" type="number" value="0"
+                           style="text-align: center;" readonly>
+                    <div class="ui icon button label plus_button">
+                        <i class="plus icon"></i>
                     </div>
                 </div>
             </div>
@@ -74,20 +58,20 @@
 
         <div class="two fields">
             <div class="field">
-                <label>Start date</label>
+                <label>Fecha de entrada</label>
                 <div class="ui calendar" id="txtFechaEntrada">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
-                        <input type="text" placeholder="Start">
+                        <input type="text" placeholder="Start" readonly>
                     </div>
                 </div>
             </div>
             <div class="field">
-                <label>End date</label>
+                <label>Fecha de salida</label>
                 <div class="ui calendar" id="txtFechaSalida">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
-                        <input type="text" placeholder="End">
+                        <input type="text" placeholder="End" readonly>
                     </div>
                 </div>
             </div>
@@ -138,12 +122,12 @@
     </div>
 
     <!-- end step content -->
-    <div class="ui attached segment overflow-auto" style="max-height: 30em;">
+    <div class="ui attached segment overflow-auto" style="max-height: 35em;" id="main_content">
 
         <div id="hotel_container">
-            <div class="ui stackable three column grid centered" id="frmRooms">
+            <div class="ui stackable three column grid" id="frmRooms">
 
-                <div class="column">
+                <div class="column room_item">
                     <div class="ui card" style="width:100%;">
                         <div class="image">
                             <img src="http://static1.eskypartners.com/travelguide/vancouver-hotels.jpg">
@@ -202,7 +186,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
+
+                <div class="column room_item">
                     <div class="ui card" style="width:100%;">
                         <div class="image">
                             <img src="http://static1.eskypartners.com/travelguide/vancouver-hotels.jpg">
@@ -261,7 +246,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
+
+                <div class="column room_item">
                     <div class="ui card" style="width:100%;">
                         <div class="image">
                             <img src="http://static1.eskypartners.com/travelguide/vancouver-hotels.jpg">
@@ -324,145 +310,18 @@
             </div>
 
             <div class="ui attached" id="frmHotels">
-                <div class="ui divided items">
+                <div class="ui divided items" id="frmItems">
 
                     <div class="item">
-                        <div class="image">
-                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                        </div>
                         <div class="content">
-                            <h3><b>Hotel Name</b></h3>
-                            <h5 class="blue_text">
-                                <i class="map marker alternate blue icon"></i>
-                                <b>San Pedro Sula, Honduras</b>
-                            </h5>
-                            <div class="extra">
-                                <b>Rating:</b><br>
-                                <div class="ui huge star rating disabled" data-rating="5"></div>
+                            <div class="ui negative message">
+                                <div class="header">
+                                    No hay hoteles disponibles
+                                </div>
+                                <p>
+                                    Selecciona una ciudad para empezar tu busqueda
+                                </p>
                             </div>
-
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br>
-                            <button class="ui teal huge button" onclick="ShowRooms()">
-                                View Rooms
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="image">
-                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                        </div>
-                        <div class="content">
-                            <h3><b>Hotel Name</b></h3>
-                            <h5 class="blue_text">
-                                <i class="map marker alternate blue icon"></i>
-                                <b>San Pedro Sula, Honduras</b>
-                            </h5>
-                            <div class="extra">
-                                <b>Rating:</b><br>
-                                <div class="ui huge star rating disabled" data-rating="5"></div>
-                            </div>
-
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br>
-                            <button class="ui teal huge button" onclick="ShowRooms()">
-                                View Rooms
-                            </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                        </div>
-                        <div class="content">
-                            <h3><b>Hotel Name</b></h3>
-                            <h5 class="blue_text">
-                                <i class="map marker alternate blue icon"></i>
-                                <b>San Pedro Sula, Honduras</b>
-                            </h5>
-                            <div class="extra">
-                                <b>Rating:</b><br>
-                                <div class="ui huge star rating disabled" data-rating="5"></div>
-                            </div>
-
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br>
-                            <button class="ui teal huge button" onclick="ShowRooms()">
-                                View Rooms
-                            </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                        </div>
-                        <div class="content">
-                            <h3><b>Hotel Name</b></h3>
-                            <h5 class="blue_text">
-                                <i class="map marker alternate blue icon"></i>
-                                <b>San Pedro Sula, Honduras</b>
-                            </h5>
-                            <div class="extra">
-                                <b>Rating:</b><br>
-                                <div class="ui huge star rating disabled" data-rating="5"></div>
-                            </div>
-
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br>
-                            <button class="ui teal huge button" onclick="ShowRooms()">
-                                View Rooms
-                            </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                        </div>
-                        <div class="content">
-                            <h3><b>Hotel Name</b></h3>
-                            <h5 class="blue_text">
-                                <i class="map marker alternate blue icon"></i>
-                                <b>San Pedro Sula, Honduras</b>
-                            </h5>
-                            <div class="extra">
-                                <b>Rating:</b><br>
-                                <div class="ui huge star rating disabled" data-rating="5"></div>
-                            </div>
-
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br>
-                            <button class="ui teal huge button" onclick="ShowRooms()">
-                                View Rooms
-                            </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                        </div>
-                        <div class="content">
-                            <h3><b>Hotel Name</b></h3>
-                            <h5 class="blue_text">
-                                <i class="map marker alternate blue icon"></i>
-                                <b>San Pedro Sula, Honduras</b>
-                            </h5>
-                            <div class="extra">
-                                <b>Rating:</b><br>
-                                <div class="ui huge star rating disabled" data-rating="5"></div>
-                            </div>
-
-                        </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br>
-                            <button class="ui teal huge button" onclick="ShowRooms()">
-                                View Rooms
-                            </button>
                         </div>
                     </div>
 
@@ -471,10 +330,16 @@
         </div>
 
         <div id="activities_container">
-            <div id="frmActivities">
+            <div class="ui fluid two item top attached menu" id="frmActivities_menu">
+                <a class="item active" data-target="#frmHotelActivities">ACTIVIDADES DE HOTEL</a>
+                <a class="item" data-target="#frmExtraActivities">ACTIVIDADES EXTRA</a>
+            </div>
+            <br>
+
+            <div id="frmExtraActivities">
                 <div class="ui divided items">
 
-                    <div class="item">
+                    <div class="item activity_item">
                         <div class="image">
                             <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
                         </div>
@@ -490,22 +355,48 @@
                                 recusandae cupiditate repudiandae possimus.
                                 Ab, quae! Amet ratione suscipit aut facere enim id excepturi?
                             </div>
-                            <div class="meta">
-                                <span class="date">
-                                    12 septiembre, 2022 at 12:00 pm
-                                </span>
+                            <div class="extra">
+                                <h3 class="ui green header">L 2500 por persona</h3>
                             </div>
                         </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br><br>
-                            <div class="field">
-                                <div class="ui toggle checkbox">
-                                    <input type="checkbox" name="gift" tabindex="0" class="hidden">
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="1"
+                                               style="text-align: center;" disabled>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar activities_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button activity_trigger_button"
+                                 data-selected="false">
+                                Reservar
+                                <i class="right chevron icon"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="item">
+
+                    <div class="item activity_item">
                         <div class="image">
                             <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
                         </div>
@@ -521,22 +412,45 @@
                                 recusandae cupiditate repudiandae possimus.
                                 Ab, quae! Amet ratione suscipit aut facere enim id excepturi?
                             </div>
-                            <div class="meta">
-                                <span class="date">
-                                    12 septiembre, 2022 at 12:00 pm
-                                </span>
-                            </div>
                         </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br><br>
-                            <div class="field">
-                                <div class="ui toggle checkbox">
-                                    <input type="checkbox" name="gift" tabindex="0" class="hidden">
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="1"
+                                               style="text-align: center;" disabled>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar activities_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button activity_trigger_button"
+                                 data-selected="false">
+                                Reservar
+                                <i class="right chevron icon"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="item">
+
+                    <div class="item activity_item">
                         <div class="image">
                             <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
                         </div>
@@ -552,18 +466,99 @@
                                 recusandae cupiditate repudiandae possimus.
                                 Ab, quae! Amet ratione suscipit aut facere enim id excepturi?
                             </div>
-                            <div class="meta">
-                                <span class="date">
-                                    12 septiembre, 2022 at 12:00 pm
-                                </span>
+                        </div>
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="1"
+                                               style="text-align: center;" disabled>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar activities_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button activity_trigger_button"
+                                 data-selected="false">
+                                Reservar
+                                <i class="right chevron icon"></i>
                             </div>
                         </div>
-                        <div class="content left floated" style="text-align: end;">
-                            <br><br>
-                            <div class="field">
-                                <div class="ui toggle checkbox">
-                                    <input type="checkbox" name="gift" tabindex="0" class="hidden">
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="frmHotelActivities">
+                <div class="ui divided items">
+
+                    <div class="item activity_item">
+                        <div class="image">
+                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
+                        </div>
+                        <div class="content" style="padding-right: 20%;">
+                            <h3>
+                                <b class="blue_text">Nombre de la actividad</b>
+                                <div class="ui large gray horizontal label">Category</div>
+                            </h3>
+                            <div class="description">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                Explicabo aliquid deserunt illo, aspernatur distinctio saepe debitis
+                                recusandae cupiditate repudiandae possimus.
+                                Ab, quae! Amet ratione suscipit aut facere enim id excepturi?
+                            </div>
+                        </div>
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="1"
+                                               style="text-align: center;" disabled>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar activities_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button activity_trigger_button"
+                                 data-selected="false">
+                                Reservar
+                                <i class="right chevron icon"></i>
                             </div>
                         </div>
                     </div>
@@ -572,9 +567,9 @@
             </div>
         </div>
 
-        <div id="frmTransporte">
+        <div id="transport_container">
             <div class="ui fluid three item top attached menu" id="frmTransporte_menu">
-                <a class="item active" data-target="#frmTransportes">TRASNPORTES</a>
+                <a class="item active" data-target="#frmTransportes">TRANSPORTES</a>
                 <a class="item" data-target="#frmVuelos">VUELOS</a>
                 <a class="item" data-target="#frmPortuarios">PORTUARIOS</a>
             </div>
@@ -582,23 +577,56 @@
             <div class="ui attached segment" id="frmTransportes">
                 <div class="ui divided items">
 
-                    <div class="item">
+                    <div class="item transport_item">
                         <div class="image">
                             <img src="https://c8.alamy.com/compes/pr01g0/autobus-turistico-vector-logo-sobre-fondo-blanco-pr01g0.jpg">
                         </div>
-                        <div class="content">
+                        <div class="content" style="width: inherit;">
                             <a class="header">Nombre de Partner</a>
                             <div class="description">
-                                <h4 class="ui blue header"><i class="calendar check icon"></i>Hora de salida: 7:30 AM</h4>
+                                <b class="ui blue header">
+                                    <i class="calendar check icon"></i>Fecha de salida: 15 mayo, 2022
+                                </b><br><br>
+                                <b class="ui blue header">
+                                    <i class="clock icon"></i>Hora de
+                                    salida: 7:30 AM
+                                </b>
                             </div>
                             <div class="extra">
-                                <div class="ui label"><i class="map marker icon"></i> HONDURAS, SAN PEDRO SULA</div>
-                                <div class="ui label"><i class="map marker alternate icon"></i> USA, WASHINGTON</div>
-                                <h3 class="ui green header">Lps. 2500</h3>
-                                <div class="ui right floated primary button">
-                                    Reservar
-                                    <i class="right chevron icon"></i>
+                                <div class="ui label">
+                                    <i class="map marker icon"></i> HONDURAS, SAN PEDRO
+                                    SULA
                                 </div>
+                                <div class="ui label">
+                                    <i class="map marker alternate icon"></i> USA,
+                                    WASHINGTON
+                                </div>
+                                <h3 class="ui green header">L 2500 por asiento</h3>
+                            </div>
+                        </div>
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="1"
+                                               style="text-align: center;" disabled>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button transport_trigger_button"
+                                 data-selected="false">
+                                Reservar
+                                <i class="right chevron icon"></i>
                             </div>
                         </div>
                     </div>
@@ -607,30 +635,70 @@
             </div>
 
             <div class="ui attached segment" id="frmVuelos">
-
                 <div class="ui divided items">
-                    <div class="item">
+
+                    <div class="item transport_item">
                         <div class="image">
                             <img src="https://play-lh.googleusercontent.com/EAoDg62PBmZAUp5O7BYuwkmKz7IvO9f6tPs2j623xTSnDbXwPUv1ByqRtfkUtGbjwQ">
                         </div>
-                        <div class="content">
+                        <div class="content" style="width: inherit;">
                             <a class="header">Nombre de Partner</a>
                             <div class="description">
-                                <h4 class="ui blue header"><i class="calendar check icon"></i>Hora de salida: 7:30 AM</h4>
+                                <h4 class="ui blue header">
+                                    <i class="calendar check icon"></i>Hora de
+                                    salida: 7:30 AM
+                                </h4>
                             </div>
                             <div class="extra">
-                                <div class="ui label"><i class="map marker icon"></i> HONDURAS, SAN PEDRO SULA</div>
-                                <div class="ui label"><i class="map marker alternate icon"></i> USA, WASHINGTON</div>
-                                <h3 class="ui green header">Lps. 2500</h3>
-                                <div class="ui right floated primary button">
-                                    Reservar
-                                    <i class="right chevron icon"></i>
+                                <div class="ui label">
+                                    <i class="map marker icon"></i> HONDURAS, SAN PEDRO
+                                    SULA
                                 </div>
+                                <div class="ui label">
+                                    <i class="map marker alternate icon"></i> USA,
+                                    WASHINGTON
+                                </div>
+                                <h3 class="ui green header">L 2500 por asiento</h3>
+                            </div>
+                        </div>
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" id="txtCantidad" type="number" value="1"
+                                               style="text-align: center;" disabled>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar transport_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button transport_trigger_button"
+                                 data-selected="false">
+                                Reservar
+                                <i class="right chevron icon"></i>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
 
             <div class="ui attached segment" id="frmPortuarios">
@@ -643,12 +711,21 @@
                         <div class="content">
                             <a class="header">Nombre de Partner</a>
                             <div class="description">
-                                <h4 class="ui blue header"><i class="calendar check icon"></i>Hora de salida: 7:30 AM</h4>
+                                <h4 class="ui blue header">
+                                    <i class="calendar check icon"></i>Hora de
+                                    salida: 7:30 AM
+                                </h4>
                             </div>
                             <div class="extra">
 
-                                <div class="ui label"><i class="map marker icon"></i> HONDURAS, SAN PEDRO SULA</div>
-                                <div class="ui label"><i class="map marker alternate icon"></i> USA, WASHINGTON</div>
+                                <div class="ui label">
+                                    <i class="map marker icon"></i> HONDURAS, SAN PEDRO
+                                    SULA
+                                </div>
+                                <div class="ui label">
+                                    <i class="map marker alternate icon"></i> USA,
+                                    WASHINGTON
+                                </div>
                                 <h3 class="ui green header">Lps. 2500</h3>
                                 <div class="ui right floated primary button">
                                     Reservar
@@ -661,7 +738,105 @@
 
             </div>
         </div>
+
+        <div id="restaurant_container">
+            <div class="ui divided items">
+
+                <div class="item restaurant_item">
+                    <div class="image">
+                        <img src="https://media.istockphoto.com/id/981368726/vector/restaurant-food-drinks-logo-fork-knife-background-vector-image.jpg?s=612x612&w=0&k=20&c=9M26CBkCyEBqUPs3Ls5QCjYLZrB9sxwrSFmnAmNCopI=">
+                    </div>
+                    <div class="content" style="width: inherit;">
+                        <h3>
+                            <b class="blue_text">Nombre de restaurante</b>
+                        </h3>
+                        <div class="extra">
+                            <div class="ui label">
+                                <i class="map marker icon"></i> HONDURAS, SAN PEDRO SULA
+                            </div>
+                            <h3 class="ui green header">L 2500 por persona</h3>
+                            <div class="ui primary button menu_trigger_button" data-value="">
+                                VER MENU
+                                <i class="right chevron icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content left floated">
+                        <br>
+                        <div class="fields">
+                            <div class="field">
+                                <label>No. de personas</label>
+                                <div class="ui right labeled input contador">
+                                    <div class="ui icon button label minus_button">
+                                        <i class="minus icon"></i>
+                                    </div>
+                                    <input class="count_input" id="txtCantidad" type="number" value="1"
+                                           style="text-align: center;" disabled>
+                                    <div class="ui icon button label plus_button">
+                                        <i class="plus icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required">
+                                <label>Fecha reservacion</label>
+                                <div class="ui calendar restaurant_fecha">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Fecha de reservacion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="ui right floated primary button activity_trigger_button"
+                             data-selected="false">
+                            Reservar
+                            <i class="right chevron icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui modal" id="mdlMenus">
+                <div class="header">Menus</div>
+                <div class="scrolling content">
+                    <div class="ui divided items">
+
+                        <div class="item menu_item">
+                            <div class="image">
+                                <div class="fotorama" data-allowfullscreen="true">
+                                    <img src="https://s.fotorama.io/1.jpg">
+                                </div>
+                            </div>
+                            <div class="content" style="width: inherit;">
+                                <a class="header">Nombre de menu</a>
+                                <div class="ui label"><i class="map marker icon"></i>CATEGORIA</div>
+                                <div class="description">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, iusto repellendus libero, quis laboriosam sit nihil dolore suscipit est, quasi assumenda ipsum id saepe similique dolorem tempora facere necessitatibus illo?
+                                </div>
+                                <div class="extra">
+                                    <h3 class="ui green header">L 2500</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui cancel button">Cerrar</div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="pago_container">
+            metodo de pago
+        </div>
     </div>
+
     <div class="ui attached segment" id="frmStepfooter">
         <button class="ui left labeled icon button" id="btnBeforeStep" disabled>
             <i class="left arrow icon"></i>

@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.semanticui.min.css">
+
     <style>
         .sidebar-link {
             font-size: 1.3em !important;
@@ -356,14 +358,15 @@
                                     Módulo de Reportes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Report_Schema">
-                                    <li> <a id="ReportTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Reporte Transportes</a></li>
-                                    <li> <a id="HotelReportTile" class="sidebar-link" href="@Url.Action("HotelesReport","Report")">Reporte Hoteles</a></li>
-                                    <li> <a id="RestaurantReportTile" class="sidebar-link" href="@Url.Action("RestauranteReport","Report")">Reporte Restaurantes</a></li>
-                                    <li> <a id="ClientReportTile" class="sidebar-link" href="@Url.Action("ClientReport","Report")">Reporte Clientes</a></li>
-                                    <li> <a id="ReservationReportTile" class="sidebar-link" href="@Url.Action("ReservacionesReport","Report")">Reporte Reservaciones</a></li>
-                                    <li> <a id="ReporstTile" class="sidebar-link" href="@Url.Action("RecordPaymentReport","Report")">Registro Pagos</a></li>
-                                    <li> <a id="ReporTile" class="sidebar-link" href="@Url.Action("DefaultPackagesReport","Report")">Paquetes predeterminados</a></li>
-                                    <li> <a id="DasboharTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">DashBoard Modulo Hoteles</a></li>
+                                    <li> <a id="ReportTile" class="sidebar-link" href="@Url.Action("TransportReport","Report")">Transportes</a></li>
+                                    <li> <a id="HotelReportTile" class="sidebar-link" href="@Url.Action("HotelesReport","Report")">Hoteles</a></li>
+                                    <li> <a id="RestaurantReportTile" class="sidebar-link" href="@Url.Action("RestauranteReport","Report")"> Restaurantes</a></li>
+                                    <li> <a id="ClientReportTile" class="sidebar-link" href="@Url.Action("ClientReport","Report")">Usuarios</a></li>
+                                    <li> <a id="ClientsReportTile" class="sidebar-link" href="@Url.Action("ClientsReport","Report")">Clientes</a></li>
+                                    <li> <a id="ReservationReportTile" class="sidebar-link" href="@Url.Action("ReservacionesReport","Report")">Reservaciones</a></li>
+                                    <li> <a id="ReporstTile" class="sidebar-link" href="@Url.Action("RecordPaymentReport","Report")">Registros Pagos</a></li>
+                                    <li> <a id="ReporTile" class="sidebar-link" href="@Url.Action("DefaultPackagesReport","Report")">Paquetes Predeterminados</a></li>
+                                    @*<li> <a id="DasboharTile" class="sidebar-link" href="@Url.Action("Index","DashBoardHotelHome")">DashBoard Modulo Hoteles</a></li>*@
 
                                 </ul>
                             </li>
@@ -542,7 +545,7 @@
                     {
                         <ul class="list-unstyled py-4">
                             <li class="sidebar-item" id="">
-                                <a class="sidebar-link" href="@Url.Action("activitiesDashboard", "Home")">
+                                <a class="sidebar-link" id="DashboardActivitiesTile" href="@Url.Action("activitiesDashboard", "Home")">
                                     Inicio
                                 </a>
                             </li>
@@ -550,27 +553,27 @@
                             <li class="sidebar-item">
                             <li><a id="ActivitiesTile" class="sidebar-link" href="@Url.Action("Index","ModulePartnersActivities")">Actividades</a></li>
                             <li><a id="PartnerTile" class="sidebar-link" href="@Url.Action("Info","ModulePartnersActivities")">Mi socio</a></li>
-                            @*<li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>*@
+                           @* <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>*@
                             </li>
-                        </ul>
+                        </ul> 
                     }
 
-                    if (usersRole == "Moderador de Restaurante")
-                    {
-                        <ul class="list-unstyled py-4">
-                            <li class="sidebar-item" id="">
-                                <a class="sidebar-link" id="DashboardTile" href="@Url.Action("restaurantDashboard", "Home")">
-                                    Inicio
-                                </a>
-                            </li>
-                            <br />
-                            <li class="sidebar-item">
-                            <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
-                            <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
-                            <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
-                            </li>
-                        </ul>
-                    }
+                        if (usersRole == "Moderador de Restaurante")
+                        {
+                            <ul class="list-unstyled py-4">
+                                <li class="sidebar-item" id="">
+                                    <a class="sidebar-link" id="DashboardTile" href="@Url.Action("restaurantDashboard", "Home")">
+                                        Inicio
+                                    </a>
+                                </li>
+                                <br />
+                                <li class="sidebar-item">
+                                <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
+                                <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
+                                <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
+                                </li>
+                            </ul>
+                        }
                 }
 
             </nav>
@@ -612,15 +615,41 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <!--Datatables dependencies-->
+    <!--
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
-    
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.semanticui.min.css">
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.js"></script>
+    <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
     <script type="text/javascript" src="~/js/Pagination.js"></script>
     <script type="text/javascript" src="~/assets/js/front.js"></script>
 
 
     <!-- Proyect files -->
+    <script id="sessionData" type="application/json">
+        @Html.Raw(Json.Serialize(new
+        {
+            userId = Context.Session.GetInt32("UserID"),
+            partnerId = Context.Session.GetInt32("PartnerID"),
+            userName = Context.Session.GetString("Name"),
+            token = Context.Session.GetString("Token")
+        }))
+    </script>
     <script src="~/js/main.js"></script>
     <script src="~/js/ErrorPage.js"></script>
     <script src="~/assets/js/Layout.js"></script>

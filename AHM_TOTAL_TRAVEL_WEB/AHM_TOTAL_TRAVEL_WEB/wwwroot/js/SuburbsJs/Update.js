@@ -39,7 +39,7 @@ function editar(coloniaIDm) {
         $("#modalUpdate #Colonia").val(itemSubu.colonia);
 
 
-        $("#modalUpdate").modal("show");
+        $("#modalUpdate").modal({ autofocus: false, forceSelection: false }).modal('show');
         //console.log(itemcity);
     }
 }

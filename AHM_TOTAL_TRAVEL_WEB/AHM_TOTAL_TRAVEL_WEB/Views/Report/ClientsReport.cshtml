@@ -1,25 +1,24 @@
 ﻿
 @{
-    ViewData["Title"] = "ReservacionesReport";
+    ViewData["Title"] = "ClientsReportPDF";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section CSS{
     <style>
 
         #a {
             margin: -3.150em .0em !important;
         }
-
     </style>
 }
-<h1>Reporte Reservaciones</h1>
+<h1>Reporte Clientes</h1>
 
 <div class="container-fluid">
     <div class="row">
 
         <!-- inicio columna contenedora -->
         <div class="col-10" style="margin: auto">
-
             <div class="ui segment form">
                 <div class="fields two">
                     <div class="field">
@@ -33,19 +32,11 @@
                             <option value="">Seleccione una opción</option>
                         </select>
                     </div>
-                    <div class="field">
-                        <label>Seleccione una opción</label>
-                        <div class="ui calendar" id="standard_calendar">
-                            <div class="ui input action">
-                                <input id="txtValor" type="text" placeholder="Fecha">
-                                <button class="ui button" id="filtrar">Filtrar</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div><div class="ui segment form">
-                <a href="@Url.Action("ReservacionesReportPDF", "Report", new { ReportTiype = "1" })" class="ui button icon">PDF <i class="file pdf icon"></i></a>
-                <a href="@Url.Action("ReservacionesReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+            </div>
+            <div class="ui segment form">
+                <a href="@Url.Action("ClientsReportPDF", "Report", new { ReportTiype = "1" })" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("ClientsReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
             <br>
@@ -54,7 +45,7 @@
             <div class="card" id="a">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("ReservacionesReportPDF", "Report", new { ReportTiype = "1" })" frameborder="0" height="650" id="ifrReport"></iframe>
+                    <iframe src="@Url.Action("ClientsReportPDF", "Report" , new { ReportTiype = "1" })" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>
@@ -75,7 +66,7 @@
 
         $("#Report_Schema").addClass("show");
 
-        $("#ReservationReportTile").addClass("activeTile");
+        $("#ClientsReportTile").addClass("activeTile");
     </script>
 }
 
@@ -83,8 +74,9 @@
 @section Scripts{
 
     <script>
-        const action = "ReservacionesReportPDF";
+        const action = "ClientsReportPDF";
     </script>
 
-    <script src="~/js/Reports/ReservationReports.js"></script>
+    <script src="~/js/Reports/Reports.js"></script>
 }
+

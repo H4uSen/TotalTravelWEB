@@ -17,14 +17,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private readonly AccessService _accessService;
         private readonly SaleServices _saleServices;
         private readonly ActivitiesServices _activitiesServices;
+        private readonly GeneralService _GeneralService;
 
-        public ReservationController(ReservationService reservationService, HotelsService hotelsService, AccessService accessService, SaleServices saleServices, ActivitiesServices activitiesServices)
+        public ReservationController(ReservationService reservationService, HotelsService hotelsService, AccessService accessService, SaleServices saleServices, ActivitiesServices activitiesServices,
+                                     GeneralService GeneralService)
         {
             _reservationService = reservationService;
             _hotelsService = hotelsService;
             _accessService = accessService;
             _saleServices = saleServices;
             _activitiesServices = activitiesServices;
+            _GeneralService = GeneralService;
         }
 
         [HttpGet]
@@ -194,8 +197,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
-        public IActionResult PersonalizePackages()
+        public async Task<IActionResult> PersonalizePackages()
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+
+            var UserData = (UserListViewModel)(await _accessService.UsersFind(User_Id, token)).Data;
+            var UserAddress = (AddressListViewModel)(await _GeneralService.AddressFind(UserData.DireccionID.ToString(), token)).Data;
+            var ciudades = (IEnumerable<CityListViewModel>)(await _GeneralService.CitiesList()).Data;
+
+            foreach (var item in ciudades)
+                item.Ciudad = $"{item.Pais}, {item.Ciudad}";
+
+            ViewBag.ciudades = new SelectList(ciudades, "ID", "Ciudad");
+            ViewBag.ciudadesResidencia = new SelectList(ciudades, "ID", "Ciudad", UserAddress.ID_Ciudad);
             return View();
         }
         public async Task<IActionResult> Details(int  id)
