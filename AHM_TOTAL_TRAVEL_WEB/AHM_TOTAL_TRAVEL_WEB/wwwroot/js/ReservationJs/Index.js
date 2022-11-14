@@ -58,7 +58,7 @@ function format(detailData, rowId) {
             <div class="field">
                 <div style="margin-left: 10px;margin-bottom: 10px;">
                 <button class="ui small btn-purple text-white icon button" id="updatePayments" onclick="editar('${detail.id}')"> Editar</button>
-                <button class="ui small btn-purple text-white icon button" id="deletePayments" onclick="DeletePayment('${detail.id}')"> Eliminar</button>
+                <button class="ui small btn-delete text-white icon button" id="deletePayments" onclick="DeletePayment('${detail.id}')"> Eliminar</button>
                 </div>
             </div>
             </div>
@@ -118,7 +118,25 @@ $(document).ready(function () {
             {},
             {},
         ],
-        order: [[1, 'asc']]
+        order: [[1, 'asc']],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                className: "btn-primary ui small btn-grey text-purple icon ui button "
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="file excel icon"></i> Exportar a excel',
+                className: "btn-primary ui small btn-grey text-purple icon ui button "
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="file csv icon"></i> Exportar como CSV',
+                className: "btn-primary ui small btn-grey text-purple icon ui button "
+            },
+        ]
     });
 });
 
