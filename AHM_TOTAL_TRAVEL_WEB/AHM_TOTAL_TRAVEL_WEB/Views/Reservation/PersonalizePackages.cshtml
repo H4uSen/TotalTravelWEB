@@ -30,19 +30,19 @@
 
         <div class="fields">
             <div class="field">
-                <label>Ciudad Origen</label>
+                <label>Ciudad de origen</label>
                 <select class="ui search dropdown" asp-items="ViewBag.ciudadesResidencia" id="cbbCiudadResidencia">
                     <option value="">Escoje tu Residencia actual</option>
                 </select>
             </div>
             <div class="field">
-                <label>Ciudad Destino</label>
+                <label>Ciudad de destino</label>
                 <select class="ui search dropdown" asp-items="ViewBag.ciudades" id="cbbCiudadDestino">
                     <option value="">Escoje tu destino</option>
                 </select>
             </div>
             <div class="field">
-                <label>Personas</label>
+                <label>Cantidad de personas</label>
                 <div class="ui right labeled input contador">
                     <div class="ui icon button label minus_button">
                         <i class="minus icon"></i>
@@ -58,7 +58,7 @@
 
         <div class="two fields">
             <div class="field">
-                <label>Start date</label>
+                <label>Fecha de entrada</label>
                 <div class="ui calendar" id="txtFechaEntrada">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="field">
-                <label>End date</label>
+                <label>Fecha de salida</label>
                 <div class="ui calendar" id="txtFechaSalida">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
@@ -315,7 +315,6 @@
                     <div class="item">
                         <div class="content">
                             <div class="ui negative message">
-                                <i class="close icon"></i>
                                 <div class="header">
                                     No hay hoteles disponibles
                                 </div>
@@ -802,7 +801,7 @@
 
             <div class="ui modal" id="mdlMenus">
                 <div class="header">Menus</div>
-                <div class="content">
+                <div class="scrolling content">
                     <div class="ui divided items">
 
                         <div class="item menu_item">

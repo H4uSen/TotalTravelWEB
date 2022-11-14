@@ -136,6 +136,9 @@ const steps = {
         helpers.hideAll();
         $("#activities_container").show();
         $("#frmExtraActivities").hide();
+
+        $("#frmActivities_menu .item").removeClass("active");
+        $("#frmActivities_menu .item").eq(0).addClass("active");
         $("#frmHotelActivities").show();
 
         //activities button events
@@ -224,6 +227,15 @@ const steps = {
         // show wide
         helpers.hideAll();
         $("#restaurant_container").show();
+
+        // buttons events
+        $(".menu_trigger_button").click(function (_this) {
+            console.log(_this);
+            console.log($("#restaurant_container #mdlMenus"));
+            id_restaurante = $(_this).attr("data-value");
+            fillMenu(id_restaurante);
+            $("#mdlMenus").modal("show");
+        });
 
         // footer buttons events 
         $("#btnNextStep").attr("disabled", false);
@@ -408,6 +420,7 @@ function fillMain(id_ciudad_salida, id_ciudad_destino){
     fillHotels(id_ciudad_destino);
     fillExtraActivities(id_ciudad_destino);
     fillTransport(id_ciudad_salida, id_ciudad_destino)
+    fillRestaurant(id_ciudad_salida);
     steps.step_1();
 }
 
@@ -481,7 +494,6 @@ function fillHotels(id_ciudad){
                 `<div class="item">
                     <div class="content">
                         <div class="ui negative message">
-                            <i class="close icon"></i>
                             <div class="header">
                                 No hay hoteles disponibles en esta zona
                             </div>
@@ -979,5 +991,175 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
             }
         });
         createContador($(".transport_contador"));
+    }
+}
+
+function fillRestaurant(id_ciudad) {
+
+    if (RestaurantsList.code == 200) {
+        const restaurant = jQuery.grep(RestaurantsList.data, function (item,i) {
+            return item.ciudadID == id_ciudad;
+        });
+
+        if (restaurant.length > 0) {
+
+            $("#restaurant_container .ui.items").empty();
+            for (var i = 0; i < restaurant.length; i++) {
+
+                const element = restaurant[i];
+                const images = element.image_URL.split(",");
+                const ciudad = CitiesList.data.filter(item => item.id == id_ciudad)[0];
+                //carousel construct
+                var carousel =
+                    `<div class="fotorama restaurants_fotorama" data-allowfullscreen="true" data-nav="thumbs">`;
+                for (var j = 0; j < images.length; j++) {
+                    carousel += `<img src="${images[j]}">`;
+                }
+                carousel += "</div>";
+
+                const card =
+                    `<div class="item restaurant_item">
+                        <div class="image">
+                           ${carousel}
+                        </div>
+                        <div class="content" style="width: inherit;">
+                            <h3>
+                                <b class="blue_text">${element.restaurante}</b>
+                            </h3>
+                            <div class="extra">
+                                <div class="ui label">
+                                    <i class="map marker icon"></i> ${ciudad.pais}, ${ciudad.ciudad}
+                                </div>
+                                <br>
+                                <div class="ui primary button menu_trigger_button" data-value="${element.id}">
+                                    VER MENU
+                                    <i class="right chevron icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content left floated">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input restaurant_contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" type="number" value="1"
+                                               style="text-align: center;" readonly>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar restaurant_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="ui right floated primary button restaurant_trigger_button"
+                                 data-selected="false" data-value="${element.id}">
+                                Reservar
+                                <i class="right chevron icon"></i>
+                            </div>
+                        </div>
+                    </div>`;
+
+                $("#restaurant_container .ui.items").append(card);
+            }
+
+            $('.restaurant_fecha').calendar({
+                type: 'date',
+                popupOptions: {
+                    position: 'bottom right',
+                    lastResort: 'bottom right',
+                    hideOnScroll: false
+                }
+            });
+            createContador($(".restaurant_contador"));
+            $(".restaurants_fotorama").fotorama();
+        }
+        else {
+            $("#restaurant_container .ui.items").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <div class="header">
+                                No hay hoteles disponibles en esta zona
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
+        }
+    }
+}
+
+function fillMenu(id_restaurante) {
+    if (MenusList.code == 200) {
+        const menus = jQuery.grep(MenusList.data, function (item, i) {
+            return item.ciudadID == id_restaurante;
+        });
+
+        if (menus.length > 0) {
+
+            $("#mdlMenus .ui.items").empty();
+            for (var i = 0; i < menus.length; i++) {
+
+                const element = menus[i];
+                const images = element.image_Url.split(",");
+
+                //carousel construct
+                var carousel =
+                    `<div class="fotorama menu_fotorama" data-allowfullscreen="true" data-nav="thumbs">`;
+                for (var j = 0; j < images.length; j++) {
+                    carousel += `<img src="${images[j]}">`;
+                }
+                carousel += "</div>";
+
+                const card =
+                    `<div class="item menu_item">
+                        <div class="image">
+                            ${carousel}
+                        </div>
+                        <div class="content" style="width: inherit;">
+                            <a class="header">${element.menu}</a>
+                            <div class="ui label"><i class="utensils icon"></i>${element.tipoMenu}</div>
+                            <div class="description">
+                                ${element.descripcion}
+                            </div>
+                            <div class="extra">
+                                <h3 class="ui green header">L ${parseFloat(element.precio).toFixed(2)}</h3>
+                            </div>
+                        </div>
+                    </div>`;
+
+                $("#mdlMenus .ui.items").append(card);
+            }
+
+            $(".menu_fotorama").fotorama();
+        }
+        else {
+            $("#mdlMenus .ui.items").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <div class="header">
+                                No hay platillos o un menu disponibles de este restaurante
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
+        }
     }
 }
