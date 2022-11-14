@@ -12,7 +12,7 @@ function fillpackage() {
             `<div class="carde">
                 <div class="card__container">
                     <div class="card__image">
-                        <img alt="" src="https://images.unsplash.com/photo-1499708544652-0e4c43899071?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGRyb25lfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
+                        <img alt="" src="${package.image_URL}" />
                         <div class="card__dates">
                             <div class=" date">
                                 <div class="date__icon">
@@ -21,19 +21,20 @@ function fillpackage() {
                                     </svg>
                                 </div>
                                 <div class="date__details">
-                                    <span class="date__heading">1st January 2021</span>
-                                    <span class="date__description">Current AIRAC Date</span>
+                                    <span class="date__heading">Duracion</span>
+                                    <span class="date__description">${package.duracion_Paquete}</span>
                                 </div>
                             </div>
                             <div class=" date">
                                 <div class="date__icon">
-                                    <div width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 8.45875V9.09796C9 9.27374 8.85536 9.41756 8.67857 9.41756H6.64286V11.4417C6.64286 11.6175 6.49821 11.7613 6.32143 11.7613H5.67857C5.50179 11.7613 5.35714 11.6175 5.35714 11.4417V9.41756H3.32143C3.14464 9.41756 3 9.27374 3 9.09796V8.45875C3 8.28297 3.14464 8.13915 3.32143 8.13915H5.35714V6.115C5.35714 5.93922 5.50179 5.7954 5.67857 5.7954H6.32143C6.49821 5.7954 6.64286 5.93922 6.64286 6.115V8.13915H8.67857C8.85536 8.13915 9 8.28297 9 8.45875ZM12 3.66472V13.0397C12 13.7455 11.4241 14.3181 10.7143 14.3181H1.28571C0.575893 14.3181 0 13.7455 0 13.0397V3.66472C0 2.95893 0.575893 2.38631 1.28571 2.38631H2.57143V1.00136C2.57143 0.825584 2.71607 0.681763 2.89286 0.681763H3.96429C4.14107 0.681763 4.28571 0.825584 4.28571 1.00136V2.38631H7.71429V1.00136C7.71429 0.825584 7.85893 0.681763 8.03571 0.681763H9.10714C9.28393 0.681763 9.42857 0.825584 9.42857 1.00136V2.38631H10.7143C11.4241 2.38631 12 2.95893 12 3.66472ZM10.7143 12.8799V4.94313H1.28571V12.8799C1.28571 12.9678 1.35804 13.0397 1.44643 13.0397H10.5536C10.642 13.0397 10.7143 12.9678 10.7143 12.8799Z" fill="#003B5C" />
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" fill="#003B5C"/>
+                  </svg>
                                     </div>
                                 </div>
                                 <div class="date__details">
-                                    <div class="date__heading">20th August 2021</div>
-                                    <div class="date__description">Upcoming AIRAC Date</div>
+                                    <div class="date__heading">Personas</div>
+                                    <div class="date__description">${package.cantidad_de_personas}</div>
                                 </div>
                             </div>
                         </div>
@@ -41,9 +42,17 @@ function fillpackage() {
                     <div class="card__heading">${package.nombre}</div>
                     <div class="card__content">
                         ${package.descripcion_Paquete}
+<p>
+<br>
+${package.hotel}
+<br>
+ ${package.restaurante}
+<br>
+ ${package.precio}
+</p>
                     </div>
                     <div class="contenedor">
-                        <a href="#" class="card__action button -primary">DOWNLOAD</a>
+                        <a href="#" class="card__action button -primary">Reservar</a>
                     </div>
                 </div>
             </div>`;
