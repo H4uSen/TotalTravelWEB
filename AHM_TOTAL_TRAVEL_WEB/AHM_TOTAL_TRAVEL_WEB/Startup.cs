@@ -65,13 +65,16 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 options.AddPolicy("Transport", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Transporte"));
                 options.AddPolicy("Restaurant", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Restaurante"));
             });
-            services.AddCors();
+            
             services.AddControllersWithViews()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
             
             services.BusinessLogic();
             services.AddMvc();
+            services.AddCors(option => {
+                option.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+        });
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -95,6 +98,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            
             app.Use(async (context, next) =>
             {
                 await next();
@@ -107,6 +111,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 switch (context.Response.StatusCode)
                 {
                     case 200:
+                    case 216:
                     case 302:
                         break;
                     case 404:
@@ -129,6 +134,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
 
 
             });
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

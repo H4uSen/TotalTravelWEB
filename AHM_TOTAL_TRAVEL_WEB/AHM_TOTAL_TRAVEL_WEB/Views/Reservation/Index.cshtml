@@ -39,7 +39,7 @@
                     <th>Pago minimo del 40%</th>
                     <th>Precio</th>
                     <th>Cantidad de pagos</th>
-                    <th width="200px">Acciones</th>
+                    <th width="200px" class="Acciones">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,7 +92,7 @@
                             @Html.DisplayFor(modelItem => item.AmountOfPayments)/@Html.DisplayFor(modelItem => item.CantidadPagos)
                         </td>
 
-                        <td>
+                        <td class="Acciones">
                             <a class="ui large icon btn-edit button" id="UpdateBottomDsTr" href="@Url.Action("Update", "Reservation", new { id=item.ID })">
                                 <i class="pencil alternate icon icon-crud"></i>
                             </a>
