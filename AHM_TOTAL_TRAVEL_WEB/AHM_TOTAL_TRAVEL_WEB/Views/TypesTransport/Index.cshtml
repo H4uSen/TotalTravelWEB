@@ -20,16 +20,11 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <button id="createTypesTransport" class="ui small primary labeled icon btn-edit button"><i class="plus icon"></i>Nuevo</button>
             </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
-            </div>
+
         </div>
         <style>
             table thead tr th {
@@ -37,38 +32,38 @@
                 color: white;
             }
         </style>
-
-        <table class="ui compact selectable celled table" id="tabla">
-            <thead>
-                <tr>
-                    <th>
-                        Transporte
-                    </th>
-
-                    <th width="300px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <table id="grdTypeTransport" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Trasporte)
-                        </td>
+                        <th>
+                            Transporte
+                        </th>
 
-                        <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottom" onclick="editar(@item.ID)">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </button>
-                            <button class="ui large icon negative button" onclick="Delete(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a href="@Url.Action("Details","TypesTransport",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
-                        </td>
+                        <th width="300px"></th>
                     </tr>
-                }
-            </tbody>
-        </table><br>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Trasporte)
+                            </td>
+
+                            <td>
+                                <button class="ui large icon btn-edit button" id="UpdateBottom" onclick="editar(@item.ID)">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </button>
+                                <button class="ui large icon negative button" onclick="Delete(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a href="@Url.Action("Details","TypesTransport",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
 
     </div>
 </div>
@@ -137,25 +132,49 @@
             iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
         }
         // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
 
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
+        $(document).ready(function () {
+
+            var table = $("#grdTypeTransport").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {}
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
+
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
             });
         });
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
-        });
 
         //------------------------------------Funciones------------------------
 

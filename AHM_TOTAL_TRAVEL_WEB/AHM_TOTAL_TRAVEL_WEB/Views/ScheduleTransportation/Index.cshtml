@@ -18,17 +18,11 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" id="btnCrearhorario" >
+                <a class="ui small btn-purple text-white labeled icon button" id="btnCrearhorario">
                     <i class="plus icon"></i> Nuevo
                 </a>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
             </div>
         </div>
         <style>
@@ -37,69 +31,63 @@
                 color: white;
             }
         </style>
-
-        <table class="ui compact selectable celled table" id="grdRestaurants">
-            <thead>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Ciudad Salida
-                    </th>
-                    <th>
-                        Ciudad Destino
-                    </th>
-                    <th>
-                        Fecha
-                    </th>
-                    <th>
-                        Hora de Salida
-                    </th>
-                    <th>
-                        Hora de llegada
-                    </th>
-                    <th width="200px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <table id="grdScheduleTransport" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad_Salida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad_Destino)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fecha)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hora_Salida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hora_Llegada)
-                        </td>
-
-                        <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </button>
-                            <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a href="@Url.Action("Details","ScheduleTransportation",new {  id=item.ID})" class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
+                        <th>
+                            Ciudad Salida
+                        </th>
+                        <th>
+                            Ciudad Destino
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
+                        <th>
+                            Hora de Salida
+                        </th>
+                        <th>
+                            Hora de llegada
+                        </th>
+                        <th width="200px"></th>
                     </tr>
-                }
-            </tbody>
-        </table><br>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ciudad_Salida)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ciudad_Destino)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hora_Salida)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hora_Llegada)
+                            </td>
+
+                            <td>
+                                <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </button>
+                                <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a href="@Url.Action("Details","ScheduleTransportation",new {  id=item.ID})" class="ui large icon button">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
 
     </div>
 </div>
@@ -219,8 +207,55 @@
             }
         };
         sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula10);
-
     };
+
+
+    $(document).ready(function () {
+
+        var table = $("#grdScheduleTransport").DataTable({
+            stateSave: true,
+            language: {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+            },
+            //Aqui se ingresa el numero de columnas que tiene la tabla
+            columns: [
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
+            ],
+            order: [[1, 'asc']],
+            dom: 'Bfrtip',
+
+            //Son los botones de acciones para exportar
+            buttons: [
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                    className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="file excel icon"></i> Exportar a excel',
+                    className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="file csv icon"></i> Exportar como CSV',
+                    className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                },
+            ]
+        });
+    });
+
 
 </script>
 }

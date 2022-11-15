@@ -19,17 +19,11 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","Rooms")">
                     <i class="plus icon"></i> Nuevo
                 </a>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
             </div>
         </div>
         <style>
@@ -39,7 +33,7 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table id="grdRooms" class="display ui compact selectable celled table" style="width:100%;">
             <thead>
                 <tr>
                     <th>
@@ -64,12 +58,12 @@
                         Wifi
                     </th>
                     <th>
-                       Camas
+                        Camas
                     </th>
                     <th>
                         Capacidad
                     </th>
-                    <th width="300px"></th>
+                    <th width="200px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -92,24 +86,24 @@
                             @Html.DisplayFor(modelItem => item.Precio)
                         </td>
                         <td>
-                            @{ if (item.Balcon == 1 )
+                            @{ if (item.Balcon == 1)
                                 {
-                                    <span >Si</span>
+                                    <span>Si</span>
                                 }
                                 else
                                 {
-                                    <span > No </span>
+                                    <span> No </span>
                                 }
                             }
                         </td>
                         <td>
                             @{ if (item.Wifi == true)
                                 {
-                                    <span >Si</span>
+                                    <span>Si</span>
                                 }
                                 else
                                 {
-                                    <span >No </span>
+                                    <span>No </span>
                                 }
                             }
                         </td>
@@ -138,24 +132,54 @@
 @section Scripts{
     <script>
         // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
+        $(document).ready(function () {
 
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 10
-            });
-        });
+            var table = $("#grdRooms").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {}
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 10
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
+            });
         });
 
         function DeleteRooms(id) {

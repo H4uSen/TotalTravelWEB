@@ -19,17 +19,11 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <a class="ui small btn-edit text-white labeled icon button" id="createTipoPartner">
                     <i class="plus icon"></i> Nuevo
                 </a>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
             </div>
         </div>
         <style>
@@ -38,14 +32,14 @@
                 color: white;
             }
         </style>
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table id="grdPartnerTypes" class="display ui compact selectable celled table" style="width:100%;">
             <thead>
-                <tr>          
+                <tr>
                     <th>
                         Descripcion
                     </th>
                     <th>
-                       Rol 
+                        Rol
                     </th>
 
                     <th width="300px"></th>
@@ -150,24 +144,50 @@
 
 
         // ----------------------------------- EVENTS ------------------------------------
-        TableSearchInput($("#txtSearch"), $("#grdRestaurants"), elemPerPage = 10)
 
+        $(document).ready(function () {
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 10
+            var table = $("#grdPartnerTypes").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {}
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
+
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
+            });
         });
 
-        function DeleteTipoPartner(id) {
-            const Tpartner = () => {
-                const result = ajaxRequest("/PartnerType/Delete?id=" + id, null, "POST");
-                if (result > 0) {
-                    location.reload();
-                }
-            };
-
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tpartner);
-
-        };
 
 
     </script>

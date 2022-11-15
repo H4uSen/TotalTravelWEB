@@ -17,17 +17,11 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <a class="ui small primary labeled icon btn-edit button" href="@Url.Action("Create","ActivitiesExtra")">
                     <i class="plus icon"></i> Nuevo
                 </a>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
             </div>
         </div>
         <style>
@@ -36,56 +30,56 @@
                 color: white;
             }
         </style>
-
-        <table class="ui compact selectable celled table" id="grdActividadesExtra">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Partner)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Actividad)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Precio)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
-                    </th>
-                    <th width="300px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <table id="grdActividadesExtra" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Partner)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Actividad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Precio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-
-                        <td>
-                            <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
-                            @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
-                            <button class="ui large icon btn-delete button" onclick="DeleteActiExtra('@item.ID')">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a href="@Url.Action("Details","ActivitiesExtra",new {  id=item.ID})" class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Partner)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Actividad)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Precio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </th>
+                        <th width="300px"></th>
                     </tr>
-                }
-            </tbody>
-        </table><br>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Partner)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Actividad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
+                                @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
+                                <button class="ui large icon btn-delete button" onclick="DeleteActiExtra('@item.ID')">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a href="@Url.Action("Details","ActivitiesExtra",new {  id=item.ID})" class="ui large icon button">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
 
     </div>
 </div>
@@ -94,25 +88,52 @@
 @section Scripts{
     <script>
         // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdActividadesExtra tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
+        $(document).ready(function () {
 
-            $("#grdActividadesExtra").paginationTdA({
-                elemPerPage: 10
+            var table = $("#grdActividadesExtra").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
+
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
             });
         });
 
-        $("#grdActividadesExtra").paginationTdA({
-            elemPerPage: 10
-        });
+
 
         //------------------------------------Funciones------------------------
 
