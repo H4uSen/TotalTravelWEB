@@ -22,6 +22,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int ID { get; set; }
         public int? TipoTransporteID { get; set; }
+        public string Nombre { get; set; }
         public string TipoTransporte { get; set; }
         public int? PartnerID { get; set; }
         public string NombrePartner { get; set; }

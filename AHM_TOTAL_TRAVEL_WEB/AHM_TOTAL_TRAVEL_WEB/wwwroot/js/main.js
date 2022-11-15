@@ -7,7 +7,9 @@
     var Client_User_ID = sessionData.userId;
     var Client_Partner_ID = sessionData.partnerId;
     var Client_User_Name = sessionData.userName;
-    var Client_Token = sessionData.Token;
+    var Client_Token = sessionData.token;
+    var Client_Role = sessionData.userRol;
+
     $("#loaderAnimation").hide();
 // ----------------------------------- EVENTS ------------------------------------
 

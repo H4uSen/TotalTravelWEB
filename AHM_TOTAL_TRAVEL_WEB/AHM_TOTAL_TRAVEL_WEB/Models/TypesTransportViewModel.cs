@@ -10,6 +10,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int ID { get; set; }
         public string Trasporte { get; set; }
+        public int? Partner_ID { get; set; }
         public int Usuario_Creacion_ID { get; set; }
         public string Usuario_Creacion { get; set; }
         public DateTime? Fecha_Creacion { get; set; }
@@ -22,6 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     public class TypesTransportViewModel
     {
         public int TiTr_ID { get; set; }
+        public int? Partner_ID { get; set; }
         public string TiTr_Descripcion { get; set; }
         public int? TiTr_UsuarioCreacion { get; set; }
         public DateTime? TiTr_FechaCreacion { get; set; }

@@ -14,6 +14,11 @@ $("#closeScheduleEdit").click(() => {
     $("#modalUpdate").modal('hide');
 });
 
+if (Client_Role == "Administrador") {
+    $("#Part_ID2").removeAttr("hidden");
+    $("#Part_ID2").show();
+}
+
 function GetScheduleID(id) {
     var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ScheduleTransportation/Find?id=" + id);
     if (response.code == 200) {

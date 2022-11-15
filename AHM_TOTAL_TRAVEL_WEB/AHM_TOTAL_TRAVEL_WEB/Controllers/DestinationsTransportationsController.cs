@@ -60,21 +60,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                     else
                     {
-                        foreach(var item in lista)
-                        {
-                            var data= DesTrFilter.Where(x => x.DestinoDetalle_ID==item.ID).ToList();                           
-                            foreach (var item2 in data)
-                            {
-                                var data2 = lista.Where(z => z.ID == item2.DestinoDetalle_ID).ToList();
-                                if(!ListNuevaTrDe.Contains(data2[0]))
-                                {
-                                    ListNuevaTrDe.Add(data2[0]);
-                                }
-                                                            
-                            }                     
-                        } 
-                        
-                        return View((IEnumerable<DestinationsTransportationsListViewModel>)ListNuevaTrDe);
+                        var data = lista.Where(x => x.Partner_ID == Convert.ToInt32(id)).ToList();
+
+                        return View(data);
                     }
                 }
             }
@@ -89,6 +77,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
+                var partner = await _transportService.TransportDestionationsList();
+                IEnumerable<PartnersListViewModel> data_Partner = (IEnumerable<PartnersListViewModel>)partner.Data;
+                ViewBag.Part_ID = new SelectList(data_Partner, "ID", "Nombre");
                 return View();
             }
             catch (Exception)
@@ -106,6 +97,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 {
                     string token = HttpContext.User.FindFirst("Token").Value;
                     var id = HttpContext.User.FindFirst("User_Id").Value;
+                    var rol = HttpContext.Session.GetString("Role");
+                    var idPart = HttpContext.Session.GetString("PartnerID");
+                    if (rol != "Cliente" || rol != "Administrador")
+                    {
+                        transportedestino.Partner_ID = int.Parse(idPart);
+                    }
                     transportedestino.DsTr_UsuarioCreacion = int.Parse(id);
                     var list = await _transportService.TransportDestionationsCreate(transportedestino, token);
                     var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
@@ -138,9 +135,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var list = await _transportService.TransportDestionationsList();
                 IEnumerable<DestinationsTransportationsListViewModel> data = (IEnumerable<DestinationsTransportationsListViewModel>)list.Data;
                 var element = data.Where(x => x.ID == id).ToList()[0];
+
+                var rol = HttpContext.Session.GetString("Role");
+                var idPart = HttpContext.Session.GetString("PartnerID");
+                if (rol != "Cliente" || rol != "Administrador")
+                {
+                    item.Partner_ID = int.Parse(idPart);
+                }
+                else
+                {
+                    item.Partner_ID = element.Partner_ID;
+                }
                 item.DsTr_ID = element.ID;
                 item.DsTr_CiudadSalida = element.CiudadSalidaID;
                 item.DsTr_CiudadDestino = element.CiudadDestinoID;
+                var partner = await _transportService.TransportDestionationsList();
+                IEnumerable<PartnersListViewModel> data_Partner = (IEnumerable<PartnersListViewModel>)partner.Data;
+                ViewBag.Part_ID = new SelectList(data_Partner, "ID", "Nombre",item.Partner_ID);
 
                 return View(item);
             }
@@ -159,6 +170,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 {
                     string token = HttpContext.User.FindFirst("Token").Value;
                     var idd = HttpContext.User.FindFirst("User_Id").Value;
+                   
                     transportedestino.DsTr_UsuarioModifica = int.Parse(idd);
                     var list = await _transportService.TransportDestionationsUpdate(transportedestino, token);
                     var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;

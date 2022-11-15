@@ -22,8 +22,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var token = HttpContext.User.FindFirst("Token").Value;
             var list = await _transportService.TransportList();
 
-
-
             return View(list.Data);
         }
     }
