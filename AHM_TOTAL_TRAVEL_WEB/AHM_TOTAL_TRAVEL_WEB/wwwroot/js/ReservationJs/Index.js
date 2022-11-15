@@ -127,7 +127,7 @@ $(document).ready(function () {
             {
                 extend: 'pdfHtml5',
                 text: '<i class= "file pdf icon"></i> Exportar como PDF',
-                className: "btn-primary ui small btn-grey text-purple icon ui button ",
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
@@ -135,7 +135,7 @@ $(document).ready(function () {
             {
                 extend: 'excelHtml5',
                 text: '<i class="file excel icon"></i> Exportar a excel',
-                className: "btn-primary ui small btn-grey text-purple icon ui button ",
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                 }
@@ -143,7 +143,7 @@ $(document).ready(function () {
             {
                 extend: 'csvHtml5',
                 text: '<i class="file csv icon"></i> Exportar como CSV',
-                className: "btn-primary ui small btn-grey text-purple icon ui button "
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
             },
         ]
     });

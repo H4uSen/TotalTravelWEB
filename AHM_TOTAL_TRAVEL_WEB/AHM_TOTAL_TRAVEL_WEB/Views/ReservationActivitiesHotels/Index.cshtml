@@ -18,85 +18,79 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","ReservationActivitiesHotels")">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
-            </div>
         </div>
+        <table id="grdReservationActivitiesHotels" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Cliente
+                        </th>
+                        <th>
+                            Actividad
+                        </th>
+                        <th>
+                            Descripción de la Actividad
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Fecha Reservación
+                        </th>
+                        <th>
+                            Hora Reservación
+                        </th>
+                        <th width="200px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
-        <table class="ui compact selectable celled table" id="grdReservationActivitiesHotels">
-            <thead>
-                <tr>
-                    <th>
-                        Cliente
-                    </th>
-                    <th>
-                        Actividad
-                    </th>
-                    <th>
-                        Descripción de la Actividad
-                    </th>
-                    <th>
-                        Cantidad
-                    </th>
-                    <th>
-                        Fecha Reservación
-                    </th>
-                    <th>
-                        Hora Reservación
-                    </th>
-                    <th width="200px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cliente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cantidad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha_Reservacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hora_Reservacion)
+                            </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cantidad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha_Reservacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hora_Reservacion)
-                    </td>
-
-                    <td>
-                        <a href="@Url.Action("Update","ReservationActivitiesHotels",new {  id=item.ID})" class="ui large icon btn-edit button">
-                            <i class="pencil alternate icon  icon-crud"></i>
-                        </a>
-                        <button class="ui large icon btn-delete button" onclick="DeleteReservacionActividadesHoteles(@item.ID)">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a href="@Url.Action("Details","ReservationActivitiesHotels",new {  id=item.ID})" class="ui large icon button">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
+                            <td>
+                                <a href="@Url.Action("Update","ReservationActivitiesHotels",new {  id=item.ID})" class="ui large icon btn-edit button">
+                                    <i class="pencil alternate icon  icon-crud"></i>
+                                </a>
+                                <button class="ui large icon btn-delete button" onclick="DeleteReservacionActividadesHoteles(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a href="@Url.Action("Details","ReservationActivitiesHotels",new {  id=item.ID})" class="ui large icon button">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
 
 
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table><br>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
 
     </div>
 </div>
@@ -106,24 +100,51 @@
 @section Scripts{
     <script>
         // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdReservationActivitiesHotels tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
+        $(document).ready(function () {
 
-            $("#grdReservationActivitiesHotels").paginationTdA({
-                elemPerPage: 10
-            });
-        });
+            var table = $("#grdReservationActivitiesHotels").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {}
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
 
-        $("#grdReservationActivitiesHotels").paginationTdA({
-            elemPerPage: 10
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
+            });
         });
 
 

@@ -6,25 +6,6 @@ const izziSuccess = params.get("success");
 //}
 
 // ----------------------------------- EVENTS ------------------------------------
-$("#txtSearch").keyup(function () {
-    _this = this;
-    $.each($("#grdReservationExtraActivities tbody tr"), function () {
-        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-            $(this).hide();
-        }
-        else {
-            $(this).show();
-        }
-    });
-
-    $("#grdReservationExtraActivities").paginationTdA({
-        elemPerPage: 10
-    });
-});
-
-$("#grdReservationExtraActivities").paginationTdA({
-    elemPerPage: 10
-});
 
 
 

@@ -17,15 +17,9 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <button id="createDefaultPackagesDetails" class="ui small primary labeled icon btn-purple button"><i class="user icon"></i>Nuevo</button>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Search..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
             </div>
         </div>
         <style>
@@ -35,7 +29,7 @@
             }
         </style>
 
-        <table class="ui compact selectable celled table" id="grdRestaurants">
+        <table id="grdDefaultPackagesDetails" class="display ui compact selectable celled table" style="width:100%;">
             <thead>
                 <tr>
                     <th>
@@ -177,24 +171,49 @@
 
     <script>
         // ----------------------------------- EVENTS ------------------------------------
-        $("#txtSearch").keyup(function () {
-            _this = this;
-            $.each($("#grdRestaurants tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
+        $(document).ready(function () {
 
-            $("#grdRestaurants").paginationTdA({
-                elemPerPage: 5
-            });
-        });
+            var table = $("#grdDefaultPackagesDetails").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
 
-        $("#grdRestaurants").paginationTdA({
-            elemPerPage: 5
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
+            });
         });
 
         //------------------------------------Funciones------------------------

@@ -6,24 +6,50 @@ const izziSuccess = params.get("success");
 //}
 
 // ----------------------------------- EVENTS ------------------------------------
-$("#txtSearch").keyup(function () {
-    _this = this;
-    $.each($("#grdReservationExtraActivities tbody tr"), function () {
-        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-            $(this).hide();
-        }
-        else {
-            $(this).show();
-        }
-    });
+$(document).ready(function () {
 
-    $("#grdReservationExtraActivities").paginationTdA({
-        elemPerPage: 10
-    });
-});
+    var table = $("#grdReservationExtraActivities").DataTable({
+        stateSave: true,
+        language: {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        //Aqui se ingresa el numero de columnas que tiene la tabla
+        columns: [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        order: [[1, 'asc']],
+        dom: 'Bfrtip',
 
-$("#grdReservationExtraActivities").paginationTdA({
-    elemPerPage: 10
+        //Son los botones de acciones para exportar
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="file excel icon"></i> Exportar a excel',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="file csv icon"></i> Exportar como CSV',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+            },
+        ]
+    });
 });
 
 
