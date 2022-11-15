@@ -76,32 +76,6 @@ const steps = {
         $("#frmRooms").hide();
         $("#frmHotels").show();
 
-        //buttons item events
-        $("#frmHotels .hotel_item .hotel_button_trigger").click(function (_this_button) {
-
-            //set default
-            $("#frmHotels .hotel_item .hotel_button_trigger").removeClass("positive").addClass("primary");
-            $("#frmHotels .hotel_item .hotel_button_trigger").html('RESERVAR <i class="right chevron icon"></i>');
-
-            //set actual
-            const id_hotel = $(_this_button.target).attr("data-value");
-            $(_this_button.target).addClass("positive").removeClass("primary");
-            $(_this_button.target).html('RESERVADO <i class="right chevron icon"></i>');
-
-            
-            if ($(_this_button.target).attr("data-selected") == "false") {
-                $("#frmHotels .hotel_item .hotel_button_trigger").attr("data-selected", "false");
-                $(_this_button.target).attr("data-selected", "true");
-                fillRooms(id_hotel);
-                fillHotelActivities(id_hotel);
-            }
-
-            $("#frmRooms").show();
-            $("#frmHotels").hide();
-            
-            $("#frmStepfooter button").prop("disabled", false);
-        });
-
         // footer buttons events 
         $("#btnNextStep").attr("data-step", "step_2");
         $("#btnBeforeStep").attr("data-step", "step_0");
@@ -127,48 +101,6 @@ const steps = {
         $("#frmActivities_menu .item").removeClass("active");
         $("#frmActivities_menu .item").eq(0).addClass("active");
         $("#frmHotelActivities").show();
-
-        //activities button events
-        $("button.activityHotel_trigger_button").click(function (_this) {
-
-            const id_actividad = $(_this.target).attr("data-value");
-
-            if ($(_this.target).attr("data-selected") == "true") {
-
-                $(_this.target).addClass("primary").removeClass("positive");
-                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
-                $(_this.target).attr("data-selected", "false");
-
-            }
-            else {
-
-                $(_this.target).addClass("positive").removeClass("primary");
-                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
-                $(_this.target).attr("data-selected", "true");
-
-            }
-
-        });
-
-        $("button.activity_trigger_button").click(function (_this) {
-
-            const id_actividad = $(_this.target).attr("data-value");
-
-            if ($(_this.target).attr("data-selected") == "true") {
-
-                $(_this.target).addClass("primary").removeClass("positive");
-                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
-                $(_this.target).attr("data-selected", "false");
-
-            }
-            else {
-
-                $(_this.target).addClass("positive").removeClass("primary");
-                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
-                $(_this.target).attr("data-selected", "true");
-
-            }
-        });
 
         // footer buttons events 
         $("#btnNextStep").attr("data-step", "step_3");
@@ -196,28 +128,6 @@ const steps = {
         $("#frmTransporte_menu .item").eq(0).addClass("active");
         $("#frmTransportes").show();
 
-        // buttons events
-        $("button.transport_trigger_button").click(function (_this) {
-
-            const selected = $(_this.target).attr("data-selected");
-            //set default
-            $("button.transport_trigger_button").addClass("primary").removeClass("positive");
-            $("button.transport_trigger_button").attr("data-selected", "false");
-            $("button.transport_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
-
-            if (selected == "true") {
-
-                $(_this.target).attr("data-selected", "false");
-                $(_this.target).addClass("primary").removeClass("positive");
-                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
-            } else {
-
-                $(_this.target).attr("data-selected", "true");
-                $(_this.target).removeClass("primary").addClass("positive");
-                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
-            }
-        });
-
         // footer buttons events 
         $("#btnNextStep").attr("data-step", "step_4");
         $("#btnBeforeStep").attr("data-step", "step_2");
@@ -236,38 +146,6 @@ const steps = {
         // show wide
         helpers.hideAll();
         $("#restaurant_container").show();
-
-        // buttons events
-        $("button.restaurant_trigger_button").click(function (_this) {
-
-            const selected = $(_this.target).attr("data-selected");
-
-            //set default
-            $("button.restaurant_trigger_button").addClass("primary").removeClass("positive");
-            $("button.restaurant_trigger_button").attr("data-selected", "false");
-            $("button.restaurant_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
-
-            if (selected == "true") {
-
-                $(_this.target).attr("data-selected", "false");
-                $(_this.target).addClass("primary").removeClass("positive");
-                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
-            }
-            else {
-
-                $(_this.target).attr("data-selected", "true");
-                $(_this.target).removeClass("primary").addClass("positive");
-                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
-            }
-
-        });
-
-        $(".menu_trigger_button").click(function (_this) {
-
-            var id_restaurante = $(_this).attr("data-value");
-            fillMenu(id_restaurante);
-            $("#mdlMenus").modal("show");
-        });
 
         // footer buttons events 
         $("#btnNextStep").attr("disabled", false);
@@ -292,6 +170,7 @@ const steps = {
         $("#pago_container").show();
 
         // construct reservation detail
+        console.log(getReservationDetail());
 
         // footer buttons events 
         $("#btnNextStep").attr("disabled", true);
@@ -511,6 +390,31 @@ function fillHotels(id_ciudad){
             }
 
             // INIZIALIZE OBJECT
+            $("#frmHotels .hotel_item .hotel_button_trigger").click(function (_this_button) {
+
+                //set default
+                $("#frmHotels .hotel_item .hotel_button_trigger").removeClass("positive").addClass("primary");
+                $("#frmHotels .hotel_item .hotel_button_trigger").html('RESERVAR <i class="right chevron icon"></i>');
+
+                //set actual
+                const id_hotel = $(_this_button.target).attr("data-value");
+                $(_this_button.target).addClass("positive").removeClass("primary");
+                $(_this_button.target).html('RESERVADO <i class="right chevron icon"></i>');
+
+
+                if ($(_this_button.target).attr("data-selected") == "false") {
+                    $("#frmHotels .hotel_item .hotel_button_trigger").attr("data-selected", "false");
+                    $(_this_button.target).attr("data-selected", "true");
+                    fillRooms(id_hotel);
+                    fillHotelActivities(id_hotel);
+                }
+
+                $("#frmRooms").show();
+                $("#frmHotels").hide();
+
+                $("#frmStepfooter button").prop("disabled", false);
+            });
+
             $('.rating').rating({
                 initialRating: 2,
                 maxRating: 5
@@ -695,7 +599,7 @@ function fillExtraActivities(id_ciudad) {
                             <h3 class="ui green header">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
                         </div>
                     </div>
-                    <div class="content left floated">
+                    <div class="content left floated activitiesExtra_form_content">
                         <div class="fields">
 
                             <div class="field">
@@ -736,10 +640,29 @@ function fillExtraActivities(id_ciudad) {
             }
 
             // INIZIALIZE EVENTS
+            $("button.activity_trigger_button").click(function (_this) {
+
+                const id_actividad = $(_this.target).attr("data-value");
+
+                if ($(_this.target).attr("data-selected") == "true") {
+
+                    $(_this.target).addClass("primary").removeClass("positive");
+                    $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+                    $(_this.target).attr("data-selected", "false");
+
+                }
+                else {
+
+                    $(_this.target).addClass("positive").removeClass("primary");
+                    $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
+                    $(_this.target).attr("data-selected", "true");
+
+                }
+            });
             $(".activities_fotorama").fotorama();
             createContador($(".ExtraActivity_contador"));
             $('.activities_fecha').calendar({
-                type: 'date',
+                //type: 'date',
                 popupOptions: {
                     position: 'bottom right',
                     lastResort: 'bottom right',
@@ -846,6 +769,26 @@ function fillHotelActivities(id_hotel) {
             }
 
             // INIZIALIZE EVENTS
+            $("button.activityHotel_trigger_button").click(function (_this) {
+
+                const id_actividad = $(_this.target).attr("data-value");
+
+                if ($(_this.target).attr("data-selected") == "true") {
+
+                    $(_this.target).addClass("primary").removeClass("positive");
+                    $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+                    $(_this.target).attr("data-selected", "false");
+
+                }
+                else {
+
+                    $(_this.target).addClass("positive").removeClass("primary");
+                    $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
+                    $(_this.target).attr("data-selected", "true");
+
+                }
+
+            });
             $(".activitiesHotels_fotorama").fotorama();
             createContador($(".hotelActivity_contador"));
             $('.activitiesHotels_fecha').calendar({
@@ -1016,6 +959,26 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
 
         }
 
+        $("button.transport_trigger_button").click(function (_this) {
+
+            const selected = $(_this.target).attr("data-selected");
+            //set default
+            $("button.transport_trigger_button").addClass("primary").removeClass("positive");
+            $("button.transport_trigger_button").attr("data-selected", "false");
+            $("button.transport_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
+
+            if (selected == "true") {
+
+                $(_this.target).attr("data-selected", "false");
+                $(_this.target).addClass("primary").removeClass("positive");
+                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+            } else {
+
+                $(_this.target).attr("data-selected", "true");
+                $(_this.target).removeClass("primary").addClass("positive");
+                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
+            }
+        });
         $('.transport_fecha').calendar({
             type: 'date',
             popupOptions: {
@@ -1111,6 +1074,35 @@ function fillRestaurant(id_ciudad) {
                 $("#restaurant_container .ui.items").append(card);
             }
 
+            $("button.restaurant_trigger_button").click(function (_this) {
+
+                const selected = $(_this.target).attr("data-selected");
+
+                //set default
+                $("button.restaurant_trigger_button").addClass("primary").removeClass("positive");
+                $("button.restaurant_trigger_button").attr("data-selected", "false");
+                $("button.restaurant_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
+
+                if (selected == "true") {
+
+                    $(_this.target).attr("data-selected", "false");
+                    $(_this.target).addClass("primary").removeClass("positive");
+                    $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+                }
+                else {
+
+                    $(_this.target).attr("data-selected", "true");
+                    $(_this.target).removeClass("primary").addClass("positive");
+                    $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
+                }
+
+            });
+            $("button.menu_trigger_button").click(function (_this) {
+
+                var id_restaurante = $(_this).attr("data-value");
+                fillMenu(id_restaurante);
+                $("#mdlMenus").modal("show");
+            });
             $('.restaurant_fecha').calendar({
                 popupOptions: {
                     position: 'bottom right',
@@ -1200,43 +1192,71 @@ function fillMenu(id_restaurante) {
 function getReservationDetail() {
 
     const reservationDetail = ReservationCreateViewModel.reservacion;
+    reservationDetail.hote_ID = $("button.hotel_button_trigger[data-selected='true']").eq(0).attr("data-value");
 
-    reservationDetail.restaurantes = getReservationDetail.getRestaurant();
+    reservationDetail.restaurantes = ReservationDetail.getRestaurant();
+    reservationDetail.actividadesExtras = ReservationDetail.getExtraActivities();
 
     const extraActivities = $("button.activity_trigger_button[data-selected='true']");
     const hotelActivities = $("button.activityHotel_trigger_button[data-selected='true']");
 
-    reservationDetail.hote_ID = $(Hotel).attr("data-value");
-
     console.log(reservationDetail);
 }
 
-var getReservationDetail = {
+var ReservationDetail = {
 
     getRestaurant: function () {
         var data = [];
 
         // get current selected restaurant
-        const restaurant = $("button.hotel_button_trigger[data-selected='true']")[0];
-        const restaurantViewModel = ReservationCreateViewModel.restaurantes;
+        const restaurants = $("button.restaurant_trigger_button[data-selected='true']");
 
-        // get data
-        const stringDate = $(restaurant).parents(".restaurant_form_content")[0].find(".restaurant_fecha input");
-        const formatDate = getCalendarDate($(stringDate).val());
+        $.each(restaurants, function (i, item) {
 
-        // set restaurant data 
-        restaurantViewModel.rest_ID = $(restaurant).attr("data-value");
-        restaurantViewModel.reRe_FechaReservacion = formatDate;
-        restaurantViewModel.reRe_HoraReservacion = formatDate.split("T")[1];
+            const restaurantViewModel = ReservationCreateViewModel.restaurantes;
 
-        // set response
-        data.push(restaurantViewModel);
+            // get data
+            const stringDate = $(item).parents(".restaurant_form_content").eq(0).find(".restaurant_fecha input").val();
+            console.log($(item).parents(".restaurant_form_content").eq(0).find(".restaurant_fecha input").val());
+            const formatDate = getCalendarDate(stringDate);
+
+            // set restaurant data 
+            restaurantViewModel.rest_ID = parseInt($(item).attr("data-value"));
+            restaurantViewModel.reRe_FechaReservacion = formatDate;
+            restaurantViewModel.reRe_HoraReservacion = formatDate.split("T")[1];
+
+            // set response
+            data.push(restaurantViewModel);
+        });
 
         return data;
     },
 
-    getHotel: function () {
+    getExtraActivities: function () {
 
-        const Hotel = $("button.hotel_button_trigger[data-selected='true']")[0];
+        var data = [];
+        const extraActivities = $("button.activity_trigger_button[data-selected='true']");
+
+        $.each(extraActivities, function (item, i) {
+
+            // get data
+            const extraActivity = ReservationCreateViewModel.actividadesExtras;
+            const form_data = $(item).parents(".activitiesExtra_form_content").eq(0);
+
+            // get date
+            const stringDate = $(form_data).find(".activities_fecha input").val();
+            const formatDate = getCalendarDate(stringDate);
+
+            // set data
+            extraActivity.acEx_ID = parseInt($(item).attr("data-value"));
+            extraActivity.reAE_FechaReservacion = formatDate;
+            extraActivity.reAE_HoraReservacion = formatDate.split("T")[1];
+            extraActivity.reAE_Cantidad = parseInt($(form_data).find(".ExtraActivity_contador input[type='number']").val());
+            extraActivity.reAE_Precio = ActivitiesExtraList.data.filter(n => n.id == extraActivity.acEx_ID).precio;
+
+            data.push(extraActivity); 
+        });
+         
+        return data;
     }
 }

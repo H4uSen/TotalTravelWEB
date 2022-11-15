@@ -529,8 +529,8 @@
             day = '0' + day;
         }
 
-        return `${year}-${month}-${day}T${date.getHours}:${date.getMinutes}`;
-}
+        return `${year}-${month}-${day}T${date.getHours()}:${date.getMinutes()}`;
+    }
 
     function FillDropDown(
         dropdownData = {
