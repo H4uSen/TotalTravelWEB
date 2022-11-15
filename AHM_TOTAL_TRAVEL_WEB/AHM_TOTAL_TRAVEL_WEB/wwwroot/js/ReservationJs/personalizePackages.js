@@ -1,7 +1,7 @@
 ﻿//------------------------- MODELS VARIABLES ---------------------------
 
 //extra
-const PartnersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+//const PartnersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
 const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 // hotels
 const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
@@ -19,19 +19,6 @@ const RestaurantsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/AP
 const MenusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
 
 //------------------------- VARIABLES ---------------------------
-
-var data = {
-    persons: 0,
-    hotel: {
-        data: 0,
-        rooms: [
-            { id: 0, count: 0 }
-        ]
-    },
-    restaurant: 0,
-    transport: 0,
-    activities: [0],
-};
 
 const helpers = {
     hideAll: function () {
@@ -209,6 +196,28 @@ const steps = {
         $("#frmTransporte_menu .item").eq(0).addClass("active");
         $("#frmTransportes").show();
 
+        // buttons events
+        $("button.transport_trigger_button").click(function (_this) {
+
+            const selected = $(_this.target).attr("data-selected");
+            //set default
+            $("button.transport_trigger_button").addClass("primary").removeClass("positive");
+            $("button.transport_trigger_button").attr("data-selected", "false");
+            $("button.transport_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
+
+            if (selected == "true") {
+
+                $(_this.target).attr("data-selected", "false");
+                $(_this.target).addClass("primary").removeClass("positive");
+                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+            } else {
+
+                $(_this.target).attr("data-selected", "true");
+                $(_this.target).removeClass("primary").addClass("positive");
+                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
+            }
+        });
+
         // footer buttons events 
         $("#btnNextStep").attr("data-step", "step_4");
         $("#btnBeforeStep").attr("data-step", "step_2");
@@ -229,10 +238,33 @@ const steps = {
         $("#restaurant_container").show();
 
         // buttons events
+        $("button.restaurant_trigger_button").click(function (_this) {
+
+            const selected = $(_this.target).attr("data-selected");
+
+            //set default
+            $("button.restaurant_trigger_button").addClass("primary").removeClass("positive");
+            $("button.restaurant_trigger_button").attr("data-selected", "false");
+            $("button.restaurant_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
+
+            if (selected == "true") {
+
+                $(_this.target).attr("data-selected", "false");
+                $(_this.target).addClass("primary").removeClass("positive");
+                $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+            }
+            else {
+
+                $(_this.target).attr("data-selected", "true");
+                $(_this.target).removeClass("primary").addClass("positive");
+                $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
+            }
+
+        });
+
         $(".menu_trigger_button").click(function (_this) {
-            console.log(_this);
-            console.log($("#restaurant_container #mdlMenus"));
-            id_restaurante = $(_this).attr("data-value");
+
+            var id_restaurante = $(_this).attr("data-value");
             fillMenu(id_restaurante);
             $("#mdlMenus").modal("show");
         });
@@ -258,6 +290,8 @@ const steps = {
         // show wide
         helpers.hideAll();
         $("#pago_container").show();
+
+        // construct reservation detail
 
         // footer buttons events 
         $("#btnNextStep").attr("disabled", true);
@@ -960,11 +994,11 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
                         </div>
 
                         <br>
-                        <div class="ui right floated primary button transport_trigger_button"
-                                data-selected="false">
-                            Reservar
+                        <button class="ui right floated primary button transport_trigger_button"
+                                data-selected="false" data-value="${element.id}">
+                            RESERVAR
                             <i class="right chevron icon"></i>
-                        </div>
+                        </button>
                     </div>
                 </div>`;
 
@@ -1037,7 +1071,7 @@ function fillRestaurant(id_ciudad) {
                                 </div>
                             </div>
                         </div>
-                        <div class="content left floated">
+                        <div class="content left floated restaurant_form_content">
                             <br>
                             <div class="fields">
                                 <div class="field">
@@ -1066,11 +1100,11 @@ function fillRestaurant(id_ciudad) {
                             </div>
 
                             <br>
-                            <div class="ui right floated primary button restaurant_trigger_button"
+                            <button class="ui right floated primary button restaurant_trigger_button"
                                  data-selected="false" data-value="${element.id}">
-                                Reservar
+                                RESERVAR
                                 <i class="right chevron icon"></i>
-                            </div>
+                            </button>
                         </div>
                     </div>`;
 
@@ -1078,7 +1112,6 @@ function fillRestaurant(id_ciudad) {
             }
 
             $('.restaurant_fecha').calendar({
-                type: 'date',
                 popupOptions: {
                     position: 'bottom right',
                     lastResort: 'bottom right',
@@ -1161,5 +1194,49 @@ function fillMenu(id_restaurante) {
                 </div>`
             );
         }
+    }
+}
+
+function getReservationDetail() {
+
+    const reservationDetail = ReservationCreateViewModel.reservacion;
+
+    reservationDetail.restaurantes = getReservationDetail.getRestaurant();
+
+    const extraActivities = $("button.activity_trigger_button[data-selected='true']");
+    const hotelActivities = $("button.activityHotel_trigger_button[data-selected='true']");
+
+    reservationDetail.hote_ID = $(Hotel).attr("data-value");
+
+    console.log(reservationDetail);
+}
+
+var getReservationDetail = {
+
+    getRestaurant: function () {
+        var data = [];
+
+        // get current selected restaurant
+        const restaurant = $("button.hotel_button_trigger[data-selected='true']")[0];
+        const restaurantViewModel = ReservationCreateViewModel.restaurantes;
+
+        // get data
+        const stringDate = $(restaurant).parents(".restaurant_form_content")[0].find(".restaurant_fecha input");
+        const formatDate = getCalendarDate($(stringDate).val());
+
+        // set restaurant data 
+        restaurantViewModel.rest_ID = $(restaurant).attr("data-value");
+        restaurantViewModel.reRe_FechaReservacion = formatDate;
+        restaurantViewModel.reRe_HoraReservacion = formatDate.split("T")[1];
+
+        // set response
+        data.push(restaurantViewModel);
+
+        return data;
+    },
+
+    getHotel: function () {
+
+        const Hotel = $("button.hotel_button_trigger[data-selected='true']")[0];
     }
 }

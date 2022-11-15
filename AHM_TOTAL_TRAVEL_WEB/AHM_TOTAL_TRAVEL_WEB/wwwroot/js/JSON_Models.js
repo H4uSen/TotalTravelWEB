@@ -114,53 +114,64 @@ var ReservationDetailsViewModel = {
 }
 
 var ReservationCreateViewModel = {
-    "resv_ID": 0,
-    "usua_ID": 2,
-    "paqu_ID": 1,
-    "resv_esPersonalizado": true,
-    "resv_CantidadPagos": 2,
-    "resv_NumeroPersonas": 4,
-    "resv_ConfirmacionPago": false,
-    "resv_ConfirmacionHotel": false,
-    "resv_ConfirmacionRestaurante": false,
-    "resv_ConfirmacionTrans": false,
-    "resv_Precio": 4692.0,
-    "resv_UsuarioCreacion": 2,
-    "resv_UsuarioModifica": 0,
-    "reHo_FechaEntrada": "2022-11-08",
-    "reHo_FechaSalida": "2022-11-09",
-    "hote_ID": 1,
-    "actividadesExtras": [
-        {
-            "index": 0,
-            "acEx_ID": 1,
-            "acEx_Descripcion": "Caminata por la Montaña",
-            "reAE_Cantidad": 3,
-            "reAE_FechaReservacion": "2022-11-08",
-            "reAE_HoraReservacion": "95",
-            "reAE_Precio": "150.0"
-        }
-    ],
-    "restaurantes": [
-        {
-            "index": 0,
-            "rest_ID": 1,
-            "restaurante": "Hasta la Pasta",
-            "rest_numeroPersonas": 4,
-            "reRe_FechaReservacion": "2022-11-08",
-            "reRe_HoraReservacion": "95"
-        }
-    ],
-    "ReHo_PrecioTotal": "2680",
-    "Hote_numNoches": 1,
-    "actividadesHoteles": [],
-    "tipoPago": 1,
-    "habi_ID": 3,
-    "habi_Cantidad": 3,
-    "reservacionTransportes": [
-        {
-            "detr_ID": 15,
-            "reTr_CantidadAsientos": 3
-        }
-    ]
+    reservacion : {
+        "resv_ID": 0,
+        "usua_ID": 0,
+        "paqu_ID": 0,
+        "resv_esPersonalizado": true,
+        "resv_CantidadPagos": 0,
+        "resv_NumeroPersonas": 0,
+        "resv_ConfirmacionPago": false,
+        "resv_ConfirmacionHotel": false,
+        "resv_ConfirmacionRestaurante": false,
+        "resv_ConfirmacionTrans": false,
+        "resv_Precio": 0,
+        "resv_UsuarioCreacion": 0,
+        "resv_UsuarioModifica": 0,
+        "reHo_FechaEntrada": "",
+        "reHo_FechaSalida": "",
+        "hote_ID": 0,
+        "resv_Habitaciones": [],
+        "actividadesExtras": [],
+        "restaurantes": [],
+        "actividadesHoteles": [],
+        "tipoPago": 0,
+        "reservacionTransportes": []
+    },
+
+    habitacion: {
+        "habi_ID": 0,
+        "habi_Cantidad": 0,
+    },
+
+    actividadesExtras: {
+        "acEx_ID": 0,
+        "reAE_ID": 0,
+        "reAE_Precio": 0,
+        "reAE_Cantidad": 0,
+        "reAE_FechaReservacion": "2022-11-15T02:22:03.297Z",
+        "reAE_HoraReservacion": "string"
+    },
+
+    restaurantes: {
+        "resv_ID": 0,
+        "rest_ID": 0,
+        "reRe_FechaReservacion": "2022-11-15T02:22:03.297Z",
+        "reRe_HoraReservacion": "string"
+    },
+
+    actividadesHoteles: {
+        "hoAc_ID": 0,
+        "reAH_Precio": 0,
+        "reAH_Cantidad": 0,
+        "reAH_FechaReservacion": "2022-11-15T02:22:03.298Z",
+        "reAH_HoraReservacion": "string"
+    },
+
+    transporte: {
+        "detr_ID": 0,
+        "reTr_CantidadAsientos": 0,
+        "reTr_Cancelado": true,
+        "reTr_FechaCancelado": "2022-11-15T02:22:03.298Z"
+    }
 }

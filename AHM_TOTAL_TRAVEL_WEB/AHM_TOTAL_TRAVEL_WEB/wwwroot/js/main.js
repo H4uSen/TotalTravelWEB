@@ -529,7 +529,7 @@
             day = '0' + day;
         }
 
-        return year + '-' + month + '-' + day;
+        return `${year}-${month}-${day}T${date.getHours}:${date.getMinutes}`;
 }
 
     function FillDropDown(
