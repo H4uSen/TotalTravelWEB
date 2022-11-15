@@ -9,8 +9,8 @@ if (izziSuccess == "true") {
     iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
 }
 
-
-
+//<--- Configuraciones de las Datatables---->
+//Contenido que va dentro de la tabla
 function format(detailData, rowId) {
     // `d` is the original data object for the row
     detailData = detailData.filter(x => x.id_Reservacion == rowId);
@@ -93,7 +93,7 @@ $(document).ready(function () {
             $(tr).addClass("dt-hasChild");
         }
     });
-
+    //Sirve para rellenar la subtabla de la tabla maestra
     $("#grdReservacion").on('requestChild.dt', function (e, row) {
         row.child(format(PaymentsList.data, id)).show();
     });
@@ -102,6 +102,7 @@ $(document).ready(function () {
         language: {
             "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
         },
+        //Aqui se ingresa el numero de columnas que tiene la tabla
         columns: [
             {
                 className: 'dt-control',
@@ -120,16 +121,24 @@ $(document).ready(function () {
         ],
         order: [[1, 'asc']],
         dom: 'Bfrtip',
+
+        //Son los botones de acciones para exportar
         buttons: [
             {
                 extend: 'pdfHtml5',
                 text: '<i class= "file pdf icon"></i> Exportar como PDF',
-                className: "btn-primary ui small btn-grey text-purple icon ui button "
+                className: "btn-primary ui small btn-grey text-purple icon ui button ",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
             },
             {
                 extend: 'excelHtml5',
                 text: '<i class="file excel icon"></i> Exportar a excel',
-                className: "btn-primary ui small btn-grey text-purple icon ui button "
+                className: "btn-primary ui small btn-grey text-purple icon ui button ",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                }
             },
             {
                 extend: 'csvHtml5',

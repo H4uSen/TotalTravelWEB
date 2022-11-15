@@ -41,6 +41,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
+                string token = HttpContext.User.FindFirst("Token").Value;
                 var city = await _generalService.CitiesList();
                 IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
                 ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
@@ -53,7 +54,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<PartnersListViewModel> data_type = (IEnumerable<PartnersListViewModel>)type.Data;
                 ViewBag.Part_ID = new SelectList(data_type, "ID", "Nombre");
 
-                var Acti = await _activitiesServices.ActivityList();
+                var Acti = await _activitiesServices.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data_acti = (IEnumerable<ActivitiesListViewModel>)Acti.Data;
                 ViewBag.Actv_ID = new SelectList(data_acti, "ID", "Descripcion");
                 return View();
@@ -135,7 +136,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<PartnersListViewModel> data_type = (IEnumerable<PartnersListViewModel>)type.Data;
                 ViewBag.Part_ID = new SelectList(data_type, "ID", "Nombre");
 
-                var Acti = await _activitiesServices.ActivityList();
+                var Acti = await _activitiesServices.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data_acti = (IEnumerable<ActivitiesListViewModel>)Acti.Data;
                 ViewBag.Actv_ID = new SelectList(data_acti, "ID", "Descripcion");
 

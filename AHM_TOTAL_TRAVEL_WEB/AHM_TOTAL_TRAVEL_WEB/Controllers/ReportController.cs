@@ -12,12 +12,23 @@ using ClosedXML;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.IO;
+//using AspNetCore.Reporting.ReportExecutionService;
+using Microsoft.Extensions.Caching.Memory;
+using System.Reflection;
+using System.Text;
+using Microsoft.Exchange.WebServices.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using DocumentFormat.OpenXml.Bibliography;
+using OfficeOpenXml.Utils;
+using AspNetCore.Report.ReportExecutionService;
+//using Microsoft.Reporting.WinForms;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
     public class ReportController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private IMemoryCache _cache;
         private readonly ReportService _reportServices;
         private readonly TransportService _transportService;
         private readonly RestaurantService _restaurantService;
@@ -29,7 +40,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
 
-        public ReportController(ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService, SaleServices saleServices)
+        public ReportController(IMemoryCache memoryCache,ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService, SaleServices saleServices)
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
@@ -39,6 +50,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _hotelsService = hotelsService;
             _reservationService = reservationService;
             _saleService = saleServices;
+            _cache = memoryCache;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
     public IActionResult Index()
@@ -48,7 +60,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View();
         }
 
-
+        
         public IActionResult TransportReport()
         {
 
@@ -101,7 +113,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
                 var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
 
                 switch (filtertype)
                 {
@@ -117,10 +132,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     default:
                         break;
                 }
+
+
                 //crea y asigna direccion url de ubicacion de archivo .rdlc
                 var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransporteReport.rdlc";
-                // Dictionary<string, string> parameters = new Dictionary<string, string>();
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                parameters.Add("Nombre", "Hola");
+                string mimtype = "";
                 LocalReport localReport = new LocalReport(path);
+
 
                 //añade valores recibidos de el endpoint de la API al dataset indicado
                 localReport.AddDataSource("Transportes", data);
@@ -128,7 +148,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 if (ReportTiype == 1)
                 {
-                    var resultpdf = localReport.Execute(RenderType.Pdf);
+
+                    var resultpdf = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
                     return File(resultpdf.MainStream, "application/pdf");
                 }
                 else if (ReportTiype == 2)
@@ -152,25 +173,52 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         {
                             wb.SaveAs(stream);
                             return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "transporReport.xls");
-
                         }
                     }
                 }
 
-                var result = localReport.Execute(RenderType.Pdf);
+                var result = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
 
-
-                return File(result.MainStream, "application/pdf");
+                return File(result.MainStream, "application/pdf", "TransporteReport.pdf");
             }
             catch (Exception e)
             {
 
                 return BadRequest(e.Message);
             }
-            
+
         }
+        /*
+        [HttpGet]
+        public async Task<IActionResult> TransportReportPDF()
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                string mimtype = "";
+                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
+                var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransporteReport.rdlc";
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding.GetEncoding("windows-1252");
+                LocalReport localReport = new LocalReport(path);
+                localReport.AddDataSource("Transportes", data);
+                var result = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
+                return File(result.MainStream, "application/pdf", "TransporteReport.pdf");
+                
+            }
+            catch (Exception e)
+            {
+                
+                return BadRequest(e.Message);
+            }
 
-
+        
+        }
+        */
         #endregion
 
         #region RESTAURANTE

@@ -30,9 +30,26 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
 </head>
+<style>
+    body {
+        background-color: #e1e1e169;
+    }
+    .boton {
+        margin: 10px;
+        background-color: #efefef;
+        color: #9b9b9b;
+        border:none;
+    }
+        .boton:hover {
+            color: rgba(101, 45, 144, 0.9);
+        }
+</style>
 <body>
-    <div class="login-page" style="background-color: #e1e1e169; ">
+    <input type="button" class="boton" value="< Regresar" onClick="history.go(-1);">
+    <div class="login-page" >
+       
         <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
+            
             <div class="card shadow-sm w-75 rounded overflow-hidden bg-none "
                  style="align-items: center;align-content: flex-start">
                 <div class="card-body p-0">
@@ -48,6 +65,7 @@
                             <div class="d-flex align-items-center px-5 px-lg-5 h-100">
 
                                 <form class="login-form py-2 w-100" asp-controller="Access" asp-action="LogIn" style="font-size: x-large;">
+                                    
                                     <div style="margin-bottom: 2vh;">
                                         <h1 style="font-size: revert;">TotalTravel</h1>
                                         <br />

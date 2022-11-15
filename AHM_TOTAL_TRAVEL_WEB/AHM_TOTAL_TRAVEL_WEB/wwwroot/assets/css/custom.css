@@ -1,5 +1,10 @@
 /* your styles go here */
 /* Dropdown menus */
+.boton {
+    margin:10px;
+    background-color: #efefef;
+    color: #9b9b9b;
+}
 .dropdown-menu2 {
 
     border-radius: 4px;
