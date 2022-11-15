@@ -9,6 +9,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int ID { get; set; }
         public int ID_Destino { get; set; }
+        public int? Partner_ID { get; set; }
         public int Ciudad_Salida_ID { get; set; }
         public string Ciudad_Salida { get; set; }
         public int Ciudad_Destino_ID { get; set; }
@@ -30,6 +31,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public int HoTr_ID { get; set; }
         public int? DsTr_ID { get; set; }
+        public int? Partner_ID { get; set; }
         public string? HoTr_Fecha { get; set; }
         public string HoTr_HoraSalida { get; set; }
         public string HoTr_HoraLlegada { get; set; }
