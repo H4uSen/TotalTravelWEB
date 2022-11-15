@@ -18,17 +18,11 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","Menus")">
                     <i class="plus icon"></i> Nuevo
                 </a>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
             </div>
         </div>
         <style>
@@ -37,62 +31,62 @@
                 color: white;
             }
         </style>
-        <table class="ui compact selectable celled table" id="grdMenus">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Restaurante)
-                    </th>
-                    <th>
-                        Tipo menú
-                    </th>
-                    <th>
-                        Menú
-                    </th>
-                    <th>
-                        Descripción
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Precio)
-                    </th>
-                    <th width="200px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <table id="grdMenus" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Restaurante)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoMenu)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Menu)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                           L. @Html.DisplayFor(modelItem => item.Precio)
-                        </td>
-                        <td>
-                            <a href="@Url.Action("Update","Menus",new {  id=item.ID})" class="ui large icon btn-edit button">
-                                <i class="pencil alternate icon  icon-crud"></i>
-                            </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteMenus('@item.ID')">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a href="@Url.Action("Details","Menus",new {  id=item.ID})" class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Restaurante)
+                        </th>
+                        <th>
+                            Tipo menú
+                        </th>
+                        <th>
+                            Menú
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Precio)
+                        </th>
+                        <th width="200px"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-        <br>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Restaurante)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoMenu)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Menu)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                L. @Html.DisplayFor(modelItem => item.Precio)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Update","Menus",new {  id=item.ID})" class="ui large icon btn-edit button">
+                                    <i class="pencil alternate icon  icon-crud"></i>
+                                </a>
+                                <button class="ui large icon btn-delete button" onclick="DeleteMenus('@item.ID')">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a href="@Url.Action("Details","Menus",new {  id=item.ID})" class="ui large icon button">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
 
     </div>
 </div>
