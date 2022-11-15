@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; max-width:40%; margin:auto;">
+                    <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit; margin:auto;">
                         <div class="ui icon header" id="RestaurantCarousel">
                             <i class="images icon"></i>
                             Tus imágenes aparecerán aquí.
@@ -92,6 +92,13 @@
     <script src="~/js/ModuleRestaurantsJs/Carrusel.js"></script>
     <script>
         const folderName = '@ViewData["RestaurantFolder"]';
+
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
     </script>
 }
 

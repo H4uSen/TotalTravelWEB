@@ -106,23 +106,71 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
             var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
 
-            //var restaurante = element.ID;
             ViewData["RestauranteID"] = element.ID;
-
-            //IEnumerable<ReservationRestaurantsListViewModel> model = null;
-            //var list1 = await _reservationService.RestaurantsReservationList(token);
-            //IEnumerable<ReservationRestaurantsListViewModel> data1 = (IEnumerable<ReservationRestaurantsListViewModel>)list1.Data;
-            //var element1 = data1.Where(x => x.ID_Restaurante == element.ID).ToList()[0];
-
-            //ViewData["nose"] = element1.Cliente;
 
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Update(UserUpdateViewModel data)
+        [HttpGet]
+        public async Task<IActionResult> Update()
         {
-            return await Task.Run(() => View());
+            try
+            {
+                var item = new RestaurantListViewModel();
+                var address = new AddressListViewModel();
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+                var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
+
+                var list = await _restaurantService.RestaurantsList(token);
+                IEnumerable<RestaurantListViewModel> data1 = (IEnumerable<RestaurantListViewModel>)list.Data;
+                var element1 = data1.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
+
+                var addressList = await _generalService.AddressesList();
+                IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
+                IEnumerable<AddressListViewModel> addressData = (IEnumerable<AddressListViewModel>)addressList.Data;
+                var element = data.Where(x => x.ID == element1.ID).ToList()[0];
+                item.ID = element.ID;
+                item.Restaurante = element.Restaurante;
+                item.ID_Partner = element.ID_Partner;
+                item.Partner = element.Partner;
+                item.ID_Direccion = element.ID_Direccion;
+                item.CiudadID = element.CiudadID;
+                item.Ciudad = element.Ciudad;
+                item.ID_Colonia = element.ID_Colonia;
+                item.Colonia = element.Colonia;
+                item.Avenida = element.Avenida;
+                item.Calle = element.Calle;
+
+                var elementAddress = addressData.Where(x => x.ID == item.ID_Direccion).ToList()[0];
+
+                ViewData["RestaurantFolder"] = $"Restaurants/Restaurant-{item.ID}/Place";
+                ViewData["RestaurantID"] = element.ID;
+                ViewData["PaisID"] = elementAddress.ID_Pais;
+                ViewData["CiudadID"] = element.CiudadID;
+                ViewData["ColoID"] = element.ID_Colonia;
+                ViewData["PartID"] = element.ID_Partner;
+
+                var city = await _generalService.CitiesList();
+                IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+                ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+
+                var country = await _generalService.CountriesList();
+                IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+                ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+
+                var partners = await _generalService.PartnersList();
+                IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
+                ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+
+                return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]

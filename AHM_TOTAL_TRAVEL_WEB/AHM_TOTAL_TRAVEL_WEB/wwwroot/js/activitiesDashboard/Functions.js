@@ -17,10 +17,10 @@ function contructChart() {//fecha_Entrada
                     hour_format: 12,
                     date_format: "default"
                 });
-                const actual_month = parseInt(date.datetime_data.month);
+                const actual_month = parseInt(date.datetime_data.month) - 1;
                 const actual_count = data[actual_month];
 
-                data[actual_month - 1] = actual_count + 1;
+                data[actual_month] = actual_count + 1;
             }
         });
     }

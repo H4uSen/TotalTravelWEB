@@ -1,0 +1,114 @@
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.RestaurantListViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon food"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar restaurante
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Restaurant")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <form>
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="field">
+                            <div class=" two fields">
+                                <div class="required field">
+                                    <label class="ui label">Restaurante</label>
+                                    <input id="Rest_Nombre" value="@Model.Restaurante" placeholder="Restaurante" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">País</label>
+                                    <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                        <option value="">Seleccione un país</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Ciudad</label>
+                                    <select id="City_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Colonia</label>
+                                    <select id="Col_ID" class="ui dropdown search"><option value="">Seleccione una colonia</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Calle</label>
+                                    <input id="Calle" value="@Model.Calle" placeholder="Calle" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Avenida</label>
+                                    <input id="Avenida" value="@Model.Avenida" placeholder="Avenida" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui grid three column stackable mt-4">
+                            <div class="column">
+                                <label class="ui label">Imágenes en fila.</label>
+                                <div class="ui segment">
+                                    <div class="ui middle aligned divided list" id="image-upload-list">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Sube tus imágenes al sistema.
+                                    </div>
+                                    <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                           id="File" />
+                                    <label for="File" class="ui btn-edit button text-white">
+                                        Añade una imagen
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="labelvalidator" id="labelvalidatorError"></span>
+                        <input type="button" value="Guardar" onclick="updateRestaurant()" class="btn btn-edit ui positive button" />
+                        <a type="button" href="@Url.Action("Index", "ModuleRestaurants")" class="ui button mb-3 ms-3">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const folderName = '@ViewData["RestaurantFolder"]';
+        const restaurantID = '@ViewData["RestaurantID"]';
+        const countID = '@ViewData["PaisID"]';
+        const ciudID = '@ViewData["CiudadID"]';
+        const coloID = '@ViewData["ColoID"]';
+        const partID = '@ViewData["PartID"]';
+    </script>
+    <script src="~/js/ModuleRestaurantsJs/UpdateRestaurants.js"></script>
+}
