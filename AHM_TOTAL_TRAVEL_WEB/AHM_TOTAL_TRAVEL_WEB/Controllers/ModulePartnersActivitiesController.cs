@@ -96,7 +96,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
                 ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
 
-                var Acti = await _activitiesService.ActivityList();
+                var Acti = await _activitiesService.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data_acti = (IEnumerable<ActivitiesListViewModel>)Acti.Data;
                 ViewBag.Actv_ID = new SelectList(data_acti, "ID", "Descripcion");
 
@@ -151,7 +151,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<SuburbsListViewModel> data_Suburbs = (IEnumerable<SuburbsListViewModel>)suburbs.Data;
                 ViewBag.Subu_ID = new SelectList(data_Suburbs, "ID", "Colonia");
 
-                var Acti = await _activitiesService.ActivityList();
+                var Acti = await _activitiesService.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data_acti = (IEnumerable<ActivitiesListViewModel>)Acti.Data;
                 ViewBag.Actv_ID = new SelectList(data_acti, "ID", "Descripcion");
 

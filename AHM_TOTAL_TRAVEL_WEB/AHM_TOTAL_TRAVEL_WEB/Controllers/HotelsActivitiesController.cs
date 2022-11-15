@@ -34,7 +34,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
                 ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
 
-                var ac = await _activitiesServices.ActivityList();
+                var ac = await _activitiesServices.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
                 ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 
@@ -78,7 +78,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
             ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
 
-            var ac = await _activitiesServices.ActivityList();
+            var ac = await _activitiesServices.ActivityList(token);
             IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 

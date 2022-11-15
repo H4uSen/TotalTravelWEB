@@ -26,11 +26,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
+                string token = HttpContext.User.FindFirst("Token").Value;
                 var type = await _activitiesServices.TypesActivitiesList();
                 IEnumerable<TypesActivitiesListViewModel> data_type = (IEnumerable<TypesActivitiesListViewModel>)type.Data;
                 ViewBag.TiAc_ID = new SelectList(data_type, "ID", "Descripcion");
                 var model = new List<ActivitiesListViewModel>();
-                var list = await _activitiesServices.ActivityList();
+                var list = await _activitiesServices.ActivityList(token);
 
             return View(list.Data);
             }
@@ -96,9 +97,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
+                string token = HttpContext.User.FindFirst("Token").Value;
                 var item = new ActivitiesViewModel();
                 IEnumerable<ActivitiesListViewModel> model = null;
-                var list = await _activitiesServices.ActivityList();
+                var list = await _activitiesServices.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data = (IEnumerable<ActivitiesListViewModel>)list.Data;
                 var element = data.Where(x => x.ID == id).ToList()[0];
                 item.actv_Descripcion = element.Descripcion;

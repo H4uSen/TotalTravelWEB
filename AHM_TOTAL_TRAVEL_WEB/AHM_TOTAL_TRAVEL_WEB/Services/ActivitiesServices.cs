@@ -23,7 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #region Actividades
 
-        public async Task<ServiceResult> ActivityList()
+        public async Task<ServiceResult> ActivityList(string token)
         {
             var result = new ServiceResult();
             try
@@ -31,7 +31,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 var response = await _api.Get<IEnumerable<ActivitiesListViewModel>, IEnumerable<ActivitiesListViewModel>>(req => {
                     req.Path = $"/API/Activities/List";
                     req.Content = null;
-                }
+                },
+                token
                 );
                 if (!response.Success)
                 {

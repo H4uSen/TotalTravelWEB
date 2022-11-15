@@ -33,7 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<DefaultPackagesListViewModel> data_dp = (IEnumerable<DefaultPackagesListViewModel>)Depa.Data;
             ViewBag.paqu_ID = new SelectList(data_dp, "Id", "Nombre");
 
-            var ac = await _activitiesServices.ActivityList();
+            var ac = await _activitiesServices.ActivityList(token);
             IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
             return View(list.Data);
@@ -49,7 +49,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<DefaultPackagesListViewModel> data_dp = (IEnumerable<DefaultPackagesListViewModel>)Depa.Data;
             ViewBag.paqu_ID = new SelectList(data_dp, "Id", "Nombre");
 
-            var ac = await _activitiesServices.ActivityList();
+            var ac = await _activitiesServices.ActivityList(token);
             IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 
