@@ -24,14 +24,8 @@
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
-            </div>
         </div>
-
+        <br />
         <table class="ui compact selectable celled table" id="tabla">
             <thead>
                 <tr>
@@ -47,7 +41,7 @@
                     <th>
                         Socio
                     </th>
-                    <th width="300px"></th>
+                    <th width="300px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +96,7 @@
     }
 
 @section Scripts{
+<script src="~/js/HotelJs/Index.js"></script>
     <script>
 
         const update_success = FindGetValue("update_success");
