@@ -27,14 +27,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
 
 
-                var id = HttpContext.Session.GetString("PartnerID");
+                var id = HttpContext.Session.GetInt32("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var model = new List<RoomsListViewModel>();
                 var list = await _hotelsServices.RoomsList(token);
                 IEnumerable<RoomsListViewModel> lista = (IEnumerable<RoomsListViewModel>)list.Data;
 
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
                 }

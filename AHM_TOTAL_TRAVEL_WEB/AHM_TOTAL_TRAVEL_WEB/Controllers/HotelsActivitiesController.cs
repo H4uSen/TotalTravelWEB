@@ -27,7 +27,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
 
 
-                var id = HttpContext.Session.GetString("PartnerID");
+                var id = HttpContext.Session.GetInt32("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var type = await _hotelService.HotelsList(token);
@@ -42,7 +42,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var list = await _hotelService.HotelsActivitiesList(token);
                 IEnumerable<HotelsActivitiesListViewModel> lista = (IEnumerable<HotelsActivitiesListViewModel>)list.Data;
 
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
                 }
