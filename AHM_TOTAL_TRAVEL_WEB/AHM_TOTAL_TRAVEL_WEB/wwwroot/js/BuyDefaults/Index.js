@@ -1,5 +1,5 @@
 ﻿var paquetesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
-
+$('.ui.dropdown').dropdown();
 fillPaquetes(0);
 
 $("#Destinos").change(function (_this) {

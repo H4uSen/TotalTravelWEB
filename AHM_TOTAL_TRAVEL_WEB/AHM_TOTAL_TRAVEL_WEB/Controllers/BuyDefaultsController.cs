@@ -59,6 +59,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
+
+            ViewData["noches"] = int.Parse(detalle.Duracion_Paquete) - 1;
+
             return View(detalle);
         }
         public async Task<IActionResult> Comprar(string id)
