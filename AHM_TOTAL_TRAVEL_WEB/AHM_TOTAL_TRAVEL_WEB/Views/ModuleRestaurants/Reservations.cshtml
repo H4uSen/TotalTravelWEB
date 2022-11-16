@@ -7,58 +7,78 @@
 
 @section CSS{
     <style>
-        .titulo {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            background: rgb(238,245,249);
-            background: linear-gradient(0deg, rgba(238,245,249,1) 4%, rgba(203,191,252,1) 24%, rgba(139,105,184,1) 60%, rgba(109,73,157,1) 100%);
-            color: #fff;
-            height: 40%;
+        #hotel_nav > .item {
+            padding: 0;
         }
 
-        #aidi {
-            margin-top: 2% !important;
-            margin-left: 2% !important;
-            color: #605d5d;
+        .blue_text {
+            color: #4183c4;
+            text-decoration: none;
         }
 
-        .ui.search.dropdown {
-            min-width: 40% !important;
+        .header {
+            text-decoration: none;
         }
 
-        .ui.cards > .card {
-            margin: 1.875em 1.5em !important;
+        .label {
+            text-decoration: none;
         }
 
-        .container {
-            max-width: 95%;
-            margin: -5.150em 1.5em;
-            top: 0;
-            background-color: #f4fafd;
-        }
-
-        .ui.segment {
-            margin: 5.125em 1.5em;
-            max-width: 95%;
-        }
-
-        .content-inner {
-            overflow: hidden;
+        .ui.dropdown.selection {
+            border-radius: 0;
         }
     </style>
 }
 
-<div class="titulo">
-</div>
-<div class="ui clearing segment">
-    <div class="ui grid">
-        <h1 id="aidi">Reservaciones</h1>
-    </div>
-    <br />
-</div>
-<div class="container card">
-    <div class="ui cards centered" id="reservacionesContainer">
+<br />
+<br />
+<div class="container">
+    <div class="ui stackable grid">
+
+        <!-- reservation historial section -->
+        <div class="five wide column">
+            <div class="ui segment" id="asa">
+
+                <!-- top reservation filter menu -->
+                <div class="ui cards overflow-auto" style="max-height: 55em;" id="tarjetaT">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eleven wide column">
+            <div class="ui segment">
+                <div class="ui top attached tabular menu" id="Reservation_Details_Info">
+                    <a class="item active" onclick="ShowContent('frmReservation_Info',0)">
+                        Detalles
+                    </a>
+                </div>
+                <div class="ui bottom attached segment overflow-auto" id="Reservation_Details_Content"
+                     style="padding: 1em !important; max-height: 55em;">
+
+                    <div class="Reservation_Details_Content_Item" id="Default_Item">
+                        <h2 class="ui icon header" style=" width: 100%; height: 100%;">
+                            <i class="folder open icon"></i>
+                            <div class="content">
+                                Selecciona una reservación
+                            </div>
+                        </h2>
+                    </div>
+
+                    <div class="Reservation_Details_Content_Item" id="frmReservation_Info">
+                        <div class="ui form attached fluid segment">
+                            <div class="content">
+                                <div id="InfoDet" hidden>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -67,7 +87,6 @@
     <script>
         const RestauranteID = "@ViewData["RestauranteID"]";
     </script>
-
     <script src="~/js/ModuleRestaurantsJs/Reservaciones.js"></script>
 }
 
@@ -75,7 +94,7 @@
     <script>
         /*        $("#Restaurant_Schema").addClass("show");*/
         //$("#RestaurantsTile").addClass("activeTile");
-            //$("#MenusTile").addClass("activeTile");
-            $("#TypeMenusTile").addClass("activeTile");
+        //$("#MenusTile").addClass("activeTile");
+        $("#TypeMenusTile").addClass("activeTile");
     </script>
 }
