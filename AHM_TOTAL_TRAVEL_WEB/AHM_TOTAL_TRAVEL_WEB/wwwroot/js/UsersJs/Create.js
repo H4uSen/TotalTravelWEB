@@ -193,19 +193,19 @@ function CreateUser() {
     var Address_success = false;
 
     const userValidateArray = [
-        { validateMessage: "Required field: 'User DNI Number'", Jqueryinput: $("#frmCreateUser #txtDNI") },
-        { validateMessage: "Required field: 'User first Name' ", Jqueryinput: $("#frmCreateUser #txtNombre") },
-        { validateMessage: "Required field: 'User Last Name' ", Jqueryinput: $("#frmCreateUser #txtApellido") },
-        { validateMessage: "Required field: 'User Phone Number' ", Jqueryinput: $("#frmCreateUser #txtTelefono") },
-        { validateMessage: "Required field: 'User Birth Date' ", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
-        { validateMessage: "Required field: 'User Password' ", Jqueryinput: $("#frmCreateUser #txtPassword") },
-        { validateMessage: "Required field: 'User Email' ", Jqueryinput: $("#frmCreateUser #txtEmail") },
-        { validateMessage: "Required field: 'User Gender' ", Jqueryinput: $('#frmCreateUser input[name="rbGenero"]'), check:true },
-        { validateMessage: "Required field: 'User address Country' ", Jqueryinput: $('#frmCreateUser #cbbPaises')},
-        { validateMessage: "Required field: 'User address City' ", Jqueryinput: $('#frmCreateUser #cbbCiudades') },
-        { validateMessage: "Required field: 'User address Suburb' ", Jqueryinput: $('#frmCreateUser #cbbColonias') },
-        { validateMessage: "Required field: 'User address Street name' ", Jqueryinput: $('#frmCreateUser #txtCalle') },
-        { validateMessage: "Required field: 'User address Avenue name' ", Jqueryinput: $('#frmCreateUser #txtAvenida') },
+        { validateMessage: "Ingrese el DNI", Jqueryinput: $("#frmCreateUser #txtDNI") },
+        { validateMessage: "Ingrese el nombre", Jqueryinput: $("#frmCreateUser #txtNombre") },
+        { validateMessage: "Ingrese el apellido", Jqueryinput: $("#frmCreateUser #txtApellido") },
+        { validateMessage: "Ingrese el teléfono", Jqueryinput: $("#frmCreateUser #txtTelefono") },
+        { validateMessage: "Ingrese la fecha de nacimiento", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
+        { validateMessage: "Ingrese la contraseña", Jqueryinput: $("#frmCreateUser #txtPassword") },
+        { validateMessage: "Ingrese el correo electrónico", Jqueryinput: $("#frmCreateUser #txtEmail") },
+        { validateMessage: "Seleccione el sexo", Jqueryinput: $('#frmCreateUser input[name="rbGenero"]'), check:true },
+        { validateMessage: "Seleccione un país", Jqueryinput: $('#frmCreateUser #cbbPaises')},
+        { validateMessage: "Seleccione una ciudad", Jqueryinput: $('#frmCreateUser #cbbCiudades') },
+        { validateMessage: "Seleccione una colonia", Jqueryinput: $('#frmCreateUser #cbbColonias') },
+        { validateMessage: "Ingrese una calle", Jqueryinput: $('#frmCreateUser #txtCalle') },
+        { validateMessage: "Ingrese una avenida", Jqueryinput: $('#frmCreateUser #txtAvenida') },
     ];
 
     const userValidate = ValidateForm(userValidateArray);
@@ -324,10 +324,10 @@ function CreatePartner() {
     };
 
     const userValidateArray = [
-        { validateMessage: "Required field: 'Partner Name' ", Jqueryinput: $("#frmCreatePartner #txtPartnerName") },
-        { validateMessage: "Required field: 'Partner Email' ", Jqueryinput: $("#frmCreatePartner #txtPartnerEmail") },
-        { validateMessage: "Required field: 'Partner Phone' ", Jqueryinput: $("#frmCreatePartner #txtPartnerPhone") },
-        { validateMessage: "Required field: 'Partner Type' ", Jqueryinput: $("#frmCreatePartner #cbbTipoPartner") },
+        { validateMessage: "Ingrese el nombre", Jqueryinput: $("#frmCreatePartner #txtPartnerName") },
+        { validateMessage: "Ingrese el correo electrónico ", Jqueryinput: $("#frmCreatePartner #txtPartnerEmail") },
+        { validateMessage: "Ingrese el teléfono", Jqueryinput: $("#frmCreatePartner #txtPartnerPhone") },
+        { validateMessage: "Seleccione el tipo", Jqueryinput: $("#frmCreatePartner #cbbTipoPartner") },
     ];
 
     const Validate = ValidateForm(userValidateArray);

@@ -51,12 +51,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string DNI { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string Nombrecompleto { get; set; }
         public string Sexo { get; set; }
         public DateTime? Fecha_Nacimiento { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
         public int DireccionID { get; set; }
-        public int? ColoniaID { get; set; }
+        public int PaisID { get; set; }
+        public string Pais { get; set; }
+        public int CiudadID { get; set; }
+        public string Ciudad { get; set; }
+        public int ColoniaID { get; set; }
         public string Colonia { get; set; }
         public string Calle { get; set; }
         public string Avenida { get; set; }

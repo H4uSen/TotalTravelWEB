@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="user icon"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualiza un usuario
+                    </div>
+                </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Users")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- formulario-->
+            <div class="ui form attached fluid segment">
+                <div class="content">
+
+                    <!-- user info section -->
+                    <div class="field">
+                        <label class="ui label">Información del usuario</label>
+                        <div class="three fields">
+                            <div class="required field">
+                                <label class="ui label">DNI</label>
+                                <input type="text" id="txtDNI" placeholder="DNI">
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Nombres</label>
+                                <input type="text" id="txtNombre" placeholder="Nombres">
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Apellidos</label>
+                                <input type="text" id="txtApellido" placeholder="Apellidos">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="three fields">
+                        <div class="required field">
+                            <label class="ui label">Teléfono</label>
+                            <input type="text" id="txtTelefono" placeholder="Teléfono">
+                        </div>
+                        <div class="required field">
+                            <label class="ui label">Fecha de nacimiento</label>
+                            <div class="ui calendar" id="standard_calendar">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" placeholder="Fecha de nacimiento"
+                                           id="txtFechaNacimiento">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="required field checkButton_container">
+                            <label class="ui label">Sexo</label>
+                            <div class="inline fields">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
+                                        <label>Masculino</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
+                                        <label>Femenino</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- user acount section -->
+                    <div class="field">
+                            <div class="required field">
+                                <label class="ui label">Correo electrónico</label>
+                                <input type="email" id="txtEmail" placeholder="Correo electrónico">
+                            </div>
+                    </div>
+
+                    <!-- user adress section -->
+                    <div class="field">
+                        <label>Dirección del usuario</label>
+                        <div class="three fields">
+                            <div class="required field">
+                                <label class="ui label">Pais</label>
+                                <select class="ui search dropdown" id="cbbPaises" asp-items="ViewBag.Counties">
+                                    <option value="">Selecciona el país</option>
+                                </select>
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Ciudad</label>
+                                <select class="ui search dropdown" id="cbbCiudades">
+                                    <option value="">Selecciona la ciudad</option>
+                                </select>
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Colonia</label>
+                                <select class="ui search dropdown" id="cbbColonias">
+                                    <option value="">Selecciona la colonia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Calle</label>
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Calle
+                                        </div>
+                                        <input type="text" id="txtCalle">
+                                    </div>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Avenida</label>
+                                    <div class="ui labeled input">
+                                        <div class="ui label">
+                                            Avenida
+                                        </div>
+                                        <input type="text" id="txtAvenida">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- role adress section -->
+                    <div class="ui segment">
+                        <div class="field">
+                            <label>Agrega un rol al usuario</label>
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
+                                        <label>Administrador</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
+                                        <label>Socio</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- find partner section -->
+                    <div id="frmSelectPartner">
+
+                        <div class="field">
+                            <label>Selecciona un socio</label>
+                            <div class="fields">
+                                <div class="six wide required field">
+                                    <label class="ui label">Tipo de socio</label>
+                                    <select class="ui dropdown" id="cbbTipoPartner">
+                                        <option value="">Selecciona un tipo de socio</option>
+                                    </select>
+                                </div>
+                                <div class="six wide required field">
+                                    <label class="ui label">Socio</label>
+                                    <select class="ui dropdown" id="cbbPartners">
+                                        <option value="">Selecciona un socio)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui btn-edit text-white button" tabindex="0" id="tbnUpdateUser">Guardar</div>
+                    <div class="ui button" tabindex="0">Cancelar</div>
+                </div>
+            </div>
+            <div class="ui negative attached message" id="msgErrorForm">
+                <div class="header">
+                    Ha ocurrido un error, intentelo de nuevo.
+                </div>
+                <p></p>
+            </div>
+            <!-- fin formulario-->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/UsersJs/Create.js"></script>
+    <script src="~/js/UsersJs/Update.js"></script>
+}
+@section HighlightTile{
+    <script>
+        $("#AccessModule").addClass("active");
+        $("#Access_Schema").addClass("show");
+        $("#AccessModule").addClass("expandedList")
+
+    </script>
+}

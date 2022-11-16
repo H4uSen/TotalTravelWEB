@@ -29,6 +29,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View(UserList);
         }
 
+        public async Task<IActionResult> Update()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {

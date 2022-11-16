@@ -34,17 +34,17 @@
         <table class="ui compact selectable celled table" id="grdUsuarios">
             <thead>
                 <tr>
-                    <th>User Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Partner</th>
-                    <th></th>
+                    <th>Usuario</th>
+                    <th>Correo electrónico</th>
+                    <th>Rol</th>
+                    <th>Socio</th>
+                    <th width="200px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                  {
-                    var partner = string.IsNullOrEmpty(item.Partner) ? "No Partner Afilied" : item.Partner;
+                    var partner = string.IsNullOrEmpty(item.Partner) ? "Socio no afiliado" : item.Partner;
 
                     <tr>
                         <td>@string.Concat(item.Nombre," ",item.Apellido)</td>
@@ -52,9 +52,9 @@
                         <td>@item.Rol</td>
                         <td>@partner</td>
                         <td>
-                            <a class="ui large icon btn-edit button" href="#">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </a>
+                             <a class="ui large icon btn-edit button" href="/Users/Update?id=@item.ID">
+                                 <i class="pencil alternate icon icon-crud"></i>
+                                </a>
                             <a class="ui large icon btn-delete button" href="javascript: DeleteUser('@item.ID')">
                                 <i class="trash alternate icon icon-crud"></i>
                             </a>
