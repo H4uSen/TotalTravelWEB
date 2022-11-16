@@ -112,6 +112,12 @@ var ReservationDetailsViewModel = {
     "reDe_UsuarioCreacion": Client_User_ID,
     "reDe_UsuarioModifica": Client_User_ID
 }
+var tipostransporte = {
+    "tiTr_Descripcion": "string",
+    "tiTr_UsuarioCreacion": 0,
+    "tiTr_UsuarioModifica": 0,
+    "partner_ID": 0
+}
 
 var ReservationCreateViewModel = {
     reservacion : {
@@ -173,12 +179,5 @@ var ReservationCreateViewModel = {
         "reTr_CantidadAsientos": 0,
         "reTr_Cancelado": true,
         "reTr_FechaCancelado": "2022-11-15T02:22:03.298Z"
-    },
-
-    tipostransporte: {
-        "tiTr_Descripcion": "string",
-        "tiTr_UsuarioCreacion": 0,
-        "tiTr_UsuarioModifica": 0,
-        "partner_ID": 0
     }
 }
