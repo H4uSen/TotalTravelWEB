@@ -1,4 +1,9 @@
-﻿$("#errorDiv").hide();
+﻿if (Client_Role == "Administrador") {
+    $("#Part_ID").removeAttr("hidden");
+    $("#Part_ID").show();
+}
+
+$("#errorDiv").hide();
 
 $('.ui.dropdown').dropdown();
 
@@ -42,12 +47,13 @@ function actualizar() {
     const ValidateFormStatus = ValidateForm(validateArrayForm);
     var id = $("#id").val();
     if (ValidateFormStatus) {
-        var data = new FormData();
+        var data = tipostransporte;
         data.append("TiTr_Descripcion", $("#modalUpdate #Transporte_up").val());
         data.append("TiTr_UsuarioModifica", Client_User_ID);
-
+        data.tiTr_Descripcion = $("#modalUpdate #Transporte_up").val();
+        data.tiTr_UsuarioModifica = Client_User_ID;
        
-        var status = uploadFile(`https://totaltravelapi.azurewebsites.net/API/TypesTransport/Update?id=${id}`, data, "PUT");
+        var status = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/TypesTransport/Update?id=" + id, data, "PUT");
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {
