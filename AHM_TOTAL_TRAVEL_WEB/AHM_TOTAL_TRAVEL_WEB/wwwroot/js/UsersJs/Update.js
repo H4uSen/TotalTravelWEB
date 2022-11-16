@@ -329,9 +329,6 @@ function UpdateUser() {
                 userUpdate.append("usua_Url", imagesArrayPure[i]);
             }
 
-            for (var pair of userUpdate.entries()) {
-                console.log(pair[0] + ' - ' + pair[1]);
-            }
 
            const UserUpdateStatus = uploadFile(
                "https://totaltravelapi.azurewebsites.net/API/Users/Update?id=" + idUser, userUpdate, "PUT"
@@ -352,7 +349,6 @@ function UpdateUser() {
 
 
     } else {
-        console.log($("input[name='rbGenero']:checked").val());
     }
 }
 
