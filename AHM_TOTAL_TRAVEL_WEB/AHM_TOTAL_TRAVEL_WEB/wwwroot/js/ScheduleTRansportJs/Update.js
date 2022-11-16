@@ -29,6 +29,7 @@ function GetScheduleID(id) {
 
         if ($("#ID_Horario").val != 0) {
             SetDropDownValue($("#DsTr_IDUpdate"), response.data.iD_Destino);
+            SetDropDownValue($("#Partner_ID"), response.data.partner_ID);
             $("#DsTr_IDUpdate").addClass('disabled');
             $("#modalUpdate").modal('show');
         }

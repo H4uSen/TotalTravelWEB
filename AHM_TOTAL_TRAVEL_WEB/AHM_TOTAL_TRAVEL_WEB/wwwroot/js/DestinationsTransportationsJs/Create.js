@@ -19,6 +19,11 @@ $("#send").click(() => {
     validar();
 })
 
+if (Client_Role == "Administrador") {
+    $("#Part_ID").removeAttr("hidden");
+    $("#Part_ID").show();
+}
+
 function validar() {
 
     validateArrayForm = [

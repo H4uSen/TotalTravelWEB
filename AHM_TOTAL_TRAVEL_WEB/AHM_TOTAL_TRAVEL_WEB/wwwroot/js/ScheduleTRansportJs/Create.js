@@ -34,9 +34,11 @@ function ValidarCampos() {
 function getDestiny() {
     var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DestinationsTransportations/List");
 
+
     if (response.code == 200) {
 
         var DsTr_ID = response.data;
+        
 
         ClearDropDownItem($('#DsTr_ID'));
         $("#DsTr_ID").append(
@@ -51,7 +53,8 @@ function getDestiny() {
 
     if (response2.code == 200) {
 
-        var Part_ID = response2.data;
+        var Part_ID2 = response2.data;
+        var Part_ID = Part_ID2.filter(resva => resva.tipoPartner == "Agencia de Transporte");
 
         ClearDropDownItem($('#Partner_ID'));
         $("#Partner_ID").append(
