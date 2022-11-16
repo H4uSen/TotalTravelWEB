@@ -29,7 +29,7 @@ function Tarjeta() {
     if (ReservacionTra.code == 200) {
 
         var resv = ReservacionTra.data;
-        var Rflitro = resv.filter(resva => resva.partner_ID == parseInt(Client_Partner_ID));
+        var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
         $('#tarjetaT').empty();
         if (Rflitro.length == 0) {
             actexth =
@@ -99,7 +99,13 @@ function ViewReservation(idDetalles, id) {
                 var ResvaFilterItem = Rflitro[0];
                 var TranspoFilterItem = TranspoFilter[0];
                 var imagen = TranspoFilterItem.image_URL.split(',');
-                var fecha = TranspoFilterItem.fecha_Salida.split('T');
+                var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
+                var hora = ResvaFilterItem.hora_Reservacion;
+                var recortado1 = "";
+                var recortado2 = "";
+                recortado1 = hora.slice(0, 2);
+                recortado2 = hora.slice(-2);
+                var union = recortado1 + ":" + recortado2;
 
                 divroom =
                     `<div class="field">
@@ -123,30 +129,14 @@ function ViewReservation(idDetalles, id) {
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Restaurante: </label>
-                                ${TranspoFilterItem.restaurante}
-                        </div>                      
+                            <label>Fecha Reservación: </label>
+                                ${fecha[0]}
+                        </div>
                         <div class="field">
-                            <label>Dirección: </label>
-                                ${TranspoFilterItem.ciudad}
+                            <label>Hora Reservación: </label>
+                                ${union}
                         </div>
                     </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Hora Salida: </label>
-                                ${TranspoFilterItem.hora_Salida}
-                        </div>
-                        <div class="field">
-                            <label>Hora Llegada: </label>
-                                ${TranspoFilterItem.hora_Llegada}
-                        </div>
-                    </div>                   
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Fecha Salida: </label>
-                                    ${fecha[0]}
-                            </div>
-                        </div>
                     </center>`
 
                 $('#InfoDet').append(divroom);

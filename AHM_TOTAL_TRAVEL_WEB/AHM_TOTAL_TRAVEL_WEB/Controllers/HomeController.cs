@@ -143,21 +143,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Imagen"] = partner.Image_Url;
 
             ViewData["TiposMenus"] = tiposmenus.LongCount();
-            ViewData["Reservaciones"] = reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID).LongCount();
-            ViewData["CantidadMenus"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID).LongCount();
+            ViewData["Reservaciones"] = reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID).ToList().Count();
+            ViewData["CantidadMenus"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID).ToList().Count();
 
-            ViewData["CantidadDesayunos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 1).LongCount();
-            ViewData["CantidadAlmuerzos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 2).LongCount();
-            ViewData["CantidadCenas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 3).LongCount();
-            ViewData["CantidadPostres"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 4).LongCount();
-            ViewData["CantidadEntradas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 5).LongCount();
+            ViewData["CantidadDesayunos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 1).ToList().Count();
+            ViewData["CantidadAlmuerzos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 2).ToList().Count();
+            ViewData["CantidadCenas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 3).ToList().Count();
+            ViewData["CantidadPostres"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 4).ToList().Count();
+            ViewData["CantidadEntradas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 5).ToList().Count();
 
             var detail = new List<restaurantsDashboardDetail>();
 
             foreach (var item in reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID))
             {
                 var model = new restaurantsDashboardDetail();
-                var reservacion = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.DescripcionReservacion, token)).Data;
+                var reservacion = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.Resv_ID, token)).Data;
                 if (reservacion.ConfirmacionRestaurante == true)
                 {
                     model.detalle = item;
