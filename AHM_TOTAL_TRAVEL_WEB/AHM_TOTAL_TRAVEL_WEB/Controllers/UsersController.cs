@@ -1,8 +1,10 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,14 +37,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string controller, string action, bool isRedirected)
         {
             IEnumerable<CountriesListViewModel> listCounties = (IEnumerable<CountriesListViewModel>)(await _GeneralServices.CountriesList()).Data;
             IEnumerable<PartnerTypeListViewModel> listPartnersType = (IEnumerable<PartnerTypeListViewModel>)(await _GeneralServices.PartnerTypeList()).Data;
             ViewBag.Counties = new SelectList(listCounties, "ID", "Pais");
             ViewBag.PartnersTypes = new SelectList(listPartnersType, "ID", "Descripcion");
+            ViewBag.Controller = controller;
+            ViewBag.Action = action;
+            ViewBag.isRedirected = isRedirected ? true : false;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(FormCollection form)
+        {
+            foreach (string key in form.Keys)
+            {
+                var itemkey = key;
+                var itemvalue = form[key];
+            }
+            return RedirectToAction("Create", "Reservation", new { id = "Hola" });
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(int User_Id)

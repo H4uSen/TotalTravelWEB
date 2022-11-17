@@ -21,7 +21,9 @@
                     </a>
                 </div>
             </div>
-
+            <form asp-action="Create" asp-controller="Users" method="post" id="updateReservationForm">
+                @Html.Hidden("controller",(string)ViewBag.controller)
+                @Html.Hidden("action",(string)ViewBag.action)
             <!-- formulario-->
             <div class="ui form attached fluid segment">
                 <div class="content">
@@ -231,11 +233,24 @@
                         <br>
 
                     </div>
+                        @{
+                            if (ViewBag.isRedirected)
+                            {
 
-                    <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
-                    <div class="ui button" tabindex="0">Cancelar</div>
+                                <input type="submit" class="ui btn-edit text-white button" value="Guardar" />
+                                //Create a button that redirect to the previous page
+                                <a class="ui button" href="@Url.Action("Create", "Reservation")">Cancelar</a>
+                            }
+                            else
+                            { 
+                                <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
+                                <div class="ui button" tabindex="0">Cancelar</div>
+                            }
+                        }
                 </div>
             </div>
+            </form>
+            
             <div class="ui negative attached message" id="msgErrorForm">
                 <div class="header">
                     Ha ocurrido un error, intentelo de nuevo.

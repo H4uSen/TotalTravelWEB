@@ -44,14 +44,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
-        {   
+        public async Task<IActionResult> Create(string id)
+        {
+            ViewBag.doCreateUser = true;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel reservation)
         {
+            if (reservation.CrearUsuario) 
+            {
+                return RedirectToAction("Create", "Users", new { controller = "{controller}", action = "{action}", isRedirected = true });
+            }
+            
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirst("User_Id").Value;
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);

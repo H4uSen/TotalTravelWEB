@@ -32,6 +32,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public bool? Resv_ConfirmacionRestaurante { get; set; } = false;
         [DefaultValue(false)]
         public bool? Resv_ConfirmacionTrans { get; set; } = false;
+        public bool CrearUsuario { get; set; } = false;
         public decimal? Resv_Precio { get; set; }
         public int? Resv_UsuarioCreacion { get; set; } = 0;
         public int? Resv_UsuarioModifica { get; set; } = 0;

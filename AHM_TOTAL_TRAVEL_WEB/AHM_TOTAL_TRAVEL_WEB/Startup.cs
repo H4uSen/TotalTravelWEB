@@ -14,6 +14,7 @@ using System.Net;
 using AHM_TOTAL_TRAVEL_WEB.Extensions;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
+using System.IO;
 
 namespace AHM_TOTAL_TRAVEL_WEB
 {
@@ -111,6 +112,8 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 switch (context.Response.StatusCode)
                 {
                     case 200:
+                    case 201:
+                    case 202:
                     case 216:
                     case 302:
                         break;
