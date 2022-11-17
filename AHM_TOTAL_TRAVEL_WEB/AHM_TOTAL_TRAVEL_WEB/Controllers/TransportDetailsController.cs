@@ -27,7 +27,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             try
             {
                 var token = HttpContext.User.FindFirst("Token").Value;
-                var id = HttpContext.Session.GetString("PartnerID");              
+                var id = HttpContext.Session.GetInt32("PartnerID");              
                 var rol = HttpContext.Session.GetString("Role");
                 var DsTr = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
@@ -35,13 +35,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var list = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> lista = (IEnumerable<TransportDetailsListViewModel>)list.Data;
                
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
                 }
                 else
                 {
-                    IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == Convert.ToInt32(id)).ToList();
+                    IEnumerable<TransportDetailsListViewModel> DesTrFilter = DsTr1.Where(c => c.Partner_ID == id).ToList();
                     if (rol == "Cliente" || rol == "Administrador")
                     {
                         return View(lista);
@@ -65,14 +65,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
-                var id = HttpContext.Session.GetString("PartnerID");
+                var id = HttpContext.Session.GetInt32("PartnerID");
                 var typeTransportation = await _transportService.TransportList();
                 IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
                 List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
                 IEnumerable<TransportListViewModel> data_TypeTransportation2;
-                if (!String.IsNullOrEmpty(id))
+                if (id!=0)
                 {
-                    data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                    data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == id).ToList();
                 }
                 else
                 {
@@ -80,7 +80,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 }
                 foreach (var item in data_TypeTransportation2)
                 {
-                    data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.NombrePartner + " - " + item.TipoTransporte });
+                    data_Transp.Add(new TransportListViewBag() { ID = item.ID, Transportes = item.Nombre + " - " + item.NombrePartner });
                 }
 
                 ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes");
@@ -120,7 +120,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             try
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
-                var idd = HttpContext.Session.GetString("PartnerID");
+                var idd = HttpContext.Session.GetInt32("PartnerID");
                 var item = new TransportDetailsViewModel();
                 IEnumerable<TransportDetailsListViewModel> model = null;
                 var list = await _transportService.TransportDetailsList(token);
@@ -139,12 +139,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var typeTransportation = await _transportService.TransportList();
                 IEnumerable<TransportListViewModel> data_TypeTransportation = (IEnumerable<TransportListViewModel>)typeTransportation.Data;
                 List<TransportListViewBag> data_Transp = new List<TransportListViewBag>();
-                IEnumerable<TransportListViewModel> data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                IEnumerable<TransportListViewModel> data_TypeTransportation2;
+                if (idd!=0)
+                {
+                    data_TypeTransportation2 = data_TypeTransportation.Where(c => c.PartnerID == idd).ToList();
+                }
+                else
+                {
+                    data_TypeTransportation2 = data_TypeTransportation.ToList();
+                }
                 foreach (var item2 in data_TypeTransportation2)
                 {
-                    data_Transp.Add(new TransportListViewBag() { ID = item2.ID, Transportes = item2.NombrePartner + " - " + item2.TipoTransporte });
+                    data_Transp.Add(new TransportListViewBag() { ID = item2.ID, Transportes = item2.Nombre + " - " + item2.NombrePartner });
                 }
+
                 ViewBag.Tprt_ID = new SelectList(data_Transp, "ID", "Transportes", element.ID_Transporte);
+                
 
                 return View(item);
             }

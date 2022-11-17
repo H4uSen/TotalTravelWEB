@@ -86,10 +86,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     transporte.TiTr_UsuarioCreacion = int.Parse(id);
                     var rol = HttpContext.Session.GetString("Role");
 
-                    var idPart = HttpContext.Session.GetString("PartnerID");
+                    var idPart = HttpContext.Session.GetInt32("PartnerID");
                     if (rol != "Cliente" || rol != "Administrador")
                     {
-                        transporte.Partner_ID = int.Parse(idPart);
+                        transporte.Partner_ID = int.Parse(idPart.ToString());
                     }
                     var list = await _transportService.TypesTransportCreate(transporte, token);
                     var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;

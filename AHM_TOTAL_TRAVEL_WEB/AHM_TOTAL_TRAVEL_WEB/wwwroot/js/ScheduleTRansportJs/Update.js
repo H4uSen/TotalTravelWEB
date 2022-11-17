@@ -18,6 +18,25 @@ if (Client_Role == "Administrador") {
     $("#Part_ID2").removeAttr("hidden");
     $("#Part_ID2").show();
 }
+getDropD()
+function getDropD() {  
+    var response2 = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+
+    if (response2.code == 200) {
+
+        var Part_ID2 = response2.data;
+        var Part_ID = Part_ID2.filter(resva => resva.tipoPartner == "Agencia de Transporte");
+
+        ClearDropDownItem($('#Partner_ID22'));
+        $("#Partner_ID22").append(
+            `<option value="">Seleccione un socio. (required)</option>`
+        );
+        for (var i = 0; i < Part_ID.length; i++) {
+            var item = Part_ID[i];
+            AddDropDownItem($('#Partner_ID22'), item = { value: item.id, text: item.nombre });
+        }
+    }
+};
 
 function GetScheduleID(id) {
     var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ScheduleTransportation/Find?id=" + id);
@@ -29,7 +48,7 @@ function GetScheduleID(id) {
 
         if ($("#ID_Horario").val != 0) {
             SetDropDownValue($("#DsTr_IDUpdate"), response.data.iD_Destino);
-            SetDropDownValue($("#Partner_ID"), response.data.partner_ID);
+            SetDropDownValue($("#Partner_ID22"), response.data.partner_ID);
             $("#DsTr_IDUpdate").addClass('disabled');
             $("#modalUpdate").modal('show');
         }

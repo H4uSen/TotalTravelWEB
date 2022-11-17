@@ -46,6 +46,7 @@ function editar(destinoTransporteID) {
         var item = response.data;
         SetDropDownValue($("#modalUpdate #CiudadSalida"), defaultValue = item.ciudadSalidaID);
         SetDropDownValue($("#modalUpdate #CiudadDestino"), defaultValue = item.ciudadDestinoID);
+        SetDropDownValue($("#modalUpdate #CiudadDestino"), defaultValue = item.partner_ID);
 
         $("#modalUpdate #DsTr_ID").val(item.id);
 
@@ -58,6 +59,7 @@ function actualizar() {
     validateArrayForm = [
         { validateMessage: "Seleccione una Ciudad de Salida.", Jqueryinput: $("#modalUpdate #CiudadSalida") },
         { validateMessage: "Seleccione una Ciudad de Destino.", Jqueryinput: $("#modalUpdate #CiudadDestino") },
+        { validateMessage: "Seleccione un socio.", Jqueryinput: $("#modalUpdate #Partner_ID2") },
     ];
 
     // retorna bool 
