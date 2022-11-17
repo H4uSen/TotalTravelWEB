@@ -92,10 +92,22 @@ function ViewReservation(idDetalles, id) {
     $("#InfoDet").show();
     if (TransportDetailsList.code == 200) {
 
-        var resv = ReservacionTra.data;
+        var resv = ReservacionHot.data;
         var Rflitro = resv.filter(resva => resva.id == parseInt(id));
-        var transpoinfo = TransportDetailsList.data;
-        var TranspoFilter = transpoinfo.filter(resva => resva.id == parseInt(idDetalles));
+        var hoteinfo = Hotel.data;
+        var hoteFilter = hoteinfo.filter(resva => resva.id == parseInt(idDetalles));
+
+        var habitacioneslist = ReservacionDetalle.data;
+        var habitacionesfilter = habitacioneslist.filter(x => x.reservacionHotelID == id);
+        var habitacionesinfo = "";
+        var habitacionesTinfo = "";
+        var habiTotal = 0;
+        for (var i = 0; i < habitacionesfilter.length; i++) {
+            var item = habitacionesfilter[i];
+            habitacionesinfo += item.nombre_Habitacion + "<br>";
+            habitacionesTinfo += item.categoria_Habitacion + "<br>";
+            habiTotal += parseInt(item.precio_Habitacion);
+        }
 
         $('#InfoDet').empty();
         if (TranspoFilter.length == 0) {
@@ -110,16 +122,16 @@ function ViewReservation(idDetalles, id) {
         else {
             try {
                 var ResvaFilterItem = Rflitro[0];
-                var TranspoFilterItem = TranspoFilter[0];
-                var imagen = TranspoFilterItem.image_URL.split(',');
-                var fecha = TranspoFilterItem.fecha_Salida.split('T');
-                var imagensplit = "https://totaltravelapi.azurewebsites.net/Images/" + imagen[0];
+                var hoteFilterItem = hoteFilter[0];
+                var imagen = hoteFilterItem.image_URL.split(',');
+                var fechaS = item.fecha_Salida.split('T');
+                var fechaE = item.fecha_Entrada.split('T');
 
                 divroom =
                     `<div class="field">
                     <center>
                     <div class="image">
-                        <img src="${imagensplit}">
+                        <img src="${imagen[0]}">
                     </div>
                     </center>
 
@@ -132,49 +144,52 @@ function ViewReservation(idDetalles, id) {
                         </div>
                         <div class="field">
                             <label>Partner:</label>
-                                ${TranspoFilterItem.parter}
+                                ${hoteFilterItem.partners}
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Tipo Transporte:</label>
-                                ${TranspoFilterItem.tipo_Transporte}
+                            <label>Hotel:</label>
+                                ${hoteFilterItem.hotel}
                         </div>                      
                         <div class="field">
-                            <label>Matricula:</label>
-                                ${TranspoFilterItem.matricula}
+                            <label>Descripcion Hotel:</label>
+                                ${hoteFilterItem.descripcion}
                         </div>
                     </div>
                     <div class="two fields">
-                        <div class="field">
-                            <label>Ciudad Salida:</label>
-                                ${TranspoFilterItem.ciudad_Salida}
+                        <div class="field" align="right">
+                            <label>Habitacion:</label>
+                                ${habitacionesinfo}
                         </div>
-                        <div class="field">
-                            <label>Ciudad Llegada:</label>
-                                ${TranspoFilterItem.ciudad_Llegada}
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Hora Salida:</label>
-                                ${TranspoFilterItem.hora_Salida}
-                        </div>
-                        <div class="field">
-                            <label>Hora Llegada:</label>
-                                ${TranspoFilterItem.hora_Llegada}
+                        <div class="field"align="left">
+                            <label>Categoria:</label>
+                                ${habitacionesTinfo}
                         </div>
                     </div>                   
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Fecha Salida:</label>
-                                    ${fecha[0]}
-                            </div>
-                            <div class="field">
-                                <label>Precio:</label>
-                                    L. ${TranspoFilterItem.precio}
-                            </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Fecha Entrada:</label>
+                                ${fechaE[0]}
                         </div>
+                        <div class="field">
+                            <label>Fecha Salida:</label>
+                                ${fechaS[0]}
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Direccion:</label>
+                                Ciudad: ${hoteFilterItem.ciudad}<br>
+                                Colonia: ${hoteFilterItem.colonia}<br>
+                                Avenida: ${hoteFilterItem.avenida} 
+                                Calle: ${hoteFilterItem.calle}
+                        </div>
+                        <div class="field">
+                            <label>Precio:</label>
+                                ${habiTotal}
+                        </div>
+                    </div>
                     </center>`
 
                 $('#InfoDet').append(divroom);
