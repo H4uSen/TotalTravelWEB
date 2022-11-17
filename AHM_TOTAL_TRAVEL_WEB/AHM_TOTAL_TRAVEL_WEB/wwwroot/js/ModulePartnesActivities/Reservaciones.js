@@ -100,7 +100,6 @@ function ViewReservation(idDetalles, id) {
             try {
                 var ResvaFilterItem = Rflitro[0];
                 var TranspoFilterItem = TranspoFilter[0];
-                /*var imagen = ResvaFilterItem.imageURL.split(',');*/
                 var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
                 var hora = ResvaFilterItem.hora_Reservacion;
                 var recortado1 = "";
@@ -112,7 +111,9 @@ function ViewReservation(idDetalles, id) {
                 divroom =
                     `<div class="field">
                     <center>
-                    
+                    <div class="image">
+                        <img src="${partnerID}">
+                    </div>
                     </center>
 
                     </div>

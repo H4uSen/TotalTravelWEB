@@ -30,47 +30,18 @@
     </style>
 }
 
-<br />
-<br />
+<br/>
+<br/>
 <div class="container">
     <div class="ui stackable grid">
 
         <!-- reservation historial section -->
         <div class="five wide column">
-            <div class="ui segment">
+            <div class="ui segment" id="asa">
 
                 <!-- top reservation filter menu -->
-                <div class="ui top attached menu" id="hotel_nav">
-
-                    <div class="item">
-                        <select class="ui search dropdown">
-                            <option value="AZ" selected>Todos</option>
-                            <option value="AL">Confirmados</option>
-                            <option value="AK">Pendientes</option>
-                        </select>
-                    </div>
-
-                </div><br>
-
                 <div class="ui cards overflow-auto" style="max-height: 55em;" id="TargetRese">
-                    @*@foreach (var item in Model)
-                    {
 
-                        <div class="ui card">
-                            <div class="content">
-                                <div class="header">@item.Nombre_Hotel</div>
-                                <div class="description">
-                                    @item.Fecha_Entrada a @item.Fecha_Salida
-                                </div>
-
-                                <div class="ui green header">@item.precio</div>
-                            </div>
-                            <a class="ui bottom attached blue button" href="javascript: ViewReservation(@item.Hotel_ID,@item.ID)">
-                                <i class="folder open icon"></i>
-                                Ver Detalles
-                            </a>
-                        </div>
-                    }*@
                 </div>
 
             </div>
@@ -78,403 +49,39 @@
 
         <div class="eleven wide column">
             <div class="ui segment">
-                @*<div class="ui top attached tabular menu" id="Reservation_Details_Info">
+                <div class="ui top attached tabular menu" id="Reservation_Details_Info">
                     <a class="item active" onclick="ShowContent('frmReservation_Info',0)">
-                        Reservation
-                        Info
+                        Información
                     </a>
-                    <a class="item" onclick="ShowContent('frmReservation_Hotel_Info',1)">Hotel Info</a>
-                    <a class="item" onclick="ShowContent('frmReservation_Activities_Info',2)">
-                        Activities
-                        Info
-                    </a>
-                </div>*@
+                </div>
                 <div class="ui bottom attached segment overflow-auto" id="Reservation_Details_Content"
                      style="padding: 1em !important; max-height: 55em;">
 
                     <div class="Reservation_Details_Content_Item" id="Default_Item">
-                        @*<div class="ui placeholder segment" style="opacity: inherit;cursor: pointer;">
-                                <div class="ui icon header">
-                                    <i class="long arrow alternate left large icon"></i>
-                                    Seleccione una reservacion
-                                </div>
-                            </div>*@
-
                         <h2 class="ui icon header" style=" width: 100%; height: 100%;">
                             <i class="folder open icon"></i>
-                            <div class="content">
-                                Selecciona una reservacion
-                            </div>
+                            Selecciona una reservación
                         </h2>
                     </div>
 
-                    <div class="Reservation_Details_Content_Item" id="frmReservation_Info">
-
-                        <!-- hotel info -->
-                        <br>
-                        <h4 class="ui left floated header">
-                            <i class="bed icon"></i> Hotel
-                        </h4>
-                        <div class="ui clearing divider"></div>
-
-                        <div class="ui attached">
-                            <div class="ui divided items">
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img id="imagen" src="https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header" id="hotename">
-                                            <b style="color: #767676">
-                                                (9
-                                                Persons)
-                                            </b>
-                                        </a>
-                                        <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
-                                            </span>
-                                        </div>
-
-                                        <div class="extra">
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                        </div><br>
-                                    </div>
+                    <div class="Reservation_Details_Content_Item" id="frmReservation_Info" hidden>
+                        <div class="ui form attached fluid segment">
+                            <div class="content">
+                                <div id="InfoDet" hidden>
 
                                 </div>
-
                             </div>
-                        </div>
-
-                        <!-- transport info -->
-                        <br>
-                        <h4 class="ui left floated header">
-                            <i class="bus icon"></i> Transport
-                        </h4>
-                        <div class="ui clearing divider"></div>
-
-                        <div class="ui attached">
-                            <div class="ui divided items">
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img id="imagenpar" src="https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header" id="partnername">
-
-                                        </a>
-                                        <div class="ui large label" id="trcategory"></div>
-                                        <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
-                                            </span>
-                                        </div>
-                                        <div class="description">
-                                            Reserved at Sep. 09, 2022 at 12:00pm
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- activities info -->
-                        <br>
-                        <h4 class="ui left floated header">
-                            <i class="calendar alternate outline icon"></i> Extra Activities
-                        </h4>
-                        <div class="ui clearing divider"></div>
-
-                        <div class="ui attached">
-                            <div class="ui divided items">
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Transport Partner Name</a>
-                                        <div class="description">
-                                            Reserved at Sep. 09, 2022 at 12:00pm
-                                        </div>
-                                        <h5 class="blue_text"> 5 turistic Activities</h5>
-                                        <button class="ui button"
-                                                onclick="ShowContent('frmReservation_Activities_Info',2)">
-                                            View
-                                            Details
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Transport Partner Name</a>
-                                        <div class="description">
-                                            Reserved at Sep. 09, 2022 at 12:00pm
-                                        </div>
-                                        <h5 class="blue_text"> 5 turistic Activities</h5>
-                                        <button class="ui button"
-                                                onclick="ShowContent('frmReservation_Activities_Info',2)">
-                                            View
-                                            Details
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Transport Partner Name</a>
-                                        <div class="description">
-                                            Reserved at Sep. 09, 2022 at 12:00pm
-                                        </div>
-                                        <h5 class="blue_text"> 5 turistic Activities</h5>
-                                        <button class="ui button"
-                                                onclick="ShowContent('frmReservation_Activities_Info',2)">
-                                            View
-                                            Details
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- activities info -->
-                        <br>
-                        <h4 class="ui left floated header">
-                            <i class="tag icon"></i> Reservation Breakdown
-                        </h4>
-                        <div class="ui clearing divider"></div>
-
-                        <div class="content" style="display: flex;flex-direction: row-reverse;">
-                            <table class="ui very basic collapsing table">
-                                <tbody>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h4 class="ui grey header">
-                                                SUB TOTAL
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h4 class="ui grey header">
-                                                I.S.V
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h4 class="ui grey header">
-                                                DISCOUNT
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h3 class="ui image header">
-                                                <b>TOTAL</b>
-                                            </h3>
-                                        </td>
-                                        <td>
-                                            <h3 class="ui green header">
-                                                $20,000.00
-                                            </h3>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
 
-                    <div class="Reservation_Details_Content_Item" id="frmReservation_Hotel_Info">
-                        <br>
-                        <h4 class="ui left floated header">
-                            <i class="tag icon"></i> Rooms Description
-                        </h4>
-                        <div class="ui clearing divider"></div>
-
-                        <!-- details rooms -->
-                        <div class="ui attached">
-                            <div class="ui divided items">
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="http://static1.eskypartners.com/travelguide/vancouver-hotels.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">
-                                            Room name <div class="ui large label">
-                                                Category
-                                            </div>
-                                        </a>
-                                        <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
-                                            </span>
-                                        </div>
-                                        <div class="extra">
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                        </div><br>
-                                    </div>
-
-                                </div>
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="http://static1.eskypartners.com/travelguide/vancouver-hotels.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">
-                                            Room name <div class="ui large label">
-                                                Category
-                                            </div>
-                                        </a>
-                                        <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
-                                            </span>
-                                        </div>
-                                        <div class="extra">
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                        </div><br>
-                                    </div>
-
-                                </div>
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="http://static1.eskypartners.com/travelguide/vancouver-hotels.jpg">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">
-                                            Room name <div class="ui large label">
-                                                Category
-                                            </div>
-                                        </a>
-                                        <div class="meta">
-                                            <span class="cinema">
-                                                Descripcion de habitacion
-                                            </span>
-                                        </div>
-                                        <div class="extra">
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                            <div class="ui label">Extra</div>
-                                        </div><br>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div><br><br>
-
-                        <!-- price details rooms -->
-                        <h4 class="ui left floated header">
-                            <i class="tag icon"></i> Hotels price details
-                        </h4>
-                        <div class="ui clearing divider"></div>
-
-                        <div class="content" style="display: flex;flex-direction: row-reverse;">
-                            <table class="ui very basic collapsing table">
-                                <tbody>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h4 class="ui grey header">
-                                                SUB TOTAL
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h4 class="ui grey header">
-                                                I.S.V
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h4 class="ui grey header">
-                                                DISCOUNT
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: end;">
-                                            <h3 class="ui image header">
-                                                <b>TOTAL</b>
-                                            </h3>
-                                        </td>
-                                        <td>
-                                            <h3 class="ui green header">
-                                                $20,000.00
-                                            </h3>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                    <div class="Reservation_Details_Content_Item" id="frmReservation_Activities_Info">
-                        Activities Info
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 @section Scripts{
     <script src="~/js/HotelModel/Information.js"></script>
 
-    }
+}

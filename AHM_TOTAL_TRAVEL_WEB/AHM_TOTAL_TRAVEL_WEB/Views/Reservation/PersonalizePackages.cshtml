@@ -47,7 +47,7 @@
                     <div class="ui icon button label minus_button">
                         <i class="minus icon"></i>
                     </div>
-                    <input class="count_input" id="txtCantidad" type="number" value="0"
+                    <input class="count_input" id="txtCantidadPersonas" type="number" value="0"
                            style="text-align: center;" readonly>
                     <div class="ui icon button label plus_button">
                         <i class="plus icon"></i>
@@ -833,7 +833,124 @@
         </div>
 
         <div id="pago_container">
-            metodo de pago
+
+            <div id="frmError"></div>
+
+            <div id="frmDetails">
+
+                <div id="frmDetails_hotel">
+
+                    <!-- hotel info -->
+                    <br>
+                    <h4 class="ui left floated header">
+                        <i class="bed icon"></i> Hospedaje y estadia
+                    </h4>
+                    <div class="ui clearing divider"></div>
+
+                    <div class="ui attached">
+                        <div class="ui divided items">
+
+                            <div class="item">
+                                <div class="ui negative message">
+                                    <div class="header">
+                                        A ocurrido un error al cargar los datos de el hotel selecionado
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- transport info -->
+                <div id="frmDetails_transport">
+                    <br>
+                    <h4 class="ui left floated header">
+                        <i class="bus icon"></i> Transporte
+                    </h4>
+                    <div class="ui clearing divider"></div>
+
+                    <div class="ui attached">
+                        <div class="ui divided items"></div>
+                    </div>
+                </div>
+
+                <div id="frmDetails_activities">
+                    <!-- activities info -->
+                    <br>
+                    <h4 class="ui left floated header">
+                        <i class="calendar alternate outline icon"></i> Extra Activities
+                    </h4>
+                    <div class="ui clearing divider"></div>
+
+                    <div class="ui attached">
+                        <div class="ui divided items"></div>
+                    </div>
+                </div>
+
+                <!-- activities info -->
+                <br>
+                <h4 class="ui left floated header">
+                    <i class="tag icon"></i> Reservation Breakdown
+                </h4>
+                <div class="ui clearing divider"></div>
+
+                <div class="content" style="display: flex;flex-direction: row-reverse;">
+                    <table class="ui very basic collapsing table">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h4 class="ui grey header">
+                                        SUB TOTAL
+                                    </h4>
+                                </td>
+                                <td>
+                                    <h4 class="ui black header">
+                                        $20,000.00
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h4 class="ui grey header">
+                                        I.S.V
+                                    </h4>
+                                </td>
+                                <td>
+                                    <h4 class="ui black header">
+                                        $20,000.00
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h4 class="ui grey header">
+                                        DISCOUNT
+                                    </h4>
+                                </td>
+                                <td>
+                                    <h4 class="ui black header">
+                                        $20,000.00
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h3 class="ui image header">
+                                        <b>TOTAL</b>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <h3 class="ui green header">
+                                        $20,000.00
+                                    </h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
     </div>
 

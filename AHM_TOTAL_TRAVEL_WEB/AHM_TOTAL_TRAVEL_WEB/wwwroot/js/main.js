@@ -662,4 +662,14 @@
         dateConfig.datetime_data = datetime;
 
         return dateConfig;
+}
+
+    function getDaysBetweenTwoDates(date_1, date_2) {
+
+        var fechaInicio = new Date(date_1.split("T")[0]).getTime();
+        var fechaFin = new Date(date_2.split("T")[0]).getTime();
+
+        var diff = fechaFin - fechaInicio;
+
+        return diff / (1000 * 60 * 60 * 24);
     }
