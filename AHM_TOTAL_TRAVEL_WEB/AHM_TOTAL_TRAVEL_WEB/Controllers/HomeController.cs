@@ -194,14 +194,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Direccion"] = "Calle " + cuenta.Calle + ", Avenida " + cuenta.Avenida + ", Colonia " + cuenta.Colonia;
             ViewData["Imagen"] = partner.Image_Url;
 
-            ViewData["TiposActividades"] = tiposactividades.LongCount();
-            ViewData["Reservaciones"] = reservations.LongCount();
-            ViewData["CantidadActividades"] = actividades.Where(x => x.ID_Partner == cuenta.PartnerID).LongCount();
+            ViewData["TiposActividades"] = tiposactividades.ToList().Count();
+            ViewData["Reservaciones"] = reservations.ToList().Count();
+            ViewData["CantidadActividades"] = actividades.Where(x => x.ID_Partner == cuenta.PartnerID).ToList().Count();
 
-            ViewData["CantidadAventura"] = actividades.Where(actividades => actividades.TipoActividadID == 2).LongCount();
-            ViewData["CantidadAerea"] = actividades.Where(actividades => actividades.TipoActividadID == 3).LongCount();
-            ViewData["CantidadAcuatico"] = actividades.Where(actividades => actividades.TipoActividadID == 8).LongCount();
-            ViewData["CantidadSenderismo"] = actividades.Where(actividades => actividades.TipoActividadID == 1008).LongCount();
+            ViewData["CantidadAventura"] = actividades.Where(actividades => actividades.TipoActividadID == 1).ToList().Count();
+            ViewData["CantidadAerea"] = actividades.Where(actividades => actividades.TipoActividadID == 3).ToList().Count();
+            ViewData["CantidadAcuatico"] = actividades.Where(actividades => actividades.TipoActividadID == 2).ToList().Count();
+            ViewData["CantidadPesca"] = actividades.Where(actividades => actividades.TipoActividadID == 4).ToList().Count();
+            ViewData["CantidadCaza"] = actividades.Where(actividades => actividades.TipoActividadID == 5).ToList().Count();
+            ViewData["CantidadCultural"] = actividades.Where(actividades => actividades.TipoActividadID == 6).ToList().Count();
 
             IEnumerable<ReservationExtraActivitiesListViewModel> reservacionespendientes =
                (IEnumerable<ReservationExtraActivitiesListViewModel>)(await _ReservationService.ExtraActivitiesReservationList(token)).Data;

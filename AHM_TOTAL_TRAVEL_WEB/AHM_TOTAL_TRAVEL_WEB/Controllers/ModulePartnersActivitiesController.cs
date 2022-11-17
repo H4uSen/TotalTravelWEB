@@ -191,5 +191,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Reservations()
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+            return View();
+        }
     }
 }

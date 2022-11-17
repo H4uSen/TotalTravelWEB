@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationRestaurantsListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel>
 
 @{
     ViewData["Title"] = "Reservations";
@@ -95,16 +95,16 @@
 @section Scripts{
 
     @*<script>
-        const RestauranteID = "@ViewData["RestauranteID"]";
-    </script>*@
-    <script src="~/js/ModuleRestaurantsJs/Reservaciones.js"></script>
+            const RestauranteID = "@ViewData["RestauranteID"]";
+        </script>*@
+    <script src="~/js/ModulePartnesActivities/Reservaciones.js"></script>
 }
 
 @section HighlightTile{
     <script>
         /*        $("#Restaurant_Schema").addClass("show");*/
-        //$("#RestaurantsTile").addClass("activeTile");
-        //$("#MenusTile").addClass("activeTile");
-        $("#TypeMenusTile").addClass("activeTile");
+            //$("#RestaurantsTile").addClass("activeTile");
+            //$("#MenusTile").addClass("activeTile");
+            $("#TypeMenusTile").addClass("activeTile");
     </script>
 }
