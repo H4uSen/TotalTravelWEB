@@ -65,6 +65,7 @@
                         </td>
 
 
+
                         <td>
 
                             <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
@@ -109,14 +110,16 @@
                             </select>
                         </div>
                     </div>
-                    @*<div class="two fields">
+                    <div class="two fields">
                         <div class="field">
-                            <input id="Descripcion" name="PaDe_Precio" placeholder="Descripcion de la actividad hotel" />
-                        </div>
+                            <label>Precio</label>
+                            <input id="Precio" name="PaDe_Precio" placeholder="Precio de la actividad hotel" />
+                        </div> 
                         <div class="field">
-                            <input id="Precio" name="PaDe_Cantidad" placeholder="Precio de la actividad hotel" />
+                            <label>Cantidad</label>
+                            <input id="Cantidad" name="PaDe_Cantidad" placeholder="Agrege cantidad de personas" />
                         </div>
-                    </div>*@
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,21 +142,30 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="required field">
+
                     <div class="two fields">
-                        <div class="required field">
-                            <label>Paquete Predetermidado</label>
-                            <select id="Paqu_ID" name="Paqu_ID" class="ui dropdown search" asp-items="ViewBag.paqu_ID">
+                        <div class="field">
+                            <label>Paquete predeterminado</label>
+                            <select id="Paqu_ID_up" name="paqu_ID" class="ui dropdown search" asp-items="ViewBag.paqu_ID">
                                 <option value="">Seleccione el paquete</option>
                             </select>
                         </div>
-                        <div class="required field">
+                        <div class="field">
                             <label>Actividad</label>
-                            <select id="Actv_ID" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
-                                <option value="">Seleccione la actividad</option>
+                            <select id="Actv_ID_up" name="Actv_ID" class="ui dropdown search" asp-items="ViewBag.Actv_ID">
+                                <option value="">Seleccione el tipo de Actividad</option>
                             </select>
                         </div>
-                        <div class="required field">
-                            <input id="PaDe_ID" name="PaDe_ID" hidden />
+                    </div> 
+                    <input id="PaDe_ID" name="PaDe_ID" hidden />
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Precio</label>
+                            <input id="Precio_up" name="PaDe_Precio" placeholder="Precio de la actividad hotel" />
+                        </div>
+                        <div class="field">
+                            <label>Cantidad</label>
+                            <input id="Cantidad_up" name="PaDe_Cantidad" placeholder="Agrege cantidad de personas" />
                         </div>
                     </div>
                 </div>
@@ -170,6 +182,12 @@
     <script src="~/js/DefaultPackagesDetails/Create.js"></script>
 
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
         // ----------------------------------- EVENTS ------------------------------------
         $(document).ready(function () {
 
@@ -221,6 +239,7 @@
         function Delete(id) {
             const capsula1d = () => {
                 ajaxRequest("/DefaultPackagesDetails/Delete?id=" + id, null, "POST")
+                window.location.href = '/DefaultPackagesDetails?success=true';
             };
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1d);

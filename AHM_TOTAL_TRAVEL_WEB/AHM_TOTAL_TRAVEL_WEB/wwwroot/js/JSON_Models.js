@@ -118,6 +118,14 @@ var tipostransporte = {
     "tiTr_UsuarioModifica": 0,
     "partner_ID": 0
 }
+var detallespaquete = {
+    "paqu_ID": 0,
+    "actv_ID": 0,
+    "paDe_Precio": 0,
+    "paDe_Cantidad": 0,
+    "paDe_UsuarioCreacion": 0,
+    "paDe_UsuarioModifica":0
+}
 
 var ReservationCreateViewModel = {
     reservacion : {

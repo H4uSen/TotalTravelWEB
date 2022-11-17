@@ -84,6 +84,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.PaDe_ID = element.ID;
             item.Paqu_ID = element.PaqueteID;
             item.Actv_ID = element.ActividadID;
+            item.PaDe_Precio = element.Precio;
+            item.PaDe_Cantidad = element.Cantidad;
 
             return View(item);
         }

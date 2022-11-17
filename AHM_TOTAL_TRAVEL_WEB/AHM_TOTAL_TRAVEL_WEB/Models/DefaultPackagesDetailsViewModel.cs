@@ -14,6 +14,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string DescripcionPaquete { get; set; }
         public string DuracionPaquete { get; set; }
         public int ActividadID { get; set; }
+        public decimal? Precio { get; set; }
+        public int? Cantidad { get; set; }
         public string DescripcionActividad { get; set; }
         public int? UsuarioCreacionID { get; set; }
         public string UsuarioCreacion { get; set; }
