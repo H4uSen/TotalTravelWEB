@@ -83,6 +83,14 @@
                             <label style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatort"></label>
                         </div>
                     </div>
+                    <div class="field" id="Part_ID" hidden>
+                        <div class="required field">
+                            <label class="ui label">Tipo de socio</label>
+                            <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                <option value="">Seleccione un socio</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,12 +119,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="field" id="Part_ID2" hidden>
+                    <div class="required field">
+                        <label class="ui label">Tipo de socio</label>
+                        <select id="Partner_ID2" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                            <option value="">Seleccione un socio</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-purple text-white" id="sendTypesTransport">Guardar</button>
+        
         <button class="ui button" id="closeTypesTransport">Cancelar</button>
+        <button class="ui button btn-purple text-white" id="sendTypesTransport" onclick="actualizar()">Guardar</button>
     </div>
 </div>
 

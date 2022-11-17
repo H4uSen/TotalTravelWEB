@@ -24,19 +24,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             try
             {
                 var token = HttpContext.User.FindFirst("Token").Value;
-                var id = HttpContext.Session.GetString("PartnerID");
+                var id = HttpContext.Session.GetInt32("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
                 var DsTr = await _transportService.TransportList();
                 IEnumerable<TransportListViewModel> DsTr1 = (IEnumerable<TransportListViewModel>)DsTr.Data;
                 
-
-
                 var list = await _transportService.TypesTransportList();
                 IEnumerable<TypesTransportListViewModel> lista = (IEnumerable<TypesTransportListViewModel>)list.Data;
                 List<TypesTransportListViewModel> ListNuevaTrDe = new List<TypesTransportListViewModel>();
 
 
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
                 }
@@ -49,7 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                     else
                     {
-                        var data = lista.Where(x => x.Partner_ID == Convert.ToInt32(id)).ToList();
+                        var data = lista.Where(x => x.Partner_ID == id).ToList();
 
                         return View(data);
                     }
@@ -88,10 +86,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     transporte.TiTr_UsuarioCreacion = int.Parse(id);
                     var rol = HttpContext.Session.GetString("Role");
 
-                    var idPart = HttpContext.Session.GetString("PartnerID");
+                    var idPart = HttpContext.Session.GetInt32("PartnerID");
                     if (rol != "Cliente" || rol != "Administrador")
                     {
-                        transporte.Partner_ID = int.Parse(idPart);
+                        transporte.Partner_ID = int.Parse(idPart.ToString());
                     }
                     var list = await _transportService.TypesTransportCreate(transporte, token);
                     var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;

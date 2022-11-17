@@ -191,5 +191,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Reservations()
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
+            ViewData["PartnerImage"] = partner.Image_Url;
+
+            return View();
+        }
     }
 }

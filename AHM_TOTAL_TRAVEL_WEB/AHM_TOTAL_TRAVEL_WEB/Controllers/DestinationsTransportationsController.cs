@@ -33,7 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<CityListViewModel> data_type1 = (IEnumerable<CityListViewModel>)type1.Data;
                 ViewBag.DsTr_CiudadDestino = new SelectList(data_type1, "ID", "Ciudad");
 
-                var id = HttpContext.Session.GetString("PartnerID");
+                var id = HttpContext.Session.GetInt32("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
                 var DsTr = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
@@ -46,7 +46,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 
 
 
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
                 }
@@ -60,7 +60,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                     else
                     {
-                        var data = lista.Where(x => x.Partner_ID == Convert.ToInt32(id)).ToList();
+                        var data = lista.Where(x => x.Partner_ID == id).ToList();
 
                         return View(data);
                     }

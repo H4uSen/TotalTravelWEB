@@ -94,11 +94,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var list = await _reservationService.RestaurantsReservationList(token);
             IEnumerable<ReservationRestaurantsListViewModel> data = (IEnumerable<ReservationRestaurantsListViewModel>)list.Data;
             var element = data.Where(x => x.Id == id).ToList()[0];
-            item.Resv_ID = element.DescripcionReservacion;
+            item.Resv_ID = element.Resv_ID;
             item.Rest_ID = element.ID_Restaurante;
             item.ReRe_FechaReservacion = element.Fecha_Reservacion;
             item.ReRe_HoraReservacion = element.Hora_Reservacion;
-            item.Resv_ID = element.DescripcionReservacion;
+            item.Resv_ID = element.Resv_ID;
             item.Rest_ID = element.ID_Restaurante;
 
             var reservacion = await _reservationService.ReservationList(token);

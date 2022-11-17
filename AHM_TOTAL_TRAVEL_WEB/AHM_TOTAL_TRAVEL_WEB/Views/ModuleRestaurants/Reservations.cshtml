@@ -33,6 +33,18 @@
 <br />
 <br />
 <div class="container">
+    <div class="ui clearing segment">
+        <div class="ui grid">
+            <div class="eight wide column">
+                <select id="Estado" class="ui dropdown search">
+                    <option value="0" selected>Todos</option>
+                    <option value="1">Pendientes</option>
+                    <option value="2">Confirmados</option>
+                </select>
+            </div>
+        </div>
+        <br />
+    </div>
     <div class="ui stackable grid">
 
         <!-- reservation historial section -->
@@ -84,9 +96,9 @@
 
 @section Scripts{
 
-    <script>
+    @*<script>
         const RestauranteID = "@ViewData["RestauranteID"]";
-    </script>
+    </script>*@
     <script src="~/js/ModuleRestaurantsJs/Reservaciones.js"></script>
 }
 

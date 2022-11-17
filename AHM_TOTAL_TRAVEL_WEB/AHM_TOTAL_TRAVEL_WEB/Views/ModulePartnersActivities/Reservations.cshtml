@@ -1,7 +1,7 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationExtraActivitiesListViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reservations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -33,6 +33,16 @@
 <br />
 <br />
 <div class="container">
+    <div class="ui clearing segment">
+        <div class="ui grid">
+            <div class="eight wide column">
+                <select id="Estado" class="ui dropdown search" asp-items="ViewBag.TiMe_ID">
+                    <option value="0" selected>Todos</option>
+                </select>
+            </div>
+        </div>
+        <br />
+    </div>
     <div class="ui stackable grid">
 
         <!-- reservation historial section -->
@@ -41,7 +51,7 @@
 
                 <!-- top reservation filter menu -->
                 <div class="ui cards overflow-auto" style="max-height: 55em;" id="tarjetaT">
-                    
+
                 </div>
 
             </div>
@@ -51,29 +61,31 @@
             <div class="ui segment">
                 <div class="ui top attached tabular menu" id="Reservation_Details_Info">
                     <a class="item active" onclick="ShowContent('frmReservation_Info',0)">
-                        Información
+                        Detalles
                     </a>
                 </div>
                 <div class="ui bottom attached segment overflow-auto" id="Reservation_Details_Content"
                      style="padding: 1em !important; max-height: 55em;">
 
-                    <div class="Reservation_Details_Content_Item" id="Default_Item">                      
+                    <div class="Reservation_Details_Content_Item" id="Default_Item">
                         <h2 class="ui icon header" style=" width: 100%; height: 100%;">
-                            <i class="folder open icon"></i>                           
-                                Selecciona una reservación                            
+                            <i class="folder open icon"></i>
+                            <div class="content">
+                                Selecciona una reservación
+                            </div>
                         </h2>
                     </div>
 
-                    <div class="Reservation_Details_Content_Item" id="frmReservation_Info" hidden>
+                    <div class="Reservation_Details_Content_Item" id="frmReservation_Info">
                         <div class="ui form attached fluid segment">
                             <div class="content">
                                 <div id="InfoDet" hidden>
 
                                 </div>
                             </div>
-                        </div>                                                                        
-                    </div>   
-                    
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -81,9 +93,18 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/TransportModule/Information.js"></script>
 
+    @*<script>
+            const RestauranteID = "@ViewData["RestauranteID"]";
+        </script>*@
+    <script src="~/js/ModulePartnesActivities/Reservaciones.js"></script>
 }
 
-
-
+@section HighlightTile{
+    <script>
+        /*        $("#Restaurant_Schema").addClass("show");*/
+            //$("#RestaurantsTile").addClass("activeTile");
+            //$("#MenusTile").addClass("activeTile");
+            $("#TypeMenusTile").addClass("activeTile");
+    </script>
+}

@@ -1,7 +1,7 @@
 ﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationTransportation/List");
-var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/List");
-
+var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesExtra/List");
+var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
+$('.ui.dropdown').dropdown();
 $("document").ready(function () {
     Tarjeta();
 });
@@ -29,11 +29,11 @@ function Tarjeta() {
     if (ReservacionTra.code == 200) {
 
         var resv = ReservacionTra.data;
-        var Rflitro = resv.filter(resva => resva.partner_ID == parseInt(Client_Partner_ID));
+        var Rflitro = resv.filter(resva => resva.iD_Partner == parseInt(Client_Partner_ID));
         $('#tarjetaT').empty();
         if (Rflitro.length == 0) {
             actexth =
-                `<div class="ui card" style="width:100%>
+                `<div class="ui card">
                     <div class="content">
                         <div class="header">No hay reservaciones</div>                     
                     </div>                  
@@ -43,27 +43,29 @@ function Tarjeta() {
         else {
             for (var i = 0; i < Rflitro.length; i++) {
                 const item = Rflitro[i];
+                var fecha = item.fecha_Reservacion.split('T');
                 try {
                     divroom =
-                        `<div class="ui card" style="width:100%">
-                            <div class="content">
-                                <div class="header">${item.cliente}</div>
-                                <div class="description">
-                                          Precio:  L.${item.precio}
-                                </div>      
-                            </div>
-                            <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
-                                <i class="folder open icon"></i>
-                                Ver Detalles
-                            </a>
-                        </div>` 
+                        `<br\ >
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">${item.cliente}</div>
+                        <div class="description">
+                                  Fecha: ${fecha[0]}
+                        </div>      
+                    </div>
+                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.id_Actividad_Extra},${item.id})">
+                        <i class="folder open icon"></i>
+                        Ver Detalles
+                    </a>
+                </div>`
                     $('#tarjetaT').append(divroom);
                 }
                 catch {
                     divroom =
-                        `<div class="ui card" style="width:100%>
+                        `<div class="ui card">
                     <div class="content">
-                        <div class="header">Se elimino este registro</div>                     
+                        <div class="header">Se eliminó este registro</div>                     
                     </div>                  
                 </div>`
                     $('#tarjetaT').append(divroom);
@@ -75,8 +77,6 @@ function Tarjeta() {
 }
 function ViewReservation(idDetalles, id) {
     $("#Default_Item").hide();
-    $("#frmReservation_Info").removeAttr("hidden");
-    $("#frmReservation_Info").show();
     $("#InfoDet").removeAttr("hidden");
     $("#InfoDet").show();
     if (TransportDetailsList.code == 200) {
@@ -85,7 +85,7 @@ function ViewReservation(idDetalles, id) {
         var Rflitro = resv.filter(resva => resva.id == parseInt(id));
         var transpoinfo = TransportDetailsList.data;
         var TranspoFilter = transpoinfo.filter(resva => resva.id == parseInt(idDetalles));
-       
+
         $('#InfoDet').empty();
         if (TranspoFilter.length == 0) {
             actexth =
@@ -96,76 +96,70 @@ function ViewReservation(idDetalles, id) {
                 </div>`
             $('#InfoDet').append(actexth);
         }
-        else {                    
-            try {               
+        else {
+            try {
                 var ResvaFilterItem = Rflitro[0];
                 var TranspoFilterItem = TranspoFilter[0];
-                var imagen = TranspoFilterItem.image_URL.split(',');
-                var fecha = TranspoFilterItem.fecha_Salida.split('T');
-                var imagensplit = "https://totaltravelapi.azurewebsites.net/Images/" + imagen[0];
+                var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
+                var hora = ResvaFilterItem.hora_Reservacion;
+                var recortado1 = "";
+                var recortado2 = "";
+                recortado1 = hora.slice(0, 2);
+                recortado2 = hora.slice(-2);
+                var union = recortado1 + ":" + recortado2;
 
                 divroom =
-                `<div class="field">
+                    `<div class="field">
                     <center>
-                        <div class="image">
-                            <img src="${imagensplit}">
-                        </div>
+                    <div class="image">
+                        <img src="${partnerID}">
+                    </div>
                     </center>
 
                     </div>
                     <center>
                     <div class="two fields">
                         <div class="field">
-                            <label>Cliente:</label>
+                            <label>Cliente: </label>
                                 ${ResvaFilterItem.cliente}
                         </div>
                         <div class="field">
-                            <label>Partner:</label>
-                                ${TranspoFilterItem.parter}
+                            <label>Socio: </label>
+                                ${TranspoFilterItem.partner}
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Tipo Transporte:</label>
-                                ${TranspoFilterItem.tipo_Transporte}
-                        </div>                      
+                            <label>Actividad: </label>
+                                ${TranspoFilterItem.actividad}
+                        </div>
                         <div class="field">
-                            <label>Matricula:</label>
-                                ${TranspoFilterItem.matricula}
+                            <label>Descripción: </label>
+                                ${TranspoFilterItem.descripcion}
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Ciudad Salida:</label>
-                                ${TranspoFilterItem.ciudad_Salida}
+                            <label>Precio: </label>
+                                L ${ResvaFilterItem.precio}
                         </div>
                         <div class="field">
-                            <label>Ciudad Llegada:</label>
-                                ${TranspoFilterItem.ciudad_Llegada}
+                            <label>Cantidad: </label>
+                                ${ResvaFilterItem.cantidad}
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Hora Salida:</label>
-                                ${TranspoFilterItem.hora_Salida}
+                            <label>Fecha Reservación: </label>
+                                ${fecha[0]}
                         </div>
                         <div class="field">
-                            <label>Hora Llegada:</label>
-                                ${TranspoFilterItem.hora_Llegada}
+                            <label>Hora Reservación: </label>
+                                ${union}
                         </div>
-                    </div>                   
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Fecha Salida:</label>
-                                    ${fecha[0]}
-                            </div>
-                            <div class="field">
-                                <label>Precio:</label>
-                                    L. ${TranspoFilterItem.precio}
-                            </div>
-                        </div>
+                    </div>
                     </center>`
-                                              
+
                 $('#InfoDet').append(divroom);
             }
             catch {
@@ -176,7 +170,7 @@ function ViewReservation(idDetalles, id) {
                         </div>                  
                     </div>`
                 $('#InfoDet').append(divroom);
-            }          
+            }
         }
     }
 }

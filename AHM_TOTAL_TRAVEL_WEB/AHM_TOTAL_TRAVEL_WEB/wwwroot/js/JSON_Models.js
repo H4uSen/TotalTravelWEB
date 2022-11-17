@@ -112,6 +112,12 @@ var ReservationDetailsViewModel = {
     "reDe_UsuarioCreacion": Client_User_ID,
     "reDe_UsuarioModifica": Client_User_ID
 }
+var tipostransporte = {
+    "tiTr_Descripcion": "string",
+    "tiTr_UsuarioCreacion": 0,
+    "tiTr_UsuarioModifica": 0,
+    "partner_ID": 0
+}
 
 var ReservationCreateViewModel = {
     reservacion : {

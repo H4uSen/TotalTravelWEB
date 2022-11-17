@@ -514,27 +514,22 @@
                     }
                     if (usersRole == "Moderador de Transporte")
                     {
-                        <!-- Sidebar Navigation Menus-->
+
                         <span class="text-uppercase text-gray-400 letter-spacing-0 mx-3 px-2 heading">
-                            <a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","DashBoardTransportsHome")">DashBoard</a>
-                            <a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TransportModule")">Reservacion Transportes</a>
+                            General
                         </span>
 
                         <ul class="list-unstyled py-4">
-
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" id="TransportModule" href="#Transport_Schema" data-bs-toggle="collapse" data-toggle="collapse">
-                                    Módulo de Transportes
-                                </a>
-                                <ul class="collapse list-unstyled" id="Transport_Schema">
-                                    <li><a id="TransportDetailsTile" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
-                                    <li><a id="TransportTile" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
-                                    <li><a id="DestinationsTransportationsTile" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
-                                    <li><a id="ScheduleTransportationTile" class="sidebar-link" href="@Url.Action("Index","ScheduleTransportation")">Horarios Transporte</a></li>
-                                    <li><a id="TypesTransportTile" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos de Transportes</a></li>
-                                </ul>
-                            </li>
+                            <li><a id="UsersTile" class="sidebar-link" href="@Url.Action("Index","DashBoardTransportsHome")">Inicio</a></li>
+                            <li><a id="ModuleHotels" class="sidebar-link" href="@Url.Action("Index","TransportModule")">Reservacion Transportes</a></li>
+                            <li><a id="TransportDetailsTile" class="sidebar-link" href="@Url.Action("Index","TransportDetails")">Detalles Transportes</a></li>
+                            <li><a id="TransportTile" class="sidebar-link" href="@Url.Action("Index","Transport")">Transportes</a></li>
+                            <li><a id="DestinationsTransportationsTile" class="sidebar-link" href="@Url.Action("Index","DestinationsTransportations")">Destinos Transportes</a></li>
+                            <li><a id="ScheduleTransportationTile" class="sidebar-link" href="@Url.Action("Index","ScheduleTransportation")">Horarios Transporte</a></li>
+                            <li><a id="TypesTransportTile" class="sidebar-link" href="@Url.Action("Index","TypesTransport")">Tipos de Transportes</a></li>
                         </ul>
+
+                        
                     }
 
                     if (usersRole == "Moderador de Agencia Turistica")
@@ -554,27 +549,27 @@
                             <li class="sidebar-item">
                             <li><a id="ActivitiesTile" class="sidebar-link" href="@Url.Action("Index","ModulePartnersActivities")">Actividades</a></li>
                             <li><a id="PartnerTile" class="sidebar-link" href="@Url.Action("Info","ModulePartnersActivities")">Mi socio</a></li>
-                           @* <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>*@
+                             <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModulePartnersActivities")">Ver reservaciones</a></li>
                             </li>
-                        </ul> 
+                        </ul>
                     }
 
-                        if (usersRole == "Moderador de Restaurante")
-                        {
-                            <ul class="list-unstyled py-4">
-                                <li class="sidebar-item" id="">
-                                    <a class="sidebar-link" id="DashboardTile" href="@Url.Action("restaurantDashboard", "Home")">
-                                        Inicio
-                                    </a>
-                                </li>
-                                <br />
-                                <li class="sidebar-item">
-                                <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
-                                <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
-                                <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
-                                </li>
-                            </ul>
-                        }
+                    if (usersRole == "Moderador de Restaurante")
+                    {
+                        <ul class="list-unstyled py-4">
+                            <li class="sidebar-item" id="">
+                                <a class="sidebar-link" id="DashboardTile" href="@Url.Action("restaurantDashboard", "Home")">
+                                    Inicio
+                                </a>
+                            </li>
+                            <br />
+                            <li class="sidebar-item">
+                            <li><a id="RestaurantsTile" class="sidebar-link" href="@Url.Action("Index","ModuleRestaurants")">Menús</a></li>
+                            <li><a id="MenusTile" class="sidebar-link" href="@Url.Action("Info","ModuleRestaurants")">Mi restaurante</a></li>
+                            <li><a id="TypeMenusTile" class="sidebar-link" href="@Url.Action("Reservations","ModuleRestaurants")">Ver reservaciones</a></li>
+                            </li>
+                        </ul>
+                    }
                 }
 
             </nav>

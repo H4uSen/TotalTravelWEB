@@ -143,21 +143,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Imagen"] = partner.Image_Url;
 
             ViewData["TiposMenus"] = tiposmenus.LongCount();
-            ViewData["Reservaciones"] = reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID).LongCount();
-            ViewData["CantidadMenus"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID).LongCount();
+            ViewData["Reservaciones"] = reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID).ToList().Count();
+            ViewData["CantidadMenus"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID).ToList().Count();
 
-            ViewData["CantidadDesayunos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 1).LongCount();
-            ViewData["CantidadAlmuerzos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 2).LongCount();
-            ViewData["CantidadCenas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 3).LongCount();
-            ViewData["CantidadPostres"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 4).LongCount();
-            ViewData["CantidadEntradas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 5).LongCount();
+            ViewData["CantidadDesayunos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 1).ToList().Count();
+            ViewData["CantidadAlmuerzos"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 2).ToList().Count();
+            ViewData["CantidadCenas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 3).ToList().Count();
+            ViewData["CantidadPostres"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 4).ToList().Count();
+            ViewData["CantidadEntradas"] = menus.Where(menuss => menuss.ID_Restaurante == restaurante.ID && menuss.ID_TipoMenu == 5).ToList().Count();
 
             var detail = new List<restaurantsDashboardDetail>();
 
             foreach (var item in reservacionespendientes.Where(reservationss => reservationss.ID_Restaurante == restaurante.ID))
             {
                 var model = new restaurantsDashboardDetail();
-                var reservacion = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.DescripcionReservacion, token)).Data;
+                var reservacion = (ReservationListViewModel)(await _ReservationService.ReservationFind(item.Resv_ID, token)).Data;
                 if (reservacion.ConfirmacionRestaurante == true)
                 {
                     model.detalle = item;
@@ -194,14 +194,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Direccion"] = "Calle " + cuenta.Calle + ", Avenida " + cuenta.Avenida + ", Colonia " + cuenta.Colonia;
             ViewData["Imagen"] = partner.Image_Url;
 
-            ViewData["TiposActividades"] = tiposactividades.LongCount();
-            ViewData["Reservaciones"] = reservations.LongCount();
-            ViewData["CantidadActividades"] = actividades.Where(x => x.ID_Partner == cuenta.PartnerID).LongCount();
+            ViewData["TiposActividades"] = tiposactividades.ToList().Count();
+            ViewData["Reservaciones"] = reservations.ToList().Count();
+            ViewData["CantidadActividades"] = actividades.Where(x => x.ID_Partner == cuenta.PartnerID).ToList().Count();
 
-            ViewData["CantidadAventura"] = actividades.Where(actividades => actividades.TipoActividadID == 2).LongCount();
-            ViewData["CantidadAerea"] = actividades.Where(actividades => actividades.TipoActividadID == 3).LongCount();
-            ViewData["CantidadAcuatico"] = actividades.Where(actividades => actividades.TipoActividadID == 8).LongCount();
-            ViewData["CantidadSenderismo"] = actividades.Where(actividades => actividades.TipoActividadID == 1008).LongCount();
+            ViewData["CantidadAventura"] = actividades.Where(actividades => actividades.TipoActividadID == 1).ToList().Count();
+            ViewData["CantidadAerea"] = actividades.Where(actividades => actividades.TipoActividadID == 3).ToList().Count();
+            ViewData["CantidadAcuatico"] = actividades.Where(actividades => actividades.TipoActividadID == 2).ToList().Count();
+            ViewData["CantidadPesca"] = actividades.Where(actividades => actividades.TipoActividadID == 4).ToList().Count();
+            ViewData["CantidadCaza"] = actividades.Where(actividades => actividades.TipoActividadID == 5).ToList().Count();
+            ViewData["CantidadCultural"] = actividades.Where(actividades => actividades.TipoActividadID == 6).ToList().Count();
 
             IEnumerable<ReservationExtraActivitiesListViewModel> reservacionespendientes =
                (IEnumerable<ReservationExtraActivitiesListViewModel>)(await _ReservationService.ExtraActivitiesReservationList(token)).Data;
