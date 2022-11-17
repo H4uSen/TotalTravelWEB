@@ -1,4 +1,9 @@
 ﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
+var ReservacionHot = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
+var ReservacionDetalle = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
+var Hotel = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+
+
 $("document").ready(function () {
     Tarjeta();
 });
@@ -22,14 +27,14 @@ function ShowContent(content, index) {
 }
 
 function Tarjeta() {
-    if (Reservacion.code == 200) {
+    if (ReservacionHot.code == 200) {
 
-        var resv = Reservacion.data;
+        var resv = ReservacionHot.data;
         var Rflitro = resv.filter(resva => resva.partnerID == parseInt(Client_Partner_ID));
         $('#TargetRese').empty();
         if (Rflitro.length == 0) {
             actexth =
-                `<div class="ui card">
+                `<div class="ui card" style="width:100%">
                     <div class="content">
                         <div class="header">No hay reservaciones</div>                     
                     </div>                  
@@ -39,14 +44,22 @@ function Tarjeta() {
         else {
             for (var i = 0; i < Rflitro.length; i++) {
                 const item = Rflitro[i];
+                var hotelist = Hotel.data;
+                var hotelfilter = hotelist.filter(x => x.id == item.hotel_ID);
+                var hoteitem = hotelfilter[0];
+                var fechaS = item.fecha_Salida.split('T');
+                var fechaE = item.fecha_Entrada.split('T');
                 try {  
                     divroom =
-                        `<div class="ui card">
+                        `<div class="ui card" style="width:100%">
                     <div class="content">
-                        <div class="header">${item.nombre_Hotel}</div>
+                        <div class="header">${hoteitem.hotel}</div>
                         <div class="description">
-                                    ${item.nombrecompleto}
-                        </div>      
+                                    ${item.cliente}
+                        </div>
+                        <div class="description">
+                                   Fecha Entrada: ${fechaE[0]} <br> Fecha Salida: ${fechaS[0]}
+                        </div>
                     </div>
                     <a class="ui bottom attached blue button" href="javascript: ViewReservation(${item.hotel_ID},${item.id})">
                         <i class="folder open icon"></i>
@@ -57,7 +70,7 @@ function Tarjeta() {
                 }
                 catch {
                     divroom =
-                        `<div class="ui card">
+                        `<div class="ui card" style="width:100%">
                     <div class="content">
                         <div class="header">Se elimino este registro</div>                     
                     </div>                  
@@ -73,6 +86,8 @@ function Tarjeta() {
 
 function ViewReservation(idDetalles, id) {
     $("#Default_Item").hide();
+    $("#frmReservation_Info").removeAttr("hidden");
+    $("#frmReservation_Info").show();
     $("#InfoDet").removeAttr("hidden");
     $("#InfoDet").show();
     if (TransportDetailsList.code == 200) {
