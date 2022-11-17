@@ -1,6 +1,6 @@
 ﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationRestaurant/List");
-var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
+var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesExtra/List");
+var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
 $('.ui.dropdown').dropdown();
 $("document").ready(function () {
     Tarjeta();
@@ -29,7 +29,7 @@ function Tarjeta() {
     if (ReservacionTra.code == 200) {
 
         var resv = ReservacionTra.data;
-        var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
+        var Rflitro = resv.filter(resva => resva.iD_Partner == parseInt(Client_Partner_ID));
         $('#tarjetaT').empty();
         if (Rflitro.length == 0) {
             actexth =
@@ -54,7 +54,7 @@ function Tarjeta() {
                                   Fecha: ${fecha[0]}
                         </div>      
                     </div>
-                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
+                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.id_Actividad_Extra},${item.id})">
                         <i class="folder open icon"></i>
                         Ver Detalles
                     </a>
@@ -100,7 +100,7 @@ function ViewReservation(idDetalles, id) {
             try {
                 var ResvaFilterItem = Rflitro[0];
                 var TranspoFilterItem = TranspoFilter[0];
-                var imagen = TranspoFilterItem.image_URL.split(',');
+                /*var imagen = ResvaFilterItem.imageURL.split(',');*/
                 var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
                 var hora = ResvaFilterItem.hora_Reservacion;
                 var recortado1 = "";
@@ -112,9 +112,7 @@ function ViewReservation(idDetalles, id) {
                 divroom =
                     `<div class="field">
                     <center>
-                    <div class="image">
-                        <img src="${imagen[0]}">
-                    </div>
+                    
                     </center>
 
                     </div>
@@ -127,6 +125,26 @@ function ViewReservation(idDetalles, id) {
                         <div class="field">
                             <label>Socio: </label>
                                 ${TranspoFilterItem.partner}
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Actividad: </label>
+                                ${TranspoFilterItem.actividad}
+                        </div>
+                        <div class="field">
+                            <label>Descripción: </label>
+                                ${TranspoFilterItem.descripcion}
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Precio: </label>
+                                L ${ResvaFilterItem.precio}
+                        </div>
+                        <div class="field">
+                            <label>Cantidad: </label>
+                                ${ResvaFilterItem.cantidad}
                         </div>
                     </div>
                     <div class="two fields">
