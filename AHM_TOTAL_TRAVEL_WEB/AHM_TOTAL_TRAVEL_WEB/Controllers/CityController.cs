@@ -22,10 +22,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
 
-            IEnumerable<CountriesListViewModel> model_Country = null;
-            var country = await _generalService.CountriesList();
-            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
-            ViewBag.pais_ID = new SelectList(data_Country, "ID", "Pais");
 
 
             var token = HttpContext.User.FindFirst("Token").Value;

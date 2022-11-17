@@ -9,77 +9,112 @@ $("#grdPaises").paginationTdA({
 });
 
 // ----------------------------------- EVENTS ------------------------------------
+//<--- Configuraciones de las Datatables---->
+//Contenido que va dentro de la tabla
+function format(detailData, rowId) {
+    // `d` is the original data object for the row
+    detailData = detailData.filter(x => x.paisID == rowId);
 
-$("#grdPaises tbody tr .details_button").click((_this) => {
+    if (detailData.length <= 0) {
+        return (
+            `<div>
+              <h2>No hay registros para mostrar</h2>
+            </div>`);
 
-    const tr = $(_this.target).parents("tr"); 
-    const index = $("#grdPaises tbody tr").index(tr);
-    const id_pais = $(tr).attr("data-value");
+    }
+    else {
+        var structure = `<div class="ui fluid vertical menu">`;
+        for (var i = 0; i < detailData.length; i++) {
 
-    const contentData = citiesListDetails(id_pais);
-    MostrarDetalle(
-        detail_row = {
-            table: $("#grdPaises"),
-            row_Index: index,
-            content: contentData.content
+            const city = detailData[i];
+            const fechaCreacion = GetDateFormat({
+                string_date: city.fechaCrea, hour_format: 12, date_format: "default"
+            });
+
+            structure +=
+                `<tr data-value="${city.id}">
+                        <td class="ui fluid vertical menu" style="margin:unset">
+                            <a class="item">
+                                <h1 class="ui medium header">Ciudad: ${city.ciudad}</h1>
+                                <p>Creado el: ${fechaCreacion.datetime}</p>
+                            </a>
+                        </td>
+                    </tr>`;
         }
-    );
+        return structure;
+    }
 
-    /*
-    // do details of level two in table
-    if (contentData.state) {
-        TableDetailsConstructor($(`#grdCiudades_id_pais_${id_pais}`));
+}
 
-        $(`#grdCiudades_id_pais_${id_pais} tr .details_button`).click((_this) => {
+$(document).ready(function () {
+    // Add event listener for opening and closing details
+    $("#grdCountry").on('click', 'tbody td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        var id = $(tr).attr('data-value');
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            $(tr).removeClass("dt-hasChild");
+        } else {
+            // Open this row
+            row.child(format(CitiesList.data, id)).show();
+            $(tr).addClass("dt-hasChild");
+        }
+    });
+    //Sirve para rellenar la subtabla de la tabla maestra
+    $("#grdCountry").on('requestChild.dt', function (e, row) {
+        row.child(format(CitiesList.data, id)).show();
+    });
+    var table = $("#grdCountry").DataTable({
+        stateSave: true,
+        language: {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        //Aqui se ingresa el numero de columnas que tiene la tabla
+        columns: [
+            {
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: '',
+            },
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        order: [[1, 'asc']],
+        dom: 'Bfrtip',
 
-            const tr = $(_this.target).parents("tr");
-            const index = $(`#grdCiudades_id_pais_${id_pais} tbody tr`).index(tr);
-            const id_ciudad = $(tr).attr("data-value");
-
-            const contentData = suburbsListDetails(id_ciudad);
-            MostrarDetalle(
-                detail_row = {
-                    table: $(`#grdCiudades_id_pais_${id_pais}`),
-                    row_Index: index,
-                    content: contentData.content
+        //Son los botones de acciones para exportar
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
                 }
-            );
-
-            show(
-                $(`#grd_colonias_id_ciudad_${id_ciudad} .item`)
-            );
-
-            $("#btnSuburbs_ShowMore").click(() => {
-
-                var indexToShow = $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show");
-                if ($(`#grd_colonias_id_ciudad_${id_ciudad} .item`).length >= indexToShow) {
-
-                    $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show", parseInt(indexToShow) + 5);
-
-                    show(
-                        $(`#grd_colonias_id_ciudad_${id_ciudad} .item`),
-                        parseInt(indexToShow) + 5
-                    );
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="file excel icon"></i> Exportar a excel',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
                 }
-            });
-
-            $("#btnSuburbs_ShowLess").click(() => {
-
-                var indexToShow = $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show");
-
-                if ( 5 < indexToShow) {
-                    $(`#grd_colonias_id_ciudad_${id_ciudad}`).attr("data-show", parseInt(indexToShow) - 5);
-
-                    show(
-                        $(`#grd_colonias_id_ciudad_${id_ciudad} .item`),
-                        parseInt(indexToShow) - 5
-                    );
-                }
-            });
-
-        });
-    }*/
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="file csv icon"></i> Exportar como CSV',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+            },
+        ]
+    });
 });
+
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 

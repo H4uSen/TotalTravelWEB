@@ -18,62 +18,59 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <div class="eight wide column">
                     <button id="createCountries" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
                 </div>
             </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
-            </div>
         </div>
 
-        <table class="ui compact selectable celled table" id="grdPaises">
+        <table id="grdCountry" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
             <thead>
                 <tr>
+                    <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
                     <th>ISO</th>
                     <th>Código</th>
                     <th>País</th>
                     <th>Nacionalidad</th>
-                    <th width="300px">Acciones</th>
+                    <th width="200px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
+
                 @foreach (var item in Model)
                 {
-                 <tr data-value="@item.ID">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ISO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Codigo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pais)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nacionalidad)
-                    </td>
-
-                    <td>
-                        <a class="ui large icon btn-edit button" href="@Url.Action("Update", "Countries", new { id=item.ID })">
-                            <i class="pencil alternate icon icon-crud"></i>
-                        </a>
-                        <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a class="ui large icon button" href="@Url.Action("Details", "Countries", new { id=item.ID })">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                 </tr>
+                    <tr data-value="@item.ID" data-hotel="@item.ID">
+                        <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ISO)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pais)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nacionalidad)
+                        </td>
+                        <td class="Acciones">
+                            <a class="ui large icon btn-edit button" href="@Url.Action("Update", "Countries", new { id=item.ID })">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <button class="ui large icon btn-delete button" onclick="Delete(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details", "Countries", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
-        </table><br>
+        </table>
+
 
     </div>
 </div>

@@ -18,22 +18,16 @@
         </div>
 
         <br>
-        <div class="ui grid">
+        <div class="ui grid mb-3">
             <div class="eight wide column">
                 <div class="eight wide column">
                     <button id="createPayments" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
                 </div>
             </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
-            </div>
         </div>
-        
 
-        <table class="ui compact selectable celled table" id="grdPaymentRecord">
+
+        <table id="grdPaymentRegist" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
             <thead>
                 <tr>
                     <th>
@@ -54,66 +48,60 @@
                     <th>
                         Cliente
                     </th>
-                    <th>
-                        Acciones
-                    </th>
+                    <th width="200px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
+
                 @foreach (var item in Model)
                 {
-                    <tr data-value="@item.ID">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            L. @Html.DisplayFor(modelItem => item.MontoPago)
-                        </td>
-                        <td>
-                            @{
-                                if (item.Id_TipoPago == 1)
-                                {
+                <tr data-value="@item.ID" data-hotel="@item.ID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        L. @Html.DisplayFor(modelItem => item.MontoPago)
+                    </td>
+                    <td>
+                        @{
+                            if (item.Id_TipoPago == 1)
+                            {
 
-                                            <i class="paypal icon"></i>
 
-                                }
-                                else if (item.Id_TipoPago == 2)
-                                {
-                                            <i class="credit card icon"></i>
-
-                                }
-                                else if (item.Id_TipoPago == 3)
-                                {
-                                            <i class="money bill"></i>
-
-                                }
-                                else if (item.Id_TipoPago == 4)
-                                {
-                                            <i class="dollar sign icon"></i>
-
-                                }
+                                <i class="credit card icon"></i>
                             }
-                            @Html.DisplayFor(modelItem => item.TipoPago)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fechaPago)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.descripcion_paquete)
-                        </td>
-                        <td>
-                            @string.Concat( item.Nombre, " ", item.Apellido)
-                        </td>
-                        <td>
-                            <a href="@Url.Action("Details","RegistrationPayments",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
-                            
-                        </td>
-                    </tr>
-                        }
-                    </tbody>
-                </table><br>
+                            else if (item.Id_TipoPago == 2)
+                            {
 
-            </div>
+                                <i class="money bill"></i>
+                            }
+                            else if (item.Id_TipoPago == 3)
+                            {
+
+                                <i class="paypal icon"></i>
+
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => item.TipoPago)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaPago)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion_paquete)
+                    </td>
+                    <td>
+                        @string.Concat(item.Nombre, " ", item.Apellido)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details","RegistrationPayments",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
+
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="ui modal longer" id="modalCreate">

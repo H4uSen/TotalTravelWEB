@@ -9,18 +9,51 @@ $("#grdUsuarios").paginationTdA({
     elemPerPage: 10
 });
 
-$("#grdUsuarios tbody tr .details_button").click((_this) => {
 
-    const tr = $(_this.target).parents("tr");
-    const index = $("#grdUsuarios tbody tr").index(tr);
+$(document).ready(function () {
 
-    MostrarDetalle(
-        detail_row = {
-            table: $("#grdUsuarios"),
-            row_Index: index,
-            content: '<h1 class="ui red header">Hola mundo</h1>'
-        }
-    )
+    var table = $("#grdUsers").DataTable({
+        stateSave: true,
+        language: {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        //Aqui se ingresa el numero de columnas que tiene la tabla
+        columns: [
+            {},
+            {},
+            {},
+            {},
+            {}
+            
+        ],
+        order: [[1, 'asc']],
+        dom: 'Bfrtip',
+
+        //Son los botones de acciones para exportar
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="file excel icon"></i> Exportar a excel',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="file csv icon"></i> Exportar como CSV',
+                className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+            },
+        ]
+    });
 });
 
 // ----------------------------------- EVENTS ------------------------------------
