@@ -2,21 +2,21 @@
 
 //extra
 //const PartnersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
-const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+var CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 // hotels
-const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
-const HotelsActivitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsActivities/List");
-const RoomsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Rooms/List");
+var HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+var HotelsActivitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsActivities/List");
+var RoomsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Rooms/List");
 
 // activities
-const ActivitiesExtraList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
+var ActivitiesExtraList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
 
 // transports
-const DetailsTransportationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/List");
+var DetailsTransportationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/List");
 
 //restaurants
-const RestaurantsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
-const MenusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
+var RestaurantsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
+var MenusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
 
 //------------------------- VARIABLES ---------------------------
 
@@ -216,6 +216,7 @@ $('.restaurant_fecha').calendar({
 
 
 $('.ui.dropdown').dropdown();
+$('.ui.accordion').accordion();
 
 //-------------------------- EVENTS ------------------------------------------
 
@@ -337,7 +338,11 @@ function fillMain(id_ciudad_salida, id_ciudad_destino){
     steps.step_1();
 }
 
+
+//--------------------------------- FILL FUNCTIONS ------------------------------------------
 function fillHotels(id_ciudad){
+
+    CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
 
     if (HotelsList.code == 200) {
         const ciudad = jQuery.grep(CitiesList.data, function (item, i) {
@@ -363,28 +368,28 @@ function fillHotels(id_ciudad){
                 carousel += "</div>";
 
                 const card =
-                    ` <div class="item hotel_item">
-                    <div class="image">
-                        ${carousel}
-                    </div>
-                    <div class="content">
-                        <h3><b>${hotel.hotel}</b></h3>
-                        <h5 class="blue_text">
-                            <i class="map marker alternate blue icon"></i>
-                            <b>${ciudad.ciudad}, ${ciudad.pais}</b>
-                        </h5>
-                        <div class="extra">
-                            <b>Rating:</b><br>
-                            <div class="ui huge star rating disabled" data-rating="5"></div>
+                    `<div class="item hotel_item">
+                        <div class="image">
+                            ${carousel}
                         </div>
-                    </div>
-                    <div class="content left floated" style="text-align: end;">
-                        <br>
-                        <button class="ui right floated primary button hotel_button_trigger" data-value="${hotel.id}" data-selected="false">
-                            RESERVAR <i class="right chevron icon"></i>
-                        </button>
-                    </div>
-                </div>`;
+                        <div class="content">
+                            <h3><b>${hotel.hotel}</b></h3>
+                            <h5 class="blue_text">
+                                <i class="map marker alternate blue icon"></i>
+                                <b>${ciudad.ciudad}, ${ciudad.pais}</b>
+                            </h5>
+                            <div class="extra">
+                                <b>Rating:</b><br>
+                                <div class="ui huge star rating disabled" data-rating="5"></div>
+                            </div>
+                        </div>
+                        <div class="content left floated" style="text-align: end;">
+                            <br>
+                            <button class="ui right floated primary button hotel_button_trigger" data-value="${hotel.id}" data-selected="false">
+                                RESERVAR <i class="right chevron icon"></i>
+                            </button>
+                        </div>
+                    </div>`;
 
                 $("#hotel_container #frmHotels #frmItems").append(card);
             }
@@ -478,7 +483,7 @@ function fillRooms(id_hotel) {
 
                 // room card construct
                 const card =
-                    `<div class="column room_item">
+                    `<div class="column room_item" data-value="${item.id}">
                         <div class="ui card" style="width:100%; height:100%;">
                             <div class="image">
                                ${carousel}
@@ -712,58 +717,58 @@ function fillHotelActivities(id_hotel) {
 
                 const card =
                     `<div class="item activity_item">
-                    <div class="image">
-                        ${carousel}
-                    </div>
-                    <div class="content" style="padding-right: 10em;">
-                        <h3>
-                            <b class="blue_text">${item.actividad}</b>
-                            <div class="ui large gray horizontal label">Familiar</div>
-                        </h3>
-                        <h4><b>${item.hotelNombre}</b></h4>
-                        <div class="description">
-                            ${item.descripcion}
+                        <div class="image">
+                            ${carousel}
                         </div>
-                        <div class="extra">
-                            <h3 class="ui green header">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
+                        <div class="content" style="padding-right: 10em;">
+                            <h3>
+                                <b class="blue_text">${item.actividad}</b>
+                                <div class="ui large gray horizontal label">Familiar</div>
+                            </h3>
+                            <h4><b>${item.hotelNombre}</b></h4>
+                            <div class="description">
+                                ${item.descripcion}
+                            </div>
+                            <div class="extra">
+                                <h3 class="ui green header">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content left floated">
-                        <div class="fields">
+                        <div class="content left floated hotelActivity_form_data">
+                            <div class="fields">
 
-                            <div class="field">
-                                <label>No. de personas</label>
                                 <div class="field">
-                                    <div class="ui right labeled input hotelActivity_contador">
-                                        <div class="ui icon button label minus_button">
-                                            <i class="minus icon"></i>
+                                    <label>No. de personas</label>
+                                    <div class="field">
+                                        <div class="ui right labeled input hotelActivity_contador">
+                                            <div class="ui icon button label minus_button">
+                                                <i class="minus icon"></i>
+                                            </div>
+                                            <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
+                                            <div class="ui icon button label plus_button">
+                                                <i class="plus icon"></i>
+                                            </div>
                                         </div>
-                                        <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
-                                        <div class="ui icon button label plus_button">
-                                            <i class="plus icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar activitiesHotels_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="field required">
-                                <label>Fecha reservacion</label>
-                                <div class="ui calendar activitiesHotels_fecha">
-                                    <div class="ui input left icon">
-                                        <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Fecha de reservacion" readonly>
-                                    </div>
-                                </div>
-                            </div>
+                            <br>
+                            <button class="ui right floated primary button activityHotel_trigger_button" data-selected="false" data-value="${item.id}">
+                                RESERVAR
+                                <i class="right chevron icon"></i>
+                            </button>
                         </div>
-
-                        <br>
-                        <button class="ui right floated primary button activityHotel_trigger_button" data-selected="false" data-value="${item.id}">
-                            RESERVAR
-                            <i class="right chevron icon"></i>
-                        </button>
-                    </div>
-                </div>`;
+                    </div>`;
 
                 $("#activities_container #frmHotelActivities .ui.items").append(card);
             }
@@ -792,7 +797,7 @@ function fillHotelActivities(id_hotel) {
             $(".activitiesHotels_fotorama").fotorama();
             createContador($(".hotelActivity_contador"));
             $('.activitiesHotels_fecha').calendar({
-                type: 'date',
+                //type: 'date',
                 popupOptions: {
                     position: 'bottom right',
                     lastResort: 'bottom right',
@@ -822,7 +827,6 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
     var transports = jQuery.grep(DetailsTransportationList.data, function (item, i) {
         return item.ciudad_Salida_ID == id_ciudad_salida && item.ciudad_Llegada_ID == id_ciudad_llegada;
     });
-    console.log(transports);
 
     $("#transport_container #frmTransportes .ui.items").empty();
     $("#transport_container #frmVuelos .ui.items").empty();
@@ -908,7 +912,7 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
                             <h3 class="ui green header">L ${parseFloat(element.precio).toFixed(2)} por asiento</h3>
                         </div>
                     </div>
-                    <div class="content left floated">
+                    <div class="content left floated transport_form_content">
                         <br>
                         <div class="fields">
                             <div class="field">
@@ -998,9 +1002,9 @@ function fillRestaurant(id_ciudad) {
             return item.ciudadID == id_ciudad;
         });
 
+        $("#restaurant_container .ui.items").empty();
         if (restaurant.length > 0) {
 
-            $("#restaurant_container .ui.items").empty();
             for (var i = 0; i < restaurant.length; i++) {
 
                 const element = restaurant[i];
@@ -1119,7 +1123,7 @@ function fillRestaurant(id_ciudad) {
                     <div class="content">
                         <div class="ui negative message">
                             <div class="header">
-                                No hay hoteles disponibles en esta zona
+                                No hay restaurantes disponibles en esta zona
                             </div>
                         </div>
                     </div>
@@ -1189,35 +1193,382 @@ function fillMenu(id_restaurante) {
     }
 }
 
+
+//--------------------------------- GET DETAILS FUNCTIONS ------------------------------------------
+
 function getReservationDetail() {
 
+    var detailSuccess = true;
+
+    var errorDiv =
+        `<div class="ui error message">
+            <div class="header">
+                Hay algunos campos o aspectos incompletos 
+            </div>
+            <ul class="list">`;
+
     const reservationDetail = ReservationCreateViewModel.reservacion;
-    reservationDetail.hote_ID = $("button.hotel_button_trigger[data-selected='true']").eq(0).attr("data-value");
+    reservationDetail.reHo_FechaEntrada = getCalendarDate($("#txtFechaEntrada input[type='text']").val());
+    reservationDetail.reHo_FechaSalida = getCalendarDate($("#txtFechaSalida input[type='text']").val());
+    reservationDetail.hote_ID = parseInt($("button.hotel_button_trigger[data-selected='true']").eq(0).attr("data-value"));
 
-    reservationDetail.restaurantes = ReservationDetail.getRestaurant();
-    reservationDetail.actividadesExtras = ReservationDetail.getExtraActivities();
+    const activities = ReservationDetail.getActivities();
+    const restaurant = ReservationDetail.getRestaurant();
+    const rooms = ReservationDetail.getRooms();
+    const transports = ReservationDetail.getTransport();
 
-    const extraActivities = $("button.activity_trigger_button[data-selected='true']");
-    const hotelActivities = $("button.activityHotel_trigger_button[data-selected='true']");
+    if (!activities.success) {
+        errorDiv += `<li>${activities.message}</li>`;
+        detailSuccess = false;
+    }
 
-    console.log(reservationDetail);
+    if (!restaurant.success) {
+        errorDiv += `<li>${restaurant.message}</li>`;
+        detailSuccess = false;
+    }
+
+    if (!rooms.success) {
+        errorDiv += `<li>${rooms.message}</li>`;
+        detailSuccess = false;
+    }
+
+    if (!transports.success) {
+        errorDiv += `<li>${transports.message}</li>`;
+        detailSuccess = false;
+    }
+
+    if ($("#txtFechaEntrada input[type='text']").val() == 0 ) {
+        errorDiv += `<li>ingresa una fecha de entrada</li>`;
+        detailSuccess = false;
+    }
+
+    if ($("#txtFechaSalida input[type='text']").val() == 0) {
+        errorDiv += `<li>ingresa una fecha de salida</li>`;
+        detailSuccess = false;
+    }
+
+    reservationDetail.restaurantes = restaurant.data;
+    reservationDetail.actividadesExtras = activities.extra;
+    reservationDetail.actividadesHoteles = activities.hotel;
+    reservationDetail.resv_Habitaciones = rooms.data;
+    reservationDetail.reservacionTransportes = transports.data;
+
+    errorDiv += `</ul></div>`;
+
+    if (detailSuccess) {
+        getReservationDetail_html.main(reservationDetail);
+    } else {
+        $("#pago_container").empty();
+        $("#pago_container").append(errorDiv);
+    }
 }
+
+const getReservationDetail_html = {
+
+    main: function (reservationDetail) {
+        const hotelTotal = this.getHotels(reservationDetail);
+        const transportTotal = this.getTransport(reservationDetail);
+        const extraActivitiestTotal = this.getActivities(reservationDetail);
+
+        $('.ui.accordion').accordion();
+    },
+
+    getHotels: function (reservationDetail) {
+
+        $("#frmDetails #frmDetails_hotel .ui.items").empty();
+        const hotel = HotelsList.data.filter(x => x.id = reservationDetail.hote_ID)[0];
+        const direccion = CitiesList.data.filter(x => x.id = hotel.ciudadID)[0];
+        const days = getDaysBetweenTwoDates(reservationDetail.reHo_FechaEntrada, reservationDetail.reHo_FechaSalida);
+        const images = hotel.image_URL.split(",");
+
+        // caroulse contruct
+        var carousel = `<div class="fotorama hotels_fotorama" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">`;
+        for (var j = 0; j < images.length; j++) {
+            carousel += `<img src="${images[j]}">`;
+        }
+        carousel += "</div>";
+
+        // hotel details
+        const rooms_detail = this.getRooms(reservationDetail);
+        const activities_detail = this.getHotelActivities(reservationDetail);
+
+        const subtotal = (parseFloat(activities_detail.subtotal) + (rooms_detail.subtotal * days)).toFixed(2);
+
+        var card =
+            `<div class="item">
+                <div class="image">
+                    ${carousel}
+                </div>
+                <div class="content style="width: inherit;">
+                    <h3><b>${hotel.hotel}</b></h3>
+                    <h5 class="blue_text">
+                        <i class="map marker alternate blue icon"></i>
+                        <b>${direccion.ciudad}, ${direccion.pais}</b>
+                    </h5>
+
+                    <div class="ui styled accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Ver detalles
+                        </div>
+                        <div class="content accordion_details">
+                            <h5 style="font-weight:bold;">- ${$("#txtCantidadPersonas").val()} Personas estimadas</h5>
+                            <h5 style="font-weight:bold;">- ${days} Dias de hospedaje estimados</h5>
+                            <h5 style="font-weight:bold;">- ${reservationDetail.resv_Habitaciones.length} Habitaciones reservadas</h5>
+                            <h5 style="font-weight:bold;">- ${reservationDetail.actividadesHoteles.length} Actividades reservadas</h5>
+                        </div>
+
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Ver habitaciones
+                        </div>
+                        <div class="content" id="accordion_rooms">
+                            <div class="ui divided items">${rooms_detail.HTML_cards}</div>
+                        </div>
+
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Ver Actividades
+                        </div>
+                        <div class="content" id="accordion_activities">
+                              <div class="ui divided items">${activities_detail.HTML_cards}</div>
+                        </div>
+
+                    </div>
+
+                </div>
+               <div class="content" style="display: flex;flex-direction: row-reverse;">
+                    <table class="ui very basic collapsing table">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h4 class="ui grey header">HABITACIONES</h4>
+                                </td>
+                                <td>
+                                    <h4 class="ui black header">L ${(rooms_detail.subtotal * days).toFixed(2)}</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h4 class="ui grey header">
+                                        ACTIVIDADES
+                                    </h4>
+                                </td>
+                                <td>
+                                    <h4 class="ui black header">
+                                        L ${activities_detail.subtotal}
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: end;">
+                                    <h3 class="ui image header">
+                                        <b>SUB TOTAL</b>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <h3 class="ui green header">
+                                        L ${subtotal}
+                                    </h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>`;
+        
+
+        $("#frmDetails #frmDetails_hotel .ui.items").append(card);
+
+        return subtotal;
+    },
+
+    getRooms: function (reservationDetail) {
+
+        var response = {
+            subtotal : 0,
+            HTML_cards : ""
+        }
+
+        $.each(reservationDetail.resv_Habitaciones, function (i, item) {
+
+            const room = RoomsList.data.filter(x => x.id == item.habi_ID)[0];
+            response.subtotal += parseFloat(room.precio).toFixed(2) * item.habi_Cantidad;
+
+            const images = room.imageUrl.split(",");
+            response.HTML_cards +=
+                `<div class="item">
+                    <div class="image">
+                        <img src="${images[0]}">
+                    </div>
+                    <div class="content">
+                        <h2 class="header">${room.habitacion} <div class="ui large label">${room.categoria}</div></h2><br>
+                        <h3 class="ui header">- Para ${room.capacidad} personas</h3><br>
+                        <h3 class="ui header">- Habitaciones reservadas: ${item.habi_Cantidad}</h3><br>
+                        <h3 class="ui green header">L ${parseFloat(room.precio).toFixed(2)} por dia/noche</h3><br>
+                    </div>
+                </div>`;
+        });
+
+        response.subtotal = response.subtotal.toFixed(2);
+        return response;
+    },
+
+    getHotelActivities: function (reservationDetail) {
+
+        var response = {
+            subtotal: 0,
+            HTML_cards: ""
+        }
+
+        $.each(reservationDetail.actividadesHoteles, function (i, item) {
+
+            const activity = HotelsActivitiesList.data.filter(x => x.id == item.hoAc_ID)[0];
+            response.subtotal += parseFloat(item.reAH_Precio).toFixed(2) * item.reAH_Cantidad;
+
+            const images = activity.image_URL.split(",");
+            const fecha = GetDateFormat({ string_date: item.reAH_FechaReservacion, hour_format: 12, date_format: "large" });
+
+            response.HTML_cards +=
+                `<div class="item">
+                    <div class="image">
+                        <img src="${images[0]}">
+                    </div>
+                    <div class="content">
+                        <h2 class="header">${activity.actividad}</h2><br>
+                        <div class="description">
+                            - Reservada para el dia ${fecha.datetime} <br>
+                            - Reservada para ${item.reAH_Cantidad} personas
+                        </div>
+                         <h3 class="ui green header">L ${parseFloat(item.reAH_Precio).toFixed(2)} por persona</h3><br>
+                    </div>
+                </div>`;
+        });
+
+        response.subtotal = response.subtotal.toFixed(2);
+        return response;
+    },
+
+    getTransport: function (reservationDetail) {
+
+        $("#frmDetails #frmDetails_transport").hide();
+        if (reservationDetail.reservacionTransportes.length > 0) {
+
+            var subtotal = 0;
+            $("#frmDetails #frmDetails_transport").show();
+            $("#frmDetails #frmDetails_transport .ui.items").empty();
+
+            $.each(reservationDetail.reservacionTransportes, function (i, item) {
+
+                const transport = DetailsTransportationList.data.filter(x => x.id == item.detr_ID)[0];
+                const Cities = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+                const ciudadSalida = Cities.data.filter(x => x.id == transport.ciudad_Salida_ID)[0];
+                const ciudadDestino = Cities.data.filter(x => x.id == transport.ciudad_Llegada_ID)[0];
+
+                const images = transport.image_URL.split(",");
+                const fecha = GetDateFormat({ string_date: item.reTr_FechaCancelado, hour_format: 12, date_format: "large" });
+                subtotal += parseFloat(transport.precio) * item.reTr_CantidadAsientos;
+
+                const card =
+                    `<div class="item">
+                        <div class="image">
+                            <img src="https://totaltravelapi.azurewebsites.net/Images/${images[0]}">
+                        </div>
+                        <div class="content" style="width: inherit;">
+                            <a class="header">${transport.parter}</a>
+                            <div class="description">
+                                <b class="ui blue header">- Reservado para el dia ${fecha.datetime}</b><br>
+                                <b class="ui header">- ${item.reTr_CantidadAsientos} asientos reservados</b>
+                            </div>
+                            <div class="extra">
+                                <div class="ui label"><i class="map marker icon"></i> ${ciudadSalida.pais}, ${ciudadSalida.ciudad}</div>
+                                <div class="ui label"><i class="map marker alternate icon"></i>${ciudadDestino.pais}, ${ciudadDestino.ciudad}</div>
+                                <h3 class="ui green header">L ${parseFloat(transport.precio).toFixed(2)} por asiento</h3>
+                                <h2 class="ui header" style="text-align: end;">
+                                    SUB TOTAL: <b style="color:green">L ${(parseFloat(transport.precio).toFixed(2) * item.reTr_CantidadAsientos).toFixed(2)}</b>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>`;
+
+                $("#frmDetails #frmDetails_transport .ui.items").append(card);
+            });
+        }
+
+        return subtotal;
+    },
+
+    getActivities: function (reservationDetail) {
+
+        var total = 0;
+        $("#frmDetails #frmDetails_activities").hide();
+        if (reservationDetail.actividadesExtras.length > 0) {
+
+            $("#frmDetails #frmDetails_activities").show();
+            $("#frmDetails #frmDetails_activities .ui.items").empty();
+
+            $.each(reservationDetail.actividadesExtras, function (i, item) {
+
+                const activity = ActivitiesExtraList.data.filter(x => x.id == item.acEx_ID)[0];
+
+                const images = activity.imageURL.split(",");
+                const fecha = GetDateFormat({ string_date: item.reAE_FechaReservacion, hour_format: 12, date_format: "large" });
+                var subtotal = parseFloat(item.reAE_Precio) * item.reAE_Cantidad;
+                total += subtotal;
+
+                const card =
+                    `<div class="item">
+                        <div class="image">
+                            <img src="${images[0]}">
+                        </div>
+                        <div class="content" style="width: inherit;">
+                            <a class="header">${activity.actividad}</a>
+                            <div class="description">
+                                <b class="ui blue header">- Reservado para el dia ${fecha.datetime}</b><br>
+                                <b class="ui header">- Reservado para ${item.reAE_Cantidad} personas</b>
+                            </div>
+                            <div class="extra">
+                                <h3 class="ui green header">L ${parseFloat(activity.precio).toFixed(2)} por persona</h3>
+                                <h2 class="ui header" style="text-align: end;">
+                                    SUB TOTAL: <b style="color:green">L ${subtotal.toFixed(2)}</b>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>`;
+
+                $("#frmDetails #frmDetails_activities .ui.items").append(card);
+            });
+        }
+
+        return total;
+    }
+}
+
 
 var ReservationDetail = {
 
     getRestaurant: function () {
-        var data = [];
+        var response = {
+            success: true,
+            message: "",
+            data: []
+        };
 
+        var contador_vacios = 0;
         // get current selected restaurant
         const restaurants = $("button.restaurant_trigger_button[data-selected='true']");
 
         $.each(restaurants, function (i, item) {
 
-            const restaurantViewModel = ReservationCreateViewModel.restaurantes;
+            const restaurantViewModel = {};
 
             // get data
             const stringDate = $(item).parents(".restaurant_form_content").eq(0).find(".restaurant_fecha input").val();
             console.log($(item).parents(".restaurant_form_content").eq(0).find(".restaurant_fecha input").val());
+            if (stringDate == 0) {
+                contador_vacios++;
+            }
             const formatDate = getCalendarDate(stringDate);
 
             // set restaurant data 
@@ -1226,25 +1577,43 @@ var ReservationDetail = {
             restaurantViewModel.reRe_HoraReservacion = formatDate.split("T")[1];
 
             // set response
-            data.push(restaurantViewModel);
+            response.data.push(restaurantViewModel);
         });
 
-        return data;
+        if (contador_vacios > 0) {
+            response.success = false;
+            response.message = `No se ah especificado la fecha de reservacion de el restaurante seleccionado`;
+        }
+        return response;
     },
 
-    getExtraActivities: function () {
+    getActivities: function () {
 
-        var data = [];
+        var response = {
+            success: true,
+            message: "",
+            contador: 0,
+            hotel: [],
+            extra: []
+        };
+
+        var contador_vacios = 0;
         const extraActivities = $("button.activity_trigger_button[data-selected='true']");
+        const HotelActivities = $("button.activityHotel_trigger_button[data-selected='true']");
 
-        $.each(extraActivities, function (item, i) {
+        //extra activities
+        $.each(extraActivities, function (i, item) {
 
             // get data
-            const extraActivity = ReservationCreateViewModel.actividadesExtras;
+            const extraActivity = {};
             const form_data = $(item).parents(".activitiesExtra_form_content").eq(0);
 
             // get date
             const stringDate = $(form_data).find(".activities_fecha input").val();
+            if (stringDate == "" || stringDate == undefined) {
+                contador_vacios++;
+                console.log("fecha vacia: "+stringDate);
+            }
             const formatDate = getCalendarDate(stringDate);
 
             // set data
@@ -1254,9 +1623,109 @@ var ReservationDetail = {
             extraActivity.reAE_Cantidad = parseInt($(form_data).find(".ExtraActivity_contador input[type='number']").val());
             extraActivity.reAE_Precio = ActivitiesExtraList.data.filter(n => n.id == extraActivity.acEx_ID).precio;
 
-            data.push(extraActivity); 
+            response.extra.push(extraActivity);
+        });
+
+        //hotel activities
+        $.each(HotelActivities, function (i, item) {
+
+            // get data
+            const HotelActivity = {};
+            const form_data = $(item).parents(".hotelActivity_form_data").eq(0);
+
+            // get date
+            const stringDate = $(form_data).find(".activitiesHotels_fecha input").val();
+            if (stringDate == "" || stringDate == undefined) {
+                contador_vacios++;
+                console.log("fecha vacia: " + stringDate);
+            }
+            const formatDate = getCalendarDate(stringDate);
+
+            // set data
+            HotelActivity.hoAc_ID = parseInt($(item).attr("data-value"));
+            HotelActivity.reAH_FechaReservacion = formatDate;
+            HotelActivity.reAH_HoraReservacion = formatDate.split("T")[1];
+            HotelActivity.reAH_Cantidad = parseInt($(form_data).find(".hotelActivity_contador input[type='number']").val());
+            HotelActivity.reAH_Precio = HotelsActivitiesList.data.filter(x => x.id == HotelActivity.hoAc_ID)[0].precio;
+
+            response.hotel.push(HotelActivity);
         });
          
-        return data;
+        if (contador_vacios > 0) {
+            response.success = false;
+            response.contador = contador_vacios;
+            response.message = `No se ah especificado la fecha de reservacion de ${contador_vacios} actividades seleccionadas`;
+        }
+        return response;
+    },
+
+    getRooms: function () {
+
+        var response = {
+            success: true,
+            message: "",
+            data: [],
+        };
+
+        const rooms = $("#hotel_container #frmRooms .room_item");
+
+        $.each(rooms, function (i, item) {
+
+            const cantidad = parseInt($(item).find(".room_contador input[type='number']").val());
+
+            if (cantidad > 0) {
+                var model = {};
+                model.habi_ID = parseInt($(item).attr("data-value"));
+                model.habi_Cantidad = cantidad;
+                response.data.push(model);
+            }
+
+        });
+        if (response.data.length <= 0) {
+            response.success = false;
+            response.message = "Tienes que especificar al menos una habitacion de hospedaje.";
+        }
+
+        //console.log(response.data);
+        return response;
+
+    },
+
+    getTransport: function () {
+
+        var response = {
+            success: true,
+            message: "",
+            data: [],
+        };
+
+        var contador_vacios = 0;
+        var transports = $(".transport_trigger_button[data-selected='true']");
+
+        $.each(transports, function (i,item) {
+            // get data
+            const model = {};
+            const form_data = $(item).parents(".transport_form_content").eq(0);
+            var transport = DetailsTransportationList.data.filter(x => x.id == parseInt($(item).attr("data-value")))[0];
+            // get date
+            const stringDate = $(form_data).find(".transport_fecha input").val();
+            const formatDate = getCalendarDate(stringDate);
+            if (stringDate == "" || stringDate == undefined) {
+                contador_vacios++;
+            }
+
+            model.detr_ID = parseInt($(item).attr("data-value"));
+            model.reTr_CantidadAsientos = parseInt($(form_data).find(".transport_contador input[type='number']").val());
+            model.reTr_FechaCancelado = `${formatDate.split("T")[0]}T${transport.hora_Salida}`;
+
+            response.data.push(model);
+        });
+
+        if (contador_vacios > 0) {
+            response.success = false;
+            response.contador = contador_vacios;
+            response.message = `No se ah especificado la fecha de reservacion de el transporte seleccionado`;
+        }
+        return response;
     }
 }
