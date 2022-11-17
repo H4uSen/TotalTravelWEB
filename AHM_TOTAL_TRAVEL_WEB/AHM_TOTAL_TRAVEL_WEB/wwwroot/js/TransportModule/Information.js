@@ -33,7 +33,7 @@ function Tarjeta() {
         $('#tarjetaT').empty();
         if (Rflitro.length == 0) {
             actexth =
-                `<div class="ui card">
+                `<div class="ui card" style="width:100%>
                     <div class="content">
                         <div class="header">No hay reservaciones</div>                     
                     </div>                  
@@ -45,7 +45,7 @@ function Tarjeta() {
                 const item = Rflitro[i];
                 try {
                     divroom =
-                        `<div class="ui card">
+                        `<div class="ui card" style="width:100%">
                             <div class="content">
                                 <div class="header">${item.cliente}</div>
                                 <div class="description">
@@ -61,7 +61,7 @@ function Tarjeta() {
                 }
                 catch {
                     divroom =
-                        `<div class="ui card">
+                        `<div class="ui card" style="width:100%>
                     <div class="content">
                         <div class="header">Se elimino este registro</div>                     
                     </div>                  
@@ -75,6 +75,8 @@ function Tarjeta() {
 }
 function ViewReservation(idDetalles, id) {
     $("#Default_Item").hide();
+    $("#frmReservation_Info").removeAttr("hidden");
+    $("#frmReservation_Info").show();
     $("#InfoDet").removeAttr("hidden");
     $("#InfoDet").show();
     if (TransportDetailsList.code == 200) {
@@ -105,9 +107,9 @@ function ViewReservation(idDetalles, id) {
                 divroom =
                 `<div class="field">
                     <center>
-                    <div class="image">
-                        <img src="${imagensplit}">
-                    </div>
+                        <div class="image">
+                            <img src="${imagensplit}">
+                        </div>
                     </center>
 
                     </div>
