@@ -99,6 +99,12 @@
         const image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${FileName}/${FileName}_photo-1.jpg`;
         $("#img").prop("src", "https://" + image);
 
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+
     </script>
 }
 

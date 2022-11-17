@@ -204,5 +204,48 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdatePartner()
+        {
+            var model1 = new List<PartnerTypeListViewModel>();
+            var token = HttpContext.User.FindFirst("Token").Value;
+            var id = HttpContext.User.FindFirst("User_Id").Value;
+            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+
+            var item = new PartnersViewModel();
+            var list = await _generalService.PartnersList();
+            IEnumerable<PartnersListViewModel> data = (IEnumerable<PartnersListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == cuenta.PartnerID).ToList()[0];
+            item.Part_ID = element.ID;
+            item.Part_Email = element.Email;
+            item.Part_Nombre = element.Nombre;
+            item.Part_Telefono = element.Telefono;
+            item.TiPart_Id = element.TipoPartner_Id;
+            var partners = await _generalService.PartnerTypeList();
+            IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
+            ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion", element.TipoPartner_Id);
+            ViewData["PartnersFolder"] = $"UsersProfilePics/Partner-{element.ID}";
+            ViewData["partnersID"] = element.ID;
+            
+            return View(item);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePartner(PartnersViewModel actividad)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                actividad.Part_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+                var list = await _generalService.PartnersUpdate(actividad, token);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }

@@ -163,7 +163,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     model.detalle = item;
                     model.reservacion = reservacion;
                     var fecha = item.Fecha_Reservacion.ToString().Split(" ");
-                    ViewData["Fecha"] = fecha[0];
+                    item.Partner_Nombre = fecha[0];
+                    var hora1 = item.Hora_Reservacion.Substring(0, 2);
+                    var hora2 = item.Hora_Reservacion.Substring(2, 2);
+                    item.Hora_Reservacion = hora1 + ":" + hora2;
                     detail.Add(model);
                 }
             }
