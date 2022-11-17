@@ -90,7 +90,7 @@ function ViewReservation(idDetalles, id) {
     $("#frmReservation_Info").show();
     $("#InfoDet").removeAttr("hidden");
     $("#InfoDet").show();
-    if (TransportDetailsList.code == 200) {
+    if (ReservacionHot.code == 200) {
 
         var resv = ReservacionHot.data;
         var Rflitro = resv.filter(resva => resva.id == parseInt(id));
@@ -110,7 +110,7 @@ function ViewReservation(idDetalles, id) {
         }
 
         $('#InfoDet').empty();
-        if (TranspoFilter.length == 0) {
+        if (Rflitro.length == 0) {
             actexth =
                 `<div class="ui card">
                     <div class="content">
@@ -187,7 +187,7 @@ function ViewReservation(idDetalles, id) {
                         </div>
                         <div class="field">
                             <label>Precio:</label>
-                                ${habiTotal}
+                                L. ${habiTotal}
                         </div>
                     </div>
                     </center>`
