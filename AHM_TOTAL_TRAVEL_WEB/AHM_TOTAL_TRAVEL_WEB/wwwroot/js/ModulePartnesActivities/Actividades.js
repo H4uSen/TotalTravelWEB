@@ -67,8 +67,9 @@ function agregar() {
                 <i class="massive plus icon"></i>
             </a>
         </div>
-        <br />`);
+        <br />`
+    );
+    $("#mas").click(() => {
+        window.location.href = '/ModulePartnersActivities/Create';
+    });
 }
-$("#mas").click(() => {
-    window.location.href = '/ModulePartnersActivities/Create';
-});

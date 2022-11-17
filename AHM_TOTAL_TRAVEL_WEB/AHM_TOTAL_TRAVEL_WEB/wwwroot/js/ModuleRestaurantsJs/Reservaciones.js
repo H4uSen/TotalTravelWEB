@@ -3,16 +3,8 @@ var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/R
 var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
 $('.ui.dropdown').dropdown();
 $("document").ready(function () {
-    Tarjeta();
+    fillreservaciones(0);
 });
-// inicialize code
-//$("#reservasb").addClass("active");
-//$('#Reservation_Details_Info .item').removeClass("active");
-//$('#Reservation_Details_Info .item').addClass("disabled");
-//ShowContent("Default_Item");
-
-// functions
-
 
 function ShowContent(content, index) {
 
@@ -25,56 +17,7 @@ function ShowContent(content, index) {
     }
 }
 
-function Tarjeta() {
-    if (ReservacionTra.code == 200) {
 
-        var resv = ReservacionTra.data;
-        var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
-        $('#tarjetaT').empty();
-        if (Rflitro.length == 0) {
-            actexth =
-                `<div class="ui card">
-                    <div class="content">
-                        <div class="header">No hay reservaciones</div>                     
-                    </div>                  
-                </div>`
-            $('#tarjetaT').append(actexth);
-        }
-        else {
-            for (var i = 0; i < Rflitro.length; i++) {
-                const item = Rflitro[i];
-                var fecha = item.fecha_Reservacion.split('T');
-                try {
-                    divroom =
-                        `<br\ >
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">${item.cliente}</div>
-                        <div class="description">
-                                  Fecha: ${fecha[0]}
-                        </div>      
-                    </div>
-                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
-                        <i class="folder open icon"></i>
-                        Ver Detalles
-                    </a>
-                </div>`
-                    $('#tarjetaT').append(divroom);
-                }
-                catch {
-                    divroom =
-                        `<div class="ui card">
-                    <div class="content">
-                        <div class="header">Se eliminó este registro</div>                     
-                    </div>                  
-                </div>`
-                    $('#tarjetaT').append(divroom);
-                }
-            }
-        }
-    }
-
-}
 function ViewReservation(idDetalles, id) {
     $("#Default_Item").hide();
     $("#InfoDet").removeAttr("hidden");
@@ -155,3 +98,155 @@ function ViewReservation(idDetalles, id) {
         }
     }
 }
+
+$("#Estado").change(function (_this) {
+    var idReservaciones = $(_this.target).val();
+    fillreservaciones(idReservaciones);
+});
+
+function fillreservaciones(estadoReservaciones) {
+
+    if (estadoReservaciones == "0") {
+        var reservaciones = jQuery.grep(Reservacion.data, function (reservacion, i) {
+            return reservacion;
+        });
+    }
+    else if (estadoReservaciones == "1") {
+        var reservaciones = jQuery.grep(Reservacion.data, function (reservacion, i) {
+            return reservacion.confirmacionRestaurante == false;
+        });
+    }
+    else {
+        var reservaciones = jQuery.grep(Reservacion.data, function (reservacion, i) {
+            return reservacion.confirmacionRestaurante == true;
+        });
+    }
+
+    $('#tarjetaT').empty();
+
+    for (var i = 0; i < reservaciones.length; i++) {
+
+        //if (ReservacionTra.code == 200 &&) {
+
+                var resv = ReservacionTra.data;
+                var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID) && reservaciones.id == ReservacionTra.resv_ID);
+                if (Rflitro.length == 0) {
+                    actexth =
+                        `<div class="ui card">
+                            <div class="content">
+                                <div class="header">No hay reservaciones</div>                     
+                            </div>                  
+                        </div>`
+                    $('#tarjetaT').append(actexth);
+                }
+                else {
+                    for (var i = 0; i < Rflitro.length; i++) {
+                        const item = Rflitro[i];
+                        var fecha = item.fecha_Reservacion.split('T');
+                        try {
+                            divroom =
+                                `<br\ >
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="header">${item.cliente}</div>
+                                <div class="description">
+                                          Fecha: ${fecha[0]}
+                                </div>      
+                            </div>
+                            <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
+                                <i class="folder open icon"></i>
+                                Ver Detalles
+                            </a>
+                        </div>`
+                            $('#tarjetaT').append(divroom);
+                        }
+                        catch {
+                            divroom =
+                                `<div class="ui card">
+                            <div class="content">
+                                <div class="header">Se eliminó este registro</div>                     
+                            </div>                  
+                        </div>`
+                            $('#tarjetaT').append(divroom);
+                        }
+                    }
+                }
+           // }
+
+    }
+
+    
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
+//var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationRestaurant/List");
+//var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
+//$('.ui.dropdown').dropdown();
+//$("document").ready(function () {
+//    Tarjeta();
+//});
+
+
+//function ShowContent(content, index) {
+
+//    var button = $("#Reservation_Details_Info .item")[index];
+//    if (!$(button).hasClass('disabled')) {
+//        $('#Reservation_Details_Content .Reservation_Details_Content_Item').hide();
+//        $('#Reservation_Details_Content #' + content).show();
+//        $('#Reservation_Details_Info .item').removeClass("active");
+//        $(button).addClass("active");
+//    }
+//}
+
+//function Tarjeta() {
+//    if (ReservacionTra.code == 200) {
+
+//        var resv = ReservacionTra.data;
+//        var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
+//        $('#tarjetaT').empty();
+//        if (Rflitro.length == 0) {
+//            actexth =
+//                `<div class="ui card">
+//                    <div class="content">
+//                        <div class="header">No hay reservaciones</div>                     
+//                    </div>                  
+//                </div>`
+//            $('#tarjetaT').append(actexth);
+//        }
+//        else {
+//            for (var i = 0; i < Rflitro.length; i++) {
+//                const item = Rflitro[i];
+//                var fecha = item.fecha_Reservacion.split('T');
+//                try {
+//                    divroom =
+//                        `<br\ >
+//                <div class="ui card">
+//                    <div class="content">
+//                        <div class="header">${item.cliente}</div>
+//                        <div class="description">
+//                                  Fecha: ${fecha[0]}
+//                        </div>      
+//                    </div>
+//                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
+//                        <i class="folder open icon"></i>
+//                        Ver Detalles
+//                    </a>
+//                </div>`
+//                    $('#tarjetaT').append(divroom);
+//                }
+//                catch {
+//                    divroom =
+//                        `<div class="ui card">
+//                    <div class="content">
+//                        <div class="header">Se eliminó este registro</div>                     
+//                    </div>                  
+//                </div>`
+//                    $('#tarjetaT').append(divroom);
+//                }
+//            }
+//        }
+//    }
+
+//}
