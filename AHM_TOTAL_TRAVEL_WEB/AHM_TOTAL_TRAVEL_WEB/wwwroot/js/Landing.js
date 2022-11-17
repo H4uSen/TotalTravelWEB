@@ -8,11 +8,13 @@ function fillpackage() {
     $("#package-slider").empty();
     for (var i = 0; i < request.data.length; i++) {
         const package = request.data[i];
+        var imagen = package.image_URL.split(',');
+        var imagensplit =imagen[0];
         const card =
             `<div class="carde">
                 <div class="card__container">
                     <div class="card__image">
-                        <img alt="" src="${package.image_URL}" />
+                        <img alt="" src="${imagensplit}" />
                         <div class="card__dates">
                             <div class=" date">
                                 <div class="date__icon">
