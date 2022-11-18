@@ -130,7 +130,7 @@ var detallespaquete = {
 var ReservationCreateViewModel = {
     reservacion : {
         "resv_ID": 0,
-        "usua_ID": 0,
+        "usua_ID": Client_User_ID,
         "paqu_ID": 0,
         "resv_esPersonalizado": true,
         "resv_CantidadPagos": 0,
@@ -140,8 +140,8 @@ var ReservationCreateViewModel = {
         "resv_ConfirmacionRestaurante": false,
         "resv_ConfirmacionTrans": false,
         "resv_Precio": 0,
-        "resv_UsuarioCreacion": 0,
-        "resv_UsuarioModifica": 0,
+        "resv_UsuarioCreacion": Client_User_ID,
+        "resv_UsuarioModifica": Client_User_ID,
         "reHo_FechaEntrada": "",
         "reHo_FechaSalida": "",
         "hote_ID": 0,

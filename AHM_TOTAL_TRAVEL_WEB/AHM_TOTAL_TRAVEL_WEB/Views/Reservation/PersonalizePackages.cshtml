@@ -22,7 +22,7 @@
 }
 <br>
 <br>
-<div class="container">
+<div class="container" id="frmCreatePackage">
 
     <!-- General Forma Data -->
 
@@ -47,7 +47,7 @@
                     <div class="ui icon button label minus_button">
                         <i class="minus icon"></i>
                     </div>
-                    <input class="count_input" id="txtCantidadPersonas" type="number" value="0"
+                    <input class="count_input" id="txtCantidadPersonas" type="number" value="1"
                            style="text-align: center;" readonly>
                     <div class="ui icon button label plus_button">
                         <i class="plus icon"></i>
@@ -866,20 +866,7 @@
                 <div id="frmDetails_transport">
                     <br>
                     <h4 class="ui left floated header">
-                        <i class="bus icon"></i> Transporte
-                    </h4>
-                    <div class="ui clearing divider"></div>
-
-                    <div class="ui attached">
-                        <div class="ui divided items"></div>
-                    </div>
-                </div>
-
-                <div id="frmDetails_activities">
-                    <!-- activities info -->
-                    <br>
-                    <h4 class="ui left floated header">
-                        <i class="calendar alternate outline icon"></i> Extra Activities
+                        <i class="bus icon"></i> Servicios de transporte
                     </h4>
                     <div class="ui clearing divider"></div>
 
@@ -889,68 +876,173 @@
                 </div>
 
                 <!-- activities info -->
+                <div id="frmDetails_activities">
+                    <!-- activities info -->
+                    <br>
+                    <h4 class="ui left floated header">
+                        <i class="calendar alternate outline icon"></i> Turismo y actividades extras
+                    </h4>
+                    <div class="ui clearing divider"></div>
+
+                    <div class="ui attached">
+                        <div class="ui divided items"></div>
+                    </div>
+                </div>
+
+                <!-- brakdown info -->
+                <div id="frmDetails_Restaurant">
+                    <br>
+                    <h4 class="ui left floated header">
+                        <i class="tag icon"></i> Restaurantes
+                    </h4>
+                    <div class="ui clearing divider"></div>
+
+                    <div class="ui attached">
+                        <div class="ui divided items"></div>
+                    </div>
+                </div>
+
+                <!-- brakdown info -->
                 <br>
                 <h4 class="ui left floated header">
-                    <i class="tag icon"></i> Reservation Breakdown
+                    <i class="tag icon"></i> Desgloce de precios de paquete
                 </h4>
                 <div class="ui clearing divider"></div>
 
-                <div class="content" style="display: flex;flex-direction: row-reverse;">
-                    <table class="ui very basic collapsing table">
-                        <tbody>
-                            <tr>
-                                <td style="text-align: end;">
-                                    <h4 class="ui grey header">
-                                        SUB TOTAL
-                                    </h4>
-                                </td>
-                                <td>
-                                    <h4 class="ui black header">
-                                        $20,000.00
-                                    </h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: end;">
-                                    <h4 class="ui grey header">
-                                        I.S.V
-                                    </h4>
-                                </td>
-                                <td>
-                                    <h4 class="ui black header">
-                                        $20,000.00
-                                    </h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: end;">
-                                    <h4 class="ui grey header">
-                                        DISCOUNT
-                                    </h4>
-                                </td>
-                                <td>
-                                    <h4 class="ui black header">
-                                        $20,000.00
-                                    </h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: end;">
-                                    <h3 class="ui image header">
-                                        <b>TOTAL</b>
-                                    </h3>
-                                </td>
-                                <td>
-                                    <h3 class="ui green header">
-                                        $20,000.00
-                                    </h3>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="ui grid two column">
+                    <div class="ten wide column">
+                        <div class="ui card w-100">
+                            <div class="content">
+                                <div class="fields">
+                                    <div class="required field">
+                                        <h3 class="ui header">Cantidad de pagos en la que se desea cancelar el paquete (Maximo de 5)</h3>
+                                        <div class="ui right labeled input">
+                                            <label for="amount" class="ui label">Realizar en un plazo de...</label>
+                                            <input type="number" placeholder="Cantidad de pagos" max="5" min="0" id="txtCantidadPagos">
+                                            <div class="ui label">Pagos</div>
+                                        </div>
+                                    </div>
+                                    <div class="required field" style="padding-top: 20px;">
+                                        <h3 class="ui header">Escoje tu forma de pago</h3>
+                                        <div class="ui floating dropdown labeled icon button" id="cbbFormaPago">
+                                            <i class="credit card icon"></i>
+                                            <span class="text">Selecciona una forma de pago</span>
+                                            <div class="menu">
+                                                <div class="item" data-value="1">Visa o Mastercard</div>
+                                                <div class="item" data-value="2">Paypal</div>
+                                                <div class="item" data-value="3">Trasaccion</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="completarPagoError"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="six wide column">
+                        <div class="ui card w-100">
+                            <div class="content">
+                                <div class="header">Desgloce final</div>
+                            </div>
+                            <div class="content">
+                                <table class="ui very basic collapsing table w-100" id="details_Breakdown">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h4 class="ui grey header">
+                                                    SUB TOTAL
+                                                </h4>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <h4 class="ui black header">
+                                                    L 0.00
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h4 class="ui grey header">
+                                                    I.S.V
+                                                </h4>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <h4 class="ui black header">
+                                                    L 0.00
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h4 class="ui grey header">
+                                                    DESCUENTOS
+                                                </h4>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <h4 class="ui black header">
+                                                    L 0.00
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h3 class="ui image header">
+                                                    <b>TOTAL</b>
+                                                </h3>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <h3 class="ui green header">
+                                                    L 0.00
+                                                </h3>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="extra content">
+                                <button class="ui button" id="btnFinalizar">Finalizar compra</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+        </div>
+
+        <div id="state_container">
+            
+            <div class="ui placeholder segment" id="success_alert" style="opacity: inherit; cursor: auto;">
+
+                <h2 class="ui icon green header">
+                    <i class="check circle icon"></i>
+                    <div class="content">
+                        !PAQUETE CREADO CON EXITO!
+                        <!--<div class="sub header">Manage your account settings and set e-mail preferences.</div>-->
+                    </div>
+                </h2>
+
+                <div class="inline">
+                    <div class="ui primary button">Volver al menu</div>
+                    <div class="ui button">Crear otro paquete</div>
+                </div>
+            </div>
+
+            <div class="ui placeholder segment" id="error_alert" style="opacity: inherit; cursor: auto;">
+
+                <h2 class="ui icon red header">
+                    <i class="times circle icon"></i>
+                    <div class="content">
+                        !ERROR AL CREAR EL PAQUETE!
+                        <!--<div class="sub header">Manage your account settings and set e-mail preferences.</div>-->
+                    </div>
+                </h2>
+
+                <div class="inline">
+                    <div class="ui primary button">Volver al menu</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
