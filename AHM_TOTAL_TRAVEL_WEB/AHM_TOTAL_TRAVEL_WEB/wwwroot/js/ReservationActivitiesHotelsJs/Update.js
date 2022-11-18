@@ -15,7 +15,7 @@ function getSchedule() {
         AddDropDownItem($('#ReAH_ID'), item = { value: "", text: "Seleccione un " });
         for (var i = 0; i < hoTr.length; i++) {
             var item = hoTr[i];
-            AddDropDownItem($('#ReAH_ID'), item = { value: item.actividadID, item. });
+            AddDropDownItem($('#ReAH_ID'), item = { value: item.actividadID, text: item.descripcion });
         }
 
         SetDropDownValue($('#ReAH_ID'), actividadID);
