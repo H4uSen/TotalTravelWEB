@@ -1,4 +1,12 @@
-﻿$('.ui.dropdown').dropdown();
+﻿const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
+
+
+$('.ui.dropdown').dropdown();
 
 $("#createAddress").click(() => {
     $("#modalCreate").modal({ autofocus: false, forceSelection: false}).modal('show');
@@ -92,7 +100,7 @@ $("#sendAddress").click(() => {
         var DireID;
         if (responseAddress.code == 200) {
 
-            window.location.href = '/Address';
+            window.location.href = '/Address?success=true';
         } 
 
     }
