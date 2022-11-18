@@ -161,7 +161,7 @@
                     data, "POST"
                 );
                 if (response.code == 200) {
-                    location.reload();
+                    window.location.href = '/CategoriesRooms?success=true';
                 }
             }
         }
@@ -215,5 +215,27 @@
                 ]
             });
         });
+
+        function DeleteCategoriesRooms(id) {
+            const CategoriesRooms = () => {
+                const result = ajaxRequest("/CategoriesRooms/Delete?id=" + id, null, "POST");
+                if (result > 0) {
+                    window.location.href = '/CategoriesRooms?success=true';
+                }
+            };
+
+            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", CategoriesRooms);
+
+        };
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+
+
+
+        var send = false;
     </script>
 }

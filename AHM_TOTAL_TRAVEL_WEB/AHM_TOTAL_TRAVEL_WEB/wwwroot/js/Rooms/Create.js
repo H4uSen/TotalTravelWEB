@@ -1,52 +1,13 @@
-﻿////var imagesArray = [];
-////var imagesArrayPure = [];
-////$("#File").change(async function () {
+﻿const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
 
 
-////    const fileData = await convertImage($("#File").prop("files")[0])
-////        .then(function (data) {
-////            return data;
-////        });
-////    imagesArray.push(fileData);
-////    imagesArrayPure.push($("#File").prop("files")[0]);
-////    LoadImage();
 
-////});
-////function LoadImage() {
-
-////    var RoomsCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RoomsCarousel" data-auto="false"></div>`;
-////    $("#RoomsCarousel").replaceWith(RoomsCarousel);
-////    $("#image-upload-list").html("");
-
-////    for (let i = 0; i < imagesArray.length; i++) {
-////        var HTML_img = document.createElement('img');
-////        const item = imagesArray[i];
-
-////        HTML_img.src = item.src;
-////        const fileItem =
-////            `<div class="item">
-////                        <div class="right floated content">
-////                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
-////                                <i class="trash icon"></i>
-////                            </button>
-////                        </div>
-////                        <i class="image big icon"></i>
-////                        <div class="content text-grap">
-////                            ${item.fileName}
-////                        </div>
-////                    </div>`;
-
-////        $("#image-upload-list").append(fileItem);
-////        $("#RoomsCarousel").append(HTML_img);
-////    }
-////    $("#RoomsCarousel").fotorama();
-////}
-
-////function deleteImage(index) {
-////    imagesArray.splice(index, 1);
-////    imagesArrayPure.splice(index, 1);
-////    LoadImage();
-////}
+var send = false;
 var imagesArray = [];
 var imagesArrayPure = [];
 $("#File").change(async function () {
