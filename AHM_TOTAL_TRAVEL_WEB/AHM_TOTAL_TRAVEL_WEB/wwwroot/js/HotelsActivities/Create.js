@@ -34,7 +34,7 @@ function validar() {
         else {
             data.append("File", null);
         }
-        var status = uploadFile("https://totaltravelapi.azurewebsites.net/API/HotelsActivities/Insert", data,"POST");
+        var status = uploadFile("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/Insert", data,"POST");
         if (status.code == 200) {
             window.location.href = '/HotelsActivities?success=true';
         }
@@ -42,7 +42,7 @@ function validar() {
 
 }
 function editar(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsActivities/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/Find?id=" + id);
     if (response.code == 200) {
         $("#id").val(id);
         $("#Descripcion_up").val(response.data.descripcion);
@@ -74,7 +74,7 @@ function actualizar() {
         else {
             data.append("File", null);
         }
-        var status = uploadFile(`https://totaltravelapi.azurewebsites.net/API/HotelsActivities/Update?id=${id}`, data, "PUT");
+        var status = uploadFile(`https://apitotaltravel.azurewebsites.net/API/HotelsActivities/Update?id=${id}`, data, "PUT");
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {

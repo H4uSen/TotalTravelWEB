@@ -41,7 +41,7 @@ function validar() {
 }
 
 function editar(destinoTransporteID) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DestinationsTransportations/Find?id=" + destinoTransporteID);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DestinationsTransportations/Find?id=" + destinoTransporteID);
     if (response.code == 200) {
         var item = response.data;
         SetDropDownValue($("#modalUpdate #CiudadSalida"), defaultValue = item.ciudadSalidaID);

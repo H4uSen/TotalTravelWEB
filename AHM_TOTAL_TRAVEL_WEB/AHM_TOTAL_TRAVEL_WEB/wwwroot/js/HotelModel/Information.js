@@ -1,7 +1,7 @@
-﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-var ReservacionHot = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
-var ReservacionDetalle = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
-var Hotel = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+var ReservacionHot = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
+var ReservacionDetalle = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationDetails/List");
+var Hotel = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
 
 
 $("document").ready(function () {

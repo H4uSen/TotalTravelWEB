@@ -70,7 +70,7 @@ function DeleteColo(id) {
 };
 
 function fillSuburbs(City_ID) {
-    const suburbsArray = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+    const suburbsArray = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
     var suburbs = suburbsArray.data;
 
     if (suburbsArray.code == 200 && suburbs.length > 0) {

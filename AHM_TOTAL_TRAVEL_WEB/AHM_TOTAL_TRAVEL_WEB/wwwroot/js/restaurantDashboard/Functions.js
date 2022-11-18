@@ -1,4 +1,4 @@
-﻿const reservationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationRestaurant/List");
+﻿const reservationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationRestaurant/List");
 
 contructChart();
 

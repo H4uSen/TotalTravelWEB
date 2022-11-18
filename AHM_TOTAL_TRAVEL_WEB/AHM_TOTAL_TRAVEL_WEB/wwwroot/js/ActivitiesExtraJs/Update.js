@@ -29,7 +29,7 @@ GetSuburbUpdate(ciudID);
 //=====================Actividades Funciones=======================
 
 function GetActivities(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Activities/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Activities/Find?id=" + id);
     if (response.code == 200) {
         $('#Actv_ID').val(id);
         $('#ActividadUpdate').val(response.data.descripcion);
@@ -65,7 +65,7 @@ function ValidarUpdate() {
 
 function GetCitiesUpdate(paisID) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         var cityFilter = jQuery.grep(cities, function (City, i) {
@@ -87,7 +87,7 @@ function GetCitiesUpdate(paisID) {
 
 function GetSuburbUpdate(ciudID) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var suburbs = response.data;
@@ -118,7 +118,7 @@ $('#City_ID').change(function () {
 
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -216,7 +216,7 @@ function UpdateActivitiesExtras() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
@@ -237,7 +237,7 @@ function UpdateActivitiesExtras() {
 
                 data.append("File", imagesArrayPure[i]);
             }
-            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/Update?id=" + ID_ActvExtra, data, "PUT");
+            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/Update?id=" + ID_ActvExtra, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/ActivitiesExtra?success=true';
             } else {

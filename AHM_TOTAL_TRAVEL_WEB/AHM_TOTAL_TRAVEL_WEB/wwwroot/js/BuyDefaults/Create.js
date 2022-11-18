@@ -1,4 +1,4 @@
-﻿var detallesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackagesDetails/List");
+﻿var detallesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/List");
 
 getActivities(idpaquete);
 
@@ -7,7 +7,7 @@ $("#DetailsBottom").click(() => {
 });
 
 function editar(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/Find?id=" + id);
     if (response.code == 200) {
         $("#id").val(id);
         $("#Nombre").html(response.data.nombre);

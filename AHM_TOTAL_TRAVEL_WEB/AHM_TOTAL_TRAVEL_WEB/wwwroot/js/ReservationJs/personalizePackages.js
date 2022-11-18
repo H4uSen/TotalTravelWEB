@@ -1,22 +1,22 @@
 ﻿//------------------------- MODELS VARIABLES ---------------------------
 
 //extra
-//const PartnersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
-var CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+//const PartnersList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
+var CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
 // hotels
-var HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
-var HotelsActivitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsActivities/List");
-var RoomsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Rooms/List");
+var HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
+var HotelsActivitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/List");
+var RoomsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Rooms/List");
 
 // activities
-var ActivitiesExtraList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ActivitiesExtra/List");
+var ActivitiesExtraList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
 
 // transports
-var DetailsTransportationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/List");
+var DetailsTransportationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/List");
 
 //restaurants
-var RestaurantsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
-var MenusList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Menus/List");
+var RestaurantsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Restaurants/List");
+var MenusList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Menus/List");
 
 //------------------------- VARIABLES ---------------------------
 
@@ -366,7 +366,7 @@ function fillMain(id_ciudad_salida, id_ciudad_destino){
 //--------------------------------- FILL FUNCTIONS ------------------------------------------
 function fillHotels(id_ciudad){
 
-    CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+    CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
 
     if (HotelsList.code == 200) {
         const ciudad = jQuery.grep(CitiesList.data, function (item, i) {
@@ -916,7 +916,7 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
             const card =
                 `<div class="item transport_item">
                     <div class="image">
-                        <img src="https://totaltravelapi.azurewebsites.net/Images/${images[0]}">
+                        <img src="https://apitotaltravel.azurewebsites.net/Images/${images[0]}">
                     </div>
                     <div class="content" style="width: inherit;">
                         <a class="header">${element.parter}</a>
@@ -1234,7 +1234,7 @@ function FinalizarCompra(reservationDetail) {
         reservationDetail.resv_CantidadPagos = parseInt(cantidadDePagos);
         reservationDetail.tipoPago = parseInt(metodoPago);
 
-        const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/Insert", reservationDetail, "POST");
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservationDetail, "POST");
 
         if (response.data.codeStatus > 0) {
             steps.success(true);
@@ -1538,7 +1538,7 @@ const getReservationDetail_html = {
             $.each(reservationDetail.reservacionTransportes, function (i, item) {
 
                 const transport = DetailsTransportationList.data.filter(x => x.id == item.detr_ID)[0];
-                const Cities = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+                const Cities = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
                 const ciudadSalida = Cities.data.filter(x => x.id == transport.ciudad_Salida_ID)[0];
                 const ciudadDestino = Cities.data.filter(x => x.id == transport.ciudad_Llegada_ID)[0];
 
@@ -1549,7 +1549,7 @@ const getReservationDetail_html = {
                 const card =
                     `<div class="item">
                         <div class="image">
-                            <img src="https://totaltravelapi.azurewebsites.net/Images/${images[0]}">
+                            <img src="https://apitotaltravel.azurewebsites.net/Images/${images[0]}">
                         </div>
                         <div class="content" style="width: inherit;">
                             <a class="header">${transport.parter}</a>

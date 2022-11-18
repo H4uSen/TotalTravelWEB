@@ -1,10 +1,10 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const PartnerList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
-const PartnerTypeList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PartnerType/List");
-const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
-const SuburbsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+const PartnerList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
+const PartnerTypeList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/PartnerType/List");
+const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+const SuburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
 
 
 
@@ -294,7 +294,7 @@ function CreateUser() {
             user.append("usua_UsuarioCreacion", Client_User_ID);
 
             const UserInsertStatus = uploadFile(
-                "https://totaltravelapi.azurewebsites.net/API/Users/Insert",
+                "https://apitotaltravel.azurewebsites.net/API/Users/Insert",
                 user, "POST"
             );
 
@@ -345,14 +345,14 @@ function CreatePartner() {
 
 
         const PartnerInsertStatus = uploadFile(
-            "https://totaltravelapi.azurewebsites.net/API/Partners/Insert",
+            "https://apitotaltravel.azurewebsites.net/API/Partners/Insert",
             partnerData, "POST"
         );
 
         if (PartnerInsertStatus.code == 200) {
 
             const NewPartnerData = ajaxRequest(
-                "https://totaltravelapi.azurewebsites.net/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
+                "https://apitotaltravel.azurewebsites.net/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
             );
 
             // fill data
@@ -382,7 +382,7 @@ function CreateUserDirection() {
     userAdress.dire_Calle = $("#frmCreateUser #txtCalle").val();
 
     const USerAddressStatus = ajaxRequest(
-        "https://totaltravelapi.azurewebsites.net/API/Address/Insert",
+        "https://apitotaltravel.azurewebsites.net/API/Address/Insert",
         userAdress, "POST"
     );
 

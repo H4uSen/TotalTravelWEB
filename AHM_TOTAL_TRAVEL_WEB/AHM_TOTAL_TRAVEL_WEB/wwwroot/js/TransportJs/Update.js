@@ -1,7 +1,7 @@
 ﻿$("#errorDiv").hide();
 
-var ciudadesList = ajaxRequest("https://totaltravel.somee.com/API/Cities/List");
-var coloniasList = ajaxRequest("https://totaltravel.somee.com/API/Suburbs/List");
+var ciudadesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+var coloniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
 
 $(".ui.dropdown").dropdown();
 
@@ -38,7 +38,7 @@ function updateTransport(id) {
             dire.colo_ID = parseInt($('#Subu_ID').val());
             dire.dire_Calle = ($("#Calle").val());
             dire.dire_Avenida = ($("#Avenida").val());
-            var responseAddress = ajaxRequest("https://totaltravel.somee.com/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
 
@@ -55,7 +55,7 @@ function updateTransport(id) {
             data.tiTr_ID = parseInt($("#TiTr_ID").val());
             data.part_ID = parseInt($("#Part_ID").val());
 
-            var response = ajaxRequest("https://totaltravel.somee.com/API/Transports/Update?id="+id, data, "PUT");
+            var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Transports/Update?id="+id, data, "PUT");
 
             if (response.code == 200) {
                 if (response.data.codeStatus > 0) {

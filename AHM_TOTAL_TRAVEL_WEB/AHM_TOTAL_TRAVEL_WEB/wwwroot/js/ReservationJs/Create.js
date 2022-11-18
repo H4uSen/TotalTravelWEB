@@ -1,12 +1,12 @@
 ﻿// ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const UsersList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/List");
-const DefaultPackagesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
-const DefaultPackagesDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackagesDetails/List");
-const CountriesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Countries/List");
-const HotelsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
-const ReservationHotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
-const CitiesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+const UsersList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/List");
+const DefaultPackagesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List");
+const DefaultPackagesDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/List");
+const CountriesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Countries/List");
+const HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
+const ReservationHotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
+const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
 
 
 
@@ -349,7 +349,7 @@ function createReservation() {
 
         /*
             const ReservationInsertStatus = uploadFile(
-                "https://totaltravelapi.azurewebsites.net/API/Reservation/Insert",
+                "https://apitotaltravel.azurewebsites.net/API/Reservation/Insert",
                 reservation, "POST"
             );
         */

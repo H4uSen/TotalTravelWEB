@@ -1,6 +1,6 @@
-﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationRestaurant/List");
-var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Restaurants/List");
+﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+var ReservacionTra = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationRestaurant/List");
+var TransportDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Restaurants/List");
 $('.ui.dropdown').dropdown();
 $("document").ready(function () {
     fillreservaciones(0);

@@ -2,7 +2,7 @@
 
 getSchedule();
 function getSchedule() {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesHotels/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesHotels/List");
 
     if (response.code == 200) {
 

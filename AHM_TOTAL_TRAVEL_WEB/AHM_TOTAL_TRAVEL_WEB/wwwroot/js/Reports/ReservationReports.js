@@ -90,7 +90,7 @@ function getAll() {
 //function getTipoParnet() {
 //    $("#cbbValor").parents(".field").show();
 //    $("#txtValor").parents(".field").hide();
-//    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+//    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
 
 //    //response = jQuery.grep(response.data, function (item, i) {
 //    //    return item.tipoPartner_Id == 2;
@@ -129,7 +129,7 @@ function getAll() {
 function getHotels() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/List");
+    const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
 
     if (response.code == 200) {
 
@@ -161,7 +161,7 @@ function getHotels() {
 function getpaquetes() {
     $("#cbbValor").parents(".field").show();
     $("#txtValor").parents(".field").hide();
-    const response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List");
+    const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List");
 
     if (response.code == 200) {
 

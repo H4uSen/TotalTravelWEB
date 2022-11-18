@@ -1,6 +1,6 @@
-﻿var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-var ReservacionTra = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationTransportation/List");
-var TransportDetailsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/List");
+﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+var ReservacionTra = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationTransportation/List");
+var TransportDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/List");
 
 $("document").ready(function () {
     Tarjeta();
@@ -102,7 +102,7 @@ function ViewReservation(idDetalles, id) {
                 var TranspoFilterItem = TranspoFilter[0];
                 var imagen = TranspoFilterItem.image_URL.split(',');
                 var fecha = TranspoFilterItem.fecha_Salida.split('T');
-                var imagensplit = "https://totaltravelapi.azurewebsites.net/Images/" + imagen[0];
+                var imagensplit = "https://apitotaltravel.azurewebsites.net/Images/" + imagen[0];
 
                 divroom =
                 `<div class="field">

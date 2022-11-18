@@ -1,10 +1,10 @@
 ﻿
-var Reservacion = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-var ReservacionActView = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesExtra/List");
-var response2 = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationTransportation/List");
-var ReservacionDetView = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationDetails/List");
-var ReservacionActHotView = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationActivitiesHotels/List");
-var ReservacionHot = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ReservationHotels/List");
+var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+var ReservacionActView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesExtra/List");
+var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationTransportation/List");
+var ReservacionDetView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationDetails/List");
+var ReservacionActHotView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesHotels/List");
+var ReservacionHot = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
 
 $("document").ready(function () {
     prueba();
@@ -86,7 +86,7 @@ function ViewReservation(hoteid, resvid)
         var transp = response2.data;
         var transpo = transp.filter(resv => resv.reservacion == resvid);
         var transpor = transpo[0];
-        var transporte = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
+        var transporte = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
 
         if (transporte.code == 200) {
             var t = transporte.data;
@@ -112,7 +112,7 @@ function ViewReservation(hoteid, resvid)
         var hot = ReservacionHot.data;
         var hote = hot.filter(resv => resv.reservacionID == resvid);
         var hotel = hote[0];
-        var hotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
+        var hotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
 
         if (hotels.code == 200) {
             var h = hotels.data;
@@ -181,7 +181,7 @@ function ViewReservation(hoteid, resvid)
         var hot = ReservacionHot.data;
         var hote = hot.filter(resv => resv.reservacionID == resvid);
         var hotel = hote[0];
-        var hotels = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
+        var hotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/Find?id=" + hotel.hotel_ID);
 
         if (hotels.code == 200) {
             var h = hotels.data;

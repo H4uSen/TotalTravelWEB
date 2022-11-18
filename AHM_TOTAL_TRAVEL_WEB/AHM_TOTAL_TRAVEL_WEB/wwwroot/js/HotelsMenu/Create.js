@@ -36,7 +36,7 @@ function validar() {
         else {
             data.append("File", null);
         }
-        var status = uploadFile("https://totaltravelapi.azurewebsites.net/API/HotelsMenu/Insert", data,"POST");
+        var status = uploadFile("https://apitotaltravel.azurewebsites.net/API/HotelsMenu/Insert", data,"POST");
         if (status.code == 200) {
             window.location.href = '/HotelsMenu?success=true';
 
@@ -45,7 +45,7 @@ function validar() {
 
 }
 function editar(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsMenu/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsMenu/Find?id=" + id);
     if (response.code == 200) {
         $("#id").val(id);
         $("#Descripcion_up").val(response.data.menu);
@@ -77,7 +77,7 @@ function actualizar() {
         else {
             data.append("File", null);
         }
-        var status = uploadFile(`https://totaltravelapi.azurewebsites.net/API/HotelsMenu/Update?id=${id}`, data, "PUT");
+        var status = uploadFile(`https://apitotaltravel.azurewebsites.net/API/HotelsMenu/Update?id=${id}`, data, "PUT");
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {
@@ -97,7 +97,7 @@ $(document).ready(async function () {
 });
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {

@@ -41,7 +41,7 @@ function validar() {
 }
 
 function editar(PaymentID) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/Find?Id=" + PaymentID);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RecordPayment/Find?Id=" + PaymentID);
     if (response.code == 200) {
         var item = response.data;
 

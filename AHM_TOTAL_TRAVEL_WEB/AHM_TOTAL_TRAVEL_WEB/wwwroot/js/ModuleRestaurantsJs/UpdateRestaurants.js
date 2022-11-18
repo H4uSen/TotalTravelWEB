@@ -15,7 +15,7 @@ $(document).ready(async function () {
 
 function GetCitiesUpdate(paisID) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         var cityFilter = jQuery.grep(cities, function (City, i) {
@@ -37,7 +37,7 @@ function GetCitiesUpdate(paisID) {
 
 function GetSuburbUpdate(ciudID) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var suburbs = response.data;
@@ -70,7 +70,7 @@ $('#City_ID').change(function () {
 //FUNCIONES QUE SON ESPECÍFICAS DEL ACTUALIZAR
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -171,7 +171,7 @@ function updateRestaurant() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
@@ -190,7 +190,7 @@ function updateRestaurant() {
 
                 data.append("File", imagesArrayPure[i]);
             }
-            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Restaurants/Update?id=" + restaurantID, data, "PUT");
+            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Restaurants/Update?id=" + restaurantID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/ModuleRestaurants/Info?success=true';
             } else {

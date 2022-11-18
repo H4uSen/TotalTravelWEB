@@ -64,7 +64,7 @@ function getFilter() {
 
 //rellena el segundo dronwdon funcion de registro de pagos 
 function getClient() {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/List");
 
     response = jQuery.grep(response.data, function (item, i) {
         return item.role_ID == 2;

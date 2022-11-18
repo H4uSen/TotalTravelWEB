@@ -32,7 +32,7 @@ function ValidarCampos() {
 }
 
 function getDestiny() {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/DestinationsTransportations/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DestinationsTransportations/List");
 
 
     if (response.code == 200) {
@@ -49,7 +49,7 @@ function getDestiny() {
             AddDropDownItem($('#DsTr_ID'), item = { value: item.id, text: item.ciudadSalida + " - " + item.ciudadDestino});
         }
     }
-    var response2 = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+    var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
 
     if (response2.code == 200) {
 

@@ -26,7 +26,7 @@ $("#sendTypesTransport").click(() => {
 getDestiny();
 
 function getDestiny() {
-    var response2 = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+    var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
 
     if (response2.code == 200) {
 
@@ -65,7 +65,7 @@ function validar() {
 }
 
 function editar(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/TypesTransport/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/TypesTransport/Find?id=" + id);
     if (response.code == 200) {
         $("#id").val(id);
         $("#Transporte_up").val(response.data.trasporte);
@@ -92,7 +92,7 @@ function actualizar() {
 
         }
        
-        var status = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/TypesTransport/Update?id=" + id, data, "PUT");
+        var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/TypesTransport/Update?id=" + id, data, "PUT");
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {

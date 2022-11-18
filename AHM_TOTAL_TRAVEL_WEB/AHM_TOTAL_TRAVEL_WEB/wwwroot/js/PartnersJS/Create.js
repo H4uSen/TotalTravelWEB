@@ -82,7 +82,7 @@ function createPartners() {
         for (var i = 0; i != imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var status = uploadFile("https://totaltravelapi.azurewebsites.net/API/Partners/Insert", data, "POST");
+        var status = uploadFile("https://apitotaltravel.azurewebsites.net/API/Partners/Insert", data, "POST");
         
         if (status.code == 200) {
             window.location.href = '/Partners?success=true';

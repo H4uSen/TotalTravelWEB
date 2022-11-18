@@ -1,6 +1,6 @@
-﻿const ReservationList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Reservation/List");
-const PaymentsList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RecordPayment/List");
-const PaymentTypesList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PaymentTypes/List");
+﻿const ReservationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+const PaymentsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RecordPayment/List");
+const PaymentTypesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/PaymentTypes/List");
 
 const params = new URLSearchParams(window.location.search);
 const izziSuccess = params.get("success");

@@ -9,7 +9,7 @@ $(document).ready(async function () {
 });
 
     $(document).ready(function () {
-       var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Users/Find?id=" + idUser);
+        var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/Find?id=" + idUser);
            if (response.code == 200) {
                var sexo;
                  user = response.data;
@@ -86,7 +86,7 @@ $("#checkAdmin").change(function () {
 
 function GetTypePartners() {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/PartnerType/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/PartnerType/List");
     if (response.code == 200) {
         for (var i = 0; i < response.data.length; i++) {
             var item = response.data[i];
@@ -97,7 +97,7 @@ function GetTypePartners() {
 }
 function GetPartnersList() {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
     if (response.code == 200) {
         for (var i = 0; i < response.data.length; i++) {
             var item = response.data[i];
@@ -109,7 +109,7 @@ function GetPartnersList() {
 
 function GetPartners(idType) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
     if (response.code == 200) {
         var partners = response.data;
         var partnerFilter = jQuery.grep(partners, function (Partner, i) {
@@ -130,7 +130,7 @@ function GetPartners(idType) {
 
 function GetPartnerRole(idPartner) {
     var rol_ID;
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
     if (response.code == 200) {
         var partners = response.data;
         var partnerFilter = jQuery.grep(partners, function (Partner, i) {
@@ -156,7 +156,7 @@ function GetPartnerRole(idPartner) {
 
 function GetCountriesUpdate() {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Countries/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Countries/List");
     if (response.code == 200) {
         for (var i = 0; i < response.data.length; i++) {
             var item = response.data[i];
@@ -168,7 +168,7 @@ function GetCountriesUpdate() {
 
 function GetCitiesUpdate(paisID) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         var cityFilter = jQuery.grep(cities, function (City, i) {
@@ -190,7 +190,7 @@ function GetCitiesUpdate(paisID) {
 
 function GetSuburbUpdate(ciudID) {
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var suburbs = response.data;
@@ -236,7 +236,7 @@ $("#tbnUpdateUser").click(function () {
 
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=UsersProfilePics/User-" + idUser);
+    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=UsersProfilePics/User-" + idUser);
     if (responseImage.code == 200) {
         var fileData;
         var list = responseImage.data
@@ -331,7 +331,7 @@ function UpdateUser() {
 
 
            const UserUpdateStatus = uploadFile(
-               "https://totaltravelapi.azurewebsites.net/API/Users/Update?id=" + idUser, userUpdate, "PUT"
+               "https://apitotaltravel.azurewebsites.net/API/Users/Update?id=" + idUser, userUpdate, "PUT"
             );
 
             if (UserUpdateStatus.code == 200) {
@@ -366,7 +366,7 @@ function CreateUserDirection() {
     userAdress.dire_Calle = $("#frmCreateUser #txtCalle").val();
 
     const USerAddressStatus = ajaxRequest(
-        "https://totaltravelapi.azurewebsites.net/API/Address/Insert",
+        "https://apitotaltravel.azurewebsites.net/API/Address/Insert",
         userAdress, "POST"
     );
 

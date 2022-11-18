@@ -20,7 +20,7 @@ if (Client_Role == "Administrador") {
 }
 getDropD()
 function getDropD() {  
-    var response2 = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Partners/List");
+    var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
 
     if (response2.code == 200) {
 
@@ -39,7 +39,7 @@ function getDropD() {
 };
 
 function GetScheduleID(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ScheduleTransportation/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ScheduleTransportation/Find?id=" + id);
     if (response.code == 200) {
         $('#ID_Horario').val(id);
         $('#FechaViajeUpdate').val(response.data.fecha);

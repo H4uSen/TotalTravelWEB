@@ -294,7 +294,7 @@
     function GetCookie(value) {
         var key = null;
         $.ajax({
-            url: "https://totaltravel.azurewebsites.net/read-claims?key=" + value,
+            url: "https://apitotaltravel.azurewebsites.net/read-claims?key=" + value,
             data: {},
             method: "GET",
             dataType: "json",
@@ -308,7 +308,7 @@
         });
 
         return key;
-        console.log("https://totaltravel.azurewebsites.net/read-claims?key=" + value);
+        console.log("https://apitotaltravel.azurewebsites.net/read-claims?key=" + value);
     }
 
     function ajaxRequest(url, data = {}, method = "GET", SendToken = true) {

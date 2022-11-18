@@ -1,7 +1,7 @@
 ﻿$(".ui.dropdown").dropdown();
 getSchedule();
 function getSchedule() {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/ScheduleTransportation/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ScheduleTransportation/List");
 
     if (response.code == 200) {
 

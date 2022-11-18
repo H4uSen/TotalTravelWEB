@@ -1,5 +1,5 @@
 ﻿
-const ColoniasList = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+const ColoniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
 TableDetailsConstructor($("#grdCity"));
 
 TableSearchInput($("#txtSearch"), $("#grdCity"), 10);

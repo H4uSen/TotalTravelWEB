@@ -11,7 +11,7 @@ $("#UpdateBottomHotelsMenu").click(() => {
 
 
 function GetHotelsMenu(id) {
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/HotelsMenu/Find?id=" + id);
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsMenu/Find?id=" + id);
     if (response.code == 200) {
         $('#HoMe_ID').val(id);
         $('#Descripcion_up').val(response.data.menu);

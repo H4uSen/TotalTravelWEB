@@ -65,6 +65,7 @@
                         </div>
 
                         <div class="required field checkButton_container">
+<<<<<<< Updated upstream
                                 <label class="ui label">Sexo</label>
                                 <div class="inline fields">
                                     <div class="field">
@@ -78,11 +79,26 @@
                                             <input type="radio" id="rbGenero" value="F" name="rbGenero" runat="server">
                                             <label>Femenino</label>
                                         </div>
+=======
+                            <label class="ui label">Sexo</label>
+                            <div class="inline fields">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
+                                        <label>Masculino</label>
                                     </div>
-
                                 </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
+                                        <label>Femenino</label>
+>>>>>>> Stashed changes
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                    </div>
 
                     <!-- user adress section -->
                     <div class="field">
@@ -199,7 +215,7 @@
                                         <option value="">Selecciona un socio)</option>
                                     </select>
                                 </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -234,6 +250,7 @@
                         <br>
 
                     </div>
+<<<<<<< Updated upstream
                         @{
                             if (ViewBag.isRedirected)
                             {
@@ -255,7 +272,23 @@
                                 <div class="ui btn-edit text-white button" tabindex="0" onclick="con">Guardar</div>
                                 <div class="ui button" tabindex="0">Cancelar</div>
                             }
+=======
+                    @{
+                        if (ViewBag.isRedirected)
+                        {
+
+                            <input type="submit" class="ui btn-edit text-white button" value="Guardar" />
+                            //Create a button that redirect to the previous page
+                            <a class="ui button" href="@Url.Action("Create", "Reservation")">Cancelar</a>
                         }
+                        else
+                        {
+                            <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
+                            <a class="ui button" href="@Url.Action("Index", "Users")">Cancelar</a>
+ 
+>>>>>>> Stashed changes
+                        }
+                    }
                 </div>
             </div>
             </form>
