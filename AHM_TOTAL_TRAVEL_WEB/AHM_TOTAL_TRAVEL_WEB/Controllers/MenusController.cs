@@ -100,6 +100,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Precio = Convert.ToInt32(precio.Remove(precio.Length - 5, 5));
 
             ViewData["MenusFolder"] = $"Restaurants/Restaurant-{element.ID_Restaurante}/Food";
+            ViewData["MenusImage"] = element.Image_Url;
             ViewData["RestaurantID"] = element.ID_Restaurante;
             ViewData["TipoMenuID"] = element.ID_TipoMenu;
             ViewData["MenuID"] = id;

@@ -14,15 +14,9 @@ $(document).ready(async function () {
 
 async function GetImage() {
 
-    var responseImage = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + menuFolder)
-    if (responseImage.code == 200) {
-        var list = responseImage.data
-        for (var i = 0; i < list.length; i++) {
-            var imageUrl = list[i].imageUrl;
 
-            var split = imageUrl.split("/");
-            var fileName = split[split.length - 1];
-            var file = await createBlob(imageUrl)
+        var list = menusImage;
+            var file = await createBlob(list)
                 .then(function (data) {
                     return data;
                 });
@@ -31,11 +25,10 @@ async function GetImage() {
                 .then(function (data) {
                     return data;
                 });
-            fileData.fileName = fileName;
+            fileData.fileName = "Menu-" + menuID +"_photo-1.jpg";
             imagesArray.push(fileData);
-        }
         LoadImage();
-    }
+
 }
 //FIN
 
@@ -112,11 +105,12 @@ function updateMenus() {
         for (let i = 0; i < imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var response = uploadFile("https://totaltravel.somee.com/API/Menus/Update?id=" + menuID, data, "PUT");
-
+        var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Menus/Update?id=" + menuID, data, "PUT");
+        console.log(response);
         if (response.data.codeStatus > 0) {
             window.location.href = '/Menus?success=true';
         }
 
     }
 }
+
