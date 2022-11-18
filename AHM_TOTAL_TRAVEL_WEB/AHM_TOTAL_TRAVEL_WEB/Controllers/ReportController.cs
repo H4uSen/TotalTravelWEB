@@ -12,15 +12,10 @@ using ClosedXML;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.IO;
-//using AspNetCore.Reporting.ReportExecutionService;
+using AspNetCore.Reporting.ReportExecutionService;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
 using System.Text;
-using Microsoft.Exchange.WebServices.Data;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using DocumentFormat.OpenXml.Bibliography;
-using OfficeOpenXml.Utils;
-using AspNetCore.Report.ReportExecutionService;
 //using Microsoft.Reporting.WinForms;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
@@ -143,14 +138,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
                 //añade valores recibidos de el endpoint de la API al dataset indicado
-                localReport.AddDataSource("Transportes", data);
+                //localReport.AddDataSource("Transportes", data);
 
 
                 if (ReportTiype == 1)
                 {
-
-                    var resultpdf = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
-                    return File(resultpdf.MainStream, "application/pdf");
+                    //var resultpdf = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
+                    //return File(resultpdf.MainStream, "application/pdf");
+                    var resultpdf = localReport.Execute(RenderType.Pdf, 1, findString: mimtype);
+                    using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                    {
+                        stream.Write(resultpdf.MainStream, 0, resultpdf.MainStream.Length);
+                        return File(stream, "application/pdf");
+                    }
                 }
                 else if (ReportTiype == 2)
                 {
@@ -177,9 +177,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     }
                 }
 
-                var result = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
-
-                return File(result.MainStream, "application/pdf", "TransporteReport.pdf");
+                var result = localReport.Execute(RenderType.Pdf, 1, findString: mimtype);
+                using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                {
+                    stream.Write(result.MainStream, 0, result.MainStream.Length);
+                    return File(stream, "application/pdf");
+                }
             }
             catch (Exception e)
             {

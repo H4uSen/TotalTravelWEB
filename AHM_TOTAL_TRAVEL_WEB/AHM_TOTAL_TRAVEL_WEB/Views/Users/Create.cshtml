@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <div id="frmCreateUser">
@@ -34,15 +35,15 @@
                         <div class="three fields">
                             <div class="required field">
                                 <label class="ui label">DNI</label>
-                                <input type="text" id="txtDNI" placeholder="DNI">
+                                <input type="text" id="txtDNI" name="txtDNI" placeholder="DNI" runat="server">
                             </div>
                             <div class="required field">
                                 <label class="ui label">Nombres</label>
-                                <input type="text" id="txtNombre" placeholder="Nombres">
+                                    <input type="text" id="txtNombre" name="txtNombre" placeholder="Nombres" runat="server">
                             </div>
                             <div class="required field">
                                 <label class="ui label">Apellidos</label>
-                                <input type="text" id="txtApellido" placeholder="Apellidos">
+                                    <input type="text" id="txtApellido" name="txtApellido" placeholder="Apellidos" runat="server">
                             </div>
                         </div>
                     </div>
@@ -50,15 +51,15 @@
                     <div class="three fields">
                         <div class="required field">
                             <label class="ui label">Teléfono</label>
-                            <input type="text" id="txtTelefono" placeholder="Teléfono">
+                                <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono" runat="server">
                         </div>
                         <div class="required field">
                             <label class="ui label">Fecha de nacimiento</label>
                             <div class="ui calendar" id="standard_calendar">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input type="text" placeholder="Fecha de nacimiento"
-                                           id="txtFechaNacimiento">
+                                        <input type="text" placeholder="Fecha de nacimiento" name="txtFechaNacimiento"
+                                               id="txtFechaNacimiento" runat="server">
                                 </div>
                             </div>
                         </div>
@@ -68,13 +69,13 @@
                                 <div class="inline fields">
                                     <div class="field">
                                         <div class="ui radio checkbox">
-                                            <input type="radio" id="rbGenero" value="M" name="rbGenero">
+                                            <input type="radio" id="rbGenero" value="M" name="rbGenero" runat="server">
                                             <label>Masculino</label>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <div class="ui radio checkbox">
-                                            <input type="radio" id="rbGenero" value="F" name="rbGenero">
+                                            <input type="radio" id="rbGenero" value="F" name="rbGenero" runat="server">
                                             <label>Femenino</label>
                                         </div>
                                     </div>
@@ -89,19 +90,19 @@
                         <div class="three fields">
                             <div class="required field">
                                 <label class="ui label">Pais</label>
-                                <select class="ui search dropdown" id="cbbPaises" asp-items="ViewBag.Counties">
+                                    <select class="ui search dropdown" id="cbbPaises" name="cbbPaises" runat="server" asp-items="ViewBag.Counties">
                                     <option value="">Selecciona el país</option>
                                 </select>
                             </div>
                             <div class="required field">
                                 <label class="ui label">Ciudad</label>
-                                <select class="ui search dropdown" id="cbbCiudades">
+                                <select class="ui search dropdown" id="cbbCiudades" name="cbbCiudades" runat="server">
                                     <option value="">Selecciona la ciudad</option>
                                 </select>
                             </div>
                             <div class="required field">
                                 <label class="ui label">Colonia</label>
-                                <select class="ui search dropdown" id="cbbColonias">
+                                <select class="ui search dropdown" id="cbbColonias" name="cbbColonias" runat="server"> 
                                     <option value="">Selecciona la colonia</option>
                                 </select>
                             </div>
@@ -115,7 +116,7 @@
                                         <div class="ui label">
                                             Calle
                                         </div>
-                                        <input type="text" id="txtCalle">
+                                            <input type="text" id="txtCalle" name="txtCalle" runat="server">
                                     </div>
                                 </div>
                                 <div class="required field">
@@ -124,7 +125,7 @@
                                         <div class="ui label">
                                             Avenida
                                         </div>
-                                        <input type="text" id="txtAvenida">
+                                            <input type="text" id="txtAvenida" name="txtAvenida" runat="server">
                                     </div>
                                 </div>
                             </div>
@@ -138,20 +139,20 @@
 
                             <div class="required field">
                                 <label class="ui label">Correo electrónico</label>
-                                <input type="email" id="txtEmail" placeholder="Correo electrónico">
+                                <input type="email" id="txtEmail" placeholder="Correo electrónico" name="txtEmail" runat="server">
                             </div>
                             <div class="required field">
                                 <label class="ui label">Contraseña</label>
                                 <input type="password" id="txtPassword"
-                                       placeholder="Contraseña">
+                                           placeholder="Contraseña" name="txtPassword" runat="server">
                             </div>
                             <div class="field">
-                                <input type="password" id="txtPasswordConfirm"
-                                       placeholder="Confirmar contraseña">
+                                    <input type="password" id="txtPasswordConfirm" name="txtPasswordConfirm"
+                                           placeholder="Confirmar contraseña" runat="server">
                             </div>
                         </div>
                     </div>
-
+                    if()
                     <!-- role adress section -->
                     <div class="ui segment">
                         <div class="field">
@@ -236,14 +237,22 @@
                         @{
                             if (ViewBag.isRedirected)
                             {
+                               
+                                string controller = ViewBag.controller;
+                                string action = ViewBag.action;
+                                
 
-                                <input type="submit" class="ui btn-edit text-white button" value="Guardar" />
+                                <input type="button" class="ui btn-edit text-white button" id="tbnCreateUserRedirected" value="Guardar" />
                                 //Create a button that redirect to the previous page
-                                <a class="ui button" href="@Url.Action("Create", "Reservation")">Cancelar</a>
+                                
+                                <a class="ui button" href="@Url.Action(action: action, controller: controller)">Cancelar</a>
+                                
+                                        
+                                
                             }
                             else
                             { 
-                                <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
+                                <div class="ui btn-edit text-white button" tabindex="0" onclick="con">Guardar</div>
                                 <div class="ui button" tabindex="0">Cancelar</div>
                             }
                         }
@@ -264,6 +273,9 @@
 
 @section Scripts{
     <script src="~/js/UsersJs/Create.js"></script>
+    <script>
+        
+    </script>
 }
 @section HighlightTile{
     <script>

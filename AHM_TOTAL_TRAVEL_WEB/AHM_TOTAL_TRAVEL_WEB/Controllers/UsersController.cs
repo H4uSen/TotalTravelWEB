@@ -50,14 +50,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(FormCollection form)
+        public IActionResult Create(IFormCollection form)
         {
             foreach (string key in form.Keys)
             {
                 var itemkey = key;
                 var itemvalue = form[key];
             }
-            return RedirectToAction("Create", "Reservation", new { id = "Hola" });
+            return RedirectToAction(form["action"], form["controller"], new { id = "Hola" });
         }
 
 

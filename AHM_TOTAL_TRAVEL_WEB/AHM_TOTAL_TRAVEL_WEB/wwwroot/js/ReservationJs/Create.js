@@ -31,13 +31,13 @@ $(document).ready(function () {
     //Fill the Users DNI Dropdown
     const Users = UsersList.data;
     for (var i = 0; i < Users.length; i++) {
-        $('#ddlDNI').append('<option value="' + Users[i].id + '">' + Users[i].dni + '</option>');
+        $('#Usua_ID').append('<option value="' + Users[i].id + '">' + Users[i].dni + '</option>');
     };
 
     //Fill the countries Dropdown
     const Countries = CountriesList.data;
     for (var i = 0; i < Countries.length; i++) {
-        $('#ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
+        $('.ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
     }
 
 
@@ -71,9 +71,9 @@ $(document).on('change', '#ddlCiudades', function () {
 
 
 //Change the data of the user depending on the selected DNI
-$("#ddlDNI").change(function () {
+$("#Usua_ID").change(function () {
     const Users = UsersList.data;
-    const UserID = $("#ddlDNI").val();
+    const UserID = $("#Usua_ID").val();
 
     const User = Users.filter(function (userID) {
         return userID.id == UserID
@@ -313,7 +313,7 @@ function createReservation() {
     var reservation = new FormData();
 
     const reservationValidateArray = [
-        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #ddlDNI") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #Usua_ID") },
         { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #Resv_NumeroPersonas") },
         { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #Resv_CantidadPagos") },
         { validateMessage: "Campo requerido ", Jqueryinput: $("#frmCreateReservation #ddlTipoPaquete") },
@@ -343,7 +343,7 @@ function createReservation() {
         reservation.append("Resv_CantidadPagos", $("#frmCreateReservation #Resv_CantidadPagos").val());
         reservation.append("Resv_NumeroPersonas", $("#frmCreateReservation #Resv_NumeroPersonas").val());
         reservation.append("Resv_Precio", $("#frmCreateReservation #lblDefaultPackagePrice").text());
-        reservation.append("Usua_ID", $("#frmCreateReservation #ddlDNI").val());
+        reservation.append("Usua_ID", $("#frmCreateReservation #Usua_ID").val());
         reservation.append("ReHo_FechaEntrada", $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
         reservation.append("ReHo_FechaSalida", $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
 
