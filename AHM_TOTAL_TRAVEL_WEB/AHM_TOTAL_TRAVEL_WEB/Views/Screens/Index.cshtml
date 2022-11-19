@@ -1,0 +1,75 @@
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PermissionsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <div class="ui basic segment">
+
+        <div class="ui icon attached message">
+            <i class="icon clock"></i>
+            <div class="content">
+                <div class="header">
+                    Pantallas
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="ui grid mb-3">
+            <div class="eight wide column">
+                <a class="ui small btn-purple text-white labeled icon button">
+                    <i class="plus icon"></i> Nuevo
+                </a>
+            </div>
+        </div>
+        <style>
+            table thead tr th {
+                background-color: #2b2b2b;
+                color: white;
+            }
+        </style>
+        <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre de pantalla
+                    </th>
+                    <th>
+                        URL de pantalla
+                    </th>
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Descripcion
+                        </td>
+                        <td>
+                            @($"/{item.Controlador}/{item.Action}")
+                        </td>
+
+                        <td>
+                            <button class="ui large icon btn-edit button">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon negative button">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br>
+
+    </div>
+</div>
