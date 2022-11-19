@@ -1206,6 +1206,8 @@ function fillMenu(id_restaurante) {
 //--------------------------------- GET DETAILS FUNCTIONS ------------------------------------------
 
 function FinalizarCompra(reservationDetail) {
+    console.log("function");
+    console.log(reservationDetail);
     var detailSuccess = true;
     var errorDiv =
         `<div class="ui error message">
@@ -1262,8 +1264,14 @@ function getReservationDetail() {
 
     const reservationDetail = ReservationCreateViewModel.reservacion;
     reservationDetail.resv_NumeroPersonas = parseInt($("#txtCantidadPersonas").val());
-    reservationDetail.reHo_FechaEntrada = new Date($("#txtFechaEntrada input[type='text']").val()).toISOString();
-    reservationDetail.reHo_FechaSalida = new Date($("#txtFechaSalida input[type='text']").val()).toISOString();
+    reservationDetail.reHo_FechaEntrada = 
+        $("#txtFechaEntrada input[type='text']").val() == 0
+            ? 0
+            : new Date($("#txtFechaEntrada input[type='text']").val()).toISOString();
+    reservationDetail.reHo_FechaSalida =
+        $("#txtFechaSalida input[type='text']").val() == 0
+            ? 0 
+            : new Date($("#txtFechaSalida input[type='text']").val()).toISOString();
     reservationDetail.hote_ID = parseInt($("button.hotel_button_trigger[data-selected='true']").eq(0).attr("data-value"));
 
     const activities = ReservationDetail.getActivities();
@@ -1325,6 +1333,7 @@ function getReservationDetail() {
 const getReservationDetail_html = {
 
     main: function (reservationDetail) {
+        console.log("getReservationDetail_html");
         const hotelTotal = parseFloat(this.getHotels(reservationDetail));
         const transportTotal = this.getTransport(reservationDetail);
         const extraActivitiestTotal = this.getActivities(reservationDetail);
@@ -1339,8 +1348,9 @@ const getReservationDetail_html = {
             "L " + (hotelTotal + transportTotal + extraActivitiestTotal)
         );
 
-        $("#btnFinalizar").unbind('onclick');
-        $("#btnFinalizar").click(function () {
+        $("#btnFinalizar").off('click');
+        $("#btnFinalizar").on('click',function () {
+            console.log("click");
             FinalizarCompra(reservationDetail);
         });
         $('.ui.accordion').accordion();
@@ -1675,19 +1685,20 @@ var ReservationDetail = {
 
             // get data
             const stringDate = $(item).parents(".restaurant_form_content").eq(0).find(".restaurant_fecha input").val();
-            console.log($(item).parents(".restaurant_form_content").eq(0).find(".restaurant_fecha input").val());
+
             if (stringDate == 0) {
                 contador_vacios++;
+            } else {
+                const formatDate = stringDate == 0 ? 0 : new Date(stringDate).toISOString();
+
+                // set restaurant data 
+                restaurantViewModel.rest_ID = parseInt($(item).attr("data-value"));
+                restaurantViewModel.reRe_FechaReservacion = formatDate;
+                restaurantViewModel.reRe_HoraReservacion = formatDate.split("T")[1];
+
+                // set response
+                response.data.push(restaurantViewModel);
             }
-            const formatDate = new Date(stringDate).toISOString();
-
-            // set restaurant data 
-            restaurantViewModel.rest_ID = parseInt($(item).attr("data-value"));
-            restaurantViewModel.reRe_FechaReservacion = formatDate;
-            restaurantViewModel.reRe_HoraReservacion = formatDate.split("T")[1];
-
-            // set response
-            response.data.push(restaurantViewModel);
         });
 
         if (contador_vacios > 0) {
@@ -1722,17 +1733,18 @@ var ReservationDetail = {
             const stringDate = $(form_data).find(".activities_fecha input").val();
             if (stringDate == "" || stringDate == undefined) {
                 contador_vacios++;
+            } else {
+                const formatDate = stringDate == 0 ? 0 : new Date(stringDate).toISOString();
+
+                // set data
+                extraActivity.acEx_ID = parseInt($(item).attr("data-value"));
+                extraActivity.reAE_FechaReservacion = formatDate;
+                extraActivity.reAE_HoraReservacion = formatDate.split("T")[1];
+                extraActivity.reAE_Cantidad = parseInt($(form_data).find(".ExtraActivity_contador input[type='number']").val());
+                extraActivity.reAE_Precio = ActivitiesExtraList.data.filter(n => n.id == extraActivity.acEx_ID)[0].precio;
+
+                response.extra.push(extraActivity);
             }
-            const formatDate = new Date(stringDate).toISOString();
-
-            // set data
-            extraActivity.acEx_ID = parseInt($(item).attr("data-value"));
-            extraActivity.reAE_FechaReservacion = formatDate;
-            extraActivity.reAE_HoraReservacion = formatDate.split("T")[1];
-            extraActivity.reAE_Cantidad = parseInt($(form_data).find(".ExtraActivity_contador input[type='number']").val());
-            extraActivity.reAE_Precio = ActivitiesExtraList.data.filter(n => n.id == extraActivity.acEx_ID)[0].precio;
-
-            response.extra.push(extraActivity);
         });
 
         //hotel activities
@@ -1746,18 +1758,18 @@ var ReservationDetail = {
             const stringDate = $(form_data).find(".activitiesHotels_fecha input").val();
             if (stringDate == "" || stringDate == undefined) {
                 contador_vacios++;
-                console.log("fecha vacia: " + stringDate);
+            } else {
+                const formatDate = stringDate == 0 ? 0 : new Date(stringDate).toISOString();
+
+                // set data
+                HotelActivity.hoAc_ID = parseInt($(item).attr("data-value"));
+                HotelActivity.reAH_FechaReservacion = formatDate;
+                HotelActivity.reAH_HoraReservacion = formatDate.split("T")[1];
+                HotelActivity.reAH_Cantidad = parseInt($(form_data).find(".hotelActivity_contador input[type='number']").val());
+                HotelActivity.reAH_Precio = HotelsActivitiesList.data.filter(x => x.id == HotelActivity.hoAc_ID)[0].precio;
+
+                response.hotel.push(HotelActivity);
             }
-            const formatDate = new Date(stringDate).toISOString();
-
-            // set data
-            HotelActivity.hoAc_ID = parseInt($(item).attr("data-value"));
-            HotelActivity.reAH_FechaReservacion = formatDate;
-            HotelActivity.reAH_HoraReservacion = formatDate.split("T")[1];
-            HotelActivity.reAH_Cantidad = parseInt($(form_data).find(".hotelActivity_contador input[type='number']").val());
-            HotelActivity.reAH_Precio = HotelsActivitiesList.data.filter(x => x.id == HotelActivity.hoAc_ID)[0].precio;
-
-            response.hotel.push(HotelActivity);
         });
          
         if (contador_vacios > 0) {
@@ -1818,16 +1830,16 @@ var ReservationDetail = {
             var transport = DetailsTransportationList.data.filter(x => x.id == parseInt($(item).attr("data-value")))[0];
             // get date
             const stringDate = $(form_data).find(".transport_fecha input").val();
-            const formatDate = new Date(stringDate).toISOString();
+            const formatDate = stringDate == 0 ? 0 : new Date(stringDate).toISOString();
             if (stringDate == "" || stringDate == undefined) {
                 contador_vacios++;
+            } else {
+                model.detr_ID = parseInt($(item).attr("data-value"));
+                model.reTr_CantidadAsientos = parseInt($(form_data).find(".transport_contador input[type='number']").val());
+                model.reTr_FechaCancelado = `${formatDate.split("T")[0]}T${transport.hora_Salida}`;
+
+                response.data.push(model);
             }
-
-            model.detr_ID = parseInt($(item).attr("data-value"));
-            model.reTr_CantidadAsientos = parseInt($(form_data).find(".transport_contador input[type='number']").val());
-            model.reTr_FechaCancelado = `${formatDate.split("T")[0]}T${transport.hora_Salida}`;
-
-            response.data.push(model);
         });
 
         if (contador_vacios > 0) {
