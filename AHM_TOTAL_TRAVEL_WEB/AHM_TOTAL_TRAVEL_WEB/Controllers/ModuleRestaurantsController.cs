@@ -102,11 +102,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-            //var list = await _restaurantService.RestaurantsList(token);
-            //IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
-            //var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
+            var list = await _restaurantService.RestaurantsList(token);
+            IEnumerable<RestaurantListViewModel> data = (IEnumerable<RestaurantListViewModel>)list.Data;
+            var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
 
-            //ViewData["RestauranteID"] = element.ID;
+            ViewData["RestauranteID"] = element.ID;
 
             return View();
         }

@@ -2,8 +2,14 @@
 var ReservacionTra = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationRestaurant/List");
 var TransportDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Restaurants/List");
 $('.ui.dropdown').dropdown();
+
 $("document").ready(function () {
     fillreservaciones(0);
+});
+
+$("#Estado").change(function (_this) {
+    var idReservaciones = $(_this.target).val();
+    fillreservaciones(idReservaciones);
 });
 
 function ShowContent(content, index) {
@@ -52,8 +58,7 @@ function ViewReservation(idDetalles, id) {
                 recortado2 = hora.slice(-2);
                 var union = recortado1 + ":" + recortado2;
 
-                divroom =
-                    `<div class="field">
+                divroom = `<div class="field">
                     <center>
                     <div class="image">
                         <img src="${imagen[0]}">
@@ -99,49 +104,30 @@ function ViewReservation(idDetalles, id) {
     }
 }
 
-$("#Estado").change(function (_this) {
-    var idReservaciones = $(_this.target).val();
-    fillreservaciones(idReservaciones);
-});
 
 function fillreservaciones(estadoReservaciones) {
 
-    if (estadoReservaciones == "0") {
-        var reservaciones = jQuery.grep(Reservacion.data, function (reservacion, i) {
-            return reservacion;
+    if (estadoReservaciones == 0) {
+        var resv = jQuery.grep(ReservacionTra.data, function (reservacion, i) {
+            return reservacion.iD_Restaurante == RestauranteID;
         });
     }
-    else if (estadoReservaciones == "1") {
-        var reservaciones = jQuery.grep(Reservacion.data, function (reservacion, i) {
-            return reservacion.confirmacionRestaurante == false;
+    else if (estadoReservaciones == 1) {
+        var resv = jQuery.grep(ReservacionTra.data, function (reservacion, i) {
+            return reservacion.confirmacionReservacion == false && reservacion.iD_Restaurante == RestauranteID;
         });
     }
     else {
-        var reservaciones = jQuery.grep(Reservacion.data, function (reservacion, i) {
-            return reservacion.confirmacionRestaurante == true;
+        var resv = jQuery.grep(ReservacionTra.data, function (reservacion, i) {
+            return reservacion.confirmacionReservacion == true && reservacion.iD_Restaurante == RestauranteID;
         });
     }
 
     $('#tarjetaT').empty();
 
-    for (var i = 0; i < reservaciones.length; i++) {
+    for (var i = 0; i < resv.length; i++) {
 
-        //if (ReservacionTra.code == 200 &&) {
-
-                var resv = ReservacionTra.data;
-                var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID) && reservaciones.id == ReservacionTra.resv_ID);
-                if (Rflitro.length == 0) {
-                    actexth =
-                        `<div class="ui card">
-                            <div class="content">
-                                <div class="header">No hay reservaciones</div>                     
-                            </div>                  
-                        </div>`
-                    $('#tarjetaT').append(actexth);
-                }
-                else {
-                    for (var i = 0; i < Rflitro.length; i++) {
-                        const item = Rflitro[i];
+            const item = resv[i];
                         var fecha = item.fecha_Reservacion.split('T');
                         try {
                             divroom =
@@ -170,12 +156,6 @@ function fillreservaciones(estadoReservaciones) {
                             $('#tarjetaT').append(divroom);
                         }
                     }
-                }
-           // }
-
-    }
-
-    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
