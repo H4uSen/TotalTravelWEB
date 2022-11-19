@@ -22,9 +22,16 @@
                     </a>
                 </div>
             </div>
-            <form asp-action="Create" asp-controller="Users" method="post" id="updateReservationForm">
+            <form asp-action="Create" asp-controller="Users" method="post" id="createUserForm">
                 @Html.Hidden("controller",(string)ViewBag.controller)
                 @Html.Hidden("action",(string)ViewBag.action)
+                @{
+                    if (ViewBag.isRedirected)
+                    {
+                        <input id="txtUserID" type="number" style="display:none" runat="server" />
+                        <input id="cbIsRedirected" type="checkbox" value=true style="display:none" runat="server" />
+                    }
+                }
             <!-- formulario-->
             <div class="ui form attached fluid segment">
                 <div class="content">
@@ -65,34 +72,20 @@
                         </div>
 
                         <div class="required field checkButton_container">
-                                <label class="ui label">Sexo</label>
-                                <div class="inline fields">
-                                    <div class="field">
-                                        <div class="ui radio checkbox">
-                                            <input type="radio" id="rbGenero" value="M" name="rbGenero" runat="server">
-                                            <label>Masculino</label>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="ui radio checkbox">
-                                            <input type="radio" id="rbGenero" value="F" name="rbGenero" runat="server">
-                                            <label>Femenino</label>
-                                        </div>
                             <label class="ui label">Sexo</label>
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
+                                        <input type="radio" id="rbGenero" value="M" name="rbGenero" runat="server">
                                         <label>Masculino</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
+                                        <input type="radio" id="rbGenero" value="F" name="rbGenero" runat="server">
                                         <label>Femenino</label>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -160,137 +153,116 @@
                                            placeholder="Contraseña" name="txtPassword" runat="server">
                             </div>
                             <div class="field">
+                                    <label class="ui label">Confirmar contraseña</label>
                                     <input type="password" id="txtPasswordConfirm" name="txtPasswordConfirm"
                                            placeholder="Confirmar contraseña" runat="server">
                             </div>
                         </div>
                     </div>
                     @{
-                        if (ViewBag.isRedirected)
+                        if (!ViewBag.isRedirected)
                         {
-                                        <!-- role adress section -->
-                                        <div class="ui segment">
-                                            <div class="field">
-                                                <label>Agrega un rol al usuario</label>
-                                                <div class="grouped fields">
-                                                    <div class="field">
-                                                        <div class="ui toggle checkbox">
-                                                            <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
-                                                            <label>Administrador</label>
-                                                        </div>
+                                    <!-- role adress section -->
+                                    <div class="ui segment">
+                                        <div class="field">
+                                            <label>Agrega un rol al usuario</label>
+                                            <div class="grouped fields">
+                                                <div class="field">
+                                                    <div class="ui toggle checkbox">
+                                                        <input type="checkbox" id="checkAdmin" tabindex="0" class="hidden">
+                                                        <label>Administrador</label>
                                                     </div>
-                                                    <div class="field">
-                                                        <div class="ui toggle checkbox">
-                                                            <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
-                                                            <label>Socio</label>
-                                                        </div>
+                                                </div>
+                                                <div class="field">
+                                                    <div class="ui toggle checkbox">
+                                                        <input type="checkbox" id="checkPartner" tabindex="0" class="hidden">
+                                                        <label>Socio</label>
                                                     </div>
-                                                    <div class="field">
-                                                        <div class="ui toggle checkbox">
-                                                            <input type="checkbox" id="checkExistingPartner" tabindex="0"
-                                                               class="hidden" disabled>
-                                                            <label>Socio ya existente</label>
-                                                        </div>
+                                                </div>
+                                                <div class="field">
+                                                    <div class="ui toggle checkbox">
+                                                        <input type="checkbox" id="checkExistingPartner" tabindex="0"
+                                                            class="hidden" disabled>
+                                                        <label>Socio ya existente</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- find partner section -->
-                                        <div id="frmSelectPartner">
+                                    <!-- find partner section -->
+                                    <div id="frmSelectPartner">
 
-                                            <div class="field">
-                                                <label>Selecciona un socio</label>
-                                                <div class="fields">
-                                                    <div class="six wide required field">
-                                                        <label class="ui label">Tipo de socio</label>
-                                                        <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
-                                                            <option value="">Selecciona un tipo de socio</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="six wide required field">
-                                                        <label class="ui label">Socio</label>
-                                                        <select class="ui dropdown" id="cbbPartners">
-                                                            <option value="">Selecciona un socio)</option>
-                                                        </select>
-                                                    </div>
+                                        <div class="field">
+                                            <label>Selecciona un socio</label>
+                                            <div class="fields">
+                                                <div class="six wide required field">
+                                                    <label class="ui label">Tipo de socio</label>
+                                                    <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
+                                                        <option value="">Selecciona un tipo de socio</option>
+                                                    </select>
+                                                </div>
+                                                <div class="six wide required field">
+                                                    <label class="ui label">Socio</label>
+                                                    <select class="ui dropdown" id="cbbPartners">
+                                                        <option value="">Selecciona un socio</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- create partner section -->
-                                        <div id="frmCreatePartner">
-                                            <div class="field">
-                                                <label>Información del socio</label>
-                                                <div class="four fields">
-                                                    <div class="required field">
-                                                        <label class="ui label">Tipo de socio</label>
-                                                        <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
-                                                            <option value="">Selecciona una tipo de socio</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="required field">
-                                                        <label class="ui label">Nombre</label>
-                                                        <input type="text" id="txtPartnerName"
-                                                           placeholder="Nombre del socio">
-                                                    </div>
-                                                    <div class="required field">
-                                                        <label class="ui label">Correo electrónico</label>
-                                                        <input type="text" id="txtPartnerEmail"
-                                                           placeholder="Correo eletrónico">
-                                                    </div>
-                                                    <div class="required field">
-                                                        <label class="ui label">Teléfono</label>
-                                                        <input type="text" id="txtPartnerPhone"
-                                                           placeholder="Teléfono">
-                                                    </div>
+                                    <!-- create partner section -->
+                                    <div id="frmCreatePartner">
+                                        <div class="field">
+                                            <label>Información del socio</label>
+                                            <div class="four fields">
+                                                <div class="required field">
+                                                    <label class="ui label">Tipo de socio</label>
+                                                    <select class="ui dropdown" id="cbbTipoPartner" asp-items="ViewBag.PartnersTypes">
+                                                        <option value="">Selecciona una tipo de socio</option>
+                                                    </select>
+                                                </div>
+                                                <div class="required field">
+                                                    <label class="ui label">Nombre</label>
+                                                    <input type="text" id="txtPartnerName"
+                                                        placeholder="Nombre del socio">
+                                                </div>
+                                                <div class="required field">
+                                                    <label class="ui label">Correo electrónico</label>
+                                                    <input type="text" id="txtPartnerEmail"
+                                                        placeholder="Correo eletrónico">
+                                                </div>
+                                                <div class="required field">
+                                                    <label class="ui label">Teléfono</label>
+                                                    <input type="text" id="txtPartnerPhone"
+                                                        placeholder="Teléfono">
                                                 </div>
                                             </div>
-                                            <br>
-
                                         </div>
+                                        <br>
+
+                                    </div>
                         }
                     }
 
-                        @{
-                            if (ViewBag.isRedirected)
-                            {
-                               
-                                string controller = ViewBag.controller;
-                                string action = ViewBag.action;
-                                
-
-                                <input type="button" class="ui btn-edit text-white button" id="tbnCreateUserRedirected" value="Guardar" />
-                                //Create a button that redirect to the previous page
-                                
-                                <a class="ui button" href="@Url.Action(action: action, controller: controller)">Cancelar</a>
-                                
-                                        
-                                
-                            }
-                            else
-                            { 
-                                <div class="ui btn-edit text-white button" tabindex="0" onclick="con">Guardar</div>
-                                <div class="ui button" tabindex="0">Cancelar</div>
-                            }
-                        }
                     @{
-                        if (ViewBag.isRedirected)
-                        {
-
-                            <input type="submit" class="ui btn-edit text-white button" value="Guardar" />
-                            //Create a button that redirect to the previous page
-                            <a class="ui button" href="@Url.Action("Create", "Reservation")">Cancelar</a>
-                        }
-                        else
-                        {
-                            <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
-                            <a class="ui button" href="@Url.Action("Index", "Users")">Cancelar</a>
- 
-                        }
+                        string controller = ViewBag.controller;
+                        string action = ViewBag.action;
+                    if (ViewBag.isRedirected)
+                    {
+                                <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
+                                <a class="ui button" href="@Url.Action(action: action, controller: controller)">Cancelar</a>
+       
                     }
+                    else
+                    { 
+                                <div class="ui btn-edit text-white button" tabindex="0" id="tbnCreateUser">Guardar</div>
+                                <a class="ui button" href="@Url.Action("Index", "Users")">Cancelar</a>
+                    }
+                    }
+                    </div>
                 </div>
-            </div>
             </form>
             
             <div class="ui negative attached message" id="msgErrorForm">
@@ -306,9 +278,6 @@
 
 @section Scripts{
     <script src="~/js/UsersJs/Create.js"></script>
-    <script>
-        
-    </script>
 }
 @section HighlightTile{
     <script>

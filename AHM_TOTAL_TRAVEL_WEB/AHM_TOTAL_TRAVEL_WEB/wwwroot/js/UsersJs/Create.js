@@ -302,8 +302,15 @@ function CreateUser() {
                  user.usua_ID = UserInsertStatus.data.codeStatus;
                  iziToastAlert(
                     "!User Created Successfully! ", "", "success"
-                 );
-                 location.assign("Index");
+                );
+                var isRedirected = $("#cbIsRedirected").val();
+                if (isRedirected == "true") {
+                    $("#txtUserID").val(UserInsertStatus.data.codeStatus);
+                    $("#createUserForm").submit();
+                }
+                else {
+                    location.assign("Index");
+                }
             }
             else {
                  $("#msgErrorForm").show();
@@ -397,3 +404,4 @@ function CreateUserDirection() {
 
     return data;
 }
+

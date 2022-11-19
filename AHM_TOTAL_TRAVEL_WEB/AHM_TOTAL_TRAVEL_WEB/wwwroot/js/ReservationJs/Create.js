@@ -28,6 +28,7 @@ function goBack() {
 
 // ----------------------------------- EVENTS ------------------------------------
 $(document).ready(function () {
+    
     //Fill the Users DNI Dropdown
     const Users = UsersList.data;
     for (var i = 0; i < Users.length; i++) {
@@ -231,14 +232,6 @@ $('#dateRangePicker').daterangepicker({
 }, function (start, end, label) {
     //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 });
-
-
-
-
-
-
-
-
 //-------------- ADDRESS DROPDOWNS EVENTS
 
 
@@ -400,10 +393,6 @@ function createReservation() {
 
         }
 
-
-
-
-
         /*
         if (ReservationInsertStatus.code == 200) {
                 iziToastAlert(
@@ -421,3 +410,25 @@ function createReservation() {
 
 
 }
+
+
+//Fill the user data if it's a response from redirection
+$(document).ready(function () {
+    var redirectedUserResponseID = $("#createdUserID").val();
+    if (redirectedUserResponseID != undefined) {
+        if (!redirectedUserResponseID > 0) {
+            const UserData = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/Find?id=" + redirectedUserResponseID);
+            const User = UserData.data;
+            User.fecha_Nacimiento = User.fecha_Nacimiento.split("T")[0];
+            User.fecha_Nacimiento = User.fecha_Nacimiento.split("-").reverse().join("-");
+
+            $("#Usua_ID").val(User.id);
+            $("#txtNombre").val(User.nombre);
+            $("#txtApellido").val(User.apellido);
+            $("#txtTelefono").val(User.telefono);
+            $("#txtEmail").val(User.email);
+            $("#txtFechaNacimiento").val(User.fecha_Nacimiento);
+        }
+    }
+    
+});

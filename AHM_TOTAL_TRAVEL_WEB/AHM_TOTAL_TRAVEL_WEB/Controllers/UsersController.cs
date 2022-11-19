@@ -37,27 +37,31 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(string controller, string action, bool isRedirected)
+        public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
             IEnumerable<CountriesListViewModel> listCounties = (IEnumerable<CountriesListViewModel>)(await _GeneralServices.CountriesList()).Data;
             IEnumerable<PartnerTypeListViewModel> listPartnersType = (IEnumerable<PartnerTypeListViewModel>)(await _GeneralServices.PartnerTypeList()).Data;
             ViewBag.Counties = new SelectList(listCounties, "ID", "Pais");
             ViewBag.PartnersTypes = new SelectList(listPartnersType, "ID", "Descripcion");
-            ViewBag.Controller = controller;
-            ViewBag.Action = action;
-            ViewBag.isRedirected = isRedirected ? true : false;
+            ViewBag.Controller = routeValues.BackController;
+            ViewBag.Action = routeValues.BackAction;
+            ViewBag.isRedirected = routeValues.IsRedirect;
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(IFormCollection form)
         {
-            foreach (string key in form.Keys)
+            try
             {
-                var itemkey = key;
-                var itemvalue = form[key];
+                return RedirectToAction(form["action"], form["controller"], new RouteValuesModel { BackController = "Users", BackAction = "Create", IsRedirect = true, responseID = int.Parse(form["txtUserID"]) });
             }
-            return RedirectToAction(form["action"], form["controller"], new { id = "Hola" });
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
+            
         }
 
 

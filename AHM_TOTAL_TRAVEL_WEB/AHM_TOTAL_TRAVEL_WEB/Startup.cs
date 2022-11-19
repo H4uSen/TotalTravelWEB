@@ -116,6 +116,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
                     case 202:
                     case 216:
                     case 302:
+                    case 301:
                         break;
                     case 404:
                         break;

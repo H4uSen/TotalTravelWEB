@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -44,18 +45,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(string id)
+        public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
-            ViewBag.doCreateUser = true;
+            ViewBag.RouteValues = routeValues;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel reservation)
         {
+            RouteValuesModel routeValues = new RouteValuesModel();
+            ViewBag.RouteValues = routeValues;
+            
             if (reservation.CrearUsuario) 
             {
-                return RedirectToAction("Create", "Users", new { controller = "{controller}", action = "{action}", isRedirected = true });
+                return RedirectToAction("Create", "Users", new RouteValuesModel { BackController = "Reservation", BackAction = "Create", IsRedirect = true });
             }
             
             var token = HttpContext.User.FindFirst("Token").Value;
