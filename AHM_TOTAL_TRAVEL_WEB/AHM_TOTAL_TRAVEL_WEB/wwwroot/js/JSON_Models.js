@@ -62,7 +62,8 @@ var TransportViewModel = {
     "part_ID": 0,
     "dire_ID": 0,
     "tprt_UsuarioCreacion": Client_User_ID,
-    "tprt_UsuarioModifica": Client_User_ID
+    "tprt_UsuarioModifica": Client_User_ID,
+    "tprt_Nombre": "string",
 }
 
 var SuburbsViewModel = {

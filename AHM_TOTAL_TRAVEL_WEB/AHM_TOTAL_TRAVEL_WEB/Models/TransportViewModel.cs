@@ -11,6 +11,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? TiTr_ID { get; set; }
         public int? Part_ID { get; set; }
         public int? Dire_ID { get; set; }
+        public string Tprt_Nombre { get; set; }
         public int? Tprt_UsuarioCreacion { get; set; }
         public DateTime? Tprt_FechaCreacion { get; set; }
         public int? Tprt_UsuarioModifica { get; set; }

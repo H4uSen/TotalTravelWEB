@@ -32,22 +32,25 @@
                                 @Html.DisplayFor(model => model.ID)
                             </div>
                             <div class="field">
+                                <label>Nombre</label>
+                                Aqui ira el nombre
+                            </div>
+                            <div class="field">
                                 <label>Tipo transporte</label>
                                 @Html.DisplayFor(model => model.Tipo_Transporte)
-                            </div>
+                            </div>  
                             <div class="field">
-                                <label>Fecha Salida</label>
-                                @Html.DisplayFor(model => model.Fecha_Salida)
-                            </div>
-                            <div class="field">
-                                <label>Ciudad Salida</label>
-                                @Html.DisplayFor(model => model.Ciudad_Salida)
-
+                                <label>Partner</label>
+                                @Html.DisplayFor(model => model.Partner_ID)
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="four fields">
+                            <div class="field">
+                                <label>Ciudad Salida</label>
+                                @Html.DisplayFor(model => model.Ciudad_Salida)
+                            </div>
                             <div class="field">
                                 <label>Ciudad Llegada</label>
                                 @Html.DisplayFor(model => model.Ciudad_Llegada)
@@ -60,14 +63,14 @@
                                 <label>Hora Llegada</label>
                                 @Html.DisplayFor(model => model.Hora_Llegada)
                             </div>
-                            <div class="field">
-                                <label>Capacidad</label>
-                                @Html.DisplayFor(model => model.Capacidad)
-                            </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="four fields">
+                            <div class="field">
+                                <label>Capacidad</label>
+                                @Html.DisplayFor(model => model.Capacidad)
+                            </div>
                             <div class="field">
                                 <label>Precio</label>
                                 @Html.DisplayFor(model => model.Precio)
@@ -75,6 +78,10 @@
                             <div class="field">
                                 <label>Matricula</label>
                                 @Html.DisplayFor(model => model.Matricula)
+                            </div>
+                            <div class="field">
+                                <label>Fecha Salida</label>
+                                @Html.DisplayFor(model => model.Fecha_Salida)
                             </div>
                         </div>
                     </div>

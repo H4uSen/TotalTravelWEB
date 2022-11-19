@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ScheduleTransportationListViewModel>
-
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -32,62 +32,62 @@
             }
         </style>
         <table id="grdScheduleTransport" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
+            <thead>
+                <tr>
+                    <th>
+                        Ciudad Salida
+                    </th>
+                    <th>
+                        Ciudad Destino
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Hora de Salida
+                    </th>
+                    <th>
+                        Hora de llegada
+                    </th>
+                    <th width="200px">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            Ciudad Salida
-                        </th>
-                        <th>
-                            Ciudad Destino
-                        </th>
-                        <th>
-                            Fecha
-                        </th>
-                        <th>
-                            Hora de Salida
-                        </th>
-                        <th>
-                            Hora de llegada
-                        </th>
-                        <th width="200px"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad_Salida)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad_Destino)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Fecha)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Hora_Salida)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Hora_Llegada)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad_Salida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad_Destino)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hora_Salida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hora_Llegada)
+                        </td>
 
-                            <td>
-                                <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
-                                    <i class="pencil alternate icon icon-crud"></i>
-                                </button>
-                                <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </button>
-                                <a href="@Url.Action("Details","ScheduleTransportation",new {  id=item.ID})" class="ui large icon button">
-                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <br>
+                        <td>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("Details","ScheduleTransportation",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br>
 
     </div>
 </div>
@@ -101,38 +101,79 @@
     <form asp-action="Create" asp-controller="ScheduleTransportation" id="createScheduleForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <div class="required field">
-                    <div class="two fields">
-                        <div class="required field">
-                            <label class="ui label">Destino</label>
-                            <select id="DsTr_ID" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
-                                <option value="">Seleccione el Destino</option>
-                            </select>
+                @{
+                string usersRole = Context.Session.GetString("Role");
+                if (usersRole == "Administrador")
+                {
+                    <div class="required field">
+                        <div class="two fields">
+                            <div class="required field">
+                                <label class="ui label">Socio</label>
+                                <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                    <option value="">Seleccione un socio</option>
+                                </select>
+                            </div>                                             
+                            <div class="required field">
+                                <label class="ui label">Fecha</label>
+                                <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                            </div>
                         </div>
-                        <div class="required field">
-                            <label class="ui label">Fecha</label>
-                            <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                        <div class="two fields">
+                            <div class="required field">
+                                <label class="ui label">Hora de salida</label>
+                                <input type="time" id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Hora de llegada</label>
+                                <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                            </div>
+                        </div>
+                        <div class="two fields" id="DD_DsTr_ID" hidden>
+                            <div class="required field">
+                                <label class="ui label">Destino</label>
+                                <select id="DsTr_ID" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                                    <option value="">Seleccione el Destino</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="two fields">
-                        <div class="required field">
-                            <label class="ui label">Hora de salida</label>
-                            <input type="time" id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                    }
+                    if (usersRole == "Moderador de Transporte")
+                    {
+                    <div class="required field">
+                        <div class="two fields">
+                            <div class="required field">
+                                <label class="ui label">Destino</label>
+                                <select id="DsTr_ID" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                                    <option value="">Seleccione el Destino</option>
+                                </select>
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Fecha</label>
+                                <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                            </div>
                         </div>
-                        <div class="required field">
-                            <label class="ui label">Hora de llegada</label>
-                            <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                        <div class="two fields">
+                            <div class="required field">
+                                <label class="ui label">Hora de salida</label>
+                                <input type="time" id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">Hora de llegada</label>
+                                <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                            </div>
+                        </div>
+                        <div class="two fields" id="DD_Part_ID2" hidden>
+                            <div class="required field">
+                                <label class="ui label">Socio</label>
+                                <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                    <option value="">Seleccione un socio</option>
+                                </select>
+                            </div>                           
                         </div>
                     </div>
-                    <div class="field" id="Part_ID" hidden>
-                        <div class="required field">
-                            <label class="ui label">Tipo de socio</label>
-                            <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
-                                <option value="">Seleccione un socio</option>
-                            </select>
-                        </div>
-                    </div>                                         
-                </div>
+                }
+                }
             </div>
         </div>
     </form>
@@ -146,44 +187,86 @@
 <div class="ui modal longer" id="modalUpdate">
     <i class="close icon"></i>
     <div class="header">
-        Ingresa un Horario
+        Actualiza un Horario
     </div>
     <form asp-action="Update" asp-controller="ScheduleTransportation" id="UpdateScheduleForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <div class="required field">
-                    <div class="two fields">
+                @{
+                    string usersRole2 = Context.Session.GetString("Role");
+                    if (usersRole2 == "Administrador")
+                    {
+                        <input id="ID_Horario" name="HoTr_ID" placeholder="ID" />
                         <div class="required field">
-                            <label class="ui label">Destino</label>
-                            <input id="ID_Horario" name="HoTr_ID" placeholder="ID" />
-                            <select id="DsTr_IDUpdate" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
-                                <option value="">Seleccione el Destino</option>
-                            </select>
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Socio</label>
+                                    <select id="Partner_ID22" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                        <option value="">Seleccione un socio</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Fecha</label>
+                                    <input type="date" id="FechaViajeUpdate" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Hora de salida</label>
+                                    <input type="time" id="HoTr_HoraSalidaUpdate" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Hora de llegada</label>
+                                    <input type="time" id="HoTr_HoraLlegadaUpdate" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                                </div>
+                            </div>
+                            <div class="two fields" id="DD_DsTr_ID2">
+                                <div class="required field">
+                                    <label class="ui label">Destino</label>
+                                    <select id="DsTr_IDUpdate" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                                        <option value="">Seleccione el Destino</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+                    }
+                    if (usersRole2 == "Moderador de Transporte")
+                    {
+                        <input id="ID_Horario" name="HoTr_ID" placeholder="ID" />
                         <div class="required field">
-                            <label class="ui label">Fecha</label>
-                            <input type="date" id="FechaViajeUpdate" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Destino</label>
+                                    <select id="DsTr_IDUpdate" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                                        <option value="">Seleccione el Destino</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Fecha</label>
+                                    <input type="date" id="FechaViajeUpdate" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label class="ui label">Hora de salida</label>
+                                    <input type="time" id="HoTr_HoraSalidaUpdate" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                                </div>
+                                <div class="required field">
+                                    <label class="ui label">Hora de llegada</label>
+                                    <input type="time" id="HoTr_HoraLlegadaUpdate" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                                </div>
+                            </div>
+                            <div class="two fields" id="DD_Part_ID" hidden>
+                                <div class="required field">
+                                    <label class="ui label">Socio</label>
+                                    <select id="Partner_ID22" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                        <option value="">Seleccione un socio</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="required field">
-                            <label class="ui label">Hora de salida</label>
-                            <input id="HoTr_HoraSalidaUpdate" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
-                        </div>
-                        <div class="required field">
-                            <label class="ui label">Hora de llegada</label>
-                            <input id="HoTr_HoraLlegadaUpdate" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
-                        </div>
-                    </div>
-                    <div class="field" id="Part_ID2" hidden>
-                        <div class="required field">
-                            <label class="ui label">Tipo de socio</label>
-                            <select id="Partner_ID22" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
-                                <option value="">Seleccione un socio</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
         </div>
     </form>
@@ -193,71 +276,71 @@
     </div>
 </div>
 
-@section Scripts{ 
-<script src="~/js/ScheduleTRansportJs/Create.js"></script>
-<script src="~/js/ScheduleTRansportJs/Update.js"></script>
-<script>
-    //------------------------------------Funciones------------------------
+@section Scripts{
+    <script src="~/js/ScheduleTRansportJs/Create.js"></script>
+    <script src="~/js/ScheduleTRansportJs/Update.js"></script>
+    <script>
+        //------------------------------------Funciones------------------------
 
-    function DeleteHorarios(Id) {
-        const capsula10 = () => {
-            var response = ajaxRequest("/ScheduleTransportation/Delete?id=" + Id, null, "POST");
-            if (response > 0) {
-                window.location.href = '/ScheduleTransportation?success=true';
-            }
+        function DeleteHorarios(Id) {
+            const capsula10 = () => {
+                var response = ajaxRequest("/ScheduleTransportation/Delete?id=" + Id, null, "POST");
+                if (response > 0) {
+                    window.location.href = '/ScheduleTransportation?success=true';
+                }
+            };
+            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula10);
         };
-        sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula10);
-    };
 
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        var table = $("#grdScheduleTransport").DataTable({
-            stateSave: true,
-            language: {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
-            },
-            //Aqui se ingresa el numero de columnas que tiene la tabla
-            columns: [
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
-            ],
-            order: [[1, 'asc']],
-            dom: 'Bfrtip',
-
-            //Son los botones de acciones para exportar
-            buttons: [
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class= "file pdf icon"></i> Exportar como PDF',
-                    className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
+            var table = $("#grdScheduleTransport").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
                 },
-                {
-                    extend: 'excelHtml5',
-                    text: '<i class="file excel icon"></i> Exportar a excel',
-                    className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'csvHtml5',
-                    text: '<i class="file csv icon"></i> Exportar como CSV',
-                    className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
-                },
-            ]
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {}
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
+
+                //Son los botones de acciones para exportar
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class= "file pdf icon"></i> Exportar como PDF',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="file excel icon"></i> Exportar a excel',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="file csv icon"></i> Exportar como CSV',
+                        className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
+                    },
+                ]
+            });
         });
-    });
 
 
-</script>
+    </script>
 }
 
 @section HighlightTile{

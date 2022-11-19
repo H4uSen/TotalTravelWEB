@@ -27,15 +27,20 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
+                                <label>Nombre</label>
+                                @Html.DisplayFor(model => model.Nombre)
+                            </div>
+                            <div class="field">
                                 <label>Socio</label>
                                 @Html.DisplayFor(model => model.NombrePartner)
                             </div>
-                            <div class="field">
-                                <label>Tipo transporte</label>
-                                @Html.DisplayFor(model => model.TipoTransporte)
-                            </div>
                         </div>
                     </div>
+                    <div class="field">
+                        <label>Tipo transporte</label>
+                        @Html.DisplayFor(model => model.TipoTransporte)
+                    </div>
+
                 </div>
             </div>
             <br />

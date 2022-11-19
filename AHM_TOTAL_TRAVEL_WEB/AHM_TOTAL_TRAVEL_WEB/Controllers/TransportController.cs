@@ -26,7 +26,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {                                         
             try
             {
-                var id = HttpContext.Session.GetString("PartnerID");
+                var id = HttpContext.Session.GetInt32("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
                 var token = HttpContext.User.FindFirst("Token").Value;
                 //var model = new List<HotelListViewModel>();
@@ -35,7 +35,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<TransportListViewModel> lista = (IEnumerable<TransportListViewModel>)list.Data;
                
 
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
                 }
@@ -48,7 +48,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                     else
                     {
-                        var list2 = lista.Where(c => c.PartnerID == Convert.ToInt32(id)).ToList();
+                        var list2 = lista.Where(c => c.PartnerID == id).ToList();
                         return View(list2);
                     }
                 }
@@ -129,6 +129,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 IEnumerable<TransportListViewModel> data = (IEnumerable<TransportListViewModel>)list.Data;
                 var element = data.Where(x => x.ID == id).ToList()[0];
                 item.Tprt_ID = element.ID;
+                item.Tprt_Nombre = element.Nombre;
                 item.TiTr_ID = element.TipoTransporteID;
                 item.Part_ID = element.PartnerID;
                 item.Dire_ID = element.DireccionId;
@@ -143,6 +144,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 ViewData["Colonia"] = direccion.ID_Colonia;
                 ViewData["Partner"] = tra.PartnerID;
                 ViewData["TipoTransporte"] = tra.TipoTransporteID;
+                ViewData["Tprt_Nombre"] = tra.Nombre;
+                
 
                 var city = await _generalService.CitiesList();
                 IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
@@ -155,7 +158,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 var partners = await _generalService.PartnersList();
                 IEnumerable<PartnersListViewModel> data_Partners = (IEnumerable<PartnersListViewModel>)partners.Data;
-                ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
+                var PartFilter = data_Partners.Where(x => x.TipoPartner == "Agencia de Transporte").ToList();
+                ViewBag.Part_ID = new SelectList(PartFilter, "ID", "Nombre");
 
                 var tipotransporte = await _transportService.TypesTransportList();
                 IEnumerable<TypesTransportListViewModel> data_TipoTransporte = (IEnumerable<TypesTransportListViewModel>)tipotransporte.Data;
@@ -172,20 +176,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(TransportViewModel transporte)
         {
-                        try
-                        {
-                            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                transporte.Tprt_UsuarioModifica = int.Parse(idd);
-                var lista = await _transportService.TransportUpdate(transporte, token);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
-            }
+                if (ModelState.IsValid)
+                {
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var idd = HttpContext.User.FindFirst("User_Id").Value;
+                    transporte.Tprt_UsuarioModifica = int.Parse(idd);
+                    var lista = await _transportService.TransportUpdate(transporte, token);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             catch
             {
