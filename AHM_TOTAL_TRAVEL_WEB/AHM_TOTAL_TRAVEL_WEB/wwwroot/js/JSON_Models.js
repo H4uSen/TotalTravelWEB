@@ -190,3 +190,15 @@ var ReservationCreateViewModel = {
         "reTr_FechaCancelado": "2022-11-15T02:22:03.298Z"
     }
 }
+
+var ScreensViewModel = {
+    "perm_ID": 0,
+    "perm_Icono": "",
+    "perm_Descripcion": "",
+    "perm_Controlador": "",
+    "perm_Action": "",
+    "modu_ID": 0,
+    "perm_esVisible": true,
+    "perm_UsuarioCreacion": Client_User_ID,
+    "perm_UsuarioModifica": Client_User_ID
+}

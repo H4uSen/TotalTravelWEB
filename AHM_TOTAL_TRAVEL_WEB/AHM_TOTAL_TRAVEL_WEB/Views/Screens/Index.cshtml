@@ -5,76 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container card">
-    <div class="ui basic segment">
+<br>
+<div class="ui top attached tabular menu" id="menu_Indexs">
+    <a class="item" data-target="#frmPantallas">Pantallas</a>
+    <a class="item" data-target="#frmModulos">Modulos</a>
+</div>
+<div class="ui bottom attached segment">
 
-        <div class="ui icon attached message">
-            <i class="icon clock"></i>
-            <div class="content">
-                <div class="header">
-                    Pantallas
+    <div class="container card" id="frmPantallas">
+        <div class="ui basic segment">
+
+            <div class="ui icon attached message">
+                <i class="icon clock"></i>
+                <div class="content">
+                    <div class="header">
+                        Pantallas
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <div class="ui grid mb-3">
-            <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" id="btnCreateScreen">
-                    <i class="plus icon"></i> Nuevo
-                </a>
+            <br>
+            <div class="ui grid mb-3">
+                <div class="eight wide column">
+                    <a class="ui small btn-purple text-white labeled icon button" id="btnCreateScreen">
+                        <i class="plus icon"></i> Nuevo
+                    </a>
+                </div>
             </div>
-        </div>
-        <style>
-            table thead tr th {
-                background-color: #2b2b2b;
-                color: white;
-            }
-        </style>
-        <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>
-                        Nombre de pantalla
-                    </th>
-                    <th>
-                        URL de pantalla
-                    </th>
-                    <th width="200px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @item.Descripcion
-                        </td>
-                        <td>
-                            @($"/{item.Controlador}/{item.Action}")
-                        </td>
-
-                        <td>
-                            <button class="ui large icon btn-edit button">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </button>
-                            <button class="ui large icon negative button">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
-                    </tr>
+            <style>
+                table thead tr th {
+                    background-color: #2b2b2b;
+                    color: white;
                 }
-            </tbody>
-        </table>
-        <br>
+            </style>
+            <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre de pantalla
+                        </th>
+                        <th>
+                            URL de pantalla
+                        </th>
+                        <th width="200px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Descripcion
+                            </td>
+                            <td>
+                                @($"/{item.Controlador}/{item.Action}")
+                            </td>
 
+                            <td>
+                                <button class="ui large icon btn-edit button">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </button>
+                                <button class="ui large icon negative button">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a class="ui large icon button">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
+
+        </div>
     </div>
+
+    <div class="container card" id="frmModulos">
+        <div class="ui basic segment">
+            apartado de modulos
+        </div>
+    </div>
+
 </div>
 
-<!-- MODAL CREATE -->
+
+<!-- MODAL CREATE SCREEN -->
 <div class="ui modal" id="mdlCreateScreen">
     <i class="close icon"></i>
     <div class="header">
@@ -102,12 +118,13 @@
                     <label class="ui label">Modulo de pantalla</label>
                     <select id="cbbModulo" class="ui dropdown search">
                         <option value="" selected disabled>Seleccione un modulo de pantalla</option>
+                        <option value="1">prueba</option>
                     </select>
                 </div>
-                <div class="required field">
+                <div class="field">
                     <label class="ui label">Aspectos visibles</label>
                     <div class="ui toggle checkbox">
-                        <input type="checkbox">
+                        <input type="checkbox" id="chkVisible">
                         <label>Pantalla visible al cliente en el menu?</label>
                     </div>
                 </div>
@@ -115,12 +132,12 @@
         </div>
     </div>
     <div class="actions">
-        <button class="ui button">Guardar</button>
-        <button class="ui button">Cerrar</button>
+        <button class="ui button" onclick="createScreen()">Guardar</button>
+        <button class="ui deny button">Cerrar</button>
     </div>
 
 </div>
 
 @section Scripts{
     <script src="~/js/Screens/Index.js"></script>
- }
+}
