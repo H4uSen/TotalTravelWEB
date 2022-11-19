@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid mb-3">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button">
+                <a class="ui small btn-purple text-white labeled icon button" id="btnCreateScreen">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -73,3 +73,54 @@
 
     </div>
 </div>
+
+<!-- MODAL CREATE -->
+<div class="ui modal" id="mdlCreateScreen">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una ciudad
+    </div>
+    <div class="ui form attached fluid segment" id="frmCreateScreen">
+        <div class="content">
+            <div class="three fields">
+                <div class="required field">
+                    <label class="ui label">Nombre visible de pantalla</label>
+                    <input id="txtDescripcion" placeholder="Nombre de pantalla" />
+                </div>
+                <div class="required field">
+                    <label class="ui label">Controlador (Solo nombre)</label>
+                    <input id="txtController" placeholder="'CountriesController' pasar a 'Countries'" />
+                </div>
+                <div class="required field">
+                    <label class="ui label">Endpoint/accion</label>
+                    <input id="txtAction" placeholder="Nombre de Endpoint/accion" />
+                </div>
+            </div>
+
+            <div class="two fields">
+                <div class="required field">
+                    <label class="ui label">Modulo de pantalla</label>
+                    <select id="cbbModulo" class="ui dropdown search">
+                        <option value="" selected disabled>Seleccione un modulo de pantalla</option>
+                    </select>
+                </div>
+                <div class="required field">
+                    <label class="ui label">Aspectos visibles</label>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox">
+                        <label>Pantalla visible al cliente en el menu?</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button">Guardar</button>
+        <button class="ui button">Cerrar</button>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/Screens/Index.js"></script>
+ }
