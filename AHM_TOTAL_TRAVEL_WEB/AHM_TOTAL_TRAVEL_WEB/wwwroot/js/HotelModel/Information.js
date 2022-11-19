@@ -2,7 +2,7 @@
 var ReservacionHot = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
 var ReservacionDetalle = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationDetails/List");
 var Hotel = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
-
+var ReservacionH;
 
 $("document").ready(function () {
     Tarjeta();
@@ -206,3 +206,17 @@ function ViewReservation(idDetalles, id) {
         }
     }
 }
+
+var filtrotarjeta = $("#Estado").val();
+
+function fillreservaciones(estadoReservaciones) {
+
+    if (estadoReservaciones == 0) {
+        ReservacionH = ReservacionHot.data.filter(x => x.) 
+    }
+    else if (estadoReservaciones == 1) {
+        ReservacionH =
+    }
+    else {
+        ReservacionH =
+    }
