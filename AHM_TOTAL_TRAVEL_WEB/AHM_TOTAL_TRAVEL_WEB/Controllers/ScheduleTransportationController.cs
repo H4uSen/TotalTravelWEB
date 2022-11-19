@@ -23,24 +23,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
-                var destiny = await _transportService.TransportDestionationsList();
-                IEnumerable<DestinationsTransportationsListViewModel> data_Destiny = (IEnumerable<DestinationsTransportationsListViewModel>)destiny.Data;
-                ViewBag.DsTr_ID = new SelectList(data_Destiny, "ID", "CiudadSalida");
-
+                
                 var token = HttpContext.User.FindFirst("Token").Value;
                 var id = HttpContext.Session.GetInt32("PartnerID");
                 var rol = HttpContext.Session.GetString("Role");
                 var DsTr = await _transportService.TransportDetailsList(token);
                 IEnumerable<TransportDetailsListViewModel> DsTr1 = (IEnumerable<TransportDetailsListViewModel>)DsTr.Data;
                
-
-
                 var list = await _transportService.ScheduleTransportationList();
                 IEnumerable<ScheduleTransportationListViewModel> lista = (IEnumerable<ScheduleTransportationListViewModel>)list.Data;
                 
-
-
-
                 if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
@@ -137,22 +129,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 horarios.HoTr_HoraSalida = HoraSalidaResult[0].ToString() + HoraSalidaResult[1];
                 horarios.HoTr_HoraLlegada = HoraLlegadaResult[0].ToString() + HoraLlegadaResult[1];
                 horarios.HoTr_Fecha = FechaResult[0];
-                string token = HttpContext.User.FindFirst("Token").Value;
+                var token = HttpContext.User.FindFirst("Token").Value;
                 horarios.HoTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
 
                 var rol = HttpContext.Session.GetString("Role");
 
-                var idPart = HttpContext.Session.GetString("PartnerID");
-                if (rol != "Cliente" || rol != "Administrador")
+                var idPart = HttpContext.Session.GetInt32("PartnerID");
+                if (rol != "Administrador")
                 {
-                    horarios.Partner_ID = int.Parse(idPart);
+                    horarios.Partner_ID = int.Parse(idPart.ToString());
                 }
-                var partner = await _transportService.TransportDestionationsList();
-                IEnumerable<PartnersListViewModel> data_Partner = (IEnumerable<PartnersListViewModel>)partner.Data;
-                ViewBag.Part_ID = new SelectList(data_Partner, "ID", "Nombre",horarios.Partner_ID);
-
-
-                RequestStatus response = (RequestStatus)(await _transportService.ScheduleTransportationUpdate(horarios, token)).Data;
+                var lista = await _transportService.ScheduleTransportationUpdate(horarios, token);
+                
                 return RedirectToAction("Index");
             }
             catch (Exception)

@@ -4,7 +4,6 @@
 
     $("#Part_ID2").removeAttr("hidden");
     $("#Part_ID2").show();
-
 }
 
 $("#errorDiv").hide();
@@ -52,16 +51,15 @@ function getDestiny() {
 };
 
 function validar() {
-    if ($("#Transporte").val() == 0) {
-        $("#labelvalidatort").html("Ingrese una Descripcion");
-    }
-    else {
-        $("#labelvalidatort").html(" ");
-    }   
-    if ($("#Transporte").val() != 0) {
+    validateArrayForm = [
+        { validateMessage: "Ingrese la descripcion.", Jqueryinput: $("#modalCreate #Transporte") },
+        { validateMessage: "Seleccione un Partner", Jqueryinput: $("#modalCreate #Partner_ID") },
+    ];
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+   
+    if (ValidateFormStatus) {      
         $("#createTypesTransportForm").submit();
-    }
-
+    }     
 }
 
 function editar(id) {
@@ -77,6 +75,7 @@ function editar(id) {
 function actualizar() {
     validateArrayForm = [
         { validateMessage: "Ingrese la descripcion.", Jqueryinput: $("#modalUpdate #Transporte_up") },
+        { validateMessage: "Seleccione un Partner", Jqueryinput: $("#modalUpdate #Partner_ID2") },
     ];
     const ValidateFormStatus = ValidateForm(validateArrayForm);
     var id = $("#id").val();

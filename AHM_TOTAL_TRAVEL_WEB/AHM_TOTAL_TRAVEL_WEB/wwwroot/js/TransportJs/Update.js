@@ -3,6 +3,8 @@
 var ciudadesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
 var coloniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
 
+var partnersList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
+var tipostranspoList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/TypesTransport/List");
 $(".ui.dropdown").dropdown();
 
 SetDropDownValue($("#Count_ID"), Pais_ID);
@@ -10,8 +12,51 @@ RellenarCiudades(Pais_ID);
 SetDropDownValue($("#City_ID"), Ciudad);
 RellenarColonias(Ciudad);
 SetDropDownValue($("#Subu_ID"), Subu_ID);
-SetDropDownValue($("#TiTr_ID"), TiTr_ID);
 SetDropDownValue($("#Part_ID"), Part_ID);
+$("#Tprt_Nombre").val(Tprt_Nombre);
+
+$('document').ready(function () {
+    TT()
+});
+$('#Part_ID').change(function () {
+     TT()
+});
+
+function TT() {
+    $("#DD_TiTr_ID").removeAttr("hidden");
+    $("#DD_TiTr_ID").show();
+    if (partnersList.code == 200) {
+        var Partner_ID;
+        if (Client_Role == "Administrador") {
+            Partner_ID = $('#Part_ID').val();
+        }
+        else {
+            Partner_ID = parseInt(Client_Partner_ID);
+        }
+        var tiTra = tipostranspoList.data;
+        tiTra = jQuery.grep(tiTra, function (tipTra, i) {
+            return tipTra.partner_ID == Partner_ID;
+        });
+        const dropdownData = {
+            dropdown: $("#TiTr_ID"),
+            items: {
+                list: tiTra,
+                valueData: "id",
+                textData: "trasporte"
+            },
+            placeholder: {
+                empty: "No se encontraron tipos de transporte disponibles para este socio",
+                default: "Seleccione un tipo de transporte",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#TiTr_ID").dropdown();
+        SetDropDownValue($("#TiTr_ID"), TiTr_ID);
+
+    }
+}
 
 
 $('#Count_ID').change(function () {
@@ -38,7 +83,7 @@ function updateTransport(id) {
             dire.colo_ID = parseInt($('#Subu_ID').val());
             dire.dire_Calle = ($("#Calle").val());
             dire.dire_Avenida = ($("#Avenida").val());
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+            var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
 
@@ -51,10 +96,17 @@ function updateTransport(id) {
 
         if (direStatus) {
             var data = TransportViewModel;
+            var nombre = $("#Tprt_Nombre").val()
             data.dire_ID = parseInt(DireID);
             data.tiTr_ID = parseInt($("#TiTr_ID").val());
             data.part_ID = parseInt($("#Part_ID").val());
-
+            data.tprt_Nombre = nombre;
+            if (Client_Role == "Administrador") {
+                data.part_ID = parseInt($("#Part_ID").val());
+            }
+            else {
+                data.part_ID = parseInt(Part_ID);
+            }
             var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Transports/Update?id="+id, data, "PUT");
 
             if (response.code == 200) {
