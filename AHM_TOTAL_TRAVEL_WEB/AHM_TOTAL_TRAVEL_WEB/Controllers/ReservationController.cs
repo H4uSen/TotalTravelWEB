@@ -1,13 +1,17 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using Irony.Parsing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
@@ -47,8 +51,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
-            ViewBag.RouteValues = routeValues;
-            return View();
+            string token = HttpContext.User.FindFirstValue("Token");
+            try
+            {
+                ViewBag.RouteValues = routeValues;
+
+                var responseHotelsActivities = await _hotelsService.HotelsActivitiesList(token);
+                List<HotelsActivitiesListViewModel> hotelsActivities = (List<HotelsActivitiesListViewModel>)responseHotelsActivities.Data;
+                ViewBag.hotelActivities = new MultiSelectList(hotelsActivities, "ID", "ddlItem");
+
+
+                var responseExtraActivities = await _activitiesServices.ExtraActivitiesList(token);
+                List<ActivitiesExtrasListViewModel> extraActivities = (List<ActivitiesExtrasListViewModel>)responseExtraActivities.Data;
+                ViewBag.extraActivities = new MultiSelectList(extraActivities, "ID", "ddlItem");
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return View(routeValues);
+            }
         }
 
         [HttpPost]
@@ -62,30 +84,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return RedirectToAction("Create", "Users", new RouteValuesModel { BackController = "Reservation", BackAction = "Create", IsRedirect = true });
             }
             
-            var token = HttpContext.User.FindFirst("Token").Value;
-            string UserID = HttpContext.User.FindFirst("User_Id").Value;
+            var token = HttpContext.User.FindFirstValue("Token");
+            string UserID = HttpContext.User.FindFirstValue("User_Id");
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
             var result = await _reservationService.ReservationCreate(reservation, token);
-                if (result.Success)
-                {
-                    return View();
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
+            if (result.Success)
+            {
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
             
             return View(reservation);
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-
-            
 
             var item = new ReservationViewModel();
             var list = await _reservationService.ReservationList(token);
