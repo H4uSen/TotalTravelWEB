@@ -424,6 +424,68 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> PermisosUpdate(PermissionsViewModel permisos, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Put<PermissionsViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Permissions/Update?id=" + permisos.Perm_ID;
+                    req.Content = permisos;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+        public async Task<ServiceResult> PermissionsDelete(PermissionsViewModel Screen, int id, string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+
+                var response = await _api.Delete<AddressViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Permissions/Delete?id=" + id + "&mod=" + Screen.Perm_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         #endregion
 
         #region modules

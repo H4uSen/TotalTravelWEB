@@ -29,5 +29,43 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var screensList = (IEnumerable<PermissionsListViewModel>)(await _AccessService.PermissionsList(token)).Data;
             return View(screensList);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(PermissionsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                model.Perm_UsuarioModifica = int.Parse(idd);
+                var lista = await _AccessService.PermisosUpdate(model, token);
+                IEnumerable<PermissionsListViewModel> PermissionsList = (IEnumerable<PermissionsListViewModel>)(await _AccessService.PermissionsList(token)).Data;
+                return View("Index", PermissionsList);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(PermissionsViewModel Screen, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                Screen.Perm_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _AccessService.PermissionsDelete(Screen, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
     }
 }

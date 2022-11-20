@@ -22,4 +22,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
     }
+
+    public class PermissionsViewModel
+    {
+        public int Perm_ID { get; set; }
+        public string Perm_Icono { get; set; }
+        public string Perm_Descripcion { get; set; }
+        public string Perm_Controlador { get; set; }
+        public string Perm_Action { get; set; }
+        public int? Modu_ID { get; set; }
+        public bool? Perm_esVisible { get; set; }
+        public int? Perm_UsuarioCreacion { get; set; }
+        public DateTime? Perm_FechaCreacion { get; set; }
+        public int? Perm_UsuarioModifica { get; set; }
+        public DateTime? Perm_FechaModifica { get; set; }
+        public bool? Perm_Estado { get; set; }
+    }
+
 }

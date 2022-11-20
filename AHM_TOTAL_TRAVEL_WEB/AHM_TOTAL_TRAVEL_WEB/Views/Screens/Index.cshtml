@@ -62,10 +62,10 @@
                             </td>
 
                             <td>
-                                <button class="ui large icon btn-edit button">
+                                <button class="ui large icon btn-edit button" onclick="GetPermissions('@item.ID')">
                                     <i class="pencil alternate icon icon-crud"></i>
                                 </button>
-                                <button class="ui large icon negative button">
+                                <button class="ui large icon negative button" onclick="DeletePermissions('@item.ID')">
                                     <i class="trash alternate icon icon-crud"></i>
                                 </button>
                                 <a class="ui large icon button">
@@ -137,6 +137,58 @@
 
 </div>
 
+
+
+<!-- MODAL UPDATE -->
+<div class="ui modal" id="mdlUpdateScreen">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa una ciudad
+    </div>
+    <form class="ui form attached fluid segment" asp-action="Update" asp-controller="Screens" id="frmUpdateScreen">
+        <div class="content">
+            <div class="three fields">
+                <div class="required field">
+                    <input name="Perm_ID" id="Perm_ID" />
+                    <label class="ui label">Nombre visible de pantalla</label>
+                    <input id="txtDescripcionUpdate" placeholder="Nombre de pantalla" />
+                </div>
+                <div class="required field">
+                    <label class="ui label">Controlador (Solo nombre)</label>
+                    <input id="txtControllerUpdate" placeholder="'CountriesController' pasar a 'Countries'" />
+                </div>
+                <div class="required field">
+                    <label class="ui label">Endpoint/accion</label>
+                    <input id="txtActionUpdate" placeholder="Nombre de Endpoint/accion" />
+                </div>
+            </div>
+
+            <div class="two fields">
+                <div class="required field">
+                    <label class="ui label">Modulo de pantalla</label>
+                    <select id="cbbModuloUpdate" class="ui dropdown search" asp-items="ViewBag.modulos">
+                        <option value="" selected disabled>Seleccione un modulo de pantalla</option>
+                    </select>
+                </div>
+                <div class="required field">
+                    <label class="ui label">Aspectos visibles</label>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" id="checkVisible">
+                        <label>Pantalla visible al cliente en el menu?</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendUpdate">Guardar</button>
+        <button class="ui button" id="closeUpdate">Cancelar</button>
+    </div>
+
+</div>
+<!-- MODAL UPDATE -->
+
 @section Scripts{
     <script src="~/js/Screens/Index.js"></script>
+    <script src="~/js/Screens/Update.js"></script>
 }
