@@ -56,14 +56,10 @@ $("#sendUpdate").click(() => {
         screen.perm_Descripcion = $("#mdlUpdateScreen #txtDescripcionUpdate").val();
         screen.perm_esVisible = $("#mdlUpdateScreen #checkVisible").prop("checked");
 
-        console.log(screen);
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Find?Id=" + screen.perm_ID, screen, "PUT");
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Update?id=" + screen.perm_ID, screen, "PUT");
         if (response.code == 200) {
-            Swal.fire("Registro actualizado con exito", "", "success").then(function () {
-                window.location.href = '/Screens?success=true';
-            });
+            window.location.href = '/Screens?success=true';
         } else {
-            console.log(response);
             Swal.fire("Error al realizar la accion", response.message, "error");
         }
     }
