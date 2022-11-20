@@ -201,6 +201,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
             ViewData["PartnerImage"] = partner.Image_Url;
+            ViewData["PartnerID"] = partner.ID;
 
             return View();
         }

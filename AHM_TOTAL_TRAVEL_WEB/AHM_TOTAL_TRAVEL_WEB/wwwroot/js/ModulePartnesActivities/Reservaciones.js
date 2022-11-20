@@ -1,93 +1,42 @@
-﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
-var ReservacionTra = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesExtra/List");
-var TransportDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
+﻿var ReservacionActividadExtra = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesExtra/List");
+var ActividadExtraDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
 $('.ui.dropdown').dropdown();
+$("#frmReservation_Info").hide();
+
 $("document").ready(function () {
-    Tarjeta();
+    fillreservaciones(0);
 });
-// inicialize code
-//$("#reservasb").addClass("active");
-//$('#Reservation_Details_Info .item').removeClass("active");
-//$('#Reservation_Details_Info .item').addClass("disabled");
-//ShowContent("Default_Item");
 
-// functions
+$("#Estado").change(function (_this) {
+    var idReservaciones = $(_this.target).val();
+    fillreservaciones(idReservaciones);
+});
 
+//function ShowContent(content, index) {
 
-function ShowContent(content, index) {
+//    var button = $("#Reservation_Details_Info .item")[index];
+//    if (!$(button).hasClass('disabled')) {
+//        $('#Reservation_Details_Content .Reservation_Details_Content_Item').hide();
+//        $('#Reservation_Details_Content #' + content).show();
+//        $('#Reservation_Details_Info .item').removeClass("active");
+//        $(button).addClass("active");
+//    }
+//}
 
-    var button = $("#Reservation_Details_Info .item")[index];
-    if (!$(button).hasClass('disabled')) {
-        $('#Reservation_Details_Content .Reservation_Details_Content_Item').hide();
-        $('#Reservation_Details_Content #' + content).show();
-        $('#Reservation_Details_Info .item').removeClass("active");
-        $(button).addClass("active");
-    }
-}
-
-function Tarjeta() {
-    if (ReservacionTra.code == 200) {
-
-        var resv = ReservacionTra.data;
-        var Rflitro = resv.filter(resva => resva.iD_Partner == parseInt(Client_Partner_ID));
-        $('#tarjetaT').empty();
-        if (Rflitro.length == 0) {
-            actexth =
-                `<div class="ui card">
-                    <div class="content">
-                        <div class="header">No hay reservaciones</div>                     
-                    </div>                  
-                </div>`
-            $('#tarjetaT').append(actexth);
-        }
-        else {
-            for (var i = 0; i < Rflitro.length; i++) {
-                const item = Rflitro[i];
-                var fecha = item.fecha_Reservacion.split('T');
-                try {
-                    divroom =
-                        `<br\ >
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">${item.cliente}</div>
-                        <div class="description">
-                                  Fecha: ${fecha[0]}
-                        </div>      
-                    </div>
-                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.id_Actividad_Extra},${item.id})">
-                        <i class="folder open icon"></i>
-                        Ver Detalles
-                    </a>
-                </div>`
-                    $('#tarjetaT').append(divroom);
-                }
-                catch {
-                    divroom =
-                        `<div class="ui card">
-                    <div class="content">
-                        <div class="header">Se eliminó este registro</div>                     
-                    </div>                  
-                </div>`
-                    $('#tarjetaT').append(divroom);
-                }
-            }
-        }
-    }
-
-}
 function ViewReservation(idDetalles, id) {
     $("#Default_Item").hide();
+    $("#frmReservation_Info").show();
     $("#InfoDet").removeAttr("hidden");
     $("#InfoDet").show();
-    if (TransportDetailsList.code == 200) {
+    if (ActividadExtraDetailsList.code == 200) {
 
-        var resv = ReservacionTra.data;
+        var resv = ReservacionActividadExtra.data;
         var Rflitro = resv.filter(resva => resva.id == parseInt(id));
-        var transpoinfo = TransportDetailsList.data;
-        var TranspoFilter = transpoinfo.filter(resva => resva.id == parseInt(idDetalles));
+        var ActividadExtraInfo = ActividadExtraDetailsList.data;
+        var ActividadExtraFilter = ActividadExtraInfo.filter(resva => resva.id == parseInt(idDetalles));
 
         $('#InfoDet').empty();
-        if (TranspoFilter.length == 0) {
+        if (ActividadExtraFilter.length == 0) {
             actexth =
                 `<div class="ui card">
                     <div class="content">
@@ -98,22 +47,19 @@ function ViewReservation(idDetalles, id) {
         }
         else {
             try {
-                var ResvaFilterItem = Rflitro[0];
-                var TranspoFilterItem = TranspoFilter[0];
-                var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
-                var hora = ResvaFilterItem.hora_Reservacion;
-                var recortado1 = "";
-                var recortado2 = "";
+                var ReservaFilterItem = Rflitro[0];
+                var ActividadExtraFilterItem = ActividadExtraFilter[0];
+                var fecha = ReservaFilterItem.fecha_Reservacion.split('T');
+                var hora = ReservaFilterItem.hora_Reservacion;
+                var recortado1 = "", recortado2 = "";
                 recortado1 = hora.slice(0, 2);
                 recortado2 = hora.slice(-2);
                 var union = recortado1 + ":" + recortado2;
-
-                divroom =
-                    `<div class="field">
+                divroom = `<div class="field">
                     <center>
-                    <div class="image">
-                        <img src="${partnerID}">
-                    </div>
+                        <div class="image">
+                            <img src="${partnerImage}">
+                        </div>
                     </center>
 
                     </div>
@@ -121,46 +67,79 @@ function ViewReservation(idDetalles, id) {
                     <div class="two fields">
                         <div class="field">
                             <label>Cliente: </label>
-                                ${ResvaFilterItem.cliente}
+                                ${ReservaFilterItem.cliente}
                         </div>
                         <div class="field">
                             <label>Socio: </label>
-                                ${TranspoFilterItem.partner}
+                                ${ReservaFilterItem.partner_Nombre}
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
                             <label>Actividad: </label>
-                                ${TranspoFilterItem.actividad}
+                                ${ActividadExtraFilterItem.actividad}
                         </div>
                         <div class="field">
                             <label>Descripción: </label>
-                                ${TranspoFilterItem.descripcion}
+                                ${ActividadExtraFilterItem.descripcion}
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
                             <label>Precio: </label>
-                                L ${ResvaFilterItem.precio}
+                                L ${ReservaFilterItem.precio}
                         </div>
-                        <div class="field">
-                            <label>Cantidad: </label>
-                                ${ResvaFilterItem.cantidad}
-                        </div>
-                    </div>
-                    <div class="two fields">
                         <div class="field">
                             <label>Fecha Reservación: </label>
                                 ${fecha[0]}
                         </div>
+                    </div>
+                    </center>`;
+                if (ReservaFilterItem.confirmacionReservacion == true) {
+                    botones = `<center>
+                    <div class="two fields">
                         <div class="field">
                             <label>Hora Reservación: </label>
                                 ${union}
                         </div>
+                        <div class="field">
+                            <label>Estado: </label>
+                                Confirmada
+                        </div>
                     </div>
-                    </center>`
+                    <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <a class="btn btn-edit ui positive button w-100" href="javascript: CancelarReservacion(${ReservaFilterItem.reservacion})">
+                                        Cancelar
+                                    </a>
+                                </div>
+                                <div class="field">
+                                    <textarea class=" w-100" rows="1" placeholder="Razón"></textarea>
+                                </div>
+                            </div>
+                    </div>
+                </center>`;
+                }
+                else {
+                    botones = `<center>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Hora Reservación:</label>
+                                    ${union}
+                            </div><div class="field">
+                                <label>Estado: </label>
+                                    Pendiente
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="button" value="Confirmar" id="boton" class="btn btn-edit ui positive button w-100" />
+                        </div>
+                    </center>`;
+                }
 
                 $('#InfoDet').append(divroom);
+                $('#InfoDet').append(botones);
             }
             catch {
                 divroom =
@@ -173,4 +152,75 @@ function ViewReservation(idDetalles, id) {
             }
         }
     }
+}
+
+function fillreservaciones(estadoReservaciones) {
+
+    if (estadoReservaciones == 0) {
+        var resv = jQuery.grep(ReservacionActividadExtra.data, function (reservacion, i) {
+            return reservacion.iD_Partner == partnerID;
+        });
+    }
+    else if (estadoReservaciones == 1) {
+        var resv = jQuery.grep(ReservacionActividadExtra.data, function (reservacion, i) {
+            return reservacion.confirmacionReservacion == false && reservacion.iD_Partner == partnerID;
+        });
+    }
+    else {
+        var resv = jQuery.grep(ReservacionActividadExtra.data, function (reservacion, i) {
+            return reservacion.confirmacionReservacion == true && reservacion.iD_Partner == partnerID;
+        });
+    }
+    $('#tarjetaT').empty();
+
+    if (resv.length == 0) {
+        actexth =
+            `<div class="ui card">
+                    <div class="content">
+                        <div class="header">No hay reservaciones</div>                     
+                    </div>                  
+                </div>`
+        $('#tarjetaT').append(actexth);
+    }
+    else {
+        for (var i = 0; i < resv.length; i++) {
+            const item = resv[i];
+            var fecha = item.fecha_Reservacion.split('T');
+            try {
+                divroom = `<br\ >
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">${item.cliente}</div>
+                        <div class="description">
+                            Fecha: ${fecha[0]}
+                        </div>      
+                    </div>
+                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.id_Actividad_Extra},${item.id})">
+                        <i class="folder open icon"></i>
+                        Ver Detalles
+                    </a>
+                </div>`;
+                $('#tarjetaT').append(divroom);
+            }
+            catch {
+                divroom = `<div class="ui card">
+                    <div class="content">
+                        <div class="header">Se eliminó este registro</div>                     
+                    </div>                  
+                </div>`;
+                $('#tarjetaT').append(divroom);
+            }
+        }
+    }
+}
+
+function CancelarReservacion(id) {
+
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?id=" + id);
+    if (response.code == 200) {
+        var item = response.data;
+
+        console.log(item);
+    }
+
 }

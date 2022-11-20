@@ -3,95 +3,150 @@
 
 const ViewsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/List");
 const RolesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Roles/List");
-const ModulesList = getModules();
+const ModulesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/List");
 
 //----------------------------- INIZIALIZE --------------------------------------------
 getTreeView();
+const menus_helpers = {
+    reset_rol_menus: function (target_role = null) {
 
-$('.list .master.checkbox')
-    .checkbox({
-        // check all children
-        onChecked: function () {
-            var
-                $childCheckbox = $(this).closest('.checkbox').siblings('.list').find('.checkbox')
-                ;
-            $childCheckbox.checkbox('check');
-        },
-        // uncheck all children
-        onUnchecked: function () {
-            var
-                $childCheckbox = $(this).closest('.checkbox').siblings('.list').find('.checkbox')
-                ;
-            $childCheckbox.checkbox('uncheck');
+        $.each($("#roles_menu .item"), function (i, item) {
+            const targetToHide = $(item).attr("data-target");
+            $(targetToHide).hide();
+            $(item).removeClass("active");
+        });
+
+        if (target_role == null) {
+            const targetToShow = $("#roles_menu .item").eq(0).attr("data-target");
+            $(targetToShow).show();
+            $("#roles_menu .item").eq(0).addClass("active");
+        } else {
+            const target_show = $(target_role).attr("data-target");
+            $(target_show).show();
+            $(target_role).addClass("active");
         }
-    });
+    },
 
-$('.list .child.checkbox')
-    .checkbox({
-        // Fire on load to set parent value
-        fireOnInit: true,
-        // Change parent state on each child checkbox change
-        onChange: function () {
-            var
-                $listGroup = $(this).closest('.list'),
-                $parentCheckbox = $listGroup.closest('.item').children('.checkbox'),
-                $checkbox = $listGroup.find('.checkbox'),
-                allChecked = true,
-                allUnchecked = true
-                ;
-            // check to see if all other siblings are checked or unchecked
-            $checkbox.each(function () {
-                if ($(this).checkbox('is checked')) {
-                    allUnchecked = false;
-                }
-                else {
-                    allChecked = false;
-                }
+    reset_module_menus: function (target_item = null) {
+
+        if (target_item == null) {
+            //por cada menu de modulos
+            $.each($(".role_item"), function (i, role_item) {
+
+                // por cada item
+                $.each($(role_item).find(".modulos_menu .item"), function (i, item) {
+                    const targetToHide = $(item).attr("data-target");
+                    $(role_item).find(".modulos_container").eq(0).find(targetToHide).hide();
+                    $(item).removeClass("active");
+                });
+
+                const targetToShow = $(role_item).find(".modulos_menu").eq(0).find(".item").eq(0).attr("data-target");
+                $(role_item).find(".modulos_container").eq(0).find(targetToShow).show();
+                $(role_item).find(".modulos_menu").eq(0).find(".item").eq(0).addClass("active");
+
             });
-            // set parent checkbox state, but dont trigger its onChange callback
-            if (allChecked) {
-                $parentCheckbox.checkbox('set checked');
-            }
-            else if (allUnchecked) {
-                $parentCheckbox.checkbox('set unchecked');
-            }
-            else {
-                $parentCheckbox.checkbox('set indeterminate');
-            }
-        }
-    })
+        } else {
+            const role_item = $(target_item).parents(".role_item").eq(0);
 
-$('.accordion')
-    .accordion({
-        selector: {
-            trigger: '.title .icon'
-        }
-    });
+            $.each($(role_item).find(".modulos_menu").eq(0).find(".item"), function (i, item) {
+                const targetToHide = $(item).attr("data-target");
+                $(role_item).find(".modulos_container").eq(0).find(targetToHide).hide();
+                $(item).removeClass("active");
+            });
 
+            const targetToShow = $(role_item).find(".modulos_menu").eq(0).find(target_item).eq(0).attr("data-target");
+            $(role_item).find(".modulos_container").eq(0).find(targetToShow).show();
+            $(role_item).find(".modulos_menu").eq(0).find(target_item).eq(0).addClass("active");
+        }
+    }
+}
+
+menus_helpers.reset_rol_menus();
+menus_helpers.reset_module_menus();
+
+$("#roles_menu .item").click(function (_this) {
+    menus_helpers.reset_rol_menus(_this.target);
+});
+
+$(".modulos_menu .item").click(function (_this) {
+    menus_helpers.reset_module_menus(_this.target);
+});
 
 //----------------------------- FUNCTIONS --------------------------------------------
 
-function getModules() {
+function getTreeView(){
+    if (RolesList.code == 200) {
+        const roles = RolesList.data;
 
-    var modulos = [];
-    if (ViewsList.code == 200) {
-        var data = ViewsList.data;
+        $("#roles_menu").empty();
+        $("#roles_container").empty();
+        // por cada rol
+        for (var i = 0; i < roles.length; i++) {
 
-        var actual_id = null;
-        for (var i = 0; i < data.length; i++) {
+            const rol = roles[i];
 
-            const element = data[i];
-            if (actual_id != element.id_modulo) {
-                actual_id = element.id_modulo;
-                modulos.push({ id: element.id_modulo, descripcion: element.modulo });
+            const rol_menu_item = $(`<a class="item" data-target="#frmRol_${rol.id}">${rol.descripcion}</a>`);
+            const rol_item =
+                `<div class="role_item" id="frmRol_${rol.id}" data-role="${rol.id}">
+                    <h2 class="ui header">Permisos de el rol: ${rol.descripcion}</h2>
+                    <div class="ui top attached tabular menu modulos_menu"></div>
+                    <div class="ui bottom attached segment modulos_container"></div>
+
+                </div>`;
+
+            $("#roles_menu").append(rol_menu_item);
+            $("#roles_container").append(rol_item);
+
+            // por cada modulo
+            if (ModulesList.code == 200) {
+
+                const modulos = ModulesList.data;
+                for (var j = 0; j < modulos.length; j++) {
+
+                    const modulo = modulos[j];
+
+                    // si hay pantallas en este modulo
+                    if (ViewsList.code == 200) {
+
+                        const pantallas = jQuery.grep(ViewsList.data, function (item, i) {
+                            return item.id_modulo == modulo.id_modulo;
+                        });
+
+                        if (pantallas.length > 0) {
+
+                            const module_menu_item = `<a class="item" data-target="#frmModulo_${modulo.id_modulo}">${modulo.modulo}</a>`;
+                            const module_item =
+                                `<div class="module_item" id="frmModulo_${modulo.id_modulo}" data-module="${modulo.id_modulo}">
+                                     <div class="fields pantallas_container"></div>
+                                </div>`;
+
+                            $(`#frmRol_${rol.id} .modulos_menu`).append(module_menu_item);
+                            $(`#frmRol_${rol.id} .modulos_container`).append(module_item);
+
+                             // por cada pantalla
+                            for (var r = 0; r < pantallas.length; r++) {
+
+                                const pantalla = pantallas[r];
+                                const pantalla_item =
+                                    `<div class="field pantalla_item" id="chkPantalla_${pantalla.id}" style="padding: 5px 0;">
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" data-role="${rol.id}" data-screen="${pantalla.id}">
+                                            <label>${pantalla.descripcion}</label>
+                                        </div>
+                                    </div>`;
+
+                                $(`#frmRol_${rol.id} .modulos_container #frmModulo_${modulo.id_modulo}`).append(pantalla_item);
+                            }
+
+                        }
+                    }
+                }
             }
-
         }
     }
-    
-    return modulos;
 }
 
+/*
 function getTreeView(){
 
     if (RolesList.code == 200) {
@@ -153,3 +208,4 @@ function getTreeView(){
         }
     }
 }
+*/

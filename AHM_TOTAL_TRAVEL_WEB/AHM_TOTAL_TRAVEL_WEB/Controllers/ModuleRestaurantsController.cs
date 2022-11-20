@@ -107,6 +107,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var element = data.Where(x => x.ID_Partner == cuenta.PartnerID).ToList()[0];
 
             ViewData["RestauranteID"] = element.ID;
+            ViewData["PartnerID"] = cuenta.PartnerID;
 
             return View();
         }

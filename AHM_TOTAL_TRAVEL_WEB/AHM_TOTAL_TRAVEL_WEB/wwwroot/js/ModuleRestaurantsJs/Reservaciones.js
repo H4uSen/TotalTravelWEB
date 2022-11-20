@@ -7,7 +7,6 @@ $("document").ready(function () {
     fillreservaciones(0);
 });
 
-
 $("#Estado").change(function (_this) {
     var idReservaciones = $(_this.target).val();
     fillreservaciones(idReservaciones);
@@ -55,8 +54,7 @@ function ViewReservation(idDetalles, id) {
                 var imagen = TranspoFilterItem.image_URL.split(',');
                 var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
                 var hora = ResvaFilterItem.hora_Reservacion;
-                var recortado1 = "";
-                var recortado2 = "";
+                var recortado1 = "", recortado2 = "";
                 recortado1 = hora.slice(0, 2);
                 recortado2 = hora.slice(-2);
                 var union = recortado1 + ":" + recortado2;
@@ -82,18 +80,27 @@ function ViewReservation(idDetalles, id) {
                         </div>
                         <div class="two fields">
                             <div class="field">
-                                <label>Fecha Reservación: </label>
-                                    ${fecha[0]}
+                                <label>Restaurante: </label>
+                                    ${TranspoFilterItem.restaurante}
                             </div>
                             <div class="field">
-                                <label>Hora Reservación: </label>
-                                    ${union}
+                                <label>Fecha: </label>
+                                    ${fecha[0]}
                             </div>
-                        </div> 
+                        </div>
                     </center>`;
                 if (ResvaFilterItem.confirmacionReservacion == true) {
-                    botones = `<div class="field">
-                        <center>
+                    botones = `<center>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Hora Reservación:</label>
+                                    ${union}
+                            </div><div class="field">
+                                <label>Estado: </label>
+                                    Confirmada
+                            </div>
+                        </div>
+                    <div class="field">
                             <div class="two fields">
                                 <div class="field">
                                     <a class="btn btn-edit ui positive button w-100" href="javascript: CancelarReservacion(${ResvaFilterItem.resv_ID})">
@@ -104,17 +111,25 @@ function ViewReservation(idDetalles, id) {
                                     <textarea class=" w-100" rows="1" placeholder="Razón"></textarea>
                                 </div>
                             </div>
-                        </center>
-                    </div>`;
+                        </div>
+                    </center>`;
                 }
                 else {
-                    botones = `<div class="field">
-                        <center>
-                            <input type="button" value="Confirmar" id="boton" class="btn btn-edit ui positive button w-100" />                                
-                        </center>
-                    </div>`;
+                    botones = `<center>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Hora Reservación:</label>
+                                    ${union}
+                            </div><div class="field">
+                                <label>Estado: </label>
+                                    Pendiente
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="button" value="Confirmar" id="boton" class="btn btn-edit ui positive button w-100" />                        
+                        </div>
+                    </center>`;
                 }
-
                 $('#InfoDet').append(divroom);
                 $('#InfoDet').append(botones);
             }
@@ -131,24 +146,24 @@ function ViewReservation(idDetalles, id) {
     }
 }
 
-
 function fillreservaciones(estadoReservaciones) {
 
     if (estadoReservaciones == 0) {
         var resv = jQuery.grep(ReservacionRestaurant.data, function (reservacion, i) {
-            return reservacion.iD_Restaurante == RestauranteID;
+            return reservacion.iD_Parter == PartnerID;
         });
     }
     else if (estadoReservaciones == 1) {
         var resv = jQuery.grep(ReservacionRestaurant.data, function (reservacion, i) {
-            return reservacion.confirmacionReservacion == false && reservacion.iD_Restaurante == RestauranteID;
+            return reservacion.confirmacionReservacion == false && reservacion.iD_Parter == PartnerID;
         });
     }
     else {
         var resv = jQuery.grep(ReservacionRestaurant.data, function (reservacion, i) {
-            return reservacion.confirmacionReservacion == true && reservacion.iD_Restaurante == RestauranteID;
+            return reservacion.confirmacionReservacion == true && reservacion.iD_Parter == PartnerID;
         });
     }
+    //console.log(resv);
 
     $('#tarjetaT').empty();
 
@@ -201,67 +216,72 @@ function CancelarReservacion(id) {
         var item = response.data;
 
         console.log(item);
-        
-        //reservation.append("Paqu_ID", $("#frmDefaultPackages #Paqu_ID").val());
-        //if ($("#ddlTipoPaquete").val() == 2) {
-        //    reservation.append("Resv_esPersonalizado", false);
+        var reservation = new FormData();
+
+        reservation.append("Usua_ID", parseInt(item.id_Cliente));
+        reservation.append("Paqu_ID", parseInt(item.id_Paquete));
+        reservation.append("Resv_esPersonalizado", item.esPersonalizado);
+        reservation.append("Resv_CantidadPagos", parseInt(item.cantidadPagos));
+        reservation.append("Resv_NumeroPersonas", parseInt(item.numeroPersonas));
+        reservation.append("Resv_ConfirmacionPago", item.confirmacionPago);
+        reservation.append("Resv_ConfirmacionHotel", item.confirmacionHotel);
+        reservation.append("Resv_ConfirmacionRestaurante", false);
+        reservation.append("Resv_ConfirmacionTrans", item.confirmacionTransporte);
+        reservation.append("Resv_ConfirmacionActividades", item.confirmacionActividades);
+        reservation.append("Resv_Precio", item.precio);
+        reservation.append("Resv_UsuarioModifica", parseInt(Client_User_ID));
+
+        //var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + id, reservation, "PUT");
+        //console.log(response);
+        //if (response > 0) {
+        //    window.location.href = "/ModuleRestaurants/Info?success=true";
         //}
-        //else if ($("#ddlTipoPaquete").val() == 1) {
-        //    reservation.append("Resv_esPersonalizado", true);
-        //}
 
-        //reservation.append("Resv_CantidadPagos", $("#updateReservationForm #Resv_CantidadPagos").val());
-        //reservation.append("Resv_NumeroPersonas", $("#updateReservationForm #Resv_NumeroPersonas").val());
-        //reservation.append("Resv_Precio", $("#updateReservationForm #lblDefaultPackagePrice").text());
-        //reservation.append("Usua_ID", $("#updateReservationForm #ddlDNI").val());
-        //reservation.append("ReHo_FechaEntrada", $("#updateReservationForm #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
-        //reservation.append("ReHo_FechaSalida", $("#updateReservationForm #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
-        //reservation.append("ReHo_FechaSalida", $("#updateReservationForm #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+        ReservationUpdate();
 
-        //reservation.append("Resv_ID", Usua_ID);
+        function ReservationUpdate() {
+            const SendToken = true;
+            const method = "PUT";
+            const data = reservation;
+            const url = "https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + id;
+            const response = uploadFile(url, reservation, method);
+            console.log(response);
+            if (response > 0) {
+                window.location.href = "/ModuleRestaurants/Info?success=true";
+            }
 
-        //ReservationInsert();
+            //var dataResponse = null;
+            //var Token = null;
+            //var HTTPError = {
+            //    message: "",
+            //    code: 0,
+            //    success: false,
+            //    data: null
+            //}
 
-        //function ReservationInsert() {
-        //    const SendToken = true;
-        //    const method = "POST";
-        //    const data = reservation;
-        //    const url = "/Reservation/Update"
+            //if (SendToken == true) {
+            //    Token = GetCookie("Token");
+            //}
 
-        //    var dataResponse = null;
-        //    var Token = null;
-        //    var HTTPError = {
-        //        message: "",
-        //        code: 0,
-        //        success: false,
-        //        data: null
-        //    }
-
-        //    if (SendToken == true) {
-        //        Token = GetCookie("Token");
-        //    }
-
-        //    $.ajax({
-        //        url: url,
-        //        data: data,
-        //        mimeType: "application/json",
-        //        async: false,
-        //        processData: false,
-        //        contentType: false,
-        //        type: method,
-        //        beforeSend: function () {
-        //            $("#loaderAnimation").show();
-        //        },
-        //        complete: function () {
-        //            $("#loaderAnimation").hide();
-        //        },
-        //        success: function (httpResponse) {
-
-        //            console.log(httpResponse);
-        //            window.location.href = "/Reservation/Index";
-        //        }
-        //    });
-        //}
+            //$.ajax({
+            //    url: url,
+            //    data: data,
+            //    mimeType: "application/json",
+            //    async: false,
+            //    processData: false,
+            //    contentType: false,
+            //    type: method,
+            //    beforeSend: function () {
+            //        $("#loaderAnimation").show();
+            //    },
+            //    complete: function () {
+            //        $("#loaderAnimation").hide();
+            //    },
+            //    success: function (httpResponse) {
+            //        console.log(httpResponse);
+            //        window.location.href = "/ModuleRestaurants/Info";
+            //    }
+            //});
+        }
     }
-
 }
