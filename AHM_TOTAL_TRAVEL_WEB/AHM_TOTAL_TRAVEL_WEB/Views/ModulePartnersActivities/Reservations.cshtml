@@ -40,8 +40,10 @@
     <div class="ui clearing segment">
         <div class="ui grid">
             <div class="eight wide column">
-                <select id="Estado" class="ui dropdown search" asp-items="ViewBag.TiMe_ID">
+                <select id="Estado" class="ui dropdown search">
                     <option value="0" selected>Todos</option>
+                    <option value="1">Pendientes</option>
+                    <option value="2">Confirmados</option>
                 </select>
             </div>
         </div>

@@ -90,24 +90,24 @@ function ViewReservation(idDetalles, id) {
                                 L ${ReservaFilterItem.precio}
                         </div>
                         <div class="field">
-                            <label>Cantidad: </label>
-                                ${ReservaFilterItem.cantidad}
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
                             <label>Fecha Reservación: </label>
                                 ${fecha[0]}
-                        </div>
-                        <div class="field">
-                            <label>Hora Reservación: </label>
-                                ${union}
                         </div>
                     </div>
                     </center>`;
                 if (ReservaFilterItem.confirmacionReservacion == true) {
-                    botones = `<div class="field">
-                        <center>
+                    botones = `<center>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Hora Reservación: </label>
+                                ${union}
+                        </div>
+                        <div class="field">
+                            <label>Estado: </label>
+                                Confirmada
+                        </div>
+                    </div>
+                    <div class="field">
                             <div class="two fields">
                                 <div class="field">
                                     <a class="btn btn-edit ui positive button w-100" href="javascript: CancelarReservacion(${ReservaFilterItem.reservacion})">
@@ -118,15 +118,24 @@ function ViewReservation(idDetalles, id) {
                                     <textarea class=" w-100" rows="1" placeholder="Razón"></textarea>
                                 </div>
                             </div>
-                        </center>
-                    </div>`;
+                    </div>
+                </center>`;
                 }
                 else {
-                    botones = `<div class="field">
-                        <center>
-                            <input type="button" value="Confirmar" id="boton" class="btn btn-edit ui positive button w-100" />                                
-                        </center>
-                    </div>`;
+                    botones = `<center>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Hora Reservación:</label>
+                                    ${union}
+                            </div><div class="field">
+                                <label>Estado: </label>
+                                    Pendiente
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="button" value="Confirmar" id="boton" class="btn btn-edit ui positive button w-100" />
+                        </div>
+                    </center>`;
                 }
 
                 $('#InfoDet').append(divroom);

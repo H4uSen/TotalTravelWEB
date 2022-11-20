@@ -54,7 +54,7 @@ function ViewReservation(idDetalles, id) {
                 var imagen = TranspoFilterItem.image_URL.split(',');
                 var fecha = ResvaFilterItem.fecha_Reservacion.split('T');
                 var hora = ResvaFilterItem.hora_Reservacion;
-                var recortado1 = "", var recortado2 = "";
+                var recortado1 = "", recortado2 = "";
                 recortado1 = hora.slice(0, 2);
                 recortado2 = hora.slice(-2);
                 var union = recortado1 + ":" + recortado2;
@@ -122,7 +122,7 @@ function ViewReservation(idDetalles, id) {
                                     ${union}
                             </div><div class="field">
                                 <label>Estado: </label>
-                                    Confirmada
+                                    Pendiente
                             </div>
                         </div>
                         <div class="field">
