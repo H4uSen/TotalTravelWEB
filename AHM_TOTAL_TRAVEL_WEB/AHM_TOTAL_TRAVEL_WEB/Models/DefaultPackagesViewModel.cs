@@ -26,6 +26,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Hotel { get; set; }
         public string Descripcion_Hotel { get; set; }
         public int? ID_Restaurante { get; set; }
+        public string Image_URL { get; set; }
         public string Restaurante { get; set; }
         public int ID_Usuario_Creacion { get; set; }
         public string Usuario_Creacion { get; set; }

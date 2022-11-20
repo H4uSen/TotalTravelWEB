@@ -24,11 +24,13 @@ function fillPaquetes(iddestino) {
 
     for (var i = 0; i < paquetes.length; i++) {
         const item = paquetes[i];
+        var imagen = item.image_URL.split(',');
+        var imagensplit = imagen[0];
         var card = `
                 <div class="filterable-item south-america ">
                     <article class="offer-item">
                         <figure class="featured-image">
-                            <img src="https://dam.ngenespanol.com/wp-content/uploads/2022/05/4-pasos-para-hacer-realidad-ese-viaje-que-no-has-podido-emprender.jpg" alt="">
+                            <img src="${imagensplit}" alt="" style="height:200px;">
                         </figure>
                         <h2 class="entry-title"><a href="#">${item.nombre}</a></h2>
                         <p>${item.descripcion_Paquete}</p>

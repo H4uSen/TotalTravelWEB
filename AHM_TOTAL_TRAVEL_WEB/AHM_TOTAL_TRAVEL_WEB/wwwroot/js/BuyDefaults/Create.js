@@ -1,6 +1,7 @@
 ﻿var detallesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/List");
 
 getActivities(idpaquete);
+getHotel(hotelimg);
 
 $("#DetailsBottom").click(() => {
     $("#modalUpdate").modal('show');
@@ -36,6 +37,18 @@ function getActivities(id) {
         const item = actividades[i];
         var card = `<li>${item.descripcionActividad}</li>`;
         $("#actividades").append(card);
+    }
+}
+
+function getHotel(id) {
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/Find?id=" + id);
+    if (response.code == 200) {
+        var imagen = response.image_URL.split(',');
+        var imagensplit = imagen[0];
+        var card = `            
+               <img src="${imagensplit}" alt="" >                 
+           `;
+        $("#imagenh").append(card);
     }
 }
 

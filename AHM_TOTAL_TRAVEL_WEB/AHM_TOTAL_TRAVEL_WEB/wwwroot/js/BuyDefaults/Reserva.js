@@ -1,4 +1,22 @@
-﻿$("#DetailsBottom").click(() => {
+﻿function sweetAlerts() {
+
+    Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
+        }
+    })
+}
+
+
+$("#DetailsBottom").click(() => {
     $("#modalUpdate").modal('show');
 });
 $("#msgErrorForm").hide();
@@ -90,41 +108,15 @@ function createReservationBuy() {
             const response = uploadFile(url, reservation, method);
             console.log(response);
             if (response > 0) {
-                window.location.href = "/BuyDefaults/Index?success=true";
+                const capsula1 = () => {              
+                        window.location.href = '/BuyDefaults/Transport';
+                };
+                sweetAlerts();
+
+             
             }
 
-            //var dataResponse = null;
-            //var Token = null;
-            //var HTTPError = {
-            //    message: "",
-            //    code: 0,
-            //    success: false,
-            //    data: null
-            //}
-
-            //if (SendToken == true) {
-            //    Token = GetCookie("Token");
-            //}
-
-            //$.ajax({
-            //    url: url,
-            //    data: data,
-            //    mimeType: "multipart/form-data",
-            //    async: false,
-            //    processData: false,
-            //    contentType: false,
-            //    type: method,
-            //    beforeSend: function () {
-            //        $("#loaderAnimation").show();
-            //    },
-            //    complete: function () {
-            //        $("#loaderAnimation").hide();
-            //    },
-            //    success: function (httpResponse) {
-            //        window.location.href = "/BuyDefaults/Index?success=true";
-
-            //    }
-            //});
+           
         }
     }
 }
