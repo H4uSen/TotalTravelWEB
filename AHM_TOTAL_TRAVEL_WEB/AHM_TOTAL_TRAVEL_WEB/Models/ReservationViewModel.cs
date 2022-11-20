@@ -63,6 +63,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? NumeroPersonas { get; set; }
         public int? CantidadPagos { get; set; }
         public int? Id_Paquete { get; set; }
+        public bool? EsPersonalizado { get; set; }
         public string DescripcionPaquete { get; set; }
         public string DurecionPaquete { get; set; }
         public decimal? precio { get; set; }

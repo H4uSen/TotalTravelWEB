@@ -27,6 +27,10 @@
         .ui.dropdown.selection {
             border-radius: 0;
         }
+
+        #boton {
+            width: 60% !important;
+        }
     </style>
 }
 
@@ -95,7 +99,8 @@
 @section Scripts{
 
     <script>
-        const partnerID = "@ViewData["PartnerImage"]";
+        const partnerImage = "@ViewData["PartnerImage"]";
+        const partnerID = "@ViewData["PartnerID"]";
     </script>
     <script src="~/js/ModulePartnesActivities/Reservaciones.js"></script>
 }
