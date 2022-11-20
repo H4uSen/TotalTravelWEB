@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Models
 {
-    public class PermissionsViewModel
+    public class PermissionsListViewModel
     {
         public int ID { get; set; }
         public string Icono { get; set; }

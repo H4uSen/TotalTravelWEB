@@ -406,8 +406,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
             try
             {
-                var response = await _api.Get<IEnumerable<PermissionsViewModel>, IEnumerable<PermissionsViewModel>>(req => {
+                var response = await _api.Get<IEnumerable<PermissionsListViewModel>, IEnumerable<PermissionsListViewModel>>(req => {
                     req.Path = $"/API/Permissions/List";
+                    req.Content = null;
+                },
+                token
+                );
+
+                if (!response.Success)
+                    return Result.FromApi(response);
+                else
+                    return Result.Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+            }
+
+        }
+        #endregion
+
+        #region modules
+        public async Task<ServiceResult> ModulesList(string token)
+        {
+            var Result = new ServiceResult();
+
+            try
+            {
+                var response = await _api.Get<IEnumerable<ModulesListViewModel>, IEnumerable<ModulesListViewModel>>(req => {
+                    req.Path = $"/API/Modules/List";
                     req.Content = null;
                 },
                 token

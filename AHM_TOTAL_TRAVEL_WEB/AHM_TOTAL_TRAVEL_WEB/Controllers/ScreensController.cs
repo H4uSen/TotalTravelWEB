@@ -2,6 +2,7 @@
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             string token = HttpContext.User.FindFirst("Token").Value;
-            var screensList = (IEnumerable<PermissionsViewModel>)(await _AccessService.PermissionsList(token)).Data;
+            var ModulesList = (IEnumerable<ModulesListViewModel>)(await _AccessService.ModulesList(token)).Data;
+            ViewBag.modulos = new SelectList(ModulesList, "id_modulo", "modulo");
+            var screensList = (IEnumerable<PermissionsListViewModel>)(await _AccessService.PermissionsList(token)).Data;
             return View(screensList);
         }
     }

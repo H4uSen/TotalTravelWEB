@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PermissionsViewModel>
+﻿@model IEnumerable<PermissionsListViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,74 +6,122 @@
 
 <div class="container">
     <br />
-    <div class="ui grid two column">
-        <div class="column">
-            <div class="ui segment">
 
-                <div class="ui styled accordion" id="treeViewContainer">
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        ROL #1
+    <div class="ui grid">
+        <div class="three wide column">
+            <div class="ui vertical fluid tabular menu" id="roles_menu">
+                <a class="item" data-target="#frmRol_1">ROL #1</a>
+                <a class="item" data-target="#frmRol_2">ROL #2</a>
+                <a class="item" data-target="#frmRol_3">ROL #3</a>
+            </div>
+        </div>
+        <div class="thirteen wide stretched column">
+            <div class="ui segment" id="roles_container">
+
+                <div class="role_item" id="frmRol_1" data-role="1">
+
+                    <div class="ui top attached tabular menu modulos_menu">
+                        <a class="item" data-target="#frmModulo_1">MODULO #1</a>
+                        <a class="item" data-target="#frmModulo_2">MODULO #2</a>
                     </div>
-                    <div class="content">
+                    <div class="ui bottom attached segment modulos_container">
 
-                        <div class="ui celled list">
-                            <div class="item">
-                                <br />
-                                <div class="ui master checkbox">
-                                    <input type="checkbox" name="fruits">
-                                    <label>MODULO #1</label>
-                                </div>
-                                <div class="list">
-                                    <div class="item">
-                                        <div class="ui child checkbox">
-                                            <input type="checkbox" name="apple">
-                                            <label>PANTALLA #1</label>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="ui child checkbox">
-                                            <input type="checkbox" name="orange">
-                                            <label>PANTALLA #2</label>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="ui child checkbox">
-                                            <input type="checkbox" name="pear">
-                                            <label>PANTALLA #3</label>
-                                        </div>
+                        <div class="module_item" id="frmModulo_1" data-module="1">
+                            <div class="fields pantallas_container">
+
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="1" data-screen="1">
+                                        <label>PANTALLA #1</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <br />
-                                <div class="ui master checkbox">
-                                    <input type="checkbox" name="vegetables">
-                                    <label>MODULO #2</label>
-                                </div>
-                                <div class="list">
-                                    <div class="item">
-                                        <div class="ui child checkbox">
-                                            <input type="checkbox" name="apple">
-                                            <label>PANTALLA #1</label>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="ui child checkbox">
-                                            <input type="checkbox" name="orange">
-                                            <label>PANTALLA #2</label>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="ui child checkbox">
-                                            <input type="checkbox" name="pear">
-                                            <label>PANTALLA #3</label>
-                                        </div>
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="1" data-screen="2">
+                                        <label>PANTALLA #2</label>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
+                        <div id="frmModulo_2">
+                            <div class="fields pantallas_container">
+
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="1" data-screen="3">
+                                        <label>PANTALLA #3</label>
+                                    </div>
+                                </div>
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="1" data-screen="4">
+                                        <label>PANTALLA #4</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="role_item" id="frmRol_2">
+
+                    <div class="ui top attached tabular menu modulos_menu">
+                        <a class="item" data-target="#frmModulo_1">MODULO #1</a>
+                        <a class="item" data-target="#frmModulo_2">MODULO #2</a>
+                    </div>
+                    <div class="ui bottom attached segment modulos_container">
+
+                        <div id="frmModulo_1">
+                            <div class="fields pantallas_container">
+
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="2" data-screen="1">
+                                        <label>PANTALLA #1</label>
+                                    </div>
+                                </div>
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="2" data-screen="2">
+                                        <label>PANTALLA #2</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="role_item" id="frmRol_3">
+
+                    <div class="ui top attached tabular menu modulos_menu">
+                        <a class="item" data-target="#frmModulo_1">MODULO #1</a>
+                        <a class="item" data-target="#frmModulo_2">MODULO #2</a>
+                    </div>
+                    <div class="ui bottom attached segment modulos_container">
+
+                        <div id="frmModulo_1">
+                            <div class="fields pantallas_container">
+
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="3" data-screen="1">
+                                        <label>PANTALLA #1</label>
+                                    </div>
+                                </div>
+                                <div class="field pantalla_item">
+                                    <div class="ui toggle checkbox">
+                                        <input type="checkbox" data-role="3" data-screen="2">
+                                        <label>PANTALLA #2</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -81,6 +129,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 @section Scripts{

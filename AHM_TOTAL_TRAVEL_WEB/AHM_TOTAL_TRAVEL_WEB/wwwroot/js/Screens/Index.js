@@ -47,6 +47,7 @@ function createScreen() {
                 location.reload();
             });
         } else {
+            console.log(response);
             Swal.fire("!Error al realizar la accion!", response.message, "error");
         }
     }

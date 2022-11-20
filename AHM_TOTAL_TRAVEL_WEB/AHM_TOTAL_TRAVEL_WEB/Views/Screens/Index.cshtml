@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PermissionsViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PermissionsListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -116,9 +116,8 @@
             <div class="two fields">
                 <div class="required field">
                     <label class="ui label">Modulo de pantalla</label>
-                    <select id="cbbModulo" class="ui dropdown search">
+                    <select id="cbbModulo" class="ui dropdown search" asp-items="ViewBag.modulos">
                         <option value="" selected disabled>Seleccione un modulo de pantalla</option>
-                        <option value="1">prueba</option>
                     </select>
                 </div>
                 <div class="field">
