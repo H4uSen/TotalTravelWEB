@@ -98,10 +98,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     string token = HttpContext.User.FindFirst("Token").Value;
                     var id = HttpContext.User.FindFirst("User_Id").Value;
                     var rol = HttpContext.Session.GetString("Role");
-                    var idPart = HttpContext.Session.GetString("PartnerID");
-                    if (rol != "Cliente" || rol != "Administrador")
+                    var idPart = HttpContext.Session.GetInt32("PartnerID");
+                    if (rol != "Administrador")
                     {
-                        transportedestino.Partner_ID = int.Parse(idPart);
+                        transportedestino.Partner_ID = int.Parse(idPart.ToString());
                     }
                     transportedestino.DsTr_UsuarioCreacion = int.Parse(id);
                     var list = await _transportService.TransportDestionationsCreate(transportedestino, token);
@@ -137,10 +137,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var element = data.Where(x => x.ID == id).ToList()[0];
 
                 var rol = HttpContext.Session.GetString("Role");
-                var idPart = HttpContext.Session.GetString("PartnerID");
-                if (rol != "Cliente" || rol != "Administrador")
+                var idPart = HttpContext.Session.GetInt32("PartnerID");
+                if (rol != "Administrador")
                 {
-                    item.Partner_ID = int.Parse(idPart);
+                    item.Partner_ID = int.Parse(idPart.ToString());
                 }
                 else
                 {
