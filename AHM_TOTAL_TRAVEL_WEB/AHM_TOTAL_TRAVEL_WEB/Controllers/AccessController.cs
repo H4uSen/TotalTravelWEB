@@ -203,6 +203,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
                     HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
                     HttpContext.Session.SetString("Name", LogInVerify.Nombre);
+                    HttpContext.Session.SetString("Partner", LogInVerify.Partner);
                     HttpContext.Session.SetString("Role", LogInVerify.Rol);
                     HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
                     HttpContext.Session.SetString("Token", LogInVerify.Token);

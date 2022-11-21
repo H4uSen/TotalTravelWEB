@@ -210,8 +210,9 @@
                         <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;margin-left: 25%;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
                         <div class="ms-3 title">
                             <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize" style="color: black; text-decoration: inherit;">
-                                @Context.Session.GetString("Name")
-                            </a>
+                                @Context.Session.GetString("Name") 
+                            </a> 
+                            <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
                         </div>
                     </a>
                     @{
