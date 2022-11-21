@@ -4,9 +4,19 @@ var ReservacionDetalle = ajaxRequest("https://apitotaltravel.azurewebsites.net/A
 var Hotel = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
 var ReservacionH;
 
+var filtrotarjeta = $("#Estado").val();
+
 $("document").ready(function () {
+    fillreservaciones(filtrotarjeta);
     Tarjeta();
 });
+$("#Estado").change(function () {
+    var filtrotarjeta = $("#Estado").val();
+    fillreservaciones(filtrotarjeta);
+    $('#TargetRese').empty();
+    Tarjeta();
+});
+
 // inicialize code
 //$("#reservasb").addClass("active");
 //$('#Reservation_Details_Info .item').removeClass("active");
@@ -29,8 +39,7 @@ function ShowContent(content, index) {
 function Tarjeta() {
     if (ReservacionHot.code == 200) {
 
-        var resv = ReservacionHot.data;
-        var Rflitro = resv.filter(resva => resva.partnerID == parseInt(Client_Partner_ID));
+        var Rflitro = ReservacionH.filter(resva => resva.partnerID == parseInt(Client_Partner_ID));
         $('#TargetRese').empty();
         if (Rflitro.length == 0) {
             actexth =
@@ -43,7 +52,10 @@ function Tarjeta() {
         }
         else {
             for (var i = 0; i < Rflitro.length; i++) {
-                const item = Rflitro[i];
+                
+                const itemH = Rflitro[i];
+                var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/Find?id=" + itemH.reservacionHotelID);
+                var item = response.data;
                 var hotelist = Hotel.data;
                 var hotelfilter = hotelist.filter(x => x.id == item.hotel_ID);
                 var hoteitem = hotelfilter[0];
@@ -198,7 +210,7 @@ function ViewReservation(idDetalles, id) {
                 divroom =
                     `<div class="ui card">
                         <div class="content">
-                            <div class="header">Se elimino este registro</div>                     
+                            <div class="header">Se elimino o no exiten datos para este registro</div>                     
                         </div>                  
                     </div>`
                 $('#InfoDet').append(divroom);
@@ -207,16 +219,17 @@ function ViewReservation(idDetalles, id) {
     }
 }
 
-var filtrotarjeta = $("#Estado").val();
+
 
 function fillreservaciones(estadoReservaciones) {
 
-    if (estadoReservaciones == 0) {
-        ReservacionH = ReservacionHot.data.filter(x => x.) 
+    if (estadoReservaciones == "false") {
+        ReservacionH = Reservacion.data.filter(x => x.confirmacionHotel == false);
     }
-    else if (estadoReservaciones == 1) {
-        ReservacionH =
+    else if (estadoReservaciones == "true") {
+        ReservacionH = Reservacion.data.filter(x => x.confirmacionHotel == true);
     }
     else {
-        ReservacionH =
+        ReservacionH = Reservacion.data;
     }
+}
