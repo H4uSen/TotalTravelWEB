@@ -30,11 +30,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Index()
         {
             var token = HttpContext.User.FindFirst("Token").Value;
-            var model = new List<DefaultPackagesListViewModel>();
+            int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+
             var list = await _saleServices.DefaultPackagesList(token);
-            var destinos = await _generalService.CitiesList();
-            IEnumerable<CityListViewModel> data_destinos = (IEnumerable<CityListViewModel>)destinos.Data;
-            ViewBag.Destinos = new SelectList(data_destinos, "ID", "Ciudad");
+            var usuario = (UserListViewModel)(await _accessService.UsersFind(User_Id, token)).Data;
+            var direccion = (AddressListViewModel)(await _generalService.AddressFind(usuario.DireccionID.ToString(), token)).Data;
+            var ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
+
+            foreach (var item in ciudades)
+                item.Ciudad = $"{item.Ciudad}, {item.Pais}";
+
+            ViewBag.Destinos = new SelectList(ciudades, "ID", "Ciudad");
+            ViewBag.CiudadesOrigen = new SelectList(ciudades, "ID", "Ciudad", direccion.ID_Ciudad);
             return View(list.Data);
         }
 

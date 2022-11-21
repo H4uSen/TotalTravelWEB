@@ -200,31 +200,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 
                 if (LogInVerify != null)
                 {
-                    try
-                    {
-                        HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
-                        HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
-                        HttpContext.Session.SetString("Name", LogInVerify.Nombre);
-                        HttpContext.Session.SetString("Role", LogInVerify.Rol);
-                        HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
-                        HttpContext.Session.SetString("Token", LogInVerify.Token);
-                    }
-                    catch (Exception e)
-                    {
-
-                        BadRequest(e);
-                    }
+                    HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
+                    HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
+                    HttpContext.Session.SetString("Name", LogInVerify.Nombre);
+                    HttpContext.Session.SetString("Role", LogInVerify.Rol);
+                    HttpContext.Session.SetString("Role_Id", LogInVerify.Role_ID.ToString());
+                    HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
+                    HttpContext.Session.SetString("Token", LogInVerify.Token);
 
                     if (LogInVerify.Rol == "Administrador" && LogInVerify.PartnerID != null)
                     {
-                        HttpContext.Session.SetString("Partner", LogInVerify.Partner);
+                        HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
                     }
-
                     if (LogInVerify.Rol != "Cliente" && LogInVerify.Partner != null)
                     {
                         HttpContext.Session.SetString("Partner", LogInVerify.Partner);
                     }
-                    
 
                     //2.- CONFIGURACION DE LA AUTENTICACION
                     #region AUTENTICACTION
