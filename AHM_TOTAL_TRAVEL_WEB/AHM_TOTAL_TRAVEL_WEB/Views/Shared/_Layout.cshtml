@@ -4,7 +4,7 @@
 @using System.Security.Claims;
 @inject IViewLocalizer Localizer;
 @{
-    string usersRole =  Context.Session.GetString("Role");
+    string usersRole = Context.Session.GetString("Role");
 }
 <!DOCTYPE html>
 
@@ -156,7 +156,7 @@
                         <!-- Navbar Header-->
                         <div class="navbar-header">
                             <!-- Navbar Brand -->
-                            <a class="navbar-brand d-none d-sm-inline-block" href="@Url.Action("Index","Home")">
+                            <a class="navbar-brand d-none d-sm-inline-block" href="@Url.Action("Index", "Home")">
                                 <div class="brand-text d-none d-lg-inline-block img-fluid"><img src="~/assets/img/logo-AHM-Fondo-Morao.png" width="45px" height="45px" alt="imagen de logo"><span>Total</span><strong>Travel</strong></div>
                                 <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong><img src="~/assets/img/logo-AHM-Fondo-Morao.png" width="45px" height="45px" alt="imagen de logo"></strong></div>
                             </a>
@@ -172,7 +172,7 @@
 
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary nav-link text-white boton" href="@Url.Action("LogOut","Access")" style="background-color: #652D90;" id="btnLogOut">
+                                <a class="btn btn-primary nav-link text-white boton" href="@Url.Action("LogOut", "Access")" style="background-color: #652D90;" id="btnLogOut">
                                     <i class="power off icon"></i>
                                     <span class="d-none d-sm-inline">Cerrar Sesión</span>
                                 </a>
@@ -210,9 +210,13 @@
                         <img class="avatar shadow-0 img-fluid rounded-circle" style="margin-right: 11px;margin-left: 25%;" src="@Context.Session.GetString("ImgUrl")" alt="..." id="user_image">
                         <div class="ms-3 title">
                             <a class="d-none d-md-block dropdown-toggle h4 mb-2 text-capitalize" style="color: black; text-decoration: inherit;">
-                                @Context.Session.GetString("Name") 
-                            </a> 
-                            <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
+                                @Context.Session.GetString("Name")
+                            </a>
+                            @{ if (usersRole != "Cliente")
+                               {
+                                    <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
+                               }
+                            }
                         </div>
                     </a>
                     @{
