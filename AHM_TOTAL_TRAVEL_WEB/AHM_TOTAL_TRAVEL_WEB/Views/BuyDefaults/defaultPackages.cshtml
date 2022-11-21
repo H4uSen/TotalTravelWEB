@@ -3,19 +3,82 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section CSS{
+
+    <link rel="stylesheet" href="~/assets/client/css/animate.min.css">
+    <link rel="stylesheet" href="~/assets/client/css/style.css">
+
+    <style>
+        .carta {
+        }
+
+            .carta:hover {
+                background-color: #F8E8FF;
+            }
+
+        .bot {
+            background-color: transparent;
+            border-color: transparent;
+            color: #19bdce;
+            text-decoration: none;
+        }
+
+        .in {
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 24px;
+            color: #818c8d;
+        }
+
+        .ma {
+            margin: 20px;
+        }
+
+        .con {
+            background-color: white;
+            border-radius: 10px
+        }
+    </style>
+}
+
+<br>
+<br>
 <div class="container">
-    <div class="ui secondary pointing menu">
-        <a class="item active">LINK #1</a>
-        <a class="item">LINK #2</a>
-        <a class="item">LINK #3</a>
-        <a class="item">LINK #4</a>
-        <div class="right menu">
-            <a class="ui item">
-                Logout
-            </a>
+
+    <div class="ui segment">
+        <div class="ui secondary pointing menu" id="navbar_packages">
+            <a class="item active" data-target="#frmPackages">PAQUETES</a>
+            <a class="item" data-target="#frmTransports">TRANSPORTES</a>
+            <a class="item" data-target="#frmActivities">ACTIVIDADES EXTRAS</a>
+            <a class="item" data-target="#frmDetails">FINALIZAR MI COMPRA</a>
+            <!--
+            <div class="right menu">
+                <a class="ui item">Logout</a>
+            </div>-->
+        </div>
+        <div class="ui segment" id="frmMenu_container">
+
+            <div id="frmPackages">
+                <div class="ui grid three columns"></div>
+            </div>
+
+            <div id="frmTransports">
+                <div class="ui divided items"></div>
+            </div>
+
+            <div id="frmActivities">
+                <div class="ui divided items"></div>
+            </div>
+
+            <div id="frmActivities">
+                <div class="ui divided items"></div>
+            </div>
+
         </div>
     </div>
-    <div class="ui segment">
-        hola mundo
-    </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/BuyDefaults/DefaultPackagesJS.js"></script>
+}
+

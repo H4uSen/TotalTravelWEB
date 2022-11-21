@@ -100,5 +100,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return result.CodeStatus;
         }
+
+        public async Task<IActionResult> defaultPackages()
+        {
+            return View();
+        }
     }
 }
