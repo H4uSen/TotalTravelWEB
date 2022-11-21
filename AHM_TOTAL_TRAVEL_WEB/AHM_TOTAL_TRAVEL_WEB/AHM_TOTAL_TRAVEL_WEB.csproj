@@ -29,6 +29,8 @@
     <PackageReference Include="Microsoft.ReportViewer.WinForms" Version="10.0.40219.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="Rotativa" Version="1.7.3" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0-beta" />
+    <PackageReference Include="RotativaHQ.AspNetCore" Version="1.2.1" />
     <PackageReference Include="System.CodeDom" Version="4.7.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.3" />
@@ -47,6 +49,8 @@
     </Compile>
   </ItemGroup>
 
+	
+	
   <ItemGroup>
     <Content Update="wwwroot\Report\clientesReport.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -78,4 +82,5 @@
     </EmbeddedResource>
   </ItemGroup>
 
+	
 </Project>

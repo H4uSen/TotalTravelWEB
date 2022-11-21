@@ -38,7 +38,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
+            var token = HttpContext.User.FindFirstValue("Token");
             List<PaymentRecordListViewModel> payments = (List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data;
             List<ReservationListViewModel> list = (List<ReservationListViewModel>)(await _reservationService.ReservationList(token)).Data;
             list.ForEach(item =>
