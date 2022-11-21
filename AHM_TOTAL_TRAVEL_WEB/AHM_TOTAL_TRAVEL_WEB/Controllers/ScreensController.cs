@@ -23,11 +23,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            ScreenPermissionsViewModel screenPermissions = new ScreenPermissionsViewModel();
             string token = HttpContext.User.FindFirst("Token").Value;
             var ModulesList = (IEnumerable<ModulesListViewModel>)(await _AccessService.ModulesList(token)).Data;
             ViewBag.modulos = new SelectList(ModulesList, "id_modulo", "modulo");
             var screensList = (IEnumerable<PermissionsListViewModel>)(await _AccessService.PermissionsList(token)).Data;
-            return View(screensList);
+
+            screenPermissions.Permisos = screensList;
+            screenPermissions.Modulos = ModulesList;
+
+            return View(screenPermissions);
         }
 
         [HttpPost]
@@ -58,6 +63,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var list = (RequestStatus)(await _AccessService.PermissionsDelete(Screen, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteModule(ModulesViewModel module, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                module.Modu_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _AccessService.ModulesDelete(module, id, token)).Data;
 
                 return Ok(list.CodeStatus);
             }

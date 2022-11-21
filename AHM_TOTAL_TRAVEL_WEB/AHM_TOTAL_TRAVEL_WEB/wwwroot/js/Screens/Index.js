@@ -9,6 +9,11 @@ $("#btnCreateScreen").click(function () {
     $("#mdlCreateScreen").modal("show");
 });
 
+
+$("#btnCreateModule").click(function () {
+    $("#mdlCreateModules").modal("show");
+});
+
 $("#menu_Indexs .item").click(function (_this) {
     $.each($("#menu_Indexs .item"), function (i, item) {
         const target = $(item).attr("data-target");
@@ -46,6 +51,29 @@ function createScreen() {
             Swal.fire("!Registro Creado con exito!", "", "success").then(function () {
                 location.reload();
             });
+        } else {
+            console.log(response);
+            Swal.fire("!Error al realizar la accion!", response.message, "error");
+        }
+    }
+}
+
+
+
+function createModule() {
+    const ValidateArray = [
+        { validateMessage: "Ingrese un nombre", Jqueryinput: $("#mdlCreateModules #txtModulo") }
+    ];
+
+    const formValidate = ValidateForm(ValidateArray);
+
+    if (formValidate) {
+        var module = ModulesViewModel;
+        module.modu_Descripcion = $("#mdlCreateModules #txtModulo").val();
+
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Insert", module, "POST");
+        if (response.code == 200) {
+            window.location.href = '/Screens?success=true';
         } else {
             console.log(response);
             Swal.fire("!Error al realizar la accion!", response.message, "error");

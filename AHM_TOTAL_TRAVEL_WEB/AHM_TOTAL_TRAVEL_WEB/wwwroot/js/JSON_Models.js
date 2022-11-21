@@ -202,3 +202,10 @@ var ScreensViewModel = {
     "perm_UsuarioCreacion": Client_User_ID,
     "perm_UsuarioModifica": Client_User_ID
 }
+
+var ModulesViewModel = {
+    "modu_Id": 0,
+    "modu_Descripcion": "",
+    "modu_UsuarioCreacion": Client_User_ID,
+    "modu_UsuarioModifica": Client_User_ID
+}
