@@ -545,5 +545,41 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
         #endregion
 
+        #region restrictions
+            public async Task<ServiceResult> RestrictionsList(string token)
+            {
+                var Result = new ServiceResult();
+
+                try
+                {
+                    var response = await _api.Get<IEnumerable<RestrictionsListViewModel>, IEnumerable<RestrictionsListViewModel>>(req => {
+                        req.Path = $"/API/RolePermissions/List";
+                        req.Content = null;
+                    },token );
+
+                    if (!response.Success)
+                        return Result.FromApi(response);
+                    else
+                        return Result.Ok(response.Data);
+                }
+                catch (Exception ex)
+                {
+                    return Result.Error(Helpers.GetMessage(ex));
+                }
+
+            }
+
+            public async Task<bool> valiadateRestriction(string controllerName, string controllerAction, int Rol_Id, string token)
+            {
+                var restrictions = (IEnumerable<RestrictionsListViewModel>)(await this.RestrictionsList(token)).Data;
+                restrictions = restrictions.Where(x => x.controlador == controllerName && x.accion == controllerAction && x.ID_Rol == Rol_Id).ToList();
+
+                if(restrictions.Count() > 0)
+                    return true;
+                else
+                    return false;
+            }
+        #endregion
+
     }
 }
