@@ -14,7 +14,7 @@
 // ----------------------------------- EVENTS ------------------------------------
 
     const user_FileName = `User-${Client_User_ID}`;
-    const url_image = `totaltravelapi.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
+const url_image = `apitotaltravel.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
     $("#user_image").prop("src", "https://" + url_image);
 // ----------------------------------- FUNCTIONS ------------------------------------
 
