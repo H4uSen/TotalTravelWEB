@@ -1,5 +1,7 @@
-﻿var ActivitiesExtraList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
+﻿
 
+var ActivitiesExtraList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
+//alerta transportes
 function sweetAlerts() {
 
     Swal.fire({
@@ -107,16 +109,16 @@ function fillExtraActivities(id_ciudad) {
                         ${carousel}
                     </div>
                     <div class="content" style="padding-right: 10em;">
-                        <h3>
+                        <h3 style="font-size: 0.90rem;">
                             <b class="blue_text">${item.actividad}</b>
                             <div class="ui large gray horizontal label">${item.tipoActividad}</div>
                         </h3>
-                        <h4><b>${item.partner}</b></h4>
-                        <div class="description">
+                        <b>${item.partner}</b>
+                        <div class="description" style="font-size: 0.88rem;">
                             ${item.descripcion}
                         </div>
                         <div class="extra">
-                            <h3 class="ui green header">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
+                            <h3 class="ui green header" style="font-size: 0.877rem;">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
                         </div>
                     </div>
                     <div class="content left floated activitiesExtra_form_content">
@@ -219,7 +221,7 @@ $('#standard_calendar').calendar({
 });
 $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
-
+//calendario
 paqueteDuracion = $("#frmCreateReservation #duracion").val() - 1;
 $('#dateRangePicker').daterangepicker({
     "maxSpan": {
@@ -265,9 +267,46 @@ $('#dateRangePicker').daterangepicker({
     //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 });
 
+//array activities
+/*const extraActivities = $("button.activity_trigger_button[data-selected='true']");*/
+//extra activities
+function getActivities () {
+
+    var response = {
+        success: true,
+        message: "",
+        extra: []
+    };
+    const extraActivities = $("button.activity_trigger_button[data-selected='true']");
+
+    //extra activities
+    $.each(extraActivities, function (i, item) {
+
+        // get data
+        const extraActivity = {};
+        const form_data = $(item).parents(".activitiesExtra_form_content").eq(0);
+
+        // get date
+        const stringDate = $(form_data).find(".activities_fecha input").val();
+
+        const formatDate = stringDate == 0 ? 0 : new Date(stringDate).toISOString();
+
+        // set data
+        extraActivity.acEx_ID = parseInt($(item).attr("data-value"));
+        extraActivity.reAE_FechaReservacion = formatDate;
+        extraActivity.reAE_HoraReservacion = formatDate.split("T")[1];
+        extraActivity.reAE_Cantidad = parseInt($(form_data).find(".ExtraActivity_contador input[type='number']").val());
+        extraActivity.reAE_Precio = ActivitiesExtraList.data.filter(n => n.id == extraActivity.acEx_ID)[0].precio;
+
+        response.extra.push(extraActivity);
+          
+    });
+    return response;
+}
+
 // create reservation 
 function createReservationBuy() {
-    var reservation = new FormData();
+    var reservation = ReservationCreateViewModel.reservacion;
 
     const reservationValidateArray = [
         { validateMessage: "Campo requerido ", Jqueryinput: $("#dateRangePicker") },
@@ -282,35 +321,33 @@ function createReservationBuy() {
     // create reservation model
     if (reservationValidate) {
 
-        reservation.append("Resv_esPersonalizado", false);
-        reservation.append("Paqu_ID", $("#frmCreateReservation #paquete").val());
-        reservation.append("Resv_UsuarioCreacion", $("#frmCreateReservation #usuario").val());
-        reservation.append("Resv_CantidadPagos", $("#frmCreateReservation #pagos").val());
-        reservation.append("Resv_NumeroPersonas", $("#frmCreateReservation #personas").val());
-        reservation.append("Resv_Precio", $("#frmCreateReservation #precio").text());
-        reservation.append("Usua_ID", $("#frmCreateReservation #usuario").val());
-        reservation.append("ReHo_FechaEntrada", $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
-        reservation.append("ReHo_FechaSalida", $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-"));//.concat("T00:00:00"));
+        reservation.resv_esPersonalizado = false;    
+        reservation.actividadesExtras = getActivities().extra;
+        reservation.paqu_ID = parseInt( $("#frmCreateReservation #paquete").val());
+        reservation.resv_UsuarioCreacion = Client_User_ID;
+        reservation.resv_CantidadPagos = parseInt( $("#frmCreateReservation #pagos").val());
+        reservation.resv_NumeroPersonas = parseInt($("#frmCreateReservation #personas").val());
+        reservation.resv_Precio = parseInt($("#frmCreateReservation #precio").text());
+        reservation.usua_ID = Client_User_ID;
+        reservation.reHo_FechaEntrada= $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
+        reservation.reHo_FechaSalida= $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
 
         ReservationInsert();
 
         function ReservationInsert() {
-            const SendToken = true;
-            const method = "POST";
-            const data = reservation;
-            const url = "/BuyDefaults/Create"
-            const response = uploadFile(url, reservation, method);
+            //const SendToken = true;
+            //const method = "POST";
+            //const data = reservation;
+            //const url = "/BuyDefaults/Create"
+            //const response = uploadFile(url, reservation, method);
+            const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
             console.log(response);
             if (response > 0) {
                 const capsula1 = () => {              
                         window.location.href = '/BuyDefaults/Transport';
                 };
-                sweetAlerts();
-
-             
-            }
-
-           
+                sweetAlerts();             
+            }           
         }
     }
 }
