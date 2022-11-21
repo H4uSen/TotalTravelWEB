@@ -108,17 +108,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
 
             return View();
+
         }
 
-        #region Transporte
-        public async Task<ActionResult> TransportReportHTML()
-        {
-            var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
 
-            return View(data);
-        }
-        
-        public async  Task<ActionResult> ExportPDF(ReportCreationModel reportCreationModel)
+        #region ARREGLANDO_EL_RELAJO_DE_ANDRES
+        public async Task<ActionResult> ExportPDF(ReportCreationModel reportCreationModel)
         {
             try
             {
@@ -128,17 +123,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 }
                 var userName = HttpContext.User.FindFirstValue("User_Name");
                 var token = HttpContext.User.FindFirstValue("Token");
-                var dataSource =(await ListOfDataSources(reportCreationModel, token));
+                var dataSource = (await ListOfDataSources(reportCreationModel, token));
 
                 if (dataSource == null)
                     return BadRequest("Error al elegir un datasource");
 
                 ViewAsPdf pdf = new ViewAsPdf(reportCreationModel.HTMLFile, dataSource);
-                pdf.FileName = String.Concat(reportCreationModel.ReportName,".pdf");
+                pdf.FileName = String.Concat(reportCreationModel.ReportName, ".pdf");
                 pdf.PageSize = Rotativa.AspNetCore.Options.Size.A4;
                 pdf.PageMargins = new Rotativa.AspNetCore.Options.Margins { Left = 20, Right = 20 };
                 pdf.CustomSwitches = $"--footer-left \" Hecho por: {userName}\"";
-                
+
                 return pdf;
             }
             catch (Exception e)
@@ -155,16 +150,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
-                if (reportCreationModel.ReportName.IsEmpty()) {
+
+                if (reportCreationModel.ReportName.IsEmpty())
+                {
                     reportCreationModel.ReportName = "Reporte";
                 }
                 var userName = HttpContext.User.FindFirstValue("User_Name");
                 var token = HttpContext.User.FindFirstValue("Token");
                 var dataSource = (await ListOfDataSources(reportCreationModel, token));
-                
+
                 if (dataSource == null)
                     return BadRequest("Error al elegir un datasource");
-                
+
                 ViewAsPdf pdf = new ViewAsPdf(reportCreationModel.HTMLFile, dataSource);
                 pdf.FileName = String.Concat(reportCreationModel.ReportName, ".pdf");
                 pdf.PageSize = Rotativa.AspNetCore.Options.Size.A4;
@@ -172,16 +169,39 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 pdf.CustomSwitches = $"--footer-left \" Hecho por: {userName}\"";
 
                 byte[] pdfAsArray = await pdf.BuildFile(this.ControllerContext);
-                
+
                 return Ok(pdfAsArray);
             }
             catch (Exception e)
             {
-            
+
                 throw e;
             }
         }
+
+        #endregion
+
+
+
+        //HACE EL ARCHIVO HMTL QUE ANDRES DE PUEDE3 HACER 
+        public async Task<ActionResult> HotelesReportHTML( )
+        {
+            var token = HttpContext.User.FindFirstValue("Token");
+
+            var data = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+
+            return View(data);
+        }
+
+        #region Transporte
+        public async Task<ActionResult> TransportReportHTML()
+        {
+            var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+
+            return View(data);
+        }
         
+     
 
             public async Task<IActionResult> TransportReportXLS(int ReportTiype, string filtertype, string filtervalue)
             {
@@ -192,20 +212,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
                 var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
 
-                switch (filtertype)
-                {
-                    case "tipo_transporte":
-                        data = data.Where(x => x.TipoTransporteID == Convert.ToInt32(filtervalue)).ToList();
-                        break;
-                    case "tipo_Parnert":
-                        data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
-                        break;
-                    case "Ciudad":
-                        data = data.Where(x => x.Ciudad_ID == Convert.ToInt32(filtervalue)).ToList();
-                        break;
-                    default:
-                        break;
-                }
 
 
                 //crea y asigna direccion url de ubicacion de archivo .rdlc
@@ -220,18 +226,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 //localReport.AddDataSource("Transportes", data);
 
 
-                if (ReportTiype == 1)
-                {
-                    //var resultpdf = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
-                    //return File(resultpdf.MainStream, "application/pdf");
-                    var resultpdf = localReport.Execute(RenderType.Pdf, 1, findString: mimtype);
-                    using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
-                    {
-                        stream.Write(resultpdf.MainStream, 0, resultpdf.MainStream.Length);
-                        return File(stream, "application/pdf");
-                    }
-                }
-                else if (ReportTiype == 2)
+                if (ReportTiype == 2)
                 {
                     DataTable dt = new DataTable("Grid");
                     dt.Columns.AddRange(new DataColumn[4]{

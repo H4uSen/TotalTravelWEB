@@ -37,7 +37,7 @@
             </div>
             <div class="ui segment form">
                     <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 1, HTMLFile = "TransportReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
-                    <a href="@Url.Action("TransportReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+                    <a href="@Url.Action("TransportReportPDF", "Report", new ReportCreationModel{DataSourceIndex= 1, HTMLFile = "TransportReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
             <br>

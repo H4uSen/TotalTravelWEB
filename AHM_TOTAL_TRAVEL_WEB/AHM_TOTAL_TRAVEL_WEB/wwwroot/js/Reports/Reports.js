@@ -16,7 +16,6 @@ function fillIFrame(parameter) {
         url: "/Report/PdfAsByte",
         data: parameter,
         success: function (r) {
-            console.log(r);
             $("#ifrReport").attr("src", "data:application/pdf;base64," + r);
         },
         failure: function (response) {
@@ -25,6 +24,7 @@ function fillIFrame(parameter) {
         error: function (response) {
             alert(response.responseText);
         }
+
     });
 }
 
