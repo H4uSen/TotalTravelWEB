@@ -27,6 +27,8 @@ function fillProfileImage(User_ID) {
     const user_data = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/Find?id=" + User_ID);
     $("#user_image").prop("src", user_data.data.image_URL);
 }
+fillProfileImage(Client_User_ID);
+
 
 function fillMenu(rol_id, dropdown = false){
     const RestrictionsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/List");
