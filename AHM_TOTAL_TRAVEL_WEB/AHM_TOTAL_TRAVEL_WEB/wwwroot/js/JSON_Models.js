@@ -1,4 +1,13 @@
 ﻿
+// ReportCreationModel
+var reportCreation = {
+    "ReportName": "",
+    "HTMLFile": "",
+    "DataSourceIndex": 0,
+    "FilterType": "",
+    "FilterValue": "",
+};
+
 var UserViewModel = {
     "usua_ID": 0,
     "usua_DNI": "string",

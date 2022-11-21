@@ -15,6 +15,8 @@ using AHM_TOTAL_TRAVEL_WEB.Extensions;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
 using System.IO;
+using Rotativa;
+using Rotativa.AspNetCore;
 
 namespace AHM_TOTAL_TRAVEL_WEB
 {
@@ -132,8 +134,6 @@ namespace AHM_TOTAL_TRAVEL_WEB
                         break;
                 }
 
-
-
             });
             
             app.UseHttpsRedirection();
@@ -146,7 +146,6 @@ namespace AHM_TOTAL_TRAVEL_WEB
             app.UseAuthorization();
 
             app.UseRequestLocalization();
-            
 
             app.UseEndpoints(endpoints =>
             {
@@ -154,6 +153,7 @@ namespace AHM_TOTAL_TRAVEL_WEB
                     name: "default",
                     pattern: "/{controller=Home}/{action=Index}/{id?}");
             });
+            RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
         }
     }
 }

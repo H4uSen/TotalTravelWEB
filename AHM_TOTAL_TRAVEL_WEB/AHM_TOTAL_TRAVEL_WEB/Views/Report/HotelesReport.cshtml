@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="ui segment form">
-                <a href="@Url.Action("HotelesReportPDF", "Report", new { ReportTiype = "1" })" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "HotelesReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
                 <a href="@Url.Action("HotelesReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
@@ -47,7 +47,7 @@
             <div class="card">
                 <div class="card card-body" id="a">
 
-                    <iframe src="@Url.Action("HotelesReportPDF", "Report" , new { ReportTiype = "1" })" frameborder="0" height="650" id="ifrReport"></iframe>
+                    <iframe src="" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>
@@ -80,5 +80,37 @@
     </script>
 
     <script src="~/js/Reports/HotelReports.js"></script>
+
+    <script src="~/js/Reports/Reports.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            function fillIFrame(parameter) {
+                //Recibir el array de bits del pdf
+                $.ajax({
+                    type: "POST",
+                    url: "/Report/PdfAsByte",
+                    data: parameter,
+                    success: function (r) {
+                        $("#ifrReport").attr("src", "data:application/pdf;base64," + r);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+
+                });
+            }
+
+
+            var reportParameter = reportCreation;
+            reportParameter.ReportName = "HotelesPDF";
+            reportParameter.HTMLFile = "HotelesReportHTML";
+            reportParameter.DataSourceIndex = 2;
+            fillIFrame(reportParameter);
+        });
+    </script>
 }
 

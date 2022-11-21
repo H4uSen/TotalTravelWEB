@@ -45,6 +45,10 @@
 <div class="content">
     <div class="fullwidth-block">
         <div class="container con">
+            Ciudad de origen:
+            <select id="Origen" class="ui dropdown search ma" asp-items="ViewBag.CiudadesOrigen">
+                <option value="0" selected>Todos</option>
+            </select>
             Destinos:
             <select id="Destinos" class="ui dropdown search ma" asp-items="ViewBag.Destinos">
                 <option value="0" selected>Todos</option>
@@ -53,25 +57,25 @@
             <div class="filterable-items" id="paquetesContainer">
                 <br />
                 @*@foreach (var item in Model)
-        {
+            {
 
-            <div class="filterable-item south-america ">
-                <article class="offer-item">
-                    <figure class="featured-image">
-                        <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
-                    </figure>
-                    <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
+                <div class="filterable-item south-america ">
+                    <article class="offer-item">
+                        <figure class="featured-image">
+                            <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
+                        </figure>
+                        <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
 
-                    <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
-                    <div class="price">
-                        <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
-                        <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
+                        <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
+                        <div class="price">
+                            <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
+                            <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
 
-                    </div>
-                </article>
-            </div>
+                        </div>
+                    </article>
+                </div>
 
-        }*@
+            }*@
             </div>
 
             @*<div class="pagination wow fadeInUp">

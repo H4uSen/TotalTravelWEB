@@ -9,6 +9,27 @@ var iframeData = {
     filterType: "" //entidad en la cual sera filtrada el informe
 };
 
+function fillIFrame(parameter) {
+    //Recibir el array de bits del pdf
+    $.ajax({
+        type: "POST",
+        url: "/Report/PdfAsByte",
+        data: parameter,
+        success: function (r) {
+            $("#ifrReport").attr("src", "data:application/pdf;base64," + r);
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
+
+    });
+}
+
+
+
 //lista de filtros por cada reporte, formato JSON
 
 const filterSource = {

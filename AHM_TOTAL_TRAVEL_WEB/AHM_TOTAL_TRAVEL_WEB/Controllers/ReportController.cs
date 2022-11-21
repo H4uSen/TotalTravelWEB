@@ -16,6 +16,13 @@ using AspNetCore.Reporting.ReportExecutionService;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
 using System.Text;
+using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using AngleSharp.Network.Default;
+using System.Security.Claims;
+using Rotativa.Options;
+using System.Web.WebPages;
+using System.Runtime.InteropServices.WindowsRuntime;
 //using Microsoft.Reporting.WinForms;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
@@ -101,11 +108,103 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
 
             return View();
+
+        }
+
+
+        #region ARREGLANDO_EL_RELAJO_DE_ANDRES
+        public async Task<ActionResult> ExportPDF(ReportCreationModel reportCreationModel)
+        {
+            try
+            {
+                if (reportCreationModel.ReportName.IsEmpty())
+                {
+                    reportCreationModel.ReportName = "Reporte";
+                }
+                var userName = HttpContext.User.FindFirstValue("User_Name");
+                var token = HttpContext.User.FindFirstValue("Token");
+                var dataSource = (await ListOfDataSources(reportCreationModel, token));
+
+                if (dataSource == null)
+                    return BadRequest("Error al elegir un datasource");
+
+                ViewAsPdf pdf = new ViewAsPdf(reportCreationModel.HTMLFile, dataSource);
+                pdf.FileName = String.Concat(reportCreationModel.ReportName, ".pdf");
+                pdf.PageSize = Rotativa.AspNetCore.Options.Size.A4;
+                pdf.PageMargins = new Rotativa.AspNetCore.Options.Margins { Left = 20, Right = 20 };
+                pdf.CustomSwitches = $"--footer-left \" Hecho por: {userName}\"";
+
+                return pdf;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> PdfAsByte(ReportCreationModel reportCreationModel)
+        {
+            try
+            {
+
+                if (reportCreationModel.ReportName.IsEmpty())
+                {
+                    reportCreationModel.ReportName = "Reporte";
+                }
+                var userName = HttpContext.User.FindFirstValue("User_Name");
+                var token = HttpContext.User.FindFirstValue("Token");
+                var dataSource = (await ListOfDataSources(reportCreationModel, token));
+
+                if (dataSource == null)
+                    return BadRequest("Error al elegir un datasource");
+
+                ViewAsPdf pdf = new ViewAsPdf(reportCreationModel.HTMLFile, dataSource);
+                pdf.FileName = String.Concat(reportCreationModel.ReportName, ".pdf");
+                pdf.PageSize = Rotativa.AspNetCore.Options.Size.A4;
+                pdf.PageMargins = new Rotativa.AspNetCore.Options.Margins { Left = 20, Right = 20 };
+                pdf.CustomSwitches = $"--footer-left \" Hecho por: {userName}\"";
+
+                byte[] pdfAsArray = await pdf.BuildFile(this.ControllerContext);
+
+                return Ok(pdfAsArray);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        #endregion
+
+
+
+        //HACE EL ARCHIVO HMTL QUE ANDRES DE PUEDE3 HACER 
+        public async Task<ActionResult> HotelesReportHTML( )
+        {
+            var token = HttpContext.User.FindFirstValue("Token");
+
+            var data = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+
+            return View(data);
         }
 
         #region Transporte
-        public async Task<IActionResult> TransportReportPDF(int ReportTiype, string filtertype, string filtervalue)
+        public async Task<ActionResult> TransportReportHTML()
         {
+            var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+
+            return View(data);
+        }
+        
+     
+
+            public async Task<IActionResult> TransportReportXLS(int ReportTiype, string filtertype, string filtervalue)
+            {
             try
             {
                 var token = HttpContext.User.FindFirst("Token").Value;
@@ -113,20 +212,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
                 var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
 
-                switch (filtertype)
-                {
-                    case "tipo_transporte":
-                        data = data.Where(x => x.TipoTransporteID == Convert.ToInt32(filtervalue)).ToList();
-                        break;
-                    case "tipo_Parnert":
-                        data = data.Where(x => x.PartnerID == Convert.ToInt32(filtervalue)).ToList();
-                        break;
-                    case "Ciudad":
-                        data = data.Where(x => x.Ciudad_ID == Convert.ToInt32(filtervalue)).ToList();
-                        break;
-                    default:
-                        break;
-                }
 
 
                 //crea y asigna direccion url de ubicacion de archivo .rdlc
@@ -141,18 +226,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 //localReport.AddDataSource("Transportes", data);
 
 
-                if (ReportTiype == 1)
-                {
-                    //var resultpdf = localReport.Execute(RenderType.Pdf, 1, parameters, mimtype);
-                    //return File(resultpdf.MainStream, "application/pdf");
-                    var resultpdf = localReport.Execute(RenderType.Pdf, 1, findString: mimtype);
-                    using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
-                    {
-                        stream.Write(resultpdf.MainStream, 0, resultpdf.MainStream.Length);
-                        return File(stream, "application/pdf");
-                    }
-                }
-                else if (ReportTiype == 2)
+                if (ReportTiype == 2)
                 {
                     DataTable dt = new DataTable("Grid");
                     dt.Columns.AddRange(new DataColumn[4]{
@@ -191,6 +265,111 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
         }
+
+        public async Task<IEnumerable<dynamic>> ListOfDataSources(ReportCreationModel reportModel, string token)
+        {
+            
+            switch (reportModel.DataSourceIndex)
+            {
+                
+                case 1:
+                    if (reportModel.FilterType.IsEmpty())
+                    {
+                        return (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+                    }
+                    else 
+                    { 
+
+                        var data1 = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+                        data1 = data1.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data1;
+                    }
+                case 2:
+                    if (reportModel.FilterType.IsEmpty())
+                    {
+                        return (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+                    }
+                    else 
+                    { 
+                        var data2 = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+                        data2 = data2.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data2;
+                    }
+                case 3:
+                    if (reportModel.FilterType.IsEmpty())
+                    {
+                        return (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
+                    }
+                    else
+                    {
+                        var data3 = (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
+                        data3 = data3.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data3;
+                    }
+                case 4:
+                    if (reportModel.FilterType.IsEmpty()) {
+                        return (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+                    }
+                    else
+                    {
+                        var data4 = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+                        data4 = data4.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data4;
+                    }
+                case 5:
+                    if (reportModel.FilterType.IsEmpty()) {
+                        var data5 = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+                        data5 = data5.Where(x => x.Role_ID.Equals(2));
+                        return data5;
+                    }
+                    else
+                    {
+                        var data5 = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+                        data5 = data5.Where(x => x.Role_ID.Equals(2));
+                        data5 = data5.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data5;
+                    }
+                case 6:
+                    if (reportModel.FilterType.IsEmpty())
+                    {
+                        return (IEnumerable<ReservationListViewModel>)(await _reservationService.ReservationList(token)).Data;
+                    }
+                    else
+                    {
+                        var data6 = (IEnumerable<ReservationListViewModel>)(await _reservationService.ReservationList(token)).Data;
+                        data6 = data6.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data6;
+                    }
+            
+                case 7:
+                    if (reportModel.FilterType.IsEmpty())
+                    {
+                        return (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
+                    }
+                    else
+                    {
+                        var data7 = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
+                        data7 = data7.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data7;
+                    }
+                case 8:
+                    if (reportModel.FilterType.IsEmpty())
+                    {
+                        return (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
+                    }
+                    else
+                    {
+                        var data8 = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
+                        data8 = data8.Where(x => x.GetType().GetProperty(reportModel.FilterType).Equals(reportModel.FilterValue));
+                        return data8;
+                    }                    
+                default:
+                    return null;
+            }
+        }
+
+
+
         /*
         [HttpGet]
         public async Task<IActionResult> TransportReportPDF()

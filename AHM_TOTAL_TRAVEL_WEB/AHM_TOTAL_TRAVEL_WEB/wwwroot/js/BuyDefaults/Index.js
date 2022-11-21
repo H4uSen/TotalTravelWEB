@@ -34,6 +34,7 @@ function fillPaquetes(iddestino) {
                         </figure>
                         <h2 class="entry-title"><a href="#">${item.nombre}</a></h2>
                         <p>${item.descripcion_Paquete}</p>
+                       <p>Máximo de personas: ${item.cantidad_de_personas}</p>
                         <p>Destino: ${item.ciudad}</p>
                         <div class="price">
                             <strong>L. ${item.precio}</strong>
