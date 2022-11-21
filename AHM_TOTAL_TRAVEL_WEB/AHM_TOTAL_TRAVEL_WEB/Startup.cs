@@ -103,11 +103,6 @@ namespace AHM_TOTAL_TRAVEL_WEB
             app.Use(async (context, next) =>
             {
                 await next();
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = "/Home/Error404";
-                    await next();
-                }
 
                 switch (context.Response.StatusCode)
                 {
@@ -119,6 +114,8 @@ namespace AHM_TOTAL_TRAVEL_WEB
                     case 301:
                         break;
                     case 404:
+                        context.Request.Path = "/Home/Error404";
+                        await next();
                         break;
                     case 401:
                     case 405:
