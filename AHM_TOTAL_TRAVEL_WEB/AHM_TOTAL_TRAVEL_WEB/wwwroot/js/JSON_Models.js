@@ -209,3 +209,10 @@ var restrictionsViewModel = {
     "roPe_UsuarioCreacion": Client_User_ID,
     "roPe_UsuarioModifica": Client_User_ID
 };
+
+var ModulesViewModel = {
+    "modu_Id": 0,
+    "modu_Descripcion": "",
+    "modu_UsuarioCreacion": Client_User_ID,
+    "modu_UsuarioModifica": Client_User_ID
+};
