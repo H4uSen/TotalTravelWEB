@@ -1,6 +1,5 @@
 ﻿const reservationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
 
-console.log(reservationList);
 
 contructMonthSalesChart();
 fillHotelTop();
@@ -49,24 +48,29 @@ function fillHotelTop() {
 function fillActivitiesTop() {
 
     if (modelo.activities_top_5.length > 0) {
+
         for (var i = 0; i < modelo.activities_top_5.length; i++) {
+
             const item = modelo.activities_top_5[i];
-            const card = 
-            `<div class="item">
-                <div class="content">
 
-                    <h3><b>${item.descripcion}</b></h3>
-                    <div class="extra d-flex">
-                        <b>Rating:</b>
-                        <div class="ui huge star rating disabled" data-rating="5">
-                            <i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i>
+            if (item != null) {
+                const card =
+                    `<div class="item">
+                        <div class="content">
+
+                            <h3><b>${item.descripcion}</b></h3>
+                            <div class="extra d-flex">
+                                <b>Rating:</b>
+                                <div class="ui huge star rating disabled" data-rating="5">
+                                    <i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
+                    </div>`;
 
-                </div>
-            </div>`;
-
-            $("#container_activities_top_5").append(card);
+                $("#container_activities_top_5").append(card);
+            }
         }
     }
     else {

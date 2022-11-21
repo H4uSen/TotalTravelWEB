@@ -4,22 +4,55 @@
     var sessionData = JSON.parse(document.getElementById("sessionData").innerHTML);
 
     $("input[type=text]").prop("autocomplete", "off");
-    var Client_User_ID = sessionData.userId;
-    var Client_Partner_ID = sessionData.partnerId;
-    var Client_User_Name = sessionData.userName;
-    var Client_Token = sessionData.token;
-    var Client_Role = sessionData.userRol;
+    const Client_User_ID = sessionData.userId;
+    const Client_Partner_ID = sessionData.partnerId;
+    const Client_User_Name = sessionData.userName;
+    const Client_Token = sessionData.token;
+    const Client_Role = sessionData.userRol;
+    const Client_Role_Id = sessionData.userRol_Id;
+
+    
 
     $("#loaderAnimation").hide();
 // ----------------------------------- EVENTS ------------------------------------
 
     const user_FileName = `User-${Client_User_ID}`;
-const url_image = `apitotaltravel.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
+    const url_image = `apitotaltravel.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
     $("#user_image").prop("src", "https://" + url_image);
+
+fillMenu(Client_Role_Id);
 // ----------------------------------- FUNCTIONS ------------------------------------
 
+function fillProfileImage(User_ID) {
+    const user_data = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/Find?id=" + User_ID);
+    $("#user_image").prop("src", user_data.data.image_URL);
+}
 
-    
+function fillMenu(rol_id, dropdown = false){
+    const RestrictionsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/List");
+    //const ModulesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/List");
+
+    if (RestrictionsList.code == 200) {
+
+        const Restrictions = RestrictionsList.data.filter(x => x.iD_Rol == rol_id);
+
+        for (var i = 0; i < Restrictions.length; i++) {
+
+            const element = Restrictions[i];
+
+            if (element.esVisible == true) {
+                const menu_item =
+                    `<li class="sidebar-item">
+                        <a class="sidebar-link" href="/${element.controlador}/${element.accion}">
+                            ${element.permiso}
+                        </a>
+                    </li>`;
+
+                $("#menu_rol_items").append(menu_item);
+            }
+        }
+    }
+}
 
 
     // ----------------------------------- FILE FORMAT ------------------------------------
