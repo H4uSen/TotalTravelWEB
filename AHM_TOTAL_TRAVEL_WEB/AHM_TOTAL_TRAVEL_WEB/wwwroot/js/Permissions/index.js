@@ -4,9 +4,11 @@
 const ViewsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/List");
 const RolesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Roles/List");
 const ModulesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/List");
+const RestrictionsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/List");
 
 //----------------------------- INIZIALIZE --------------------------------------------
 getTreeView();
+fillTreeView();
 const menus_helpers = {
     reset_rol_menus: function (target_role = null) {
 
@@ -72,6 +74,8 @@ $(".modulos_menu .item").click(function (_this) {
     menus_helpers.reset_module_menus(_this.target);
 });
 
+$("#btnSaveTreeView").click(saveTreeView);
+
 //----------------------------- FUNCTIONS --------------------------------------------
 
 function getTreeView(){
@@ -88,9 +92,13 @@ function getTreeView(){
             const rol_menu_item = $(`<a class="item" data-target="#frmRol_${rol.id}">${rol.descripcion}</a>`);
             const rol_item =
                 `<div class="role_item" id="frmRol_${rol.id}" data-role="${rol.id}">
-                    <h2 class="ui header">Permisos de el rol: ${rol.descripcion}</h2>
+
+                    <h2 class="ui header">Permisos en el rol: ${rol.descripcion}</h2>
+
                     <div class="ui top attached tabular menu modulos_menu"></div>
                     <div class="ui bottom attached segment modulos_container"></div>
+
+                    <button class="ui button" onclick="saveTreeView()">GUARDAR TODOS LOS CAMBIOS</button>
 
                 </div>`;
 
@@ -130,8 +138,8 @@ function getTreeView(){
                                 const pantalla_item =
                                     `<div class="field pantalla_item" id="chkPantalla_${pantalla.id}" style="padding: 5px 0;">
                                         <div class="ui toggle checkbox">
-                                            <input type="checkbox" data-role="${rol.id}" data-screen="${pantalla.id}">
-                                            <label>${pantalla.descripcion}</label>
+                                            <input type="checkbox" data-role="${rol.id}" data-screen="${pantalla.id}" data-modify="0">
+                                            <label class="check_label">${pantalla.descripcion} <b style='color:red'><b></label>
                                         </div>
                                     </div>`;
 
@@ -143,69 +151,86 @@ function getTreeView(){
                 }
             }
         }
+
+        $(".pantalla_item input[type='checkbox']").change(function (_this) {
+
+            const isModify = parseInt($(_this.target).attr("data-modify"));
+            const container = $(_this.target).parent();
+
+            if (isModify == 1) {
+                $(container).find("label.check_label").find("b").eq(0).empty();
+                $(_this.target).attr("data-modify", 0);
+            }
+            else if (isModify == 0) {
+                const html = $(container).find("label.check_label").html();
+                $(container).find("label.check_label").find("b").eq(0).html("(modificado)");
+
+                $(_this.target).attr("data-modify", 1);
+            }
+
+        });
     }
 }
 
-/*
-function getTreeView(){
+function fillTreeView() {
 
-    if (RolesList.code == 200) {
+    if (RestrictionsList.code == 200) {
 
-        const roles = RolesList.data;
+        const restricciones = RestrictionsList.data;
+        for (var i = 0; i < restricciones.length; i++) {
 
-        $("#treeViewContainer").empty();
-        // por cada rol
-        for (var i = 0; i < roles.length; i++) {
-            const rol = roles[i];
+            const item = restricciones[i];
 
-            $("#treeViewContainer").append(
-                `<div class="title" id="rol_title_${rol.id}">
-                    <i class="dropdown icon"></i>
-                    ${rol.descripcion}
-                </div>
-                <div class="content" id="rol_content_${rol.id}">
-                    <div class="ui list">
-                    </div>
-                </div>`
-            );
-
-            // por cada modulo
-            $.each(ModulesList, function (i, modulo) {
-                const rol_container = $(`#rol_content_${rol.id} .list`);
-
-                $(rol_container).append(
-                    `<div class="item" id="modulo_${modulo.id}">
-                        <br />
-                        <div class="ui master checkbox">
-                            <input type="checkbox" name="chkModulo_${modulo.id}" value="${modulo.id}">
-                            <label>${modulo.descripcion}</label>
-                        </div>
-                        <div class="list">
-                            
-                        </div>
-                     </div>`
-                );
-
-                const module_container = $(rol_container).find(`#modulo_${modulo.id} .list`);
-                if (ViewsList.code == 200) {
-                    const pantallas = jQuery.grep(ViewsList.data, function (item,i) {
-                        return item.id_modulo == modulo.id;
-                    });
-
-                    // por cada pantalla
-                    $.each(pantallas, function (i, pantalla) {
-                        $(module_container).append(
-                            `<div class="item">
-                                <div class="ui child checkbox">
-                                    <input type="checkbox" name="chkpantalla_${pantalla.id}">
-                                    <label>${pantalla.descripcion}</label>
-                                </div>
-                            </div>`
-                        );
-                    });
-                }
-            });
+            const element = $(`.pantalla_item input[type='checkbox'][data-role='${item.iD_Rol}'][data-screen='${item.iD_Permiso}']`);
+            $(element).prop("checked", true);
+            $(element).attr("data-restriction", item.id);
         }
     }
 }
-*/
+
+function saveTreeView() {
+
+    const roles = RolesList.data;
+    const pantallas = ViewsList.data;
+
+    $.each($(".pantalla_item input[type='checkbox'][data-modify='1']"), function (i, item) {
+
+        const data_role = $(item).attr("data-role");
+        const data_screen = $(item).attr("data-screen");
+
+        if ($(item).prop("checked") == true) {
+
+            const model = restrictionsViewModel;
+            restrictionsViewModel.perm_ID = parseInt(data_screen);
+            restrictionsViewModel.role_ID = parseInt(data_role);
+
+            try {
+                ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/Insert", model, "POST");
+            } catch (e) {
+                console.log(e);
+            }
+
+        } else {
+
+            const id = $(item).attr("data-restriction");
+
+            try {
+                ajaxRequest(`https://apitotaltravel.azurewebsites.net/API/RolePermissions/Delete?id=${id}&Mod=${Client_User_ID}`, {}, "DELETE");
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        /*
+        const rol = roles.filter(x => x.id == data_role)[0];
+        const pantalla = pantallas.filter(x => x.id == data_screen)[0];
+        console.log(`rol: ${rol.descripcion} - pantalla: ${pantalla.descripcion}`);
+        */
+
+    });
+
+    const cambios = $(".pantalla_item input[type='checkbox'][data-modify='1']").length;
+    Swal.fire("!Cambios efectuados!", `${cambios} cambios efectuados`, "success").then((result) => {
+        location.reload();
+    })
+}

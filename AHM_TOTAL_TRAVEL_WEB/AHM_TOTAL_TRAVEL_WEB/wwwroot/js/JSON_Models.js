@@ -202,3 +202,10 @@ var ScreensViewModel = {
     "perm_UsuarioCreacion": Client_User_ID,
     "perm_UsuarioModifica": Client_User_ID
 }
+
+var restrictionsViewModel = {
+    "perm_ID": 0,
+    "role_ID": 0,
+    "roPe_UsuarioCreacion": Client_User_ID,
+    "roPe_UsuarioModifica": Client_User_ID
+};
