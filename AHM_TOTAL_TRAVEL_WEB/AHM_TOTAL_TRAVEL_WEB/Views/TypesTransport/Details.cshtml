@@ -20,7 +20,7 @@
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TypesTransport")">
-                        Back
+                        Regresar
                         <i class="left arrow icon"></i>
                     </a>
                 </div>
@@ -30,10 +30,13 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Transporte</label>
+                                <label>Tipo de Transporte</label>
                                 @Html.DisplayFor(model => model.Trasporte)
                             </div>
-                            
+                            <div class="field">
+                                <label>Socio</label>
+                                @Html.DisplayFor(model => model.Partner_Nombre)
+                            </div>
                         </div>
                     </div>
                 </div>

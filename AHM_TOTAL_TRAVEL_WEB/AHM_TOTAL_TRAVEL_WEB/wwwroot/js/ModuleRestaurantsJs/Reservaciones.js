@@ -74,16 +74,6 @@ function ViewReservation(idDetalles, id) {
                                     ${ResvaFilterItem.cliente}
                             </div>
                             <div class="field">
-                                <label>Socio: </label>
-                                    ${TranspoFilterItem.partner}
-                            </div>
-                        </div>
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Restaurante: </label>
-                                    ${TranspoFilterItem.restaurante}
-                            </div>
-                            <div class="field">
                                 <label>Fecha: </label>
                                     ${fecha[0]}
                             </div>
@@ -97,7 +87,7 @@ function ViewReservation(idDetalles, id) {
                                     ${union}
                             </div><div class="field">
                                 <label>Estado: </label>
-                                    Confirmada
+                                <span class="ui green label">Confirmada</span>
                             </div>
                         </div>
                     <div class="field">
@@ -122,7 +112,7 @@ function ViewReservation(idDetalles, id) {
                                     ${union}
                             </div><div class="field">
                                 <label>Estado: </label>
-                                    Pendiente
+                                <span class="ui blue label">Pendiente</span>
                             </div>
                         </div>
                         <div class="field">
@@ -189,7 +179,7 @@ function fillreservaciones(estadoReservaciones) {
                             Fecha: ${fecha[0]}
                         </div>      
                     </div>
-                    <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
+                    <a class="btn btn-edit ui positive button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
                         <i class="folder open icon"></i>
                         Ver Detalles
                     </a>

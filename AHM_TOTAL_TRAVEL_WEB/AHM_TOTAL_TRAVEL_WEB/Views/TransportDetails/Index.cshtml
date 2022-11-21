@@ -39,7 +39,7 @@
                         Transporte
                     </th>
                     <th>
-                       Capacidad
+                        Capacidad
                     </th>
                     <th>
                         Precio
@@ -50,39 +50,45 @@
                     <th>
                         Horario
                     </th>
+                    <th>
+                        Socio
+                    </th>
                     <th width="200px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tipo_Transporte)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Capacidad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Precio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Matricula)
-                        </td>
-                        @{
-                            string horario = $"{item.Ciudad_Salida} - {item.Ciudad_Llegada} / {item.Hora_Salida} - {item.Hora_Llegada}";
-                        }
-                        <td>
-                            @horario
-                        </td>
-                        <td>
-                            <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
-                            <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
-                                <i class="trash alternate icon"></i>
-                            </button>
-                            <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre_Transporte)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Matricula)
+                    </td>
+                    @{
+                        string horario = $"{item.Ciudad_Salida} - {item.Ciudad_Llegada} / {item.Hora_Salida} - {item.Hora_Llegada}";
+                    }
+                    <td>
+                        @horario
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Parter)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Update","TransportDetails",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
+                        <button class="ui large icon negative button" onclick="DeleteDetalleTransporte(@item.ID)">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                        <a href="@Url.Action("Details","TransportDetails",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg"></i></a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table><br>
@@ -111,6 +117,7 @@
                     {},
                     {},
                     {},
+                    {},
                     {}
                 ],
                 order: [[1, 'asc']],
@@ -123,7 +130,7 @@
                         text: '<i class= "file pdf icon"></i> Exportar como PDF',
                         className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {
@@ -131,7 +138,7 @@
                         text: '<i class="file excel icon"></i> Exportar a excel',
                         className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {

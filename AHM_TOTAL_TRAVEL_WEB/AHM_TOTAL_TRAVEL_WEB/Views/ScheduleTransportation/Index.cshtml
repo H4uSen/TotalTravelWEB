@@ -20,7 +20,7 @@
         <br>
         <div class="ui grid mb-3">
             <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" id="btnCrearhorario">
+                <a class="ui small btn-edit text-white labeled icon button" id="btnCrearhorario">
                     <i class="plus icon"></i> Nuevo
                 </a>
             </div>
@@ -49,41 +49,47 @@
                     <th>
                         Hora de llegada
                     </th>
+                    <th>
+                        Socio
+                    </th>
                     <th width="200px">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad_Salida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciudad_Destino)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fecha)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hora_Salida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hora_Llegada)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad_Salida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad_Destino)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora_Salida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora_Llegada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Partner_Nombre)
+                    </td>
 
-                        <td>
-                            <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </button>
-                            <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a href="@Url.Action("Details","ScheduleTransportation",new {  id=item.ID})" class="ui large icon button">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <td>
+                        <button class="ui large icon btn-edit button" id="UpdateBottomSchedule" onclick="GetScheduleID(@item.ID)">
+                            <i class="pencil alternate icon icon-crud"></i>
+                        </button>
+                        <button class="ui large icon negative button" onclick="DeleteHorarios(@item.ID)">
+                            <i class="trash alternate icon icon-crud"></i>
+                        </button>
+                        <a href="@Url.Action("Details","ScheduleTransportation",new {id=item.ID})" class="ui large icon button">
+                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -112,7 +118,7 @@
                                 <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
                                     <option value="">Seleccione un socio</option>
                                 </select>
-                            </div>                                             
+                            </div>
                             <div class="required field">
                                 <label class="ui label">Fecha</label>
                                 <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
@@ -128,6 +134,7 @@
                                 <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
                             </div>
                         </div>
+                        <div class="label" id="labelIguales" hidden></div>
                         <div class="two fields" id="DD_DsTr_ID" hidden>
                             <div class="required field">
                                 <label class="ui label">Destino</label>
@@ -136,42 +143,44 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="labelvalidator" id="labelIguales" hidden></div>
                     </div>
                     }
-                    if (usersRole == "Moderador de Transporte")
-                    {
+            if (usersRole == "Moderador de Transporte")
+            {
+            <div class="required field">
+                <div class="two fields">
                     <div class="required field">
-                        <div class="two fields">
-                            <div class="required field">
-                                <label class="ui label">Destino</label>
-                                <select id="DsTr_ID" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
-                                    <option value="">Seleccione el Destino</option>
-                                </select>
-                            </div>
-                            <div class="required field">
-                                <label class="ui label">Fecha</label>
-                                <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
-                            </div>
-                        </div>
-                        <div class="two fields">
-                            <div class="required field">
-                                <label class="ui label">Hora de salida</label>
-                                <input type="time" id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
-                            </div>
-                            <div class="required field">
-                                <label class="ui label">Hora de llegada</label>
-                                <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
-                            </div>
-                        </div>
-                        <div class="two fields" id="DD_Part_ID2" hidden>
-                            <div class="required field">
-                                <label class="ui label">Socio</label>
-                                <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
-                                    <option value="">Seleccione un socio</option>
-                                </select>
-                            </div>                           
-                        </div>
+                        <label class="ui label">Destino</label>
+                        <select id="DsTr_ID" name="DsTr_ID" class="ui dropdown search" asp-items="ViewBag.DsTr_ID">
+                            <option value="">Seleccione el Destino</option>
+                        </select>
                     </div>
+                    <div class="required field">
+                        <label class="ui label">Fecha</label>
+                        <input type="date" id="FechaViaje" name="HoTr_Fecha" placeholder="Seleccione una Fecha" />
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="required field">
+                        <label class="ui label">Hora de salida</label>
+                        <input type="time" id="HoTr_HoraSalida" name="HoTr_HoraSalida" placeholder="Hora de Salida" />
+                    </div>
+                    <div class="required field">
+                        <label class="ui label">Hora de llegada</label>
+                        <input type="time" id="HoTr_HoraLlegada" name="HoTr_HoraLlegada" placeholder="Hora de Llegada " />
+                    </div>
+                </div>
+                <div class="two fields" id="DD_Part_ID2" hidden>
+                    <div class="required field">
+                        <label class="ui label">Socio</label>
+                        <select id="Partner_ID" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                            <option value="">Seleccione un socio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="labelvalidator" id="labelIguales" hidden></div>
+            </div>
                 }
                 }
             </div>
@@ -228,6 +237,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="labelvalidator" id="labelIgualesU" hidden></div>
                         </div>
                     }
                     if (usersRole2 == "Moderador de Transporte")
@@ -264,6 +274,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="labelvalidator" id="labelIgualesU" hidden></div>
                         </div>
                     }
                 }
@@ -307,6 +318,7 @@
                     {},
                     {},
                     {},
+                    {},
                     {}
                 ],
                 order: [[1, 'asc']],
@@ -319,7 +331,7 @@
                         text: '<i class= "file pdf icon"></i> Exportar como PDF',
                         className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {
@@ -327,7 +339,7 @@
                         text: '<i class="file excel icon"></i> Exportar a excel',
                         className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {

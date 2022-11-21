@@ -12,6 +12,7 @@ $(document).ready(function () {
         columns: [
             {},
             {},
+            {},
             {}
         ],
         order: [[1, 'asc']],
@@ -24,7 +25,7 @@ $(document).ready(function () {
                 text: '<i class= "file pdf icon"></i> Exportar como PDF',
                 className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                 exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [0, 1, 2, 3]
                 }
             },
             {
@@ -32,7 +33,7 @@ $(document).ready(function () {
                 text: '<i class="file excel icon"></i> Exportar a excel',
                 className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                 exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [0, 1, 2, 3]
                 }
             },
             {
