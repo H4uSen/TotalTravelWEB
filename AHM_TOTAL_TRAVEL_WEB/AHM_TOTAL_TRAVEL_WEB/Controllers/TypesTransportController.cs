@@ -87,7 +87,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     var rol = HttpContext.Session.GetString("Role");
 
                     var idPart = HttpContext.Session.GetInt32("PartnerID");
-                    if (rol != "Cliente" || rol != "Administrador")
+                    if (rol != "Administrador")
                     {
                         transporte.Partner_ID = int.Parse(idPart.ToString());
                     }

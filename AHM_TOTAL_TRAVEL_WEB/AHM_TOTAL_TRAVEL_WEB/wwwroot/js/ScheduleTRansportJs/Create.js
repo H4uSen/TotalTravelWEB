@@ -20,7 +20,9 @@ $("#SendSchedule").click(() => {
 
 getDestiny3()
 
-
+if (Client_Role != "Administrador") {
+    SetDropDownValue($("#Partner_ID"), defaultValue = parseInt(Client_Partner_ID));
+}
 function ValidarCampos() {
     const ValidateArraySchedule = [
         { validateMessage: "Seleccione un Destino", Jqueryinput: $("#DsTr_ID") },
@@ -31,8 +33,21 @@ function ValidarCampos() {
     ]
 
     const ScheduleValidate = ValidateForm(ValidateArraySchedule);
-
-    if (ScheduleValidate) {
+    var hora1 = $("#HoTr_HoraSalida").val();
+    var hora2 = $("#HoTr_HoraLlegada").val();
+    var vali;
+    if (hora1 != hora2) {
+        $("#labelIguales").hide();
+        vali = true;
+    }
+    else {
+        $("#labelIguales").removeAttr("hidden");
+        $("#labelIguales").html("Las horas no pueden ser igueles");
+        $("#labelIguales").show;
+        
+        vali = false
+    }
+    if (ScheduleValidate && vali) {
         $("#createScheduleForm").submit();
     }
 }

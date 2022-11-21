@@ -33,17 +33,35 @@ function validar() {
         { validateMessage: "Seleccione una Ciudad de Destino.", Jqueryinput: $("#modalCreate #CiudadDestino") },
         { validateMessage: "Seleccione un Socio.", Jqueryinput: $("#modalCreate #Partner_ID") },
     ];
-
+    var Ciudad1 = $("#modalCreate #CiudadSalida").val();
+    var Ciudad2 = $("#modalCreate #CiudadDestino").val();
+    var vali;
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
-
-    if (ValidateFormStatus) {
+    var Ciudad1 = $("#modalCreate #CiudadSalida").val();
+    var Ciudad2 = $("#modalCreate #CiudadDestino").val();
+    var vali;
+    if (Ciudad1 != Ciudad2) {
+        $("#modalCreate #labelIguales").hide();
+        vali = true;
+    }
+    else {
+        $("#modalCreate #labelIguales").removeAttr("hidden");       
+        $("#modalCreate #labelIguales").html("Las ciudades no pueden ser igueles");
+        $("#modalCreate #labelIguales").show;      
+        vali = false
+    }
+    
+    if (ValidateFormStatus && vali) {
         $("#createDestinationsTransportationsForm").submit();
     }
 
 }
 
 getPartners()
+if (Client_Role != "Administrador") {
+    SetDropDownValue($("#modalCreate #Partner_ID"), defaultValue = parseInt(Client_Partner_ID));
+}
 function getPartners() {
     var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List")
     if (response2.code == 200) {
@@ -95,11 +113,24 @@ function actualizar() {
         { validateMessage: "Seleccione una Ciudad de Destino.", Jqueryinput: $("#modalUpdate #CiudadDestinoUpdate") },
         { validateMessage: "Seleccione un Socio.", Jqueryinput: $("#modalUpdate #Partner_ID2") },
     ];
-
+    var Ciudad1 = $("#modalUpdate #CiudadSalida").val();
+    var Ciudad2 = $("#modalUpdate #CiudadDestino").val();
+    var vali;
+    if (Ciudad1 != Ciudad2) {
+        $("#modalUpdate #labelIgualesU").hide();
+        vali = true;
+    }
+    else {
+        $("#modalUpdate #labelIgualesU").removeAttr("hidden");
+        $("#modalUpdate #labelIgualesU").html("Las ciudades no pueden ser igueles");
+        $("#modalUpdate #labelIgualesU").show();
+       
+        vali = false
+    }
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
-    if (ValidateFormStatus) {
+    if (ValidateFormStatus && vali) {
         $("#updateDestinationsTransportationsForm").submit();
     }
 }

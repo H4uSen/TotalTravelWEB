@@ -24,7 +24,9 @@ if (Client_Role == "Administrador") {
 }
 
 getDropD()
-
+if (Client_Role != "Administrador") {
+    SetDropDownValue($("#Partner_ID22"), defaultValue = parseInt(Client_Partner_ID));
+}
 function getDropD() {  
     var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
 
@@ -122,8 +124,21 @@ function ValidarupdateSchedule() {
     ];
 
     const ScheduleValidateUpdate = ValidateForm(ValidateArraySchedule);
-
-    if (ScheduleValidateUpdate) {
+    var hora1 = $("#HoTr_HoraSalidaUpdate").val();
+    var hora2 = $("#HoTr_HoraLlegadaUpdate").val();
+    var vali;
+    if (hora1 != hora2) {
+        $("#labelIgualesU").hide();
+        vali = true;
+    }
+    else {
+        $("#labelIgualesU").removeAttr("hidden");
+        $("#labelIgualesU").html("Las horas no pueden ser igueles");
+        $("#labelIgualesU").show();
+        
+        vali = false
+    }
+    if (ScheduleValidateUpdate && vali) {
         $("#UpdateScheduleForm").submit();
     }
 }

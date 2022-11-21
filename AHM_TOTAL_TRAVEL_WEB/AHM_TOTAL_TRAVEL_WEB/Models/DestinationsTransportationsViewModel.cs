@@ -32,6 +32,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModificaID { get; set; }
         public DateTime? FechaModifica { get; set; }
         public int? Partner_ID { get; set; }
+        public string Partner_Nombre { get; set; }
         public bool? Estado { get; set; }
 
         public static explicit operator List<object>(DestinationsTransportationsListViewModel v)

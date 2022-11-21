@@ -11,6 +11,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int ID { get; set; }
         public string Trasporte { get; set; }
         public int? Partner_ID { get; set; }
+        public string Partner_Nombre { get; set; }
         public int Usuario_Creacion_ID { get; set; }
         public string Usuario_Creacion { get; set; }
         public DateTime? Fecha_Creacion { get; set; }
