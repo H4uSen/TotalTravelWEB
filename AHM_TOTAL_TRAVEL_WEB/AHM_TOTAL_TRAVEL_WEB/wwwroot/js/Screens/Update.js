@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $("#Perm_ID").hide();
+    $("#Modu_Id").hide();
 });
 
 
@@ -56,14 +57,10 @@ $("#sendUpdate").click(() => {
         screen.perm_Descripcion = $("#mdlUpdateScreen #txtDescripcionUpdate").val();
         screen.perm_esVisible = $("#mdlUpdateScreen #checkVisible").prop("checked");
 
-        console.log(screen);
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Find?Id=" + screen.perm_ID, screen, "PUT");
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Update?id=" + screen.perm_ID, screen, "PUT");
         if (response.code == 200) {
-            Swal.fire("Registro actualizado con exito", "", "success").then(function () {
-                window.location.href = '/Screens?success=true';
-            });
+            window.location.href = '/Screens?success=true';
         } else {
-            console.log(response);
             Swal.fire("Error al realizar la accion", response.message, "error");
         }
     }
@@ -73,6 +70,60 @@ $("#sendUpdate").click(() => {
 function DeletePermissions(id) {
     const capsula1 = () => {
         var response = ajaxRequest("Screens/Delete?id=" + id, null, "POST");
+        if (response > 0) {
+            window.location.href = '/Screens?success=true';
+        }
+    };
+    sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+};
+
+
+
+function GetModules(id) {
+
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Find?Id=" + id);
+    if (response.code == 200) {
+        $('#Modu_Id').val(id);
+        $('#txtModuloUpdate').val(response.data.modulo);
+
+        if ($('#Modu_Id').val() != 0) {
+            $("#mdlUpdateModules").modal('show');
+        }
+    }
+}
+
+
+$("#sendModulesUpdate").click(() => {
+
+    validateArrayForm = [
+        { validateMessage: "Ingrese un nombre", Jqueryinput: $("#mdlUpdateModules #txtModuloUpdate") }
+    ];
+
+    // retorna bool 
+    const ValidateFormStatus = ValidateForm(validateArrayForm);
+    if (ValidateFormStatus) {
+        var module = ModulesViewModel;
+        module.modu_Id = parseInt($("#mdlUpdateModules #Modu_Id").val());
+        module.modu_Descripcion = $("#mdlUpdateModules #txtModuloUpdate").val();
+
+
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Update?id=" + module.modu_Id, module, "PUT");
+        if (response.code == 200) {
+            window.location.href = '/Screens?success=true';
+        } else {
+            Swal.fire("Error al realizar la accion", response.message, "error");
+        }
+    }
+
+});
+
+
+
+
+function DeleteModulos(id) {
+    const capsula1 = () => {
+        var response = ajaxRequest("Screens/DeleteModule?id=" + id, null, "POST");
         if (response > 0) {
             window.location.href = '/Screens?success=true';
         }

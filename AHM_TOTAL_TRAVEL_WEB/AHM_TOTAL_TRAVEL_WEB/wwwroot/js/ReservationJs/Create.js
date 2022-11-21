@@ -8,7 +8,8 @@ const HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hot
 const ReservationHotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
 const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
 
-
+var CantidadActvHotel = 0;
+var CantidadActvExtra = 0;
 
 
 
@@ -20,6 +21,8 @@ $('.ui.checkbox').checkbox();
 $('.ui.dropdown').dropdown();
 
 $("#frmDefaultPackages").hide();
+$("#frmAddExtraHotelsActivities").hide();
+$("#frmAddExtraActivities").hide();
 
 function goBack() {
     window.location.href = "/Reservation/Index";
@@ -38,23 +41,27 @@ $(document).ready(function () {
     //Fill the countries Dropdown
     const Countries = CountriesList.data;
     for (var i = 0; i < Countries.length; i++) {
-        $('.ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
+        $('#ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
     }
 
 
 });
+
+
 
 //Hides details for Default packages
 $("#frmDefaultPackagesDetails").hide();
 
 
 $(document).on('change', '#ddlCiudades', function () {
+    city = $('#ddlCiudades').val();
+    
+    $("#lblZone").text($("#ddlCiudades option:selected").text());
     //Reset the default packages dropdown after changing the cities
     $('#Paqu_ID').empty();
     //Fill the default packages Dropdown and can be filtered by cities
     $("#Paqu_ID").val("");
     const DefaultPackages = DefaultPackagesList.data;
-    city = $('#ddlCiudades').val();
     const Hotels = HotelsList.data;
     const filteredHotels = Hotels.filter(function (htel) { return htel.ciudadID == city });
     var hotelIDs = filteredHotels.map(x => x.id);
@@ -101,7 +108,6 @@ $("#ddlPaises").change((_this) => {
 let paqueteDuracion = 7;
 //Details of the Default packages card 
 $("#Paqu_ID").change(function () {
-
 
     const DefaultPackages = DefaultPackagesList.data;
     const Hotels = HotelsList.data;
@@ -186,6 +192,14 @@ $("#Paqu_ID").change(function () {
     }, function (start, end, label) {
         //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
+
+    //Activities Extras in the hotel
+    
+    for (var i = 0; i < CantidadActvHotel; i++) {
+
+
+    }
+
 });
 
 //Date range picker limited based on the duration of the package
@@ -261,6 +275,17 @@ $("#Paqu_ID").change(function () {
 
 });
 
+//Show inputs for extra activities in hotels
+$("#btnShowExtraHotelActivities").click(function () {
+    $("#frmAddExtraHotelsActivities").show();
+
+});
+
+//Show inputs for extra activities in the zone
+$("#btnShowExtraActivities").click(function () {
+    $("#frmAddExtraActivities").show();
+
+});
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 

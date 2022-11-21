@@ -26,7 +26,7 @@
                             RouteValuesModel routesValues = ViewBag.RouteValues;
                             if (routesValues.IsRedirect)
                             {
-                                    <input id="createdUserID" type="number" value=@routesValues.responseID style="display:none" />
+                                            <input id="createdUserID" type="number" value=@routesValues.responseID style="display:none" />
                             }
                         }
 
@@ -137,7 +137,7 @@
                         </div>
 
                         <!-- Default packages selection -->
-                        <div id="frmDefaultPackages">
+                        <div id="frmDefaultPackages" style="margin-bottom:20px">
                             <h3 class="ui block header">
                                 Selecciona alguno de nuestros paquetes para poder ver sus detalles
                             </h3>
@@ -157,8 +157,8 @@
                                     
                                 </div>
                             </div>
-
-
+                            
+                            
                             <!-- Default package details-->
                             <div id="frmDefaultPackagesDetails">
                                 <div class="ui segment">
@@ -214,10 +214,87 @@
                                     </div>
                                 </div>
                                 <br>
-
+                                <div class="field">
+                                    <div class="two fields">
+                                        <!--Add extra activities of the Hotel-->
+                                        <div class="field">
+                                            <div class="ui toggle button" id="btnShowExtraHotelActivities">+ Añadir actividades del hotel</div>
+                                        </div>
+                                        <!--Add extra activities on the zone-->
+                                        <div class="field">
+                                            <div class="ui toggle button" id="btnShowExtraActivities">+ Añadir actividades por la zona</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Add extra activities in the hotel-->
+                            <div id="frmAddExtraHotelsActivities" style="margin-bottom:20px">
+                                <div class="ui segment">
+                                    <h3 class="ui block header">
+                                        Selecciona algunas actividades para realizar en el hotel
+                                    </h3>
+                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="addHotelsExtraActivities()" id="btnHotelsExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="container-fluid " id="listHotelsExtraActivities">
+                                        <div class="four fields hotelsExtraActivities" data-value="1">
+                                            <div class="field">
+                                                <label>Actividades en el hotel</label>
+                                                <select class="ui dropdown hotelsExtraActivitiesID">
+                                                    <option value="">Selecciona una actividad</option>
+                                                </select>
+                                            </div>
+                                            <div class="field">
+                                                <label>Cantidad de personas</label>
+                                                <input type="number" min="1" max="100" class="hotelsExtraActivitiesAmount" placeholder="Cantidad de personas">
+                                            </div>
+                                            <div class="field hotelsExtraActivitiesPrice">
+                                                <label>Cantidad de personas</label>
+                                                <input type="number" class="hotelsExtraActivitiesPrice" placeholder="Precio" readonly>
+                                            </div>
+                                            <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
+                                                <label></label>
+                                                <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHotelExtraActivities()" id="btndeleteExtraActivities">+ Añadir una actividad</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <br>
+                            </div>
+                            <!--Add extra activities in the zone-->
+                            <div id="frmAddExtraActivities" style="margin-bottom:20px">
+                                <div class="ui segment">
+                                    <h3 class="ui block header">
+                                        Selecciona algunas actividades para realizar en el hotel
+                                    </h3>
+                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="addExtraActivities()" id="btnExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="container " id="extraActivities">
+                                        <div class="four fields extraActivities" data-value="1">
+                                            <div class="field">
+                                                <label>Actividades extras en <span id="lblZone"></span></label>
+                                                <select class="ui dropdown extraActivitiesID">
+                                                    <option value="">Selecciona una actividad</option>
+                                                </select>
+                                            </div>
+                                            <div class="field">
+                                                <label>Cantidad de personas</label>
+                                                <input type="number" min="1" max="100" class="extraActivitiesAmount" placeholder="Cantidad de personas">
+                                            </div>
+                                            <div class="field hotelsExtraActivitiesPrice">
+                                                <label>Cantidad de personas</label>
+                                                <input type="number" class="extraActivitiesPrice" placeholder="Precio" readonly>
+                                            </div>
+                                            <div class="field">
+                                                <label></label>
+                                                <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteExtraActivities()" id="btnExtraActivities" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">+ Añadir una actividad</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <br>
                             </div>
                         </div>
-
+                        
                         <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear una reservación</div>
                         <div class="ui button" onclick="goBack()" tabindex="0">Cancel</div>
                     </div>

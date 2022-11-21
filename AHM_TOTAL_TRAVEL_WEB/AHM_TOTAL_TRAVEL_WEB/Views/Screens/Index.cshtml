@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.PermissionsListViewModel>
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.ScreenPermissionsViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Permisos)
                     {
                         <tr>
                             <td>
@@ -68,9 +68,6 @@
                                 <button class="ui large icon negative button" onclick="DeletePermissions('@item.ID')">
                                     <i class="trash alternate icon icon-crud"></i>
                                 </button>
-                                <a class="ui large icon button">
-                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                                </a>
                             </td>
                         </tr>
                     }
@@ -83,18 +80,71 @@
 
     <div class="container card" id="frmModulos">
         <div class="ui basic segment">
-            apartado de modulos
+
+            <div class="ui icon attached message">
+                <i class="icon clock"></i>
+                <div class="content">
+                    <div class="header">
+                        Modulos
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="ui grid mb-3">
+                <div class="eight wide column">
+                    <a class="ui small btn-purple text-white labeled icon button" id="btnCreateModule">
+                        <i class="plus icon"></i> Nuevo
+                    </a>
+                </div>
+            </div>
+            <style>
+                table thead tr th {
+                    background-color: #2b2b2b;
+                    color: white;
+                }
+            </style>
+            <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre de Modulo
+                        </th>
+                        <th width="200px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Modulos)
+                    {
+                        <tr>
+                            <td>
+                                @item.modulo
+                            </td>
+                            <td>
+                                <button class="ui large icon btn-edit button" onclick="GetModules('@item.id_modulo')">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </button>
+                                <button class="ui large icon negative button" onclick="DeleteModulos('@item.id_modulo')">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
+
         </div>
     </div>
 
 </div>
 
-
+<!-- MODALES PANTALLAS -->
 <!-- MODAL CREATE SCREEN -->
 <div class="ui modal" id="mdlCreateScreen">
     <i class="close icon"></i>
     <div class="header">
-        Ingresa una ciudad
+        Ingresa una pantalla
     </div>
     <div class="ui form attached fluid segment" id="frmCreateScreen">
         <div class="content">
@@ -143,7 +193,7 @@
 <div class="ui modal" id="mdlUpdateScreen">
     <i class="close icon"></i>
     <div class="header">
-        Ingresa una ciudad
+        Actualiza una pantalla
     </div>
     <form class="ui form attached fluid segment" asp-action="Update" asp-controller="Screens" id="frmUpdateScreen">
         <div class="content">
@@ -187,6 +237,52 @@
 
 </div>
 <!-- MODAL UPDATE -->
+<!-- MODALES MODULOS -->
+<!-- MODAL CREATE SCREEN -->
+<div class="ui modal" id="mdlCreateModules">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un módulo
+    </div>
+    <div class="ui form attached fluid segment" id="frmCreateModules">
+        <div class="content">
+            <div class="required field">
+                <label class="ui label">Nombre del módulo</label>
+                <input id="txtModulo" placeholder="Nombre del módulo" />
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" onclick="createModule()">Guardar</button>
+        <button class="ui deny button">Cerrar</button>
+    </div>
+
+</div>
+
+<!-- MODAL UPDATE -->
+<div class="ui modal" id="mdlUpdateModules">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un módulo
+    </div>
+    <div class="ui form attached fluid segment" id="frmUpdateModules">
+        <div class="content">
+            <div class="required field">
+                <label class="ui label">Nombre del módulo</label>
+                <input id="Modu_Id"/>
+                <input id="txtModuloUpdate" placeholder="Nombre del módulo" />
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendModulesUpdate">Guardar</button>
+        <button class="ui deny button">Cerrar</button>
+    </div>
+
+</div>
+
 
 @section Scripts{
     <script src="~/js/Screens/Index.js"></script>
