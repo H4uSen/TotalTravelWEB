@@ -208,6 +208,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
                     HttpContext.Session.SetString("Token", LogInVerify.Token);
 
+                    if (LogInVerify.Rol == "Administrador" && LogInVerify.PartnerID != null)
+                    {
+                        HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
+                    }
+                    if (LogInVerify.Rol != "Cliente" && LogInVerify.Partner != null)
+                    {
+                        HttpContext.Session.SetString("Partner", LogInVerify.Partner);
+                    }
+
                     //2.- CONFIGURACION DE LA AUTENTICACION
                     #region AUTENTICACTION
                     var claims = new List<Claim>
