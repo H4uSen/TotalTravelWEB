@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div><div class="ui segment form">
-                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "TransportReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
                 <a href="@Url.Action("ReservacionesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
@@ -90,6 +90,24 @@
     <script src="~/js/Reports/ReservationReports.js"></script>
     <script>
         $(document).ready(function () {
+            function fillIFrame(parameter) {
+                //Recibir el array de bits del pdf
+                $.ajax({
+                    type: "POST",
+                    url: "/Report/PdfAsByte",
+                    data: parameter,
+                    success: function (r) {
+                        $("#ifrReport").attr("src", "data:application/pdf;base64," + r);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+
+                });
+            }
 
             var reportParameter = reportCreation;
             reportParameter.ReportName = "ReporteReservacionesPDF";

@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="ui segment form">
-                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 3, HTMLFile = "TransportReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 3, HTMLFile = "RestauranteReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
                 <a href="@Url.Action("RestauranteReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 3, HTMLFile = "RestauranteReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
@@ -84,10 +84,30 @@
     <script>
         $(document).ready(function () {
 
+            function fillIFrame(parameter) {
+                //Recibir el array de bits del pdf
+                $.ajax({
+                    type: "POST",
+                    url: "/Report/PdfAsByte",
+                    data: parameter,
+                    success: function (r) {
+                        $("#ifrReport").attr("src", "data:application/pdf;base64," + r);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+
+                });
+            }
+
+
             var reportParameter = reportCreation;
-            reportParameter.ReportName = "ReporteRestaurantestesPDF";
+            reportParameter.ReportName = "RestaurantesPDF";
             reportParameter.HTMLFile = HMTLFile;
-            reportParameter.DataSourceIndex = DataSourceIndex;
+            reportParameter.DataSourceIndex = 3;
             fillIFrame(reportParameter);
         });
     </script>
