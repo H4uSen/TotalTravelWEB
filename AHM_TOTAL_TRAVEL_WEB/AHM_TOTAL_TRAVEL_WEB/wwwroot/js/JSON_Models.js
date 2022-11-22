@@ -249,5 +249,4 @@ var ReservacionUModel = {
     "resv_Precio": 0,
     "resv_UsuarioModifica": 0,
     "justConfirmation": false,
-
 }

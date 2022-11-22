@@ -256,7 +256,7 @@ function CancelarReservacion(idRT) {
         Email.bodyData = $("#Razón").val();
     } else {
         ReserDataT.confirmacionTransporte = true;
-        Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + "\n Se le notifica que se ha confirmado su reservación de transporte en la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];      
+        Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación de transporte en la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];      
     }
 
     var RData = ReservacionUModel;
@@ -278,7 +278,14 @@ function CancelarReservacion(idRT) {
 
 
     console.log(JSON.stringify(RData))
-    var SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    var SendEmail;
+    if (RData.resv_ConfirmacionTrans == true) {
+       SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    }
+    else {
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    }
+    
     var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
 
     if (status.code == 200 && SendEmail.code == 200) {
