@@ -238,7 +238,7 @@
     <div class="header">
         Actualiza una pantalla
     </div>
-    <form class="ui form attached fluid segment" asp-action="Update" asp-controller="Screens" id="frmUpdateScreen">
+    <div class="ui form attached fluid segment" id="frmUpdateScreen">
         <div class="content">
             <div class="three fields">
                 <div class="required field">
@@ -263,16 +263,24 @@
                         <option value="" selected disabled>Seleccione un modulo de pantalla</option>
                     </select>
                 </div>
-                <div class="required field">
-                    <label class="ui label">Aspectos visibles</label>
-                    <div class="ui toggle checkbox">
-                        <input type="checkbox" id="checkVisible">
-                        <label>Pantalla visible al cliente en el menu?</label>
-                    </div>
+                <div class="field">
+                    <label class="ui label">Añadir a un grupo de menu?</label>
+                    <select id="cbbGrupo" class="ui dropdown search" asp-items="ViewBag.items">
+                        <option value="" selected disabled>Seleccione un grupo a anidar</option>
+                    </select>
                 </div>
             </div>
+
+            <div class="sixteen wide field">
+                <label class="ui label">Aspectos visibles</label>
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" id="checkVisible">
+                    <label>Pantalla visible al cliente en el menu?</label>
+                </div>
+            </div>
+
         </div>
-    </form>
+    </div>
     <div class="actions">
         <button class="ui button btn-edit text-white" id="sendUpdate">Guardar</button>
         <button class="ui button" id="closeUpdate">Cancelar</button>
