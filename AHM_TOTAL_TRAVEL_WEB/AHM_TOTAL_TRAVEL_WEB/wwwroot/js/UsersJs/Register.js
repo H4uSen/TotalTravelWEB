@@ -1,31 +1,277 @@
-﻿// ------------------------------------------------------- //
-//   Inject SVG Sprite -
-//   see more here
-//   https://css-tricks.com/ajaxing-svg-sprite/
-// ------------------------------------------------------ //
-//function injectSvgSprite(path) {
+﻿$('.ui.dropdown').dropdown();
 
-//    var ajax = new XMLHttpRequest();
-//    ajax.open("GET", path, true);
-//    ajax.send();
-//    ajax.onload = function (e) {
-//        var div = document.createElement("div");
-//        div.className = 'd-none';
-//        div.innerHTML = ajax.responseText;
-//        document.body.insertBefore(div, document.body.childNodes[0]);
-//    }
-//}
-//// this is set to BootstrapTemple website as you cannot
-//// inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-//// while using file:// protocol
-//// pls don't forget to change to your domain :)
-//injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
-$('.ui.dropdown').dropdown();
 
+/* MODELS */
+var UserViewModel = {
+    "usua_ID": 0,
+    "usua_DNI": "string",
+    "usua_Url": "string",
+    "usua_Nombre": "string",
+    "usua_Apellido": "string",
+    "usua_FechaNaci": "2022-09-29T01:11:34.578Z",
+    "usua_Email": "string",
+    "usua_Sexo": "string",
+    "usua_Telefono": "string",
+    "usua_Password": "string",
+    "usua_esAdmin": 0,
+    "usua_Salt": "string",
+    "role_ID": 0,
+    "dire_ID": 0,
+    "part_ID": 0,
+    "usua_UsuarioCreacion": 2,
+    "usua_FechaCreacion": "2022-09-29T01:11:34.578Z",
+    "usua_UsuarioModifica": 2,
+    "usua_FechaModifica": "2022-09-29T01:11:34.578Z",
+    "usua_Estado": true
+}
+var AdressViewModel = {
+    "id": 0,
+    "colo_ID": 0,
+    "dire_Calle": "string",
+    "dire_Avenida": "string",
+    "dire_UsuarioCreacion": 2,
+    "dire_UsuarioModifica": 2
+}
+
+/* EVENTOS*/
+function ajaxRequest(url, data = {}, method = "GET") {
+
+    var dataResponse = null;
+    var HTTPError = {
+        message: '',
+        code: 0,
+        success: false,
+        data: null
+    }
+
+    $.ajax({
+        url: url,
+        data: JSON.stringify(data),
+        method: method,
+        dataType: "json",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        async: false,
+        beforeSend: function () {
+            $("#loaderAnimation").show();
+        },
+        complete: function () {
+            $("#loaderAnimation").hide();
+        },
+        success: function (response) {
+            dataResponse = response;
+        },
+        error: function (jqXHR, exception) {
+            HTTPError.code = jqXHR.status;
+            HTTPError.data = jqXHR;
+            HTTPError.message += "Request http Error: " + url + ", Exception: ";
+
+            // http errors 
+            if (jqXHR.status === 0) {
+                HTTPError.message += 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                HTTPError.message += 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                HTTPError.message += 'Internal Server Error [500].';
+            } else if (jqXHR.status == 401) {
+                HTTPError.message += 'Unauthorized Server Action [401].';
+            }
+
+            // exception errors
+            else if (exception === 'parsererror') {
+                HTTPError.message += 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                HTTPError.message += 'Time out error.';
+            } else if (exception === 'abort') {
+                HTTPError.message += 'Ajax request aborted.';
+            } else {
+                HTTPError.message += jqXHR.responseText;
+            }
+            dataResponse = HTTPError;
+            console.log(HTTPError);
+        }
+    });
+
+    return dataResponse;
+}
+
+function uploadFile(url, data = new FormData(), method = "GET") {
+
+    var dataResponse = null;
+
+    var HTTPError = {
+        message: "",
+        code: 0,
+        success: false,
+        data: null
+    }
+
+    $.ajax({
+        url: url,
+        data: data,
+        mimeType: "multipart/form-data",
+        async: false,
+        processData: false,
+        contentType: false,
+        type: method,
+        beforeSend: function () {
+            $("#loaderAnimation").show();
+        },
+        complete: function () {
+            $("#loaderAnimation").hide();
+        },
+        success: function (httpResponse) {
+            dataResponse = JSON.parse(httpResponse);
+        },
+        error: function (jqXHR, exception) {
+            /*jqXHR = JSON.parse(jqXHR);*/
+
+            HTTPError.code = jqXHR.status;
+            HTTPError.data = jqXHR;
+            HTTPError.message += "Request http Error: " + url + ", Exception: ";
+
+            // http errors 
+            if (jqXHR.status === 0) {
+                HTTPError.message += 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                HTTPError.message += 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                HTTPError.message += 'Internal Server Error [500].';
+            } else if (jqXHR.status == 401) {
+                HTTPError.message += 'Unauthorized Server Action [401].';
+            }
+
+            // exception errors
+            else if (exception === 'parsererror') {
+                HTTPError.message += 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                HTTPError.message += 'Time out error.';
+            } else if (exception === 'abort') {
+                HTTPError.message += 'Ajax request aborted.';
+            } else {
+                HTTPError.message += jqXHR.responseText;
+            }
+            dataResponse = HTTPError;
+            console.log(HTTPError);
+        }
+    });
+
+    return dataResponse;
+}
+
+function ValidateForm(inputArray = [], reset = false) {
+    var Validate = [];
+
+    if (reset) {
+        const parent = $(item.Jqueryinput).parents(".field")[0];
+        $.each(inputArray, function (i, item) {
+
+            $(parent).find("span.labelvalidator").remove();
+            $(parent).removeClass("error");
+            $(item.Jqueryinput).val("");
+
+        });
+
+        return true;
+    } else {
+        //recorre cada input en array
+        $.each(inputArray, function (i, item) {
+
+            var parent = $(item.Jqueryinput).parents(".field")[0];
+            var empty = false;
+            //crea span item
+            var labelvalidator = document.createElement("span");
+            labelvalidator.className = "labelvalidator";
+            labelvalidator.innerText = item.validateMessage;
+
+            //valida tipo de inpur y si esta vacio 
+            if (item.check == true) { //check box o radio button
+                parent = $(item.Jqueryinput).parents(".checkButton_container")[0];
+
+                if ($(item.Jqueryinput).find(":checked").length == 0) {
+                    empty = true;
+                }
+            }
+            else if (item.file == true) { //input file
+                if ($(item.Jqueryinput).prop("files")[0] == undefined || $(item.Jqueryinput).prop("files")[0] == null) {
+                    empty = true;
+                }
+            }
+            else { //inputs(text,number...), selects
+                if ($(item.Jqueryinput).val() == 0 || $(item.Jqueryinput).val() == null) {
+                    empty = true;
+                }
+            }
+
+            //ajecuta funcionalidad de label
+            if (empty) {
+                if ($(parent).find("span.labelvalidator").length == 0) {
+                    $(parent).append(labelvalidator);
+                }
+
+                $(parent).addClass("error");
+
+                //añade item de status sobre el input actual
+                Validate.push(
+                    { item: item.Jqueryinput, status: false }
+                );
+
+            } else {
+                //si valor de input esta llena remueve spam de error
+                $(parent).find("span.labelvalidator").remove();
+                $(parent).removeClass("error");
+
+                //añade item de status sobre el input actual
+                Validate.push(
+                    { item: item.Jqueryinput, status: true }
+                );
+            }
+
+        });
+
+        //filtra status items en false
+        var statusFilter = jQuery.grep(Validate, function (item, i) {
+            return item.status == false;
+        });
+
+        if (statusFilter.length == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+}
+
+function ClearDropDownItem(DropDown) {
+    $(DropDown).parent().find(".menu").empty();
+    $(DropDown).empty();
+}
+function AddDropDownItem(DropDown, item = { value: 0, text: "" }) {
+
+    $(DropDown).parent().find(".menu").append(
+        `<div class="item" data-value="${item.value}" data-text="${item.text}">${item.text}</div>`
+    );
+    $(DropDown).append(
+        `<option value="${item.value}">${item.text}</option>`
+    );
+}
+
+
+
+
+
+
+
+
+
+
+/* FORMULARIO*/
 $('#Count_ID').change(function () {
 
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var Count_ID = $('#Count_ID').val();
         var cities = response.data;
@@ -50,7 +296,7 @@ $('#Count_ID').change(function () {
 $('#City_ID').change(function () {
 
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var City_ID = $('#City_ID').val();
@@ -77,10 +323,10 @@ function registerUser() {
 
 
     validateArrayForm = [
-        { validateMessage: "Ingrese el DNI.", Jqueryinput: $("#txtDni")},
-        { validateMessage: "Ingrese su nombre", Jqueryinput: $("#txtNombre")},
-        { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido")},
-        { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac")},
+        { validateMessage: "Ingrese el DNI.", Jqueryinput: $("#txtDni") },
+        { validateMessage: "Ingrese su nombre", Jqueryinput: $("#txtNombre") },
+        { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido") },
+        { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac") },
         { validateMessage: "Ingrese su teléfono", Jqueryinput: $("#txtTelefono") },
         { validateMessage: "Ingrese su correo electrónico", Jqueryinput: $("#txtEmail") },
         { validateMessage: "Ingrese una calle", Jqueryinput: $("#Calle") },
@@ -96,7 +342,7 @@ function registerUser() {
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
     var passwordValidator = false;
-    
+
 
     if ($("input[name='gender']:checked").val() == undefined) {
         $("#labelvalidatorSexo").html("Seleccione un sexo.");
@@ -125,7 +371,7 @@ function registerUser() {
         passwordValidator = true;
     }
 
-    
+
 
 
     if (ValidateFormStatus == true && passwordValidator == true && $("input[name='gender']:checked").val() != undefined) {
@@ -137,7 +383,7 @@ function registerUser() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
@@ -168,7 +414,7 @@ function registerUser() {
             //}
 
 
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Users/Insert", data, "POST");
+            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Users/Insert", data, "POST");
 
             if (response.data.codeStatus > 0) {
                 window.location.href = '/Access/LogIn';
