@@ -105,7 +105,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
 
-            var item = new ReservationViewModel();
             var list = await _reservationService.ReservationList(token);
             IEnumerable<ReservationListViewModel> data = (IEnumerable<ReservationListViewModel>)list.Data;
             var element = data.Where(x => x.ID == id).ToList()[0];
@@ -137,8 +136,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Paquetes = new SelectList(data_paquete, "Id", "Nombre", element.Id_Paquete);
 
             ViewData["Reservacion_HotelID"] = element.ReservacionHotelID;
+            ViewData["ReservationID"] = element.ID;
             ViewData["Hotel_ID"] = element.Hotel_ID;
-            ViewData["Usua_ID"] = id;
+            ViewData["Usua_ID"] = element.Id_Cliente;
             ViewData["Reservation"] = element;
 
             return View(element);

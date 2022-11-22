@@ -7,11 +7,10 @@ const CountriesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/
 const HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
 const ReservationHotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
 const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+const ReservationFind = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?Id=" + ReservationID);
 
-
-
-
-
+const params = new URLSearchParams(window.location.search);
+const idReserv = params.get("id");
 
 $("#msgErrorForm").hide();
 $('#standard_calendar').calendar({
@@ -57,14 +56,36 @@ $(document).ready(function () {
     for (var i = 0; i < Users.length; i++) {
         $('#ddlDNI').append('<option value="' + Users[i].id + '">' + Users[i].dni + '</option>');
     };
+    SetDropDownValue($("#ddlDNI"), Usua_ID);
+    SetDropDownValue($("#Resv_CantidadPagos"), ReservationFind.data.cantidadPagos);
+    if (ReservationFind.data.esPersonalizado == true) {
+        SetDropDownValue($("#ddlTipoPaquete"), 1);
+    } else {
+        SetDropDownValue($("#ddlTipoPaquete"), 2);
+    }
 
+
+    const UserID = $("#ddlDNI").val();
+
+    const User = Users.filter(function (userID) {
+        return userID.id == UserID
+    });
+    console.log(User);
+    User[0].fecha_Nacimiento = User[0].fecha_Nacimiento.split("T")[0];
+    User[0].fecha_Nacimiento = User[0].fecha_Nacimiento.split("-").reverse().join("-");
+    $("#txtFechaNacimiento").val(User[0].fecha_Nacimiento);
     //Fill the countries Dropdown
     const Countries = CountriesList.data;
     for (var i = 0; i < Countries.length; i++) {
         $('#ddlPaises').append('<option value="' + Countries[i].id + '">' + '<i class="' + Countries[i].iso.toLowerCase() + ' flag"></i>' + Countries[i].pais + '</option>');
     }
-
-
+    SetDropDownValue($("#ddlPaises"), parseInt(User[0].paisID));
+    FillCities(parseInt(User[0].paisID));
+    SetDropDownValue($("#ddlCiudades"), parseInt(User[0].ciudadID));
+   /* var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?Id=" + idReserv);
+    if (response.code == 200) {
+      
+    }*/
 });
 
 //Hides details for Default packages
@@ -118,6 +139,8 @@ $("#ddlDNI").change(function () {
 $("#ddlPaises").change((_this) => {
     const Country_Id = $(_this.target).val();
     FillCities(Country_Id);
+    console.log($("#ddlPaises").val());
+
 });
 
 
