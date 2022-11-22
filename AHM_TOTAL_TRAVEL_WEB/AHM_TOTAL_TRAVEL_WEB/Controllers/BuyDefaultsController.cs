@@ -103,6 +103,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> defaultPackages()
         {
+            string token = HttpContext.User.FindFirst("Token").Value;
+            int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+
+            var UserData = (UserListViewModel)(await _accessService.UsersFind(User_Id, token)).Data;
+            var UserAddress = (AddressListViewModel)(await _generalService.AddressFind(UserData.DireccionID.ToString(), token)).Data;
+            var ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
+
+            foreach (var item in ciudades)
+                item.Ciudad = $"{item.Pais}, {item.Ciudad}";
+
+            ViewBag.ciudades = new SelectList(ciudades, "ID", "Ciudad");
+            ViewBag.ciudadesResidencia = new SelectList(ciudades, "ID", "Ciudad", UserAddress.ID_Ciudad);
             return View();
         }
     }

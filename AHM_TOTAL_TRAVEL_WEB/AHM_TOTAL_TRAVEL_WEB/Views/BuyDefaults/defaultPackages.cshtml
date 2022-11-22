@@ -5,8 +5,8 @@
 
 @section CSS{
 
-    <link rel="stylesheet" href="~/assets/client/css/animate.min.css">
-    <link rel="stylesheet" href="~/assets/client/css/style.css">
+    @*<link rel="stylesheet" href="~/assets/client/css/animate.min.css">
+    <link rel="stylesheet" href="~/assets/client/css/style.css">*@
 
     <style>
         .carta {
@@ -44,8 +44,21 @@
 <br>
 <br>
 <div class="container">
-
-    <div class="ui segment">
+    <div class="ui attached segment">
+        <div class="fullwidth-block">
+            <div class="container con">
+                Ciudad de origen:
+                <select id="Origen" class="ui dropdown search ma" asp-items="ViewBag.ciudadesResidencia">
+                    <option value="0" selected>Todos</option>
+                </select>
+                Destinos:
+                <select id="Destinos" class="ui dropdown search ma" asp-items="ViewBag.ciudades">
+                    <option value="0" selected>Todos</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="ui attached segment">
         <div class="ui secondary pointing menu" id="navbar_packages">
             <a class="item active" data-target="#frmPackages">PAQUETES</a>
             <a class="item" data-target="#frmTransports">TRANSPORTES</a>
@@ -59,18 +72,33 @@
         <div class="ui segment" id="frmMenu_container">
 
             <div id="frmPackages">
-                <div class="ui grid three columns"></div>
+                <div class="ui grid stackable three columns"></div>
             </div>
 
             <div id="frmTransports">
-                <div class="ui divided items"></div>
+                <div class="ui fluid three item top attached menu" id="frmTransporte_menu">
+                    <a class="item active" data-target="#frmTransportes">TRANSPORTES</a>
+                    <a class="item" data-target="#frmVuelos">VUELOS</a>
+                    <a class="item" data-target="#frmPortuarios">PORTUARIOS</a>
+                </div>
+                <div id="frmTransports_Container">
+                    <div class="ui attached segment" id="frmTransportes">
+                        <div class="ui divided items"></div>
+                    </div>
+                    <div class="ui attached segment" id="frmVuelos">
+                        <div class="ui divided items"></div>
+                    </div>
+                    <div class="ui attached segment" id="frmPortuarios">
+                        <div class="ui divided items"></div>
+                    </div>
+                </div>
             </div>
 
             <div id="frmActivities">
                 <div class="ui divided items"></div>
             </div>
 
-            <div id="frmActivities">
+            <div id="frmDetails">
                 <div class="ui divided items"></div>
             </div>
 
