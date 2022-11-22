@@ -233,14 +233,15 @@
                                     <h3 class="ui block header">
                                         Selecciona algunas actividades para realizar en el hotel
                                     </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="addHotelsExtraActivities()" id="btnHotelsExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="ui btn-edit text-white button" tabindex="0"  id="btnHotelsExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="container-fluid " id="listHotelsExtraActivities">
-                                        <div class="four fields hotelsExtraActivities" data-value="1">
+                                        @*<div class="four fields hotelsExtraActivities" data-value="1">
                                             <div class="field">
                                                 <label>Actividades en el hotel</label>
                                                 <select class="ui dropdown hotelsExtraActivitiesID">
                                                     <option value="">Selecciona una actividad</option>
                                                 </select>
+                                                
                                             </div>
                                             <div class="field">
                                                 <label>Cantidad de personas</label>
@@ -254,7 +255,7 @@
                                                 <label></label>
                                                 <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHotelExtraActivities()" id="btndeleteExtraActivities">+ Añadir una actividad</div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                     
                                 </div>
@@ -264,13 +265,13 @@
                             <div id="frmAddExtraActivities" style="margin-bottom:20px">
                                 <div class="ui segment">
                                     <h3 class="ui block header">
-                                        Selecciona algunas actividades para realizar en el hotel
+                                        Selecciona algunas actividades para realizar <span id="lblZone"></span>
                                     </h3>
                                     <div class="ui btn-edit text-white button" tabindex="0" onclick="addExtraActivities()" id="btnExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="container " id="extraActivities">
                                         <div class="four fields extraActivities" data-value="1">
                                             <div class="field">
-                                                <label>Actividades extras en <span id="lblZone"></span></label>
+                                                <label>Actividades extras </label>
                                                 <select class="ui dropdown extraActivitiesID">
                                                     <option value="">Selecciona una actividad</option>
                                                 </select>
@@ -283,9 +284,9 @@
                                                 <label>Cantidad de personas</label>
                                                 <input type="number" class="extraActivitiesPrice" placeholder="Precio" readonly>
                                             </div>
-                                            <div class="field">
+                                            <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
                                                 <label></label>
-                                                <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteExtraActivities()" id="btnExtraActivities" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">+ Añadir una actividad</div>
+                                                <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteExtraActivities()" id="btnExtraActivities" >+ Añadir una actividad</div>
                                             </div>
                                         </div>
                                     </div>
