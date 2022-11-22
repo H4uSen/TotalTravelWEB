@@ -6,7 +6,11 @@
 @inject IViewLocalizer Localizer;
 @{
     string usersRole = Context.Session.GetString("Role");
-
+    if (String.IsNullOrEmpty(usersRole)) {
+        <script>
+            window.location.replace("/Access/Login");
+        </script>
+    }
 }
 <!DOCTYPE html>
 
@@ -216,14 +220,14 @@
                             </a>
                             @{ if (usersRole != "Cliente")
                                 {
-                                        <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
+                                    <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
                                 }
                             }
                         </div>
                     </a>
                     @{
-                        
-                            
+                       
+
                         if (usersRole == "Administrador")
                         {
                                 <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
