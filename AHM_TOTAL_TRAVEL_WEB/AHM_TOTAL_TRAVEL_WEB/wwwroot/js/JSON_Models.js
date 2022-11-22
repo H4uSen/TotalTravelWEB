@@ -207,6 +207,7 @@ var ScreensViewModel = {
     "perm_Controlador": "",
     "perm_Action": "",
     "modu_ID": 0,
+    "grEN_Id": 0,
     "perm_esVisible": true,
     "perm_UsuarioCreacion": Client_User_ID,
     "perm_UsuarioModifica": Client_User_ID

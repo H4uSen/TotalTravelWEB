@@ -26,10 +26,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ScreenPermissionsViewModel screenPermissions = new ScreenPermissionsViewModel();
             string token = HttpContext.User.FindFirst("Token").Value;
             var ModulesList = (IEnumerable<ModulesListViewModel>)(await _AccessService.ModulesList(token)).Data;
-            ViewBag.modulos = new SelectList(ModulesList, "id_modulo", "modulo");
             var screensList = (IEnumerable<PermissionsListViewModel>)(await _AccessService.PermissionsList(token)).Data;
+            var navbarItemsList = (IEnumerable<navbarItemsListViewModel>)(await _AccessService.navbarItemsList(token)).Data;
+
+            ViewBag.modulos = new SelectList(ModulesList, "id_modulo", "modulo");
+            ViewBag.items = new SelectList(navbarItemsList, "ID", "nombre_grupo");
 
             screenPermissions.Permisos = screensList;
+            screenPermissions.items = navbarItemsList;
             screenPermissions.Modulos = ModulesList;
 
             return View(screenPermissions);

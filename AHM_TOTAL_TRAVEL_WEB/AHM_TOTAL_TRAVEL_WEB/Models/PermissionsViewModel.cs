@@ -9,6 +9,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     {
         public IEnumerable<PermissionsListViewModel> Permisos;
         public IEnumerable<ModulesListViewModel> Modulos;
+        public IEnumerable<navbarItemsListViewModel> items;
     }
 
     public class PermissionsListViewModel

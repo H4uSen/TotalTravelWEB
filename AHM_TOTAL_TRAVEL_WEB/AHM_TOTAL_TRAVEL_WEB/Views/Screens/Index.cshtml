@@ -5,141 +5,186 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br>
-<div class="ui top attached tabular menu" id="menu_Indexs">
-    <a class="item active" data-target="#frmPantallas">Pantallas</a>
-    <a class="item" data-target="#frmModulos">Modulos</a>
-</div>
-<div class="ui bottom attached segment">
+<div class="container card">
+    <br>
+    <div class="ui top attached tabular menu" id="menu_Indexs">
+        <a class="item active" data-target="#frmPantallas">Pantallas</a>
+        <a class="item" data-target="#frmModulos">Modulos</a>
+        <a class="item" data-target="#frmGruposMenu">Grupos de menu</a>
+    </div>
+    <div class="ui bottom attached segment">
 
-    <div class="container card" id="frmPantallas">
-        <div class="ui basic segment">
+        <div class="container" id="frmPantallas">
+            <div class="ui basic segment">
 
-            <div class="ui icon attached message">
-                <i class="icon clock"></i>
-                <div class="content">
-                    <div class="header">
-                        Pantallas
+                <div class="ui icon attached message">
+                    <i class="icon clock"></i>
+                    <div class="content">
+                        <div class="header">
+                            Pantallas
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <br>
-            <div class="ui grid mb-3">
-                <div class="eight wide column">
-                    <a class="ui small btn-purple text-white labeled icon button" id="btnCreateScreen">
-                        <i class="plus icon"></i> Nuevo
-                    </a>
-                </div>
-            </div>
-            <style>
-                table thead tr th {
-                    background-color: #2b2b2b;
-                    color: white;
-                }
-            </style>
-            <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th>
-                            Nombre de pantalla
-                        </th>
-                        <th>
-                            URL de pantalla
-                        </th>
-                        <th width="200px"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Permisos)
-                    {
-                        <tr>
-                            <td>
-                                @item.Descripcion
-                            </td>
-                            <td>
-                                @($"/{item.Controlador}/{item.Action}")
-                            </td>
-
-                            <td>
-                                <button class="ui large icon btn-edit button" onclick="GetPermissions('@item.ID')">
-                                    <i class="pencil alternate icon icon-crud"></i>
-                                </button>
-                                <button class="ui large icon negative button" onclick="DeletePermissions('@item.ID')">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <br>
-
-        </div>
-    </div>
-
-    <div class="container card" id="frmModulos">
-        <div class="ui basic segment">
-
-            <div class="ui icon attached message">
-                <i class="icon clock"></i>
-                <div class="content">
-                    <div class="header">
-                        Modulos
+                <br>
+                <div class="ui grid mb-3">
+                    <div class="eight wide column">
+                        <a class="ui small btn-purple text-white labeled icon button" id="btnCreateScreen">
+                            <i class="plus icon"></i> Nuevo
+                        </a>
                     </div>
                 </div>
-            </div>
-
-            <br>
-            <div class="ui grid mb-3">
-                <div class="eight wide column">
-                    <a class="ui small btn-purple text-white labeled icon button" id="btnCreateModule">
-                        <i class="plus icon"></i> Nuevo
-                    </a>
-                </div>
-            </div>
-            <style>
-                table thead tr th {
-                    background-color: #2b2b2b;
-                    color: white;
-                }
-            </style>
-            <table id="grdModulos" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th>
-                            Nombre de Modulo
-                        </th>
-                        <th width="200px"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Modulos)
-                    {
+                <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
+                    <thead>
                         <tr>
-                            <td>
-                                @item.modulo
-                            </td>
-                            <td>
-                                <button class="ui large icon btn-edit button" onclick="GetModules('@item.id_modulo')">
-                                    <i class="pencil alternate icon icon-crud"></i>
-                                </button>
-                                <button class="ui large icon negative button" onclick="DeleteModulos('@item.id_modulo')">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </button>
-                            </td>
+                            <th>
+                                Nombre de pantalla
+                            </th>
+                            <th>
+                                URL de pantalla
+                            </th>
+                            <th width="200px"></th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <br>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Permisos)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Descripcion
+                                </td>
+                                <td>
+                                    @($"/{item.Controlador}/{item.Action}")
+                                </td>
 
+                                <td>
+                                    <button class="ui large icon btn-edit button" onclick="GetPermissions('@item.ID')">
+                                        <i class="pencil alternate icon icon-crud"></i>
+                                    </button>
+                                    <button class="ui large icon negative button" onclick="DeletePermissions('@item.ID')">
+                                        <i class="trash alternate icon icon-crud"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br>
+
+            </div>
         </div>
-    </div>
 
+        <div class="container" id="frmModulos">
+            <div class="ui basic segment">
+
+                <div class="ui icon attached message">
+                    <i class="icon clock"></i>
+                    <div class="content">
+                        <div class="header">
+                            Modulos
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="ui grid mb-3">
+                    <div class="eight wide column">
+                        <a class="ui small btn-purple text-white labeled icon button" id="btnCreateModule">
+                            <i class="plus icon"></i> Nuevo
+                        </a>
+                    </div>
+                </div>
+                <table id="grdModulos" class="display ui compact selectable celled table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nombre de Modulo
+                            </th>
+                            <th width="200px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Modulos)
+                        {
+                            <tr>
+                                <td>
+                                    @item.modulo
+                                </td>
+                                <td>
+                                    <button class="ui large icon btn-edit button" onclick="GetModules('@item.id_modulo')">
+                                        <i class="pencil alternate icon icon-crud"></i>
+                                    </button>
+                                    <button class="ui large icon negative button" onclick="DeleteModulos('@item.id_modulo')">
+                                        <i class="trash alternate icon icon-crud"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br>
+
+            </div>
+        </div>
+
+        <div class="container" id="frmGruposMenu">
+            <div class="ui basic segment">
+
+                <div class="ui icon attached message">
+                    <i class="icon clock"></i>
+                    <div class="content">
+                        <div class="header">
+                            Grupos de menu
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="ui grid mb-3">
+                    <div class="eight wide column">
+                        <a class="ui small btn-purple text-white labeled icon button" id="btnCreateGroup">
+                            <i class="plus icon"></i> Nuevo
+                        </a>
+                    </div>
+                </div>
+                <table id="grdModulos" class="display ui compact selectable celled table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nombre de Grupos de menu
+                            </th>
+                            <th width="200px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.items)
+                        {
+                            <tr>
+                                <td>
+                                    @item.nombre_grupo
+                                </td>
+                                <td>
+                                    <button class="ui large icon btn-edit button" onclick="GetModules('@item.ID')">
+                                        <i class="pencil alternate icon icon-crud"></i>
+                                    </button>
+                                    <button class="ui large icon negative button" onclick="DeleteModulos('@item.ID')">
+                                        <i class="trash alternate icon icon-crud"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br>
+
+            </div>
+        </div>
+
+    </div>
+    <br>
 </div>
 
-<!-- MODALES PANTALLAS -->
+<!--------------------------- MODALES PANTALLAS --------------------------------->
 <!-- MODAL CREATE SCREEN -->
 <div class="ui modal" id="mdlCreateScreen">
     <i class="close icon"></i>
@@ -186,8 +231,6 @@
     </div>
 
 </div>
-
-
 
 <!-- MODAL UPDATE -->
 <div class="ui modal" id="mdlUpdateScreen">
@@ -236,9 +279,10 @@
     </div>
 
 </div>
-<!-- MODAL UPDATE -->
-<!-- MODALES MODULOS -->
-<!-- MODAL CREATE SCREEN -->
+
+
+<!--------------------------- MODALES MODULOS --------------------------------------->
+<!-- MODAL CREATE -->
 <div class="ui modal" id="mdlCreateModules">
     <i class="close icon"></i>
     <div class="header">
@@ -270,7 +314,7 @@
         <div class="content">
             <div class="required field">
                 <label class="ui label">Nombre del módulo</label>
-                <input id="Modu_Id"/>
+                <input id="Modu_Id" />
                 <input id="txtModuloUpdate" placeholder="Nombre del módulo" />
             </div>
 
@@ -283,6 +327,28 @@
 
 </div>
 
+<!--------------------------- MODALES GRUPOS --------------------------------------->
+<!-- MODAL CREATE -->
+<div class="ui modal" id="mdlCreateGroups">
+    <i class="close icon"></i>
+    <div class="header">
+        Ingresa un módulo
+    </div>
+    <div class="ui form attached fluid segment" id="frmCreateModules">
+        <div class="content">
+            <div class="required field">
+                <label class="ui label">Nombre del módulo</label>
+                <input id="txtNombreGrupo" placeholder="Nombre del grupo" />
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" onclick="createGroup()">Guardar</button>
+        <button class="ui deny button">Cerrar</button>
+    </div>
+
+</div>
 
 @section Scripts{
     <script src="~/js/Screens/Index.js"></script>
