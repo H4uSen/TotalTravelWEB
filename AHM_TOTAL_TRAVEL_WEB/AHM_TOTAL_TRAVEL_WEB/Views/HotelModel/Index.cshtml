@@ -30,25 +30,25 @@
     </style>
 }
 
-<br/>
-<br/>
+<br />
+<br />
 <div class="container">
-   
+
     <div class="ui stackable grid">
 
         <!-- reservation historial section -->
         <div class="five wide column">
             <div class="ui segment" id="asa">
-                    <div class="ui grid" style="width:100%">
-                        
-                            <select id="Estado" class="ui dropdown search" style="width:100%">
-                                <option value="2" selected>Todos</option>
-                                <option value="false">Pendientes</option>
-                                <option value="true">Confirmados</option>
-                            </select>
-                        
-                    </div>
-                    <br />
+                <div class="ui grid" style="width:100%">
+
+                    <select id="Estado" class="ui dropdown search" style="width:100%">
+                        <option value="2" selected>Todos</option>
+                        <option value="false">Pendientes</option>
+                        <option value="true">Confirmados</option>
+                    </select>
+
+                </div>
+                <br />
                 <!-- top reservation filter menu -->
                 <div class="ui cards overflow-auto" style="max-height: 55em;" id="TargetRese">
 
@@ -93,5 +93,12 @@
 
 @section Scripts{
     <script src="~/js/HotelModel/Information.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
 
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+    </script>
 }

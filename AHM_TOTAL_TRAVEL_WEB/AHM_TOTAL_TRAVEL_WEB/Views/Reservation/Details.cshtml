@@ -26,61 +26,65 @@
                 <div class="content">
                     <div class="row">
                         <div class="col">
-                            <div class="field">
-                                <label>Descripcion de paquete</label>
-                                @Html.DisplayFor(model => model.DescripcionPaquete)
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Descripcion de paquete</label>
+                                    @Html.DisplayFor(model => model.DescripcionPaquete)
+                                </div>
+                                <div class="field">
+                                    <label>Numero de personas</label>
+                                    @Html.DisplayFor(model => model.NumeroPersonas)
+                                </div>
+                                <div class="field">
+                                    <label>Cantidad de Pagos</label>
+                                    @Html.DisplayFor(model => model.CantidadPagos)
+                                </div>
                             </div>
-                            <div class="field">
-                                <label>Numero de personas</label>
-                                @Html.DisplayFor(model => model.NumeroPersonas)
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Duracion del Paquete</label>
+                                    @Html.DisplayFor(model => model.DurecionPaquete)
+                                </div>
+                                <div class="field">
+                                    <label>Precio</label>
+                                    @Html.DisplayFor(model => model.precio)
+                                </div>
+                                <div class="field">
+                                    <label>Fecha_Entrada</label>
+                                    @Html.DisplayFor(model => model.Fecha_Entrada)
+                                </div>
                             </div>
-                            <div class="field">
-                                <label>Cantidad de Pagos</label>
-                                @Html.DisplayFor(model => model.CantidadPagos)
-                            </div>
-                            <div class="field">
-                                <label>Duracion del Paquete</label>
-                                @Html.DisplayFor(model => model.DurecionPaquete)
-                            </div>
-                            <div class="field">
-                                <label>Precio</label>
-                                @Html.DisplayFor(model => model.precio)
-                            </div>
-                            <div class="field">
-                                <label>Fecha_Entrada</label>
-                                @Html.DisplayFor(model => model.Fecha_Entrada)
-                            </div>
-                            <div class="field">
-                                <label>Fecha_Salida</label>
-                                @Html.DisplayFor(model => model.Fecha_Salida)
-                            </div>
-                            <div class="field">
-                                <label>Nombre del Hotel</label>
-                                @Html.DisplayFor(model => model.Nombre_Hotel)
-                            </div>
-                            <div class="field">
-                                <label>Nombre del Hotel</label>
-                                @Html.DisplayFor(model => model.Nombre_Hotel)
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Fecha_Salida</label>
+                                    @Html.DisplayFor(model => model.Fecha_Salida)
+                                </div>
+                                <div class="field">
+                                    <label>Nombre del Hotel</label>
+                                    @Html.DisplayFor(model => model.Nombre_Hotel)
+                                </div>
+                              
                             </div>
                             <hr />
-                            <div class="field">
-                                <label>Nombre del Cliente</label>
-                                @Html.DisplayFor(model => model.Nombrecompleto)
-                            </div>
-                            <div class="field">
-                                <label>DNI</label>
-                                @Html.DisplayFor(model => model.DNI)
-                            </div>
-                            <div class="field">
-                                <label>Email</label>
-                                @Html.DisplayFor(model => model.Email)
-                            </div>
-                            <div class="field">
-                                <label>Telefono</label>
-                                @Html.DisplayFor(model => model.Telefono)
+                            <div class="four fields">
+                                <div class="field">
+                                    <label>Nombre del Cliente</label>
+                                    @Html.DisplayFor(model => model.Nombrecompleto)
+                                </div>
+                                <div class="field">
+                                    <label>DNI</label>
+                                    @Html.DisplayFor(model => model.DNI)
+                                </div>
+                                <div class="field">
+                                    <label>Email</label>
+                                    @Html.DisplayFor(model => model.Email)
+                                </div>
+                                <div class="field">
+                                    <label>Telefono</label>
+                                    @Html.DisplayFor(model => model.Telefono)
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <br />
