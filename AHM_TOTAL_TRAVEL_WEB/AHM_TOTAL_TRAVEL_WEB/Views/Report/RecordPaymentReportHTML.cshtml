@@ -28,28 +28,32 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     <style>
-        body {
-            background-color: #e1e1e169;
+        table thead tr th {
+            color: black;
         }
-
-        .boton {
-            margin: 10px;
-            background-color: #efefef;
-            color: #9b9b9b;
-            border: none;
-        }
-
-            .boton:hover {
-                color: rgba(101, 45, 144, 0.9);
-            }
     </style>
 </head>
 <body>
 
+
     <div class="login-page">
 
+        <div class="container card">
+            <div class="ui basic segment">
+
+                <div class="ui icon attached message">
+
+                    <center class="content">
+                        <div class="header">
+                            <u> Reporte de clientes</u>
+                        </div>
+                    </center>
+                    <p></p>
+                </div>
+            </div>
+        </div>
         <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
-            <table id="grdReservacion" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
+            <table id="grdRooms" class="display ui compact selectable celled table" style="width:100%;">
                 <thead>
                     <tr>
                         <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
@@ -67,35 +71,35 @@
 
                     @foreach (var item in Model)
                     {
-                    <tr data-value="@item.ID" data-hotel="@item.Nombre">
-                        <td></td>
+                        <tr data-value="@item.ID" data-hotel="@item.Nombre">
+                            <td></td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MontoPago)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre_Completo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nombre_paquete)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.precio_paquete)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Telefono)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoPago)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DNI)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.descripcion_paquete)
-                        </td>
-                      
-                    </tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MontoPago)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre_Completo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre_paquete)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.precio_paquete)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoPago)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DNI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.descripcion_paquete)
+                            </td>
+
+                        </tr>
                     }
                 </tbody>
             </table>
