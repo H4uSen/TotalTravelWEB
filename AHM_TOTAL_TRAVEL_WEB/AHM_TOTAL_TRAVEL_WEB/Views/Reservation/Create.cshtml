@@ -26,7 +26,7 @@
                             RouteValuesModel routesValues = ViewBag.RouteValues;
                             if (routesValues.IsRedirect)
                             {
-                                            <input id="createdUserID" type="number" value=@routesValues.responseID style="display:none" />
+                                     <input id="createdUserID" type="number" value=@routesValues.responseID style="display:none" />
                             }
                         }
 
@@ -36,7 +36,7 @@
                             Datos generales
                         </h3>
                         
-                        <div class="three fields">
+                        <div class="three fields required">
                             <!--DNI-->
                             
                             <div class="field">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="three fields">
+                        <div class="three fields required">
                             <!--Phone number-->
                             <div class="field">
                                 <label>Teléfono</label>
@@ -91,10 +91,10 @@
                                 Datos generales de la reservación
                             </h3>
                             
-                            <div class="three fields">
+                            <div class="three fields required">
                                 <!--Amount of people-->
                                 <div class="field">
-                                    <label>Cantida de personas</label>
+                                    <label>Cantidad de personas</label>
                                     <input type="number" min="1" max="100" id="Resv_NumeroPersonas" placeholder="Cantidad de personas">
                                 </div>
                                 <!--Amount of payments-->
@@ -113,12 +113,12 @@
                                     <label>Tipo de paquete</label>
                                     <select class="ui search dropdown" id="ddlTipoPaquete">
                                         <option value="">Seleccione un tipo de paquete</option>
-                                        <option value="1">Personalizado</option>
+                                        <option value="1" href="@Url.ActionLink("PersonalizePackages","Reservation")">Personalizado</option>
                                         <option value="2">Nuestras ofertas</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="three fields">
+                            <div class="three fields required">
                                 <!--Filter by countries-->
                                 <div class="field">
                                     <label>Paises</label>
@@ -143,7 +143,7 @@
                                 Selecciona alguno de nuestros paquetes para poder ver sus detalles
                             </h3>
                             <div class="field">
-                                <div class="three fields">
+                                <div class="three fields required">
                                     <!--Select a package-->
                                     <div class="field">
                                         <label>Nuestros paquetes</label>
@@ -204,7 +204,7 @@
 
                                                 </div>
                                                 <div class="content">
-                                                    <h2 >
+                                                    <h2 style="text-align: center;">
                                                         Precio: L. <span  id="lblDefaultPackagePrice" style="font-size: inherit;"></span>
                                                     </h2>
                                                     
@@ -234,7 +234,7 @@
                                     <h3 class="ui block header">
                                         Selecciona algunas actividades para realizar en el hotel
                                     </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0"  id="btnExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="ui btn-edit text-white button" tabindex="0"  id="btnHotelExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="container-fluid " id="listHotelsExtraActivities">
                                         
                                     </div>
@@ -246,9 +246,9 @@
                             <div id="frmAddExtraActivities" style="margin-bottom:20px">
                                 <div class="ui segment">
                                     <h3 class="ui block header">
-                                        Selecciona algunas actividades para realizar <span id="lblZone"></span>
+                                        Selecciona algunas actividades para realizar en <span id="lblZone"></span>
                                     </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="addExtraActivities()" id="btnExtraActv" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="ui btn-edit text-white button" tabindex="0" id="btnExtraActv" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="container " id="listExtraActivities">
                                         
                                     </div>
@@ -295,6 +295,17 @@
             $("#Reservation_Schema").addClass("show");
 
             $("#ReservationTile").addClass("activeTile");
+
+
+        $("#ddlTipoPaquete").change(function () {
+             if ($("#ddlTipoPaquete").val() == 1) {
+                $("#frmDefaultPackages").hide();
+                //window.location.href = "/Reservation/PersonalizePackages";
+                @Url.Action("Create","Reservation",new RouteValuesModel{BackController= "Reservation", BackAction= "Create", IsRedirect = true, Divider="Personalizado"});
+            }
+        });
+
+
         </script>
     }
     

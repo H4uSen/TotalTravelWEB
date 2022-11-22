@@ -53,7 +53,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirstValue("Token");
             try
-            {
+            {   
+                if(routeValues.Divider == "Personalizado")
+                    return RedirectToAction("PersonalizaPackage", "Reservation", routeValues);
+
+
                 ViewBag.RouteValues = routeValues;
 
                 var responseHotelsActivities = await _hotelsService.HotelsActivitiesList(token);
@@ -83,14 +87,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return RedirectToAction("Create", "Users", new RouteValuesModel { BackController = "Reservation", BackAction = "Create", IsRedirect = true });
             }
+            var token = HttpContext.User.FindFirst("Token").Value;
+            List<PaymentRecordListViewModel> payments = (List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data;
+            List<ReservationListViewModel> list = (List<ReservationListViewModel>)(await _reservationService.ReservationList(token)).Data;
+            list.ForEach(item =>
+            {
+                item.AmountOfPayments = (payments.Where(x => x.Id_Reservacion == item.ID)).Count();
+            });
             
-            var token = HttpContext.User.FindFirstValue("Token");
             string UserID = HttpContext.User.FindFirstValue("User_Id");
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
             var result = await _reservationService.ReservationCreate(reservation, token);
             if (result.Success)
             {
-                return View();
+                return View("Index",list);
             }
             else
             {
@@ -225,8 +235,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
-        public async Task<IActionResult> PersonalizePackages()
+        public async Task<IActionResult> PersonalizePackages(RouteValuesModel routeValues)
         {
+            if (routeValues.IsRedirect)
+            { 
+                ViewBag.RouteValues = routeValues;
+            }
             string token = HttpContext.User.FindFirst("Token").Value;
             int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
 

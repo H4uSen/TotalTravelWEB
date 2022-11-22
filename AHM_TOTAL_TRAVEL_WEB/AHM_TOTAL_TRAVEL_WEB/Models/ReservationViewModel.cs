@@ -11,7 +11,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 {
     public class ReservationViewModel
     {
-
+        
         [DisplayName("ID")]
         public int Resv_ID { get; set; }= 0;
         [DisplayName("Cliente")]
@@ -33,6 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         [DefaultValue(false)]
         public bool? Resv_ConfirmacionTrans { get; set; } = false;
         public bool CrearUsuario { get; set; } = false;
+        public bool CrearPersonalizado { get; set; } = false;
         public decimal? Resv_Precio { get; set; }
         public int? Resv_UsuarioCreacion { get; set; } = 0;
         public int? Resv_UsuarioModifica { get; set; } = 0;
@@ -44,9 +45,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
         //Need this in order to make a reservation of a custom package
         public int? Hote_ID { get; set; }
-        public List<ReservationExtraActivitiesViewModel> ActividadesExtras { get; set; } = null;
-        public List<ReservationRestaurantsViewModel> Restaurantes { get; set; } = null;
-        public List<ReservationActivitiesHotelsViewModel> ActividadesHoteles { get; set; } = null;
+        public List<ReservacionesActividadesExtras> ActividadesExtras { get; set; } = null;
+        public List<ReservacionRestaurantes> Restaurantes { get; set; } = null;
+        public List<ReservacionesActividadesHoteles> ActividadesHoteles { get; set; } = null;
+        public List<ReservacionHabitaciones> Resv_Habitaciones { get; set; } = null;
         public int? TipoPago { get; set; }
         public int? Habi_ID { get; set; }
         public int? Habi_Cantidad { get; set; }
@@ -56,6 +58,55 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
 
         public List<int> ID_HotelsActivities { get; set; }
         public List<int> ID_ExtrasActivities { get; set; }
+
+
+        #region Crea las clases de las listas de arriba
+        public class ReservacionesActividadesExtras
+        {
+            public int ReAE_ID { get; set; }
+            public int? AcEx_ID { get; set; }
+            public decimal ReAE_Precio { get; set; }
+            public int? ReAE_Cantidad { get; set; }
+            public DateTime? ReAE_FechaReservacion { get; set; }
+            public string ReAE_HoraReservacion { get; set; }
+        }
+        public class ReservacionRestaurantes
+        {
+            public int ReRe_ID { get; set; }
+            public int? Resv_ID { get; set; }
+            public int? Rest_ID { get; set; }
+            public DateTime? ReRe_FechaReservacion { get; set; }
+            public string ReRe_HoraReservacion { get; set; }
+        }
+        public class ReservacionesActividadesHoteles
+        {
+            public int ReAH_ID { get; set; }
+            public int? HoAc_ID { get; set; }
+            public decimal? ReAH_Precio { get; set; }
+            public int? ReAH_Cantidad { get; set; }
+            public DateTime? ReAH_FechaReservacion { get; set; }
+            public string ReAH_HoraReservacion { get; set; }
+        }
+        //public class ReservacionTransporte
+        //{
+        //    public int ReTr_ID { get; set; }
+        //    public int? Detr_ID { get; set; }
+        //    public int? ReTr_CantidadAsientos { get; set; }
+        //    public bool? ReTr_Cancelado { get; set; }
+        //    public DateTime? ReTr_FechaCancelado { get; set; }
+
+        //    public ReservacionTransporte()
+        //    {
+        //        ReTr_Cancelado = false;
+        //    }
+        //}
+        public class ReservacionHabitaciones
+        {
+            public int ReDe_ID { get; set; }
+            public int Habi_ID { get; set; }
+            public int Habi_Cantidad { get; set; }
+        }
+        #endregion
     }
     public class ReservationListViewModel
     {
