@@ -2,6 +2,7 @@
 var ActivitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
 var DetailsTransportationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/List");
 var CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -423,6 +424,34 @@ const fill_data = {
     }
 }
 
+function CancelarReservacion(idRT) {
+    var ReserDataT = Reservacion.data.filter(x => x.id == idRT)[0];
+    var Email = EmailSendModel;
+    Email.to = ReserDataT.email;
+    Email.toName = ReserDataT.nombrecompleto;
+    Email.subject = "Estado de la reservación del transporte";
+    Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación de transporte en la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];
+
+    var SendEmail;
+    if (RData.resv_ConfirmacionTrans == true) {
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    }
+    else {
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    }
+
+   
+    if (SendEmail.code == 200) {
+        window.location.href = '/BuyDefaults/Index?success=true';
+    }
+    else {
+        console.log(status.message)
+    }
+
+
+
+}
+
 function FinalizarCompra(paquetes, actividades, transportes, total) {
 
     var reservation = ReservationCreateViewModel.reservacion;
@@ -462,10 +491,13 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
             const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
             console.log(response);
             if (response > 0) {
-                const capsula1 = () => {
-                    window.location.href = '/BuyDefaults/Index';
-                };
-                sweetAlerts();
+                var idres = response.data.codeStatus;
+                CancelarReservacion(idres);
+               
+              
+
+
+
             }
         /*}*/
     }
