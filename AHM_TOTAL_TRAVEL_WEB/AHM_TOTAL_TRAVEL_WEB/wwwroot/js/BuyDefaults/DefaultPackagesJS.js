@@ -33,7 +33,7 @@ const fill_data = {
                 const images = item.image_URL.split(',');
 
                 const card =
-                    `<div class="column room_item" data-value="16">
+                    `<div class="column package_item" data-value="16">
                         <div class="ui card" style="width:100%; height:100%;">
                             <div class="image">
                                 <img src="${images[0]}" alt="" style="height:200px;">
@@ -85,8 +85,11 @@ const fill_data = {
 
                     $(_this_button.target).addClass("positive").removeClass("primary");
                     $(_this_button.target).html('RESERVADO <i class="right chevron icon"></i>');
+
+                    $("#navbar_packages #pay_item").addClass("menu_item").removeClass("disabled");
                 }
                 else {
+                    $("#navbar_packages #pay_item").removeClass("menu_item").addClass("disabled");
                     $(_this_button.target).attr("data-selected", "false");
 
                     $(_this_button.target).removeClass("positive").addClass("primary");
@@ -414,6 +417,356 @@ const fill_data = {
     }
 }
 
+const getDetails = {
+
+    getDetails_main: function () {
+        const Packages = this.getPackages();
+        const Activities = this.getActivities();
+        const transports = this.getTransport();
+
+
+        if (Packages.data.length > 0) {
+
+            // fill packages details
+            $("#frmPackagesDetail .ui.grid").empty();
+            for (var i = 0; i < Packages.cards.length; i++) {
+                $("#frmPackagesDetail .ui.grid").append(Packages.cards[i]);
+            }
+
+            //fill activities details
+            $("#frmActivitiesDetail").hide();
+            if (Activities.data.length > 0) {
+                $("#frmActivitiesDetail .ui.grid").empty();
+                for (var i = 0; i < Activities.cards.length; i++) {
+                    $("#frmActivitiesDetail .ui.grid").append(Activities.cards[i]);
+                }
+                $("#frmActivitiesDetail").show();
+            }
+
+            //fill transport details
+            $("#frmTransportDetail").hide();
+            if (transports.data.length > 0) {
+                $("#frmTransportDetail .ui.grid").empty();
+                for (var i = 0; i < transports.cards.length; i++) {
+                    $("#frmTransportDetail .ui.grid").append(transports.cards[i]);
+                }
+                $("#frmTransportDetail").show();
+            }
+
+            // crea desgloce final
+            const total_price = Activities.subtotal + transports.subtotal + Packages.subtotal;
+            $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).empty();
+            $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).append(
+                `<div class="card">
+                    <div class="card-header">
+                        <h3 class="h4 mb-0">Desglose</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-sm-7">
+                                <p class="text-sm">ACTIVIDADES</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-sm" align="right">L ${Activities.subtotal.toFixed(2)}</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p class="text-sm">TRANSPORTE</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-sm" align="right">L ${transports.subtotal.toFixed(2)}</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p class="text-sm">PAQUETE DE VIAJE</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-sm" align="right">L ${Packages.subtotal.toFixed(2)}</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p class="text-sm">I.S.V</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-sm" align="right">L 0.00</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p class="text-md"><b>TOTAL</b></p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-md" align="right"><b>L ${total_price.toFixed(2)}</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
+
+        } else {
+            $("#frmPackagesDetail .ui.grid").append(
+                `<div class="sixteen wide column">
+                    <div class="ui negative message">
+                        <div class="header">Selecciona un paquete</div>
+                    </div>
+                </div>`
+            )
+        }
+    },
+
+    getPackages: function () {
+        var response = {
+            data: [],
+            cards: [],
+            subtotal: 0
+        };
+
+        const selectedPackage = $(".package_item .package_button_trigger[data-selected='true']").eq(0);
+        const package_id = $(selectedPackage).attr("data-value");
+        const packages = packagesList.data;
+        const package = packages.filter(x => x.id == package_id)[0];
+        const place = CitiesList.data.filter(x => x.id == package.ciudad_ID)[0];
+        response.subtotal = parseFloat(package.precio);
+        const duracion =
+            `${package.duracion_Paquete} dias y ${parseInt(package.duracion_Paquete) == 1 ? 1 : parseInt(package.duracion_Paquete) - 1} noches`;
+
+        const images = package.image_URL.split(",");
+        const card =
+            `<div class="ten wide column">
+                <div class="ui items">
+                    <div class="item">
+                        <div class="image">
+                            <img src="${images[0]}">
+                        </div>
+                        <div class="content" style="width: inherit;">
+                            <h2>${package.nombre}</h2>
+                            <div class="description">${package.descripcion_Paquete}</div>
+                            <div class="extra">
+                                <h4>
+                                    - Para ${package.cantidad_de_personas} personas<br>
+                                    - ${duracion}<br>
+                                </h4>
+                                <div class="ui label">
+                                    <i class="map marker icon"></i>
+                                    ${place.pais.toUpperCase()}, ${place.ciudad.toUpperCase()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="six wide column">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h4 mb-0">Desglose</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <p class="text-sm">I.S.V</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-sm" align="right">L 0.00</p>
+                            </div>
+                            <div class="col-sm-7">
+                                <p class="text-md"><b>SUBTOTAL</b></p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p class="text-md" align="right"><b>L ${parseFloat(package.precio).toFixed(2)}</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+        response.cards.push(card);
+        response.data.push(package);
+
+        return response;
+    },
+
+    getActivities: function () {
+
+        var response = {
+            data: [],
+            cards: [],
+            subtotal: 0
+        };
+
+        const activities = ActivitiesList.data;
+        const activitiesButtons = $(".activity_item .activity_trigger_button[data-selected='true']");
+
+        $.each(activitiesButtons, function (i, item) {
+
+            const container = $(item).parents(".activitiesExtra_form_content");
+            const id_activity = $(item).attr("data-value")
+            const activity = activities.filter(x => x.id == id_activity)[0];
+
+            const model = {
+                "acEx_ID": activity.id,
+                "reAE_ID": 0,
+                "reAE_Precio": activity.precio,
+                "reAE_Cantidad": parseInt($(container).find(".ExtraActivity_contador input").val()),
+                "reAE_FechaReservacion": new Date($(container).find(".activities_fecha input").val()).toISOString(),
+                "reAE_HoraReservacion": "string"
+            };
+            const subtotal = parseInt(model.reAE_Cantidad) * parseFloat(activity.precio);
+
+            const images = activity.imageURL.split(",");
+            const fecha = GetDateFormat({ string_date: model.reAE_FechaReservacion, hour_format: 12, date_format: "large" });
+            const card =
+                `<div class="ten wide column">
+                    <div class="ui items">
+                        <div class="item">
+                            <div class="image">
+                                <img src="${images[0]}">
+                            </div>
+                            <div class="content" style="width: inherit;">
+                                <a class="header">${activity.actividad}</a>
+                                <div class="description">
+                                    <b class="ui blue header">- Reservado para el dia ${fecha.datetime}</b><br>
+                                    <b class="ui header">- Reservado para ${model.reAE_Cantidad} personas</b>
+                                </div>
+                                <div class="extra">
+                                    <h3 class="ui green header">L ${parseFloat(activity.precio).toFixed(2)} por persona</h3>
+                                    <h2 class="ui header" style="text-align: end;">
+                                        SUB TOTAL: <b style="color:green">L ${subtotal.toFixed(2)}</b>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="h4 mb-0">Desglose</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p class="text-sm">I.S.V</p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="text-sm" align="right">L 0.00</p>
+                                </div>
+                                <div class="col-sm-7">
+                                    <p class="text-md"><b>SUBTOTAL</b></p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="text-md" align="right"><b>L ${subtotal.toFixed(2)}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+            response.subtotal += subtotal;
+            response.data.push(model);
+            response.cards.push(card);
+        });
+
+        return response;
+    },
+
+    getTransport: function () {
+        var response = {
+            data: [],
+            cards: [],
+            subtotal: 0
+        };
+
+        const transports = DetailsTransportationList.data;
+        const transportsButtons = $(".transport_item .transport_trigger_button[data-selected='true']");
+
+        $.each(transportsButtons, function (i, item) {
+
+            const container = $(item).parents(".transport_form_content");
+            const id_transport = $(item).attr("data-value")
+            const transport = transports.filter(x => x.id == id_transport)[0];
+
+            const ciudadSalida = CitiesList.data.filter(item => item.id == transport.ciudad_Salida_ID)[0];
+            const ciudadDestino = CitiesList.data.filter(item => item.id == transport.ciudad_Llegada_ID)[0];
+
+            const hora_salida =
+                transport.hora_Salida.split(":")[0] > 12
+                    ? transport.hora_Salida + " PM"
+                    : transport.hora_Salida + " AM"
+
+            const model = {
+                "detr_ID": 0,
+                "reTr_CantidadAsientos": parseInt($(container).find(".transport_contador input").val()),
+                "reTr_Cancelado": false,
+                "reTr_FechaCancelado": new Date($(container).find(".transport_fecha input").val()).toISOString()
+            };
+
+            const subtotal = parseFloat(transport.precio) * parseInt(model.reTr_CantidadAsientos);
+
+            const images = transport.image_URL.split(",");
+            const fecha = GetDateFormat({ string_date: model.reTr_FechaCancelado, hour_format: 12, date_format: "large" });
+            const card =
+                `<div class="ten wide column">
+                    <div class="ui items">
+                        <div class="item">
+                            <div class="image">
+                                <img src="https://apitotaltravel.azurewebsites.net/Images/${images[0]}">
+                            </div>
+                            <div class="content" style="width: inherit;">
+                                <h2>${transport.parter}</h2>
+                                <div class="description">
+                                    <b class="ui blue header">- Reservado para el dia ${fecha.datetime}</b><br>
+                                    <b class="ui header">- ${model.reTr_CantidadAsientos} asientos reservados</b>
+                                    <h4 class="ui blue header">
+                                        <i class="calendar check icon"></i>
+                                        Hora de salida: ${hora_salida}
+                                    </h4>
+                                </div>
+                                <div class="extra">
+                                    <div class="ui label">
+                                        <i class="map marker icon"></i> ${ciudadSalida.pais}, ${ciudadSalida.ciudad}
+                                    </div>
+                                    <div class="ui label">
+                                        <i class="map marker alternate icon"></i> ${ciudadDestino.pais}, ${ciudadDestino.ciudad}
+                                    </div>
+                                    <h3 class="ui green header">L ${parseFloat(transport.precio).toFixed(2)} por asiento</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="h4 mb-0">Desglose</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p class="text-sm">I.S.V</p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="text-sm" align="right">L 0.00</p>
+                                </div>
+                                <div class="col-sm-7">
+                                    <p class="text-md"><b>SUBTOTAL</b></p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="text-md" align="right"><b>L ${subtotal.toFixed(2)}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+            response.subtotal += subtotal;
+            response.data.push(model);
+            response.cards.push(card);
+        });
+
+        return response;
+    },
+}
+
 //------------------------------------------- INIZIALIZE ------------------------------------------
 
 $("#frmTransports").hide();
@@ -423,11 +776,24 @@ fill_data.fillMain($("#Origen").val());
 
 //------------------------------------------- EVENTS ------------------------------------------
 
-$("#navbar_packages .item").click(function (_this) {
-    $("#navbar_packages .item").removeClass("active");
+$("#navbar_packages #pay_item").click(function (_this) {
+    if ($(_this.target).hasClass("menu_item")) {
+
+        $("#navbar_packages .menu_item").removeClass("active");
+        $(_this.target).addClass("active");
+        $("#frmPackages").hide();
+        $("#frmTransports").hide();
+        $("#frmActivities").hide();
+        $("#frmDetails").show();
+        getDetails.getDetails_main();
+    }
+});
+
+$("#navbar_packages .menu_item").click(function (_this) {
+    $("#navbar_packages .menu_item").removeClass("active");
     $(_this.target).addClass("active");
 
-    $.each($("#navbar_packages .item"), (i, item) => {
+    $.each($("#navbar_packages .menu_item"), (i, item) => {
         const object = $(item).attr("data-target");
         $(`#frmMenu_container ${object}`).hide();
     });
@@ -451,6 +817,7 @@ $("#frmTransporte_menu .item").click(function (_this) {
 
 $("#Destinos").change(function (_this) {
     if ($("#Destinos").val() != 0) {
+
         fill_data.fillMain($("#Origen").val(), $("#Destinos").val());
     }
 });
