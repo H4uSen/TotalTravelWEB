@@ -9,7 +9,6 @@
         #a {
             margin: -3.150em .0em !important;
         }
-
     </style>
 }
 <h1>Reporte Reservaciones</h1>
@@ -44,8 +43,8 @@
                     </div>
                 </div>
             </div><div class="ui segment form">
-                <a href="@Url.Action("ReservacionesReportPDF", "Report", new { ReportTiype = "1" })" class="ui button icon">PDF <i class="file pdf icon"></i></a>
-                <a href="@Url.Action("ReservacionesReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "TransportReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("ReservacionesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
             <br>
@@ -54,7 +53,7 @@
             <div class="card" id="a">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("ReservacionesReportPDF", "Report", new { ReportTiype = "1" })" frameborder="0" height="650" id="ifrReport"></iframe>
+                    <iframe src="" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>
@@ -84,7 +83,19 @@
 
     <script>
         const action = "ReservacionesReportPDF";
+        const DataSourceIndex = 6;
+        var HMTLFile = "ReservacionesReportHTML";
     </script>
 
     <script src="~/js/Reports/ReservationReports.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var reportParameter = reportCreation;
+            reportParameter.ReportName = "ReporteReservacionesPDF";
+            reportParameter.HTMLFile = HMTLFile;
+            reportParameter.DataSourceIndex = DataSourceIndex;
+            fillIFrame(reportParameter);
+        });
+    </script>
 }

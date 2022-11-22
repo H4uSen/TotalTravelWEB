@@ -385,24 +385,30 @@ const fill_data = {
             }
 
             $("button.transport_trigger_button").click(function (_this) {
-
+                var container = $(_this.target).parents(".transport_form_content").eq(0);
                 const selected = $(_this.target).attr("data-selected");
-                //set default
-                $("button.transport_trigger_button").addClass("primary").removeClass("positive");
-                $("button.transport_trigger_button").attr("data-selected", "false");
-                $("button.transport_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
-
-                if (selected == "true") {
-
-                    $(_this.target).attr("data-selected", "false");
-                    $(_this.target).addClass("primary").removeClass("positive");
-                    $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
-                } else {
-
-                    $(_this.target).attr("data-selected", "true");
-                    $(_this.target).removeClass("primary").addClass("positive");
-                    $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
+                if ($(container).find(".transport_fecha input").eq(0).val() == 0) {
+                    iziToastAlert("!campo: fecha de transporte requerida!", "", "error");
                 }
+                else {
+                    //set default
+                    $("button.transport_trigger_button").addClass("primary").removeClass("positive");
+                    $("button.transport_trigger_button").attr("data-selected", "false");
+                    $("button.transport_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
+
+                    if (selected == "true") {
+
+                        $(_this.target).attr("data-selected", "false");
+                        $(_this.target).addClass("primary").removeClass("positive");
+                        $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
+                    } else {
+
+                        $(_this.target).attr("data-selected", "true");
+                        $(_this.target).removeClass("primary").addClass("positive");
+                        $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
+                    }
+                }
+                
             });
             $('.transport_fecha').calendar({
                 type: 'date',
@@ -417,6 +423,54 @@ const fill_data = {
     }
 }
 
+function FinalizarCompra(paquetes, actividades, transportes, total) {
+
+    var reservation = ReservationCreateViewModel.reservacion;
+
+    const reservationValidateArray = [
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#dateRangePicker") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#personas") },
+        { validateMessage: "Campo requerido ", Jqueryinput: $("#txtCantidadPagos") },
+    ];
+
+    const reservationValidate = ValidateForm(reservationValidateArray);
+
+    // create reservation model
+    if (reservationValidate) {
+
+        reservation.resv_esPersonalizado = false;
+        reservation.actividadesExtras = actividades;
+        reservation.reservacionTransportes = transportes;
+        reservation.paqu_ID = parseInt(paquetes);
+        reservation.resv_UsuarioCreacion = Client_User_ID;
+        reservation.resv_CantidadPagos = parseInt($("#frmCreateReservation #txtCantidadPagos").val());
+        reservation.resv_NumeroPersonas = parseInt($("#frmCreateReservation #personas").val());
+        reservation.tipoPago = parseInt($("#frmCreateReservation #cbbFormaPago").val());
+        reservation.resv_Precio = parseFloat(total);
+        reservation.usua_ID = Client_User_ID;
+        reservation.reHo_FechaEntrada = $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
+        reservation.reHo_FechaSalida = $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
+
+        //ReservationInsert();
+
+        //function ReservationInsert() {
+            //const SendToken = true;
+            //const method = "POST";
+            //const data = reservation;
+            //const url = "/BuyDefaults/Create"
+            //const response = uploadFile(url, reservation, method);
+            const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
+            console.log(response);
+            if (response > 0) {
+                const capsula1 = () => {
+                    window.location.href = '/BuyDefaults/Index';
+                };
+                sweetAlerts();
+            }
+        /*}*/
+    }
+}
+
 const getDetails = {
 
     getDetails_main: function () {
@@ -424,7 +478,7 @@ const getDetails = {
         const Activities = this.getActivities();
         const transports = this.getTransport();
 
-
+        //$("#frmBreakdownDetail #grdBreakdown").empty();
         if (Packages.data.length > 0) {
 
             // fill packages details
@@ -453,7 +507,55 @@ const getDetails = {
                 $("#frmTransportDetail").show();
             }
 
+            ////calendario
+            //const paqueteDuracion = Packages.data.duracion_Paquete - 1;
+            //$('#dateRangePicker').daterangepicker({
+            //    "maxSpan": {
+            //        "days": paqueteDuracion
+            //    },
+            //    "locale": {
+            //        "format": "DD/MM/YYYY",
+            //        "separator": " - ",
+            //        "applyLabel": "Aplicar",
+            //        "cancelLabel": "Cancelar",
+            //        "fromLabel": "Desde",
+            //        "toLabel": "Hasta",
+            //        "customRangeLabel": "Personalizado",
+            //        "weekLabel": "S",
+            //        "daysOfWeek": [
+            //            "Lun",
+            //            "Mar",
+            //            "Mie",
+            //            "Jue",
+            //            "Vie",
+            //            "Sab",
+            //            "Dom"
+            //        ],
+            //        "monthNames": [
+            //            "Enero",
+            //            "Febrero",
+            //            "Marzo",
+            //            "Abril",
+            //            "Mayo",
+            //            "Junio",
+            //            "Julio",
+            //            "Agosto",
+            //            "Septiembre",
+            //            "Octubre",
+            //            "Noviembre",
+            //            "Diciembre"
+            //        ],
+            //        "firstDay": 1
+            //    },
+            //    "startDate": "11/01/2022",
+            //    "endDate": "11/01/2022"
+            //}, function (start, end, label) {
+            //    //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+            //});
+
             // crea desgloce final
+
+            //const paqueteId = Packages.data.package_id;
             const total_price = Activities.subtotal + transports.subtotal + Packages.subtotal;
             $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).empty();
             $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).append(
@@ -500,8 +602,15 @@ const getDetails = {
                             </div>
                         </div>
                     </div>
-                </div>`
+                </div>
+                `
             );
+
+            $("#btnFinalizar").off('click');
+            $("#btnFinalizar").on('click', function () {
+                console.log("click");
+                FinalizarCompra(Packages.idPaquete, Activities.data, transports.data, total_price);
+            });
 
         } else {
             $("#frmPackagesDetail .ui.grid").append(
@@ -518,7 +627,8 @@ const getDetails = {
         var response = {
             data: [],
             cards: [],
-            subtotal: 0
+            subtotal: 0,
+            idPaquete: 0
         };
 
         const selectedPackage = $(".package_item .package_button_trigger[data-selected='true']").eq(0);
@@ -527,6 +637,7 @@ const getDetails = {
         const package = packages.filter(x => x.id == package_id)[0];
         const place = CitiesList.data.filter(x => x.id == package.ciudad_ID)[0];
         response.subtotal = parseFloat(package.precio);
+        response.idPaquete = parseInt(package.id);
         const duracion =
             `${package.duracion_Paquete} dias y ${parseInt(package.duracion_Paquete) == 1 ? 1 : parseInt(package.duracion_Paquete) - 1} noches`;
 
@@ -629,9 +740,6 @@ const getDetails = {
                                 </div>
                                 <div class="extra">
                                     <h3 class="ui green header">L ${parseFloat(activity.precio).toFixed(2)} por persona</h3>
-                                    <h2 class="ui header" style="text-align: end;">
-                                        SUB TOTAL: <b style="color:green">L ${subtotal.toFixed(2)}</b>
-                                    </h2>
                                 </div>
                             </div>
                         </div>
@@ -820,6 +928,52 @@ $("#Destinos").change(function (_this) {
 
         fill_data.fillMain($("#Origen").val(), $("#Destinos").val());
     }
+});
+
+//calendario
+const paqueteDuracion = $("#frmCreateReservation #duracion").val() - 1;
+$('#dateRangePicker').daterangepicker({
+    "maxSpan": {
+        "days": paqueteDuracion
+    },
+    "locale": {
+        "format": "DD/MM/YYYY",
+        "separator": " - ",
+        "applyLabel": "Aplicar",
+        "cancelLabel": "Cancelar",
+        "fromLabel": "Desde",
+        "toLabel": "Hasta",
+        "customRangeLabel": "Personalizado",
+        "weekLabel": "S",
+        "daysOfWeek": [
+            "Lun",
+            "Mar",
+            "Mie",
+            "Jue",
+            "Vie",
+            "Sab",
+            "Dom"
+        ],
+        "monthNames": [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ],
+        "firstDay": 1
+    },
+    "startDate": "11/01/2022",
+    "endDate": "11/01/2022"
+}, function (start, end, label) {
+    //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 });
 
 //------------------------------------------- FUNCTIONS ------------------------------------------

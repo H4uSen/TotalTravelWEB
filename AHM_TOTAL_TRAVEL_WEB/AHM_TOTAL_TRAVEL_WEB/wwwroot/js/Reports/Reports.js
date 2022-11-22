@@ -113,7 +113,7 @@ function getFilter() {
     }
 
     FillDropDown(dropdownData1);
-    $("#cbbValor").dropdown();
+        $("#cbbValor").dropdown();
 
     $("#cbbFiltro").change(() => {
 
@@ -163,13 +163,19 @@ function getTipoParnet() {
         }
 
         FillDropDown(dropdownData);
-        $("#cbbValor").dropdown();
+       // $("#cbbValor").dropdown();
 
         $("#cbbValor").change(function () {
             //setea el valor de el parametro de filtro (ID)
             iframeData.routeValue = $("#cbbValor").val();
-            const url = `/Report/${iframeData.action}?filtervalue=${iframeData.routeValue}&filtertype=${iframeData.filterType}`;
-            $("#ifrReport").prop("src", url);
+            var reportParameter = reportCreation;
+            reportParameter.HTMLFile = HMTLFile;
+            reportParameter.DataSourceIndex = DataSourceIndex
+            reportParameter.FilterType = iframeData.filterType;
+            reportParameter.FilterValue = parseInt(iframeData.routeValue);
+
+            fillIFrame(reportParameter);
+
         });
     }
 }

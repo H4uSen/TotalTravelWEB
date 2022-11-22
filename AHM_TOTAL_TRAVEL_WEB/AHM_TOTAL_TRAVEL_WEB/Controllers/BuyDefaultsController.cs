@@ -71,12 +71,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View(detalle);
         }
-        public async Task<IActionResult> Comprar(string id)
-        {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var detalle = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
-            return View(detalle);
-        }
 
         public async Task<IActionResult> Transport()
         {
@@ -108,6 +102,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var UserData = (UserListViewModel)(await _accessService.UsersFind(User_Id, token)).Data;
             var UserAddress = (AddressListViewModel)(await _generalService.AddressFind(UserData.DireccionID.ToString(), token)).Data;
+            ViewData["Correo"] = UserData.Email;
+
+            var tiposPagos = (IEnumerable<TipeofpayListViewModel>)(await _saleServices.PaymentTypesList()).Data;
+
+            ViewBag.MetodosPagos = new SelectList(tiposPagos, "ID", "Descripcion");
+
             var ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
 
             foreach (var item in ciudades)

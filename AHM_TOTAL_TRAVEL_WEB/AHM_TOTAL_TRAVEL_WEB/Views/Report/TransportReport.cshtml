@@ -37,7 +37,7 @@
             </div>
             <div class="ui segment form">
                     <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 1, HTMLFile = "TransportReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
-                    <a href="@Url.Action("TransportReportPDF", "Report", new ReportCreationModel{DataSourceIndex= 1, HTMLFile = "TransportReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+                    <a href="@Url.Action("TransportReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 1, HTMLFile = "TransportReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
             <br>
@@ -78,6 +78,8 @@
 
     <script>
         const action = "TransportReportPDF";
+        const DataSourceIndex = 1;
+        var HMTLFile = "TransportReportHTML";
     </script>
 
     <script src="~/js/Reports/Reports.js"></script>
@@ -86,8 +88,8 @@
 
             var reportParameter = reportCreation;
             reportParameter.ReportName = "ReporteTransportesPDF";
-            reportParameter.HTMLFile = "TransportReportHTML";
-            reportParameter.DataSourceIndex = 1;
+            reportParameter.HTMLFile = HMTLFile;
+            reportParameter.DataSourceIndex = DataSourceIndex;
             fillIFrame(reportParameter);
         });
     </script>
