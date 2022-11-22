@@ -38,10 +38,19 @@
         <!-- reservation historial section -->
         <div class="five wide column">
             <div class="ui segment" id="asa">
+                <div class="ui grid" style="width:100%">
 
+                    <select id="Estado" class="ui dropdown search" style="width:100%">
+                        <option value="2" selected>Todos</option>
+                        <option value="false">Pendientes</option>
+                        <option value="true">Confirmados</option>
+                    </select>
+
+                </div>
+                <br />
                 <!-- top reservation filter menu -->
                 <div class="ui cards overflow-auto" style="max-height: 55em;" id="tarjetaT">
-                    
+
                 </div>
 
             </div>
@@ -81,6 +90,14 @@
 </div>
 
 @section Scripts{
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+    </script>
     <script src="~/js/TransportModule/Information.js"></script>
 
 }
