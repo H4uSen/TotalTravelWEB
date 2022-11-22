@@ -152,6 +152,7 @@ $("#Paqu_ID").change(function () {
     }
 
     $('#dateRangePicker').daterangepicker({
+        "minDate": new Date(),
         "maxSpan": {
             "days": paqueteDuracion
         },
@@ -195,10 +196,97 @@ $("#Paqu_ID").change(function () {
         //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
 
-
+    $("#listHotelsExtraActivities").empty();
+    hotelActvExtraForm();
     
 });
 
+//Fill the activities extra form
+function ActvExtraForm() {
+    const DefaultPackages = DefaultPackagesList.data;
+    const Hotels = HotelsList.data;
+
+    const DefaultPackagesDetails = DefaultPackagesDetailsList.data;
+    const PackageID = $("#Paqu_ID").val();
+
+    const DefaultPackage = DefaultPackages.filter(function (Package) {
+        return Package.id == PackageID
+    });
+
+    
+
+    const DefaultPackageAct = DefaultPackagesDetails.filter(function (PackageDetails) {
+        return PackageDetails.paqueteID == PackageID
+    });
+
+    const package = DefaultPackage[0];
+
+    
+    //Activities Extras in the hotel
+    const ActvExtra = ActvExtraList.data.filter((x) => { return x.ciudadID == $("#ddlCiudades").val(); });
+
+    $("#listExtraActivities").append(`
+<div class="four fields " id="extraActivitiesID`+ CantidadActvExtra + `">
+    <div class="field">
+        <label>Actividades en el hotel</label>
+        <select class="ui dropdown" id="ddlextraActivities`+ CantidadActvExtra + `">
+            
+        </select>
+                                                
+    </div>
+    <div class="field">
+        <label>Cantidad de personas</label>
+        <input type="number" min="1" max="100" onchange="calculatePriceOfActvExtra(`+ CantidadActvExtra + `)" id="extraActivitiesAmount` + CantidadActvHotel + `" placeholder="Cantidad de personas">
+    </div>
+    <div class="field hotelsExtraActivitiesPrice">
+        <label>Total</label>
+        <input type="number" dir="rtl"  id="extraActivitiesPrice`+ CantidadActvExtra + `" placeholder="0.00" readonly>
+    </div>
+    <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
+        <label></label>
+        <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteExtraActivities(`+ CantidadActvExtra + `)" id="btndeleteExtraActivities">- Eliminar actividad</div>
+    </div>
+</div>
+
+`);
+
+    //Fill the extra activities in the zone
+    $('#ddlextraActivities' + CantidadActvExtra).append('<option value="">' + "Seleccione una actividad" + '</option>');
+    for (var j = 0; j < ActvExtra.length; j++) {
+        $('#ddlextraActivities' + CantidadActvExtra).append('<option value="' + ActvExtra[j].iD_Actividad + '">' + ActvExtra[j].actividad + ' L ' + ActvExtra[j].precio + ' c/u' + '</option>');
+    };
+};
+//Calculates the price of the activities of the hotel
+function calculatePriceOfActvExtra(inputID) {
+    const ExtraActv = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/Find?Id=" + inputID);
+    const CantPersonas = $("#hotelsExtraActivitiesAmount" + inputID).val();
+    $("#hotelsExtraActivitiesPrice" + inputID).val(ExtraActv.data.precio * CantPersonas);
+};
+//Show inputs for extra activities in the zone
+$("#btnShowExtraActivities").click(function () {
+    if ($("#btnShowExtraActivities").hasClass("active")) {
+        $("#btnShowExtraActivities").removeClass("active")
+        $("#frmAddExtraActivities").hide();
+        $("#listExtraActivities").empty();
+        CantidadActvExtra = 1;
+
+    }
+    else {
+        $("#frmAddExtraActivities").show();
+        $("#btnShowExtraActivities").addClass("active")
+        CantidadActvExtra = 1;
+        ActvExtraForm();
+    }
+});
+//Add a new input for an activity extra of the hotel
+$("#btnExtraActv").click(function () {
+    CantidadActvHotel += 1;
+    ActvExtraForm();
+});
+//Delete an input for an activity extra of the hotel
+function deleteHotelExtraActivities(inputID) {
+    $("#extraActivitiesID" + inputID).remove();
+};
 //Fill the hotel activities extra form
 function hotelActvExtraForm() {
     const DefaultPackages = DefaultPackagesList.data;
@@ -219,28 +307,28 @@ function hotelActvExtraForm() {
 
     const package = DefaultPackage[0];
     //Activities Extras in the hotel
-    const htelActvExtra = HotelsActvList.data.filter((x) => { return x.iD_Hotel == DefaultPackage[0].iD_Hotel });
+    const htelActvExtra = HotelsActvList.data.filter((x) => { return x.iD_Hotel == package.iD_Hotel });
 
         $("#listHotelsExtraActivities").append(`
-<div class="four fields hotelsExtraActivities" data-value="`+ CantidadActvHotel + `">
+<div class="four fields " id="hotelsExtraActivitiesID`+ CantidadActvHotel + `">
     <div class="field">
         <label>Actividades en el hotel</label>
         <select class="ui dropdown" id="ddlhotelsExtraActivities`+ CantidadActvHotel + `">
-            <option value="">Selecciona una actividad</option>
+            
         </select>
                                                 
     </div>
     <div class="field">
         <label>Cantidad de personas</label>
-        <input type="number" min="1" max="100" id="hotelsExtraActivitiesAmount`+ CantidadActvHotel +`" placeholder="Cantidad de personas">
+        <input type="number" min="1" max="100" onchange="calculatePriceOfActvHotels(`+ CantidadActvHotel +`)" id="hotelsExtraActivitiesAmount`+ CantidadActvHotel +`" placeholder="Cantidad de personas">
     </div>
     <div class="field hotelsExtraActivitiesPrice">
-        <label>Cantidad de personas</label>
-        <input type="number" id="hotelsExtraActivitiesPrice`+ CantidadActvHotel +`" placeholder="Precio" readonly>
+        <label>Total</label>
+        <input type="number" dir="rtl"  id="hotelsExtraActivitiesPrice`+ CantidadActvHotel +`" placeholder="0.00" readonly>
     </div>
     <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
         <label></label>
-        <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHotelExtraActivities(`+ CantidadActvHotel +`)" id="btndeleteExtraActivities">+ Eliminar actividad</div>
+        <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHotelExtraActivities(`+ CantidadActvHotel +`)" id="btndeleteExtraActivities">- Eliminar actividad</div>
     </div>
 </div>
 
@@ -248,14 +336,55 @@ function hotelActvExtraForm() {
         //Fill the extrac activities in the hotel
         $('#ddlhotelsExtraActivities' + CantidadActvHotel).append('<option value="">' + "Seleccione una actividad" + '</option>');
         for (var j = 0; j < htelActvExtra.length; j++) {
-            $('#ddlhotelsExtraActivities' + CantidadActvHotel).append('<option value="' + htelActvExtra[j].iD_Actividad + '">' + htelActvExtra[j].actividad + '</option>');
+            $('#ddlhotelsExtraActivities' + CantidadActvHotel).append('<option value="' + htelActvExtra[j].iD_Actividad + '">' + htelActvExtra[j].actividad + ' L ' + htelActvExtra[j].precio+' c/u' + '</option>');
         };
   
 }
 
+//Calculates the price of the activities of the hotel
+function calculatePriceOfActvExtra(inputID) {
+    const ExtraActv = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/Find?Id="+inputID);
+    const CantPersonas = $("#hotelsExtraActivitiesAmount" + inputID).val();
+    $("#hotelsExtraActivitiesPrice" + inputID).val(ExtraActv.data.precio * CantPersonas);
+};
+
+
+
+//Show inputs for extra activities in hotels
+$("#btnShowExtraHotelActivities").click(function () {
+    if ($("#btnShowExtraHotelActivities").hasClass("active")) {
+        $("#btnShowExtraHotelActivities").removeClass("active")
+        $("#frmAddExtraHotelsActivities").hide();
+        $("#listHotelsExtraActivities").empty();
+        CantidadActvHotel = 1;
+        CantidadActvExtra = 1;
+
+    }
+    else {
+        $("#frmAddExtraHotelsActivities").show();
+        $("#btnShowExtraHotelActivities").addClass("active")
+        CantidadActvHotel = 1;
+        CantidadActvExtra = 1;
+        hotelActvExtraForm();
+    }
+
+});
+//Add a new input for an activity extra of the hotel
+$("#btnHotelsExtraActivities").click(function () {
+    CantidadActvHotel += 1;
+    hotelActvExtraForm();
+});
+//Delete an input for an activity extra of the hotel
+function deleteHotelExtraActivities(inputID) {
+    $("#hotelsExtraActivitiesID" + inputID).remove();
+};
+
+
+
 
 //Date range picker limited based on the duration of the package
 $('#dateRangePicker').daterangepicker({
+    "minDate": new Date(),
     "maxSpan": {
         "days": paqueteDuracion
     },
@@ -325,36 +454,7 @@ $("#Paqu_ID").change(function () {
 
 });
 
-//Show inputs for extra activities in hotels
-$("#btnShowExtraHotelActivities").click(function () {
-    if ($("#btnShowExtraHotelActivities").hasClass("active")) {
-        $("#btnShowExtraHotelActivities").removeClass("active")
-        $("#frmAddExtraHotelsActivities").hide();
-        $("#listHotelsExtraActivities").empty();
-        CantidadActvHotel = 1;
-        CantidadActvExtra = 1;
-        
-    }
-    else {
-        $("#frmAddExtraHotelsActivities").show();
-        $("#btnShowExtraHotelActivities").addClass("active")
-        CantidadActvHotel = 1;
-        CantidadActvExtra = 1;
-        hotelActvExtraForm();
-    }
-    
-});
 
-$("#btnHotelsExtraActivities").click(function () {
-    CantidadActvHotel += 1;
-    hotelActvExtraForm();
-});
-
-//Show inputs for extra activities in the zone
-$("#btnShowExtraActivities").click(function () {
-    $("#frmAddExtraActivities").show();
-
-});
 
 // ----------------------------------- FUNCTIONS ------------------------------------
 
@@ -389,7 +489,8 @@ function FillCities(Country_Id) {
 
         FillDropDown(dropdownData);
         $("#ddlCiudades").dropdown();
-
+        $("#listExtraActivities").empty();
+        ActvExtraForm();
     }
 }
 

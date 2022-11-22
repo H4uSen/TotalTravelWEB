@@ -103,7 +103,8 @@
                                     <select class="ui search dropdown" id="Resv_CantidadPagos">
                                         <option value="">Selecciona la cantidad de coutas</option>
                                         <option value="1">1</option>
-                                        <option value="3">2</option>
+                                        <option value="2">2</option>
+                                        <option value="4">4</option>
                                         <option value="6">6</option>
                                     </select>
                                 </div>
@@ -233,29 +234,9 @@
                                     <h3 class="ui block header">
                                         Selecciona algunas actividades para realizar en el hotel
                                     </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0"  id="btnHotelsExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="ui btn-edit text-white button" tabindex="0"  id="btnExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="container-fluid " id="listHotelsExtraActivities">
-                                        @*<div class="four fields hotelsExtraActivities" data-value="1">
-                                            <div class="field">
-                                                <label>Actividades en el hotel</label>
-                                                <select class="ui dropdown hotelsExtraActivitiesID">
-                                                    <option value="">Selecciona una actividad</option>
-                                                </select>
-                                                
-                                            </div>
-                                            <div class="field">
-                                                <label>Cantidad de personas</label>
-                                                <input type="number" min="1" max="100" class="hotelsExtraActivitiesAmount" placeholder="Cantidad de personas">
-                                            </div>
-                                            <div class="field hotelsExtraActivitiesPrice">
-                                                <label>Cantidad de personas</label>
-                                                <input type="number" class="hotelsExtraActivitiesPrice" placeholder="Precio" readonly>
-                                            </div>
-                                            <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
-                                                <label></label>
-                                                <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHotelExtraActivities()" id="btndeleteExtraActivities">+ Añadir una actividad</div>
-                                            </div>
-                                        </div>*@
+                                        
                                     </div>
                                     
                                 </div>
@@ -267,28 +248,9 @@
                                     <h3 class="ui block header">
                                         Selecciona algunas actividades para realizar <span id="lblZone"></span>
                                     </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="addExtraActivities()" id="btnExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
-                                    <div class="container " id="extraActivities">
-                                        <div class="four fields extraActivities" data-value="1">
-                                            <div class="field">
-                                                <label>Actividades extras </label>
-                                                <select class="ui dropdown extraActivitiesID">
-                                                    <option value="">Selecciona una actividad</option>
-                                                </select>
-                                            </div>
-                                            <div class="field">
-                                                <label>Cantidad de personas</label>
-                                                <input type="number" min="1" max="100" class="extraActivitiesAmount" placeholder="Cantidad de personas">
-                                            </div>
-                                            <div class="field hotelsExtraActivitiesPrice">
-                                                <label>Cantidad de personas</label>
-                                                <input type="number" class="extraActivitiesPrice" placeholder="Precio" readonly>
-                                            </div>
-                                            <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
-                                                <label></label>
-                                                <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteExtraActivities()" id="btnExtraActivities" >+ Añadir una actividad</div>
-                                            </div>
-                                        </div>
+                                    <div class="ui btn-edit text-white button" tabindex="0" onclick="addExtraActivities()" id="btnExtraActv" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="container " id="listExtraActivities">
+                                        
                                     </div>
                                     
                                 </div>
