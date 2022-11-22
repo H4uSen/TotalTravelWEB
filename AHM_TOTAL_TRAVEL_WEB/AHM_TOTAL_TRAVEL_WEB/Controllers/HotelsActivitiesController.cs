@@ -31,8 +31,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var rol = HttpContext.Session.GetString("Role");
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var type = await _hotelService.HotelsList(token);
-                IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
-                ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+
+                var Hotel = await _hotelService.HotelsList(token);
+                IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
+
+                var lista2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
+                ViewBag.Hote_ID = new SelectList(lista2, "ID", "Hotel");
 
                 var ac = await _activitiesServices.ActivityList(token);
                 IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
