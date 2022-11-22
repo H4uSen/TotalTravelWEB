@@ -6,7 +6,7 @@
 @section CSS{
 
     @*<link rel="stylesheet" href="~/assets/client/css/animate.min.css">
-    <link rel="stylesheet" href="~/assets/client/css/style.css">*@
+        <link rel="stylesheet" href="~/assets/client/css/style.css">*@
 
     <style>
         .carta {
@@ -134,17 +134,74 @@
                     <div class="column" id="frmBreakdownDetail">
                         <br>
                         <h4 class="ui left floated header">
-                            <i class="bed icon"></i> Actividades
+                            <i class="bed icon"></i> Finalizar compra
                         </h4>
                         <div class="ui clearing divider"></div>
 
                         <div class="ui grid two columns" id="grdBreakdown">
                             <!-- formulario de compra -->
                             <div class="column twelve wide column">
-
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="h4 mb-0">Ingresa los siguientes datos</h3>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div id="frmCreateReservation" class="ui form attached fluid segment">
+                                            <div class="content">
+                                                <div class="row">
+                                                    <div class="two fields">
+                                                        <div class="field">
+                                                            <div class="col-md-12">
+                                                                <label class="form-label">Fecha Entrada - Salida</label><label class="text-danger">*</label>
+                                                                <input type="text" name="daterange" id="dateRangePicker" class="form-control">
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                        <div class="field">
+                                                            <div class="col-md-12">
+                                                                <label class="form-label">Número de Personas</label><label class="text-danger">*</label>
+                                                                <input class="form-control" type="number" min="1" id="personas">
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="two fields">
+                                                        <div class="field">
+                                                            <div class="col-md-12">
+                                                                <label class="form-label">Cantidad de pagos</label><label class="text-danger">*</label>
+                                                                <input class="form-control" type="number" min="1" max="5" id="txtCantidadPagos">
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                        <div class="field">
+                                                            <div class="col-md-12">
+                                                                <label class="form-label">Elige tu método de pago</label><label class="text-danger">*</label>
+                                                                <select id="cbbFormaPago" class="ui dropdown search ma form-control" asp-items="ViewBag.MetodosPagos">
+                                                                    <option value="0" selected disabled>Seleccione un método de pago</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label" for="exampleInputEmail1">E-mail</label><label class="text-danger">*</label>
+                                                <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" readonly value="@ViewData["Correo"]">
+                                                <div class="form-text" id="emailHelp">El correo de confirmación se enviará a esta dirección.</div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- desgloce de compra -->
-                            <div class="column four wide column"></div>
+                            <div class="column four wide column">
+
+                                
+                            </div>
+                            <div class="extra content">
+                                <button class="ui button btn-edit" id="btnFinalizar">Finalizar compra</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,6 +213,7 @@
 
 @section Scripts{
     <script src="~/js/BuyDefaults/DefaultPackagesJS.js"></script>
+    @*<script src="~/js/BuyDefaults/Reserva.js"></script>*@
 }
 
 
