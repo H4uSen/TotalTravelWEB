@@ -36,8 +36,8 @@
                 </div>
             </div>
             <div class="ui segment form">
-                <a href="@Url.Action("RestauranteReportPDF", "Report", new { ReportTiype = "1" })" class="ui button icon">PDF <i class="file pdf icon"></i></a>
-                <a href="@Url.Action("RestauranteReportPDF", "Report",new { ReportTiype="2"})" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 3, HTMLFile = "TransportReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                <a href="@Url.Action("RestauranteReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 3, HTMLFile = "RestauranteReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
             </div>
             <br>
@@ -46,7 +46,7 @@
             <div class="card" id="a">
                 <div class="card card-body">
 
-                    <iframe src="@Url.Action("RestauranteReportPDF", "Report", new { ReportTiype = "1" })" frameborder="0" height="650" id="ifrReport"></iframe>
+                    <iframe src="" frameborder="0" height="650" id="ifrReport"></iframe>
 
                 </div>
             </div>
@@ -76,9 +76,21 @@
 
     <script>
         const action = "RestauranteReportPDF";
+        const DataSourceIndex = 3;
+        var HMTLFile = "RestauranteReportHTML";
     </script>
 
     <script src="~/js/Reports/RestaurantReports.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var reportParameter = reportCreation;
+            reportParameter.ReportName = "ReporteRestaurantestesPDF";
+            reportParameter.HTMLFile = HMTLFile;
+            reportParameter.DataSourceIndex = DataSourceIndex;
+            fillIFrame(reportParameter);
+        });
+    </script>
 }
 
 
