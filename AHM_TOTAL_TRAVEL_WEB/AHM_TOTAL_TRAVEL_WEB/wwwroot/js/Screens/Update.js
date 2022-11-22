@@ -16,15 +16,17 @@ function GetPermissions(id) {
     var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Find?Id=" + id);
     if (response.code == 200) {
         $('#Perm_ID').val(id);
+        $("#cbbGrupo").val(response.data.id_grupo)
         $('#txtDescripcionUpdate').val(response.data.descripcion);
         $('#txtControllerUpdate').val(response.data.controlador);
         $('#txtActionUpdate').val(response.data.action);
         SetDropDownValue($("#cbbModuloUpdate"), response.data.id_modulo);
-        if (response.data.esVisible == true) {
-            $("#checkVisible").prop("checked", true);
+        if (response.data.id_grupo == null) {
+            $("#cbbGrupo").dropdown('restore defaults');
         } else {
-            $("#checkVisible").prop("checked", false);
+            SetDropDownValue($("#cbbGrupo"), response.data.id_grupo);
         }
+        $("#checkVisible").prop("checked", response.data.esVisible);
 
         if ($('#Perm_ID').val() != 0) {
             $("#mdlUpdateScreen").modal('show');
@@ -35,7 +37,6 @@ function GetPermissions(id) {
 $("#closeUpdate").click(() => {
     $("#mdlUpdateScreen").modal('hide');
 });
-
 
 $("#sendUpdate").click(() => {
 
@@ -52,6 +53,7 @@ $("#sendUpdate").click(() => {
         var screen = ScreensViewModel;
         screen.perm_ID = parseInt($("#mdlUpdateScreen #Perm_ID").val());
         screen.modu_ID = parseInt($("#mdlUpdateScreen #cbbModuloUpdate").val());
+        screen.grEN_Id = $("#mdlUpdateScreen #cbbGrupo").val() == 0 ? 0 : parseInt($("#mdlUpdateScreen #cbbGrupo").val());
         screen.perm_Action = $("#mdlUpdateScreen #txtActionUpdate").val();
         screen.perm_Controlador = $("#mdlUpdateScreen #txtControllerUpdate").val();
         screen.perm_Descripcion = $("#mdlUpdateScreen #txtDescripcionUpdate").val();
@@ -59,7 +61,9 @@ $("#sendUpdate").click(() => {
 
         const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Update?id=" + screen.perm_ID, screen, "PUT");
         if (response.code == 200) {
-            window.location.href = '/Screens?success=true';
+            Swal.fire("!Registro creado con exito!", "", "success").then(() => {
+                location.reload();
+            });
         } else {
             Swal.fire("Error al realizar la accion", response.message, "error");
         }
@@ -77,8 +81,6 @@ function DeletePermissions(id) {
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
 
 };
-
-
 
 function GetModules(id) {
 
@@ -110,16 +112,15 @@ $("#sendModulesUpdate").click(() => {
 
         const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Update?id=" + module.modu_Id, module, "PUT");
         if (response.code == 200) {
-            window.location.href = '/Screens?success=true';
+            Swal.fire("!Registro creado con exito!", "", "success").then(() => {
+                location.reload();
+            });
         } else {
             Swal.fire("Error al realizar la accion", response.message, "error");
         }
     }
 
 });
-
-
-
 
 function DeleteModulos(id) {
     const capsula1 = () => {

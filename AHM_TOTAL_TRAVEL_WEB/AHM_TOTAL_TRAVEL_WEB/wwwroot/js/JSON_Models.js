@@ -207,6 +207,7 @@ var ScreensViewModel = {
     "perm_Controlador": "",
     "perm_Action": "",
     "modu_ID": 0,
+    "grEN_Id": 0,
     "perm_esVisible": true,
     "perm_UsuarioCreacion": Client_User_ID,
     "perm_UsuarioModifica": Client_User_ID
@@ -225,3 +226,27 @@ var ModulesViewModel = {
     "modu_UsuarioCreacion": Client_User_ID,
     "modu_UsuarioModifica": Client_User_ID
 };
+
+var EmailSendModel = {
+    "to": "string",
+    "toName": "string",
+    "subject": "string",
+    "bodyData": "string"
+};
+
+var ReservacionUModel = {
+    "resv_ID": 0,
+    "usua_ID": Client_User_ID,
+    "paqu_ID": 0,
+    "resv_esPersonalizado": true,
+    "resv_CantidadPagos": 0,
+    "resv_NumeroPersonas": 0,
+    "resv_ConfirmacionPago": false,
+    "resv_ConfirmacionHotel": false,
+    "resv_ConfirmacionRestaurante": false,
+    "resv_ConfirmacionTrans": false,
+    "resv_ConfirmacionActividades": false,
+    "resv_Precio": 0,
+    "resv_UsuarioModifica": 0,
+    "justConfirmation": false,
+}

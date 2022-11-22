@@ -61,6 +61,7 @@ function Tarjeta() {
                 var hoteitem = hotelfilter[0];
                 var fechaS = item.fecha_Salida.split('T');
                 var fechaE = item.fecha_Entrada.split('T');
+                var resI = Reservacion.data.filter(x => x.id == item.reservacionID)[0];
                 try {  
                     divroom =
                         `<div class="ui card" style="width:100%">
@@ -68,6 +69,9 @@ function Tarjeta() {
                         <div class="header">${hoteitem.hotel}</div>
                         <div class="description">
                                     ${item.cliente}
+                        </div>
+                        <div class="description">
+                                    ${resI.email}
                         </div>
                         <div class="description">
                                    Fecha Entrada: ${fechaE[0]} <br> Fecha Salida: ${fechaS[0]}
@@ -138,7 +142,7 @@ function ViewReservation(idDetalles, id) {
                 var imagen = hoteFilterItem.image_URL.split(',');
                 var fechaS = item.fecha_Salida.split('T');
                 var fechaE = item.fecha_Entrada.split('T');
-
+                var resI = Reservacion.data.filter(x => x.id == ResvaFilterItem.reservacionID)[0];
                 divroom =
                     `<div class="field">
                     <center>
@@ -155,8 +159,8 @@ function ViewReservation(idDetalles, id) {
                                 ${ResvaFilterItem.cliente}
                         </div>
                         <div class="field">
-                            <label>Partner:</label>
-                                ${hoteFilterItem.partners}
+                            <label>Correo Electronico:</label>
+                                ${resI.email}
                         </div>
                     </div>
                     <div class="two fields">

@@ -1,4 +1,5 @@
-﻿const params = new URLSearchParams(window.location.search);
+﻿$(".ui.dropdown").dropdown()
+const params = new URLSearchParams(window.location.search);
 const izziSuccess = params.get("success");
 
 if (izziSuccess == "true") {

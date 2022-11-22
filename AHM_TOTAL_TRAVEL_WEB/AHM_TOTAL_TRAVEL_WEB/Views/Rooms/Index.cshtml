@@ -186,7 +186,7 @@
             const Rooms = () => {
                 const result = ajaxRequest("/Rooms/Delete?id=" + id, null, "POST");
                 if (result > 0) {
-                    window.location.href = '/CategoriesRooms?success=true';
+                    window.location.href = '/Rooms?success=true';
                 }
             };
 

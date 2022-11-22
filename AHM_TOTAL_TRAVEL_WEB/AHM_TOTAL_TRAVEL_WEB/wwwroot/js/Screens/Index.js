@@ -89,6 +89,7 @@ $(document).ready(function () {
 $(".ui.checkbox").checkbox();
 $(".ui.dropdown").dropdown();
 $("#frmModulos").hide();
+$("#frmGruposMenu").hide();
 
 
 //-------------------------------------- EVENTS -----------------------------------------------------
@@ -96,9 +97,12 @@ $("#btnCreateScreen").click(function () {
     $("#mdlCreateScreen").modal("show");
 });
 
-
 $("#btnCreateModule").click(function () {
     $("#mdlCreateModules").modal("show");
+});
+
+$("#btnCreateGroup").click(function () {
+    $("#mdlCreateGroups").modal("show");
 });
 
 $("#menu_Indexs .item").click(function (_this) {
@@ -145,8 +149,6 @@ function createScreen() {
     }
 }
 
-
-
 function createModule() {
     const ValidateArray = [
         { validateMessage: "Ingrese un nombre", Jqueryinput: $("#mdlCreateModules #txtModulo") }
@@ -161,6 +163,32 @@ function createModule() {
         const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Insert", module, "POST");
         if (response.code == 200) {
             window.location.href = '/Screens?success=true';
+        } else {
+            console.log(response);
+            Swal.fire("!Error al realizar la accion!", response.message, "error");
+        }
+    }
+}
+
+function createGroup() {
+    const ValidateArray = [
+        { validateMessage: "Ingrese un nombre de grupo", Jqueryinput: $("#mdlCreateGroups #txtNombreGrupo") }
+    ];
+
+    const formValidate = ValidateForm(ValidateArray);
+
+    if (formValidate) {
+        var model = {
+            "grEN_Id": 0,
+            "grEN_NombreGrupo": $("#mdlCreateGroups #txtNombreGrupo").val(),
+            "grEN_Estado": true
+        };
+
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Navbar/Insert", model, "POST");
+        if (response.codeStatus > 0) {
+            Swal.fire("!Registro creado con exito!", "", "success").then(() => {
+                location.reload();
+            });
         } else {
             console.log(response);
             Swal.fire("!Error al realizar la accion!", response.message, "error");

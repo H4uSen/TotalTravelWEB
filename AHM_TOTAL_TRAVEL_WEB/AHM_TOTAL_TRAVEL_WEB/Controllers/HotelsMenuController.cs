@@ -28,8 +28,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var rol = HttpContext.Session.GetString("Role");
             string token = HttpContext.User.FindFirst("Token").Value;
             var type = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
-            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+
+            var Hotel = await _hotelService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
+
+            var lista2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
+            ViewBag.Hote_ID = new SelectList(lista2, "ID", "Hotel");
 
             var type2 = await _restaurantServices.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
@@ -38,6 +42,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var model = new List<HotelsMenuListViewModel>();
             var list = await _hotelService.HotelsMenuList(token);
             IEnumerable<HotelsMenuListViewModel> lista = (IEnumerable<HotelsMenuListViewModel>)list.Data;
+
                 if (string.IsNullOrEmpty(id.ToString()))
                 {
                     return View(lista);
@@ -69,15 +74,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Create()
         {
             string token = HttpContext.User.FindFirst("Token").Value;
+            var idd = HttpContext.Session.GetInt32("PartnerID");
+            var model = new List<HotelListViewModel>();
 
-            IEnumerable<HotelListViewModel> model = null;
-            var type = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
-            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Hotel");
+            var Hotel = await _hotelService.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
+
+            var list2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(idd)).ToList();
+            ViewBag.Hote_ID = new SelectList(list2, "ID", "Hotel");
+
 
             var type2 = await _restaurantServices.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
             ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
+
             var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)type2.Data).CodeStatus;
             if (l > 0)
             {
