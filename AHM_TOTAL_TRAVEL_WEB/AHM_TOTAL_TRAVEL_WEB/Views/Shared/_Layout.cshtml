@@ -216,113 +216,115 @@
                             </a>
                             @{ if (usersRole != "Cliente")
                                 {
-                                    <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
+                                        <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
                                 }
                             }
                         </div>
                     </a>
                     @{
+                        
+                            
                         if (usersRole == "Administrador")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
-                                    </a>
-                                    <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Historial de compras</span>
-                                    </a>
-                                    <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
-                                        <i class="bi bi-person"></i>
-                                        <span>Historial de transacciones</span>
-                                    </a>
-                                    <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Calendario de reservaciones</span>
-                                    </a>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
+                                        </a>
+                                        <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Historial de compras</span>
+                                        </a>
+                                        <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
+                                            <i class="bi bi-person"></i>
+                                            <span>Historial de transacciones</span>
+                                        </a>
+                                        <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Calendario de reservaciones</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
                         if (usersRole == "Cliente")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
-                                    </a>
-                                    <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Historial de compras</span>
-                                    </a>
-                                    <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
-                                        <i class="bi bi-person"></i>
-                                        <span>Historial de transacciones</span>
-                                    </a>
-                                    <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Calendario de reservaciones</span>
-                                    </a>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
+                                        </a>
+                                        <a class="item" id="comprasb" asp-area="" asp-controller="PayHistory" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Historial de compras</span>
+                                        </a>
+                                        <a class="item" id="Hisotial" asp-area="" asp-controller="RegistrationPayments" asp-action="IndexHistory">
+                                            <i class="bi bi-person"></i>
+                                            <span>Historial de transacciones</span>
+                                        </a>
+                                        <a class="item" id="Hisotial" asp-area="" asp-controller="Timeline" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Calendario de reservaciones</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
                         if (usersRole == "Moderador de Hotel")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
-                                    </a>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
                         if (usersRole == "Moderador de Transporte")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
 
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
                         if (usersRole == "Moderador de Agencia Turistica")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
-                                    </a>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
                         if (usersRole == "Moderador de Restaurante")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
-                                    </a>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
                         if (usersRole == "Moderador de Actividades")
                         {
-                            <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
-                                <div class="ui vertical menu">
-                                    <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
-                                        <i class="bi bi-person"></i>
-                                        <span>Mi Cuenta</span>
-                                    </a>
+                                <div class="ui popup right center transition hidden" style="inset: 563.969px auto auto 1px; width: 670px;" id="popContent">
+                                    <div class="ui vertical menu">
+                                        <a class="item" id="Cuenta" asp-area="" asp-controller="Account" asp-action="Index">
+                                            <i class="bi bi-person"></i>
+                                            <span>Mi Cuenta</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         }
 
                     }
@@ -330,14 +332,18 @@
                     <!-- End Profile Image Icon -->
                 </div>
                 <ul class="list-unstyled py-4" id="menu_rol_items">
-                <!---
+                @{
+                    if(usersRole == "Administrador")
+                    {
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="@Url.Action("adminDashboard","Home")">
                             Inicio
                         </a>
                     </li>
-
-                    -->
+                    }
+                }    
+                
+                    
                 </ul>
 
                 <ul class="list-unstyled" id="menu_rol_groups"></ul>
