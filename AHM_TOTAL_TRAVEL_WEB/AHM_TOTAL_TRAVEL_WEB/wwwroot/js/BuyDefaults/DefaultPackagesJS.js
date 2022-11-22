@@ -7,6 +7,16 @@ $('.ui.dropdown').dropdown();
 
 const fill_data = {
 
+    fillMain: function (id_ciudad_salida, id_ciudad_llegada = null) {
+        this.fillPackages(id_ciudad_llegada);
+        this.fillActivities(id_ciudad_llegada);
+
+        $("#frmVuelos").hide();
+        $("#frmPortuarios").hide();
+
+        this.fillTransport(id_ciudad_salida, id_ciudad_llegada);
+    },
+
     fillPackages: function (id_ciudad_destino = null) {
 
         if (packagesList.code == 200) {
@@ -409,9 +419,7 @@ const fill_data = {
 $("#frmTransports").hide();
 $("#frmActivities").hide();
 $("#frmDetails").hide();
-fill_data.fillPackages();
-fill_data.fillActivities();
-fill_data.fillTransport($("#Origen").val());
+fill_data.fillMain($("#Origen").val());
 
 //------------------------------------------- EVENTS ------------------------------------------
 
@@ -426,6 +434,25 @@ $("#navbar_packages .item").click(function (_this) {
 
     const wideToShow = $(_this.target).attr("data-target");
     $(wideToShow).show();
+});
+
+$("#frmTransporte_menu .item").click(function (_this) {
+    $("#frmTransporte_menu .item").removeClass("active");
+    $(_this.target).addClass("active");
+
+    $.each($("#frmTransporte_menu .item"), (i, item) => {
+        const object = $(item).attr("data-target");
+        $(`#frmTransports_Container ${object}`).hide();
+    });
+
+    const wideToShow = $(_this.target).attr("data-target");
+    $(wideToShow).show();
+});
+
+$("#Destinos").change(function (_this) {
+    if ($("#Destinos").val() != 0) {
+        fill_data.fillMain($("#Origen").val(), $("#Destinos").val());
+    }
 });
 
 //------------------------------------------- FUNCTIONS ------------------------------------------
