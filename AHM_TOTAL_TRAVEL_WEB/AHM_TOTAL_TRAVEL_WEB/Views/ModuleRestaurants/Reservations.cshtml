@@ -28,10 +28,9 @@
             border-radius: 0;
         }
 
-        #boton{
-            width:60% !important;
+        #boton {
+            width: 60% !important;
         }
-
     </style>
 }
 
@@ -39,20 +38,20 @@
 <br />
 <div class="container">
     @*<div class="ui clearing segment">
-        <div class="ui grid">
-        </div>
-        <br />
-    </div>*@
+            <div class="ui grid">
+            </div>
+            <br />
+        </div>*@
     <div class="ui stackable grid">
 
         <!-- reservation historial section -->
         <div class="five wide column">
             <div class="ui segment" id="asa">
                 <div class="eight wide column">
-                    <select id="Estado" class="ui dropdown search w-100">
-                        <option value="0" selected>Todos</option>
-                        <option value="1">Pendientes</option>
-                        <option value="2">Confirmados</option>
+                    <select id="Estado" class="ui dropdown search" style="width:100%">
+                        <option value="2" selected>Todos</option>
+                        <option value="false">Pendientes</option>
+                        <option value="true">Confirmados</option>
                     </select>
                     <br /><br />
                 </div>
@@ -101,10 +100,18 @@
 </div>
 
 @section Scripts{
-
+    
     <script>
         const RestauranteID = "@ViewData["RestauranteID"]";
         const PartnerID = "@ViewData["PartnerID"]";
+    </script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
     </script>
     <script src="~/js/ModuleRestaurantsJs/Reservaciones.js"></script>
 }

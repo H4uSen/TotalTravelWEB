@@ -1,15 +1,19 @@
-﻿var ReservacionRestaurant = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationRestaurant/List");
+﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+var ReservacionRestaurant = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationRestaurant/List");
+var Rflitro = ReservacionRestaurant.data.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
 var RestaurantsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Restaurants/List");
+var ReservacionT;
+
+var filtrotarjeta = $("#Estado").val();
+
 $('.ui.dropdown').dropdown();
-$("#frmReservation_Info").hide();
-
 $("document").ready(function () {
-    fillreservaciones(0);
+    Tarjeta(filtrotarjeta);
 });
-
-$("#Estado").change(function (_this) {
-    var idReservaciones = $(_this.target).val();
-    fillreservaciones(idReservaciones);
+$("#Estado").change(function () {
+    var filtrotarjeta = $("#Estado").val();
+    $('#tarjetaT').empty();
+    Tarjeta(filtrotarjeta);
 });
 
 //Esconder info
@@ -24,9 +28,63 @@ $("#Estado").change(function (_this) {
 //    }
 //}
 
+function Tarjeta(esta) {
+    if (ReservacionRestaurant.code == 200) {
+
+        var resv = ReservacionRestaurant.data;
+        var Rflitro = resv.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
+        $('#tarjetaT').empty();
+        if (Rflitro.length == 0) {
+            actexth =
+                `<div class="ui card" style="width:100%>
+                    <div class="content">
+                        <div class="header">No hay reservaciones</div>                     
+                    </div>                  
+                </div>`
+            $('#tarjetaT').append(actexth);
+        }
+        else {
+            for (var i = 0; i < Rflitro.length; i++) {
+                const item = Rflitro[i];
+                var itemR = item.resv_ID;
+                var fecha = item.fecha_Reservacion.split('T');
+                var Confirmacion = Reservacion.data.filter(x => x.id == parseInt(itemR))[0];
+                var Estado = Confirmacion.confirmacionRestaurante;
+                if (Estado.toString() == esta || esta == "2") {
+                    try {
+                        divroom = `<br\ >
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">${item.cliente}</div>
+                        <div class="description">
+                            Fecha: ${fecha[0]}
+                        </div>      
+                    </div>
+                    <a class="btn btn-edit ui positive button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
+                        <i class="folder open icon"></i>
+                        Ver Detalles
+                    </a>
+                </div>`;
+                        $('#tarjetaT').append(divroom);
+                    }
+                    catch {
+                        divroom = `<div class="ui card">
+                    <div class="content">
+                        <div class="header">Se eliminó este registro</div>                     
+                    </div>                  
+                </div>`;
+                        $('#tarjetaT').append(divroom);
+                    }
+                }
+            }
+        }
+    }
+
+}
 
 function ViewReservation(idDetalles, id) {
     $("#Default_Item").hide();
+    $("#frmReservation_Info").removeAttr("hidden");
     $("#frmReservation_Info").show();
     $("#InfoDet").removeAttr("hidden");
     $("#InfoDet").show();
@@ -36,6 +94,10 @@ function ViewReservation(idDetalles, id) {
         var Rflitro = resv.filter(resva => resva.id == parseInt(id));
         var transpoinfo = RestaurantsList.data;
         var TranspoFilter = transpoinfo.filter(resva => resva.id == parseInt(idDetalles));
+
+        var R2 = Rflitro[0];
+        var Confirmacion2 = Reservacion.data.filter(x => x.id == parseInt(R2.resv_ID))[0];
+        var Estado2 = Confirmacion2.confirmacionRestaurante;
 
         $('#InfoDet').empty();
         if (TranspoFilter.length == 0) {
@@ -58,6 +120,10 @@ function ViewReservation(idDetalles, id) {
                 recortado1 = hora.slice(0, 2);
                 recortado2 = hora.slice(-2);
                 var union = recortado1 + ":" + recortado2;
+                const union1 =
+                    union.split(":")[0] > 11
+                        ? union + " PM"
+                        : union + " AM"
 
                 divroom = `<div class="field">
                     <center>
@@ -79,12 +145,12 @@ function ViewReservation(idDetalles, id) {
                             </div>
                         </div>
                     </center>`;
-                if (ResvaFilterItem.confirmacionReservacion == true) {
+                if (Estado2 == true) {
                     botones = `<center>
                         <div class="two fields">
                             <div class="field">
                                 <label>Hora Reservación:</label>
-                                    ${union}
+                                    ${union1}
                             </div><div class="field">
                                 <label>Estado: </label>
                                 <span class="ui green label">Confirmada</span>
@@ -93,12 +159,12 @@ function ViewReservation(idDetalles, id) {
                     <div class="field">
                             <div class="two fields">
                                 <div class="field">
-                                    <a class="btn btn-edit ui positive button w-100" href="javascript: CancelarReservacion(${ResvaFilterItem.resv_ID})">
+                                    <a class="btn btn-edit ui positive button w-100" id="Cancelar" href="javascript: CancelarReservacion(${ResvaFilterItem.id})">
                                         Cancelar
                                     </a>
                                 </div>
                                 <div class="field">
-                                    <textarea class=" w-100" rows="1" placeholder="Razón"></textarea>
+                                    <textarea class=" w-100" rows="1" placeholder="Razón" id="Razón"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -109,14 +175,16 @@ function ViewReservation(idDetalles, id) {
                         <div class="two fields">
                             <div class="field">
                                 <label>Hora Reservación:</label>
-                                    ${union}
+                                    ${union1}
                             </div><div class="field">
                                 <label>Estado: </label>
                                 <span class="ui blue label">Pendiente</span>
                             </div>
                         </div>
                         <div class="field">
-                            <input type="button" value="Confirmar" id="boton" class="btn btn-edit ui positive button w-100" />                        
+                            <a class="btn btn-edit ui positive button w-100" id="Confirmar" href="javascript: CancelarReservacion(${ResvaFilterItem.id})">
+                                Confirmar
+                            </a>
                         </div>
                     </center>`;
                 }
@@ -136,142 +204,54 @@ function ViewReservation(idDetalles, id) {
     }
 }
 
-function fillreservaciones(estadoReservaciones) {
-
-    if (estadoReservaciones == 0) {
-        var resv = jQuery.grep(ReservacionRestaurant.data, function (reservacion, i) {
-            return reservacion.iD_Parter == PartnerID;
-        });
+function CancelarReservacion(idRT) {
+    var ReserData = ReservacionRestaurant.data.filter(x => x.id == idRT)[0];
+    var ReserDataT = Reservacion.data.filter(x => x.id == ReserData.resv_ID)[0];
+    var Email = EmailSendModel;
+    Email.to = ReserDataT.email;
+    Email.toName = ReserDataT.nombrecompleto;
+    Email.subject = "Estado de la reservación del restaurante";
+    if (ReserDataT.confirmacionRestaurante == true) {
+        ReserDataT.confirmacionRestaurante = false;
+        Email.bodyData = $("#Razón").val();
+    } else {
+        ReserDataT.confirmacionRestaurante = true;
+        Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación del restaurante de la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];
     }
-    else if (estadoReservaciones == 1) {
-        var resv = jQuery.grep(ReservacionRestaurant.data, function (reservacion, i) {
-            return reservacion.confirmacionReservacion == false && reservacion.iD_Parter == PartnerID;
-        });
+
+    var RData = ReservacionUModel;
+
+    RData.resv_ID = ReserDataT.id,
+        RData.usua_ID = ReserDataT.id_Cliente,
+        RData.paqu_ID = ReserDataT.id_Paquete,
+        RData.resv_esPersonalizado = ReserDataT.esPersonalizado,
+        RData.resv_CantidadPagos = 3,
+        RData.resv_NumeroPersonas = ReserDataT.numeroPersonas,
+        RData.resv_ConfirmacionPago = ReserDataT.confirmacionPago,
+        RData.resv_ConfirmacionHotel = ReserDataT.confirmacionHotel,
+        RData.resv_ConfirmacionRestaurante = ReserDataT.confirmacionRestaurante,
+        RData.resv_ConfirmacionTrans = ReserDataT.confirmacionTransporte,
+        RData.resv_ConfirmacionActividades = ReserDataT.confirmacionActividades,
+        RData.resv_Precio = ReserDataT.precio,
+        RData.resv_UsuarioModifica = parseInt(Client_User_ID),
+        RData.justConfirmation = true
+
+
+    //console.log(JSON.stringify(RData))
+    var SendEmail;
+    if (RData.resv_ConfirmacionRestaurante == true) {
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
     }
     else {
-        var resv = jQuery.grep(ReservacionRestaurant.data, function (reservacion, i) {
-            return reservacion.confirmacionReservacion == true && reservacion.iD_Parter == PartnerID;
-        });
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
     }
-    //console.log(resv);
 
-    $('#tarjetaT').empty();
+    var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
 
-    if (resv.length == 0) {
-        actexth =
-            `<div class="ui card">
-                    <div class="content">
-                        <div class="header">No hay reservaciones</div>                     
-                    </div>                  
-                </div>`
-        $('#tarjetaT').append(actexth);
+    if (status.code == 200 && SendEmail.code == 200) {
+        window.location.href = '/ModuleRestaurants/Reservations?success=true';
     }
     else {
-        for (var i = 0; i < resv.length; i++) {
-            const item = resv[i];
-            var fecha = item.fecha_Reservacion.split('T');
-            try {
-                divroom = `<br\ >
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">${item.cliente}</div>
-                        <div class="description">
-                            Fecha: ${fecha[0]}
-                        </div>      
-                    </div>
-                    <a class="btn btn-edit ui positive button" id="Resv" href="javascript: ViewReservation(${item.iD_Restaurante},${item.id})">
-                        <i class="folder open icon"></i>
-                        Ver Detalles
-                    </a>
-                </div>`;
-                $('#tarjetaT').append(divroom);
-            }
-            catch {
-                divroom = `<div class="ui card">
-                    <div class="content">
-                        <div class="header">Se eliminó este registro</div>                     
-                    </div>                  
-                </div>`;
-                $('#tarjetaT').append(divroom);
-            }
-        }
-    }
-}
-
-
-function CancelarReservacion(id) {
-
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?id=" + id);
-    if (response.code == 200) {
-        var item = response.data;
-
-        console.log(item);
-        var reservation = new FormData();
-
-        reservation.append("Usua_ID", parseInt(item.id_Cliente));
-        reservation.append("Paqu_ID", parseInt(item.id_Paquete));
-        reservation.append("Resv_esPersonalizado", item.esPersonalizado);
-        reservation.append("Resv_CantidadPagos", parseInt(item.cantidadPagos));
-        reservation.append("Resv_NumeroPersonas", parseInt(item.numeroPersonas));
-        reservation.append("Resv_ConfirmacionPago", item.confirmacionPago);
-        reservation.append("Resv_ConfirmacionHotel", item.confirmacionHotel);
-        reservation.append("Resv_ConfirmacionRestaurante", false);
-        reservation.append("Resv_ConfirmacionTrans", item.confirmacionTransporte);
-        reservation.append("Resv_ConfirmacionActividades", item.confirmacionActividades);
-        reservation.append("Resv_Precio", item.precio);
-        reservation.append("Resv_UsuarioModifica", parseInt(Client_User_ID));
-
-        //var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + id, reservation, "PUT");
-        //console.log(response);
-        //if (response > 0) {
-        //    window.location.href = "/ModuleRestaurants/Info?success=true";
-        //}
-
-        ReservationUpdate();
-
-        function ReservationUpdate() {
-            const SendToken = true;
-            const method = "PUT";
-            const data = reservation;
-            const url = "https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + id;
-            const response = uploadFile(url, reservation, method);
-            console.log(response);
-            if (response > 0) {
-                window.location.href = "/ModuleRestaurants/Info?success=true";
-            }
-
-            //var dataResponse = null;
-            //var Token = null;
-            //var HTTPError = {
-            //    message: "",
-            //    code: 0,
-            //    success: false,
-            //    data: null
-            //}
-
-            //if (SendToken == true) {
-            //    Token = GetCookie("Token");
-            //}
-
-            //$.ajax({
-            //    url: url,
-            //    data: data,
-            //    mimeType: "application/json",
-            //    async: false,
-            //    processData: false,
-            //    contentType: false,
-            //    type: method,
-            //    beforeSend: function () {
-            //        $("#loaderAnimation").show();
-            //    },
-            //    complete: function () {
-            //        $("#loaderAnimation").hide();
-            //    },
-            //    success: function (httpResponse) {
-            //        console.log(httpResponse);
-            //        window.location.href = "/ModuleRestaurants/Info";
-            //    }
-            //});
-        }
+        console.log(status.message)
     }
 }
