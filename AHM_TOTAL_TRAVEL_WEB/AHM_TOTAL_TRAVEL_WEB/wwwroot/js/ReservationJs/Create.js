@@ -7,6 +7,8 @@ const CountriesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/
 const HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
 const ReservationHotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
 const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+const HotelsActvList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/List");
+const ActvExtraList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
 
 var CantidadActvHotel = 0;
 var CantidadActvExtra = 0;
@@ -144,7 +146,7 @@ $("#Paqu_ID").change(function () {
     for (var i = 0; i < DefaultPackageAct.length; i++) {
         $("#txtDefaultPackagesActividades")
             .append("<div class='item'>" +
-                "<img class= 'ui avatar image' src=''>" +
+                "<img class= 'ui avatar image' src='https://cdn-icons-png.flaticon.com/512/1248/1248139.png'>" +
                 "<div class='content'>" +
                 "<p class='header'>" + DefaultPackageAct[i].descripcionActividad + "</p></div></div> ");
     }
@@ -193,14 +195,64 @@ $("#Paqu_ID").change(function () {
         //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
 
-    //Activities Extras in the hotel
+
     
-    for (var i = 0; i < CantidadActvHotel; i++) {
-
-
-    }
-
 });
+
+//Fill the hotel activities extra form
+function hotelActvExtraForm() {
+    const DefaultPackages = DefaultPackagesList.data;
+    const Hotels = HotelsList.data;
+
+    const DefaultPackagesDetails = DefaultPackagesDetailsList.data;
+    const PackageID = $("#Paqu_ID").val();
+
+    const DefaultPackage = DefaultPackages.filter(function (Package) {
+        return Package.id == PackageID
+    });
+
+    const Hotel = Hotels.filter((x) => { return x.id == DefaultPackage[0].iD_Hotel })
+
+    const DefaultPackageAct = DefaultPackagesDetails.filter(function (PackageDetails) {
+        return PackageDetails.paqueteID == PackageID
+    });
+
+    const package = DefaultPackage[0];
+    //Activities Extras in the hotel
+    const htelActvExtra = HotelsActvList.data.filter((x) => { return x.iD_Hotel == DefaultPackage[0].iD_Hotel });
+
+        $("#listHotelsExtraActivities").append(`
+<div class="four fields hotelsExtraActivities" data-value="`+ CantidadActvHotel + `">
+    <div class="field">
+        <label>Actividades en el hotel</label>
+        <select class="ui dropdown" id="ddlhotelsExtraActivities`+ CantidadActvHotel + `">
+            <option value="">Selecciona una actividad</option>
+        </select>
+                                                
+    </div>
+    <div class="field">
+        <label>Cantidad de personas</label>
+        <input type="number" min="1" max="100" id="hotelsExtraActivitiesAmount`+ CantidadActvHotel +`" placeholder="Cantidad de personas">
+    </div>
+    <div class="field hotelsExtraActivitiesPrice">
+        <label>Cantidad de personas</label>
+        <input type="number" id="hotelsExtraActivitiesPrice`+ CantidadActvHotel +`" placeholder="Precio" readonly>
+    </div>
+    <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
+        <label></label>
+        <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHotelExtraActivities(`+ CantidadActvHotel +`)" id="btndeleteExtraActivities">+ Eliminar actividad</div>
+    </div>
+</div>
+
+`);
+        //Fill the extrac activities in the hotel
+        $('#ddlhotelsExtraActivities' + CantidadActvHotel).append('<option value="">' + "Seleccione una actividad" + '</option>');
+        for (var j = 0; j < htelActvExtra.length; j++) {
+            $('#ddlhotelsExtraActivities' + CantidadActvHotel).append('<option value="' + htelActvExtra[j].iD_Actividad + '">' + htelActvExtra[j].actividad + '</option>');
+        };
+  
+}
+
 
 //Date range picker limited based on the duration of the package
 $('#dateRangePicker').daterangepicker({
@@ -249,8 +301,6 @@ $('#dateRangePicker').daterangepicker({
 //-------------- ADDRESS DROPDOWNS EVENTS
 
 
-
-
 //Show or hide between default and personalized packages
 $("#ddlTipoPaquete").change(function () {
     if ($("#ddlTipoPaquete").val() == 2) {
@@ -277,8 +327,27 @@ $("#Paqu_ID").change(function () {
 
 //Show inputs for extra activities in hotels
 $("#btnShowExtraHotelActivities").click(function () {
-    $("#frmAddExtraHotelsActivities").show();
+    if ($("#btnShowExtraHotelActivities").hasClass("active")) {
+        $("#btnShowExtraHotelActivities").removeClass("active")
+        $("#frmAddExtraHotelsActivities").hide();
+        $("#listHotelsExtraActivities").empty();
+        CantidadActvHotel = 1;
+        CantidadActvExtra = 1;
+        
+    }
+    else {
+        $("#frmAddExtraHotelsActivities").show();
+        $("#btnShowExtraHotelActivities").addClass("active")
+        CantidadActvHotel = 1;
+        CantidadActvExtra = 1;
+        hotelActvExtraForm();
+    }
+    
+});
 
+$("#btnHotelsExtraActivities").click(function () {
+    CantidadActvHotel += 1;
+    hotelActvExtraForm();
 });
 
 //Show inputs for extra activities in the zone
