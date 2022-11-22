@@ -108,8 +108,6 @@ function deleteImage(index) {
             { validateMessage: "Ingrese una descripcion", Jqueryinput: $("#Habi_Descripcion") },
             { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
             { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
-            { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
-            { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Habi_wifi") },
             { validateMessage: "Ingrese las camas", Jqueryinput: $("#Habi_camas") }
         ];
 

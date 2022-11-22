@@ -43,7 +43,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var id = HttpContext.User.FindFirst("User_Id").Value;
                 categoria.CaHa_UsuarioCreacion = int.Parse(id);
                 var list = await _hotelsServices.CategoriesRoomsCreate(categoria, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/CategoriesRooms?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -75,7 +83,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var idd = HttpContext.User.FindFirst("User_Id").Value;
                 categoria.CaHa_UsuarioModifica = int.Parse(idd);
                 var lista = await _hotelsServices.CategoriesRoomsUpdate(categoria, token);
-                return RedirectToAction("Index");
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/CategoriesRooms?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {

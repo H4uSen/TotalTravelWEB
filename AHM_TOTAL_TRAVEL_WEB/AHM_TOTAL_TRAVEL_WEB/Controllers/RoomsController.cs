@@ -62,11 +62,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var id = HttpContext.Session.GetInt32("PartnerID");
             var model = new List<HotelListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
+
             var Hotel = await _hotelsServices.HotelsList(token);
             IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
-            ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
+
+            var list2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
+            ViewBag.Hote_ID = new SelectList(list2, "ID", "Hotel");
 
             var mode = new List<HotelListViewModel>();
             var categoria = await _hotelsServices.CategoriesRoomsList();
@@ -106,7 +110,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-
+            var idd = HttpContext.Session.GetInt32("PartnerID");
             var item = new RoomsListViewModel();
             string token = HttpContext.User.FindFirst("Token").Value;
             var list = await _hotelsServices.RoomsList(token);
@@ -123,13 +127,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Wifi = element.Wifi;
             item.Camas = element.Camas;
             item.Capacidad = element.Capacidad;
-          
 
-            var rooms = await _hotelsServices.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_rooms = (IEnumerable<HotelListViewModel>)rooms.Data;
-            ViewBag.Hote_ID = new SelectList(data_rooms, "ID", "Hotel", element.HotelID);
+            
+            var Hotel = await _hotelsServices.HotelsList(token);
+            IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
 
-          
+            var list2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(idd)).ToList();
+            ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel", element.HotelID);
+
+
             var mode = new List<HotelListViewModel>();
             var categoria = await _hotelsServices.CategoriesRoomsList();
             IEnumerable<categoryroomsListViewModel> data_categoria = (IEnumerable<categoryroomsListViewModel>)categoria.Data;
@@ -197,8 +203,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             string token = HttpContext.User.FindFirst("Token").Value;
             var rooms = (RoomsListViewModel)(await _hotelsServices.RoomsFind(id, token)).Data;
-            ViewData["RoomsFolder"] = $"Hotel/Hotel-{rooms.HotelID}/Place/Hotel_Room-{rooms.ID}";
-            ViewData["HotelID"] = id;
+            if (!rooms.Equals(null))
+            {
+                ViewData["RoomsFolder"] = $"Hotel/Hotel-{rooms.HotelID}/Place/Hotel_Room-{rooms.ID}";
+                ViewData["HotelID"] = id;
+            }
+            
             return View(rooms);
         }
     }

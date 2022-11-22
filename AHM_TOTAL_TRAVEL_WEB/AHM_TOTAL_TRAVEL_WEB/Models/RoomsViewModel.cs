@@ -32,6 +32,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Categoria { get; set; }
         public int HotelID { get; set; }
         public string Hotel { get; set; }
+        public int? PartnerID { get; set; }
         public decimal? Precio { get; set; }
         public int? Balcon { get; set; }
         public bool? Wifi { get; set; }
@@ -43,6 +44,5 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string UsuarioModifica { get; set; }
         public DateTime? FechaModifica { get; set; }
         public bool? Estado { get; set; }
-        public int? PartnerID { get; set; }
     }
 }
