@@ -157,7 +157,7 @@
                 data.CaHa_Descripcion = $("#category").val();
 
                 const response = ajaxRequest(
-                    "https://totaltravelapi.azurewebsites.net/API/Categoriesrooms/Insert",
+                    "https://apitotaltravel.azurewebsites.net/API/Categoriesrooms/Insert",
                     data, "POST"
                 );
                 if (response.code == 200) {
@@ -227,6 +227,8 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", CategoriesRooms);
 
         };
+   
+
         const params = new URLSearchParams(window.location.search);
         const izziSuccess = params.get("success");
 

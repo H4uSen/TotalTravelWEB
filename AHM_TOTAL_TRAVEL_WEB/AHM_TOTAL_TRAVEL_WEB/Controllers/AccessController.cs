@@ -73,8 +73,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 ViewData["EmailError"] = "Rellene este campo";
                 return View("RecoverPassword");
             }
-            
-
         }
         public async Task<IActionResult> RegisterAsync()
         {

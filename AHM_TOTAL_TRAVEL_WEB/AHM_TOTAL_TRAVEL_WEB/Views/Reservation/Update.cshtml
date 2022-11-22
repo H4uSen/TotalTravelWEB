@@ -57,12 +57,12 @@
                                 <!--First name-->
                                 <div class="field">
                                     <label>Nombre</label>
-                                    <input type="text" id="txtNombre" placeholder="Primer Nombre" readonly />
+                                    <input type="text" id="txtNombre" value="@Model.Nombre" placeholder="Primer Nombre" readonly />
                                 </div>
                                 <!--Last name-->
                                 <div class="field">
                                     <label>Apellido</label>
-                                    <input type="text" id="txtApellido" placeholder="Apellido" readonly>
+                                    <input type="text" id="txtApellido" value="@Model.Apellido" placeholder="Apellido" readonly>
                                 </div>
                             </div>
                         </div>
@@ -71,17 +71,17 @@
                             <!--Phone number-->
                             <div class="field">
                                 <label>Teléfono</label>
-                                <input type="text" id="txtTelefono" placeholder="Teléfono" readonly>
+                                <input type="text" id="txtTelefono" value="@Model.Telefono" placeholder="Teléfono" readonly>
                             </div>
                             <!--Email-->
                             <div class="field">
                                 <label>Email</label>
-                                <input type="text" id="txtEmail" placeholder="Email" readonly>
+                                <input type="text" id="txtEmail" value="@Model.Email" placeholder="Email" readonly>
                             </div>
                             <!--Birth date-->
                             <div class="field">
                                 <label>Fecha de nacimiento</label>
-                                <input type="text" id="txtFechaNacimiento" placeholder="Fecha de nacimiento" readonly>
+                                <input type="text" id="txtFechaNacimiento" value="" placeholder="Fecha de nacimiento" readonly>
                             </div>
                             
                         </div>
@@ -96,7 +96,7 @@
                                 <!--Amount of people-->
                                 <div class="field">
                                     <label>Cantida de personas</label>
-                                    <input type="number" min="1" max="100" id="Resv_NumeroPersonas" placeholder="Cantidad de personas">
+                                    <input type="number" min="1" max="100" id="Resv_NumeroPersonas" value="@Model.NumeroPersonas" placeholder="Cantidad de personas">
                                 </div>
                                 <!--Amount of payments-->
                                 <div class="field">
@@ -104,7 +104,7 @@
                                     <select class="ui search dropdown" id="Resv_CantidadPagos">
                                         <option value="">Selecciona la cantidad de coutas</option>
                                         <option value="1">1</option>
-                                        <option value="3">2</option>
+                                        <option value="2">2</option>
                                         <option value="6">6</option>
                                     </select>
                                 </div>
@@ -335,6 +335,7 @@
         const Paquete_ID = "@Model.Id_Paquete";
         const Usua_ID = "@ViewData["Usua_ID"]";
         const Reservation = "@ViewData["Reservation"]";
+        const ReservationID = "@ViewData["ReservationID"]";
     </script>
     
     <script src="~/js/ReservationJs/Update.js"></script>
