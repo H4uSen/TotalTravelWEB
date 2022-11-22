@@ -45,14 +45,16 @@
 <br>
 <div class="container">
     <div class="ui attached segment">
-        <div class="fullwidth-block">
-            <div class="container con">
-                Ciudad de origen:
-                <select id="Origen" class="ui dropdown search ma" asp-items="ViewBag.ciudadesResidencia">
+        <div class="fields">
+            <div class="field">
+                <label>Ciudad de origen:</label>
+                <select id="Origen" class="ui dropdown search" asp-items="ViewBag.ciudadesResidencia">
                     <option value="0" selected>Todos</option>
                 </select>
-                Destinos:
-                <select id="Destinos" class="ui dropdown search ma" asp-items="ViewBag.ciudades">
+            </div>
+            <div class="field">
+                <label>Destinos:</label>
+                <select id="Destinos" class="ui dropdown search" asp-items="ViewBag.ciudades">
                     <option value="0" selected>Todos</option>
                 </select>
             </div>
@@ -176,20 +178,19 @@
                                                         <div class="field">
                                                             <div class="col-md-12">
                                                                 <label class="form-label">Elige tu método de pago</label><label class="text-danger">*</label>
-                                                                <select id="cbbFormaPago" class="ui dropdown search ma form-control" asp-items="ViewBag.MetodosPagos">
-                                                                    <option value="0" selected disabled>Seleccione un método de pago</option>
+                                                                <select id="cbbFormaPago" class="ui dropdown search" asp-items="ViewBag.MetodosPagos">
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            @*<div class="col-md-12">
                                                 <label class="form-label" for="exampleInputEmail1">E-mail</label><label class="text-danger">*</label>
                                                 <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" readonly value="@ViewData["Correo"]">
                                                 <div class="form-text" id="emailHelp">El correo de confirmación se enviará a esta dirección.</div>
                                                 <br>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </div>
                                 </div>

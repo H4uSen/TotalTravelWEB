@@ -105,9 +105,8 @@ const fill_data = {
 
             var activities = ActivitiesList.data;
             if (id_ciudad_destino != null) {
-                activities.filter(x => x.ciudadID == id_ciudad_destino);
+                activities = activities.filter(x => x.ciudadID == id_ciudad_destino);
             }
-
             $("#frmActivities .ui.items").empty();
             if (activities.length > 0) {
 
@@ -195,7 +194,7 @@ const fill_data = {
                 $(".activity_trigger_button").click(function (_this) {
                     var container = $(_this.target).parents(".activitiesExtra_form_content").eq(0);
                     if ($(container).find(".activities_fecha input").eq(0).val() == 0) {
-                        iziToastAlert("!campo: fecha de reservacion requerida!","","error");
+                        iziToastAlert("Fecha de reservación requerida!", "", "error");
                     }
                     else {
                         const id_actividad = $(_this.target).attr("data-value");
@@ -389,7 +388,7 @@ const fill_data = {
                 var container = $(_this.target).parents(".transport_form_content").eq(0);
                 const selected = $(_this.target).attr("data-selected");
                 if ($(container).find(".transport_fecha input").eq(0).val() == 0) {
-                    iziToastAlert("!campo: fecha de transporte requerida!", "", "error");
+                    iziToastAlert("Fecha de transporte requerida!", "", "error");
                 }
                 else {
                     //set default
@@ -409,7 +408,7 @@ const fill_data = {
                         $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
                     }
                 }
-                
+
             });
             $('.transport_fecha').calendar({
                 type: 'date',
@@ -422,6 +421,23 @@ const fill_data = {
             createContador($(".transport_contador"));
         }
     }
+}
+
+function sweetAlerts() {
+
+    Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
+        }
+    })
 }
 
 function CancelarReservacion(idRT) {
@@ -440,7 +456,7 @@ function CancelarReservacion(idRT) {
         SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
     }
 
-   
+
     if (SendEmail.code == 200) {
         window.location.href = '/BuyDefaults/Index?success=true';
     }
@@ -470,7 +486,8 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
         reservation.resv_esPersonalizado = false;
         reservation.actividadesExtras = actividades;
         reservation.reservacionTransportes = transportes;
-        reservation.paqu_ID = parseInt(paquetes);
+        reservation.paqu_ID = parseInt(paquetes.id);
+        reservation.hote_ID = parseInt(paquetes.iD_Hotel);
         reservation.resv_UsuarioCreacion = Client_User_ID;
         reservation.resv_CantidadPagos = parseInt($("#frmCreateReservation #txtCantidadPagos").val());
         reservation.resv_NumeroPersonas = parseInt($("#frmCreateReservation #personas").val());
@@ -483,23 +500,18 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
         //ReservationInsert();
 
         //function ReservationInsert() {
-            //const SendToken = true;
-            //const method = "POST";
-            //const data = reservation;
-            //const url = "/BuyDefaults/Create"
-            //const response = uploadFile(url, reservation, method);
-            const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
-            console.log(response);
-            if (response > 0) {
-                var idres = response.data.codeStatus;
-                CancelarReservacion(idres);
-               
-              
-
-
-
-            }
-        /*}*/
+        //const SendToken = true;
+        //const method = "POST";
+        //const data = reservation;
+        //const url = "/BuyDefaults/Create"
+        //const response = uploadFile(url, reservation, method);
+        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
+        console.log(response);
+        if (response > 0) {
+            var idres = response.data.codeStatus;
+            CancelarReservacion(idres);
+        }
+        /}/
     }
 }
 
@@ -539,55 +551,53 @@ const getDetails = {
                 $("#frmTransportDetail").show();
             }
 
-            ////calendario
-            //const paqueteDuracion = Packages.data.duracion_Paquete - 1;
-            //$('#dateRangePicker').daterangepicker({
-            //    "maxSpan": {
-            //        "days": paqueteDuracion
-            //    },
-            //    "locale": {
-            //        "format": "DD/MM/YYYY",
-            //        "separator": " - ",
-            //        "applyLabel": "Aplicar",
-            //        "cancelLabel": "Cancelar",
-            //        "fromLabel": "Desde",
-            //        "toLabel": "Hasta",
-            //        "customRangeLabel": "Personalizado",
-            //        "weekLabel": "S",
-            //        "daysOfWeek": [
-            //            "Lun",
-            //            "Mar",
-            //            "Mie",
-            //            "Jue",
-            //            "Vie",
-            //            "Sab",
-            //            "Dom"
-            //        ],
-            //        "monthNames": [
-            //            "Enero",
-            //            "Febrero",
-            //            "Marzo",
-            //            "Abril",
-            //            "Mayo",
-            //            "Junio",
-            //            "Julio",
-            //            "Agosto",
-            //            "Septiembre",
-            //            "Octubre",
-            //            "Noviembre",
-            //            "Diciembre"
-            //        ],
-            //        "firstDay": 1
-            //    },
-            //    "startDate": "11/01/2022",
-            //    "endDate": "11/01/2022"
-            //}, function (start, end, label) {
-            //    //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-            //});
+            //calendario
+            $('#dateRangePicker').daterangepicker({
+                "maxSpan": {
+                    "days": parseInt(Packages.data[0].duracion_Paquete) - 1
+                },
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Aplicar",
+                    "cancelLabel": "Cancelar",
+                    "fromLabel": "Desde",
+                    "toLabel": "Hasta",
+                    "customRangeLabel": "Personalizado",
+                    "weekLabel": "S",
+                    "daysOfWeek": [
+                        "Lun",
+                        "Mar",
+                        "Mie",
+                        "Jue",
+                        "Vie",
+                        "Sab",
+                        "Dom"
+                    ],
+                    "monthNames": [
+                        "Enero",
+                        "Febrero",
+                        "Marzo",
+                        "Abril",
+                        "Mayo",
+                        "Junio",
+                        "Julio",
+                        "Agosto",
+                        "Septiembre",
+                        "Octubre",
+                        "Noviembre",
+                        "Diciembre"
+                    ],
+                    "firstDay": 1
+                },
+                "startDate": "11/01/2022",
+                "endDate": "11/01/2022"
+            }, function (start, end, label) {
+                //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+            });
 
             // crea desgloce final
 
-            //const paqueteId = Packages.data.package_id;
             const total_price = Activities.subtotal + transports.subtotal + Packages.subtotal;
             $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).empty();
             $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).append(
@@ -618,14 +628,6 @@ const getDetails = {
                             <div class="col-sm-5">
                                 <p class="text-sm" align="right">L ${Packages.subtotal.toFixed(2)}</p>
                             </div>
-
-                            <div class="col-sm-7">
-                                <p class="text-sm">I.S.V</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p class="text-sm" align="right">L 0.00</p>
-                            </div>
-
                             <div class="col-sm-7">
                                 <p class="text-md"><b>TOTAL</b></p>
                             </div>
@@ -641,7 +643,7 @@ const getDetails = {
             $("#btnFinalizar").off('click');
             $("#btnFinalizar").on('click', function () {
                 console.log("click");
-                FinalizarCompra(Packages.idPaquete, Activities.data, transports.data, total_price);
+                FinalizarCompra(Packages.data[0], Activities.data, transports.data, total_price);
             });
 
         } else {
@@ -660,7 +662,6 @@ const getDetails = {
             data: [],
             cards: [],
             subtotal: 0,
-            idPaquete: 0
         };
 
         const selectedPackage = $(".package_item .package_button_trigger[data-selected='true']").eq(0);
@@ -669,7 +670,6 @@ const getDetails = {
         const package = packages.filter(x => x.id == package_id)[0];
         const place = CitiesList.data.filter(x => x.id == package.ciudad_ID)[0];
         response.subtotal = parseFloat(package.precio);
-        response.idPaquete = parseInt(package.id);
         const duracion =
             `${package.duracion_Paquete} dias y ${parseInt(package.duracion_Paquete) == 1 ? 1 : parseInt(package.duracion_Paquete) - 1} noches`;
 
@@ -705,12 +705,6 @@ const getDetails = {
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-7">
-                                <p class="text-sm">I.S.V</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p class="text-sm" align="right">L 0.00</p>
-                            </div>
                             <div class="col-sm-7">
                                 <p class="text-md"><b>SUBTOTAL</b></p>
                             </div>
@@ -785,12 +779,6 @@ const getDetails = {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <p class="text-sm">I.S.V</p>
-                                </div>
-                                <div class="col-sm-5">
-                                    <p class="text-sm" align="right">L 0.00</p>
-                                </div>
-                                <div class="col-sm-7">
                                     <p class="text-md"><b>SUBTOTAL</b></p>
                                 </div>
                                 <div class="col-sm-5">
@@ -822,7 +810,7 @@ const getDetails = {
         $.each(transportsButtons, function (i, item) {
 
             const container = $(item).parents(".transport_form_content");
-            const id_transport = $(item).attr("data-value")
+            const id_transport = $(item).attr("data-value");
             const transport = transports.filter(x => x.id == id_transport)[0];
 
             const ciudadSalida = CitiesList.data.filter(item => item.id == transport.ciudad_Salida_ID)[0];
@@ -834,7 +822,7 @@ const getDetails = {
                     : transport.hora_Salida + " AM"
 
             const model = {
-                "detr_ID": 0,
+                "detr_ID": transport.id,
                 "reTr_CantidadAsientos": parseInt($(container).find(".transport_contador input").val()),
                 "reTr_Cancelado": false,
                 "reTr_FechaCancelado": new Date($(container).find(".transport_fecha input").val()).toISOString()
@@ -881,12 +869,6 @@ const getDetails = {
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-7">
-                                    <p class="text-sm">I.S.V</p>
-                                </div>
-                                <div class="col-sm-5">
-                                    <p class="text-sm" align="right">L 0.00</p>
-                                </div>
                                 <div class="col-sm-7">
                                     <p class="text-md"><b>SUBTOTAL</b></p>
                                 </div>
@@ -959,6 +941,9 @@ $("#Destinos").change(function (_this) {
     if ($("#Destinos").val() != 0) {
 
         fill_data.fillMain($("#Origen").val(), $("#Destinos").val());
+    }
+    else {
+        fill_data.fillMain($("#Origen").val(), null);
     }
 });
 
