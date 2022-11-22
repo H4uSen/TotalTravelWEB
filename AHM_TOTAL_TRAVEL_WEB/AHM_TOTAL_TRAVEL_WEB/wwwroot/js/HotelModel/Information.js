@@ -125,6 +125,10 @@ function ViewReservation(idDetalles, id) {
             habiTotal += parseInt(item.precio_Habitacion);
         }
 
+        var R2 = Rflitro[0];
+        var Confirmacion2 = Reservacion.data.filter(x => x.id == parseInt(R2.reservacionID))[0];
+        var Estado2 = Confirmacion2.confirmacionHotel;
+
         $('#InfoDet').empty();
         if (Rflitro.length == 0) {
             actexth =
@@ -207,8 +211,55 @@ function ViewReservation(idDetalles, id) {
                         </div>
                     </div>
                     </center>`
-
+                if (Estado2 == true) {
+                    botones = `<center>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Fecha Salida:</label>
+                                    ${fechaS[0]}
+                            </div>
+                            <div class="field">
+                                <label>Estado: </label>
+                                <span class="ui green label">Confirmada</span>
+                            </div>
+                        </div>
+                    <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <a class="btn btn-edit ui positive button w-100" id="Cancelar" href="javascript: CancelarReservacion(${ResvaFilterItem.id})">
+                                        Cancelar
+                                    </a>
+                                </div>
+                                <div class="field">
+                                    <textarea class=" w-100" rows="1" placeholder="Razón" id="Razón"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </center>`;
+                }
+                else {
+                    botones = `<center>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Fecha Salida:</label>
+                                    ${fechaS[0]}
+                            </div>
+                            <div class="field">
+                                <label>Estado: </label>
+                                <span class="ui blue label">Pendiente</span>
+                            </div>
+                        </div>
+                        <center>
+                            <div class="field">
+                                <a class="btn btn-edit ui positive button w-100" id="Confirmar" href="javascript: CancelarReservacion(${ResvaFilterItem.id})">
+                                    Confirmar
+                                </a>
+                            </div>                          
+                        </center>
+                    </center>`;
+                }
                 $('#InfoDet').append(divroom);
+                $('#InfoDet').append(botones);
             }
             catch {
                 divroom =
@@ -236,4 +287,59 @@ function fillreservaciones(estadoReservaciones) {
     else {
         ReservacionH = Reservacion.data;
     }
+}
+
+function CancelarReservacion(idRT) {
+    var ReserData = ReservacionHot.data.filter(x => x.id == idRT)[0];
+    var ReserDataT = Reservacion.data.filter(x => x.id == ReserData.reservacionID)[0];
+    var Email = EmailSendModel;
+    Email.to = ReserDataT.email;
+    Email.toName = ReserDataT.nombrecompleto;
+    Email.subject = "Estado de la reservación del transporte";
+    if (ReserDataT.confirmacionHotel == true) {
+        ReserDataT.confirmacionHotel = false;
+        Email.bodyData = $("#Razón").val();
+    } else {
+        ReserDataT.confirmacionHotel = true;
+        Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación de transporte en la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];
+    }
+
+    var RData = ReservacionUModel;
+
+    RData.resv_ID = ReserDataT.id,
+        RData.usua_ID = ReserDataT.id_Cliente,
+        RData.paqu_ID = ReserDataT.id_Paquete,
+        RData.resv_esPersonalizado = ReserDataT.esPersonalizado,
+        RData.resv_CantidadPagos = 3,
+        RData.resv_NumeroPersonas = ReserDataT.numeroPersonas,
+        RData.resv_ConfirmacionPago = ReserDataT.confirmacionPago,
+        RData.resv_ConfirmacionHotel = ReserDataT.confirmacionHotel,
+        RData.resv_ConfirmacionRestaurante = ReserDataT.confirmacionRestaurante,
+        RData.resv_ConfirmacionTrans = ReserDataT.confirmacionTransporte,
+        RData.resv_ConfirmacionActividades = ReserDataT.confirmacionActividades,
+        RData.resv_Precio = ReserDataT.precio,
+        RData.resv_UsuarioModifica = parseInt(Client_User_ID),
+        RData.justConfirmation = true
+
+
+    console.log(JSON.stringify(RData))
+    var SendEmail;
+    if (RData.resv_ConfirmacionHotel == true) {
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    }
+    else {
+        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    }
+
+    var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
+
+    if (status.code == 200 && SendEmail.code == 200) {
+        window.location.href = '/HotelModel?success=true';
+    }
+    else {
+        console.log(status.message)
+    }
+
+
+
 }
