@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.DefaultPackagesListViewModel>
 @{
     ViewData["Title"] = "Transportes";
     Layout = null;
@@ -53,36 +53,42 @@
                 <thead>
                     <tr>
                         <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
+                        <th>Descripcion Hotel</th>
+                        <th>Descripcion Paquete</th>
+                        <th>Duracion Paquete</th>
                         <th>Nombre</th>
-                        <th>Tipo de transporte</th>
-                        <th>Socio</th>
-                        <th>Ciudad</th>
-                        <th>Colonia</th>
+                        <th>Precio</th>
+                        <th>Restaurante</th>
+
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model)
                     {
-                        <tr data-value="@item.ID" data-hotel="@item.Nombre">
-                            <td></td>
+                    <tr data-value="@item.Id" data-hotel="@item.Nombre">
+                        <td></td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipoTransporte)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombrePartner)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Colonia)
-                            </td>
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion_Hotel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion_Paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duracion_Paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Restaurante)
+                        </td>
+                     
+                    </tr>
                     }
                 </tbody>
             </table>

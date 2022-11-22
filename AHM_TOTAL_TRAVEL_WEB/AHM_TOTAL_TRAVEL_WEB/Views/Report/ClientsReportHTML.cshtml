@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.UserListViewModel>
 @{
     ViewData["Title"] = "Transportes";
     Layout = null;
@@ -54,35 +54,54 @@
                     <tr>
                         <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
                         <th>Nombre</th>
-                        <th>Tipo de transporte</th>
-                        <th>Socio</th>
-                        <th>Ciudad</th>
+                        <th>Pais</th>
+                        <th>Sexo</th>
+                        <th>Telefono</th>
+                        <th>Dni</th>
                         <th>Colonia</th>
+                        <th>Cuidad</th>
+                        <th>Calle</th>
+                        <th>Avenida</th>
+
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model)
                     {
-                        <tr data-value="@item.ID" data-hotel="@item.Nombre">
-                            <td></td>
+                    <tr data-value="@item.ID" data-hotel="@item.Nombre">
+                        <td></td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipoTransporte)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombrePartner)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Colonia)
-                            </td>
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombrecompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pais)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sexo)
+                        </td>
+                     
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                      
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DNI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Colonia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Calle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Avenida)
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

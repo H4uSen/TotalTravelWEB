@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.TransportListViewModel>
+﻿@model IEnumerable<AHM_TOTAL_TRAVEL_WEB.Models.ReservationListViewModel>
 @{
     ViewData["Title"] = "Transportes";
     Layout = null;
@@ -53,36 +53,62 @@
                 <thead>
                     <tr>
                         <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
+                        <th>Descripcion Paquete</th>
+                        <th>Dni</th>
+                        <th>Duracion Paquete</th>
+                        <th>Email</th>
+                        <th>Fecha Entrada</th>
+                        <th>Fecha Salida</th>
                         <th>Nombre</th>
-                        <th>Tipo de transporte</th>
-                        <th>Socio</th>
-                        <th>Ciudad</th>
-                        <th>Colonia</th>
+                        <th>Hotel</th>
+                        <th>Cantidad Personas</th>
+                        <th>Precio</th>
+                        <th>Telefono</th>
+
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model)
                     {
-                        <tr data-value="@item.ID" data-hotel="@item.Nombre">
-                            <td></td>
+                    <tr data-value="@item.ID" data-hotel="@item.Nombre">
+                        <td></td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipoTransporte)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombrePartner)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Colonia)
-                            </td>
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescripcionPaquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DNI)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DurecionPaquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Entrada)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Salida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombrecompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre_Hotel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroPersonas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+              
+                    </tr>
                     }
                 </tbody>
             </table>

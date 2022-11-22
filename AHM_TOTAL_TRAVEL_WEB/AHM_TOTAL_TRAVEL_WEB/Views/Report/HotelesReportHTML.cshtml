@@ -57,32 +57,41 @@
                         <th>Descripcion</th>
                         <th>Colonia</th>
                         <th>Ciudad</th>
-                        <th>Colonia</th>
+                        <th>Hotel</th>
+                        <th>Calle</th>
+                        <th>Avenida</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model)
                     {
-                        <tr data-value="@item.ID" data-hotel="@item.ID">
-                            <td></td>
+                    <tr data-value="@item.ID" data-hotel="@item.ID">
+                        <td></td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Partners)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Colonia)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Colonia)
-                            </td>
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Partners)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Colonia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciudad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hotel)
+                        </td>
+                     
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Calle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Avenida)
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
