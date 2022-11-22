@@ -215,9 +215,9 @@
                                 @Context.Session.GetString("Name")
                             </a>
                             @{ if (usersRole != "Cliente")
-                               {
+                                {
                                     <span class="text-gray-400 letter-spacing-0">@Context.Session.GetString("Partner") </span>
-                               }
+                                }
                             }
                         </div>
                     </a>
@@ -335,7 +335,13 @@
                             Inicio
                         </a>
                     </li>
+
+
                 </ul>
+
+                <ul class="list-unstyled" id="menu_rol_groups"></ul>
+                
+
 
             </nav>
             <div class="content-inner w-100">

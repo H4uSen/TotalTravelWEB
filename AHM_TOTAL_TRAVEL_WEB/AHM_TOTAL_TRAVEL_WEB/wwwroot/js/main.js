@@ -42,15 +42,50 @@ function fillMenu(rol_id, dropdown = false){
 
             const element = Restrictions[i];
 
+             //si el elemento es visible
             if (element.esVisible == true) {
-                const menu_item =
-                    `<li class="sidebar-item">
-                        <a class="sidebar-link" href="/${element.controlador}/${element.accion}">
-                            ${element.permiso}
-                        </a>
-                    </li>`;
 
-                $("#menu_rol_items").append(menu_item);
+                //si el elemento no pertenece a un grupo
+                if (element.id_grupo == null) {
+                    const menu_item =
+                        `<li class="sidebar-item" id="menu_item_${element.id}">
+                            <a class="sidebar-link" href="/${element.controlador}/${element.accion}">
+                                ${element.permiso}
+                            </a>
+                        </li>`;
+
+                    $("#menu_rol_items").append(menu_item);
+                }
+                else {
+
+                     //si el grupo existe lo añade 
+                    if ($(`#menu_group_${element.id_grupo}`).length > 0) {
+                        $(`#menu_group_${element.id_grupo}_container`).append(
+                            `<li>
+                                <a id="menu_item_${element.id}" class="sidebar-link" href="/${element.controlador}/${element.accion}">${element.permiso}</a>
+                            </li>`
+                        );
+                    }
+                    // si no lo crea
+                    else {
+                        $("#menu_rol_groups").append(
+                            `<li class="sidebar-item">
+                                <a class="sidebar-link" id="menu_group_${element.id_grupo}" href="#menu_group_${element.id_grupo}_container" data-bs-toggle="collapse" data-toggle="collapse">
+                                    ${element.grupo}
+                                </a>
+                                <ul class="collapse list-unstyled" id="menu_group_${element.id_grupo}_container"></ul>
+                             </li>`
+                        );
+
+                        $(`#menu_group_${element.id_grupo}_container`).append(
+                            `<li>
+                                <a id="menu_item_${element.id}" class="sidebar-link" href="/${element.controlador}/${element.accion}">${element.permiso}</a>
+                            </li>`
+                        );
+                    }
+                }
+
+
             }
         }
     }
