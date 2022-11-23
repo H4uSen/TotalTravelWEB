@@ -1,138 +1,169 @@
-﻿@model IEnumerable<PermissionsListViewModel>
+﻿@model IEnumerable<RolListViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section CSS{ 
+    <style>
+        .horizontal_scroll_menu {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+    </style>
+}
+
 <div class="container">
     <br />
 
-    <div class="ui grid">
-        <div class="three wide column">
-            <div class="ui vertical fluid tabular menu" id="roles_menu">
-                <a class="item" data-target="#frmRol_1">ROL #1</a>
-                <a class="item" data-target="#frmRol_2">ROL #2</a>
-                <a class="item" data-target="#frmRol_3">ROL #3</a>
+    <div class="ui top attached tabular menu" id="screens_menus">
+        <a class="active item" data-target="#frmRestrictions">Restricciones de sistema</a>
+        <a class="item" data-target="#frmRoles">Roles de sistema</a>
+    </div>
+    <div class="ui bottom attached segment">
+        <br>
+
+        <div class="ui grid stackable" id="frmRestrictions">
+            <div class="three wide column">
+                <div class="ui vertical fluid tabular menu" id="roles_menu">
+                    <!-- <a class="item" data-target="#frmRol_1">ROL #1</a> -->
+                </div>
+            </div>
+            <div class="thirteen wide stretched column">
+                <div class="ui basic segment" id="roles_container">
+
+                    <!--
+                    <div class="role_item" id="frmRol_1" data-role="1">
+
+                        <div class="ui top attached tabular menu modulos_menu" style="width:72.8em;overflow-x:auto">
+                             <a class="item" data-target="#frmModulo_1">MODULO #1</a>
+                        </div>
+                        <div class="ui bottom attached segment modulos_container">
+
+
+                            <div class="module_item" id="frmModulo_1" data-module="1">
+                                <div class="fields pantallas_container">
+                                    <div class="field pantalla_item">
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" data-role="1" data-screen="1">
+                                            <label>PANTALLA #1</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+                </div>
             </div>
         </div>
-        <div class="thirteen wide stretched column">
-            <div class="ui segment" id="roles_container">
 
-                <div class="role_item" id="frmRol_1" data-role="1">
+        <div id="frmRoles" class="ui basic segment">
 
-                    <div class="ui top attached tabular menu modulos_menu">
-                        <a class="item" data-target="#frmModulo_1">MODULO #1</a>
-                        <a class="item" data-target="#frmModulo_2">MODULO #2</a>
-                    </div>
-                    <div class="ui bottom attached segment modulos_container">
-
-                        <div class="module_item" id="frmModulo_1" data-module="1">
-                            <div class="fields pantallas_container">
-
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="1" data-screen="1">
-                                        <label>PANTALLA #1</label>
-                                    </div>
-                                </div>
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="1" data-screen="2">
-                                        <label>PANTALLA #2</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div id="frmModulo_2">
-                            <div class="fields pantallas_container">
-
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="1" data-screen="3">
-                                        <label>PANTALLA #3</label>
-                                    </div>
-                                </div>
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="1" data-screen="4">
-                                        <label>PANTALLA #4</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
+            <div class="ui icon attached message">
+                <i class="user icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Roles
                     </div>
                 </div>
+            </div>
 
-                <div class="role_item" id="frmRol_2">
-
-                    <div class="ui top attached tabular menu modulos_menu">
-                        <a class="item" data-target="#frmModulo_1">MODULO #1</a>
-                        <a class="item" data-target="#frmModulo_2">MODULO #2</a>
-                    </div>
-                    <div class="ui bottom attached segment modulos_container">
-
-                        <div id="frmModulo_1">
-                            <div class="fields pantallas_container">
-
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="2" data-screen="1">
-                                        <label>PANTALLA #1</label>
-                                    </div>
-                                </div>
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="2" data-screen="2">
-                                        <label>PANTALLA #2</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+            <br>
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <a class="ui small btn-edit text-white labeled icon button" id="createRoles">
+                        <i class="plus icon"></i> Nuevo
+                    </a>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui icon input" style="float:right;">
+                        <input type="text" placeholder="Buscar..." id="txtSearch">
+                        <i class="search icon"></i>
                     </div>
                 </div>
+            </div>
 
-                <div class="role_item" id="frmRol_3">
+            <table class="ui compact selectable celled table" id="grdRoles">
+                <thead>
+                    <tr>
+                        <th>
+                            Roles
+                        </th>
 
-                    <div class="ui top attached tabular menu modulos_menu">
-                        <a class="item" data-target="#frmModulo_1">MODULO #1</a>
-                        <a class="item" data-target="#frmModulo_2">MODULO #2</a>
-                    </div>
-                    <div class="ui bottom attached segment modulos_container">
+                        <th width="200px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                <button class="ui large icon btn-edit button" onclick="GetRoles('@item.ID')">
+                                    <i class="pencil alternate icon  icon-crud"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
 
-                        <div id="frmModulo_1">
-                            <div class="fields pantallas_container">
+        </div>
+    </div>
 
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="3" data-screen="1">
-                                        <label>PANTALLA #1</label>
-                                    </div>
-                                </div>
-                                <div class="field pantalla_item">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" data-role="3" data-screen="2">
-                                        <label>PANTALLA #2</label>
-                                    </div>
-                                </div>
+</div>
 
-                            </div>
-                        </div>
-                    </div>
+<!------------------------------- ROLES MODAL ------------------------------------------>
+
+<div class="ui modal" id="modalCreate">
+    <div class="header">
+        Ingresa un rol
+    </div>
+    <form asp-action="Create" asp-controller="Roles" id="createRolesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="required field">
+                    <label class="ui label">Rol</label>
+                    <input name="Role_Descripcion" id="Role_Descripcion" />
                 </div>
 
             </div>
         </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendRoles">Guardar</button>
+        <button class="ui button" id="closeRoles">Cancelar</button>
     </div>
 </div>
 
-
-
+<div class="ui modal" id="modalUpdate">
+    <div class="header">
+        Actualiza un roles
+    </div>
+    <form asp-action="Update" asp-controller="Roles" id="updateRolesForm">
+        <div class="ui form attached fluid segment">
+            <div class="content">
+                <div class="field">
+                    <input name="Role_ID" id="Rol_ID" />
+                    <label>Descripción</label>
+                    <input name="Role_Descripcion" id="Rol_DescripcionUpdate" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" id="sendEditRoles">Guardar</button>
+        <button class="ui button" id="closeEditRoles">Cancelar</button>
+    </div>
+</div>
 
 @section Scripts{
     <script src="~/js/Permissions/index.js"></script>
+    <script src="~/js/RolesJs/Create.js"></script>
+    <script src="~/js/RolesJs/Update.js"></script>
 }

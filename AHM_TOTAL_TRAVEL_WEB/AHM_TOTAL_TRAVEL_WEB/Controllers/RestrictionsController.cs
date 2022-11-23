@@ -18,16 +18,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> Index()
         {
-            /*
+            
             string token = HttpContext.User.FindFirst("Token").Value;
-            IEnumerable<PermissionsViewModel> pantallas = 
-                (IEnumerable<PermissionsViewModel>)(await _AccessService.PermissionsList(token)).Data;
-
-            IEnumerable<PermissionsViewModel> roles =
-                (IEnumerable<PermissionsViewModel>)(await _AccessService.PermissionsList(token)).Data;
-
-            var model = pantallas.GroupBy(x => x.id_modulo).ToList();*/
-            return View();
+            IEnumerable<RolListViewModel> RolesList = (IEnumerable<RolListViewModel>)(await _AccessService.RolesList(token)).Data;
+            return View(RolesList);
         }
     }
 }

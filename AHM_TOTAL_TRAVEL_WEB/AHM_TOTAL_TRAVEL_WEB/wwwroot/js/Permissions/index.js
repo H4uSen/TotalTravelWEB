@@ -7,6 +7,7 @@ const ModulesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Mo
 const RestrictionsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/List");
 
 //----------------------------- INIZIALIZE --------------------------------------------
+$("#frmRoles").hide();
 getTreeView();
 fillTreeView();
 const menus_helpers = {
@@ -74,6 +75,18 @@ $(".modulos_menu .item").click(function (_this) {
     menus_helpers.reset_module_menus(_this.target);
 });
 
+$("#screens_menus .item").click(function (_this) {
+    $.each($("#screens_menus .item"), function (i, item) {
+        const target = $(item).attr("data-target");
+        $(item).removeClass("active");
+        $(target).hide();
+    });
+
+    const target_show = $(_this.target).attr("data-target");
+    $(_this.target).addClass("active");
+    $(target_show).show();
+});
+
 $("#btnSaveTreeView").click(saveTreeView);
 
 //----------------------------- FUNCTIONS --------------------------------------------
@@ -95,7 +108,7 @@ function getTreeView(){
 
                     <h2 class="ui header">Permisos en el rol: ${rol.descripcion}</h2>
 
-                    <div class="ui top attached tabular menu modulos_menu"></div>
+                    <div class="ui top attached tabular menu modulos_menu horizontal_scroll_menu"></div>
                     <div class="ui bottom attached segment modulos_container"></div>
 
                     <button class="ui button" onclick="saveTreeView()">GUARDAR TODOS LOS CAMBIOS</button>
@@ -190,8 +203,6 @@ function fillTreeView() {
 
 function saveTreeView() {
 
-    const roles = RolesList.data;
-    const pantallas = ViewsList.data;
 
     $.each($(".pantalla_item input[type='checkbox'][data-modify='1']"), function (i, item) {
 
