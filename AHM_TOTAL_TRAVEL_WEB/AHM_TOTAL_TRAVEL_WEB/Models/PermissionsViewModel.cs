@@ -19,8 +19,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Descripcion { get; set; }
         public string Controlador { get; set; }
         public string Action { get; set; }
+        public bool? EsVisible { get; set; }
+        public bool EsDashboard { get; set; }
         public int? id_modulo { get; set; }
         public string modulo { get; set; }
+        public int? id_grupo { get; set; }
+        public string grupo { get; set; }
         public int ID_UsuaCrea { get; set; }
         public string UsuarioCreacion { get; set; }
         public DateTime? FechaCreacion { get; set; }

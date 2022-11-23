@@ -27,6 +27,7 @@ function GetPermissions(id) {
             SetDropDownValue($("#cbbGrupo"), response.data.id_grupo);
         }
         $("#checkVisible").prop("checked", response.data.esVisible);
+        $("#checkDashboard").prop("checked", response.data.esDashboard);
 
         if ($('#Perm_ID').val() != 0) {
             $("#mdlUpdateScreen").modal('show');
@@ -58,6 +59,9 @@ $("#sendUpdate").click(() => {
         screen.perm_Controlador = $("#mdlUpdateScreen #txtControllerUpdate").val();
         screen.perm_Descripcion = $("#mdlUpdateScreen #txtDescripcionUpdate").val();
         screen.perm_esVisible = $("#mdlUpdateScreen #checkVisible").prop("checked");
+        screen.perm_esDashboard = $("#mdlUpdateScreen #checkDashboard").prop("checked");
+
+        console.log(screen);
 
         const response = ajaxRequest(urlAPI +"/API/Permissions/Update?id=" + screen.perm_ID, screen, "PUT");
         if (response.code == 200) {
@@ -112,7 +116,7 @@ $("#sendModulesUpdate").click(() => {
 
         const response = ajaxRequest(urlAPI +"/API/Modules/Update?id=" + module.modu_Id, module, "PUT");
         if (response.code == 200) {
-            Swal.fire("!Registro creado con exito!", "", "success").then(() => {
+            Swal.fire("!Registro actualizado con exito!", "", "success").then(() => {
                 location.reload();
             });
         } else {

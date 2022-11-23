@@ -1,7 +1,7 @@
 ﻿
-// ----------------------------------- INIZIALIZE ------------------------------------
-    var urlAPI = "https://apitotaltravel.azurewebsites.net";
-    var sessionData = JSON.parse(document.getElementById("sessionData").innerHTML);
+// ----------------------------------- GENERAL VARIABLES ------------------------------------
+    const urlAPI = "https://apitotaltravel.azurewebsites.net";
+    const sessionData = JSON.parse(document.getElementById("sessionData").innerHTML);
 
     $("input[type=text]").prop("autocomplete", "off");
     const Client_User_ID = sessionData.userId;
@@ -11,28 +11,26 @@
     const Client_Role = sessionData.userRol;
     const Client_Role_Id = sessionData.userRol_Id;
 
-    
+// ----------------------------------- INIZIALIZE ------------------------------------
 
-    $("#loaderAnimation").hide();
-// ----------------------------------- EVENTS ------------------------------------
-
-    const user_FileName = `User-${Client_User_ID}`;
-    const url_image = `apitotaltravel.azurewebsites.net/Images/UsersProfilePics/${user_FileName}/${user_FileName}_photo-1.jpg`
-    $("#user_image").prop("src", "https://" + url_image);
+$("#loaderAnimation").hide();
+$("#menu_rol_items").empty();
+$("#menu_rol_groups").empty();
 
 fillMenu(Client_Role_Id);
+fillProfileImage(Client_User_ID);
+
 // ----------------------------------- FUNCTIONS ------------------------------------
 
 function fillProfileImage(User_ID) {
     const user_data = ajaxRequest(urlAPI +"/API/Users/Find?id=" + User_ID);
     $("#user_image").prop("src", user_data.data.image_URL);
 }
-fillProfileImage(Client_User_ID);
 
+function fillMenu(rol_id){
 
-function fillMenu(rol_id, dropdown = false){
-    const RestrictionsList = ajaxRequest(urlAPI +"/API/RolePermissions/List");
-    //const ModulesList = ajaxRequest(urlAPI+"/API/Modules/List");
+    const RestrictionsList = ajaxRequest(urlAPI + "/API/RolePermissions/List");
+    getDashboard(rol_id, RestrictionsList);
 
     if (RestrictionsList.code == 200) {
 
@@ -88,6 +86,22 @@ function fillMenu(rol_id, dropdown = false){
 
             }
         }
+    }
+}
+
+function getDashboard(rol_id, RestrictionsList) {
+
+    const dashboard = RestrictionsList.data.filter(x => x.iD_Rol == rol_id && x.esDashboard == true);
+
+    if (dashboard.length > 0) {
+        const item = dashboard[0];
+
+        const menu_item =
+            `<li class="sidebar-item">
+                <a id=""menu_item_dashboard" class="sidebar-link" href="/${item.controlador}/${item.accion}">${item.permiso}</a>
+            </li>`;
+
+        $("#menu_rol_items").append(menu_item);
     }
 }
 

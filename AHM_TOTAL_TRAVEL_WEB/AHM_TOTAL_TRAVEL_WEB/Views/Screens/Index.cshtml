@@ -37,31 +37,40 @@
                 <table id="grdScreens" class="display ui compact selectable celled table" style="width:100%;">
                     <thead>
                         <tr>
-                            <th>
-                                Nombre de pantalla
-                            </th>
-                            <th>
-                                URL de pantalla
-                            </th>
+                            <th>Nombre de pantalla</th>
+                            <th>Categoria de pantalla</th>
+                            <th>Modulo</th>
+                            <th>URL de pantalla</th>
                             <th width="200px"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.Permisos)
                         {
+                            string tipoPantalla = "";
+                            if (item.EsDashboard == true)
+                            {
+                                tipoPantalla = "Dashboard";
+                            }
+                            else if (item.EsVisible == true)
+                            {
+                                tipoPantalla = "Pagina principal";
+                            }
+                            else
+                            {
+                                tipoPantalla = "Pagina secundaria";
+                            }
                             <tr>
-                                <td>
-                                    @item.Descripcion
-                                </td>
-                                <td>
-                                    @($"/{item.Controlador}/{item.Action}")
-                                </td>
+                                <td>@item.Descripcion</td>
+                                <td>@tipoPantalla</td>
+                                <td>@item.modulo</td>
+                                <td>@($"/{item.Controlador}/{item.Action}")</td>
 
                                 <td>
-                                    <button class="ui large icon btn-edit button" onclick="GetPermissions('@item.ID')">
+                                    <button class="ui large icon btn-edit button" onclick="editScreen('@item.ID')">
                                         <i class="pencil alternate icon icon-crud"></i>
                                     </button>
-                                    <button class="ui large icon negative button" onclick="DeletePermissions('@item.ID')">
+                                    <button class="ui large icon negative button" onclick="deleteScreen('@item.ID')">
                                         <i class="trash alternate icon icon-crud"></i>
                                     </button>
                                 </td>
@@ -111,10 +120,10 @@
                                     @item.modulo
                                 </td>
                                 <td>
-                                    <button class="ui large icon btn-edit button" onclick="GetModules('@item.id_modulo')">
+                                    <button class="ui large icon btn-edit button" onclick="editModule('@item.id_modulo')">
                                         <i class="pencil alternate icon icon-crud"></i>
                                     </button>
-                                    <button class="ui large icon negative button" onclick="DeleteModulos('@item.id_modulo')">
+                                    <button class="ui large icon negative button" onclick="deleteModule('@item.id_modulo')">
                                         <i class="trash alternate icon icon-crud"></i>
                                     </button>
                                 </td>
@@ -164,10 +173,10 @@
                                     @item.nombre_grupo
                                 </td>
                                 <td>
-                                    <button class="ui large icon btn-edit button" onclick="GetModules('@item.ID')">
+                                    <button class="ui large icon btn-edit button" onclick="editGroup('@item.ID')">
                                         <i class="pencil alternate icon icon-crud"></i>
                                     </button>
-                                    <button class="ui large icon negative button" onclick="DeleteModulos('@item.ID')">
+                                    <button class="ui large icon negative button" onclick="deleteGroup('@item.ID')">
                                         <i class="trash alternate icon icon-crud"></i>
                                     </button>
                                 </td>
@@ -217,11 +226,22 @@
                 </div>
                 <div class="field">
                     <label class="ui label">Aspectos visibles</label>
-                    <div class="ui toggle checkbox">
-                        <input type="checkbox" id="chkVisible">
-                        <label>Pantalla visible al cliente en el menu?</label>
+                    <div class="grouped fields">
+                        <div class="field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" id="chkVisible">
+                                <label>Pantalla visible al cliente en el menu?</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" id="chkDashboard">
+                                <label>Marcar pantalla como dashboard</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -274,17 +294,27 @@
 
             <div class="sixteen wide field">
                 <label class="ui label">Aspectos visibles</label>
-                <div class="ui toggle checkbox">
-                    <input type="checkbox" id="checkVisible">
-                    <label>Pantalla visible al cliente en el menu?</label>
+                <div class="grouped fields">
+                    <div class="field">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" id="checkVisible">
+                            <label>Pantalla visible al cliente en el menu?</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" id="checkDashboard">
+                            <label>Marcar pantalla como dashboard</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
     <div class="actions">
-        <button class="ui button btn-edit text-white" id="sendUpdate">Guardar</button>
-        <button class="ui button" id="closeUpdate">Cancelar</button>
+        <button class="ui button btn-edit text-white" onclick="updateScreen()">Guardar</button>
+        <button class="ui deny button">Cancelar</button>
     </div>
 
 </div>
@@ -330,7 +360,7 @@
         </div>
     </div>
     <div class="actions">
-        <button class="ui button btn-edit text-white" id="sendModulesUpdate">Guardar</button>
+        <button class="ui button btn-edit text-white" onclick="updateModule()">Guardar</button>
         <button class="ui deny button">Cerrar</button>
     </div>
 
@@ -359,7 +389,29 @@
 
 </div>
 
+<!-- MODAL UPDATE -->
+<div class="ui modal" id="mdlUpdateGroups">
+    <i class="close icon"></i>
+    <div class="header">
+        Actualiza un módulo
+    </div>
+    <div class="ui form attached fluid segment" id="frmCreateModules">
+        <div class="content">
+            <input id="txtGrupo_Id" />
+            <div class="required field">
+                <label class="ui label">Nombre del módulo</label>
+                <input id="txtNombreGrupo" placeholder="Nombre del grupo" />
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button btn-edit text-white" onclick="updateGroup()">Guardar</button>
+        <button class="ui deny button">Cerrar</button>
+    </div>
+
+</div>
+
 @section Scripts{
     <script src="~/js/Screens/Index.js"></script>
-    <script src="~/js/Screens/Update.js"></script>
 }
