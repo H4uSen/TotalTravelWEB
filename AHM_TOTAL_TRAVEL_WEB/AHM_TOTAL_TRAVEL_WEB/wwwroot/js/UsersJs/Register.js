@@ -328,6 +328,8 @@ function registerUser() {
         { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido") },
         { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac") },
         { validateMessage: "Ingrese su teléfono", Jqueryinput: $("#txtTelefono") },
+        { validateMessage: "Ingrese su contraseña", Jqueryinput: $("#txtPassword") },
+        { validateMessage: "Confirme su contraseña", Jqueryinput: $("#txtPassword2") },
         { validateMessage: "Ingrese su correo electrónico", Jqueryinput: $("#txtEmail") },
         { validateMessage: "Ingrese una calle", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenidad", Jqueryinput: $("#Avenida") },
@@ -353,9 +355,8 @@ function registerUser() {
         $("input[name='gender']").removeClass("error");
     }
     if ($('#txtPassword').val() == 0 || $('#txtPassword2').val() == 0) {
-        $("#labelvalidatorPass").html("Ingrese su contraseña.");
-        $(this).addClass("error");
-        $("input#txtPassword2").addClass("error");
+        $("#labelvalidatorPass").html(" ");
+        $("input#txtPassword").removeClass("error");
     } else if ($('#txtPassword').val() != $('#txtPassword2').val()) {
         $("#labelvalidatorPass").html("Las contraseñas no coinciden.");
         $("input#txtPassword").addClass("error");

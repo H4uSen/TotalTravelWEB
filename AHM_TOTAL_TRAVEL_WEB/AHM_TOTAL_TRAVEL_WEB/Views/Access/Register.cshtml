@@ -55,18 +55,18 @@
 
                                     <div class="required field">
                                         <label>DNI:</label>
-                                        <input type="number" id="txtDni" placeholder="Ingrese su DNI" />
+                                        <input type="number"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = Math.abs(this.value);"  maxlength="13" id="txtDni" placeholder="Ingrese su DNI" />
                                     </div>
                                     <div class="field">
                                         <div class="two fields">
                                             <div class="required field">
                                                 <label>Nombre:</label>
-                                                <input id="txtNombre" placeholder="Ingrese su nombre" />
+                                                <input id="txtNombre" type="text" placeholder="Ingrese su nombre" />
 
                                             </div>
                                             <div class="required field">
                                                 <label>Apellido</label>
-                                                <input id="txtApellido" placeholder="Apellido" />
+                                                <input id="txtApellido" type="text" placeholder="Apellido" />
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                         <div class="two fields">
                                             <div class="required field">
                                                 <label>Teléfono:</label>
-                                                <input type="number" id="txtTelefono" placeholder="Ingresa tu teléfono">
+                                                <input type="number" id="txtTelefono" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = Math.abs(this.value);" maxlength="20"  placeholder="Ingresa tu teléfono">
                                             </div>
                                             <div class="required field">
                                                 <label>Sexo:</label>
