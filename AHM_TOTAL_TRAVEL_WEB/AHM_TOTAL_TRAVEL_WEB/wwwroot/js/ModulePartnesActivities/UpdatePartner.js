@@ -8,7 +8,7 @@ $(document).ready(async function () {
 
 });
 async function GetImage() {
-    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest(urlAPI+"/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -109,7 +109,7 @@ function updatePartners() {
             data.append("File", null);
         }
 
-        var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Partners/Update?id=" + partnersID, data, "PUT");
+        var response = uploadFile(urlAPI+"/API/Partners/Update?id=" + partnersID, data, "PUT");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/ModulePartnersActivities/Info?success=true';

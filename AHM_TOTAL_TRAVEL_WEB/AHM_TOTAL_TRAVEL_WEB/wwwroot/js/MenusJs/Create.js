@@ -76,7 +76,7 @@ function createMenus() {
         for (var i = 0; i != imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Menus/Insert", data, "POST");
+        var response = uploadFile(urlAPI+"/API/Menus/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/Menus?success=true';

@@ -9,7 +9,7 @@ $(document).ready(async function () {
 
 //FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
 async function GetImage() {
-    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + PackageFolder)
+    var responseImage = ajaxRequest(urlAPI+"/API/RootFiles/GetAllImages?folderName=" + PackageFolder)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -117,7 +117,7 @@ function updateDefaultPackages() {
                 data.append("File", imagesArrayPure[i]);
             }
 
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/Update?id=" + PaqueteID, data, "PUT");
+            var response = uploadFile(urlAPI+"/API/DefaultPackages/Update?id=" + PaqueteID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/DefaultPackages?success=true';
             } else {
@@ -140,7 +140,7 @@ function updateDefaultPackages() {
                 data.append("File", imagesArrayPure[i]);
             }
 
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/Update?id=" + PaqueteID, data, "PUT");
+            var response = uploadFile(urlAPI+"/API/DefaultPackages/Update?id=" + PaqueteID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/DefaultPackages?success=true';
             } else {

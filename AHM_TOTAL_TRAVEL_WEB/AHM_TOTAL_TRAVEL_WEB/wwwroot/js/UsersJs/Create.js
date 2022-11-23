@@ -1,10 +1,10 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const PartnerList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
-const PartnerTypeList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/PartnerType/List");
-const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-const SuburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+const PartnerList = ajaxRequest(urlAPI +"/API/Partners/List");
+const PartnerTypeList = ajaxRequest(urlAPI +"/API/PartnerType/List");
+const CitiesList = ajaxRequest(urlAPI +"/API/Cities/List");
+const SuburbsList = ajaxRequest(urlAPI +"/API/Suburbs/List");
 
 
 
@@ -294,7 +294,7 @@ function CreateUser() {
             user.append("usua_UsuarioCreacion", Client_User_ID);
 
             const UserInsertStatus = uploadFile(
-                "https://apitotaltravel.azurewebsites.net/API/Users/Insert",
+                urlAPI +"/API/Users/Insert",
                 user, "POST"
             );
 
@@ -352,14 +352,14 @@ function CreatePartner() {
 
 
         const PartnerInsertStatus = uploadFile(
-            "https://apitotaltravel.azurewebsites.net/API/Partners/Insert",
+            urlAPI +"/API/Partners/Insert",
             partnerData, "POST"
         );
 
         if (PartnerInsertStatus.code == 200) {
 
             const NewPartnerData = ajaxRequest(
-                "https://apitotaltravel.azurewebsites.net/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
+                urlAPI +"/API/Partners/Find?id=" + PartnerInsertStatus.data.codeStatus
             );
 
             // fill data
@@ -389,7 +389,7 @@ function CreateUserDirection() {
     userAdress.dire_Calle = $("#frmCreateUser #txtCalle").val();
 
     const USerAddressStatus = ajaxRequest(
-        "https://apitotaltravel.azurewebsites.net/API/Address/Insert",
+        urlAPI +"/API/Address/Insert",
         userAdress, "POST"
     );
 

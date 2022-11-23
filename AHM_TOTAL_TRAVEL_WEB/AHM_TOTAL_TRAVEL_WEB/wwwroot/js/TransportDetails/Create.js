@@ -7,7 +7,7 @@ else {
     getSchedule2();
 }
 function getSchedule() {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ScheduleTransportation/List");
+    var response = ajaxRequest(urlAPI +"/API/ScheduleTransportation/List");
 
     if (response.code == 200) {
 
@@ -29,7 +29,7 @@ function getSchedule() {
 };
 
 function getSchedule2() {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ScheduleTransportation/List");
+    var response = ajaxRequest(urlAPI +"/API/ScheduleTransportation/List");
 
     if (response.code == 200) {
 

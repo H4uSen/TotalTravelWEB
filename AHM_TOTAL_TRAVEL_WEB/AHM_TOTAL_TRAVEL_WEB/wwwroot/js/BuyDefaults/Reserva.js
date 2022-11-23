@@ -1,6 +1,6 @@
 ﻿
 
-var ActivitiesExtraList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
+var ActivitiesExtraList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
 //alerta transportes
 function sweetAlerts() {
 
@@ -340,7 +340,7 @@ function createReservationBuy() {
             //const data = reservation;
             //const url = "/BuyDefaults/Create"
             //const response = uploadFile(url, reservation, method);
-            const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
+            const response = ajaxRequest(urlAPI+"/API/Reservation/Insert", reservation, "POST");
             console.log(response);
             if (response > 0) {
                 const capsula1 = () => {              

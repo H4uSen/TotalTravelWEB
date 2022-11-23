@@ -1,7 +1,7 @@
-﻿var ReservacionActView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesExtra/List");
-var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationTransportation/List");
-var ReservacionDetView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationDetails/List");
-var ReservacionActHotView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesHotels/List");
+﻿var ReservacionActView = ajaxRequest(urlAPI+"/API/ReservationActivitiesExtra/List");
+var response2 = ajaxRequest(urlAPI+"/API/ReservationTransportation/List");
+var ReservacionDetView = ajaxRequest(urlAPI+"/API/ReservationDetails/List");
+var ReservacionActHotView = ajaxRequest(urlAPI+"/API/ReservationActivitiesHotels/List");
 
 
     // inicialize code
@@ -24,7 +24,7 @@ $(button).addClass("active");
     }
 
 function ViewReservation(hoteid,transid) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/Find?id="+hoteid);
+    var response = ajaxRequest(urlAPI+"/API/Hotels/Find?id="+hoteid);
 
         if (response.code == 200) {
             
@@ -42,11 +42,11 @@ function ViewReservation(hoteid,transid) {
             var transpor = transpo[0];
             
             $('#trcategory').html(transpor.tipo_Transporte);
-            var transporte = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
+            var transporte = ajaxRequest(urlAPI+"/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
             
             if (transporte.code == 200) {
                 var t = transporte.data;
-                var response4 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/Find?id=" + t.partner_ID);
+                var response4 = ajaxRequest(urlAPI+"/API/Partners/Find?id=" + t.partner_ID);
                 if (response4.code == 200) {
                     var partner = response4.data;
                     $('#trciudad').html(t.ciudad);
@@ -57,7 +57,7 @@ function ViewReservation(hoteid,transid) {
                              
             }
         }
-    var ReservacionView = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?id=" + transid);
+    var ReservacionView = ajaxRequest(urlAPI+"/API/Reservation/Find?id=" + transid);
 
         if (ReservacionView.code == 200) {
 
@@ -84,7 +84,7 @@ function ViewReservation(hoteid,transid) {
                 {
                 for (var i=0; i < rooms.length; i++){
                     const item = rooms[i];
-                    var RoomFind = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Rooms/Find?id=" + item.habitacionID);
+                    var RoomFind = ajaxRequest(urlAPI+"/API/Rooms/Find?id=" + item.habitacionID);
                     try {
                         var room = RoomFind.data;
                         var imagenes = room.imageUrl.split(',');
@@ -124,7 +124,7 @@ function ViewReservation(hoteid,transid) {
                             `<div class="item">
                                 <div class="image">
                                     <img
-                                        src="https://apitotaltravel.azurewebsites.net/Images/Default/DefaultPhoto.jpg">
+                                        src="${urlAPI}/Images/Default/DefaultPhoto.jpg">
                                 </div>
                                 <div class="content">
                                     <a class="header">ESTA HABITACION FUE ELIMINADA
@@ -160,7 +160,7 @@ function ViewReservation(hoteid,transid) {
                 {
                     const item = activities[i];
                                        
-                    var ActivitieFind = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Activities/Find?id=" + item.id_Actividad_Extra);
+                    var ActivitieFind = ajaxRequest(urlAPI+"/API/Activities/Find?id=" + item.id_Actividad_Extra);
                     
                     var Activitie = ActivitieFind.data;
                     try {

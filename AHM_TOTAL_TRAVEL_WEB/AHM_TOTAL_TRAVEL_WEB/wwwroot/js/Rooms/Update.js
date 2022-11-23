@@ -25,7 +25,7 @@ $(document).ready(async function () {
 
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
+    var responseImage = ajaxRequest(urlAPI +"/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -140,7 +140,7 @@ function deleteImage(index) {
             for (var i = 0; i != imagesArrayPure.length; i++) {
                 data.append("File", imagesArrayPure[i]);
             }
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Rooms/Update?id=" + roomsID, data, "PUT");
+            var response = uploadFile(urlAPI +"/API/Rooms/Update?id=" + roomsID, data, "PUT");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/Rooms?success=true';
             } else {

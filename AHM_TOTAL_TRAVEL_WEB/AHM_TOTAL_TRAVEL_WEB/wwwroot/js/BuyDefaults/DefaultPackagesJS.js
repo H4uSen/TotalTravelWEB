@@ -1,8 +1,8 @@
-﻿var packagesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List");
-var ActivitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
-var DetailsTransportationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/List");
-var CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+﻿var packagesList = ajaxRequest(urlAPI+"/API/DefaultPackages/List");
+var ActivitiesList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
+var DetailsTransportationList = ajaxRequest(urlAPI+"/API/DetailsTransportation/List");
+var CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
+var Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -313,7 +313,7 @@ const fill_data = {
                 const card =
                     `<div class="item transport_item">
                     <div class="image">
-                        <img src="https://apitotaltravel.azurewebsites.net/Images/${images[0]}">
+                        <img src="${urlAPI}/Images/${images[0]}">
                     </div>
                     <div class="content" style="width: inherit;">
                         <a class="header">${element.parter}</a>
@@ -441,7 +441,7 @@ function sweetAlerts() {
 }
 
 function CancelarReservacion(idRT) {
-    var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+    var Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
     var ReserDataT = Reservacion.data.filter(x => x.id == idRT)[0];
     var Email = EmailSendModel;
     Email.to = ReserDataT.email;
@@ -449,7 +449,7 @@ function CancelarReservacion(idRT) {
     Email.subject = "Estado de la reservación del transporte";
     Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];
 
-    var SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+    var SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
 
     if (SendEmail.code == 200) {
         window.location.href = '/BuyDefaults/Index?success=true';
@@ -496,7 +496,7 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
         //const data = reservation;
         //const url = "/BuyDefaults/Create"
         //const response = uploadFile(url, reservation, method);
-        var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Insert", reservation, "POST");
+        var response = ajaxRequest(urlAPI+"/API/Reservation/Insert", reservation, "POST");
         console.log(response);
         var idres;
         if (response.code == 200) {
@@ -829,7 +829,7 @@ const getDetails = {
                     <div class="ui items">
                         <div class="item">
                             <div class="image">
-                                <img src="https://apitotaltravel.azurewebsites.net/Images/${images[0]}">
+                                <img src="${urlAPI}/Images/${images[0]}">
                             </div>
                             <div class="content" style="width: inherit;">
                                 <h2>${transport.parter}</h2>

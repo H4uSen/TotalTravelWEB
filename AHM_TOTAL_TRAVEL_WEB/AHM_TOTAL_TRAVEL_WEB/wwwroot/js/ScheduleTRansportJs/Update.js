@@ -1,4 +1,4 @@
-﻿var responseU = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DestinationsTransportations/List");
+﻿var responseU = ajaxRequest(urlAPI +"/API/DestinationsTransportations/List");
 
 var IDPar = Client_Partner_ID;
 
@@ -28,7 +28,7 @@ if (Client_Role != "Administrador") {
     SetDropDownValue($("#Partner_ID22"), defaultValue = parseInt(Client_Partner_ID));
 }
 function getDropD() {  
-    var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
+    var response2 = ajaxRequest(urlAPI +"/API/Partners/List");
 
     if (response2.code == 200) {
 
@@ -88,7 +88,7 @@ function Destino2() {
 }
 
 function GetScheduleID(id) {    
-    var responseS = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ScheduleTransportation/Find?id=" + id);
+    var responseS = ajaxRequest(urlAPI +"/API/ScheduleTransportation/Find?id=" + id);
     if (responseS.code == 200) {
         $('#ID_Horario').val(id);
         var date = responseS.data.fecha.split('T')[0];

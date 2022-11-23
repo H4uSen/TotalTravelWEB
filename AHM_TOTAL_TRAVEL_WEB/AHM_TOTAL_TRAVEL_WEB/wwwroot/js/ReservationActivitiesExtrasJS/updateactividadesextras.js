@@ -2,7 +2,7 @@
 
 getSchedule();
 function getSchedule() {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationActivitiesExtra/List");
+    var response = ajaxRequest(urlAPI+"/API/ReservationActivitiesExtra/List");
 
     if (response.code == 200) {
 

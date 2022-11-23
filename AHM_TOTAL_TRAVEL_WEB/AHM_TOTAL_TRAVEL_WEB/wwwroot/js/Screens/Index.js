@@ -137,7 +137,7 @@ function createScreen() {
         screen.perm_Descripcion = $("#mdlCreateScreen #txtDescripcion").val();
         screen.perm_esVisible = $("#mdlCreateScreen #chkVisible").prop("checked");
 
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Insert", screen, "POST");
+        const response = ajaxRequest(urlAPI +"/API/Permissions/Insert", screen, "POST");
         if (response.code == 200) {
             Swal.fire("!Registro Creado con exito!", "", "success").then(function () {
                 location.reload();
@@ -160,7 +160,7 @@ function createModule() {
         var module = ModulesViewModel;
         module.modu_Descripcion = $("#mdlCreateModules #txtModulo").val();
 
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Insert", module, "POST");
+        const response = ajaxRequest(urlAPI +"/API/Modules/Insert", module, "POST");
         if (response.code == 200) {
             window.location.href = '/Screens?success=true';
         } else {
@@ -184,7 +184,7 @@ function createGroup() {
             "grEN_Estado": true
         };
 
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Navbar/Insert", model, "POST");
+        const response = ajaxRequest(urlAPI +"/API/Navbar/Insert", model, "POST");
         if (response.codeStatus > 0) {
             Swal.fire("!Registro creado con exito!", "", "success").then(() => {
                 location.reload();

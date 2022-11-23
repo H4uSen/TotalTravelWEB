@@ -33,7 +33,7 @@ function validar() {
 }
 
 function editar(ID) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/Find?id=" + ID);
+    var response = ajaxRequest(urlAPI+"/API/DefaultPackagesDetails/Find?id=" + ID);
     if (response.code == 200) {
         var item = response.data;
         $("#PaDe_ID").val(ID);
@@ -63,7 +63,7 @@ function actualizar() {
         data.paDe_Cantidad=parseInt($("#modalUpdate #Cantidad_up").val());
         data.paDe_UsuarioModifica= Client_User_ID;
 
-        var status = ajaxRequest(`https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/Update?id=` + id, data, "PUT");
+        var status = ajaxRequest(urlAPI+`/API/DefaultPackagesDetails/Update?id=` + id, data, "PUT");
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {

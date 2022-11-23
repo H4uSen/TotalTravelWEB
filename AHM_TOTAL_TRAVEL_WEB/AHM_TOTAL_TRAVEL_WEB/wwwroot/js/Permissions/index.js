@@ -1,10 +1,10 @@
 ﻿
 //----------------------------- VARIABLES --------------------------------------------
 
-const ViewsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/List");
-const RolesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Roles/List");
-const ModulesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/List");
-const RestrictionsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/List");
+const ViewsList = ajaxRequest(urlAPI+"/API/Permissions/List");
+const RolesList = ajaxRequest(urlAPI+"/API/Roles/List");
+const ModulesList = ajaxRequest(urlAPI+"/API/Modules/List");
+const RestrictionsList = ajaxRequest(urlAPI+"/API/RolePermissions/List");
 
 //----------------------------- INIZIALIZE --------------------------------------------
 $("#frmRoles").hide();
@@ -216,7 +216,7 @@ function saveTreeView() {
             restrictionsViewModel.role_ID = parseInt(data_role);
 
             try {
-                ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/Insert", model, "POST");
+                ajaxRequest(urlAPI+"/API/RolePermissions/Insert", model, "POST");
             } catch (e) {
                 console.log(e);
             }
@@ -226,7 +226,7 @@ function saveTreeView() {
             const id = $(item).attr("data-restriction");
 
             try {
-                ajaxRequest(`https://apitotaltravel.azurewebsites.net/API/RolePermissions/Delete?id=${id}&Mod=${Client_User_ID}`, {}, "DELETE");
+                ajaxRequest(urlAPI+`/API/RolePermissions/Delete?id=${id}&Mod=${Client_User_ID}`, {}, "DELETE");
             } catch (e) {
                 console.log(e);
             }

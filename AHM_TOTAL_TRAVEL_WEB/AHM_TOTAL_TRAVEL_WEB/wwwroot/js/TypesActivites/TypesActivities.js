@@ -36,7 +36,7 @@ function validar() {
 }
 
 function editar(TipoActividadID) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/TypeActivities/Find?id=" + TipoActividadID);
+    var response = ajaxRequest(urlAPI +"/API/TypeActivities/Find?id=" + TipoActividadID);
     if (response.code == 200) {
         var item = response.data;
 

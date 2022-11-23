@@ -13,7 +13,7 @@ if (izziSuccess == "true") {
 
 function GetPermissions(id) {
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Find?Id=" + id);
+    var response = ajaxRequest(urlAPI +"/API/Permissions/Find?Id=" + id);
     if (response.code == 200) {
         $('#Perm_ID').val(id);
         $("#cbbGrupo").val(response.data.id_grupo)
@@ -59,7 +59,7 @@ $("#sendUpdate").click(() => {
         screen.perm_Descripcion = $("#mdlUpdateScreen #txtDescripcionUpdate").val();
         screen.perm_esVisible = $("#mdlUpdateScreen #checkVisible").prop("checked");
 
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Permissions/Update?id=" + screen.perm_ID, screen, "PUT");
+        const response = ajaxRequest(urlAPI +"/API/Permissions/Update?id=" + screen.perm_ID, screen, "PUT");
         if (response.code == 200) {
             Swal.fire("!Registro creado con exito!", "", "success").then(() => {
                 location.reload();
@@ -84,7 +84,7 @@ function DeletePermissions(id) {
 
 function GetModules(id) {
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Find?Id=" + id);
+    var response = ajaxRequest(urlAPI +"/API/Modules/Find?Id=" + id);
     if (response.code == 200) {
         $('#Modu_Id').val(id);
         $('#txtModuloUpdate').val(response.data.modulo);
@@ -110,7 +110,7 @@ $("#sendModulesUpdate").click(() => {
         module.modu_Descripcion = $("#mdlUpdateModules #txtModuloUpdate").val();
 
 
-        const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/Update?id=" + module.modu_Id, module, "PUT");
+        const response = ajaxRequest(urlAPI +"/API/Modules/Update?id=" + module.modu_Id, module, "PUT");
         if (response.code == 200) {
             Swal.fire("!Registro creado con exito!", "", "success").then(() => {
                 location.reload();

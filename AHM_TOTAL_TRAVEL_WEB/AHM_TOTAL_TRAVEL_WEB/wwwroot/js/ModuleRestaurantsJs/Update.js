@@ -4,7 +4,7 @@ $("#modalUpdate #close").click(() => {
 });
 
 function ObtenerDatos(id) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Menus/Find?id=" + id);
+    var response = ajaxRequest(urlAPI+"/API/Menus/Find?id=" + id);
     if (response.code == 200) {
         var item = response.data;
         $("#Menu_ID").val(item.id);
@@ -51,7 +51,7 @@ async function updateMenus() {
                 });
             data.append("File", file);
         }
-        var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Menus/Update?id=" + menuID, data, "PUT");
+        var response = uploadFile(urlAPI+"/API/Menus/Update?id=" + menuID, data, "PUT");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/ModuleRestaurants?success=true';

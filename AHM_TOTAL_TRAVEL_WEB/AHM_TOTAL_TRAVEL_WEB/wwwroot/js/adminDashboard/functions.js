@@ -1,4 +1,4 @@
-﻿const reservationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
+﻿const reservationList = ajaxRequest(urlAPI + "/API/Reservation/List");
 
 
 contructMonthSalesChart();

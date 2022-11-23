@@ -1,4 +1,4 @@
-﻿var menusList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Menus/List");
+﻿var menusList = ajaxRequest(urlAPI+"/API/Menus/List");
 $('.ui.dropdown').dropdown();
 fillMenu(0);
 

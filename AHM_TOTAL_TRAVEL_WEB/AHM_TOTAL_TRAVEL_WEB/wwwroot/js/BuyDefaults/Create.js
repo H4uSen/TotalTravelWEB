@@ -1,4 +1,4 @@
-﻿var detallesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/List");
+﻿var detallesList = ajaxRequest(urlAPI+"/API/DefaultPackagesDetails/List");
 
 getActivities(idpaquete);
 getHotel(hotelimg);
@@ -8,7 +8,7 @@ $("#DetailsBottom").click(() => {
 });
 
 function editar(id) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/Find?id=" + id);
+    var response = ajaxRequest(urlAPI+"/API/DefaultPackages/Find?id=" + id);
     if (response.code == 200) {
         $("#id").val(id);
         $("#Nombre").html(response.data.nombre);
@@ -41,7 +41,7 @@ function getActivities(id) {
 }
 
 function getHotel(id) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/Find?id=" + id);
+    var response = ajaxRequest(urlAPI+"/API/Hotels/Find?id=" + id);
     if (response.code == 200) {
         var imagen = response.image_URL.split(',');
         var imagensplit = imagen[0];

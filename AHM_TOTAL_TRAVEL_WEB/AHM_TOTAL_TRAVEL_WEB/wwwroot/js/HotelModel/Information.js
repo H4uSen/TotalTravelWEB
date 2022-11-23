@@ -1,7 +1,7 @@
-﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
-var ReservacionHot = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
-var ReservacionDetalle = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationDetails/List");
-var Hotel = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
+﻿var Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
+var ReservacionHot = ajaxRequest(urlAPI+"/API/ReservationHotels/List");
+var ReservacionDetalle = ajaxRequest(urlAPI+"/API/ReservationDetails/List");
+var Hotel = ajaxRequest(urlAPI+"/API/Hotels/List");
 var ReservacionH;
 
 var filtrotarjeta = $("#Estado").val();
@@ -54,7 +54,7 @@ function Tarjeta() {
             for (var i = 0; i < Rflitro.length; i++) {
                 
                 const itemH = Rflitro[i];
-                var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/Find?id=" + itemH.reservacionHotelID);
+                var response = ajaxRequest(urlAPI+"/API/ReservationHotels/Find?id=" + itemH.reservacionHotelID);
                 var item = response.data;
                 var hotelist = Hotel.data;
                 var hotelfilter = hotelist.filter(x => x.id == item.hotel_ID);
@@ -325,13 +325,13 @@ function CancelarReservacion(idRT) {
     console.log(JSON.stringify(RData))
     var SendEmail;
     if (RData.resv_ConfirmacionHotel == true) {
-        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
     }
     else {
-        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
     }
 
-    var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
+    var status = ajaxRequest(urlAPI+"/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
 
     if (status.code == 200 && SendEmail.code == 200) {
         window.location.href = '/HotelModel?success=true';

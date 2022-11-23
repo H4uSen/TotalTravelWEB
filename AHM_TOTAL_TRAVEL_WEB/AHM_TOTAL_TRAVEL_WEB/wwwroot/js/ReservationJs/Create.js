@@ -1,14 +1,14 @@
 ﻿// ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const UsersList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/List");
-const DefaultPackagesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List");
-const DefaultPackagesDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/List");
-const CountriesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Countries/List");
-const HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
-const ReservationHotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
-const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-const HotelsActvList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/List");
-const ActvExtraList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
+const UsersList = ajaxRequest(urlAPI+"/API/Users/List");
+const DefaultPackagesList = ajaxRequest(urlAPI +"/API/DefaultPackages/List");
+const DefaultPackagesDetailsList = ajaxRequest(urlAPI +"/API/DefaultPackagesDetails/List");
+const CountriesList = ajaxRequest(urlAPI +"/API/Countries/List");
+const HotelsList = ajaxRequest(urlAPI +"/API/Hotels/List");
+const ReservationHotels = ajaxRequest(urlAPI +"/API/ReservationHotels/List");
+const CitiesList = ajaxRequest(urlAPI +"/API/Cities/List");
+const HotelsActvList = ajaxRequest(urlAPI +"/API/HotelsActivities/List");
+const ActvExtraList = ajaxRequest(urlAPI +"/API/ActivitiesExtra/List");
 
 var CantidadActvHotel = 0;
 var CantidadActvExtra = 0;
@@ -270,7 +270,7 @@ function ActvExtraForm() {
 };
 //Calculates the price of the activities of the zone
 function calculatePriceOfActvExtra(inputID) {
-    const ExtraActv = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/Find?id=" + $("#ddlextraActivities" + inputID).val(), SendToken = true);
+    const ExtraActv = ajaxRequest(urlAPI +"/API/ActivitiesExtra/Find?id=" + $("#ddlextraActivities" + inputID).val(), SendToken = true);
     const CantPersonasHtl = $("#extraActivitiesAmount" + inputID).val();
     const data = ExtraActv.data;
     $("#extraActivitiesPrice" + inputID).val(data.precio * parseInt( CantPersonasHtl));
@@ -368,7 +368,7 @@ function hotelActvExtraForm() {
 //Calculates the price of the activities of the hotel
 function calculatePriceOfActvHotels(inputID) {
     var ID = $("#ddlhotelsExtraActivities" + inputID).val();
-    const HtlExtraActv = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/HotelsActivities/Find?id=" + ID, SendToken=true);
+    const HtlExtraActv = ajaxRequest(urlAPI +"/API/HotelsActivities/Find?id=" + ID, SendToken=true);
     const CantPersonas = $("#hotelsExtraActivitiesAmount" + inputID).val();
     $("#hotelsExtraActivitiesPrice" + inputID).val(HtlExtraActv.data.precio * CantPersonas);
 };
@@ -684,7 +684,7 @@ $(document).ready(function () {
     var redirectedUserResponseID = $("#createdUserID").val();
     if (redirectedUserResponseID != undefined) {
         if (!redirectedUserResponseID > 0) {
-            const UserData = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/Find?id=" + redirectedUserResponseID);
+            const UserData = ajaxRequest(urlAPI +"/API/Users/Find?id=" + redirectedUserResponseID);
             const User = UserData.data;
             User.fecha_Nacimiento = User.fecha_Nacimiento.split("T")[0];
             User.fecha_Nacimiento = User.fecha_Nacimiento.split("-").reverse().join("-");

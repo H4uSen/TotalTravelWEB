@@ -1,5 +1,5 @@
 ﻿$("#form_content").parent().hide();
-var CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+var CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
 fillCities(Pais_ID);
 
 //------------ EVENTS --------------------------
@@ -86,13 +86,13 @@ function crear() {
         city.ciud_Descripcion = $("#Ciudad").val();
         city.pais_ID = parseInt(Pais_ID);
 
-        var CitiesInsertStatus = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/Insert", city, "POST");
+        var CitiesInsertStatus = ajaxRequest(urlAPI+"/API/Cities/Insert", city, "POST");
 
         if (CitiesInsertStatus.code == 200) {
             iziToastAlert(
                 "!Registro creado con exito!", "", "success"
             );
-            CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+            CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
             fillCities(Pais_ID);
             getDefault();
         }
@@ -127,14 +127,14 @@ function actualizar(id_ciudad) {
         city.ciud_Descripcion = $("#Ciudad").val();
         city.pais_ID = parseInt(Pais_ID);
 
-        var CitiesInsertStatus = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/Update?id=" + id_ciudad, city, "PUT");
+        var CitiesInsertStatus = ajaxRequest(urlAPI+"/API/Cities/Update?id=" + id_ciudad, city, "PUT");
 
         if (CitiesInsertStatus.code == 200) {
             iziToastAlert(
                 "!Registro actualizado con exito!", "", "success"
             );
             $("#Ciudad").val("");
-            CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+            CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
             fillCities(Pais_ID);
         }
 
@@ -169,12 +169,12 @@ function getDefault() {
 
 function eliminar(id) {
     const capsula1 = () => {
-        var response = ajaxRequest(`https://apitotaltravel.azurewebsites.net/API/Cities/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
+        var response = ajaxRequest(urlAPI+`/API/Cities/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
         if (response.data.codeStatus > 0) {
             iziToastAlert(
                 "!Registro eliminado con exito!", "", "success"
             );
-            CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+            CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
             fillCities(Pais_ID);
         }
     };

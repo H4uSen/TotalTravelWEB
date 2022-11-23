@@ -51,7 +51,7 @@ async function createMenus() {
         else {
             data.append("File", null);
         }
-        var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Menus/Insert", data, "POST");
+        var response = uploadFile(urlAPI+"/API/Menus/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
             window.location.href = '/ModuleRestaurants?success=true';

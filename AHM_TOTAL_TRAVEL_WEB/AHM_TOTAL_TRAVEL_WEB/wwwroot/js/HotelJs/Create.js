@@ -1,6 +1,6 @@
 ﻿
-var ciudadesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-var coloniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+var ciudadesList = ajaxRequest(urlAPI+"/API/Cities/List");
+var coloniasList = ajaxRequest(urlAPI+"/API/Suburbs/List");
 
 var imagesArray = [];
 var imagesArrayPure = [];
@@ -141,7 +141,7 @@ function createHotel() {
             dire.dire_Calle = $('#Calle').val();
             dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest(urlAPI+"/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
 
@@ -169,7 +169,7 @@ function createHotel() {
                     data.append("File", null);
                 }
 
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Hotels/Insert", data, "POST");
+            var response = uploadFile(urlAPI+"/API/Hotels/Insert", data, "POST");
                 if (response.data.codeStatus > 0) {
                     window.location.href = '/Hotel?update_success=true';
                 } else {

@@ -1,7 +1,7 @@
 ﻿$("#errorDiv").hide();
 
-var ciudadesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-var coloniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+var ciudadesList = ajaxRequest(urlAPI+"/API/Cities/List");
+var coloniasList = ajaxRequest(urlAPI+"/API/Suburbs/List");
 
 var imagesArray = [];
 var imagesArrayPure = [];
@@ -24,7 +24,7 @@ $(document).ready(async function () {
 });
 
 async function GetImage() {
-    var responseImage = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RootFiles/GetAllImages?folderName=" + folderName)
+    var responseImage = ajaxRequest(urlAPI+"/API/RootFiles/GetAllImages?folderName=" + folderName)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -182,7 +182,7 @@ function updateHotel() {
             dire.dire_Calle = $('#Calle').val();
             dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest(urlAPI+"/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
 
@@ -201,7 +201,7 @@ function updateHotel() {
                 for (let i = 0; i < imagesArrayPure.length; i++) {
                     data.append("File", imagesArrayPure[i]);
                 }
-                var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Hotels/Update?id=" + Hote_ID, data, "PUT");
+                var response = uploadFile(urlAPI+"/API/Hotels/Update?id=" + Hote_ID, data, "PUT");
                 if (response.data.codeStatus > 0) {
                     window.location.href = '/Hotel?update_success=true';
                 } else {

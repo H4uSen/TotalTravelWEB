@@ -1,13 +1,13 @@
 ﻿// ----------------------------------- INIZIALIZE ------------------------------------
 //varaibles
-const UsersList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/List");
-const DefaultPackagesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List");
-const DefaultPackagesDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackagesDetails/List");
-const CountriesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Countries/List");
-const HotelsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
-const ReservationHotels = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
-const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-const ReservationFind = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?Id=" + ReservationID);
+const UsersList = ajaxRequest(urlAPI +"/API/Users/List");
+const DefaultPackagesList = ajaxRequest(urlAPI +"/API/DefaultPackages/List");
+const DefaultPackagesDetailsList = ajaxRequest(urlAPI +"/API/DefaultPackagesDetails/List");
+const CountriesList = ajaxRequest(urlAPI +"/API/Countries/List");
+const HotelsList = ajaxRequest(urlAPI +"/API/Hotels/List");
+const ReservationHotels = ajaxRequest(urlAPI +"/API/ReservationHotels/List");
+const CitiesList = ajaxRequest(urlAPI +"/API/Cities/List");
+const ReservationFind = ajaxRequest(urlAPI +"/API/Reservation/Find?Id=" + ReservationID);
 
 const params = new URLSearchParams(window.location.search);
 const idReserv = params.get("id");
@@ -82,7 +82,7 @@ $(document).ready(function () {
     SetDropDownValue($("#ddlPaises"), parseInt(User[0].paisID));
     FillCities(parseInt(User[0].paisID));
     SetDropDownValue($("#ddlCiudades"), parseInt(User[0].ciudadID));
-   /* var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Find?Id=" + idReserv);
+   /* var response = ajaxRequest(urlAPI+"/API/Reservation/Find?Id=" + idReserv);
     if (response.code == 200) {
       
     }*/
@@ -403,7 +403,7 @@ function updateReservation() {
 
         /*
             const ReservationInsertStatus = uploadFile(
-                "https://apitotaltravel.azurewebsites.net/API/Reservation/Insert",
+                urlAPI+"/API/Reservation/Insert",
                 reservation, "POST"
             );
         */

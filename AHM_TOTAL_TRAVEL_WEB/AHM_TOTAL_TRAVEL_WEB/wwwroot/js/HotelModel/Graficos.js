@@ -1,5 +1,5 @@
-﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationHotels/List");
-var Hoteles = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
+﻿var Reservacion = ajaxRequest(urlAPI+"/API/ReservationHotels/List");
+var Hoteles = ajaxRequest(urlAPI+"/API/Hotels/List");
 GraficaPastel();
 
 function GraficaPastel() {

@@ -1,4 +1,4 @@
-﻿var actividadesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ActivitiesExtra/List");
+﻿var actividadesList = ajaxRequest(urlAPI + "/API/ActivitiesExtra/List");
 $('.ui.dropdown').dropdown();
 fillActividad(0);
 

@@ -1,7 +1,7 @@
-﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
-var ReservacionTra = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationTransportation/List");
+﻿var Reservacion = ajaxRequest(urlAPI +"/API/Reservation/List");
+var ReservacionTra = ajaxRequest(urlAPI +"/API/ReservationTransportation/List");
 var Rflitro = ReservacionTra.data.filter(resva => resva.partner_ID == parseInt(Client_Partner_ID));
-var TransportDetailsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/List");
+var TransportDetailsList = ajaxRequest(urlAPI +"/API/DetailsTransportation/List");
 var ReservacionT;
 
 var filtrotarjeta = $("#Estado").val();
@@ -121,7 +121,7 @@ function ViewReservation(idDetalles, id) {
                 var TranspoFilterItem = TranspoFilter[0];
                 var imagen = TranspoFilterItem.image_URL.split(',');
                 var fecha = TranspoFilterItem.fecha_Salida.split('T');
-                var imagensplit = "https://apitotaltravel.azurewebsites.net/Images/" + imagen[0];
+                var imagensplit = urlAPI +"/Images/" + imagen[0];
 
                 divroom =
                 `<div class="field">
@@ -280,13 +280,13 @@ function CancelarReservacion(idRT) {
     console.log(JSON.stringify(RData))
     var SendEmail;
     if (RData.resv_ConfirmacionTrans == true) {
-       SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI +"/API/Login/ReservationConfirmed", Email, "POST");
     }
     else {
-        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI +"/API/Login/ReservationConfirmed", Email, "POST");
     }
     
-    var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
+    var status = ajaxRequest(urlAPI +"/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
 
     if (status.code == 200 && SendEmail.code == 200) {
         window.location.href = '/TransportModule?success=true';

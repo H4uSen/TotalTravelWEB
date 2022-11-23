@@ -1,7 +1,7 @@
-﻿var Reservacion = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/List");
-var ReservacionRestaurant = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationRestaurant/List");
+﻿var Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
+var ReservacionRestaurant = ajaxRequest(urlAPI+"/API/ReservationRestaurant/List");
 var Rflitro = ReservacionRestaurant.data.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
-var RestaurantsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Restaurants/List");
+var RestaurantsList = ajaxRequest(urlAPI+"/API/Restaurants/List");
 var ReservacionT;
 
 var filtrotarjeta = $("#Estado").val();
@@ -240,13 +240,13 @@ function CancelarReservacion(idRT) {
     //console.log(JSON.stringify(RData))
     var SendEmail;
     if (RData.resv_ConfirmacionRestaurante == true) {
-        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
     }
     else {
-        SendEmail = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
     }
 
-    var status = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
+    var status = ajaxRequest(urlAPI+"/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
 
     if (status.code == 200 && SendEmail.code == 200) {
         window.location.href = '/ModuleRestaurants/Reservations?success=true';

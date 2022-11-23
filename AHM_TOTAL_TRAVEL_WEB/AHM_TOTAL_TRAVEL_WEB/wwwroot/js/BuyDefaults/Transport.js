@@ -1,6 +1,6 @@
 ﻿// transports
-var DetailsTransportationList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DetailsTransportation/List");
-var CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+var DetailsTransportationList = ajaxRequest(urlAPI+"/API/DetailsTransportation/List");
+var CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
 
 $("#frmTransporte_menu .item").click(function (_this) {
     $("#frmTransporte_menu .item").removeClass("active");
@@ -105,7 +105,7 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
             const card =
                 `<div class="item transport_item">
                     <div class="image">
-                        <img src="https://apitotaltravel.azurewebsites.net/Images/${images[0]}">
+                        <img src="${urlAPI}/Images/${images[0]}">
                     </div>
                     <div class="content" style="width: inherit;">
                         <a class="header">${element.parter}</a>

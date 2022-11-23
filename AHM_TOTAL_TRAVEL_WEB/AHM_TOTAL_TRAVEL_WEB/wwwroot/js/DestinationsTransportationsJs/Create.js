@@ -63,7 +63,7 @@ if (Client_Role != "Administrador") {
     SetDropDownValue($("#modalCreate #Partner_ID"), defaultValue = parseInt(Client_Partner_ID));
 }
 function getPartners() {
-    var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List")
+    var response2 = ajaxRequest(urlAPI+"/API/Partners/List")
     if (response2.code == 200) {
 
         var Part_ID2 = response2.data;
@@ -93,7 +93,7 @@ function getPartners() {
 
 
 function editar(destinoTransporteID) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DestinationsTransportations/Find?id=" + destinoTransporteID);
+    var response = ajaxRequest(urlAPI+"/API/DestinationsTransportations/Find?id=" + destinoTransporteID);
     if (response.code == 200) {
         var item = response.data;
         SetDropDownValue($("#modalUpdate #CiudadSalidaUpdate"), defaultValue = item.ciudadSalidaID);

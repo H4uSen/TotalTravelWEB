@@ -1,5 +1,5 @@
-﻿var TransportesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Transports/List");
-var ReservacionTransp = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/ReservationTransportation/List");
+﻿var TransportesList = ajaxRequest(urlAPI +"/API/Transports/List");
+var ReservacionTransp = ajaxRequest(urlAPI +"/API/ReservationTransportation/List");
 
 GraficaPastel();
 

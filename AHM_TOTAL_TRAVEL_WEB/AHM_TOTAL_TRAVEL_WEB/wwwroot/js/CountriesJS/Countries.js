@@ -40,7 +40,7 @@ function validar() {
 }
 
 function editar(CountriesID) {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Countries/Find?id=" + CountriesID);
+    var response = ajaxRequest(urlAPI+"/API/Countries/Find?id=" + CountriesID);
     if (response.code == 200) {
         var item = response.data;
 

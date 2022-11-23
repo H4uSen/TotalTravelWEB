@@ -1,11 +1,11 @@
 ﻿
 $("#errorDiv").hide();
 
-var ciudadesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-var coloniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+var ciudadesList = ajaxRequest(urlAPI +"/API/Cities/List");
+var coloniasList = ajaxRequest(urlAPI +"/API/Suburbs/List");
 
-var partnersList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
-var tipostranspoList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/TypesTransport/List");
+var partnersList = ajaxRequest(urlAPI +"/API/Partners/List");
+var tipostranspoList = ajaxRequest(urlAPI +"/API/TypesTransport/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -30,7 +30,7 @@ function createTransport() {
         dire.colo_ID = parseInt($('#Subu_ID').val());
         dire.dire_Calle = ($("#Calle").val());
         dire.dire_Avenida = ($("#Avenida").val());
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest(urlAPI +"/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
             DireID = responseAddress.data.codeStatus;
@@ -48,7 +48,7 @@ function createTransport() {
         data.part_ID = parseInt($("#Part_ID").val());
         data.tprt_Nombre = $("#Tprt_Nombre").val();
 
-        var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Transports/Insert", data, "POST");
+        var response = ajaxRequest(urlAPI +"/API/Transports/Insert", data, "POST");
 
         if (response.code == 200) {
             if (response.data.codeStatus > 0) {

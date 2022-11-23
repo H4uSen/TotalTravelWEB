@@ -1,6 +1,6 @@
 ﻿
 // ----------------------------------- INIZIALIZE ------------------------------------
-
+    var urlAPI = "https://apitotaltravel.azurewebsites.net";
     var sessionData = JSON.parse(document.getElementById("sessionData").innerHTML);
 
     $("input[type=text]").prop("autocomplete", "off");
@@ -24,15 +24,15 @@ fillMenu(Client_Role_Id);
 // ----------------------------------- FUNCTIONS ------------------------------------
 
 function fillProfileImage(User_ID) {
-    const user_data = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Users/Find?id=" + User_ID);
+    const user_data = ajaxRequest(urlAPI +"/API/Users/Find?id=" + User_ID);
     $("#user_image").prop("src", user_data.data.image_URL);
 }
 fillProfileImage(Client_User_ID);
 
 
 function fillMenu(rol_id, dropdown = false){
-    const RestrictionsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/RolePermissions/List");
-    //const ModulesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Modules/List");
+    const RestrictionsList = ajaxRequest(urlAPI +"/API/RolePermissions/List");
+    //const ModulesList = ajaxRequest(urlAPI+"/API/Modules/List");
 
     if (RestrictionsList.code == 200) {
 
@@ -364,7 +364,7 @@ function fillMenu(rol_id, dropdown = false){
     function GetCookie(value) {
         var key = null;
         $.ajax({
-            url: "https://apitotaltravel.azurewebsites.net/read-claims?key=" + value,
+            url: urlAPI +"/read-claims?key=" + value,
             data: {},
             method: "GET",
             dataType: "json",
@@ -378,7 +378,6 @@ function fillMenu(rol_id, dropdown = false){
         });
 
         return key;
-        console.log("https://apitotaltravel.azurewebsites.net/read-claims?key=" + value);
     }
 
     function ajaxRequest(url, data = {}, method = "GET", SendToken = true) {

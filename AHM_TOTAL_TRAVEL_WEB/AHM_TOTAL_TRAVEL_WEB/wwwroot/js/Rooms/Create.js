@@ -101,7 +101,7 @@ function createRooms() {
         for (var i = 0; i != imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Rooms/Insert", data, "POST");
+        var response = uploadFile(urlAPI +"/API/Rooms/Insert", data, "POST");
         if (response.data.codeStatus > 0) {
             window.location.href = '/Rooms?success=true';
         } else {

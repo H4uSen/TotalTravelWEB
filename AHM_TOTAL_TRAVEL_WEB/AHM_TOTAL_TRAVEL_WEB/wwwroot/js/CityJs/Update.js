@@ -1,6 +1,6 @@
 ﻿$("#form_content").parent().hide();
 $(".ui.dropdown").dropdown();
-var suburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+var suburbsList = ajaxRequest(urlAPI+"/API/Suburbs/List");
 fillSuburbs(Ciudad_Id);
 
 //------------ EVENTS --------------------------
@@ -87,13 +87,13 @@ function crear() {
         suburb.colo_Descripcion = $("#colonia").val();
         suburb.ciud_ID = parseInt(Ciudad_Id);
 
-        var SuburbInsertStatus = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/Insert", suburb, "POST");
+        var SuburbInsertStatus = ajaxRequest(urlAPI+"/API/Suburbs/Insert", suburb, "POST");
 
         if (SuburbInsertStatus.code == 200) {
             iziToastAlert(
                 "!Registro creado con exito!", "", "success"
             );
-            suburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+            suburbsList = ajaxRequest(urlAPI+"/API/Suburbs/List");
             fillSuburbs(Ciudad_Id);
             getDefault();
         }
@@ -128,14 +128,14 @@ function actualizar(id_ciudad) {
         SuburbsViewModel.colo_Descripcion = $("#colonia").val();
         SuburbsViewModel.ciud_ID = parseInt(Ciudad_Id);
 
-        var suburbInsertStatus = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/Update?id=" + id_ciudad, suburb, "PUT");
+        var suburbInsertStatus = ajaxRequest(urlAPI+"/API/Suburbs/Update?id=" + id_ciudad, suburb, "PUT");
 
         if (suburbInsertStatus.code == 200) {
             iziToastAlert(
                 "!Registro actualizado con exito!", "", "success"
             );
             $("#colonia").val("");
-            suburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+            suburbsList = ajaxRequest(urlAPI+"/API/Suburbs/List");
             fillSuburbs(Ciudad_Id);
         }
 
@@ -168,12 +168,12 @@ function getDefault() {
 
 function eliminar(id) {
     const capsula1 = () => {
-        var response = ajaxRequest(`https://apitotaltravel.azurewebsites.net/API/Suburbs/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
+        var response = ajaxRequest(urlAPI+`/API/Suburbs/Delete?id=${id}&mod=${Client_User_ID}`, null, "Delete");
         if (response.data.codeStatus > 0) {
             iziToastAlert(
                 "!Registro eliminado con exito!", "", "success"
             );
-            suburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+            suburbsList = ajaxRequest(urlAPI+"/API/Suburbs/List");
             fillSuburbs(Ciudad_Id);
         }
     };

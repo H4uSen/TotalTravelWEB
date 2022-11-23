@@ -1,5 +1,5 @@
-﻿var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DestinationsTransportations/List");
-var response2 = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List")
+﻿var response = ajaxRequest(urlAPI +"/API/DestinationsTransportations/List");
+var response2 = ajaxRequest(urlAPI +"/API/Partners/List")
 
 $("#btnCrearhorario").click(() => {
     if (Client_Role != "Administrador") {

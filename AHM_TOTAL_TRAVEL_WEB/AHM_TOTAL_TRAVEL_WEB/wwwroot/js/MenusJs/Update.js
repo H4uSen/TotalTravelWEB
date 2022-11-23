@@ -7,7 +7,6 @@ SetDropDownValue($("#Time_ID"), tipoMenuID);
 
 $(document).ready(async function () {
     await GetImage();
-
 });
 //FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
 
@@ -105,7 +104,7 @@ function updateMenus() {
         for (let i = 0; i < imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Menus/Update?id=" + menuID, data, "PUT");
+        var response = uploadFile(urlAPI+"/API/Menus/Update?id=" + menuID, data, "PUT");
         console.log(response);
         if (response.data.codeStatus > 0) {
             window.location.href = '/Menus?success=true';

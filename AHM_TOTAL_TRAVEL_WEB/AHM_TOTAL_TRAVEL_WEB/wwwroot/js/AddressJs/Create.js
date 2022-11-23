@@ -15,7 +15,7 @@ $("#createAddress").click(() => {
     $('#Count_ID').change(function () {
 
         SetDropDownPlaceholder($('#Col_ID'));
-        var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+        var response = ajaxRequest(urlAPI+"/API/Cities/List");
         if (response.code == 200) {
             var Count_ID = $('#Count_ID').val();
             var cities = response.data;
@@ -44,7 +44,7 @@ $("#createAddress").click(() => {
     $('#City_ID').change(function () {
 
 
-        var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+        var response = ajaxRequest(urlAPI+"/API/Suburbs/List");
         if (response.code == 200) {
 
             var City_ID = $('#City_ID').val();
@@ -96,7 +96,7 @@ $("#sendAddress").click(() => {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest(urlAPI+"/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 

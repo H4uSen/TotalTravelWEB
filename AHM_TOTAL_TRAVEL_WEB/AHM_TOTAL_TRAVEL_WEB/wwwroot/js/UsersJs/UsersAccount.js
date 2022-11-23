@@ -36,7 +36,7 @@ function UpdateUser() {
             dire.colo_ID = parseInt($("#Colonia").val());
             dire.dire_Calle = ($("#Calle").val());
             dire.dire_Avenida = ($("#Avenida").val());
-        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest(urlAPI +"/API/Address/Insert", dire, "POST");
             var DireID;
             if (responseAddress.code == 200) {
                 DireID = responseAddress.data.codeStatus;
@@ -66,7 +66,7 @@ function UpdateUser() {
                 data.append("Usua_Url", null);
             }
 
-            const userStatus = uploadFile("https://apitotaltravel.azurewebsites.net/API/Users/Update?id=" + Client_User_ID, data, "PUT");
+            const userStatus = uploadFile(urlAPI +"/API/Users/Update?id=" + Client_User_ID, data, "PUT");
 
             if (userStatus.code == 200) {
                 window.location.href = '/Account?success=true';
@@ -80,7 +80,7 @@ function UpdateUser() {
 
 function RellenarCiudades(Pais_ID) {
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest(urlAPI +"/API/Cities/List");
     if (response.code == 200) {
         var cities = response.data;
         cities = jQuery.grep(cities, function (city, i) {
@@ -111,7 +111,7 @@ function RellenarCiudades(Pais_ID) {
 
 function RellenarColonias(Ciud_Id) {
 
-    var coloniasList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+    var coloniasList = ajaxRequest(urlAPI +"/API/Suburbs/List");
     if (coloniasList.code == 200) {
         var colonias = coloniasList.data;
         colonias = jQuery.grep(colonias, function (colonia, i) {

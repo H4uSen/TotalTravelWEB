@@ -1,7 +1,7 @@
 ﻿
 // ----------------------------------- TABLE INIZIALIZE ------------------------------------
-const CitiesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
-const SuburbsList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+const CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
+const SuburbsList = ajaxRequest(urlAPI+"/API/Suburbs/List");
 TableSearchInput($("#txtSearch"), $("#grdPaymentRecord"), elemPerPage = 10);
 TableDetailsConstructor($("#grdPaymentRecord"));
 

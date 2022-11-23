@@ -1,4 +1,4 @@
-﻿var paquetesList = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List");
+﻿var paquetesList = ajaxRequest(urlAPI+"/API/DefaultPackages/List");
 $('.ui.dropdown').dropdown();
 fillPaquetes(0);
 

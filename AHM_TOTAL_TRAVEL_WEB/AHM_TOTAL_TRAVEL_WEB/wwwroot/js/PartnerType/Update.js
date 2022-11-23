@@ -10,7 +10,7 @@ $("#closeEditTipoPartner").click(() => {
 function GetTipoPartner(id) {
 
     var TipoPartnerModel = TipoPartnerViewModel;
-    var request = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/PartnerType/Find?Id=" + id);
+    var request = ajaxRequest(urlAPI+"/API/PartnerType/Find?Id=" + id);
     TipoPartnerModel.descripcion = request.data.descripcion;
     TipoPartnerModel.rol_Id = request.data.rol_Id;
     TipoPartnerModel.id = request.data.id;

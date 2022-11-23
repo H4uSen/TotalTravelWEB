@@ -87,7 +87,7 @@ function getAll() {
 
 //rellena el segundo dronwdon
 function getTipoParnet() {
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Partners/List");
+    var response = ajaxRequest(urlAPI+"/API/Partners/List");
 
     //response = jQuery.grep(response.data, function (item, i) {
     //    return item.tipoPartner_Id == 2;
@@ -123,7 +123,7 @@ function getTipoParnet() {
 }
 
 function getHotels() {
-    const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Hotels/List");
+    const response = ajaxRequest(urlAPI+"/API/Hotels/List");
 
     if (response.code == 200) {
 
@@ -154,7 +154,7 @@ function getHotels() {
 
 
 function getCiudad() {
-    const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+    const response = ajaxRequest(urlAPI+"/API/Cities/List");
 
     if (response.code == 200) {
 
@@ -185,7 +185,7 @@ function getCiudad() {
 
 
 function getcolonia() {
-    const response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
+    const response = ajaxRequest(urlAPI+"/API/Suburbs/List");
 
     if (response.code == 200) {
 

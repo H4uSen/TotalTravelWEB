@@ -88,7 +88,7 @@ function createDefaultPackages() {
                 data.append("File", imagesArrayPure[i]);
             }
 
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/Insert", data, "POST");
+            var response = uploadFile(urlAPI+"/API/DefaultPackages/Insert", data, "POST");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/DefaultPackages?success=true';
             } else {
@@ -111,7 +111,7 @@ function createDefaultPackages() {
                 data.append("File", imagesArrayPure[i]);
             }
 
-            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/DefaultPackages/Insert", data, "POST");
+            var response = uploadFile(urlAPI+"/API/DefaultPackages/Insert", data, "POST");
             if (response.data.codeStatus > 0) {
                 window.location.href = '/DefaultPackages?success=true';
             } else {

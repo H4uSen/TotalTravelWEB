@@ -20,7 +20,7 @@ $("#updateSuburbs").click(() => {
 
 function editar(coloniaIDm) {
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/Find?id=" + coloniaIDm);
+    var response = ajaxRequest(urlAPI +"/API/Suburbs/Find?id=" + coloniaIDm);
     if (response.code == 200) {
         var itemSubu = response.data;
 
@@ -28,7 +28,7 @@ function editar(coloniaIDm) {
 
     }
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/Find?id=" + itemSubu.ciudadID);
+    var response = ajaxRequest(urlAPI +"/API/Cities/Find?id=" + itemSubu.ciudadID);
     if (response.code == 200) {
         var itemcity = response.data;
         RellenarCiudades(itemcity.paisID, $("#modalUpdate #City_ID"));
@@ -61,7 +61,7 @@ function actualizar() {
 
 function RellenarCiudades(Country_Id) {
 
-    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest(urlAPI +"/API/Cities/List");
 
     if (response.code == 200) {
 

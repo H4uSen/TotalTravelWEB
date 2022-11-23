@@ -3,7 +3,7 @@
 function package() {
 
     const request = ajaxRequest(
-        "https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List",
+        urlAPI+"/API/DefaultPackages/List",
         null, "GET", false
     );
     $("#loaderAnimation").hide();
