@@ -107,7 +107,7 @@ function updateMenus() {
         var response = uploadFile(urlAPI+"/API/Menus/Update?id=" + menuID, data, "PUT");
         console.log(response);
         if (response.data.codeStatus > 0) {
-            window.location.href = '/Menus?success=true';
+            window.location.href = '/Menus?success-u=true';
         }
 
     }

@@ -1,9 +1,22 @@
 ﻿const params = new URLSearchParams(window.location.search);
-const izziSuccess = params.get("success");
+const SuccessDelete = params.get("success-d");
 
-if (izziSuccess == "true") {
-    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+if (SuccessDelete == "true") {
+    iziToastAlert(title = "Proceso completado", message = "El restaurante se ha eliminado exitosamente.", type = "success");
 }
+
+const SuccessCreate = params.get("success-c");
+
+if (SuccessCreate == "true") {
+    iziToastAlert(title = "Proceso completado", message = "El restaurante se ha creado exitosamente.", type = "success");
+}
+
+const SuccessUpdate = params.get("success-u");
+
+if (SuccessUpdate == "true") {
+    iziToastAlert(title = "Proceso completado", message = "El restaurante se ha actualizado exitosamente.", type = "success");
+}
+
 
 // ----------------------------------- EVENTS ------------------------------------
 //TableSearchInput(SearchInput, Table, elemPerPage = 10)
@@ -66,7 +79,7 @@ function DeleteRestaurant(id) {
     const capsula1 = () => {
         var response = ajaxRequest("Restaurant/Delete?id=" + id, null, "POST");
         if (response > 0) {
-            window.location.href = '/Restaurant?success=true';
+            window.location.href = '/Restaurant?success-d=true';
         }
     };
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);

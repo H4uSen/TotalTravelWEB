@@ -11,7 +11,7 @@
 <div class="container card">
     <div class="ui basic segment">
 
-        <div class="ui icon attached message">
+        <div class="ui icon attached message mb-3">
             <i class="figure icon"></i>
             <div class="content">
                 <div class="header">
@@ -20,20 +20,7 @@
             </div>
         </div>
 
-        <br>
-        <div class="ui grid">
-            <div class="eight wide column">
-                </a>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
-                </div>
-            </div>
-        </div>
-
-        <table class="ui compact selectable celled table" id="grdReservationActivitiesHotels">
+        <table class="ui compact selectable celled table" id="grdHistoryPayments">
             <thead>
                 <tr>
                     <th>
@@ -61,7 +48,7 @@
                         DNI
                     </th>
                     <th>
-                        Telefono 
+                        Telefono
                     </th>
                 </tr>
             </thead>
@@ -101,7 +88,7 @@
                             @Html.DisplayFor(modelItem => item.Telefono)
                         </td>
 
-                        
+
                     </tr>
                 }
             </tbody>
@@ -111,3 +98,40 @@
 </div>
 <br>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            var table = $("#grdHistoryPayments").DataTable({
+                stateSave: true,
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
+                //Aqui se ingresa el numero de columnas que tiene la tabla
+                columns: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {}
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: '',
+                        className: "btn-primary ui small d-none",
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5 ,6 ,7 ,8]
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

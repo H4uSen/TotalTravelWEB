@@ -43,8 +43,9 @@
                             <h2>Codigo de Verificacion</h2>
                             <form asp-controller="Access" asp-action="CodeConfirmX" method="post" class="login-form py-2 w-100 justify-content-md-center">
                                 <div class="input-material-group mb-3">
-                                    <input asp-for="userCode" type="text" class="input-material" id="userCode" type="number" autocomplete="off">
-                                    <label class="label-material">XXX-XXX-XXX</label>
+                                    <input asp-for="ID" type="text" class="input-material" id="userID" autocomplete="off">
+                                    <input asp-for="userCode" type="text" class="form-control" autocomplete="off" style="font-size: medium;" placeholder="XXX-XXX-XXX" />
+                                    <label class="label-material"></label>
                                 </div>
                                 <label class="labelvalidator" id="labelvalidatorCode"></label>
                                 <div>
@@ -69,10 +70,24 @@
     <script src="../assets/vendor/just-validate/js/just-validate.min.js"></script>
     <script src="../assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Main File-->
-    <script src="~/js/main.js"></script>
-    <script src="../assets/js/front.js"></script>
+
     @{
         <script>
+            const params = new URLSearchParams(window.location.search);
+            const SuccessID = params.get("success");
+            if (SuccessID != null) {
+                var beforeError = SuccessID;
+                $(document).ready(function () {
+                    $("#userID").val(beforeError);
+                    $("#userID").hide();
+                });
+            } else {
+                $(document).ready(function () {
+                    $("#userID").hide();
+                });
+            }
+            
+
             var labelEmail = document.getElementById("labelvalidatorCode");
             if ('@ViewData["labelValidator"]' != null) {
                     labelEmail.innerHTML = '@ViewData["labelValidator"]';
@@ -81,6 +96,6 @@
                 }
         </script>
     }
-
+    <script src="../assets/js/front.js"></script>
 </body>
 </html>

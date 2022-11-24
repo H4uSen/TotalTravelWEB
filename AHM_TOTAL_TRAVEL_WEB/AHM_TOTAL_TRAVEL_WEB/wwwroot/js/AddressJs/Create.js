@@ -1,8 +1,20 @@
 ﻿const params = new URLSearchParams(window.location.search);
-const izziSuccess = params.get("success");
+const SuccessDelete = params.get("success-d");
 
-if (izziSuccess == "true") {
-    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+if (SuccessDelete == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La dirección se ha eliminado exitosamente.", type = "success");
+}
+
+const SuccessCreate = params.get("success-c");
+
+if (SuccessCreate == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La dirección se ha creado exitosamente.", type = "success");
+}
+
+const SuccessUpdate = params.get("success-u");
+
+if (SuccessUpdate == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La dirección se ha actualizado exitosamente.", type = "success");
 }
 
 
@@ -100,7 +112,7 @@ $("#sendAddress").click(() => {
         var DireID;
         if (responseAddress.code == 200) {
 
-            window.location.href = '/Address?success=true';
+            window.location.href = '/Address?success-c=true';
         } 
 
     }

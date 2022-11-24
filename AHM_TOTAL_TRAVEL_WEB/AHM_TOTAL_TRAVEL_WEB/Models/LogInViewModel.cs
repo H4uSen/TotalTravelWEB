@@ -13,6 +13,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     }
     public class userCodevalidation
     {
+        public int ID { get; set; }
         public string userCode { get; set; }
 
     }
@@ -46,6 +47,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
     }
     public class changePassword
     {
+        public int ID { get; set; }
         public string usua_Password { get; set; }
         public string passwordConfirm { get; set; }
     }

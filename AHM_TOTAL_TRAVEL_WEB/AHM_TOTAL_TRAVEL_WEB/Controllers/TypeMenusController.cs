@@ -44,7 +44,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 typeMenus.Time_UsuarioCreacion = Convert.ToInt32(UserID);
                 var list = await _restaurantServices.typeMenusCreate(typeMenus, token);
                 var listData = await _restaurantServices.TypeMenusList();
-                return Redirect("~/TypeMenus?success=true");
+                return Redirect("~/TypeMenus?success-c=true");
             }
             else
             {
@@ -75,7 +75,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var idd = HttpContext.User.FindFirst("User_Id").Value;
                 TypeMenus.Time_UsuarioModifica = int.Parse(idd);
                 var lista = await _restaurantServices.TypeMenusUpdate(TypeMenus, token);
-                return Redirect("~/TypeMenus?success=true");
+                return Redirect("~/TypeMenus?success-u=true");
             }
             else
             {

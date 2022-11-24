@@ -54,7 +54,7 @@ $("#sendAddressUpdate").click(() => {
         var DireID;
         if (responseAddress.code == 200) {
 
-            window.location.href = '/Address?success=true';
+            window.location.href = '/Address?success-u=true';
         }
 
     }
@@ -121,7 +121,7 @@ function DeleteAddress(id) {
     const capsula1 = () => {
         var response = ajaxRequest("Address/Delete?id=" + id, null, "POST");
         if (response > 0) {
-            window.location.href = '/Address?success=true';
+            window.location.href = '/Address?success-d=true';
         }
     };
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);

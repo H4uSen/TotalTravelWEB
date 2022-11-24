@@ -60,7 +60,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
                     #endregion
-                    return RedirectToAction(actionName: "CodeConfirmX", controllerName: "Access");
+
+                    return Redirect("/Access/CodeConfirmX?success="+ EmailVerify.CodeStatus);
                 }
                 else
                 {
@@ -95,10 +96,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(changePassword password)
         {
-            var userID = HttpContext.User.FindFirst("User_Id").ToString();
-            var ID = Convert.ToInt32(userID.Substring(9,2));
+            var userID = password.ID;
             
-
             if (password.usua_Password == null || password.passwordConfirm == null)
             {
                 ViewData["passwordValidator"] = "Rellene todo los campos.";
@@ -113,7 +112,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             else
             {
                 changePasswordViewModel changePassword = new changePasswordViewModel();
-                changePassword.usua_ID = ID;
+                changePassword.usua_ID = userID;
                 changePassword.usua_Password = password.passwordConfirm;
                 ServiceResult resultPassword = await _accessServices.ChangePassword(changePassword);
                 var passwordVerify = (RequestStatus)resultPassword.Data;
@@ -129,9 +128,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View();
         }
-
-            public IActionResult CodeConfirmX()
+        [HttpGet]
+        public IActionResult CodeConfirmX()
         {
+
             return View();
         }
 
@@ -140,6 +140,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             var correctCode = HttpContext.User.FindFirst("Correct_Code").ToString();
             var userCode = userValidation.userCode;
+            var userID = userValidation.ID;
 
             if (userCode == null)
             {
@@ -148,7 +149,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             else if ("Correct_Code: " + userCode == correctCode)
             {
-                return RedirectToAction(actionName: "ChangePassword", controllerName: "Access");
+                
+                return Redirect("/Access/ChangePassword?success=" + userID);
             }
             else
             {
