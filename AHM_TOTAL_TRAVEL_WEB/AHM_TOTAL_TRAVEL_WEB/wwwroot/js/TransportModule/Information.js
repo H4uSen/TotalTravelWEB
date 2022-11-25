@@ -10,6 +10,9 @@ $("document").ready(function () {
     Tarjeta(filtrotarjeta);
 });
 $("#Estado").change(function () {
+    $("#Default_Item").show();
+    $("#frmReservation_Info").hide();
+    $("#InfoDet").hide();
     var filtrotarjeta = $("#Estado").val();
     $('#tarjetaT').empty();
     Tarjeta(filtrotarjeta);
@@ -63,10 +66,10 @@ function Tarjeta(esta) {
                             <div class="content">
                                 <div class="header">${item.cliente}</div>
                                 <div class="description">
-                                          Precio:  L.${item.precio}
+                                          Precio:  L ${item.precio}
                                 </div>      
                             </div>
-                            <a class="ui bottom attached blue button" id="Resv" href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
+                            <a class="btn btn-edit ui positive button w-100" id="Resv" href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
                                 <i class="folder open icon"></i>
                                 Ver Detalles
                             </a>
@@ -77,7 +80,7 @@ function Tarjeta(esta) {
                     divroom =
                         `<div class="ui card" style="width:100%>
                     <div class="content">
-                        <div class="header">Se elimino este registro</div>                     
+                        <div class="header">Se eliminó este registro</div>                     
                     </div>                  
                 </div>`
                     $('#tarjetaT').append(divroom);
@@ -139,7 +142,7 @@ function ViewReservation(idDetalles, id) {
                                 ${ResvaFilterItem.cliente}
                         </div>
                         <div class="field">
-                            <label>Partner:</label>
+                            <label>Socio:</label>
                                 ${TranspoFilterItem.parter}
                         </div>
                     </div>
@@ -149,7 +152,7 @@ function ViewReservation(idDetalles, id) {
                                 ${TranspoFilterItem.tipo_Transporte}
                         </div>                      
                         <div class="field">
-                            <label>Matricula:</label>
+                            <label>Matrícula:</label>
                                 ${TranspoFilterItem.matricula}
                         </div>
                     </div>
@@ -176,7 +179,7 @@ function ViewReservation(idDetalles, id) {
                         <div class="two fields">                           
                             <div class="field">
                                 <label>Precio:</label>
-                                    L. ${TranspoFilterItem.precio}
+                                    L ${TranspoFilterItem.precio}
                             </div>
                         </div>
                     </center>`

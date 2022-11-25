@@ -15,6 +15,7 @@ campoNumerico.addEventListener('keydown', function (evento) {
         teclaPresionada != 'Backspace' &&
         teclaPresionada != 'Delete' &&
         teclaPresionada != 'Enter' &&
+        teclaPresionada != 'Space' &&
         teclaPresionadaEsUnNumero;
     const comienzaPorCero =
         campoNumerico.value.length === 0 &&
@@ -41,6 +42,7 @@ campoNumerico2.addEventListener('keydown', function (evento) {
         teclaPresionada != 'Backspace' &&
         teclaPresionada != 'Delete' &&
         teclaPresionada != 'Enter' &&
+        teclaPresionada != 'Space' &&
         !teclaPresionadaEsUnNumero;
     const comienzaPorCero =
         campoNumerico2.value.length === 0 &&
@@ -50,7 +52,7 @@ campoNumerico2.addEventListener('keydown', function (evento) {
         evento.preventDefault();
     }
 
-    if (campoNumerico2.value.length > 2) {
+    if (campoNumerico2.value.length > 20) {
         if (teclaPresionada != 'Backspace') {
             evento.preventDefault();
         }
@@ -75,6 +77,7 @@ campoNumerico3.addEventListener('keydown', function (evento) {
         teclaPresionada != 'Backspace' &&
         teclaPresionada != 'Delete' &&
         teclaPresionada != 'Enter' &&
+        teclaPresionada != 'Space' &&
         teclaPresionadaEsUnNumero;
     const comienzaPorCero =
         campoNumerico3.value.length === 0 &&
@@ -102,6 +105,7 @@ campoNumerico4.addEventListener('keydown', function (evento) {
         teclaPresionada != 'Backspace' &&
         teclaPresionada != 'Delete' &&
         teclaPresionada != 'Enter' &&
+        teclaPresionada != 'Space' &&
         teclaPresionadaEsUnNumero;
     const comienzaPorCero =
         campoNumerico4.value.length === 0 &&

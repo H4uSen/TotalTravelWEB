@@ -59,7 +59,7 @@ function createDefaultPackages() {
         { validateMessage: "Ingrese un nombre.", Jqueryinput: $("#Nombre") },
         { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#Descripcion") },
         { validateMessage: "Ingrese un precio.", Jqueryinput: $("#Precio") },
-        { validateMessage: "Ingrese una Duración.", Jqueryinput: $("#Duracion") },
+        { validateMessage: "Ingrese una duración.", Jqueryinput: $("#Duracion") },
         { validateMessage: "Seleccione un hotel.", Jqueryinput: $("#hote_ID") },
         
     ];

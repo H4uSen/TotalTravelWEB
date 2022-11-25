@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Correo electrónico</label>
-                                    <input asp-for="Part_Email" id="Email" placeholder="Email" />
+                                    <input asp-for="Part_Email" id="Email" type="email" placeholder="Email" />
 
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Teléfono</label>
-                                    <input asp-for="Part_Telefono" id="Telefono" placeholder="Telefono" type="number" />
+                                    <input asp-for="Part_Telefono" min="1" id="Telefono" placeholder="Teléfono" type="number" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Tipo de socio</label>
@@ -64,7 +64,7 @@
                         <div class="ui grid three column stackable mt-4">
 
                             <div class="column">
-                                <label class="ui label">Imagenes en fila.</label>
+                                <label class="ui label">Imágenes en fila.</label>
                                 <div class="ui segment">
                                     <div class="ui middle aligned divided list" id="image-upload-list">
 
@@ -76,13 +76,13 @@
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
                                     <div class="ui icon header">
                                         <i class="pdf file outline icon"></i>
-                                        Sube tus imagenes al sistema.
+                                        Sube tus imágenes al sistema.
                                     </div>
                                     <input type="file" (change)="fileEvent($event)" class="inputfile"
                                            id="File" />
-                                    <label for="File" class="ui primary button">
+                                    <button for="File" class="btn btn-edit ui positive button w-100">
                                         Añade una imagen
-                                    </label>
+                                    </button>
                                 </div>
 
                             </div>
@@ -145,6 +145,7 @@
 
     </script>
     <script src="~/js/PartnersJS/Update.js"></script>
+    <script src="~/js/PartnersJS/Validaciones.js"></script>
 }
 @section HighlightTile{
     <script>

@@ -13,7 +13,7 @@
                 <i class="icon archive"></i>
                 <div class="content">
                     <div class="header text-capitalize">
-                        Crear
+                        Crear Paquete Predeterminado
                     </div>
                 </div>
                 <div class="right floated content" style="text-align: end;">
@@ -34,12 +34,12 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Nombre</label>
-                                    <input id="Nombre" class="form-control" />
+                                    <input id="Nombre"  placeholder="Nombre del paquete" class="form-control" />
 
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Descripción</label>
-                                    <input id="Descripcion" class="form-control" />
+                                    <input id="Descripcion" placeholder="Descripción del paquete" class="form-control" />
 
                                 </div>
                             </div>
@@ -49,13 +49,13 @@
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
                                     <div class="ui right labeled input">
-                                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio" id="Precio">
+                                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio del paquete" id="Precio">
                                         <div class="ui basic label">.00</div>
                                     </div>
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Duración</label>
-                                    <input id="Duracion" class="form-control" />
+                                    <input id="Duracion" type="number" min="1" placeholder="Duración del paquete" class="form-control" />
 
                                 </div>
                             </div>
@@ -109,9 +109,9 @@
                                     </div>
                                     <input type="file" (change)="fileEvent($event)" class="inputfile"
                                            id="File" />
-                                    <label for="File" class="ui primary button">
+                                    <button for="File" class="btn btn-edit ui positive button w-100">
                                         Añade una imagen
-                                    </label>
+                                    </button>
                                 </div>
 
                             </div>
@@ -131,7 +131,7 @@
                         </div>
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
-                        <input type="button" value="Crear" onclick="createDefaultPackages()" class="btn btn-edit ui positive button" />
+                        <input type="button" value="Guardar" onclick="createDefaultPackages()" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "DefaultPackages")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
                 </div>
@@ -142,36 +142,7 @@
     </div>
 </div>
 @section Scripts{
-    <script>
-
-        $('.ui.checkbox').checkbox();
-        const campoNumerico = document.getElementById('Precio');
-
-        campoNumerico.addEventListener('keydown', function (evento) {
-            const teclaPresionada = evento.key;
-            const teclaPresionadaEsUnNumero =
-                Number.isInteger(parseInt(teclaPresionada));
-
-            const sePresionoUnaTeclaNoAdmitida =
-                teclaPresionada != 'ArrowDown' &&
-                teclaPresionada != 'ArrowUp' &&
-                teclaPresionada != 'ArrowLeft' &&
-                teclaPresionada != 'ArrowRight' &&
-                teclaPresionada != 'Backspace' &&
-                teclaPresionada != 'Delete' &&
-                teclaPresionada != 'Enter' &&
-                !teclaPresionadaEsUnNumero;
-            const comienzaPorCero =
-                campoNumerico.value.length === 0 &&
-                teclaPresionada == 0;
-
-            if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
-                evento.preventDefault();
-            }
-
-        });
-
-               
+    <script>              
         $("#checkResta").change(function () {
             if ($("#checkResta").prop("checked") == true) {
                 $("#restau").removeAttr('hidden');
@@ -186,6 +157,7 @@
               
     </script>
     <script src="~/js/DefaultPackaguesJS/Create.js"></script>
+    <script src="~/js/DefaultPackaguesJS/Validaciones.js"></script>
 }
 @section HighlightTile{
     <script>
