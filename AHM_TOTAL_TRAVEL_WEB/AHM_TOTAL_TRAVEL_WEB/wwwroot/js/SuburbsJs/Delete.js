@@ -66,7 +66,7 @@ function DeleteColo(id) {
         }
     };
 
-    sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
+    sweetAlertconfirm("¿Desea eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
 };
 
 function fillSuburbs(City_ID) {

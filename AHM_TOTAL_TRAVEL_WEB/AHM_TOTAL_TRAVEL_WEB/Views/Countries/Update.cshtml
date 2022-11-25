@@ -21,10 +21,10 @@
 <div class="container card">
     <div class="ui basic segment">
         <div class="ui icon attached message">
-            <i class="icon food"></i>
+            <i class="globe icon"></i>
             <div class="content">
                 <div class="header text-capitalize">
-                    Actualizar Pais
+                     Actualizar País
                 </div>
             </div>
             <div class="right floated content" style="text-align: end;">
@@ -43,13 +43,13 @@
                     <div class="required field">
                         <div class="two fields">
                             <div class="required field">
-                                <label class="ui label">Nombre</label>
+                                <label class="ui label">País</label>
                                 <input name="Pais_Descripcion" id="Pais_Descripcion" value="@Model.Pais" class="form-control" />
 
                             </div>
                             <div class="required field">
                                 <label class="ui label">Código</label>
-                                <input name="Pais_Codigo" id="Pais_Codigo" value="@Model.Codigo" class="form-control" />
+                                <input name="Pais_Codigo" id="Pais_Codigo"  min="1" type="number" value="@Model.Codigo" class="form-control" />
 
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="required field">
                                 <label class="ui label">ISO</label>
-                                <input name="Pais_ISO" id="Pais_ISO" value="@Model.ISO" class="form-control" />
+                                <input name="Pais_ISO" id="Pais_ISO" maxlength="2" value="@Model.ISO" class="form-control" />
 
                             </div>
                         </div>
@@ -113,6 +113,13 @@
 @section Scripts {
     <script>
         const Pais_ID = "@ViewData["Pais_ID"]";
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
     </script>
     <script src="~/js/CountriesJS/Update.js"></script>
+    <script src="~/js/CountriesJS/ValidacionesExtra.js"></script>
 }

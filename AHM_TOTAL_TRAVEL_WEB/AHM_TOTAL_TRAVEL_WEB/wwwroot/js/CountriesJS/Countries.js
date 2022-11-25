@@ -6,13 +6,8 @@ $("#createCountries").click(() => {
     $("#modalCreate").modal('show');
 });
 
-
 $("#modalCreate #close").click(() => {
     $("#modalCreate").modal('hide');
-});
-
-$("#modalUpdate #close").click(() => {
-    $("#modalUpdate").modal('hide');
 });
 
 $("#send").click(() => {
@@ -20,16 +15,12 @@ $("#send").click(() => {
 })
 
 function validar() {
-
     validateArrayForm = [
-        { validateMessage: "Ingrese una descripción.", Jqueryinput: $("#modalCreate #Pais_Descripcion") },
-        { validateMessage: "Ingrese una nacionalidad.", Jqueryinput: $("#modalCreate #Pais_Nacionalidad") },
-        { validateMessage: "Ingrese un código.", Jqueryinput: $("#modalCreate #Pais_Codigo") },
-        { validateMessage: "Ingrese un ISO.", Jqueryinput: $("#modalCreate #Pais_ISO") },
-
-
-    ];
-
+        { validateMessage: "Ingresa el nombre del país", Jqueryinput: $("#modalCreate #Pais_Descripcion") },
+        { validateMessage: "Ingresa el código telefónico del país", Jqueryinput: $("#modalCreate #Pais_Codigo") },
+        { validateMessage: "Ingresa el nombre de la nacionalidad del país", Jqueryinput: $("#modalCreate #Pais_Nacionalidad") },
+        { validateMessage: "Ingresa la nomeclatura ISO del país", Jqueryinput: $("#modalCreate #Pais_ISO") }
+    ]
     // retorna bool 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
 
@@ -59,7 +50,7 @@ function editar(CountriesID) {
 
 function actualizar() {
     validateArrayForm = [
-        { validateMessage: "Ingresar una descripcion", Jqueryinput: $("#modalUpdate #Pais_Descripcion") },
+        { validateMessage: "Ingresar un país", Jqueryinput: $("#modalUpdate #Pais_Descripcion") },
         { validateMessage: "Ingresar una nacionalidad", Jqueryinput: $("#modalUpdate #Pais_Nacionalidad") },
         { validateMessage: "Ingresar un código", Jqueryinput: $("#modalUpdate #Pais_Codigo") },
         { validateMessage: "Ingresar un ISO", Jqueryinput: $("#modalUpdate #Pais_ISO") },
