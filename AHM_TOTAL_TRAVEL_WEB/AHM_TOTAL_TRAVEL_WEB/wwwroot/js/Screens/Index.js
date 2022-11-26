@@ -223,7 +223,7 @@ function updateScreen() {
 function deleteScreen(id) {
 
     const callback = () => {
-        var response = ajaxRequest("Screens/Delete?id=" + id, null, "POST");
+        var response = ajaxRequest("/Screens/Delete?id=" + id, null, "POST");
         if (response > 0) {
             Swal.fire("!Registro eliminado con exito!", "", "success").then(() => {
                 location.reload();
@@ -299,7 +299,7 @@ function updateModule() {
 function deleteModule(id) {
 
     const callback = () => {
-        var response = ajaxRequest("Screens/DeleteModule?id=" + id, null, "POST");
+        var response = ajaxRequest("/Screens/DeleteModule?id=" + id, null, "POST");
         if (response > 0) {
             Swal.fire("!Registro eliminado con exito!", "", "success").then(() => {
                 location.reload();
@@ -308,6 +308,7 @@ function deleteModule(id) {
     };
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", callback);
 }
+
 //--------------------- GROUPS -------------------------------
 
 function createGroup() {
