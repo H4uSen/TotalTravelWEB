@@ -9,10 +9,10 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="list alternate outline icon"></i>
+            <i class="globe icon"></i>
             <div class="content">
                 <div class="header">
-                    Paises
+                    Países
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
 <div class="ui modal longer" id="modalCreate">
     <i class="close icon"></i>
     <div class="header">
-        Ingresa un Pais
+        Ingresa un País
     </div>
     <form asp-action="Create" asp-controller="Countries" id="createCountriesForm">
         <div class="ui form attached fluid segment">
@@ -87,13 +87,13 @@
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
-                            <label class="ui label">Nombre</label>
+                            <label class="ui label">País</label>
                             <input name="Pais_Descripcion" id="Pais_Descripcion" class="form-control" />
 
                         </div>
                         <div class="required field">
                             <label class="ui label">Código</label>
-                            <input name="Pais_Codigo" id="Pais_Codigo" class="form-control" />
+                            <input name="Pais_Codigo" id="Pais_Codigo" min="1" type="number"  class="form-control" />
 
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="required field">
                             <label class="ui label">ISO</label>
-                            <input name="Pais_ISO" id="Pais_ISO" class="form-control" />
+                            <input name="Pais_ISO" id="Pais_ISO" maxlength="2" class="form-control" />
 
                         </div>
                     </div>
@@ -119,57 +119,10 @@
     </div>
 </div>
 
-
-<div class="ui modal longer" id="modalUpdate">
-    <i class="close icon"></i>
-    <div class="header">
-        Actualiza un País
-    </div>
-    <form asp-action="Update" asp-controller="Countries" id="updateCountriesForm">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <div class="required field">
-                    <div class="two fields">
-                        <div class="required field">
-                            <label>Nombre</label>
-                            <input name="Pais_Descripcion" id="Pais_Descripcion" class="form-control" />
-                        </div>
-                        <div class="required field">
-                            <label>Código</label>
-                            <input name="Pais_Codigo" id="Pais_Codigo" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="required field">
-                            <label>Nacionalidad</label>
-                            <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" class="form-control" />
-                        </div>
-                        <div class="required field">
-                            <label>ISO</label>
-                            <input name="Pais_ISO" id="Pais_ISO" class="form-control" />
-                        </div>
-                    </div>
-
-                    <div class="required field">
-                        <input id="Pais_ID" name="Pais_ID" hidden />
-                    </div>
-                </div>
-
-            </div>
-                     
-        </div>
-    </form>
-    <div class="actions">
-        <button class="btn btn-edit ui positive button" id="send" onclick="actualizar()">Guardar</button>
-        <button class="ui button" id="close">Cancelar</button>
-    </div>
-</div>
-
-
-
 @section Scripts{
     <script src="~/js/CountriesJS/Index.js"></script>
     <script src="~/js/CountriesJS/Countries.js"></script>
+    <script src="~/js/CountriesJS/ValidacionesExtra.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
         const izziSuccess = params.get("success");
@@ -183,7 +136,7 @@
                 window.location.href = '/Countries?success=true';
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+            sweetAlertconfirm("¿Desea eliminar este registro?", "Este registro se borrará permanentemente", "warning", capsula1);
 
 
         };
@@ -201,5 +154,7 @@
         $("#General_Schema").addClass("show");
 
         $("#CitiesTile").addClass("activeTile");
-    </script>
+    </script>        
 }
+
+

@@ -22,7 +22,7 @@
         <div class="ui grid mb-3">
             <div class="eight wide column">
                 <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","Partners")">
-                    <i class="user icon"></i> Nuevo
+                    <i class="plus icon"></i> Nuevo
                 </a>
             </div>
         </div>
@@ -157,7 +157,7 @@
                 window.location.href = '/Partners?success=true';
 
             };
-            sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
+            sweetAlertconfirm("¿Desea eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
 
         };
     </script>

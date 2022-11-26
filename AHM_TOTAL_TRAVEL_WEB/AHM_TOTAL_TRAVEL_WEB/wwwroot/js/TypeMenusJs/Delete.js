@@ -44,9 +44,9 @@ $(document).ready(function () {
 
 function DeleteTypeMenus(id) {
     const capsula1 = () => {
-        var response = ajaxRequest("TypeMenus/Delete?id=" + id, null, "POST");
+        var response = ajaxRequest("/TypeMenus/Delete?id=" + id, null, "POST");
         if (response > 0) {
-            window.location.href = '/TypeMenus?success=true';
+            window.location.href = '/TypeMenus?success-d=true';
         }
     };
 

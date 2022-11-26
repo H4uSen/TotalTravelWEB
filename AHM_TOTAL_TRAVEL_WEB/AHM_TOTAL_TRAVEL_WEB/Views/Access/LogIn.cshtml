@@ -43,6 +43,32 @@
         .boton:hover {
             color: rgba(101, 45, 144, 0.9);
         }
+
+
+
+    .login-form h4 {
+        color: #652D90;
+    }
+    .login-form {
+        box-sizing: border-box;
+        padding-top: 15px;
+        padding-bottom: 10%;
+        margin: 5% auto;
+        text-align: left;
+    }
+
+    .login input[type="text"],
+    .login input[type="password"] {
+        max-width: 400px;
+        width: 80%;
+        line-height: 3em;
+        font-family: 'Ubuntu', sans-serif;
+        margin: 1em 2em;
+        border-radius: 5px;
+        border: 2px solid #f2f2f2;
+        outline: none;
+        padding-left: 10px;
+    }
 </style>
 <body>
     <input type="button" class="boton" value="< Regresar" onClick="history.go(-1);">
@@ -65,22 +91,19 @@
                             <div class="d-flex align-items-center px-5 px-lg-5 h-100">
 
                                 <form class="login-form py-2 w-100" asp-controller="Access" asp-action="LogIn" style="font-size: x-large;">
-                                    
+
                                     <div style="margin-bottom: 2vh;">
                                         <h1 style="font-size: revert;">TotalTravel</h1>
                                         <br />
-                                        <h3>Iniciar Sesion</h3>
+                                        <h3>Iniciar Sesión</h3>
                                     </div>
-                                    <div class="input-material-group">
-                                        <input asp-for="Email" type="text" class="input-material" style="font-size: medium;" autocomplete="off">
-                                        <label class="label-material" for="login-username" style="font-size: large;">Correo electrónico</label>
-                                    </div>
+                                    <h4>Correo electrónico:</h4>
+                                    <input  asp-for="Email" type="email" class="form-control" placeholder="Correo electrónico" />
                                     <label class="labelvalidator" id="labelvalidatorEmail"></label>
-                                    <div class="input-material-group mb-1">
-                                        <input asp-for="Password" type="password" class="input-material" style="font-size: medium;">
-                                        <label class="label-material" for="login-password" style="font-size: large;">Contraseña</label>
-                                    </div>
+                                    <h4>Contraseña:</h4>
+                                    <input asp-for="Password" type="password" class="form-control mb-1" placeholder="Contraseña" />
                                     <label class="labelvalidator" id="labelvalidatorPass"></label>
+
                                     <div>
                                         <button class="btn btn-primary mb-3 mt-3" id="login" type="submit">Ingresar</button><br>
                                         <a class="text-md text-paleBlue" href="@Url.Action("RecoverPassword","Access")" style="font-size: medium;">Recuperar contraseña</a><br>
@@ -107,11 +130,22 @@
     <script src="../assets/js/front.js"></script>
     <script src="~/js/main.js"></script>
     @{
+        <script>
+            $(document).ready(function () {
+                if ($("#labelvalidatorEmail").val == 0) {
+                    $("#labelvalidatorEmail").hide();
+                }
+                if ($("#labelvalidatorPass").val == 0) {
+                    $("#labelvalidatorPass").hide();
+                }
+            });
+        </script>
         if (ViewData["LoginErrorEmail"] != null)
         {
             <script>
             var labelEmail = document.getElementById("labelvalidatorEmail");
-            labelEmail.innerHTML = "@ViewData["LoginErrorEmail"]";
+                labelEmail.innerHTML = "@ViewData["LoginErrorEmail"]";
+                $("#labelvalidatorEmail").show();
             </script>
 
         }
@@ -127,7 +161,8 @@
         {
             <script>
             var labelEmail = document.getElementById("labelvalidatorPass");
-            labelEmail.innerHTML = "@ViewData["LoginError"]";
+                labelEmail.innerHTML = "@ViewData["LoginError"]";
+                $("#labelvalidatorPass").show();
             </script>
 
         }

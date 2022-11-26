@@ -178,6 +178,6 @@ function eliminar(id) {
             fillCities(Pais_ID);
         }
     };
-    sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+    sweetAlertconfirm("¿Desea eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
 
 };

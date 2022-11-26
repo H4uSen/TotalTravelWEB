@@ -328,6 +328,8 @@ function registerUser() {
         { validateMessage: "Ingrese su apellido", Jqueryinput: $("#txtApellido") },
         { validateMessage: "Ingrese su fecha de nacimiento", Jqueryinput: $("#txtFechaNac") },
         { validateMessage: "Ingrese su teléfono", Jqueryinput: $("#txtTelefono") },
+        { validateMessage: "Ingrese su contraseña", Jqueryinput: $("#txtPassword") },
+        { validateMessage: "Confirme su contraseña", Jqueryinput: $("#txtPassword2") },
         { validateMessage: "Ingrese su correo electrónico", Jqueryinput: $("#txtEmail") },
         { validateMessage: "Ingrese una calle", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenidad", Jqueryinput: $("#Avenida") },
@@ -353,9 +355,8 @@ function registerUser() {
         $("input[name='gender']").removeClass("error");
     }
     if ($('#txtPassword').val() == 0 || $('#txtPassword2').val() == 0) {
-        $("#labelvalidatorPass").html("Ingrese su contraseña.");
-        $(this).addClass("error");
-        $("input#txtPassword2").addClass("error");
+        $("#labelvalidatorPass").html(" ");
+        $("input#txtPassword").removeClass("error");
     } else if ($('#txtPassword').val() != $('#txtPassword2').val()) {
         $("#labelvalidatorPass").html("Las contraseñas no coinciden.");
         $("input#txtPassword").addClass("error");
@@ -373,6 +374,27 @@ function registerUser() {
 
 
 
+    function ManualValidateForm(callback = true,  containerDiv, validateMessage = "Rellene este campo") {
+        //crea span item
+        var labelvalidator = document.createElement("span");
+        labelvalidator.className = "labelvalidator";
+        labelvalidator.innerText = validateMessage;
+
+        if (callback) {
+            if ($(containerDiv).find("span.labelvalidator").length == 0) {
+                $(containerDiv).append(labelvalidator);
+            }
+            $(containerDiv).addClass("error");
+
+            return true;
+        } else {
+            $(containerDiv).find("span.labelvalidator").remove();
+            $(containerDiv).removeClass("error");
+            return false;
+        }
+
+    }
+
 
     if (ValidateFormStatus == true && passwordValidator == true && $("input[name='gender']:checked").val() != undefined) {
 
@@ -383,7 +405,7 @@ function registerUser() {
         dire.dire_Calle = $('#Calle').val();
         dire.dire_Avenida = $('#Avenida').val();
 
-        var responseAddress = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Address/Insert", dire, "POST");
+        var responseAddress = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Address/Insert", dire, "POST");
         var DireID;
         if (responseAddress.code == 200) {
 
@@ -414,15 +436,23 @@ function registerUser() {
             //}
 
 
-            var response = uploadFile("https://totaltravelapi.azurewebsites.net/API/Users/Insert", data, "POST");
+            var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Users/Insert", data, "POST");
 
             if (response.data.codeStatus > 0) {
                 window.location.href = '/Access/LogIn';
 
 
             } else {
-
-                $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
+                if (response.data.messageStatus == "El DNI ya existe.") {
+                    ManualValidateForm(true,$("#txtDni").parents(".field").eq(0), "El DNI ya existe.");
+                } else if (response.data.messageStatus == "El EMAIL ya existe.") {
+                    ManualValidateForm(true,$("#txtEmail").parents(".field").eq(0), "El correo electrónico ya existe.");
+                   // $("#labelvalidatorError").html("El correo electrónico ya existe.");
+                }
+                else {
+                   // $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
+                }
+                
             }
 
         } else {

@@ -1,10 +1,21 @@
 ﻿const params = new URLSearchParams(window.location.search);
-const izziSuccess = params.get("success");
+const SuccessDelete = params.get("success-d");
 
-if (izziSuccess == "true") {
-    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+if (SuccessDelete == "true") {
+    iziToastAlert(title = "Proceso completado", message = "El menú se ha eliminado exitosamente.", type = "success");
 }
 
+const SuccessCreate = params.get("success-c");
+
+if (SuccessCreate == "true") {
+    iziToastAlert(title = "Proceso completado", message = "El menú se ha creado exitosamente.", type = "success");
+}
+
+const SuccessUpdate = params.get("success-u");
+
+if (SuccessUpdate == "true") {
+    iziToastAlert(title = "Proceso completado", message = "El menú se ha actualizado exitosamente.", type = "success");
+}
 
 
 // ----------------------------------- EVENTS ------------------------------------
@@ -63,7 +74,7 @@ function DeleteMenus(id) {
     const capsula1 = () => {
         var response = ajaxRequest("Menus/Delete?id=" + id, null, "POST");
         if (response > 0) {
-            window.location.href = '/Menus?success=true';
+            window.location.href = '/Menus?success-d=true';
         }
     };
     sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);

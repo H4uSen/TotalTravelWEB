@@ -272,3 +272,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+
+var userIDverification;
+if (typeof IDuser === 'undefined') {
+    // pagetype doesn't exist
+} else {
+    userIDverification = IDuser;
+}

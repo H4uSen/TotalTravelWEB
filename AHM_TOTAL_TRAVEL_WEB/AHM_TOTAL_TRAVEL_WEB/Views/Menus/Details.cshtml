@@ -25,7 +25,7 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="field">
-                        <div class="five fields">
+                        <div class="three fields">
                             <div class="field">
                                 <label>Menú</label>
                                 @Html.DisplayFor(model => model.Menu)
@@ -38,6 +38,10 @@
                                 <label>Tipo de menú</label>
                                 @Html.DisplayFor(model => model.TipoMenu)
                             </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="three fields">
                             <div class="field">
                                 <label>Descripcion</label>
                                 @Html.DisplayFor(model => model.Descripcion)
@@ -46,8 +50,12 @@
                                 <label>Precio</label>
                                 L. @Html.DisplayFor(model => model.Precio)
                             </div>
+                            <div>
+
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="ui grid three column stackable mt-4">
@@ -120,6 +128,7 @@
 @section Scripts{
 
     <script>
+        var menusImage = '@ViewData["MenusImage"]';
         var menuFolder = '@ViewData["MenusFolder"]';
         var menuID = '@ViewData["MenuID"]';
     </script>

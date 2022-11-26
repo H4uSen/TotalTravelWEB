@@ -196,7 +196,7 @@ function updateRestaurant() {
             }
             var response = uploadFile(urlAPI +"/API/Restaurants/Update?id=" + restaurantID, data, "PUT");
             if (response.data.codeStatus > 0) {
-                window.location.href = '/Restaurant?success=true';
+                window.location.href = '/Restaurant?success-u=true';
             } else {
 
                 $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");

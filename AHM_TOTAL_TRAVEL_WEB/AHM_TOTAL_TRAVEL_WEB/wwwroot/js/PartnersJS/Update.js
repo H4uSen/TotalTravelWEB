@@ -92,9 +92,9 @@ function updatePartners() {
 
     validateArrayForm = [
         { validateMessage: "Ingrese un nombre.", Jqueryinput: $("#Nombre") },
-        { validateMessage: "Ingrese un Email.", Jqueryinput: $("#Email") },
-        { validateMessage: "Ingrese un teléfomo.", Jqueryinput: $("#Telefono") },
-        { validateMessage: "Seleccione un tipo de partner.", Jqueryinput: $("#TiPart_Id") },
+        { validateMessage: "Ingrese un email.", Jqueryinput: $("#Email") },
+        { validateMessage: "Ingrese un teléfono.", Jqueryinput: $("#Telefono") },
+        { validateMessage: "Seleccione un tipo de socio.", Jqueryinput: $("#TiPart_Id") },
     ];
 
     // retorna bool 

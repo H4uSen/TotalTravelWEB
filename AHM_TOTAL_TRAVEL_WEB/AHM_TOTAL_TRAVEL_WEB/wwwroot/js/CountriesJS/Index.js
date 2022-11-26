@@ -227,5 +227,5 @@ function Delete(id) {
         location.reload();
     };
 
-    sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
+    sweetAlertconfirm("¿Desea eliminar este registro?", "Este registro se borrara permanentemente", "warning", capsula1);
 };

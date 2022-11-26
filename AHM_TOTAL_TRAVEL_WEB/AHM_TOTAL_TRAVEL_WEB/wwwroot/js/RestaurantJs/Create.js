@@ -165,7 +165,7 @@ function createRestaurant() {
 
             var response = uploadFile(urlAPI +"/API/Restaurants/Insert", data, "POST");
             if (response.data.codeStatus > 0) {
-                window.location.href = '/Restaurant?success=true';
+                window.location.href = '/Restaurant?success-c=true';
             } else {
 
                 $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");

@@ -9,7 +9,7 @@
     <div class="ui basic segment">
 
         <div class="ui icon attached message">
-            <i class="list icon"></i>
+            <i class="child icon"></i>
             <div class="content">
                 <div class="header">
                     Tipos de Actividades
@@ -81,7 +81,6 @@
                         <div class="required field">
                             <label class="ui label">Descripción</label>
                             <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
                         </div>
                     </div>
                 </div>
@@ -109,8 +108,7 @@
                     <div class="field">
                         <div class="required field">
                             <label class="ui label">Descripción</label>
-                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />
-                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorDescripcion"></span>
+                            <input name="TiAc_Descripcion" id="TiAc_Descripcion" class="form-control" />                          
                         </div>
                         <div class="required field">
                             <input id="TiAc_ID" name="TiAc_ID" hidden />
@@ -189,12 +187,40 @@
                 window.location.href = '/TypesActivities?success=true';
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
+            sweetAlertconfirm("¿Desea eliminar el registro seleccionado?", "Este registro se borrará permanentemente", "warning", capsula1);
 
 
         };
 
 
+    </script>
+    <script>
+        const campoNumerico = document.getElementById('TiAc_Descripcion');
+
+        campoNumerico.addEventListener('keydown', function (evento) {
+            const teclaPresionada = evento.key;
+            const teclaPresionadaEsUnNumero =
+                Number.isInteger(parseInt(teclaPresionada));
+
+            const sePresionoUnaTeclaNoAdmitida =
+                teclaPresionada != 'ArrowDown' &&
+                teclaPresionada != 'ArrowUp' &&
+                teclaPresionada != 'ArrowLeft' &&
+                teclaPresionada != 'ArrowRight' &&
+                teclaPresionada != 'Backspace' &&
+                teclaPresionada != 'Delete' &&
+                teclaPresionada != 'Enter' &&
+                teclaPresionada != 'Space' &&
+                teclaPresionadaEsUnNumero;
+            const comienzaPorCero =
+                campoNumerico.value.length === 0 &&
+                teclaPresionada == 0;
+
+            if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+                evento.preventDefault();
+            }
+
+        });
     </script>
 
 }

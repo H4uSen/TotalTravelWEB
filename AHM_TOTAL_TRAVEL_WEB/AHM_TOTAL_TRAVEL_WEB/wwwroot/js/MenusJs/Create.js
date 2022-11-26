@@ -79,7 +79,7 @@ function createMenus() {
         var response = uploadFile(urlAPI+"/API/Menus/Insert", data, "POST");
 
         if (response.data.codeStatus > 0) {
-            window.location.href = '/Menus?success=true';
+            window.location.href = '/Menus?success-c=true';
         } 
 
     }
