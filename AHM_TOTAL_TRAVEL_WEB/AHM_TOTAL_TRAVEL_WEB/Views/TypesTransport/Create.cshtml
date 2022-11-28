@@ -11,12 +11,12 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>      
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TiTr_Descripcion" class="control-label"></label>
                 <input asp-for="TiTr_Descripcion" class="form-control" />
                 <span asp-validation-for="TiTr_Descripcion" class="text-danger"></span>
-            </div>           
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -30,4 +30,9 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section HighlightTile{
+    <script>
+        $("#menu_item_127").addClass("activeTile");
+    </script>
 }

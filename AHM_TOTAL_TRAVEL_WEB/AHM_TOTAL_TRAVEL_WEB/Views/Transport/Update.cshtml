@@ -123,46 +123,50 @@
                         <input type="button" value="Guardar" onclick="updateTransport(@Model.Tprt_ID)" class="btn btn-edit ui positive button" />
                         <a type="button" href="@Url.Action("Index", "Transport")" class="ui button mb-3 ms-3">Cancelar</a>
                     </div>
+                </div>
+                <div class="ui negative message bottom attached" id="errorDiv">
+                    <div class="header">
+                        Ha ocurrido un error al realizar la operación.
                     </div>
-                    <div class="ui negative message bottom attached" id="errorDiv">
-                        <div class="header">
-                            Ha ocurrido un error al realizar la operación.
-                        </div>
-                        <p>
+                    <p>
 
-                        </p>
-                    </div>
-                </form>
-                <!-- fin formulario-->
-            </div>
+                    </p>
+                </div>
+            </form>
+            <!-- fin formulario-->
         </div>
     </div>
+</div>
 
-    @section HighlightTile{
-        <script>
-            $("#TransportModule").addClass("active");
-            $("#TransportModule").addClass("expandedList");
-            $("#TransportModule").prop("aria-expanded");
-            $("#TransportModule").attr("aria-expanded", "true");
+@section HighlightTile{
+    <script>
+        $("#TransportModule").addClass("active");
+        $("#TransportModule").addClass("expandedList");
+        $("#TransportModule").prop("aria-expanded");
+        $("#TransportModule").attr("aria-expanded", "true");
 
-            $("#Transport_Schema").addClass("show");
+        $("#Transport_Schema").addClass("show");
 
-            $("#TransportTile").addClass("activeTile");
-        </script>
-    }
+        $("#TransportTile").addClass("activeTile");
+    </script>
+}
 
-    @section Scripts {
+@section Scripts {
 
-        <script>
+    <script>
         const Pais_ID = "@ViewData["Pais"]";
         const Ciudad = "@ViewData["Ciudad"]";
         const Part_ID = "@ViewData["Partner"]";
         const TiTr_ID = "@ViewData["TipoTransporte"]";
         const Subu_ID = "@ViewData["Colonia"]";
         const Tprt_Nombre = "@ViewData["Tprt_Nombre"]";
-        </script>
+    </script>
 
-        <script src="~/js/TransportJs/Update.js"></script>
+    <script src="~/js/TransportJs/Update.js"></script>
 
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+    <script>
+        $("#menu_item_125").addClass("activeTile");
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

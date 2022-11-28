@@ -55,26 +55,26 @@
                             }
                             else
                             {
-                            <div class="field">
-                                <div class="two fields">
-                                    <div class="required field">
-                                        <label class="ui label">Nombre</label>
-                                        <input id="Tprt_Nombre" name="Tprt_Nombre" placeholder="Agrega un nombre" />
+                                <div class="field">
+                                    <div class="two fields">
+                                        <div class="required field">
+                                            <label class="ui label">Nombre</label>
+                                            <input id="Tprt_Nombre" name="Tprt_Nombre" placeholder="Agrega un nombre" />
+                                        </div>
+                                        <div class="required field">
+                                            <label class="ui label">Tipo transporte</label>
+                                            <select id="TiTr_ID" class="ui dropdown search" asp-items="ViewBag.TiTr_ID">
+                                                <option value="">Seleccione un tipo de transporte</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="required field">
-                                        <label class="ui label">Tipo transporte</label>
-                                        <select id="TiTr_ID" class="ui dropdown search" asp-items="ViewBag.TiTr_ID">
-                                            <option value="">Seleccione un tipo de transporte</option>
+                                    <div class="required field" hidden>
+                                        <label class="ui label">Socio</label>
+                                        <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
+                                            <option value="">Seleccione un socio</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="required field" hidden>
-                                    <label class="ui label">Socio</label>
-                                    <select id="Part_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
-                                        <option value="">Seleccione un socio</option>
-                                    </select>
-                                </div>
-                            </div>
                             }
                         }
                         <br>
@@ -145,6 +145,10 @@
 @section Scripts {
 
     <script src="~/js/TransportJs/Create.js"></script>
+    <script>
+        $("#menu_item_125").addClass("activeTile");
+    </script>
+
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

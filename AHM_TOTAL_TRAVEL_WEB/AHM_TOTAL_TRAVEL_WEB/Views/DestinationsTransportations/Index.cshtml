@@ -47,29 +47,29 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CiudadSalida)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CiudadDestino)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Partner_Nombre)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CiudadSalida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CiudadDestino)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Partner_Nombre)
+                        </td>
 
-                    <td>
-                        <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
-                            <i class="pencil alternate icon icon-crud"></i>
-                        </button>
-                        <button class="ui large icon btn-delete button" onclick="DeleteDsTr(@item.ID)">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a class="ui large icon button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                </tr>
+                        <td>
+                            <button class="ui large icon btn-edit button" id="UpdateBottomDsTr" onclick="editar(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </button>
+                            <button class="ui large icon btn-delete button" onclick="DeleteDsTr(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details", "DestinationsTransportations", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table><br>
@@ -163,20 +163,20 @@
 </div>
 
 @section HighlightTile{
-<script>
-    $(document).ready(function () {
-        $("#DsTr_ID").hide();
-    });
+    <script>
+        $(document).ready(function () {
+            $("#DsTr_ID").hide();
+        });
 
-    $("#TransportModule").addClass("active");
-    $("#TransportModule").addClass("expandedList");
-    $("#TransportModule").prop("aria-expanded");
-    $("#TransportModule").attr("aria-expanded", "true");
+        $("#TransportModule").addClass("active");
+        $("#TransportModule").addClass("expandedList");
+        $("#TransportModule").prop("aria-expanded");
+        $("#TransportModule").attr("aria-expanded", "true");
 
-    $("#Transport_Schema").addClass("show");
+        $("#Transport_Schema").addClass("show");
 
-    $("#DestinationsTransportationsTile").addClass("activeTile");
-</script>
+        $("#DestinationsTransportationsTile").addClass("activeTile");
+    </script>
 }
 
 @section Scripts{
@@ -189,4 +189,7 @@
     </script>
     <script src="~/js/DestinationsTransportationsJs/Create.js"></script>
     <script src="~/js/DestinationsTransportationsJs/Delete.js"></script>
+    <script>
+        $("#menu_item_129").addClass("activeTile");
+    </script>
 }
