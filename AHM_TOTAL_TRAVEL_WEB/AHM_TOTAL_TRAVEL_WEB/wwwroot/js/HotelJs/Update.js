@@ -135,7 +135,7 @@ function LoadImage() {
         const fileItem =
             `<div class="item">
                  <div class="right floated content">
-                      <button onclick="deleteImage(${i})" class="ui btn-edit icon button">
+                      <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
                           <i class="trash icon"></i>
                       </button>
                  </div>
