@@ -99,6 +99,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.paqu_Precio = element.precio;
             item.hote_ID = element.ID_Hotel;
             item.rest_ID = element.ID_Restaurante;
+            item.paqu_CantPersonas = element.Cantidad_de_personas;
 
             var hotel = await _HotelsService.HotelsList(token);
             IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
