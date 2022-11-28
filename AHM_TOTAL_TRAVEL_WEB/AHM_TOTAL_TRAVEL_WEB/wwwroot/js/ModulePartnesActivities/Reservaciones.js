@@ -11,6 +11,9 @@ $("document").ready(function () {
     Tarjeta(filtrotarjeta);
 });
 $("#Estado").change(function () {
+    $("#Default_Item").show();
+    $("#frmReservation_Info").hide();
+    $("#InfoDet").hide();
     var filtrotarjeta = $("#Estado").val();
     $('#tarjetaT').empty();
     Tarjeta(filtrotarjeta);
