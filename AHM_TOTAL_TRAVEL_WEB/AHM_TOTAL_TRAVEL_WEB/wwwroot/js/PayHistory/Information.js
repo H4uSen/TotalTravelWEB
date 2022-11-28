@@ -114,7 +114,7 @@ function ViewReservation(hoteid,transid) {
                             </div><br>
                         </div>
                         <div class="content left floated" style="text-align: end;">
-                            <a class="ui huge green tag label">${room.precio}</a>
+                            <a class="ui huge green tag label">L ${room.precio}</a>
                         </div>
                      </div>`
                         $('#rooms').append(divroom);
@@ -137,10 +137,7 @@ function ViewReservation(hoteid,transid) {
                 }
             }
             
-        }
-                
-       
-
+        }               
         if (ReservacionActView.code == 200) {
 
             var resvacts = ReservacionActView.data;
@@ -195,7 +192,7 @@ function ViewReservation(hoteid,transid) {
                 actexth =
                     `<div class="item">
                                 <div class="content">
-                                    <a class="header">Esta reservacion no tiene actividades de hoteles</a>                                                      
+                                    <a class="header">Esta reservación no tiene actividades de hoteles</a>                                                      
                                 </div>
                             </div>`
                 $('#acthot').append(actexth);
@@ -234,5 +231,9 @@ function ViewReservation(hoteid,transid) {
 
 }
 
+$("a.reserv_trigger_button").click(function (_this) {
+    $("a.reserv_trigger_button").addClass("btn-edit").removeClass("btn-view");
+    $(_this.target).addClass("btn-view").removeClass("btn-edit");
+});
 
 
