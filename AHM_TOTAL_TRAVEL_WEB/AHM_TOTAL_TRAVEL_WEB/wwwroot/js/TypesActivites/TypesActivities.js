@@ -7,14 +7,6 @@ $("#createTypesActivities").click(() => {
 });
 
 
-$("#modalCreate #close").click(() => {
-    $("#modalCreate").modal('hide');
-});
-
-$("#modalUpdate #close").click(() => {
-    $("#modalUpdate").modal('hide');
-});
-
 $("#send").click(() => {
     validar();
 })
