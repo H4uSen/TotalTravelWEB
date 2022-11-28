@@ -24,12 +24,12 @@ $("#sendEditCategoryrooms").click(() => {
 
 
     validateArrayForm = [
-        { validateMessage: "Ingrese un tipo de pago .", Jqueryinput: $("#CaHa_DescripcionUpdate") },
+        { validateMessage: "Ingrese un tipo de categoría", Jqueryinput: $("#CaHa_DescripcionUpdate") },
     ];
 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
     if (ValidateFormStatus) {
-        $('#updateCategoryroomsForm').submit()
+        $('#updateCategoryroomsForm').submit() 
     }
 
 });

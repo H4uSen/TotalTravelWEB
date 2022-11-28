@@ -11,7 +11,7 @@
             <i class="icon building"></i>
             <div class="content">
                 <div class="header">
-                    Categoria Habitación
+                    Categoría Habitación
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
 <div class="ui modal " id="modalCreate">
 
     <div class="header">
-        Ingresa una categoria de habitacion
+        Ingrese una categoría de habitación
     </div>
     <form asp-action="Create" asp-controller="CategoriesRooms" id="createCategoryroomsForm">
         <div class="ui form attached fluid segment">
@@ -82,7 +82,7 @@
                     <div class="two fields">
                         <div class="field">
                             <label></label>
-                            <input id="category" name="CaHa_Descripcion" placeholder="Descripción del categoria habitacion" />
+                            <input id="category" name="CaHa_Descripcion" placeholder="Descripción de  categoría habitación" />
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
 
 <div class="ui modal" id="modalUpdate">
     <div class="header">
-        Actualiza una categoria de habitacion
+        Actualiza una categoría de habitación
     </div>
     <form asp-action="Update" asp-controller="CategoriesRooms" id="updateCategoryroomsForm">
         <div class="ui form attached fluid segment">
@@ -146,7 +146,7 @@
 
         function validar() {
             const userValidateArray = [
-                { validateMessage: "Ingrese una categoria '", Jqueryinput: $("#category") }
+                { validateMessage: "Ingrese una categoría", Jqueryinput: $("#category") }
             ];
 
             const userValidate = ValidateForm(userValidateArray);
@@ -181,7 +181,7 @@
                 language: {
                     "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
                 },
-                //Aqui se ingresa el numero de columnas que tiene la tabla
+                //Aqui se ingresa el numero de columnas que tiene la tablaI
                 columns: [
                     {},
                     {}
@@ -224,7 +224,7 @@
                 }
             };
 
-            sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", CategoriesRooms);
+            sweetAlertconfirm("¿Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", CategoriesRooms);
 
         };
    

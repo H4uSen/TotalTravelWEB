@@ -23,7 +23,7 @@ $("#sendEditTipeofpay").click(() => {
 
 
     validateArrayForm = [
-        { validateMessage: "Ingrese un tipo de pago .", Jqueryinput: $("#TiPa_DescripcionUpdate") },
+        { validateMessage: "Ingrese un tipo de pagó", Jqueryinput: $("#TiPa_DescripcionUpdate") },
     ];
 
     const ValidateFormStatus = ValidateForm(validateArrayForm);
