@@ -28,7 +28,7 @@ function validar() {
         data.append("HoMe_Descripcion", $("#modalCreate #Descripcion").val());
         data.append("HoMe_Precio", $("#modalCreate #Precio").val());
         data.append("HoMe_UsuarioCreacion", Client_User_ID);
-        data.append("HoTe_ID", $("#modalCreate #tHoTe_ID").val());
+        data.append("Hote_ID", $("#modalCreate #tHoTe_ID").val());
         data.append("Time_ID", $("#modalCreate #tTime_ID").val());
         if ($("#modalCreate #file").prop("files")[0] != undefined) {
             data.append("File", $("#modalCreate #file").prop("files")[0]);
@@ -69,7 +69,7 @@ function actualizar() {
         data.append("HoMe_Descripcion", $("#modalUpdate #Descripcion_up").val());
         data.append("HoMe_Precio",parseFloat( $("#modalUpdate #Precio_up").val()));
         data.append("HoMe_UsuarioModifica", Client_User_ID);
-        data.append("HoTe_ID",parseInt( $("#modalUpdate #tHoTe_ID_up").val()));
+        data.append("Hote_ID",parseInt( $("#modalUpdate #tHoTe_ID_up").val()));
         data.append("Time_ID",parseInt( $("#modalUpdate #tTime_ID_up").val()));
         if ($("#modalUpdate #file_up").prop("files")[0] != undefined) {
             data.append("File", $("#modalUpdate #file_up").prop("files")[0]);

@@ -29,13 +29,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
             var type = await _hotelService.HotelsList(token);
 
-            var Hotel = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
+                var hotel = await _hotelService.HotelsList(token);
+                IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
+                ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
-            var lista2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
-            ViewBag.Hote_ID = new SelectList(lista2, "ID", "Hotel");
-
-            var type2 = await _restaurantServices.TypeMenusList();
+                var type2 = await _restaurantServices.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
             ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
 

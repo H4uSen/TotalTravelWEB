@@ -32,7 +32,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Colonia { get; set; }
         public string Calle { get; set; }
         public string Avenida { get; set; }
-        public int? ID_Partner { get; set; }
+        public int ID_Partner { get; set; }
         public string Partners { get; set; }
         public string Image_URL { get; set; }
         public int ID_UsuaCrea { get; set; }
