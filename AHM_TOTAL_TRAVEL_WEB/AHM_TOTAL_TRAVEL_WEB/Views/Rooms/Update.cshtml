@@ -54,11 +54,11 @@
                             <div class="three fields">
                                 <div class="required field">
                                     <label class="ui label">Capacidad</label>
-                                    <input type="number" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
+                                    <input type="number" min="1"  oninput="this.value = Math.abs(this.value)" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Cama</label>
-                                    <input type="number" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
+                                    <input type="number" min="1"  oninput="this.value = Math.abs(this.value)" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
