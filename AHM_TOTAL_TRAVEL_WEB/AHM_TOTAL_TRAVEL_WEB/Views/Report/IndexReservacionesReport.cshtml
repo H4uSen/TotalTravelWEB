@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "IndexHoteles";
+    ViewData["Title"] = "IndexReservacionesReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br>
@@ -54,9 +54,9 @@
         </div>
     </div>
 
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_hotels(true)">FILTRAR REPORTE</button>
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_hotels(false)">TRAER TODOS</button>
-    <a href="@Url.Action("HotelesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "HotelesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(true)">FILTRAR REPORTE</button>
+    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(false)">TRAER TODOS</button>
+    <a href="@Url.Action("ReservacionesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
     <div class="ui segment">
         <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
@@ -71,13 +71,13 @@
 
     <script>
         const REPORTS_FUNCTIONS = {
-            getReport_hotels: function (parameter = false) {
+            getReport_reservacion: function (parameter = false) {
                 var query = {
                     parameters: {},
                     user_name: Client_User_Name
                 };
                 if (parameter) {
-                    if ($("#cbbCities .item.selected").length > 0 && $("#cbbCities .item.selected").attr("data-value") != 0) {
+                    if ($("#cbbCities .item.selected").length > 0 && $("#cbbCities .item.selected").attr("data-value") != 0 ) {
                         var id_ciudad = $("#cbbCities .item.selected").attr("data-value");
                         query.parameters.ciudadID = parseInt(id_ciudad);
                     }
@@ -99,12 +99,12 @@
                     }
                     else {
 
-                        delete query.parameters["iD_Partner"];
+                        delete query.parameters["id"];
                     }
                 }
                 $('#frmHotelsReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Hotels_report_pdf.php?query=${JSON.stringify(query)}`);
-            }, 
+            },
         }
-        REPORTS_FUNCTIONS.getReport_hotels(false);
-</script>
+        REPORTS_FUNCTIONS.getReport_reservacion(false);
+    </script>
 }
