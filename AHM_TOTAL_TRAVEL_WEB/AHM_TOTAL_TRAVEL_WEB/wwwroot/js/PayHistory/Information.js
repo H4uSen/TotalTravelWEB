@@ -4,12 +4,11 @@ var ReservacionDetView = ajaxRequest(urlAPI+"/API/ReservationDetails/List");
 var ReservacionActHotView = ajaxRequest(urlAPI+"/API/ReservationActivitiesHotels/List");
 
 var response = ajaxRequest(urlAPI + "/API/Hotels/List");
-var transporte = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
-var ReservacionView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
-var ReservacionActHotView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
-var ReservacionActHotView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
-var ReservacionActHotView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
-
+var transporte = ajaxRequest(urlAPI + "/API/DetailsTransportation/List");
+var response4 = ajaxRequest(urlAPI + "/API/Partners/List");
+var ReservacionView = ajaxRequest(urlAPI + "/API/Reservation/List");
+var RoomFind = ajaxRequest(urlAPI + "/API/Rooms/List");
+var ActivitieFind = ajaxRequest(urlAPI + "/API/Activities/List");
 
     // inicialize code
 $("#reservasb").addClass("active");
@@ -18,7 +17,6 @@ $('#Reservation_Details_Info .item').addClass("disabled");
 ShowContent("Default_Item");
 
 // functions
-
 function ShowContent(content, index) {
 var button = $("#Reservation_Details_Info .item")[index];
     if (!$(button).hasClass('disabled')) {
@@ -36,12 +34,13 @@ var TotalR = 0;
 var SubtotalH = 0;
 var ImpuestoH = 0;
 var TotalH= 0;
-function ViewReservation(hoteid,transid) {
-    var response = ajaxRequest(urlAPI + "/API/Hotels/Find?id=" + hoteid);
+function ViewReservation(hoteid, transid) {
+    var responseR = response.data.filter(x => x.id == hoteid)[0];
+
     try {
         if (response.code == 200) {
 
-            var hotels = response.data;
+            var hotels = responseR;
             var imagenes = hotels.image_URL.split(',');
             $('#imagen').attr("src", imagenes[0]);
             $('#hotedescription').html(hotels.descripcion);
@@ -62,13 +61,15 @@ function ViewReservation(hoteid,transid) {
             var transpor = transpo[0];
 
             $('#trcategory').html(transpor.tipo_Transporte);
-            var transporte = ajaxRequest(urlAPI + "/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
+            
+            var transporteT = transporte.data.filter(x => x.id == transpor.iD_detalle_Transporte)[0];
 
             if (transporte.code == 200) {
-                var t = transporte.data;
-                var response4 = ajaxRequest(urlAPI + "/API/Partners/Find?id=" + t.partner_ID);
+                var t = transporteT;
+                var response4P = response4.data.filter(x => x.id == t.partner_ID)[0];
+                
                 if (response4.code == 200) {
-                    var partner = response4.data;
+                    var partner = response4P;
                     $('#trciudad').html(t.ciudad);
                     $('#partnername').html(partner.nombre);
                     var imagenes = partner.image_Url.split(',');
@@ -88,12 +89,12 @@ function ViewReservation(hoteid,transid) {
         $('#imagenpar').attr("src", "https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg");
         $('#TotalTT').html("L 0");
     }
-
-    var ReservacionView = ajaxRequest(urlAPI+"/API/Reservation/Find?id=" + transid);
+    
+    var ReservacionViewR = ReservacionView.data.filter(x => x.id == transid)[0];
 
         if (ReservacionView.code == 200) {
 
-            var resv = ReservacionView.data;
+            var resv = ReservacionViewR;
             var reshotid = resv.reservacionHotelID;
             
 
@@ -116,9 +117,10 @@ function ViewReservation(hoteid,transid) {
                 {
                 for (var i=0; i < rooms.length; i++){
                     const item = rooms[i];
-                    var RoomFind = ajaxRequest(urlAPI+"/API/Rooms/Find?id=" + item.habitacionID);
+                    
+                    var RoomFindR = RoomFind.data.filter(x => x.id == item.habitacionID)[0];
                     try {
-                        var room = RoomFind.data;
+                        var room = RoomFindR;
                         var imagenes = room.imageUrl.split(',');
                         var wifi, balcon;
                         if (room.wifi = true) { wifi = "si"; }
@@ -191,10 +193,10 @@ function ViewReservation(hoteid,transid) {
                 for (var i = 0; i < activities.length; i++)
                 {
                     const item = activities[i];
-                                       
-                    var ActivitieFind = ajaxRequest(urlAPI+"/API/Activities/Find?id=" + item.id_Actividad_Extra);
                     
-                    var Activitie = ActivitieFind.data;
+                    var ActivitieFindA = ActivitieFind.data.filter(x => x.id == item.id_Actividad_Extra)[0];
+                    
+                    var Activitie = ActivitieFindA;
                     try {
                         actext =
                             `<div class="item">
