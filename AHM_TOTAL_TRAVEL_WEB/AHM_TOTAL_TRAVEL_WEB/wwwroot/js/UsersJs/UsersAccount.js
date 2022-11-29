@@ -1,5 +1,5 @@
-﻿$("#image_profile").prop("src", "https://" + url_image);
-
+﻿const url_image = ajaxRequest(urlAPI + "/API/Users/Find?id=" + Client_User_ID);
+$("#image_profile").prop("src", url_image.data.image_URL);
 
 $('.ui.dropdown').dropdown();
 
@@ -46,15 +46,15 @@ function UpdateUser() {
             }
         }
         if (direStatus) {
-            const Client_Partner_ID = parseInt(GetCookie("Partner_Id"));
+            //const Client_Partner_ID = parseInt(GetCookie("Partner_Id"));
             console.log(isNaN(Client_Partner_ID) ? 0 : Client_Partner_ID);
-            const Client_Role_ID = parseInt(GetCookie("Role_Id"));
+            //const Client_Role_ID = parseInt(GetCookie("Role_Id"));
             var data = new FormData();
             data.append("Usua_DNI", $("#Usua_DNI").val());
             data.append("Usua_Nombre", $("#Usua_Nombre").val());
             data.append("Usua_Apellido", $("#Usua_Apellido").val());
             data.append("Usua_Telefono", $("#Usua_Telefono").val());
-            data.append("Role_ID", Client_Role_ID);
+            data.append("Role_ID", Client_Role_Id);
             data.append("Dire_ID", DireID);
             data.append("Part_ID", isNaN(Client_Partner_ID) ? 0 : Client_Partner_ID);
             data.append("Usua_UsuarioModifica", Client_User_ID);
