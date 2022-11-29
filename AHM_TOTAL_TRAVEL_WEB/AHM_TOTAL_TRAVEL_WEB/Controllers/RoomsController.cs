@@ -63,14 +63,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> Create()
         {
             var id = HttpContext.Session.GetInt32("PartnerID");
+            var rol = HttpContext.Session.GetString("Role");
             var model = new List<HotelListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var Hotel = await _hotelsServices.HotelsList(token);
             IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
 
-            var list2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
-            ViewBag.Hote_ID = new SelectList(list2, "ID", "Hotel");
+            if (rol == "Cliente" || rol == "Administrador")
+            {
+                ViewBag.Hote_ID = new SelectList(data_Hotel, "ID", "Hotel");
+            }
+
+            else
+            {
+                var list = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(id)).ToList();
+                ViewBag.Hote_ID = new SelectList(list, "ID", "Hotel");
+            }
+            
 
             var mode = new List<HotelListViewModel>();
             var categoria = await _hotelsServices.CategoriesRoomsList();

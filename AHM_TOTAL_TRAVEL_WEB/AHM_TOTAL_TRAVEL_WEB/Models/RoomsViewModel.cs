@@ -11,7 +11,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Habi_Descripcion { get; set; }
         public int? CaHa_ID { get; set; }
         public int? Hote_ID { get; set; }
-        public decimal? Habi_Precio { get; set; }
+        public double? Habi_Precio { get; set; }
         public int? Habi_capacidad { get; set; }
         public int? Habi_camas { get; set; }
         public byte? Habi_wifi { get; set; }
@@ -33,7 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int HotelID { get; set; }
         public string Hotel { get; set; }
         public int? PartnerID { get; set; }
-        public decimal? Precio { get; set; }
+        public double? Precio { get; set; }
         public int? Balcon { get; set; }
         public bool? Wifi { get; set; }
         public int? Camas { get; set; }
