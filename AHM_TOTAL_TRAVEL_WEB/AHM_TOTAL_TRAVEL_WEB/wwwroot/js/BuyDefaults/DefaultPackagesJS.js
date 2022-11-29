@@ -98,6 +98,19 @@ const fill_data = {
                 }
             });
         }
+        else {
+            $("#frmMenu_container #frmPackages").append(
+                `<div class="item">
+                    <div class="content">
+                        <div class="ui negative message">
+                            <div class="header">
+                                No hay paquetes disponibles en esta ciudad
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            );
+        }
     },
 
     fillActivities: function (id_ciudad_destino = null) {
@@ -217,7 +230,7 @@ const fill_data = {
                 });
 
             } else {
-                $("#frmExtra").append(
+                $("#frmActivities").append(
                     `<div class="item">
                     <div class="content">
                         <div class="ui negative message">
