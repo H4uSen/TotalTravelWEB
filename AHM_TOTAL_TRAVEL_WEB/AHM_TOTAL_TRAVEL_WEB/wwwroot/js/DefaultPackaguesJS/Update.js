@@ -1,15 +1,12 @@
-﻿$('.ui.dropdown').dropdown();
-var imagesArray = [];
+﻿var imagesArray = [];
 var imagesArrayPure = [];
-
-
+$('.ui.dropdown').dropdown();
 $(document).ready(async function () {
     await GetImage();
-});
 
-//FUNCIONES QUE SON ESPECIFICAS DEL ACTUALIZAR
+});
 async function GetImage() {
-    var responseImage = ajaxRequest(urlAPI+"/API/RootFiles/GetAllImages?folderName=" + PackageFolder)
+    var responseImage = ajaxRequest(urlAPI + "/API/RootFiles/GetAllImages?folderName=" + PackageFolder)
     if (responseImage.code == 200) {
         var list = responseImage.data
         for (var i = 0; i < list.length; i++) {
@@ -37,7 +34,7 @@ async function GetImage() {
 //FIN
 
 $("#File").change(async function () {
-    $("#DefaultPackgeCarouselHeader").hide();
+    $("#DefaultPackageCarouselHeader").hide();
 
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
@@ -50,8 +47,8 @@ $("#File").change(async function () {
 });
 function LoadImage() {
 
-    var DefaultpackageCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultpackageCarousel" data-auto="false"></div>`;
-    $("#DefaultpackageCarousel").replaceWith(DefaultpackageCarousel);
+    var PartnersCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultPackageCarousel" data-auto="false"></div>`;
+    $("#DefaultPackageCarousel").replaceWith(PartnersCarousel);
     $("#image-upload-list").html("");
 
     for (let i = 0; i < imagesArray.length; i++) {
@@ -61,7 +58,11 @@ function LoadImage() {
         HTML_img.src = item.src;
         const fileItem =
             `<div class="item">
-                     
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
                         <i class="image big icon"></i>
                         <div class="content text-grap">
                             ${item.fileName}
@@ -69,18 +70,16 @@ function LoadImage() {
                     </div>`;
 
         $("#image-upload-list").append(fileItem);
-        $("#DefaultpackageCarousel").append(HTML_img);
+        $("#DefaultPackageCarousel").append(HTML_img);
     }
-    $("#DefaultpackageCarousel").fotorama();
+    $("#DefaultPackageCarousel").fotorama();
 }
-
 
 function deleteImage(index) {
     imagesArray.splice(index, 1);
     imagesArrayPure.splice(index, 1);
     LoadImage();
 }
-
 
 function updateDefaultPackages() {
 
@@ -91,6 +90,7 @@ function updateDefaultPackages() {
         { validateMessage: "Ingrese un precio.", Jqueryinput: $("#Precio") },
         { validateMessage: "Ingrese una Duración.", Jqueryinput: $("#Duracion") },
         { validateMessage: "Seleccione un hotel.", Jqueryinput: $("#hote_ID") },
+        { validateMessage: "Ingrese una cantidad de personas.", Jqueryinput: $("#CantPers") },
 
     ];
 
@@ -112,6 +112,7 @@ function updateDefaultPackages() {
             data.append("Paqu_Precio", $("#Precio").val());
             data.append("Rest_ID", $("#rest_ID").val());
             data.append("Paqu_UsuarioModifica", parseInt(Client_User_ID));
+            data.append("Paqu_CantPersonas", $("#CantPers").val());
 
             for (var i = 0; i != imagesArrayPure.length; i++) {
                 data.append("File", imagesArrayPure[i]);
@@ -135,6 +136,7 @@ function updateDefaultPackages() {
             data.append("Hote_ID", $("#hote_ID").val());
             data.append("Paqu_Precio", $("#Precio").val());
             data.append("Paqu_UsuarioModifica", parseInt(Client_User_ID));
+            data.append("Paqu_CantPersonas", $("#CantPers").val());
 
             for (var i = 0; i != imagesArrayPure.length; i++) {
                 data.append("File", imagesArrayPure[i]);

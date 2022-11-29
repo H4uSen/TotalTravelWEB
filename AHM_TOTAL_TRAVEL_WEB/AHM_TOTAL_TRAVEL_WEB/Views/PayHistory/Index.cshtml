@@ -43,10 +43,11 @@
 
                       <div class="ui cards overflow-auto" style="max-height: 55em;">
                           @foreach (var item in Model){
-                              
-                            var entrada= item.Fecha_Entrada.ToString().Split(' ');
-                            var salida = item.Fecha_Salida.ToString().Split(' ');
-                               
+
+                              var entrada= item.Fecha_Entrada.ToString().Split(' ');
+                              var salida = item.Fecha_Salida.ToString().Split(' ');
+                              var precio = Convert.ToInt32(item.precio);
+
                            <div class="ui card w-100">
                               <div class="content">
                                   <div class="header">@item.Nombre_Hotel</div>
@@ -54,9 +55,9 @@
                                       @entrada[0] al @salida[0]
                                   </div>
                                   
-                                  <div class="ui green header">@item.precio</div>
+                                  <div class="ui green header">L @precio</div>
                               </div>
-                              <a class="ui bottom attached blue button" href="javascript: ViewReservation(@item.Hotel_ID,@item.ID)">
+                              <a class="btn-edit ui positive button w-100 reserv_trigger_button" href="javascript: ViewReservation(@item.Hotel_ID,@item.ID)">
                                   <i class="folder open icon"></i>
                                   Ver Detalles
                               </a>
@@ -69,15 +70,20 @@
 
         <div class="eleven wide column">
             <div class="ui segment">
+                <center>
+                    <div class="label">
+                        <h3><b>DETALLES DE LA RESERVACIÓN</b></h3>
+                    </div>
+                </center>
+                
+                <br/>
                 <div class="ui top attached tabular menu" id="Reservation_Details_Info">
                     <a class="item active" onclick="ShowContent('frmReservation_Info',0)">
-                        Reservation
-                        Info
+                        Reservación
                     </a>
-                    <a class="item" onclick="ShowContent('frmReservation_Hotel_Info',1)">Hotel Info</a>
+                    <a class="item" onclick="ShowContent('frmReservation_Hotel_Info',1)">Hotel</a>
                     <a class="item" onclick="ShowContent('frmReservation_Activities_Info',2)">
-                        Activities
-                        Info
+                       Actividades
                     </a>
                 </div>
                 <div class="ui bottom attached segment overflow-auto" id="Reservation_Details_Content"
@@ -94,7 +100,7 @@
                         <h2 class="ui icon header" style=" width: 100%; height: 100%;">
                             <i class="folder open icon"></i>
                             <div class="content">
-                                Selecciona una reservacion
+                                Seleccione una reservación
                             </div>
                         </h2>
                     </div>
@@ -129,7 +135,9 @@
                                         </div>
                                        
                                     </div>
-                                    
+                                    <div class="content left floated" style="text-align: end;">
+                                        <a class="ui huge green tag label" id="TotalHH"></a>
+                                    </div>
                                 </div>
 
                             </div>
@@ -138,7 +146,7 @@
                         <!-- transport info -->
                         <br>
                         <h4 class="ui left floated header">
-                            <i class="bus icon"></i> Transport
+                            <i class="bus icon"></i> Transporte
                         </h4>
                         <div class="ui clearing divider"></div>
 
@@ -156,12 +164,16 @@
                                         <div class="ui large label" id="trcategory"></div>
                                         <div class="meta">
                                             <span class="cinema" id="trciudad">
-                                                
+
                                             </span>
                                         </div>
-                                        
+
                                     </div>
-                                   
+
+                                    <div class="content left floated" style="text-align: end;">
+                                        <a class="ui huge green tag label" id="TotalTT"></a>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -174,7 +186,7 @@
                         <!-- activities info -->
                         <br>
                         <h4 class="ui left floated header">
-                            <i class="tag icon"></i> Reservation Breakdown
+                            <i class="tag icon"></i> Desglose de Precios
                         </h4>
                         <div class="ui clearing divider"></div>
 
@@ -188,8 +200,8 @@
                                             </h4>
                                         </td>
                                         <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
+                                            <h4 class="ui black header" id="SubTotalR">
+                                                L 20,000.00
                                             </h4>
                                         </td>
                                     </tr>
@@ -200,20 +212,20 @@
                                             </h4>
                                         </td>
                                         <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
+                                            <h4 class="ui black header" id="ImpuestoR">
+                                                L 20,000.00
                                             </h4>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: end;">
                                             <h4 class="ui grey header">
-                                                DISCOUNT
+                                                DESCUENTO
                                             </h4>
                                         </td>
                                         <td>
                                             <h4 class="ui black header">
-                                                $20,000.00
+                                                L 0
                                             </h4>
                                         </td>
                                     </tr>
@@ -224,8 +236,8 @@
                                             </h3>
                                         </td>
                                         <td>
-                                            <h3 class="ui green header">
-                                                $20,000.00
+                                            <h3 class="ui green header" id="TotalR">
+                                                L 20,000.00
                                             </h3>
                                         </td>
                                     </tr>
@@ -237,7 +249,7 @@
                     <div class="Reservation_Details_Content_Item" id="frmReservation_Hotel_Info">
                         <br>
                         <h4 class="ui left floated header">
-                            <i class="tag icon"></i> Rooms Description
+                            <i class="tag icon"></i> Descripción de Cuartos
                         </h4>
                         <div class="ui clearing divider"></div>
 
@@ -250,7 +262,7 @@
 
                         <!-- price details rooms -->
                         <h4 class="ui left floated header">
-                            <i class="tag icon"></i> Hotels price details
+                            <i class="tag icon"></i> Precios totales del hotel
                         </h4>
                         <div class="ui clearing divider"></div>
 
@@ -264,32 +276,32 @@
                                             </h4>
                                         </td>
                                         <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
+                                            <h4 class="ui black header" id="SubTotalH">
+                                               
                                             </h4>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: end;">
-                                            <h4 class="ui grey header">
+                                            <h4 class="ui grey header" >
                                                 I.S.V
                                             </h4>
                                         </td>
                                         <td>
-                                            <h4 class="ui black header">
-                                                $20,000.00
+                                            <h4 class="ui black header"  id="ImpuestoH">
+                                               
                                             </h4>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: end;">
                                             <h4 class="ui grey header">
-                                                DISCOUNT
+                                                DESCUENTO
                                             </h4>
                                         </td>
                                         <td>
                                             <h4 class="ui black header">
-                                                $20,000.00
+                                              L 0
                                             </h4>
                                         </td>
                                     </tr>
@@ -300,8 +312,8 @@
                                             </h3>
                                         </td>
                                         <td>
-                                            <h3 class="ui green header">
-                                                $20,000.00
+                                            <h3 class="ui green header" id="TotalH">
+                                               
                                             </h3>
                                         </td>
                                     </tr>
@@ -314,7 +326,7 @@
                     <div class="Reservation_Details_Content_Item" id="frmReservation_Activities_Info">
                         <br>
                         <h4 class="ui left floated header">
-                            <i class="calendar alternate outline icon"></i> Actividades Hotel
+                            <i class="calendar alternate outline icon"></i> Actividades del Hotel
                         </h4>
                         <div class="ui attached">
                             <div class="ui divided items" id="acthot">

@@ -14,6 +14,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? paqu_UsuarioModifica { get; set; }
         public bool? paqu_Estado { get; set; }
         public decimal? paqu_Precio { get; set; }
+        public int? paqu_CantPersonas { get; set; }
     }
     public class DefaultPackagesListViewModel
     {

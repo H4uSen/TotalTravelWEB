@@ -98,7 +98,7 @@ function getDashboard(rol_id, RestrictionsList) {
 
         const menu_item =
             `<li class="sidebar-item">
-                <a id=""menu_item_dashboard" class="sidebar-link" href="/${item.controlador}/${item.accion}">${item.permiso}</a>
+                <a id="menu_item_dashboard" class="sidebar-link" href="/${item.controlador}/${item.accion}">${item.permiso}</a>
             </li>`;
 
         $("#menu_rol_items").append(menu_item);

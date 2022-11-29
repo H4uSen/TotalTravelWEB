@@ -69,7 +69,7 @@ function Tarjeta(esta) {
                                           Precio:  L ${item.precio}
                                 </div>      
                             </div>
-                            <a class="btn btn-edit ui positive button w-100" id="Resv" href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
+                            <a class="btn-edit ui positive button w-100 reservT_trigger_button"  href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
                                 <i class="folder open icon"></i>
                                 Ver Detalles
                             </a>
@@ -301,3 +301,12 @@ function CancelarReservacion(idRT) {
 
 
 }
+$("Document").ready(function(){
+
+    $("a.reservT_trigger_button").click(function (_this) {
+        $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
+        $(_this.target).addClass("btn-view").removeClass("btn-edit");
+    });
+
+})
+

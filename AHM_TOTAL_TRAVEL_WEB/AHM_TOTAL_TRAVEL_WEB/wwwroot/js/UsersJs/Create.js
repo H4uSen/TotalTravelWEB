@@ -286,7 +286,7 @@ function CreateUser() {
             user.append("usua_Nombre", $("#frmCreateUser #txtNombre").val());
             user.append("usua_Apellido", $("#frmCreateUser #txtApellido").val());
             user.append("usua_Telefono", $("#frmCreateUser #txtTelefono").val());
-            user.append("usua_FechaNaci", getCalendarDate($("#frmCreateUser #txtFechaNacimiento").val()));
+            user.append("usua_FechaNaci", new Date($("#frmCreateUser #txtFechaNacimiento").val()).toISOString());
             user.append("usua_Sexo", $('input:radio[name=rbGenero]:checked').val());
             user.append("usua_Email", $("#frmCreateUser #txtEmail").val());
             user.append("usua_Password", $("#frmCreateUser #txtPassword").val());

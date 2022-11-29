@@ -16,7 +16,7 @@ $("#sendTipeofpay").click(() => {
 
 function validar() {
     if ($("#Tipopago").val() == 0) {
-        $("#labelvalidatort").html("Ingrese una Descripcion");
+        $("#labelvalidatort").html("Ingrese una Descripción");
     }
     else {
         $("#labelvalidatort").html(" ");

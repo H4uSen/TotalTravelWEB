@@ -61,12 +61,12 @@ function deleteImage(index) {
 function createRooms() {
 
     validateArrayForm = [
-        { validateMessage: "Seleccione una habitacion", Jqueryinput: $("#Habi_Nombre") },
-        { validateMessage: "Seleccione un hotel", Jqueryinput: $("#Hote_ID") },
+        { validateMessage: "Ingrese una habitación", Jqueryinput: $("#Habi_Nombre") },
+        { validateMessage: "Ingrese un hotel", Jqueryinput: $("#Hote_ID") },
         { validateMessage: "Ingrese la capacidad", Jqueryinput: $("#Habi_capacidad") },
-        { validateMessage: "Ingrese una descripcion", Jqueryinput: $("#Habi_Descripcion") },
-        { validateMessage: "Ingrese la categoria", Jqueryinput: $("#CaHa_ID") },
-        { validateMessage: "Seleccione un precio", Jqueryinput: $("#Habi_Precio") },
+        { validateMessage: "Ingrese una descripción", Jqueryinput: $("#Habi_Descripcion") },
+        { validateMessage: "Ingrese la categoría", Jqueryinput: $("#CaHa_ID") },
+        { validateMessage: "Ingrese un precio", Jqueryinput: $("#Habi_Precio") },
         { validateMessage: "Ingrese el balcon", Jqueryinput: $("#Habi_balcon") },
         { validateMessage: "Ingrese el wifi", Jqueryinput: $("#Habi_wifi") },
         { validateMessage: "Ingrese las camas", Jqueryinput: $("#Habi_camas") }

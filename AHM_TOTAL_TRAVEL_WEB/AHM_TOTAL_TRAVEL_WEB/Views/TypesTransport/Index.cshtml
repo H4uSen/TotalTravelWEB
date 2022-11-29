@@ -13,7 +13,7 @@
             <i class="bus icon"></i>
             <div class="content">
                 <div class="header">
-                   Tipos de Transportes
+                    Tipos de Transportes
                 </div>
 
             </div>
@@ -33,20 +33,20 @@
             }
         </style>
         <table id="grdTypeTransport" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th>
-                            Socio
-                        </th>
-                        <th>
-                            Transporte
-                        </th>
-                        <th width="300px">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                     {
+            <thead>
+                <tr>
+                    <th>
+                        Socio
+                    </th>
+                    <th>
+                        Transporte
+                    </th>
+                    <th width="300px">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Partner_Nombre)
@@ -65,10 +65,10 @@
                             <a href="@Url.Action("Details","TypesTransport",new {id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
                         </td>
                     </tr>
-                     }
-                </tbody>
-            </table>
-            <br>
+                }
+            </tbody>
+        </table>
+        <br>
 
     </div>
 </div>
@@ -110,22 +110,22 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <input id="id" style="display:none" />
-                <div class="two fields">                                      
-                    <div class="required field" >
+                <div class="two fields">
+                    <div class="required field">
                         <label class="ui label">Tipo de transporte</label>
                         <input id="Transporte_up" name="TiTr_Descripcion" placeholder="Descripcion del tipo de transporte" />
                     </div>
-                    <div class="required field" id="Part_ID2" hidden>                       
+                    <div class="required field" id="Part_ID2" hidden>
                         <label class="ui label">Tipo de socio</label>
                         <select id="Partner_ID2" name="Partner_ID" class="ui dropdown search" asp-items="ViewBag.Part_ID">
                             <option value="">Seleccione un socio</option>
-                        </select>                       
-                    </div>                
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
-    <div class="actions">      
+    <div class="actions">
         <button class="ui button" id="closeTypesTransport">Cancelar</button>
         <button class="ui button btn-purple text-white" id="sendTypesTransport" onclick="actualizar()">Guardar</button>
     </div>
@@ -208,10 +208,13 @@
         $("#TransportModule").addClass("expandedList");
         $("#TransportModule").prop("aria-expanded");
         $("#TransportModule").attr("aria-expanded", "true");
-        
+
         $("#Transport_Schema").addClass("show");
 
         $("#TypesTransportTile").addClass("activeTile");
 
+    </script>
+    <script>
+        $("#menu_item_127").addClass("activeTile");
     </script>
 }

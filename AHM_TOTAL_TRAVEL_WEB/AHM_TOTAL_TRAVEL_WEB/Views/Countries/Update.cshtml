@@ -1,4 +1,4 @@
-﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CountriesListViewModel
+﻿@model AHM_TOTAL_TRAVEL_WEB.Models.CountriesViewModel
 
 @{
     ViewData["Title"] = "Update";
@@ -39,29 +39,29 @@
         <form asp-action="Update" asp-controller="Countries" id="createCountriesForm">
             <div class="ui form attached fluid">
                 <div class="content">
-                    <input id="Pais_ID" name="Pais_ID" value="@Model.ID" hidden />
+                    <input id="Pais_ID"  asp-for="Pais_ID" hidden />
                     <div class="required field">
                         <div class="two fields">
                             <div class="required field">
                                 <label class="ui label">País</label>
-                                <input name="Pais_Descripcion" id="Pais_Descripcion" value="@Model.Pais" class="form-control" />
+                                <input  value="@ViewData["Pais_D"]" id="Pais_Descripcion"  class="form-control" />
 
                             </div>
                             <div class="required field">
                                 <label class="ui label">Código</label>
-                                <input name="Pais_Codigo" id="Pais_Codigo"  min="1" type="number" value="@Model.Codigo" class="form-control" />
+                                <input  value="@ViewData["Pais_Codigo"]" id="Pais_Codigo"  min="1" type="number" class="form-control" />
 
                             </div>
                         </div>
                         <div class="two fields">
                             <div class="required field">
                                 <label class="ui label">Nacionalidad</label>
-                                <input name="Pais_Nacionalidad" id="Pais_Nacionalidad" value="@Model.Nacionalidad" class="form-control" />
+                                <input  value="@ViewData["Pais_Nacionalidad"]" id="Pais_Nacionalidad"  class="form-control" />
 
                             </div>
                             <div class="required field">
                                 <label class="ui label">ISO</label>
-                                <input name="Pais_ISO" id="Pais_ISO" maxlength="2" value="@Model.ISO" class="form-control" />
+                                <input  value="@ViewData["Pais_ISO"]" id="Pais_ISO" maxlength="2"  class="form-control" />
 
                             </div>
                         </div>
@@ -119,6 +119,7 @@
         if (izziSuccess == "true") {
             iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
         }
+       
     </script>
     <script src="~/js/CountriesJS/Update.js"></script>
     <script src="~/js/CountriesJS/ValidacionesExtra.js"></script>

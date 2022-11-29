@@ -109,12 +109,10 @@ function updatePartners() {
         data.append("part_Telefono", $("#Telefono").val());
         data.append("tiPart_Id", parseInt($("#TiPart_Id").val()));
         data.append("part_UsuarioModifica", parseInt(Client_User_ID));
-        for (let i = 0; i < imagesArrayPure.length; i++) {
+        for (var i = 0; i != imagesArrayPure.length; i++) {
             data.append("File", imagesArrayPure[i]);
         }
-        if ($("#File").prop("files")[0] == undefined) {
-            data.append("File", null);
-        }
+
         
         var response = uploadFile(urlAPI+"/API/Partners/Update?id=" + partnersID, data, "PUT");
 

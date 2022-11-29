@@ -34,7 +34,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Nombre</label>
-                                    <input id="Nombre"  placeholder="Nombre del paquete" class="form-control" />
+                                    <input id="Nombre" placeholder="Nombre del paquete" class="form-control" />
 
                                 </div>
                                 <div class="required field">
@@ -63,27 +63,33 @@
                         <div class="field">
                             <div class="two fields">
                                 <div class="required field">
-                                    <label class="ui label">¿Desea agregar restaurante?</label>
-                                    <div class="field">
-                                        <div class="ui toggle checkbox">
-                                            <input type="checkbox" id="checkResta" tabindex="0" class="hidden">
-                                            <label>Si</label>
-                                        </div>
-                                    </div>
-                                    <div class="required field" id="restau" hidden>
-                                            <label class="ui label">Restaurante</label>
-                                            <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
-                                                <option value="0" selected="selected">Seleccione un restaurante</option>
-                                            </select>
-                                        </div>
-
+                                    <label class="ui label">Cantidad de Personas</label>
+                                    <input id="CantPers" placeholder="Cantidad de personas para el paquete" type="number" min="1" class="form-control" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Hotel</label>
                                     <select id="hote_ID" class="ui dropdown search" asp-items="ViewBag.hote_ID">
                                         <option value="">Seleccione un hotel</option>
                                     </select>
-
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label class="ui label">¿Desea agregar restaurante?</label>
+                                    <div class="field">
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" id="checkResta" tabindex="0" class="hidden">
+                                            <label>Si</label>
+                                        </div>
+                                    </div>                                  
+                                </div>  
+                                <div class="required field" id="restau" hidden>
+                                    <label class="ui label">Restaurante</label>
+                                    <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
+                                        <option value="0" selected="selected">Seleccione un restaurante</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +99,7 @@
                         <div class="ui grid three column stackable mt-4">
 
                             <div class="column">
-                                <label class="ui label">Imagenes en fila.</label>
+                                <label class="ui label">Imágenes en fila.</label>
                                 <div class="ui segment">
                                     <div class="ui middle aligned divided list" id="image-upload-list">
 
@@ -105,25 +111,24 @@
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
                                     <div class="ui icon header">
                                         <i class="pdf file outline icon"></i>
-                                        Sube tus imagenes al sistema.
+                                        Sube tus imágenes al sistema.
                                     </div>
                                     <input type="file" (change)="fileEvent($event)" class="inputfile"
                                            id="File" />
-                                    <button for="File" class="btn btn-edit ui positive button w-100">
+                                    <label for="File" class="ui btn-edit text-light button">
                                         Añade una imagen
-                                    </button>
+                                    </label>
                                 </div>
-
                             </div>
 
                             <div class="column">
                                 <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
                                     <div class="ui icon header" id="DefaultPackageCarousel">
                                         <i class="images icon"></i>
-                                        Tus imagenes aparecerán aquí.
+                                        Tus imágenes aparecerán aquí.
                                     </div>
 
-                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="RestaurantCarousel" data-auto="false">
+                                    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultPackageCarousel" data-auto="false">
                                     </div>
                                 </div>
                             </div>

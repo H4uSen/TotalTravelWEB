@@ -1,11 +1,7 @@
 ﻿$('.ui.dropdown').dropdown();
 var imagesArray = [];
 var imagesArrayPure = [];
-
-
 $("#File").change(async function () {
-
-
 
     const fileData = await convertImage($("#File").prop("files")[0])
         .then(function (data) {
@@ -19,8 +15,8 @@ $("#File").change(async function () {
 });
 function LoadImage() {
 
-    var DefaultPackageCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultPackageCarousel" data-auto="false"></div>`;
-    $("#DefaultPackageCarousel").replaceWith(DefaultPackageCarousel);
+    var PartnersCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultPackageCarousel" data-auto="false"></div>`;
+    $("#DefaultPackageCarousel").replaceWith(PartnersCarousel);
     $("#image-upload-list").html("");
 
     for (let i = 0; i < imagesArray.length; i++) {
@@ -61,7 +57,7 @@ function createDefaultPackages() {
         { validateMessage: "Ingrese un precio.", Jqueryinput: $("#Precio") },
         { validateMessage: "Ingrese una duración.", Jqueryinput: $("#Duracion") },
         { validateMessage: "Seleccione un hotel.", Jqueryinput: $("#hote_ID") },
-        
+        { validateMessage: "Ingrese una cantidad de personas.", Jqueryinput: $("#CantPers") },
     ];
     validateArrayForm2 = [
         { validateMessage: "Seleccione un restaurante.", Jqueryinput: $("#rest_ID") },
@@ -82,6 +78,7 @@ function createDefaultPackages() {
             data.append("Hote_ID", $("#hote_ID").val());
             data.append("Paqu_Precio", $("#Precio").val());
             data.append("Rest_ID", $("#rest_ID").val());
+            data.append("Paqu_CantPersonas", $("#CantPers").val());
             data.append("Paqu_UsuarioCreacion", parseInt(Client_User_ID));
 
             for (var i = 0; i != imagesArrayPure.length; i++) {
@@ -97,29 +94,25 @@ function createDefaultPackages() {
             }
         }
     }
-    else {
-        if (ValidateFormStatus) {
-            var data = new FormData();
-            data.append("Paqu_Nombre", $("#Nombre").val());
-            data.append("Paqu_Descripcion", $("#Descripcion").val());
-            data.append("Paqu_Duracion", $("#Duracion").val());
-            data.append("Hote_ID", $("#hote_ID").val());
-            data.append("Paqu_Precio", $("#Precio").val());
-            data.append("Paqu_UsuarioCreacion", parseInt(Client_User_ID));
+    else if (ValidateFormStatus) {       
+        var data = new FormData();
+        data.append("Paqu_Nombre", $("#Nombre").val());
+        data.append("Paqu_Descripcion", $("#Descripcion").val());
+        data.append("Paqu_Duracion", $("#Duracion").val());
+        data.append("Hote_ID", $("#hote_ID").val());
+        data.append("Paqu_Precio", $("#Precio").val());
+        data.append("Paqu_CantPersonas", $("#CantPers").val());
+        data.append("Paqu_UsuarioCreacion", parseInt(Client_User_ID));
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
+        }
 
-            for (var i = 0; i != imagesArrayPure.length; i++) {
-                data.append("File", imagesArrayPure[i]);
-            }
+        var response = uploadFile(urlAPI+"/API/DefaultPackages/Insert", data, "POST");
+        if (response.data.codeStatus > 0) {
+            window.location.href = '/DefaultPackages?success=true';
+        } else {
 
-            var response = uploadFile(urlAPI+"/API/DefaultPackages/Insert", data, "POST");
-            if (response.data.codeStatus > 0) {
-                window.location.href = '/DefaultPackages?success=true';
-            } else {
-
-                $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
-            }
+            $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
         }
     }
-    
-
 }
