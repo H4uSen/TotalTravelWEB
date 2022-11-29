@@ -23,7 +23,7 @@ function GraficaPastel() {
 
     let arraytransp2 = [...transpoMapArr.values()];
     
-    var ResvHotList = ReservacionTransp.data;
+    var ResvHotList = ReservacionTransp.data.filter(x => x.partner_ID == parseInt(Client_Partner_ID));
 
     for (var i = 0; i < arraytransp2.length; i++) {
         const item = arraytransp2[i];

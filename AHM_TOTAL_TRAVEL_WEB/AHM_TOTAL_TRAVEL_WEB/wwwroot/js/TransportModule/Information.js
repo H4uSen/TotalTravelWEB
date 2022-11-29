@@ -8,16 +8,26 @@ var filtrotarjeta = $("#Estado").val();
 
 $('.ui.dropdown').dropdown();
 $("document").ready(function () {  
-    Tarjeta(filtrotarjeta);
+    Tarjeta();
 });
 $("#Estado").change(function () {
-    $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
     $("#Default_Item").show();
     $("#frmReservation_Info").hide();
     $("#InfoDet").hide();
-    var filtrotarjeta = $("#Estado").val();
-    $('#tarjetaT').empty();
-    Tarjeta(filtrotarjeta);
+    $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
+    var filtrotarjeta = parseInt($("#Estado").val());
+
+    if (filtrotarjeta == 2) {
+        $(`#tarjetaT .ui.card`).show();       
+    }
+    else if (filtrotarjeta == 0) {
+        $(`#tarjetaT .ui.card`).hide();
+        $(`#tarjetaT .ui.card[data-estado='0']`).show();
+    }
+    else if (filtrotarjeta == 1) {
+        $(`#tarjetaT .ui.card`).hide();
+        $(`#tarjetaT .ui.card[data-estado='1']`).show();
+    }
 });
 
 // inicialize code
@@ -40,7 +50,7 @@ function ShowContent(content, index) {
     }
 }
 
-function Tarjeta(esta) {
+function Tarjeta() {
     if (ReservacionTra.code == 200) {
 
         var resv = ReservacionTra.data;
@@ -60,18 +70,17 @@ function Tarjeta(esta) {
                 const item = Rflitro[i];
                 var itemR = item.reservacion;
                 var Confirmacion = Reservacion.data.filter(x => x.id == parseInt(itemR))[0];
-                var Estado = Confirmacion.confirmacionTransporte;
-                if (Estado.toString() == esta || esta=="2") {
+                var Estado = Confirmacion.confirmacionTransporte;             
                 try {
                     divroom =
-                        `<div class="ui card" style="width:100%">
+                        `<div class="ui card" style="width:100%" data-estado="${Estado ? 1: 0}">
                             <div class="content">
                                 <div class="header">${item.cliente}</div>
                                 <div class="description">
                                           Precio:  L ${item.precio}
                                 </div>      
                             </div>
-                            <a class="btn-edit ui positive button w-100 reservT_trigger_button"  href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
+                            <a class="btn-edit ui positive button w-100 reservT_trigger_button" onclick="Color()"  href="javascript: ViewReservation(${item.iD_detalle_Transporte},${item.id})">
                                 <i class="folder open icon"></i>
                                 Ver Detalles
                             </a>
@@ -86,8 +95,7 @@ function Tarjeta(esta) {
                     </div>                  
                 </div>`
                     $('#tarjetaT').append(divroom);
-                }
-                }
+                }               
             }
         }
     }
@@ -312,9 +320,3 @@ $("Document").ready(function(){
 
 })
 
-$("#Estado").change(function () {
-    $("a.reservT_trigger_button").click(function (_this) {
-        $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
-        $(_this.target).addClass("btn-view").removeClass("btn-edit");
-    });
-});
