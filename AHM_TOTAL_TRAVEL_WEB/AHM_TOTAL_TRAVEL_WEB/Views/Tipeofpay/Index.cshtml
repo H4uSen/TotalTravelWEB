@@ -11,7 +11,7 @@
             <i class="icon dollar sign"></i>
             <div class="content">
                 <div class="header">
-                    Tipos de pago
+                    Tipos de pagó
                 </div>
             </div>
         </div>
@@ -29,40 +29,40 @@
             }
         </style>
         <table id="grdPayment" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
+            <thead>
+                <tr>
+                    <th>
+                        Descripción
+                    </th>
+
+                    <th width="200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            Descripción
-                        </th>
 
-                        <th width="200px"></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            <a class="ui large icon btn-edit button" id="Updatepaymet" onclick="Updatepaymet(@item.ID)">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <button class="ui large icon btn-delete button" onclick=" DeleteTipeofpay(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("details","Tipeofpay",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descripcion)
-                            </td>
-                            <td>
-                                <a class="ui large icon btn-edit button" id="Updatepaymet" onclick="Updatepaymet(@item.ID)">
-                                    <i class="pencil alternate icon icon-crud"></i>
-                                </a>
-                                <button class="ui large icon btn-delete button" onclick=" DeleteTipeofpay(@item.ID)">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </button>
-                                <a href="@Url.Action("details","Tipeofpay",new {  id=item.ID})" class="ui large icon button">
-                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                                </a>
-
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <br>
+                }
+            </tbody>
+        </table>
+        <br>
     </div>
 </div>
 <br>
@@ -70,7 +70,7 @@
 <div class="ui modal longer" id="modalCreate">
     <i class="close icon"></i>
     <div class="header">
-        Ingresa un tipo de pago
+        Ingrese un tipo de pagó
     </div>
     <form asp-action="Create" asp-controller="Tipeofpay" id="createtypeofpayForm">
         <div class="ui form attached fluid segment">
@@ -80,7 +80,7 @@
                     <div class="two fields">
                         <div class="field">
                             <label> </label>
-                            <input id="payment" name="TiPa_Descripcion" placeholder="Descripción del tipo de pago" />
+                            <input id="payment" name="TiPa_Descripcion" placeholder="Descripción del tipo de pagó" />
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
 
 <div class="ui modal" id="modalUpdate">
     <div class="header">
-        Actualiza un tipo de Pago
+        Actualiza un tipo de pagó
     </div>
     <form asp-action="Update" asp-controller="Tipeofpay" id="updateTipeofpayForm">
         <div class="ui form attached fluid segment">
@@ -125,6 +125,7 @@
 @section HighlightTile{
 
     <script src="~/js/PaymentTypes/Update.js"></script>
+    <script src="~/js/PaymentTypes/Create.js"></script>
     <script>
         $("#SalesModule").addClass("active");
         $("#SalesModule").addClass("expandedList");
@@ -143,7 +144,7 @@
     <script>
         function validar() {
             const userValidateArray = [
-                { validateMessage: "Ingrese un tipo de pago'", Jqueryinput: $("#payment") }
+                { validateMessage: "Ingrese un tipo de pagó", Jqueryinput: $("#payment") }
             ];
 
             const userValidate = ValidateForm(userValidateArray);
@@ -212,5 +213,29 @@
                 ]
             });
         });
+
+        function DeleteTipeofpay(id) {
+            const Tipeofpay = () => {
+                const result = ajaxRequest("/PaymentTypes/Delete?id=" + id, null, "POST");
+                if (result > 0) {
+                    window.location.href = '/PaymentTypes?success=true';
+                }
+            };
+
+            sweetAlertconfirm("¿Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", Tipeofpay);
+
+        };
+
+
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+
+
+
+        var send = false;
     </script>
 }

@@ -23,6 +23,8 @@ using System.Security.Claims;
 using Rotativa.Options;
 using System.Web.WebPages;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.AspNetCore.Mvc.Rendering;
+//using System.Web.Mvc;
 //using Microsoft.Reporting.WinForms;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
@@ -33,6 +35,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         private IMemoryCache _cache;
         private readonly ReportService _reportServices;
         private readonly TransportService _transportService;
+        private readonly GeneralService _generalService;
         private readonly RestaurantService _restaurantService;
         private readonly HotelsService _hotelsService;
         private readonly ReservationService _reservationService;
@@ -40,11 +43,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public readonly AccessService _accessService;
         public readonly SaleServices _saleService;
 
-        public ReportController(IMemoryCache memoryCache,ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService, HotelsService hotelsService, ReservationService reservationService, SaleServices saleServices)
+        public ReportController(IMemoryCache memoryCache,ReportService reportService, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, AccessService accessService, TransportService transportService, RestaurantService restaurantService,
+            HotelsService hotelsService, ReservationService reservationService, SaleServices saleServices, GeneralService generalService)
         {
             this._webHostEnvironment = webHostEnvironment;
             _IHttpContextAccessor = httpContextAccessor;
             _accessService = accessService;
+            _generalService = generalService;
             _transportService = transportService;
             _restaurantService = restaurantService;
             _hotelsService = hotelsService;
@@ -59,6 +64,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             return View();
         }
+
+
+
+        public async Task<IActionResult> IndexHoteles()
+        {
+            var token = HttpContext.User.FindFirst("Token").Value;
+            ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
+            ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+            ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+
+            return View();
+        }
+
 
         #region ARREGLANDO_EL_RELAJO_DE_ANDRES
         public async Task<ActionResult> ExportPDF(ReportCreationModel reportCreationModel)

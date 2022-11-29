@@ -22,41 +22,67 @@ $('#Reservation_Details_Info .item').removeClass("active");
 $(button).addClass("active");
         }
     }
-
+var HotelPrecio = 0;
+var TransportePrecio = 0;
+var SubtotalR = 0;
+var ImpuestoR = 0;
+var TotalR = 0;
+var SubtotalH = 0;
+var ImpuestoH = 0;
+var TotalH= 0;
 function ViewReservation(hoteid,transid) {
-    var response = ajaxRequest(urlAPI+"/API/Hotels/Find?id="+hoteid);
-
+    var response = ajaxRequest(urlAPI + "/API/Hotels/Find?id=" + hoteid);
+    try {
         if (response.code == 200) {
-            
+
             var hotels = response.data;
             var imagenes = hotels.image_URL.split(',');
             $('#imagen').attr("src", imagenes[0]);
             $('#hotedescription').html(hotels.descripcion);
-           
             $('#hotename').html(hotels.hotel);
+            
         }
-    
+    }
+    catch {
+        $('#imagen').attr("src", "https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg");
+        $('#hotedescription').html("");
+        $('#hotename').html("Esta reservación no contiene un hotel");
+        
+    }
+    try {
         if (response2.code == 200) {
             var transp = response2.data;
             var transpo = transp.filter(resv => resv.reservacion == transid);
             var transpor = transpo[0];
-            
+
             $('#trcategory').html(transpor.tipo_Transporte);
-            var transporte = ajaxRequest(urlAPI+"/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
-            
+            var transporte = ajaxRequest(urlAPI + "/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
+
             if (transporte.code == 200) {
                 var t = transporte.data;
-                var response4 = ajaxRequest(urlAPI+"/API/Partners/Find?id=" + t.partner_ID);
+                var response4 = ajaxRequest(urlAPI + "/API/Partners/Find?id=" + t.partner_ID);
                 if (response4.code == 200) {
                     var partner = response4.data;
                     $('#trciudad').html(t.ciudad);
                     $('#partnername').html(partner.nombre);
                     var imagenes = partner.image_Url.split(',');
                     $('#imagenpar').attr("src", imagenes[0]);
+                    $('#TotalTT').html("L " + t.precio.toString());
+                    var TransportePrecio = parseInt(t.precio);
+
                 }
-                             
+
             }
         }
+    }
+    catch {
+        $('#trcategory').html("");
+        $('#trciudad').html("");
+        $('#partnername').html("Esta reservación no contiene un transporte");
+        $('#imagenpar').attr("src", "https://totaltravel.somee.com/Images/Default/DefaultPhoto.jpg");
+        $('#TotalTT').html("L 0");
+    }
+
     var ReservacionView = ajaxRequest(urlAPI+"/API/Reservation/Find?id=" + transid);
 
         if (ReservacionView.code == 200) {
@@ -114,10 +140,11 @@ function ViewReservation(hoteid,transid) {
                             </div><br>
                         </div>
                         <div class="content left floated" style="text-align: end;">
-                            <a class="ui huge green tag label">${room.precio}</a>
+                            <a class="ui huge green tag label">L ${room.precio}</a>
                         </div>
                      </div>`
                         $('#rooms').append(divroom);
+                        HotelPrecio += parseInt(room.precio)
                     }
                     catch {
                         divroom =
@@ -135,12 +162,11 @@ function ViewReservation(hoteid,transid) {
                     }
                     }
                 }
+                SubtotalH = HotelPrecio;
+                HotelPrecio = 0;
             }
             
-        }
-                
-       
-
+        }               
         if (ReservacionActView.code == 200) {
 
             var resvacts = ReservacionActView.data;
@@ -195,7 +221,7 @@ function ViewReservation(hoteid,transid) {
                 actexth =
                     `<div class="item">
                                 <div class="content">
-                                    <a class="header">Esta reservacion no tiene actividades de hoteles</a>                                                      
+                                    <a class="header">Esta reservación no tiene actividades de hoteles</a>                                                      
                                 </div>
                             </div>`
                 $('#acthot').append(actexth);
@@ -232,7 +258,30 @@ function ViewReservation(hoteid,transid) {
     $('#Reservation_Details_Info .item').removeClass("disabled");
     ShowContent("frmReservation_Info", 0);
 
+    ImpuestoH = SubtotalH * 0.15;
+    TotalH = ImpuestoH + SubtotalH;
+    if (TransportePrecio === undefined) {
+        SubtotalR = TotalH + 0;
+    }
+    else {
+        SubtotalR = TotalH + parseInt(TransportePrecio);
+    }
+
+    ImpuestoR = SubtotalR * 0.15;
+    TotalR = SubtotalR + ImpuestoR;
+    $('#SubTotalH').html("L " + SubtotalH.toString());
+    $('#ImpuestoH').html("L " + ImpuestoH.toString());
+    $('#TotalH').html("L " + TotalH.toString());
+    $('#TotalHH').html("L " + TotalH.toString());
+    $('#SubTotalR').html("L " + SubtotalR.toString());
+    $('#ImpuestoR').html("L " + ImpuestoR.toString());
+    $('#TotalR').html("L " + TotalR.toString());
 }
 
+
+$("a.reserv_trigger_button").click(function (_this) {
+    $("a.reserv_trigger_button").addClass("btn-edit").removeClass("btn-view");
+    $(_this.target).addClass("btn-view").removeClass("btn-edit");
+});
 
 

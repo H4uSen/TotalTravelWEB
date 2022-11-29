@@ -46,33 +46,33 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-                 {
-                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TipoTransporte)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombrePartner)
-                    </td>
-                    <td>
-                        Calle @(item.Calle), Avenida @(item.Avenida), Colonia @(item.Colonia), Ciudad de @item.Ciudad
-                    </td>
-                    <td>
-                        <a class="ui large icon btn-edit button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
-                            <i class="pencil alternate icon icon-crud"></i>
-                        </a>
-                        <a class="ui large icon btn-delete button" onclick="DeleteTransport(@item.ID)">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </a>
-                        <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                 </tr>
-                 }
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoTransporte)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombrePartner)
+                        </td>
+                        <td>
+                            Calle @(item.Calle), Avenida @(item.Avenida), Colonia @(item.Colonia), Ciudad de @item.Ciudad
+                        </td>
+                        <td>
+                            <a class="ui large icon btn-edit button" id="editar" href="@Url.Action("Update", "Transport", new { id=item.ID })">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <a class="ui large icon btn-delete button" onclick="DeleteTransport(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </a>
+                            <a class="ui large icon button" href="@Url.Action("Details", "Transport", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -148,7 +148,7 @@
         });
 
     </script>
-    
+
     <script>
         function DeleteTransport(id) {
             const capsula1 = () => {
@@ -159,6 +159,9 @@
             };
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
         };
+    </script>
+    <script>
+        $("#menu_item_125").addClass("activeTile");
     </script>
 
 }

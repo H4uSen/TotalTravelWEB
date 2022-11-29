@@ -64,9 +64,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             CountriesListViewModel CountryRequest = 
                 (CountriesListViewModel)(await _generalServices.CountriesFind(id, token)).Data;
 
+            var item = new CountriesViewModel();
+            IEnumerable<CountriesListViewModel> model = null;
+            var list = await _generalServices.CountriesList();
+            IEnumerable<CountriesListViewModel> data = (IEnumerable<CountriesListViewModel>)list.Data;
+            var element = data.Where(x => x.ID == Convert.ToInt32(id)).ToList()[0];
+            item.Pais_ID = element.ID;
+            item.Pais_Descripcion = element.Pais;
+            item.Pais_ISO = element.ISO;
+            item.Pais_Codigo = element.Codigo;
+            item.Pais_Nacionalidad = element.Nacionalidad;
+            ViewData["Pais_D"] = item.Pais_Descripcion;
+            ViewData["Pais_ISO"] = item.Pais_ISO;
+            ViewData["Pais_Codigo"] = Convert.ToInt32(item.Pais_Codigo);
+            ViewData["Pais_Nacionalidad"] = item.Pais_Nacionalidad;
             ViewData["Pais_ID"] = CountryRequest.ID;
 
-            return View(CountryRequest);
+            return View(item);
 
         }
 
@@ -78,6 +92,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 country.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+                country.Pais_ISO = country.Pais_ISO.ToUpper();
                 var response = (RequestStatus)(await _generalServices.CountriesUpdate(country, token)).Data;
 
                 if(response.CodeStatus > 0)

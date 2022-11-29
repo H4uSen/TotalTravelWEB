@@ -52,7 +52,7 @@ campoNumerico2.addEventListener('keydown', function (evento) {
         evento.preventDefault();
     }
 
-    if (campoNumerico2.value.length > 20) {
+    if (campoNumerico2.value.length > 2) {
         if (teclaPresionada != 'Backspace') {
             evento.preventDefault();
         }
@@ -116,3 +116,7 @@ campoNumerico4.addEventListener('keydown', function (evento) {
     }
 
 });
+
+function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
