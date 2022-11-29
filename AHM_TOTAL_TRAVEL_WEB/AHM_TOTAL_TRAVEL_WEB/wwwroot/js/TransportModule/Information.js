@@ -271,7 +271,7 @@ function CancelarReservacion(idRT) {
         ReserDataT.confirmacionTransporte = true;
         Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación de transporte en la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];      
     }
-
+    console.log(JSON.stringify(Email));
     var RData = ReservacionUModel;
 
         RData.resv_ID = ReserDataT.id,
@@ -290,13 +290,13 @@ function CancelarReservacion(idRT) {
         RData.justConfirmation = true
 
 
-    console.log(JSON.stringify(RData))
+   
     var SendEmail;
     if (RData.resv_ConfirmacionTrans == true) {
         SendEmail = ajaxRequest(urlAPI +"/API/Login/ReservationConfirmed", Email, "POST");
     }
     else {
-        SendEmail = ajaxRequest(urlAPI +"/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI +"/API/Login/ReservationCancel", Email, "POST");
     }
     
     var status = ajaxRequest(urlAPI +"/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
