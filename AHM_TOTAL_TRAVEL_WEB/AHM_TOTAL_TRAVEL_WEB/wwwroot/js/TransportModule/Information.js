@@ -11,6 +11,7 @@ $("document").ready(function () {
     Tarjeta(filtrotarjeta);
 });
 $("#Estado").change(function () {
+    $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
     $("#Default_Item").show();
     $("#frmReservation_Info").hide();
     $("#InfoDet").hide();
@@ -311,3 +312,9 @@ $("Document").ready(function(){
 
 })
 
+$("#Estado").change(function () {
+    $("a.reservT_trigger_button").click(function (_this) {
+        $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
+        $(_this.target).addClass("btn-view").removeClass("btn-edit");
+    });
+});

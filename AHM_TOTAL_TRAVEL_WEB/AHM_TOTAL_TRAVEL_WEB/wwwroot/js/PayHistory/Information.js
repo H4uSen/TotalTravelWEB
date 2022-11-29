@@ -3,6 +3,13 @@ var response2 = ajaxRequest(urlAPI+"/API/ReservationTransportation/List");
 var ReservacionDetView = ajaxRequest(urlAPI+"/API/ReservationDetails/List");
 var ReservacionActHotView = ajaxRequest(urlAPI+"/API/ReservationActivitiesHotels/List");
 
+var response = ajaxRequest(urlAPI + "/API/Hotels/List");
+var transporte = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
+var ReservacionView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
+var ReservacionActHotView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
+var ReservacionActHotView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
+var ReservacionActHotView = ajaxRequest(urlAPI + "/API/ReservationActivitiesHotels/List");
+
 
     // inicialize code
 $("#reservasb").addClass("active");
@@ -13,15 +20,14 @@ ShowContent("Default_Item");
 // functions
 
 function ShowContent(content, index) {
-
-        var button = $("#Reservation_Details_Info .item")[index];
-if (!$(button).hasClass('disabled')) {
-    $('#Reservation_Details_Content .Reservation_Details_Content_Item').hide();
-$('#Reservation_Details_Content #' + content).show();
-$('#Reservation_Details_Info .item').removeClass("active");
-$(button).addClass("active");
-        }
+var button = $("#Reservation_Details_Info .item")[index];
+    if (!$(button).hasClass('disabled')) {
+        $('#Reservation_Details_Content .Reservation_Details_Content_Item').hide();
+        $('#Reservation_Details_Content #' + content).show();
+        $('#Reservation_Details_Info .item').removeClass("active");
+        $(button).addClass("active");
     }
+}
 var HotelPrecio = 0;
 var TransportePrecio = 0;
 var SubtotalR = 0;
