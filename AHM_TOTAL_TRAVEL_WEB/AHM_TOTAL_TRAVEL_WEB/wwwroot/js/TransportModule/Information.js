@@ -6,6 +6,7 @@ var ReservacionT;
 
 var filtrotarjeta = $("#Estado").val();
 
+$('.ui.dropdown').dropdown();
 $("document").ready(function () {  
     Tarjeta(filtrotarjeta);
 });
