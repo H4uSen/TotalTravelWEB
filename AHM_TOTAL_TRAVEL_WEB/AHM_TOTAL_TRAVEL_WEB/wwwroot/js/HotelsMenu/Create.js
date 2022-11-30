@@ -1,4 +1,51 @@
-﻿
+﻿var imagesArray = [];
+var imagesArrayPure = [];
+$("#File").change(async function () {
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+    imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
+    LoadImage();
+
+});
+function LoadImage() {
+
+    var MenusCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false"></div>`;
+    $("#MenusCarousel").replaceWith(MenusCarousel);
+    $("#image-upload-list").html("");
+
+    for (let i = 0; i < imagesArray.length; i++) {
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
+
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
+
+        $("#image-upload-list").append(fileItem);
+        $("#MenusCarousel").append(HTML_img);
+    }
+    $("#MenusCarousel").fotorama();
+}
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
+    LoadImage();
+}
 
 $("#errorDiv").hide();
 
@@ -30,11 +77,8 @@ function validar() {
         data.append("HoMe_UsuarioCreacion", Client_User_ID);
         data.append("Hote_ID", $("#modalCreate #tHoTe_ID").val());
         data.append("Time_ID", $("#modalCreate #tTime_ID").val());
-        if ($("#modalCreate #file").prop("files")[0] != undefined) {
-            data.append("File", $("#modalCreate #file").prop("files")[0]);
-        }
-        else {
-            data.append("File", null);
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
         var status = uploadFile(urlAPI+"/API/HotelsMenu/Insert", data,"POST");
         if (status.code == 200) {
@@ -71,11 +115,8 @@ function actualizar() {
         data.append("HoMe_UsuarioModifica", Client_User_ID);
         data.append("Hote_ID",parseInt( $("#modalUpdate #tHoTe_ID_up").val()));
         data.append("Time_ID",parseInt( $("#modalUpdate #tTime_ID_up").val()));
-        if ($("#modalUpdate #file_up").prop("files")[0] != undefined) {
-            data.append("File", $("#modalUpdate #file_up").prop("files")[0]);
-        }
-        else {
-            data.append("File", null);
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
         var status = uploadFile(urlAPI+`/API/HotelsMenu/Update?id=${id}`, data, "PUT");
         if (status.code == 200) {
@@ -89,68 +130,8 @@ function actualizar() {
 
 }
 
-var imagesArray = [];
-var imagesArrayPure = [];
 
-$(document).ready(async function () {
-    await GetImage();
-});
 
-async function GetImage() {
-    var responseImage = ajaxRequest(urlAPI+"/API/RootFiles/GetAllImages?folderName=" + folderName)
-    if (responseImage.code == 200) {
-        var list = responseImage.data
-        for (var i = 0; i < list.length; i++) {
-            var imageUrl = list[i].imageUrl;
 
-            var split = imageUrl.split("/");
-            var fileName = split[split.length - 1];
-            var file = await createBlob(imageUrl)
-                .then(function (data) {
-                    return data;
-                });
-
-            imagesArrayPure.push(file);
-            const fileData = await convertImage(file)
-                .then(function (data) {
-                    return data;
-                });
-
-            fileData.fileName = fileName;
-            imagesArray.push(fileData);
-        }
-        LoadImage();
-    }
-}
-
-function LoadImage() {
-
-    var HotelCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="HotelCarousel" data-auto="false"></div>`;
-    $("#HotelCarousel").replaceWith(HotelCarousel);
-    $("#image-upload-list").html("");
-
-    for (let i = 0; i < imagesArray.length; i++) {
-        var HTML_img = document.createElement('img');
-        const item = imagesArray[i];
-
-        HTML_img.src = item.src;
-        //const fileItem =
-        //    `<div class="item">
-        //         <div class="right floated content">
-        //              <button onclick="deleteImage(${i})" class="ui btn-edit icon button">
-        //                  <i class="trash icon"></i>
-        //              </button>
-        //         </div>
-        //         <i class="image big icon"></i>
-        //         <div class="content text-grap">
-        //              ${item.fileName}
-        //         </div>
-        //    </div>`;
-
-        //$("#image-upload-list").append(fileItem);
-        $("#HotelCarousel").append(HTML_img);
-    }
-    $("#HotelCarousel").fotorama();
-}
 
 

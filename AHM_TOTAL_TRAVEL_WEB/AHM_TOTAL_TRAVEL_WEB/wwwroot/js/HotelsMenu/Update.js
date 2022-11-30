@@ -6,9 +6,28 @@ $("#closeEditHotelsMenu").click(() => {
     $("#modalUpdate").modal('hide');
 });
 $("#UpdateBottomHotelsMenu").click(() => {
+    GetImage();
     $("#modalUpdate").modal('show');
 });
 
+async function GetImage() {
+
+
+    var list = menusImage;
+    var file = await createBlob(list)
+        .then(function (data) {
+            return data;
+        });
+    imagesArrayPure.push(file);
+    const fileData = await convertImage(file)
+        .then(function (data) {
+            return data;
+        });
+    fileData.fileName = "Menu-" + menuID + "_photo-1.jpg";
+    imagesArray.push(fileData);
+    LoadImage();
+
+}
 
 function GetHotelsMenu(id) {
     var response = ajaxRequest(urlAPI+"/API/HotelsMenu/Find?id=" + id);

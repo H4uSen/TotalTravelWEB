@@ -114,8 +114,8 @@
 
 
                     </div>
-                    <div class="three field">
-                        <div class="field">
+                    <div class="ui grid three column stackable mt-4">
+                        <div class="column">
                             <label class="ui label">Imagenes en fila.</label>
                             <div class="ui segment">
                                 <div class="ui middle aligned divided list" id="image-upload-list">
@@ -124,9 +124,9 @@
                             </div>
                         </div>
 
-                        <div class="field">
-                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit" width="40%">
-                                <div class="ui icon header" >
+                        <div class="column">
+                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                <div class="ui icon header">
                                     <i class="pdf file outline icon"></i>
                                     Sube tus imagenes al sistema.
                                 </div>
@@ -139,7 +139,7 @@
 
                         </div>
 
-                        <div class="field">
+                        <div class="column">
                             <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
                                 <div class="ui icon header" id="MenusCarousel">
                                     <i class="images icon"></i>
@@ -193,15 +193,51 @@
                     </div>
 
                 </div>
-                <div class="field">
-                    <input id="file_up" type="file" />
+                <div class="ui grid three column stackable mt-4">
+                    <div class="column">
+                        <label class="ui label">Imagenes en fila.</label>
+                        <div class="ui segment">
+                            <div class="ui middle aligned divided list" id="image-upload-list">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                            <div class="ui icon header">
+                                <i class="pdf file outline icon"></i>
+                                Sube tus imagenes al sistema.
+                            </div>
+                            <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                   id="File" />
+                            <label for="File" class="ui primary button">
+                                Añade una imagen
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="column">
+                        <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                            <div class="ui icon header" id="MenusCarousel">
+                                <i class="images icon"></i>
+                                Tus imagenes aparecerán aquí.
+                            </div>
+
+                            <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeEditHotelsMenu">Cerrar</button>
-        <button class="ui button" id="sendEditHotelsMenu" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="sendHotelsMenu" onclick="validar()">Guardar</button>
+        <button class="ui button" id="closeHotelsMenu">Cancelar</button>
+
     </div>
 </div>
 
