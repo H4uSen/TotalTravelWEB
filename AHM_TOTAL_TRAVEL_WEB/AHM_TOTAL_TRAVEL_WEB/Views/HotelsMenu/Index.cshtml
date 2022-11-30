@@ -197,7 +197,7 @@
                     <div class="column">
                         <label class="ui label">Imagenes en fila.</label>
                         <div class="ui segment">
-                            <div class="ui middle aligned divided list" id="image-upload-list">
+                            <div class="ui middle aligned divided list" id="image-upload-list-update">
 
                             </div>
                         </div>
@@ -209,9 +209,8 @@
                                 <i class="pdf file outline icon"></i>
                                 Sube tus imagenes al sistema.
                             </div>
-                            <input type="file" (change)="fileEvent($event)" class="inputfile"
-                                   id="File" />
-                            <label for="File" class="ui primary button">
+                            <input type="file" (change)="fileEvent($event)" class="inputfile" id="File-update" />
+                            <label for="File-update" class="ui primary button">
                                 Añade una imagen
                             </label>
                         </div>
@@ -220,12 +219,12 @@
 
                     <div class="column">
                         <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
-                            <div class="ui icon header" id="MenusCarousel">
+                            <div class="ui icon header" id="MenusCarousel-update">
                                 <i class="images icon"></i>
                                 Tus imagenes aparecerán aquí.
                             </div>
 
-                            <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false">
+                            <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel-update" data-auto="false">
                             </div>
                         </div>
                     </div>
@@ -235,8 +234,8 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="sendHotelsMenu" onclick="validar()">Guardar</button>
-        <button class="ui button" id="closeHotelsMenu">Cancelar</button>
+        <button class="ui button" id="sendEditHotelsMenu" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="closeEditHotelsMenu">Cancelar</button>
 
     </div>
 </div>

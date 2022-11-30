@@ -1,5 +1,7 @@
 ﻿var imagesArray = [];
 var imagesArrayPure = [];
+
+
 $("#File").change(async function () {
 
     const fileData = await convertImage($("#File").prop("files")[0])
@@ -12,7 +14,6 @@ $("#File").change(async function () {
 
 });
 function LoadImage() {
-
     var MenusCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false"></div>`;
     $("#MenusCarousel").replaceWith(MenusCarousel);
     $("#image-upload-list").html("");
@@ -88,17 +89,10 @@ function validar() {
     }
 
 }
-function editar(id) {
-    var response = ajaxRequest(urlAPI+"/API/HotelsMenu/Find?id=" + id);
-    if (response.code == 200) {
-        $("#id").val(id);
-        $("#Descripcion_up").val(response.data.menu);
-        $("#Precio_up").val(response.data.precio);
-        SetDropDownValue($("#tHoTe_ID_up"), defaultValue = response.data.iD_Hotel);
-        SetDropDownValue($("#tTime_ID_up"), defaultValue = response.data.iD_TipoMenu);
-        $("#modalUpdate").modal("show");
-    }
-}
+
+
+
+
 function actualizar() {
     validateArrayForm = [
         { validateMessage: "Ingrese la descripcion.", Jqueryinput: $("#modalUpdate #Descripcion_up") },
