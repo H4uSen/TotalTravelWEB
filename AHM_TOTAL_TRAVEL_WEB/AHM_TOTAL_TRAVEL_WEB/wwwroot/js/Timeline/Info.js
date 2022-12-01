@@ -83,17 +83,18 @@ function ViewReservation(hoteid, resvid)
 {
     $('#tarjetas').empty();
     if (response2.code == 200) {
-        var transp = response2.data;
-        var transpo = transp.filter(resv => resv.reservacion == resvid);
-        var transpor = transpo[0];
-        var transporte = ajaxRequest(urlAPI +"/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
+        try {
+            var transp = response2.data;
+            var transpo = transp.filter(resv => resv.reservacion == resvid);
+            var transpor = transpo[0];
+            var transporte = ajaxRequest(urlAPI + "/API/DetailsTransportation/Find?id=" + transpor.iD_detalle_Transporte);
 
-        if (transporte.code == 200) {
-            var t = transporte.data;
-            var fech = GetDateFormat(dateConfig = { string_date: t.fecha_Salida, hour_format: 12, date_format: "large" });
-            var fecha = t.fecha_Salida.split('T');
-            actexth =
-                `<li>
+            if (transporte.code == 200) {
+                var t = transporte.data;
+                var fech = GetDateFormat(dateConfig = { string_date: t.fecha_Salida, hour_format: 12, date_format: "large" });
+                var fecha = t.fecha_Salida.split('T');
+                actexth =
+                    `<li>
                         <span>${fech.date}</span>
                         <div class="content">
                             <h3>Llegada del transporte</h3>
@@ -104,10 +105,27 @@ function ViewReservation(hoteid, resvid)
                             </p>
                         </div>
                     </li>`
-            $('#tarjetas').append(actexth);
+                $('#tarjetas').append(actexth);
 
+            }
         }
+        catch {
+            $('#tarjetas').append(
+                `<li>
+                        <span></span>
+                        <div class="content">
+                            <h3>...</h3>
+                            <h4>No hay transportes reservados</h4>
+                            <p>                             
+                            </p>
+                        </div>
+                    </li>`
+            );
+        }
+
+        
     }
+  
     if (ReservacionHot.code == 200) {
         var hot = ReservacionHot.data;
         var hote = hot.filter(resv => resv.reservacionID == resvid);
