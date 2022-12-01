@@ -1,4 +1,6 @@
-﻿$("#errorDiv").hide();
+﻿var ListaDestinosTransportes = ajaxRequest(urlAPI + "/API/DestinationsTransportations/List");
+
+$("#errorDiv").hide();
 
 $('.ui.dropdown').dropdown();
 
@@ -41,6 +43,12 @@ function validar() {
     var Ciudad1 = $("#modalCreate #CiudadSalida").val();
     var Ciudad2 = $("#modalCreate #CiudadDestino").val();
     var vali;
+    var partner = $("#modalCreate #Partner_ID").val();
+    var ValidacionIgual = ListaDestinosTransportes.data.filter(function (x) {
+        return x.ciudadSalidaID == Ciudad1 && x.ciudadDestinoID == Ciudad2 && x.partner_ID == partner;
+    });
+
+       
     if (Ciudad1 != Ciudad2) {
         $("#modalCreate #labelIguales").hide();
         vali = true;
@@ -48,11 +56,19 @@ function validar() {
     else {
         $("#modalCreate #labelIguales").removeAttr("hidden");       
         $("#modalCreate #labelIguales").html("Las ciudades no pueden ser igueles");
-        $("#modalCreate #labelIguales").show;      
+        $("#modalCreate #labelIguales").show();      
         vali = false
     }
-    
-    if (ValidateFormStatus && vali) {
+    if (ValidacionIgual.length == 0) {
+        $("#modalCreate #labelIguales").hide();       
+    }
+    else {
+        $("#modalCreate #labelIguales").removeAttr("hidden");
+        $("#modalCreate #labelIguales").html("Ya existe este registro");
+        $("#modalCreate #labelIguales").show();       
+    }
+
+    if (ValidateFormStatus && vali && ValidacionIgual.length == 0) {
         $("#createDestinationsTransportationsForm").submit();
     }
 
