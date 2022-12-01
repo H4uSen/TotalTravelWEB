@@ -91,7 +91,7 @@
         <div class="ui form attached fluid segment">
             <div class="content">
                 <div class="required field">
-                   
+
                     <div class="two fields">
                         <div class="field">
                             <input id="Descripcion" name="HoAc_Descripcion" placeholder="Descripcion de la actividad hotel" />
@@ -114,16 +114,52 @@
 
 
                     </div>
-                    <div class="field">
-                        <input id="file" type="file" />
+                    <div class="ui grid three column stackable mt-4">
+                        <div class="column">
+                            <label class="ui label">Imagenes en fila.</label>
+                            <div class="ui segment">
+                                <div class="ui middle aligned divided list" id="image-upload-list">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                <div class="ui icon header">
+                                    <i class="pdf file outline icon"></i>
+                                    Sube tus imagenes al sistema.
+                                </div>
+                                <input type="file" (change)="fileEvent($event)" class="inputfile"
+                                       id="File" />
+                                <label for="File" class="ui primary button">
+                                    Añade una imagen
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="column">
+                            <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                                <div class="ui icon header" id="MenusCarousel">
+                                    <i class="images icon"></i>
+                                    Tus imagenes aparecerán aquí.
+                                </div>
+
+                                <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeHotelsActivities">Cerrar</button>
         <button class="ui button" id="sendHotelsActivities" onclick="validar()">Guardar</button>
+        <button class="ui button" id="closeHotelsActivities">Cancelar</button>
+
     </div>
 </div>
 
@@ -158,21 +194,58 @@
                     </div>
 
                 </div>
-                <div class="field">
-                    <input id="file_up" type="file" />
+                <div class="ui grid three column stackable mt-4">
+                    <div class="column">
+                        <label class="ui label">Imagenes en fila.</label>
+                        <div class="ui segment">
+                            <div class="ui middle aligned divided list" id="image-upload-list-update">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                            <div class="ui icon header">
+                                <i class="pdf file outline icon"></i>
+                                Sube tus imagenes al sistema.
+                            </div>
+                            <input type="file" (change)="fileEvent($event)" class="inputfile" id="File-update" />
+                            <label for="File-update" class="ui primary button">
+                                Añade una imagen
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="column">
+                        <div class="ui placeholder segment" style="cursor:pointer; opacity:inherit">
+                            <div class="ui icon header" id="MenusCarousel-update">
+                                <i class="images icon"></i>
+                                Tus imagenes aparecerán aquí.
+                            </div>
+
+                            <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel-update" data-auto="false">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </form>
     <div class="actions">
-        <button class="ui button" id="closeEditHotelsActivities">Cerrar</button>
         <button class="ui button" id="sendEditHotelsActivities" onclick="actualizar()">Guardar</button>
+        <button class="ui button" id="closeEditHotelsActivities">Cancelar</button>
+
     </div>
 </div>
 
 @section Scripts{
     <script src="~/js/HotelsActivities/Create.js"></script>
-    <script src="~/js/ActivitiesExtraJs/Update.js"></script>
+    <script src="~/js/HotelsActivities/Update.js"></script>
+
+    @*<script src="~/js/ActivitiesExtraJs/Update.js"></script>*@
     <script>
         const params = new URLSearchParams(window.location.search);
         const izziSuccess = params.get("success");
@@ -230,8 +303,8 @@
 
         function DeleteHotelsActivities(id) {
             const capsulaha = () => {
-                ajaxRequest("/HotelsActivities/Delete?id=" + id, null, "POST")         
-                    window.location.href = '/HotelsActivities?success=true';
+                ajaxRequest("/HotelsActivities/Delete?id=" + id, null, "POST")
+                window.location.href = '/HotelsActivities?success=true';
 
             };
 
@@ -240,7 +313,7 @@
         };
     </script>
 }
-    @section HighlightTile{
+@section HighlightTile{
     <script>
 
         $("#HotelModule").addClass("active");
@@ -252,5 +325,5 @@
 
         $("#HotelsActivitiesTile").addClass("activeTile");
     </script>
-    }
+}
 

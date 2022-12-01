@@ -1,4 +1,54 @@
-﻿$("#errorDiv").hide();
+﻿var imagesArray = [];
+var imagesArrayPure = [];
+
+
+$("#File").change(async function () {
+
+    const fileData = await convertImage($("#File").prop("files")[0])
+        .then(function (data) {
+            return data;
+        });
+    imagesArray.push(fileData);
+    imagesArrayPure.push($("#File").prop("files")[0]);
+    LoadImage();
+
+});
+function LoadImage() {
+    var MenusCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="MenusCarousel" data-auto="false"></div>`;
+    $("#MenusCarousel").replaceWith(MenusCarousel);
+    $("#image-upload-list").html("");
+
+    for (let i = 0; i < imagesArray.length; i++) {
+        var HTML_img = document.createElement('img');
+        const item = imagesArray[i];
+
+        HTML_img.src = item.src;
+        const fileItem =
+            `<div class="item">
+                        <div class="right floated content">
+                            <button onclick="deleteImage(${i})" class="ui btn-purple icon button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
+                        <i class="image big icon"></i>
+                        <div class="content text-grap">
+                            ${item.fileName}
+                        </div>
+                    </div>`;
+
+        $("#image-upload-list").append(fileItem);
+        $("#MenusCarousel").append(HTML_img);
+    }
+    $("#MenusCarousel").fotorama();
+}
+
+function deleteImage(index) {
+    imagesArray.splice(index, 1);
+    imagesArrayPure.splice(index, 1);
+    LoadImage();
+}
+
+$("#errorDiv").hide();
 
 $('.ui.dropdown').dropdown();
 
@@ -28,11 +78,8 @@ function validar() {
         data.append("HoAc_UsuarioCreacion", Client_User_ID);
         data.append("HoTe_ID", $("#modalCreate #tHoTe_ID").val());
         data.append("Actv_ID", $("#modalCreate #tActv_ID").val());
-        if ($("#modalCreate #file").prop("files")[0] != undefined) {
-            data.append("File", $("#modalCreate #file").prop("files")[0]);
-        }
-        else {
-            data.append("File", null);
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
         var status = uploadFile(urlAPI+"/API/HotelsActivities/Insert", data,"POST");
         if (status.code == 200) {
@@ -41,17 +88,7 @@ function validar() {
     }
 
 }
-function editar(id) {
-    var response = ajaxRequest(urlAPI+"/API/HotelsActivities/Find?id=" + id);
-    if (response.code == 200) {
-        $("#id").val(id);
-        $("#Descripcion_up").val(response.data.descripcion);
-        $("#Precio_up").val(response.data.precio);
-        SetDropDownValue($("#tHoTe_ID_up"), defaultValue = response.data.iD_Hotel);
-        SetDropDownValue($("#tActv_ID_up"), defaultValue = response.data.iD_Actividad);
-        $("#modalUpdate").modal("show");
-    }
-}
+
 function actualizar() {
     validateArrayForm = [
         { validateMessage: "Ingrese la descripcion.", Jqueryinput: $("#modalUpdate #Descripcion_up") },
@@ -68,13 +105,10 @@ function actualizar() {
         data.append("HoAc_UsuarioModifica", Client_User_ID);
         data.append("HoTe_ID", parseInt($("#modalUpdate #tHoTe_ID_up").val()));
         data.append("Actv_ID", parseInt($("#modalUpdate #tActv_ID_up").val()));
-        if ($("#modalUpdate #file_up").prop("files")[0] != undefined) {
-            data.append("File", $("#modalUpdate #file_up").prop("files")[0]);
+        for (var i = 0; i != imagesArrayPure.length; i++) {
+            data.append("File", imagesArrayPure[i]);
         }
-        else {
-            data.append("File", null);
-        }
-        var status = uploadFile(urlAPI+`/API/HotelsActivities/Update?id=${id}`, data, "PUT");
+        var status = uploadFile(urlAPI + `/API/HotelsActivities/Update?id=${id}`, data, "PUT");
         if (status.code == 200) {
             location.reload();
             if (status.data.codeStatus > 0) {
