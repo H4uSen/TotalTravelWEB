@@ -8,15 +8,26 @@ var filtrotarjeta = $("#Estado").val();
 
 $('.ui.dropdown').dropdown();
 $("document").ready(function () {
-    Tarjeta(filtrotarjeta);
+    Tarjeta();
 });
 $("#Estado").change(function () {
     $("#Default_Item").show();
     $("#frmReservation_Info").hide();
     $("#InfoDet").hide();
-    var filtrotarjeta = $("#Estado").val();
-    $('#tarjetaT').empty();
-    Tarjeta(filtrotarjeta);
+    $("a.reservT_trigger_button").addClass("btn-edit").removeClass("btn-view");
+    var filtrotarjeta = parseInt($("#Estado").val());
+
+    if (filtrotarjeta == 2) {
+        $(`#tarjetaT .ui.card`).show();
+    }
+    else if (filtrotarjeta == 0) {
+        $(`#tarjetaT .ui.card`).hide();
+        $(`#tarjetaT .ui.card[data-estado='0']`).show();
+    }
+    else if (filtrotarjeta == 1) {
+        $(`#tarjetaT .ui.card`).hide();
+        $(`#tarjetaT .ui.card[data-estado='1']`).show();
+    }
 });
 
 //Esconder info
@@ -31,7 +42,7 @@ $("#Estado").change(function () {
 //    }
 //}
 
-function Tarjeta(esta) {
+function Tarjeta() {
     if (ReservacionRestaurant.code == 200) {
 
         var resv = ReservacionRestaurant.data;
@@ -53,10 +64,10 @@ function Tarjeta(esta) {
                 var fecha = item.fecha_Reservacion.split('T');
                 var Confirmacion = Reservacion.data.filter(x => x.id == parseInt(itemR))[0];
                 var Estado = Confirmacion.confirmacionRestaurante;
-                if (Estado.toString() == esta || esta == "2") {
+                
                     try {
-                        divroom = `<br\ >
-                <div class="ui card">
+                        divroom = `
+                <div class="ui card" style="width:100%" data-estado="${Estado ? 1 : 0}">
                     <div class="content">
                         <div class="header">${item.cliente}</div>
                         <div class="description">
@@ -79,7 +90,6 @@ function Tarjeta(esta) {
                         $('#tarjetaT').append(divroom);
                     }
                 }
-            }
         }
     }
 
@@ -222,9 +232,10 @@ function CancelarReservacion(idRT) {
         Email.bodyData = "Estimado Cliente " + ReserDataT.nombrecompleto + ".\nSe le notifica que se ha confirmado su reservación del restaurante de la empresa " + ReserData.partner_Nombre + " para la fecha " + ReserDataT.fecha_Entrada.split('T')[0];
     }
 
+    console.log(JSON.stringify(Email));
     var RData = ReservacionUModel;
 
-    RData.resv_ID = ReserDataT.id,
+        RData.resv_ID = ReserDataT.id,
         RData.usua_ID = ReserDataT.id_Cliente,
         RData.paqu_ID = ReserDataT.id_Paquete,
         RData.resv_esPersonalizado = ReserDataT.esPersonalizado,
@@ -246,7 +257,7 @@ function CancelarReservacion(idRT) {
         SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
     }
     else {
-        SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
+        SendEmail = ajaxRequest(urlAPI +"/API/Login/ReservationCancel", Email, "POST");
     }
 
     var status = ajaxRequest(urlAPI+"/API/Reservation/Update?id=" + RData.resv_ID, RData, "PUT");
