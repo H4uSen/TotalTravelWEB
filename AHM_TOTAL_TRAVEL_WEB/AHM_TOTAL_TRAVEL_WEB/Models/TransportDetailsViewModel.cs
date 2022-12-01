@@ -24,7 +24,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string Hora_Salida { get; set; }
         public string Hora_Llegada { get; set; }
         public int? Capacidad { get; set; }
-        public decimal? Precio { get; set; }
+        public double? Precio { get; set; }
         public string Matricula { get; set; }
         public int Usuario_Creacion_ID { get; set; }
         public string Usuario_Creacion { get; set; }
@@ -42,7 +42,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int? Tprt_ID { get; set; }
         public int? HoTr_ID { get; set; }
         public int? DeTr_Capacidad { get; set; }
-        public decimal? DeTr_Precio { get; set; }
+        public double? DeTr_Precio { get; set; }
         public string DeTr_Matricula { get; set; }
         public int? DeTr_UsuarioCreacion { get; set; }
         public DateTime? DeTr_FechaCreacion { get; set; }

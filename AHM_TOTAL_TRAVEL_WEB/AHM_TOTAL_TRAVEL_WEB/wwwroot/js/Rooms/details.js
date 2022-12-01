@@ -7,29 +7,30 @@ $(document).ready(async function () {
 });
 
 async function GetImage() {
-    var responseImage = ajaxRequest(urlAPI +"/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
-    if (responseImage.code == 200) {
-        var list = responseImage.data
-        for (var i = 0; i < list.length; i++) {
-            var imageUrl = list[i].imageUrl;
+    var responseImage = ajaxRequest(urlAPI + "/API/RootFiles/GetAllImages?folderName=" + RoomsFolder)
+    var list = responseImage.data
+    for (var i = 0; i < list.length; i++) {
+        var imageUrl = list[i].imageUrl;
 
-            var split = imageUrl.split("/");
-            var fileName = split[split.length - 1];
-            var file = await createBlob(imageUrl)
-                .then(function (data) {
-                    return data;
-                });
-            imagesArrayPure.push(file);
-            const fileData = await convertImage(file)
-                .then(function (data) {
-                    return data;
-                });
-            fileData.fileName = fileName;
-            imagesArray.push(fileData);
-        }
-        LoadImage();
+        var split = imageUrl.split("/");
+        var fileName = split[split.length - 1];
+        var file = await createBlob(imageUrl)
+            .then(function (data) {
+                return data;
+            });
+
+        imagesArrayPure.push(file);
+        const fileData = await convertImage(file)
+            .then(function (data) {
+                return data;
+            });
+
+        fileData.fileName = fileName;
+        imagesArray.push(fileData);
     }
+    LoadImage();
 }
+
 
 function LoadImage() {
 

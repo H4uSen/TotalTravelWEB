@@ -14,7 +14,6 @@
                     <div class="header text-capitalize">
                         Editar
                     </div>
-                    <p>Editar un detalle de transporte</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
@@ -35,7 +34,7 @@
                             </div>
                             <div class="required field">
                                 <label class="ui label">Capacidad</label>
-                                <input asp-for="DeTr_Capacidad" type="number" min="1" />
+                                <input asp-for="DeTr_Capacidad" placeholder="Capacidad" type="number" min="1" oninput="this.value = Math.abs(this.value)"/>
                             </div>
                             <div class="required field">
                                 <label class="ui label">Horario</label>
@@ -54,7 +53,7 @@
                             </div>
                             <div class="required field">
                                 <label class="ui label">Matricula</label>
-                                <input asp-for="DeTr_Matricula" />
+                                <input asp-for="DeTr_Matricula" placeholder="Matricula"/>
                             </div>
 
                         </div>

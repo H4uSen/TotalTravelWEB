@@ -13,8 +13,7 @@
                 <div class="content">
                     <div class="header text-capitalize">
                         Detalles
-                    </div>
-                    <p>Detalles de un transporte.</p>
+                    </div>                
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "TransportDetails")">
@@ -28,10 +27,6 @@
                     <div class="field">
                         <div class="four fields">
                             <div class="field">
-                                <label>ID</label>
-                                @Html.DisplayFor(model => model.ID)
-                            </div>
-                            <div class="field">
                                 <label>Nombre</label>
                                 @Html.DisplayFor(model => model.Nombre_Transporte)
                             </div>
@@ -43,14 +38,15 @@
                                 <label>Partner</label>
                                 @Html.DisplayFor(model => model.Parter)
                             </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="four fields">
                             <div class="field">
                                 <label>Ciudad Salida</label>
                                 @Html.DisplayFor(model => model.Ciudad_Salida)
                             </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="four fields">
+
                             <div class="field">
                                 <label>Ciudad Llegada</label>
                                 @Html.DisplayFor(model => model.Ciudad_Llegada)
@@ -63,14 +59,14 @@
                                 <label>Hora Llegada</label>
                                 @Html.DisplayFor(model => model.Hora_Llegada)
                             </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="four fields">
                             <div class="field">
                                 <label>Capacidad</label>
                                 @Html.DisplayFor(model => model.Capacidad)
                             </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="four fields">                       
                             <div class="field">
                                 <label>Precio</label>
                                 @Html.DisplayFor(model => model.Precio)

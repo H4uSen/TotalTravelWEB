@@ -153,7 +153,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
 
-            ViewData["RoomsFolder"] = $"Hotel/Hotel-{element.HotelID}/Place/Hotel_Room-{element.ID}";
+            ViewData["RoomsFolder"] = $"Hotel/Hotel-{element.HotelID}/Place/Hotel_Room-{element.HotelID}";
             ViewData["RoomFolder"] = $"Hotels/CaHa-{element.CategoriaHabitacionID}/Rooms";
             ViewData["RoomsID"] = element.ID;
 
@@ -215,7 +215,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var rooms = (RoomsListViewModel)(await _hotelsServices.RoomsFind(id, token)).Data;
             if (!rooms.Equals(null))
             {
-                ViewData["RoomsFolder"] = $"Hotel/Hotel-{rooms.HotelID}/Place/Hotel_Room-{rooms.ID}";
+                ViewData["RoomsFolder"] = $"Hotel/Hotel-{rooms.HotelID}/Place/Hotel_Room-{rooms.HotelID}";
                 ViewData["HotelID"] = id;
             }
             
