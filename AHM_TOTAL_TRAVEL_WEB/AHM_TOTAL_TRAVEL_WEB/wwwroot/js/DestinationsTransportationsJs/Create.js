@@ -113,8 +113,8 @@ function actualizar() {
         { validateMessage: "Seleccione una Ciudad de Destino.", Jqueryinput: $("#modalUpdate #CiudadDestinoUpdate") },
         { validateMessage: "Seleccione un Socio.", Jqueryinput: $("#modalUpdate #Partner_ID2") },
     ];
-    var Ciudad1 = $("#modalUpdate #CiudadSalida").val();
-    var Ciudad2 = $("#modalUpdate #CiudadDestino").val();
+    var Ciudad1 = $("#modalUpdate #CiudadSalidaUpdate").val();
+    var Ciudad2 = $("#modalUpdate #CiudadDestinoUpdate").val();
     var vali;
     if (Ciudad1 != Ciudad2) {
         $("#modalUpdate #labelIgualesU").hide();
