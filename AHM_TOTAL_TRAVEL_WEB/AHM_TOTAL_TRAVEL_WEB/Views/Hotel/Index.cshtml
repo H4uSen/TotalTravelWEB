@@ -110,9 +110,7 @@
         function DeleteHoteles(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("Hotel/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/Hotel?update_success=true';
-                }
+                window.location.href = '/Hotel?update_success=true';
             };
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
         };

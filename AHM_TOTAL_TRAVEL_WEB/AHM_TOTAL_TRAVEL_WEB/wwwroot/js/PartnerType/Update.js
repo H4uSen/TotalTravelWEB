@@ -26,7 +26,6 @@ function GetTipoPartner(id) {
 }
 
 function sendUpdate() {
-    console.log("a");
     const ValidateArray = [
         { validateMessage: "Ingrese una descripcion de tipo de socio", Jqueryinput: $("#TiPar_DescripcionUpdate") },
         { validateMessage: "Seleccione un Rol para el socio", Jqueryinput: $("#Rol_IDUpdate") }
