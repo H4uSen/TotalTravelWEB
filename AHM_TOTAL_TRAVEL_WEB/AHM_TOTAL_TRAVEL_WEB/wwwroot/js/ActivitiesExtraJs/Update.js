@@ -1,8 +1,4 @@
-﻿const params = new URLSearchParams(window.location.search);
-const izziSuccess = params.get("success");
-if (izziSuccess == "true") {
-    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
-}
+﻿
 
 $(document).ready(function () {
     $("#Actv_ID").hide();
@@ -64,7 +60,6 @@ function ValidarUpdate() {
 
     if (ActivityValidateUpdate) {
         $("#updateActivitiesForm").submit();
-        window.location.href = '/Activities?success=true';
     }
 }
 

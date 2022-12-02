@@ -1,6 +1,10 @@
 ﻿var response = ajaxRequest(urlAPI +"/API/DestinationsTransportations/List");
-var response2 = ajaxRequest(urlAPI +"/API/Partners/List")
-
+var response2 = ajaxRequest(urlAPI + "/API/Partners/List");
+const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
 $("#btnCrearhorario").click(() => {
     if (Client_Role != "Administrador") {
         getDestiny2()

@@ -1,4 +1,9 @@
-﻿var responseU = ajaxRequest(urlAPI +"/API/DestinationsTransportations/List");
+﻿const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
+var responseU = ajaxRequest(urlAPI + "/API/DestinationsTransportations/List");
 
 var IDPar = Client_Partner_ID;
 
