@@ -1,4 +1,9 @@
-﻿$("#errorDiv").hide();
+﻿const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success");
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+}
+$("#errorDiv").hide();
 
 $('.ui.dropdown').dropdown();
 
@@ -28,6 +33,7 @@ function validar() {
 
     if (ActivityValidate) {
         $("#createActivitiesForm").submit();
+        window.location.href = '/Activities?success=true';
     }
 
 }

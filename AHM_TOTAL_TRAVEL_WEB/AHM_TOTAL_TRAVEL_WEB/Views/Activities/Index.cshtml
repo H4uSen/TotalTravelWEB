@@ -135,7 +135,7 @@
         </div>
     </form>
     <div class="actions">
-        <button class="ui button btn-edit text-white" id="sendEditActivities">Guardar</button>
+        <button class="ui button btn-edit text-white" id="sendEditActivities" onclick="ValidarUpdate()">Guardar</button>
         <button class="ui button" id="closeEditActivities">Cerrar</button>
     </div>
 </div>
@@ -143,6 +143,19 @@
 @section Scripts{
     <script src="~/js/ActivitiesExtraJs/Create.js"></script>
     <script src="~/js/ActivitiesExtraJs/Update.js"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const izziSuccess = params.get("success");
+
+    if (izziSuccess == "true") {
+        iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+    }
+    //const update_success = FindGetValue("update_success");
+
+    //if (update_success) {
+    //    iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+    //}
+</script>
     <script>
         // ----------------------------------- EVENTS ------------------------------------
         $(document).ready(function () {
@@ -192,12 +205,12 @@
 
         //------------------------------------Funciones------------------------
 
+       
+
         function DeleteActividad(id) {
             const capsula1 = () => {
                 var response = ajaxRequest("/Activities/Delete?id=" + id, null, "POST");
-                if (response > 0) {
-                    window.location.href = '/Activities?success=true';
-                }
+                window.location.href = '/Activities?success=true';
             };
 
 

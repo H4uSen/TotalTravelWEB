@@ -4,7 +4,9 @@ var ReservacionActView = ajaxRequest(urlAPI +"/API/ReservationActivitiesExtra/Li
 var response2 = ajaxRequest(urlAPI +"/API/ReservationTransportation/List");
 var ReservacionDetView = ajaxRequest(urlAPI +"/API/ReservationDetails/List");
 var ReservacionActHotView = ajaxRequest(urlAPI +"/API/ReservationActivitiesHotels/List");
-var ReservacionHot = ajaxRequest(urlAPI +"/API/ReservationHotels/List");
+var ReservacionHot = ajaxRequest(urlAPI + "/API/ReservationHotels/List");
+var ReservacionActEXView = ajaxRequest(urlAPI + "/API//ReservationActivitiesExtra/List");
+
 
 $("document").ready(function () {
     prueba();
@@ -111,15 +113,7 @@ function ViewReservation(hoteid, resvid)
         }
         catch {
             $('#tarjetas').append(
-                `<li>
-                        <span></span>
-                        <div class="content">
-                            <h3>...</h3>
-                            <h4>No hay transportes reservados</h4>
-                            <p>                             
-                            </p>
-                        </div>
-                    </li>`
+                ``
             );
         }
 
@@ -152,6 +146,7 @@ function ViewReservation(hoteid, resvid)
     var arraydates = [];
     var ActivitiesHotels = ReservacionActHotView.data;
     var ActivitiesHotelsFilter = ActivitiesHotels.filter(resv => resv.reservacionID == resvid);
+
     for (var i = 0; i < ActivitiesHotelsFilter.length; i++) {
         const item = ActivitiesHotelsFilter[i];                          
             var objeto = {
@@ -160,12 +155,16 @@ function ViewReservation(hoteid, resvid)
             arraydates.push(item.fecha_Reservacion);
     }
 
+
+
     let data = arraydates;
+
+ 
     
     let result = data.filter((item, index) => {
         return data.indexOf(item) === index;
     })
-  
+   
     console.log(result);
     for (var i = 0; i < result.length; i++)
     {
@@ -195,6 +194,7 @@ function ViewReservation(hoteid, resvid)
             </li>`
         $('#tarjetas').append(actexth);
     }
+
     if (ReservacionHot.code == 200) {
         var hot = ReservacionHot.data;
         var hote = hot.filter(resv => resv.reservacionID == resvid);

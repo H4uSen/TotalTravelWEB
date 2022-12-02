@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
     $("#Actv_ID").hide();
 });
 var imagesArray = [];
