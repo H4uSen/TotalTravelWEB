@@ -233,9 +233,16 @@ function CreateUser() {
         
     }else{
         
-         //verify rol
+        //verify rol
         if ($("#checkAdmin").prop("checked")) {
-            user.append("role_ID",1);
+        var isRedirected = $("#cbIsRedirected").val();
+        if (isRedirected == "true") {
+            // get partner id
+            user.append("role_ID", 2);
+            Role_success = true;
+
+        } else if ($("#checkAdmin").prop("checked")) {
+            user.append("role_ID", 1);
             Role_success = true;
         }
         else if ($("#checkPartner").prop("checked")) {
