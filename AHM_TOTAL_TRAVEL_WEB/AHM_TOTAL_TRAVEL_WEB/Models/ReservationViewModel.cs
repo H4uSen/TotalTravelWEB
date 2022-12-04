@@ -32,16 +32,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public bool? Resv_ConfirmacionRestaurante { get; set; } = false;
         [DefaultValue(false)]
         public bool? Resv_ConfirmacionTrans { get; set; } = false;
+        public bool? Resv_ConfirmacionActividades { get; set; } = false;
+        
         public bool CrearUsuario { get; set; } = false;
         public bool CrearPersonalizado { get; set; } = false;
+        public bool EditarPersonalizado { get; set; } = false;
+
         public decimal? Resv_Precio { get; set; }
         public int? Resv_UsuarioCreacion { get; set; } = 0;
         public int? Resv_UsuarioModifica { get; set; } = 0;
         public DateTime? ReHo_FechaEntrada { get; set; }
         public DateTime? ReHo_FechaSalida { get; set; }
-        //public string Resv_FechaEntradaUnformatted { get; set; }
-        //public string Resv_FechaSalidaUnformatted { get; set; }
-        //public string Usua_DNI { get; set; }
 
         //Need this in order to make a reservation of a custom package
         public int? Hote_ID { get; set; }
@@ -65,7 +66,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         {
             public int ReAE_ID { get; set; }
             public int? AcEx_ID { get; set; }
-            public decimal ReAE_Precio { get; set; }
+            public decimal? ReAE_Precio { get; set; }
             public int? ReAE_Cantidad { get; set; }
             public DateTime? ReAE_FechaReservacion { get; set; }
             public string ReAE_HoraReservacion { get; set; }
@@ -134,6 +135,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public bool? ConfirmacionHotel { get; set; }
         public bool? ConfirmacionRestaurante { get; set; }
         public bool? ConfirmacionTransporte { get; set; }
+        public bool? ConfirmacionActividades { get; set; }
         public bool? ConfirmacionPago { get; set; }
         public int? Id_UsuarioCrea { get; set; }
         public string UsuarioCrea { get; set; }

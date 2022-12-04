@@ -11,8 +11,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public string BackController { get; set; }
         public string BackAction { get; set; }
         public bool IsRedirect { get; set; } = false;
+        public bool IsSuccess { get; set; } = false;
         public int responseID { get; set; } = 0;
-        public string Divider { get; set; }
+        public int userID { get; set; } = 0;
+        public string Command { get; set; }
     }
 
 }

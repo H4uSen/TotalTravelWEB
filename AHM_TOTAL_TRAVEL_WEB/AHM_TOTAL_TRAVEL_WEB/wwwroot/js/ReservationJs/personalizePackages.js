@@ -107,6 +107,7 @@ const steps = {
         $("#btnNextStep").attr("data-step", "step_3");
         $("#btnBeforeStep").attr("data-step", "step_1");
 
+        
     },
 
     step_3: function () {
@@ -611,7 +612,7 @@ function fillExtraActivities(id_ciudad) {
                 carousel += "</div>";
 
                 const card =
-                    `<div class="item activity_item">
+                    `<div class="item activity_item" data-value='${item.id}'>
                     <div class="image">
                         ${carousel}
                     </div>
@@ -740,7 +741,7 @@ function fillHotelActivities(id_hotel) {
                 carousel += "</div>";
 
                 const card =
-                    `<div class="item activity_item">
+                    `<div class="item activity_item" data-value="${item.id}">
                         <div class="image">
                             ${carousel}
                         </div>
@@ -914,7 +915,7 @@ function fillTransport(id_ciudad_salida, id_ciudad_llegada) {
                     : element.hora_Salida + " AM"
 
             const card =
-                `<div class="item transport_item">
+                `<div class="item transport_item" data-value="${element.id}">
                     <div class="image">
                         <img src="${urlAPI}/Images/${images[0]}">
                     </div>
@@ -1043,7 +1044,7 @@ function fillRestaurant(id_ciudad) {
                 carousel += "</div>";
 
                 const card =
-                    `<div class="item restaurant_item">
+                    `<div class="item restaurant_item" data-value="${element.id}">
                         <div class="image">
                            ${carousel}
                         </div>
@@ -1208,6 +1209,7 @@ function fillMenu(id_restaurante) {
 function FinalizarCompra(reservationDetail) {
     console.log("function");
     console.log(reservationDetail);
+    var command = FindGetValue("Command")
     var detailSuccess = true;
     var errorDiv =
         `<div class="ui error message">
@@ -1216,30 +1218,69 @@ function FinalizarCompra(reservationDetail) {
             </div>
             <ul class="list">`;
 
-    const cantidadDePagos = $("#txtCantidadPagos").val();
-    const metodoPago = $("#cbbFormaPago").find(".item.selected").eq(0).attr("data-value");
-    if (cantidadDePagos <= 0) {
-        errorDiv += `<li>Campo requerido: Cantidad de pagos/cuotas</li>`;
-        detailSuccess = false;
-    } else if (cantidadDePagos > 5) {
-        errorDiv += `<li>Excediste la cantidad maxima de pagos/cuotas (Cantidad maxima de pagos: 5)</li>`;
-        detailSuccess = false;
-    }
+    if (command != "Update") {
+        const cantidadDePagos = $("#txtCantidadPagos").val();
+        const metodoPago = $("#cbbFormaPago").find(".item.selected").eq(0).attr("data-value");
+        if (cantidadDePagos <= 0) {
+            errorDiv += `<li>Campo requerido: Cantidad de pagos/cuotas</li>`;
+            detailSuccess = false;
+        } else if (cantidadDePagos > 5) {
+            errorDiv += `<li>Excediste la cantidad maxima de pagos/cuotas (Cantidad maxima de pagos: 5)</li>`;
+            detailSuccess = false;
+        }
 
-    if (metodoPago == undefined) {
-        errorDiv += `<li>Seleccione una forma de pago</li>`;
-        detailSuccess = false;
+    
+        if (metodoPago == undefined) {
+            errorDiv += `<li>Seleccione una forma de pago</li>`;
+            detailSuccess = false;
+        }
     }
+    
 
     $("#completarPagoError").empty();
     if (detailSuccess) {
-        reservationDetail.resv_CantidadPagos = parseInt(cantidadDePagos);
-        reservationDetail.tipoPago = parseInt(metodoPago);
+        if (command != "Update") {
+            reservationDetail.resv_CantidadPagos = parseInt(cantidadDePagos);
+            reservationDetail.tipoPago = parseInt(metodoPago);
+        }
+        
+        
+        
+        var response;
 
-        const response = ajaxRequest(urlAPI +"/API/Reservation/Insert", reservationDetail, "POST");
+        if (command == "Update") {
+            var UserID = FindGetValue("userID")
+            if (UserID != null) {
+                reservationDetail.usua_ID = parseInt(UserID);
+            }
+        } else {
+            var UserID = FindGetValue("responseID")
+            if (UserID != null) {
+                reservationDetail.usua_ID = parseInt(UserID);
+            }
+        }
+        
+        if (command == "Update") {
+            var resvID = FindGetValue("responseID")
+            console.log( JSON.stringify(reservationDetail));
+            response = ajaxRequest(urlAPI + "/API/Reservation/Update?id="+resvID, reservationDetail, "PUT");
+        } else {
+            response = ajaxRequest(urlAPI +"/API/Reservation/Insert", reservationDetail, "POST");
+        }
+        
 
         if (response.data.codeStatus > 0) {
             steps.success(true);
+            var id = response.data.codeStatus;
+            if (command == "Reservation" || command == "Update") {
+                $("#btnVolver").on("click", function () {
+                    redirection(id);
+                });
+                $("#btnCrearOtro").on("click", function () {
+                    redirection(id);
+                });
+            }
+            
         } else {
             console.log(reservationDetail);
             steps.success(false);
@@ -1249,6 +1290,10 @@ function FinalizarCompra(reservationDetail) {
         errorDiv += `</ul></div>`;
         $("#completarPagoError").append(errorDiv);
     }
+}
+
+function redirection(id) {
+    location.href = "/Reservation/Index?isSuccess=true&Command=Personalize&responseID="+id
 }
 
 function getReservationDetail() {

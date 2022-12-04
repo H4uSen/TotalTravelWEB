@@ -453,23 +453,6 @@ function updateReservation() {
 
 
         }
-
-
-
-
-
-        /*
-        if (ReservationInsertStatus.code == 200) {
-                iziToastAlert(
-                    "!User Created Successfully! ", "", "success"
-                );
-                location.assign("Index");
-            }
-            else {
-                $("#msgErrorForm").show();
-            $("#msgErrorForm p").html(ReservationInsertStatus.message);
-            }
-            */
     }
 
 

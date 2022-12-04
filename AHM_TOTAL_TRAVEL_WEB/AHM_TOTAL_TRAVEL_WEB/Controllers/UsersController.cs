@@ -54,7 +54,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
-                return RedirectToAction(form["action"], form["controller"], new RouteValuesModel { BackController = "Users", BackAction = "Create", IsRedirect = true, responseID = int.Parse(form["txtUserID"]) });
+                return RedirectToAction(form["action"], form["controller"], new RouteValuesModel { BackController = "Users", BackAction = "Create", IsRedirect = true, responseID = int.Parse(form["txtUserID"].ToString()), Command = "userResponse", IsSuccess = true });
             }
             catch (Exception)
             {

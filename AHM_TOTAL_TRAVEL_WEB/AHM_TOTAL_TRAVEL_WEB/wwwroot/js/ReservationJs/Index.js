@@ -30,9 +30,7 @@ function format(detailData, rowId) {
 
             const detail = detailData[i];
 
-            const fechaCreacion = GetDateFormat({
-                string_date: detail.fechaPago, hour_format: 12, date_format: "default"
-            });
+            const fechaCreacion = detail.fechaPago.split("T")[0].split("-").reverse().join("-");
             structure += `
             <div class="ui form attached fluid segment">
             <div class="content">
@@ -53,7 +51,7 @@ function format(detailData, rowId) {
                 <p>Monto pagado: L ${parseFloat(detail.montoPago).toFixed(2)}</p>
             </div>
             <div class="field">
-                <p>Realizado el: ${fechaCreacion.datetime}</p>
+                <p>Realizado el: ${fechaCreacion}</p>
             </div>
             <div class="field">
                 <div style="margin-left: 10px;margin-bottom: 10px;">
@@ -102,6 +100,7 @@ $(document).ready(function () {
         language: {
             "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
         },
+        
         //Aqui se ingresa el numero de columnas que tiene la tabla
         columns: [
             {
@@ -175,9 +174,7 @@ function paymentsListDetails(id_reservacion) {
 
             const detail = Payments[i];
             
-            const fechaCreacion = GetDateFormat({
-                string_date: detail.fechaPago, hour_format: 12, date_format: "default"
-            });
+            const fechaCreacion = detail.fechaPago.split("T")[0].split("-").reverse().join("-");
 
 
             Detail +=
@@ -186,7 +183,7 @@ function paymentsListDetails(id_reservacion) {
                     <p># de factura: <span id="payment_id">${detail.id}</span></p>
                     <p>Nombre: ${detail.nombre_Completo}</p>
                     <p>Monto: L ${parseFloat(detail.montoPago).toFixed(2)}</p>
-                    <p>Realizado el: ${fechaCreacion.datetime}</p>
+                    <p>Realizado el: ${fechaCreacion}</p>
                 </a><br />
                 <div style="margin-left: 10px;margin-bottom: 10px;">
                 <button class="ui small btn-purple text-white icon button" id="updatePayments" onclick="editar('${detail.id}')"> Editar</button>
@@ -249,6 +246,25 @@ $("#modalUpdate #close").click(() => {
     $("#modalUpdate").modal('hide');
 });
 
+//Amount cant be negative
+$("#modalCreate #RePa_Monto").change(function () {
+    if ($("#modalCreate #RePa_Monto").val() < 1) {
+        $("#modalCreate #RePa_Monto").val(1)
+        iziToast.warning({
+            title: 'Atención',
+            message: 'El monto no puede ser un valor negativo',
+        });
+    }
+});
+$("#modalUpdate #RePa_Monto").change(function () {
+    if ($("#modalUpdate #RePa_Monto").val() < 1) {
+        $("#modalUpdate #RePa_Monto").val(1)
+        iziToast.warning({
+            title: 'Atención',
+            message: 'El monto no puede ser un valor negativo',
+        });
+    }
+});
 
 
 
@@ -293,7 +309,40 @@ function editar(PaymentID) {
 
     }
 
+
 }
+
+$(document).ready(function () {
+    var command = FindGetValue("Command")
+    var isSuccess = FindGetValue("isSuccess")
+    if (command == "Personalize" && isSuccess == true) {
+        iziToast.success({
+            title: 'Éxito',
+            message: 'Reservación ingresada exitosamente',
+        });
+    }
+});
+
+$(document).ready(function () {
+    var command = FindGetValue("Command")
+    var isSuccess = FindGetValue("isSuccess")
+    var responseID = FindGetValue("responseID")
+    if (command == "Personalize" && isSuccess == true) {
+        iziToast.success({
+            title: 'Éxito',
+            message: 'Reservación ingresada exitosamente',
+        });
+        $('input[type="search"]').val(responseID.toString()).keyup();
+    } else if (command == "Update" && isSuccess == true) {
+        iziToast.success({
+            title: 'Éxito',
+            message: 'Reservación editada exitosamente',
+        });
+        $('input[type="search"]').val(responseID.toString()).keyup();
+    }
+    
+});
+
 
 function actualizar() {
     validateArrayForm = [

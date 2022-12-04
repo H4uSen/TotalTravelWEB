@@ -71,7 +71,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             catch (Exception ex)
             {
                 return Result.Error(Helpers.GetMessage(ex));
-                throw;
             }
 
         }
@@ -79,7 +78,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public async Task<ServiceResult> ReservationUpdate(ReservationViewModel reservationViewModel, int id, string token)
         {
             var Result = new ServiceResult();
-
+            string jsonString = JsonSerializer.Serialize(reservationViewModel);
             try
             {
                 var response = await _api.Put<ReservationViewModel, RequestStatus>(req =>
@@ -104,6 +103,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 throw;
             }
         }
+
 
         public async Task<ServiceResult> ReservationDelete( int idMod,int id, string token)
         {

@@ -23,15 +23,20 @@
 <br>
 <br>
 <div class="container" id="frmCreatePackage">
-
+    
     <!-- General Forma Data -->
-
+        @{
+        RouteValuesModel routesValues = ViewBag.RouteValues;
+        if (routesValues.IsSuccess.Equals(true) && routesValues.Command == "Update")
+        {
+            <input id="UserID" type="number" value=@routesValues.userID style="display:none" />
+        }
+    }
     <div class="ui equal width form">
-
         <div class="fields">
             <div class="field">
                 <label>Ciudad de origen</label>
-                <select class="ui search dropdown" asp-items="ViewBag.ciudadesResidencia"  id="cbbCiudadResidencia">
+                <select class="ui search selection dropdown" asp-items="ViewBag.ciudadesResidencia"  id="cbbCiudadResidencia" >
                     <option value="">Escoje tu Residencia actual</option>
                 </select>
             </div>
@@ -934,7 +939,7 @@
                 <div class="ui clearing divider"></div>
 
                 <div class="ui grid two column">
-                    <div class="ten wide column">
+                    <div class="ten wide column" id="frmPayment">
                         <div class="ui card w-100">
                             <div class="content">
                                 <div class="fields">
@@ -1047,8 +1052,8 @@
                 </h2>
 
                 <div class="inline">
-                    <div class="ui primary button">Volver al menu</div>
-                    <div class="ui button">Crear otro paquete</div>
+                    <div class="ui primary button" href="/clienthome/index" id="btnVolver">Volver al inicio</div>
+                        <div class="ui button" href="/Reservation/PersonalizePackages" id="btnCrearOtro">Crear otro paquete</div>
                 </div>
             </div>
 
@@ -1087,5 +1092,12 @@
 @section Scripts{
     
     <script src="~/js/ReservationJs/personalizePackages.js"></script>
+    @{
+        if (ViewBag.RouteValues.Command == "Update")
+        {
+            <script src="~/js/ReservationJS/personalizePackagesUpdate.js"></script>
+        }
+    }
+    
 }
 
