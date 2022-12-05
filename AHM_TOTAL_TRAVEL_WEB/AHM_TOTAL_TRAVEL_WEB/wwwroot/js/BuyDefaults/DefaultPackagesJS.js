@@ -1,17 +1,21 @@
-﻿const packagesList = ajaxRequest(urlAPI+"/API/DefaultPackages/List");
-const ActivitiesList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
+﻿const packagesList = ajaxRequest(urlAPI + "/API/DefaultPackages/List");
+const ActivitiesExtraList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
 const DetailsTransportationList = ajaxRequest(urlAPI+"/API/DetailsTransportation/List");
 const CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
 const Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
 const HotelsList = ajaxRequest(urlAPI + "/API/Hotels/List");
-var RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
-var HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
+const RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
+const ActivitiesList = ajaxRequest(urlAPI + "/API/DefaultPackagesDetails/List");
+const HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
 
 $('.ui.dropdown').dropdown();
 
 function ObtenerDetalles(id) {
     $("#frmMenu_container #frmPackages .ui.grid").hide();
+    $("#frmMenu_container #frmPackages #infopaquete").empty();
+    $("#frmMenu_container #frmPackages #actividades").empty();
 
+    //Info paquete
     const listapaquetes = packagesList.data;
     const paquetes = listapaquetes.filter(package => package.id == id);
                 
@@ -22,7 +26,7 @@ function ObtenerDetalles(id) {
     const duracion = `${paquete.duracion_Paquete} días y ${parseInt(paquete.duracion_Paquete) == 1 ? 1 : parseInt(paquete.duracion_Paquete) - 1} noches`;
 
     const Cardpaquete = `<h4 class="ui left floated header">
-            <i class="tasks icon"></i> PAQUETE
+            <i class="list icon"></i> PAQUETE
         </h4>
         <div class="ui clearing divider"></div>
         <div class="ui items">
@@ -49,6 +53,7 @@ function ObtenerDetalles(id) {
         </div>
     </div>`;
 
+    //info hotel
     const listahoteles = HotelsList.data;
     const hoteles = listahoteles.filter(hotel => hotel.id == paquete.iD_Hotel);
     const hotel = hoteles[0];
@@ -77,6 +82,7 @@ function ObtenerDetalles(id) {
         </div>
     </div>`;
 
+    //info restaurante
     const listarestaurantes = RestaurantList.data;
     const restaurantes = listarestaurantes.filter(restaurant => restaurant.id == paquete.iD_Restaurante);
     const restaurante = restaurantes[0];
@@ -106,14 +112,59 @@ function ObtenerDetalles(id) {
         </div>
     </div>`;
 
-    const listaActividades = RestaurantList.data;
-    const restaurantes = listaActividades.filter(actividad => actividad.id == paquete.iD_Restaurante);
-    const restaurante = restaurantes[0];
-    const restauranteimages = restaurante.image_URL.split(",");
+    //info actividades
+    const listactividades = ActivitiesList.data;
+    const actividades = listactividades.filter(activity => activity.paqueteID == paquete.id);
 
-    $("#frmMenu_container #frmPackages .ui.items").append(Cardpaquete, Cardhotel, Cardrestaurante);
+    const HeaderActivities = `<h4 class="ui left floated header">
+        <i class="bicycle icon"></i> ACTIVIDADES
+    </h4>
+    <div class="ui clearing divider"></div>`;
 
-    $("#frmMenu_container #frmPackages .ui.items").show();
+    for (var i = 0; i < actividades.length; i++) {
+        const actividad = actividades[i];
+        //const listhotelactivities = HotelsActivitiesList.data;
+        //const infoactividad = listhotelactivities.filter(info => info.id == actividad.actividadID);
+        //console.log(infoactividad);
+        //const actividadimages = infoactividad.image_URL.split(",");
+        const precio = parseFloat(actividad.precio);
+        var CardActividades = `<div class="ui items">
+            <div class="item">
+                <div class="image">
+
+                </div>
+                <div class="content" style="width: inherit;">
+                    <h2>${actividad.descripcion_actividad}</h2>
+                    <div class="extra">
+                        <p>
+                            - Para ${actividad.cantidad} personas<br>
+                            - Precio: L ${precio}<br>
+                        </p>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>`;
+        $("#frmPackages #actividades").append(CardActividades);
+    }
+
+    $("#frmPackages #actividades").append(`<hr><div class="ui items">
+        <button class="ui button" id="regresars">
+            <i class="angle left icon"></i>
+            REGRESAR
+        </button>
+    </div>`);
+
+    $("#frmMenu_container #frmPackages #infopaquete").append(Cardpaquete, Cardhotel, Cardrestaurante, HeaderActivities);
+
+    $("#frmMenu_container #frmPackages #infopaquete").show();
+    $("#frmMenu_container #frmPackages #actividades").show();
+
+    $("#regresars").click(() => {
+        $("#frmMenu_container #frmPackages #infopaquete").hide();
+        $("#frmMenu_container #frmPackages #actividades").hide();
+        $("#frmMenu_container #frmPackages .ui.grid").show();
+    });
 }
 
 const fill_data = {
@@ -139,8 +190,8 @@ const fill_data = {
             }
 
             $("#frmMenu_container #frmPackages .ui.grid").empty();
-            $("#frmMenu_container #frmPackages .ui.items").empty();
-            $("#frmMenu_container #frmPackages .ui.items").hide();
+            $("#frmMenu_container #frmPackages #infopaquete").hide();
+            $("#frmMenu_container #frmPackages #actividades").hide();
 
             if (package != 0) {
                 for (var i = 0; i < package.length; i++) {
@@ -178,7 +229,7 @@ const fill_data = {
                     $("#frmMenu_container #frmPackages .ui.grid").append(card);
                 }
 
-                    $("#frmMenu_container #frmPackages .ui.items").show();
+                //$("#frmMenu_container #frmPackages #infopaquete").show();
                 
                 $(".package_button_trigger").click(function (_this_button) {
 
@@ -226,9 +277,9 @@ const fill_data = {
     },
 
     fillActivities: function (id_ciudad_destino = null) {
-        if (ActivitiesList.code == 200) {
+        if (ActivitiesExtraList.code == 200) {
 
-            var activities = ActivitiesList.data;
+            var activities = ActivitiesExtraList.data;
             if (id_ciudad_destino != null) {
                 activities = activities.filter(x => x.ciudadID == id_ciudad_destino);
             }
@@ -840,7 +891,7 @@ const getDetails = {
             subtotal: 0
         };
 
-        const activities = ActivitiesList.data;
+        const activities = ActivitiesExtraList.data;
         const activitiesButtons = $(".activity_item .activity_trigger_button[data-selected='true']");
 
         $.each(activitiesButtons, function (i, item) {
