@@ -4,191 +4,196 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@try
+{
+    <div class="container card">
+        <div class="ui basic segment">
 
-<div class="container card">
-    <div class="ui basic segment">
-
-        <div class="ui icon attached message">
-            <i class="map marker alternate icon"></i>
-            <div class="content">
-                <div class="header">
-                    Reservaciones
+            <div class="ui icon attached message">
+                <i class="map marker alternate icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Reservaciones
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <div class="ui grid mb-3">
-            <div class="eight wide column">
-                <a class="ui small btn-purple text-white labeled icon button" href="@Url.ActionLink("Create","Reservation")">
-                    <i class="plus icon"></i> Nuevo
-                </a>
+            <br>
+            <div class="ui grid mb-3">
+                <div class="eight wide column">
+                    <a class="ui small btn-purple text-white labeled icon button" href="@Url.ActionLink("Create","Reservation")">
+                        <i class="plus icon"></i> Nuevo
+                    </a>
+                </div>
             </div>
-        </div>
-        <div>
+            <div>
 
-        </div>
-        <table id="grdReservacion" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
-            <thead>
-                <tr>
-                    <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
-                    <th># de reservación</th>
-                    <th>Cliente</th>
-                    <th>Fecha Entrada - Fecha Salida</th>
-                    <th>Paquete</th>
-                    <th>Pago minimo del 40%</th>
-                    <th>Precio</th>
-                    <th>Cantidad de pagos</th>
-                    <th width="200px" class="Acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in Model)
-                {
-                    <tr data-value="@item.ID" data-hotel="@item.ReservacionHotelID">
-                        <td></td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @string.Concat(item.Nombre, " ", item.Apellido)
-                        </td>
-                        <td>
-                            @string.Concat(item.Fecha_Entrada.GetValueOrDefault().ToString("dd/MM/yyyy"), " - ", item.Fecha_Salida.GetValueOrDefault().ToString("dd/MM/yyyy"))
-                        </td>
-                        <td>
-                            @{
-                                if (item.Id_Paquete != null)
-                                {
-                                                    <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
-                                }
-                                else
-                                {
-                                                    <span>Personalizado</span>
-                                }
-                            }
-
-                        </td>
-                        <td>
-                            @{
-                                if (item.ConfirmacionPago == true)
-                                {
-                                                    <span class="ui green label">Realizado</span>
-
-                                }
-                                else
-                                {
-                                                    <span class="ui blue label">Pendiente</span>
-
-                                }
-
-                            }
-                        </td>
-                        <td>
-                            L.@Html.DisplayFor(modelItem => item.precio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AmountOfPayments)/@Html.DisplayFor(modelItem => item.CantidadPagos)
-                        </td>
-
-                        <td class="Acciones">
-                            <a class="ui large icon btn-edit button" id="UpdateBottomDsTr" href="@Url.Action("Update", "Reservation", new { id=item.ID })">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteReservation(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a class="ui large icon button" href="@Url.Action("Details", "Reservation", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
+            </div>
+            <table id="grdReservacion" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
+                <thead>
+                    <tr>
+                        <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
+                        <th># de reservación</th>
+                        <th>Cliente</th>
+                        <th>Fecha Entrada - Fecha Salida</th>
+                        <th>Paquete</th>
+                        <th>Pago minimo del 40%</th>
+                        <th>Precio</th>
+                        <th>Cantidad de pagos</th>
+                        <th width="200px" class="Acciones">Acciones</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
 
-        <!--
-        <table class="ui compact selectable celled table" id="">
-            <thead>
-                <tr>
-                    <th># de reservación</th>
-                    <th>Cliente</th>
-                    <th>Fecha Entrada - Fecha Salida</th>
-                    <th>Paquete</th>
-                    <th>Pago minimo del 40%</th>
-                    <th>Precio</th>
-                    <th>Cantidad de pagos</th>
-                    <th width="200px">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr data-value="@item.ID" data-hotel="@item.ReservacionHotelID">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @string.Concat(item.Nombre, " ", item.Apellido)
-                        </td>
-                        <td>
-                            @string.Concat(item.Fecha_Entrada.GetValueOrDefault().ToString("dd/MM/yyyy"), " - ", item.Fecha_Salida.GetValueOrDefault().ToString("dd/MM/yyyy"))
-                        </td>
-                        <td>
-                            @{
-                                if (item.Id_Paquete != null)
-                                {
-                                                        <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-value="@item.ID" data-hotel="@item.ReservacionHotelID">
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @string.Concat(item.Nombre, " ", item.Apellido)
+                            </td>
+                            <td>
+                                @string.Concat(item.Fecha_Entrada.GetValueOrDefault().ToString("dd/MM/yyyy"), " - ", item.Fecha_Salida.GetValueOrDefault().ToString("dd/MM/yyyy"))
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Id_Paquete != null)
+                                    {
+                                        <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Personalizado</span>
+                                    }
                                 }
-                                else
-                                {
-                                                    <span>Personalizado</span>
-                                }
-                            }
 
-                        </td>
-                        <td>
-                            @{
-                                if (item.ConfirmacionPago == true)
-                                {
-                                                    <span class="ui green label">Realizado</span>
-                                    
+                            </td>
+                            <td>
+                                @{
+                                    if (item.ConfirmacionPago == true)
+                                    {
+                                        <span class="ui green label">Realizado</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="ui blue label">Pendiente</span>
+
+                                    }
+
                                 }
-                                else
-                                {
-                                                    <span class="ui blue label">Pendiente</span>
-                                    
-                                }
-                                
-                            }
-                        </td>
-                        <td>
-                            L.@Html.DisplayFor(modelItem => item.precio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AmountOfPayments)/@Html.DisplayFor(modelItem => item.CantidadPagos)
-                        </td>
-                        
-                        <td>
-                            <a class="ui large icon btn-edit button" id="UpdateBottomDsTr" href="@Url.Action("Update", "Reservation", new { id=item.ID })">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </a>
-                            <button class="ui large icon btn-delete button" onclick="DeleteReservation(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </button>
-                            <a class="ui large icon button" href="@Url.Action("Details", "Reservation", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
+                            </td>
+                            <td>
+                                L.@Html.DisplayFor(modelItem => item.precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AmountOfPayments)/@Html.DisplayFor(modelItem => item.CantidadPagos)
+                            </td>
+
+                            <td class="Acciones">
+                                <a class="ui large icon btn-edit button" id="UpdateBottomDsTr" href="@Url.Action("Update", "Reservation", new { id=item.ID })">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </a>
+                                <button class="ui large icon btn-delete button" onclick="DeleteReservation(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a class="ui large icon button" href="@Url.Action("Details", "Reservation", new { id=item.ID })">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!--
+            <table class="ui compact selectable celled table" id="">
+                <thead>
+                    <tr>
+                        <th># de reservación</th>
+                        <th>Cliente</th>
+                        <th>Fecha Entrada - Fecha Salida</th>
+                        <th>Paquete</th>
+                        <th>Pago minimo del 40%</th>
+                        <th>Precio</th>
+                        <th>Cantidad de pagos</th>
+                        <th width="200px">Acciones</th>
                     </tr>
-                }
-            </tbody>
-        </table><br>
-        -->
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-value="@item.ID" data-hotel="@item.ReservacionHotelID">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @string.Concat(item.Nombre, " ", item.Apellido)
+                            </td>
+                            <td>
+                                @string.Concat(item.Fecha_Entrada.GetValueOrDefault().ToString("dd/MM/yyyy"), " - ", item.Fecha_Salida.GetValueOrDefault().ToString("dd/MM/yyyy"))
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Id_Paquete != null)
+                                    {
+                                                            <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
+                                    }
+                                    else
+                                    {
+                                                        <span>Personalizado</span>
+                                    }
+                                }
+
+                            </td>
+                            <td>
+                                @{
+                                    if (item.ConfirmacionPago == true)
+                                    {
+                                                        <span class="ui green label">Realizado</span>
+
+                                    }
+                                    else
+                                    {
+                                                        <span class="ui blue label">Pendiente</span>
+
+                                    }
+
+                                }
+                            </td>
+                            <td>
+                                L.@Html.DisplayFor(modelItem => item.precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AmountOfPayments)/@Html.DisplayFor(modelItem => item.CantidadPagos)
+                            </td>
+
+                            <td>
+                                <a class="ui large icon btn-edit button" id="UpdateBottomDsTr" href="@Url.Action("Update", "Reservation", new { id=item.ID })">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </a>
+                                <button class="ui large icon btn-delete button" onclick="DeleteReservation(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a class="ui large icon button" href="@Url.Action("Details", "Reservation", new { id=item.ID })">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table><br>
+            -->
+        </div>
     </div>
-</div>
-
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
 <div class="ui modal longer" id="modalCreate">
     <i class="close icon"></i>
@@ -215,7 +220,7 @@
                     </div>
                     <div class="two fields">
                         <div class="required field">
-                            <label>Monto</label> 
+                            <label>Monto</label>
                             <input type="number" min="1" name="RePa_Monto" id="RePa_Monto" class="form-control" />
 
                         </div>
@@ -253,7 +258,7 @@
                     <div class="two fields">
                         <div class="required field">
                             <label># de Reservación</label>
-                            <input name="resv_ID" id="Resv_ID" class="form-control" readonly/>
+                            <input name="resv_ID" id="Resv_ID" class="form-control" readonly />
 
                         </div>
                         <div class="required field">
@@ -288,8 +293,8 @@
 </div>
 
 
-@section Scripts{ 
-<script src="~/js/ReservationJs/Index.js"></script>
+@section Scripts{
+    <script src="~/js/ReservationJs/Index.js"></script>
 }
 @section HighlightTile{
     <script>

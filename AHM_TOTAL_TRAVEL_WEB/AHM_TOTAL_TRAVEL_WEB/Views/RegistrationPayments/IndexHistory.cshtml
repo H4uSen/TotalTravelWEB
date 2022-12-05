@@ -7,97 +7,101 @@
 
 
 
+@try
+{
+    <div class="container card">
+        <div class="ui basic segment">
 
-<div class="container card">
-    <div class="ui basic segment">
-
-        <div class="ui icon attached message md-3">
-            <i class="bi-cash-coin"></i>
-            <div class="content">
-                <div class="header">
-                    Historial Transacciones
+            <div class="ui icon attached message md-3">
+                <i class="bi-cash-coin"></i>
+                <div class="content">
+                    <div class="header">
+                        Historial Transacciones
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <table class="ui compact selectable celled table" id="grdHistoryPayments">
-            <thead>
-                <tr>
-                    <th>
-                        Monto Pago
-                    </th>
-                    <th>
-                        Fecha Pago
-                    </th>
-                    <th>
-                        Tipo Pago
-                    </th>
-                    <th>
-                        Nombre Paquete
-                    </th>
-                    <th>
-                        Descripcion Paquete
-                    </th>
-                    <th>
-                        Precio Paquete
-                    </th>
-                    <th>
-                        Nombre
-                    </th>
-                    <th>
-                        DNI
-                    </th>
-                    <th>
-                        Telefono
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+            <table class="ui compact selectable celled table" id="grdHistoryPayments">
+                <thead>
                     <tr>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MontoPago)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fechaPago)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoPago)
-                        </td>
-
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nombre_paquete)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.descripcion_paquete)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.precio_paquete)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre_Completo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DNI)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Telefono)
-                        </td>
-
-
+                        <th>
+                            Monto Pago
+                        </th>
+                        <th>
+                            Fecha Pago
+                        </th>
+                        <th>
+                            Tipo Pago
+                        </th>
+                        <th>
+                            Nombre Paquete
+                        </th>
+                        <th>
+                            Descripcion Paquete
+                        </th>
+                        <th>
+                            Precio Paquete
+                        </th>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            DNI
+                        </th>
+                        <th>
+                            Telefono
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table><br>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MontoPago)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaPago)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoPago)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre_paquete)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.descripcion_paquete)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.precio_paquete)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre_Completo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DNI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table><br>
+
+        </div>
     </div>
-</div>
-<br>
-
+    <br>
+}
+catch (Exception)
+{
+<script>location.assign("@Url.Action("Error", "Home")");</script>}
 @section Scripts{
     <script>
         $(document).ready(function () {
@@ -127,7 +131,7 @@
                         text: '',
                         className: "btn-primary ui small d-none",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5 ,6 ,7 ,8]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
                     },
                 ]

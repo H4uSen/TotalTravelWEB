@@ -64,5 +64,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(RolViewModel roles, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceResult result = new ServiceResult();
+                var idd = HttpContext.User.FindFirst("User_Id").Value;
+                roles.Role_UsuarioModifica = int.Parse(idd);
+
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var list = (RequestStatus)(await _AccessService.DeleteRoles(roles, id, token)).Data;
+
+                return Ok(list.CodeStatus);
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }

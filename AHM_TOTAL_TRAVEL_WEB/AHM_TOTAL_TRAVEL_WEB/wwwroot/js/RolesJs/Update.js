@@ -2,6 +2,19 @@
     $("#Rol_ID").hide();
 });
 
+const params = new URLSearchParams(window.location.search);
+const izziSuccess = params.get("success-d");
+
+if (izziSuccess == "true") {
+    iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+
+    $("#frmRestrictions").hide();
+    $("#frmRoles").show();
+    $("#screens_menus .item").removeClass("active");
+    $("#screens_menus .item").eq(1).addClass("active");
+}
+
+
 function GetRoles(id) {
     $(document).ready(function () {
         $("#Rol_DescripcionUpdate");
@@ -35,3 +48,16 @@ $("#sendEditRoles").click(() => {
     }
 
 });
+
+function DeleteRoles(id) {
+    const capsula1 = () => {
+        var response = ajaxRequest(urlAPI + "/API/Roles/Delete?id=" + id + "&Mod=" + Client_User_ID, null, "DELETE");
+        if (response.data.codeStatus > 0) {
+            window.location.href = '/Restrictions/Index?success-d=true';
+        } else {
+            console.log(response);
+        }
+    };
+    sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrara permanentemente.", "warning", capsula1);
+
+};

@@ -13,50 +13,54 @@
 }
 
 <h1>Reporte Paquetes Predeterminados</h1>
+@try
+{
+    <div class="container-fluid">
+        <div class="row">
 
-<div class="container-fluid">
-    <div class="row">
+            <!-- inicio columna contenedora -->
+            <div class="col-10" style="margin: auto">
+                <br>
 
-        <!-- inicio columna contenedora -->
-        <div class="col-10" style="margin: auto">
-            <br>
-
-            <div class="ui segment form">
-                <div class="fields two">
-                    <div class="field">
-                        <label>Escoge un filtro</label>
-                        <select class="ui dropdown search" id="cbbFiltro">
-                        </select>
+                <div class="ui segment form">
+                    <div class="fields two">
+                        <div class="field">
+                            <label>Escoge un filtro</label>
+                            <select class="ui dropdown search" id="cbbFiltro">
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Seleccione una opción</label>
+                            <select class="ui dropdown search" id="cbbValor">
+                                <option value="">Seleccione una opción</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Seleccione una opción</label>
-                        <select class="ui dropdown search" id="cbbValor">
-                            <option value="">Seleccione una opción</option>
-                        </select>
+                </div>
+                <div class="ui segment form">
+                    <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 8, HTMLFile = "DefaultPackagesReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
+                    <a href="@Url.Action("DefaultPackagesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 8, HTMLFile = "DefaultPackagesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+                </div>
+                <br>
+                <br>
+                <div class="card" id="a">
+                    <div class="card card-body">
+
+                        <iframe src="" frameborder="0" height="650" id="ifrReport"></iframe>
+
                     </div>
                 </div>
             </div>
-            <div class="ui segment form">
-                <a href="@Url.Action("ExportPDF", "Report", new ReportCreationModel{DataSourceIndex= 8, HTMLFile = "DefaultPackagesReportHTML"} )" class="ui button icon">PDF <i class="file pdf icon"></i></a>
-                <a href="@Url.Action("DefaultPackagesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 8, HTMLFile = "DefaultPackagesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+            <!-- fin columna contenedora -->
 
-            </div>
-            <br>
-            <br>
-            <div class="card" id="a">
-                <div class="card card-body">
-
-                    <iframe src="" frameborder="0" height="650" id="ifrReport"></iframe>
-
-                </div>
-            </div>
         </div>
-        <!-- fin columna contenedora -->
-
     </div>
-</div>
 
-
+}
+catch (Exception)
+{
+<script>location.assign("@Url.Action("Error", "Home")");</script>}
 @section HighlightTile{
     <script>
 
