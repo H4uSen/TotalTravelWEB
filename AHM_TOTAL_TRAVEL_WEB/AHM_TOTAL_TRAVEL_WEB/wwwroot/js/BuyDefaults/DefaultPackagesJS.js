@@ -149,7 +149,7 @@ const fill_data = {
                     const images = item.image_URL.split(',');
 
                     const card =
-                        `<div class="column package_item" data-value="16">
+                        `<div class="column package_item" data-value="${item.id}">
                             <div class="ui card" style="width:100%; height:100%;">
                                 <div class="image">
                                     <img src="${images[0]}" alt="" style="height:200px;">
@@ -1003,7 +1003,10 @@ $("#frmTransports").hide();
 $("#frmActivities").hide();
 $("#frmDetails").hide();
 fill_data.fillMain($("#Origen").val());
-
+const id_paquete = FindGetValue("id_paquete");
+if (id_paquete != null) {
+    $(`.package_item[data-value="${id_paquete}"]`).find("button.package_button_trigger").click();
+}
 //------------------------------------------- EVENTS ------------------------------------------
 
 $("#navbar_packages #pay_item").click(function (_this) {
