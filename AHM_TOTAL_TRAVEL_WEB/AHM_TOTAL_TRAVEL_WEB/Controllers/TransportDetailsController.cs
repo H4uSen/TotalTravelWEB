@@ -102,7 +102,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     string token = HttpContext.User.FindFirst("Token").Value;
                     transportdetails.DeTr_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                     var list = await _transportService.TransportDetailsCreate(transportdetails, token);
-                    return RedirectToAction("Index");
+                    return Redirect("~/TransportDetails?success=true");
                 }
                 else
                 {
@@ -174,7 +174,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     string token = HttpContext.User.FindFirst("Token").Value;
                     transportdetails.DeTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                     var lista = await _transportService.TransportDetailsUpdate(transportdetails, id, token);
-                    return RedirectToAction("Index");
+                    return Redirect("~/TransportDetails?success=true");
                 }
                 else
                 {

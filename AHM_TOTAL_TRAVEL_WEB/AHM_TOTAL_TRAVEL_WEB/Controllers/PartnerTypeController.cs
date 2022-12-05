@@ -53,7 +53,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 TipoPartner.TiPar_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var list = await _generalServices.PartnerTypeCreate(TipoPartner, token);
-                return RedirectToAction("Index");
+                return Redirect("~/PartnerType?success=true");
             }
             else
             {
@@ -97,7 +97,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 TipoPartner.TiPar_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
                 var id = TipoPartner.TiPar_ID;
                 var lista = await _generalServices.PartnerTypeUpdate(TipoPartner, id, token);
-                return RedirectToAction("Index");
+                return Redirect("~/PartnerType?success=true");
             }
             else
             {

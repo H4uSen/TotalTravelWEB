@@ -14,7 +14,6 @@
                     <div class="header text-capitalize">
                         Detalles
                     </div>
-                    <p>Detalles de un tipo de socio.</p>
                 </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "PartnerType")">
@@ -28,22 +27,18 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>ID</label>
-                                @Html.DisplayFor(model => model.ID)
-
-                            </div>
-                            <div class="field">
                                 <label>Descripcion</label>
                                 @Html.DisplayFor(model => model.Descripcion)
+                            </div>
+                            <div class="field">
+                                <label>Rol ID</label>
+                                @Html.DisplayFor(model => model.Rol_Id)
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
-                            <div class="field">
-                                <label>Rol ID</label>
-                                @Html.DisplayFor(model => model.Rol_Id)
-                            </div>
+                           
                             <div class="field">
                                 <label>Descripcion</label>
                                 @Html.DisplayFor(model => model.Rol_Descripcion)

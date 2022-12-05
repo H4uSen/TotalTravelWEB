@@ -28,7 +28,5 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public int TiPar_UsuarioCreacion { get; set; }
         public int TiPar_UsuarioModifica { get; set; }
 
-
-
     }
 }

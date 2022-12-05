@@ -14,7 +14,6 @@
                 <div class="header">
                     Tipos de Socios
                 </div>
-                <p>Crea, actualiza, elimina o busca y filtra .</p>
             </div>
         </div>
 
@@ -191,9 +190,28 @@
 
 
     </script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+
+        function DeleteTipoPartner(id) {
+            const capsula1 = () => {
+                var response = ajaxRequest("PartnerType/Delete?id=" + id, null, "POST");
+
+                window.location.href = '/PartnerType?success=true';
+
+            };
+            sweetAlertconfirm("¿Desea eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
+
+        };
+    </script>
 }
 
-    @section HighlightTile{
+@section HighlightTile{
     <script>
 
         $("#GeneralModule").addClass("active");
@@ -205,4 +223,4 @@
 
         $("#TypePartnersTile").addClass("activeTile");
     </script>
-    }
+}

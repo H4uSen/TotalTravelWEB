@@ -150,9 +150,7 @@
             });
         });
 
-        $("#tabla").paginationTdA({
-            elemPerPage: 10
-        });
+        
 
         function DeleteDetalleTransporte(id) {
             const DTransporte = () => {
@@ -165,6 +163,15 @@
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", DTransporte);
 
         };
+    </script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
+
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+
     </script>
 }
 
