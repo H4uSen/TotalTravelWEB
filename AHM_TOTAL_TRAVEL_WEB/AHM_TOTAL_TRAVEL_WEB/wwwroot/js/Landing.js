@@ -2,7 +2,7 @@
 
 function fillpackage() {
     const request = ajaxRequest(
-        "https://apitotaltravel.azurewebsites.net/API/DefaultPackages/List",
+        "https://totaltravelapi.azurewebsites.net/API/DefaultPackages/List",
         null, "GET", false
     );
     $("#package-slider").empty();
