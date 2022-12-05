@@ -3,6 +3,9 @@ var ActivitiesList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
 var DetailsTransportationList = ajaxRequest(urlAPI+"/API/DetailsTransportation/List");
 var CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
 var Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
+//var HotelsList = ajaxRequest(urlAPI + "/API/Hotels/List");
+//var RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
+//var HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -25,91 +28,141 @@ const fill_data = {
             var package = packagesList.data;
             if (id_ciudad_destino != null) {
                 package = packagesList.data.filter(x => x.ciudad_ID == id_ciudad_destino);
+                console.log(package);
             }
 
             $("#frmMenu_container #frmPackages .ui.grid").empty();
-            for (var i = 0; i < package.length; i++) {
+            $("#frmMenu_container #frmPackages .ui.items").hide();
+            $("#frmMenu_container #frmPackages .ui.items").empty();
 
-                const item = package[i];
-                const images = item.image_URL.split(',');
+            if (package != 0) {
+                for (var i = 0; i < package.length; i++) {
 
-                const card =
-                    `<div class="column package_item" data-value="16">
-                        <div class="ui card" style="width:100%; height:100%;">
-                            <div class="image">
-                                <img src="${images[0]}" alt="" style="height:200px;">
-                            </div>
-                            <div class="content">
-                                <a class="header">
-                                    <h3>
-                                        <b>${item.nombre}</b>
-                                    </h3>
-                                </a>
-                                <h5 class="description">${item.descripcion_Paquete}</h5>
+                    const item = package[i];
+                    const images = item.image_URL.split(',');
 
-                                <div class="extra">
-                                    <br>
-                                    <h6 style="font-weight:bold;">- Capacidad máxima de ${item.cantidad_de_personas} personas</h6><h6>- Destino: ${item.ciudad}</h6>
-                                    <br>
-                                </div><br>
-                                <div class="ui labeled large button" tabindex="0">
-                                    <div class="ui green button">
-                                        <i class="tag icon"></i> Precio
-                                    </div>
-                                    <h3 class="ui basic left pointing label">
-                                        L ${item.precio}
-                                    </h3>
+                    const card =
+                        `<div class="column package_item" data-value="16">
+                            <div class="ui card" style="width:100%; height:100%;">
+                                <div class="image">
+                                    <img src="${images[0]}" alt="" style="height:200px;">
                                 </div>
-                                <button class="ui right floated primary button package_button_trigger" data-value="${item.id}" data-selected="false">
-                                    RESERVAR <i class="right chevron icon"></i>
-                                </button>
+                                <div class="content">
+                                    <h3><b>${item.nombre}</b></h3>
+                                    <h5 class="description">${item.descripcion_Paquete}</h5>
+
+                                    <div class="extra">
+                                        <br>
+                                        <h6 style="font-weight:bold;">- Capacidad máxima de ${item.cantidad_de_personas} personas</h6>
+                                        <h6>- Destino: ${item.ciudad}</h6>
+                                        <h6>- Precio: L ${item.precio}</h6>
+                                        <br>
+                                    </div><br>
+                                    <button class="ui right floated btn-edit text-white button package_button_trigger" data-value="${item.id}" data-selected="false">
+                                        RESERVAR <i class="right chevron icon"></i>
+                                    </button>
+                                    <a class="ui right floated button text-white" href="javascript:ObtenerDetalles(${item.id})" style="background-color: #DCC25A;">
+                                        VER DETALLES
+                                    </a>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    $("#frmMenu_container #frmPackages .ui.grid").append(card);
+                }
+
+                //function ObtenerDetalles(id) {
+                //    $("#frmMenu_container #frmPackages .ui.grid").hide();
+                //    $("#frmMenu_container #frmPackages .ui.items").append(`<div class="item activity_item">
+                //        <div class="image">
+                //            ${carousel}
+                //        </div>
+                //        <div class="content" style="padding-right: 10em;">
+                //            <h3 style="font-size: 0.90rem;">
+                //                <b class="blue_text">${item.actividad}</b>
+                //            </h3>
+                //            <b>${item.partner}</b>
+                //            <div class="description" style="font-size: 0.88rem;">
+                //                ${item.descripcion}
+                //            </div>
+                //            <div class="extra">
+                //                <h3 class="ui green header" style="font-size: 0.877rem;">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
+                //            </div>
+                //        </div>
+                //        <div class="content left floated activitiesExtra_form_content">
+                //            <div class="fields">
+
+                //                <div class="field">
+                //                    <label>No. de personas</label>
+                //                    <div class="field">
+                //                        <div class="ui right labeled input ExtraActivity_contador">
+                //                            <div class="ui icon button label minus_button">
+                //                                <i class="minus icon"></i>
+                //                            </div>
+                //                            <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
+                //                                <div class="ui icon button label plus_button">
+                //                                    <i class="plus icon"></i>
+                //                                </div>
+                //                            </div>
+                //                        </div>
+                //                    </div>
+
+                //                    <div class="field required">
+                //                        <label>Fecha reservacion</label>
+                //                        <div class="ui calendar activities_fecha">
+                //                            <div class="ui input left icon">
+                //                                <i class="calendar icon"></i>
+                //                                <input type="text" placeholder="Fecha de reservacion" readonly>
+                //                            </div>
+                //                        </div>
+                //                </div>
+                //            </div>
+                //        </div>`);
+                //    $("#frmMenu_container #frmPackages .ui.items").show();
+                //}
+
+                $(".package_button_trigger").click(function (_this_button) {
+
+                    var selected = $(_this_button.target).attr("data-selected");
+
+                    //set default
+                    $(".package_button_trigger").removeClass("positive").addClass("btn-edit text-white");
+                    $(".package_button_trigger").html('RESERVAR <i class="right chevron icon"></i>');
+
+                    //set actual
+                    $(".package_button_trigger").attr("data-selected", "false");
+
+                    if (selected == "false") {
+                        $(_this_button.target).attr("data-selected", "true");
+
+                        $(_this_button.target).addClass("positive").removeClass("btn-edit text-white");
+                        $(_this_button.target).html('RESERVADO <i class="right chevron icon"></i>');
+
+                        $("#navbar_packages #pay_item").addClass("menu_item").removeClass("disabled");
+                    }
+                    else {
+                        $("#navbar_packages #pay_item").removeClass("menu_item").addClass("disabled");
+                        $(_this_button.target).attr("data-selected", "false");
+
+                        $(_this_button.target).removeClass("positive").addClass("btn-edit text-white");
+                        $(_this_button.target).html('RESERVAR <i class="right chevron icon"></i>');
+                    }
+                });
+             }
+            else {
+                $("#frmMenu_container #frmPackages .ui.grid").empty();
+                $("#frmMenu_container #frmPackages .ui.grid").append(
+                    `<div class="item">
+                        <div class="content">
+                            <div class="ui negative message">
+                                <div class="header">
+                                    No hay paquetes disponibles para el destino seleccionado.
+                                </div>
                             </div>
                         </div>
-                    </div>`;
-
-                $("#frmMenu_container #frmPackages .ui.grid").append(card);
+                    </div>`
+                );
             }
-
-            $(".package_button_trigger").click(function (_this_button) {
-
-                var selected = $(_this_button.target).attr("data-selected");
-
-                //set default
-                $(".package_button_trigger").removeClass("positive").addClass("primary");
-                $(".package_button_trigger").html('RESERVAR <i class="right chevron icon"></i>');
-
-                //set actual
-                $(".package_button_trigger").attr("data-selected", "false");
-
-                if (selected == "false") {
-                    $(_this_button.target).attr("data-selected", "true");
-
-                    $(_this_button.target).addClass("positive").removeClass("primary");
-                    $(_this_button.target).html('RESERVADO <i class="right chevron icon"></i>');
-
-                    $("#navbar_packages #pay_item").addClass("menu_item").removeClass("disabled");
-                }
-                else {
-                    $("#navbar_packages #pay_item").removeClass("menu_item").addClass("disabled");
-                    $(_this_button.target).attr("data-selected", "false");
-
-                    $(_this_button.target).removeClass("positive").addClass("primary");
-                    $(_this_button.target).html('RESERVAR <i class="right chevron icon"></i>');
-                }
-            });
-        }
-        else {
-            $("#frmMenu_container #frmPackages").append(
-                `<div class="item">
-                    <div class="content">
-                        <div class="ui negative message">
-                            <div class="header">
-                                No hay paquetes disponibles en esta ciudad
-                            </div>
-                        </div>
-                    </div>
-                </div>`
-            );
         }
     },
 
@@ -230,7 +283,8 @@ const fill_data = {
                 });
 
             } else {
-                $("#frmActivities").append(
+                $("#frmActivities .ui.items").empty();
+                $("#frmActivities .ui.items").append(
                     `<div class="item">
                     <div class="content">
                         <div class="ui negative message">
@@ -264,14 +318,14 @@ const fill_data = {
         if (!transports.filter(item => item.tipo_Transporte_ID == 2).length > 0) {
             $("#frmTransports_Container #frmTransportes .ui.items").append(
                 `<div class="item">
-                <div class="content">
-                    <div class="ui negative message">
-                        <div class="header">
-                            No hay Transportes urbanos disponibles para esta área.
+                    <div class="content">
+                        <div class="ui negative message">
+                            <div class="header">
+                                No hay Transportes urbanos disponibles para esta área.
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
             );
         }
         //aereos
@@ -501,21 +555,14 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
         reservation.reHo_FechaEntrada = $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
         reservation.reHo_FechaSalida = $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
 
-        //ReservationInsert();
+        console.log(reservation);
 
-        //function ReservationInsert() {
-        //const SendToken = true;
-        //const method = "POST";
-        //const data = reservation;
-        //const url = "/BuyDefaults/Create"
-        //const response = uploadFile(url, reservation, method);
         var response = ajaxRequest(urlAPI+"/API/Reservation/Insert", reservation, "POST");
-        console.log(response);
+        //console.log(response);
         var idres;
         if (response.code == 200) {
             idres = parseInt(response.data.codeStatus);
             CancelarReservacion(idres);
-
         }
     }
 }
@@ -728,7 +775,6 @@ const getDetails = {
     },
 
     getActivities: function () {
-
         var response = {
             data: [],
             cards: [],
@@ -741,7 +787,7 @@ const getDetails = {
         $.each(activitiesButtons, function (i, item) {
 
             const container = $(item).parents(".activitiesExtra_form_content");
-            const id_activity = $(item).attr("data-value")
+            const id_activity = $(item).attr("data-value");
             const activity = activities.filter(x => x.id == id_activity)[0];
 
             const model = {
@@ -798,7 +844,6 @@ const getDetails = {
             response.data.push(model);
             response.cards.push(card);
         });
-
         return response;
     },
 
@@ -808,7 +853,6 @@ const getDetails = {
             cards: [],
             subtotal: 0
         };
-
         const transports = DetailsTransportationList.data;
         const transportsButtons = $(".transport_item .transport_trigger_button[data-selected='true']");
 

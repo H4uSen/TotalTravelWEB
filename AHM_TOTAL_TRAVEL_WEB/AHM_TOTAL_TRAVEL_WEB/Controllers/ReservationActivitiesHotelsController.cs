@@ -23,16 +23,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var model = new List<ReservationActivitiesHotelsListViewModel>();
             var list = await _reservationService.ReservationActivitiesHotelsList(token);
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try { 
             var model = new List<ReservationActivitiesHotelsViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
@@ -52,38 +59,49 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationActivitiesHotelsViewModel reserva)
         {
-
-            if (ModelState.IsValid)
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var id = HttpContext.User.FindFirst("User_Id").Value;
-                reserva.ReAH_UsuarioCreacion = int.Parse(id);
-                var list = await _reservationService.ReservationActivitiesHotelsCreate(reserva, token);
-
-                var l = ((RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+            try { 
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/ReservationActivitiesHotels?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var id = HttpContext.User.FindFirst("User_Id").Value;
+                    reserva.ReAH_UsuarioCreacion = int.Parse(id);
+                    var list = await _reservationService.ReservationActivitiesHotelsCreate(reserva, token);
+
+                    var l = ((RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/ReservationActivitiesHotels?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var item = new ReservationActivitiesHotelsViewModel();
@@ -114,11 +132,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(ReservationActivitiesHotelsViewModel reserva)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -140,11 +164,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(ReservationActivitiesHotelsViewModel reserva, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -160,14 +190,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var reserva = (ReservationActivitiesHotelsListViewModel)(await _reservationService.ReservationActivitiesHotelsFind(id, token)).Data;
 
             return View(reserva);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

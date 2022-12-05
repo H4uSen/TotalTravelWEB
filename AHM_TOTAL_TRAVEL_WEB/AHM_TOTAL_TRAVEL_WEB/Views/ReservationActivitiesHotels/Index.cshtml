@@ -4,28 +4,29 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@try
+{
+    <div class="container card">
+        <div class="ui basic segment">
 
-<div class="container card">
-    <div class="ui basic segment">
-
-        <div class="ui icon attached message">
-            <i class="figure icon"></i>
-            <div class="content">
-                <div class="header">
-                    Reservación Actividades Hoteles
+            <div class="ui icon attached message">
+                <i class="figure icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Reservación Actividades Hoteles
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <div class="ui grid mb-3">
-            <div class="eight wide column">
-                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","ReservationActivitiesHotels")">
-                    <i class="plus icon"></i> Nuevo
-                </a>
+            <br>
+            <div class="ui grid mb-3">
+                <div class="eight wide column">
+                    <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create","ReservationActivitiesHotels")">
+                        <i class="plus icon"></i> Nuevo
+                    </a>
+                </div>
             </div>
-        </div>
-        <table id="grdReservationActivitiesHotels" class="display ui compact selectable celled table" style="width:100%;">
+            <table id="grdReservationActivitiesHotels" class="display ui compact selectable celled table" style="width:100%;">
                 <thead>
                     <tr>
                         <th>
@@ -92,8 +93,13 @@
             </table>
             <br>
 
+        </div>
     </div>
-</div>
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 <br>
 
 

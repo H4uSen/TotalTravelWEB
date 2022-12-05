@@ -5,64 +5,70 @@
 }
 <br>
 <br>
-<div id="frmHotelsReports" class="container ui segment">
-    <div class="ui floating dropdown labeled search icon button" id="cbbCities">
-        <i class="filter icon"></i>
-        <span class="text">Filtrar por ciudad</span>
-        <div class="menu">
-            <div class="header">
-                <i class="tags icon"></i> Filter by tag
-            </div>
-            <div class="item" data-value="0">Todos</div>
+@try
+{
+    <div id="frmHotelsReports" class="container ui segment">
+        <div class="ui floating dropdown labeled search icon button" id="cbbCities">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por ciudad</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
 
-            @foreach (CityListViewModel item in ViewBag.Ciudades)
-            {
-                <div class="item" data-value="@item.ID">@item.Ciudad</div>
-            }
+                @foreach (CityListViewModel item in ViewBag.Ciudades)
+                {
+                    <div class="item" data-value="@item.ID">@item.Ciudad</div>
+                }
+            </div>
+        </div>
+
+        <div class="ui floating dropdown labeled search icon button" id="cbbHotels">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por hotel</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+
+                @foreach (HotelListViewModel item in ViewBag.Hoteles)
+                {
+                    <div class="item" data-value="@item.ID">@item.Hotel</div>
+                }
+            </div>
+        </div>
+
+        <div class="ui floating dropdown labeled search icon button" id="cbbPartners">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por partner</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+
+                @foreach (PartnersListViewModel item in ViewBag.Socios)
+                {
+                    <div class="item" data-value="@item.ID">@item.Nombre</div>
+                }
+            </div>
+        </div>
+
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(true)">FILTRAR REPORTE</button>
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(false)">TRAER TODOS</button>
+        <a href="@Url.Action("ReservacionesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+        <div class="ui segment">
+            <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
         </div>
     </div>
-
-    <div class="ui floating dropdown labeled search icon button" id="cbbHotels">
-        <i class="filter icon"></i>
-        <span class="text">Filtrar por hotel</span>
-        <div class="menu">
-            <div class="header">
-                <i class="tags icon"></i> Filter by tag
-            </div>
-            <div class="item" data-value="0">Todos</div>
-
-            @foreach (HotelListViewModel item in ViewBag.Hoteles)
-            {
-                <div class="item" data-value="@item.ID">@item.Hotel</div>
-            }
-        </div>
-    </div>
-
-    <div class="ui floating dropdown labeled search icon button" id="cbbPartners">
-        <i class="filter icon"></i>
-        <span class="text">Filtrar por partner</span>
-        <div class="menu">
-            <div class="header">
-                <i class="tags icon"></i> Filter by tag
-            </div>
-            <div class="item" data-value="0">Todos</div>
-
-            @foreach (PartnersListViewModel item in ViewBag.Socios)
-            {
-                <div class="item" data-value="@item.ID">@item.Nombre</div>
-            }
-        </div>
-    </div>
-
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(true)">FILTRAR REPORTE</button>
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(false)">TRAER TODOS</button>
-    <a href="@Url.Action("ReservacionesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
-
-    <div class="ui segment">
-        <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
-    </div>
-</div>
-
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 @section Scripts{
 
     <script>
@@ -77,7 +83,7 @@
                     user_name: Client_User_Name
                 };
                 if (parameter) {
-                    if ($("#cbbCities .item.selected").length > 0 && $("#cbbCities .item.selected").attr("data-value") != 0 ) {
+                    if ($("#cbbCities .item.selected").length > 0 && $("#cbbCities .item.selected").attr("data-value") != 0) {
                         var id_ciudad = $("#cbbCities .item.selected").attr("data-value");
                         query.parameters.ciudadID = parseInt(id_ciudad);
                     }

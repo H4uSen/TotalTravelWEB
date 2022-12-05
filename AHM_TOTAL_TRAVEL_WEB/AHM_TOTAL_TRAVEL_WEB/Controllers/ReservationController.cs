@@ -42,6 +42,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
+            try { 
             ViewBag.RouteValues = routeValues;
             var token = HttpContext.User.FindFirstValue("Token");
             List<PaymentRecordListViewModel> payments = (List<PaymentRecordListViewModel>)(await _saleServices.PaymentRecordsList()).Data;
@@ -51,39 +52,51 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 item.AmountOfPayments = (payments.Where(x => x.Id_Reservacion == item.ID)).Count();
             });
             return View(list);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
-            string token = HttpContext.User.FindFirstValue("Token");
-            try
-            {
-                if (routeValues.Command == "Personalize")
-                    return RedirectToAction("PersonalizaPackage", "Reservation", routeValues);
+            try { 
+                string token = HttpContext.User.FindFirstValue("Token");
+                try
+                {
+                    if (routeValues.Command == "Personalize")
+                        return RedirectToAction("PersonalizaPackage", "Reservation", routeValues);
 
-                ViewBag.RouteValues = routeValues;
+                    ViewBag.RouteValues = routeValues;
 
 
-                var responseHotelsActivities = await _hotelsService.HotelsActivitiesList(token);
-                List<HotelsActivitiesListViewModel> hotelsActivities = (List<HotelsActivitiesListViewModel>)responseHotelsActivities.Data;
-                ViewBag.hotelActivities = new MultiSelectList(hotelsActivities, "ID", "ddlItem");
+                    var responseHotelsActivities = await _hotelsService.HotelsActivitiesList(token);
+                    List<HotelsActivitiesListViewModel> hotelsActivities = (List<HotelsActivitiesListViewModel>)responseHotelsActivities.Data;
+                    ViewBag.hotelActivities = new MultiSelectList(hotelsActivities, "ID", "ddlItem");
 
-                var responseExtraActivities = await _activitiesServices.ExtraActivitiesList(token);
-                List<ActivitiesExtrasListViewModel> extraActivities = (List<ActivitiesExtrasListViewModel>)responseExtraActivities.Data;
-                ViewBag.extraActivities = new MultiSelectList(extraActivities, "ID", "ddlItem");
+                    var responseExtraActivities = await _activitiesServices.ExtraActivitiesList(token);
+                    List<ActivitiesExtrasListViewModel> extraActivities = (List<ActivitiesExtrasListViewModel>)responseExtraActivities.Data;
+                    ViewBag.extraActivities = new MultiSelectList(extraActivities, "ID", "ddlItem");
 
-                return View();
+                    return View();
+                }
+                catch (Exception)
+                {
+                    return View(routeValues);
+                }
             }
             catch (Exception)
             {
-                return View(routeValues);
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel reservation, IFormCollection form, RouteValuesModel routeValues)
         {
+            try { 
             if (reservation.CrearPersonalizado)
                 return RedirectToAction("PersonalizePackages", "Reservation", new RouteValuesModel { BackController = "Reservation", BackAction = "Index", IsRedirect = true, Command = "Reservation", responseID = int.Parse(form["Usua_ID"].ToString()) });
             if (reservation.CrearUsuario)
@@ -190,22 +203,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
 
             return View(reservation);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id, RouteValuesModel routeValues)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            routeValues.Command = "Update";
-            ViewBag.RouteValues = routeValues;
+            try { 
+                string token = HttpContext.User.FindFirst("Token").Value;
+                routeValues.Command = "Update";
+                ViewBag.RouteValues = routeValues;
 
 
-            var list = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> data = (IEnumerable<ReservationListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            ViewBag.Paquete = element;
+                var list = await _reservationService.ReservationList(token);
+                IEnumerable<ReservationListViewModel> data = (IEnumerable<ReservationListViewModel>)list.Data;
+                var element = data.Where(x => x.ID == id).ToList()[0];
+                ViewBag.Paquete = element;
 
-            return View("Create");
+                return View("Create");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         
         [HttpPost]
@@ -501,16 +525,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> PersonalizePackages(RouteValuesModel routeValues)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
+            ViewBag.RouteValues = routeValues;
             int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
-            if (routeValues.IsRedirect && routeValues.Command == "Reservation")
-            { 
-                ViewBag.RouteValues = routeValues;
-            }
-            if (routeValues.IsRedirect && routeValues.Command == "Update")
-            {
-                ViewBag.RouteValues = routeValues;
-            }
             
 
             var UserData = (UserListViewModel)(await _accessService.UsersFind(User_Id, token)).Data;
@@ -523,14 +541,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.ciudades = new SelectList(ciudades, "ID", "Ciudad");
             ViewBag.ciudadesResidencia = new SelectList(ciudades, "ID", "Ciudad", UserAddress.ID_Ciudad);
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Details(int  id)
         {
-
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var reservation = (ReservationListViewModel)(await _reservationService.ReservationFind(id, token)).Data;
            
             return View(reservation);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

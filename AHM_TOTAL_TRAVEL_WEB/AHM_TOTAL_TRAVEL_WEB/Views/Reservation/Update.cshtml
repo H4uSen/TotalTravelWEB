@@ -17,26 +17,27 @@
         }
     </style>
 }
-
-<div class="container card">
-    <div class="ui basic segment">
-        <div class="ui icon attached message">
-            <i class="icon food"></i>
-            <div class="content">
-                <div class="header text-capitalize">
-                    Actualizar Reservación
+@try
+{
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon food"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Actualizar Reservación
+                    </div>
                 </div>
-            </div>
-            <div class="right floated content" style="text-align: end;">
-                <a class="ui left labeled icon button" href="@Url.Action("Index", "Reservation")">
-                    Regresar
-                    <i class="left arrow icon"></i>
-                </a>
-            </div>
-        </div><br />
-        <!-- formulario-->
-        <form asp-action="Update" asp-controller="Reservation" id="updateReservationForm">
-            
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Reservation")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div><br />
+            <!-- formulario-->
+            <form asp-action="Update" asp-controller="Reservation" id="updateReservationForm">
+
                 <div class="ui form attached fluid segment">
                     <div class="content">
 
@@ -83,7 +84,7 @@
                                 <label>Fecha de nacimiento</label>
                                 <input type="text" id="txtFechaNacimiento" value="" placeholder="Fecha de nacimiento" readonly>
                             </div>
-                            
+
                         </div>
 
                         <!-- General data of the reservation -->
@@ -147,7 +148,7 @@
                             </div>
                         </div>
 
-                     
+
 
 
                         <!-- Default packages selection -->
@@ -237,7 +238,7 @@
                                     <div class="three fields">
                                         <div class="field">
                                             <label>Actividades</label>
-                                            @Html.DropDownList("ID_HotelsActivities", ViewBag.hotelActivities as MultiSelectList,"Seleccione algunas actividades", new { @class = "ui fluid search dropdown", multiple = "multiple" })
+                                            @Html.DropDownList("ID_HotelsActivities", ViewBag.hotelActivities as MultiSelectList, "Seleccione algunas actividades", new { @class = "ui fluid search dropdown", multiple = "multiple" })
                                         </div>
                                     </div>
                                 </div>
@@ -253,7 +254,7 @@
                                     <div class="three fields">
                                         <div class="field">
                                             <label>Actividades</label>
-                                            @Html.DropDownList("ID_ExtrasActivities", ViewBag.extraActivities as MultiSelectList,"Seleccione algunas actividades", new { @class = "ui fluid search dropdown", multiple = "multiple" })
+                                            @Html.DropDownList("ID_ExtrasActivities", ViewBag.extraActivities as MultiSelectList, "Seleccione algunas actividades", new { @class = "ui fluid search dropdown", multiple = "multiple" })
                                         </div>
                                     </div>
                                 </div>
@@ -274,17 +275,21 @@
                     </div>
                     <p></p>
                 </div>
-        </form>
-        <!-- fin formulario-->
-        
-        
-    </div>
-</div>
+            </form>
+            <!-- fin formulario-->
 
+
+        </div>
+    </div>
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 @section Scripts {
-    
-       
-    
+
+
+
     <script>
         const Reservacion_HotelID = "@ViewData["Reservacion_HotelID"]";
         const Hotel_ID = "@ViewData["Hotel_ID"]";
@@ -293,6 +298,6 @@
         const Reservation = "@ViewData["Reservation"]";
         const ReservationID = "@ViewData["ReservationID"]";
     </script>
-    
+
     <script src="~/js/ReservationJs/Update.js"></script>
 }

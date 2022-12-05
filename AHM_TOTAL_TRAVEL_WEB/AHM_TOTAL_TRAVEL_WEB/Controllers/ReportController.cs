@@ -60,20 +60,34 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
     public IActionResult Index()
         {
-            ViewData["Usuario"] = HttpContext.Request.Cookies["usuario"];
+            try
+            {
+                ViewData["Usuario"] = HttpContext.Request.Cookies["usuario"];
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         #region HOTELES_PHP
         public async Task<IActionResult> IndexHoteles()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
-            ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
-            ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
+                ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+                ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> HotelesReportXLS(int ReportTiype, string filtertype, string filtervalue)
@@ -125,11 +139,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         #region SOCIOS_PHP
         public async Task<IActionResult> IndexSociosReport()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
-            ViewBag.TipoSocios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+                ViewBag.TipoSocios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
@@ -184,12 +205,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> IndexReservacionesReport()
         {
+            try
+            {
             var token = HttpContext.User.FindFirst("Token").Value;
             ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
             ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
             ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         /////////////////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> ReservacionesReportXLS(int ReportTiype, string filtertype, string filtervalue)
@@ -242,6 +270,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> IndexUsuariosReport()
         {
+            try
+            {
+
             var token = HttpContext.User.FindFirst("Token").Value;
            // ViewBag.Edad = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
            // ViewBag.Sexo = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
@@ -249,6 +280,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Partners = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> UsuarioReportXLS(int ReportTiype, string filtertype, string filtervalue)
         {
@@ -303,12 +339,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> IndexRestaurantesReport()
         {
+            try
+            {
             var token = HttpContext.User.FindFirst("Token").Value;
             ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
             ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
             ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -357,7 +400,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> IndexClientesReport()
         {
+            try
+            {
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> ClientsReportXLS(int ReportTiype, string filtertype, string filtervalue)
@@ -596,18 +646,31 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         /////////////////////////////////////////////////////////////////////////////////////////
         public IActionResult TransportReport()
         {
-
+            try
+            {
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         /////////////////////////////////////////////////////////////////////////////////////////
 
         public async Task<ActionResult> TransportReportHTML()
         {
+            try
+            {
             var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
 
             ViewData["IndexDataSource"] = 1;
 
             return View(data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -668,8 +731,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public IActionResult ReservacionesReport()
         {
-
+            try
+            {
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -677,11 +746,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //HACE EL ARCHIVO HMTL QUE ANDRES DE PUEDE3 HACER 
         public async Task<ActionResult> ReservacionesReportHTML()
         {
+            try
+            {
             var token = HttpContext.User.FindFirstValue("Token");
 
             var data = (IEnumerable<ReservationViewModel>)(await _reservationService.ReservationList(token)).Data;
 
             return View(data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
@@ -691,8 +767,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         #region REGISTRO_DE_PAGO 
         public IActionResult RecordPaymentReport()
         {
-
+            try { 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
@@ -701,9 +782,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //HACE EL ARCHIVO HMTL QUE ANDRES DE PUEDE3 HACER 
         public async Task<ActionResult> RecordPaymentReportHTML()
         {
+            try { 
             var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
 
             return View(data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -783,8 +870,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public IActionResult DefaultPackagesReport()
         {
-
+            try { 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
@@ -794,11 +886,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //HACE EL ARCHIVO HMTL QUE ANDRES DE PUEDE3 HACER 
         public async Task<ActionResult> DefaultPackagesReportHTML()
         {
+            try { 
             var token = HttpContext.User.FindFirstValue("Token");
 
             var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
 
             return View(data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
