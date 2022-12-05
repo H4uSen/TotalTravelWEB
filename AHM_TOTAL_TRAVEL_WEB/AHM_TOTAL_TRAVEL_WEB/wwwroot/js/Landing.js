@@ -53,7 +53,7 @@ function fillpackage() {
 ${package.descripcion_Paquete}
 </div>
                     <div class="contenedor">
-                        <a href="/Access/LogIn" class="card__action button -primary">RESERVAR</a>
+                        <a href="/Access/Register?id_paquete=${package.id}" class="card__action button -primary">RESERVAR</a>
                     </div>
                 </div>
             </div>`;

@@ -29,141 +29,214 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+            
         }
 
         public IActionResult RecoverPassword()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+            
         }
        
         [HttpPost]
         public async Task<IActionResult> EmailVerification(EmailVerificationModel emailVerification)
         {
-            if (emailVerification.to!= null)
+            try
             {
-                ServiceResult result = await _accessServices.EmailVerification(emailVerification);
-                var EmailVerify = (RequestStatus)result.Data;
-                if (result.Success)
+                if (emailVerification.to != null)
                 {
-                    ServiceResult resultEmail = await _accessServices.EmailSender(emailVerification);
-                    int CorrectCode = (int)resultEmail.Data;
-                    #region AUTENTICACTION
-                    var claims = new List<Claim>
+                    ServiceResult result = await _accessServices.EmailVerification(emailVerification);
+                    var EmailVerify = (RequestStatus)result.Data;
+                    if (result.Success)
+                    {
+                        ServiceResult resultEmail = await _accessServices.EmailSender(emailVerification);
+                        int CorrectCode = (int)resultEmail.Data;
+                        #region AUTENTICACTION
+                        var claims = new List<Claim>
                     {
                     new Claim("User_Id", EmailVerify.CodeStatus.ToString()),
                     new Claim("Correct_Code", CorrectCode.ToString()),
 
                     };
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    #endregion
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        #endregion
 
-                    return Redirect("/Access/CodeConfirmX?success="+ EmailVerify.CodeStatus);
+                        return Redirect("/Access/CodeConfirmX?success=" + EmailVerify.CodeStatus);
+                    }
+                    else
+                    {
+                        ViewData["EmailError"] = EmailVerify.MessageStatus;
+                        return View("RecoverPassword");
+                    }
                 }
                 else
                 {
-                    ViewData["EmailError"] = EmailVerify.MessageStatus;
+                    ViewData["EmailError"] = "Rellene este campo";
                     return View("RecoverPassword");
                 }
             }
-            else
+            catch(Exception)
             {
-                ViewData["EmailError"] = "Rellene este campo";
-                return View("RecoverPassword");
+                return RedirectToAction("LogIn", "Access");
             }
+           
         }
         public async Task<IActionResult> RegisterAsync()
         {
-           var city = await _generalService.CitiesList();
-            IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
-            ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
+            try
+            {
+                var city = await _generalService.CitiesList();
+                IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
+                ViewBag.City_ID = new SelectList(data_City, "ID", "Ciudad");
 
-            var country = await _generalService.CountriesList();
-            IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
-            ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
+                var country = await _generalService.CountriesList();
+                IEnumerable<CountriesListViewModel> data_Country = (IEnumerable<CountriesListViewModel>)country.Data;
+                ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+            
         }
 
 
         public IActionResult ChangePassword()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+            
         }
         [HttpPost]
         public async Task<IActionResult> ChangePassword(changePassword password)
         {
-            var userID = password.ID;
-            
-            if (password.usua_Password == null || password.passwordConfirm == null)
+            try
             {
-                ViewData["passwordValidator"] = "Rellene todo los campos.";
-            }
-            else if(password.usua_Password != password.passwordConfirm)
-            {
-                ViewData["passwordValidator"] = "Las contraseñas no coinciden.";
-            }else if((password.passwordConfirm.ToString()).Length < 7)
-            {
-                ViewData["passwordValidator"] = "La contraseña es muy corta.";
-            }
-            else
-            {
-                changePasswordViewModel changePassword = new changePasswordViewModel();
-                changePassword.usua_ID = userID;
-                changePassword.usua_Password = password.passwordConfirm;
-                ServiceResult resultPassword = await _accessServices.ChangePassword(changePassword);
-                var passwordVerify = (RequestStatus)resultPassword.Data;
-                if (passwordVerify.CodeStatus >0)
+                var userID = password.ID;
+
+                if (password.usua_Password == null || password.passwordConfirm == null)
                 {
-                    return RedirectToAction(actionName: "LogIn", controllerName: "Access");
+                    ViewData["passwordValidator"] = "Rellene todo los campos.";
+                }
+                else if (password.usua_Password != password.passwordConfirm)
+                {
+                    ViewData["passwordValidator"] = "Las contraseñas no coinciden.";
+                }
+                else if ((password.passwordConfirm.ToString()).Length < 7)
+                {
+                    ViewData["passwordValidator"] = "La contraseña es muy corta.";
                 }
                 else
                 {
-                    ViewData["passwordValidator"] = "Ha ocurrido un error.";
+                    changePasswordViewModel changePassword = new changePasswordViewModel();
+                    changePassword.usua_ID = userID;
+                    changePassword.usua_Password = password.passwordConfirm;
+                    ServiceResult resultPassword = await _accessServices.ChangePassword(changePassword);
+                    var passwordVerify = (RequestStatus)resultPassword.Data;
+                    if (passwordVerify.CodeStatus > 0)
+                    {
+                        return RedirectToAction(actionName: "LogIn", controllerName: "Access");
+                    }
+                    else
+                    {
+                        ViewData["passwordValidator"] = "Ha ocurrido un error.";
+                    }
                 }
-            }
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+           
         }
         [HttpGet]
         public IActionResult CodeConfirmX()
         {
 
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> CodeConfirmX(userCodevalidation userValidation)
         {
-            var correctCode = HttpContext.User.FindFirst("Correct_Code").ToString();
-            var userCode = userValidation.userCode;
-            var userID = userValidation.ID;
+            try
+            {
+                var correctCode = HttpContext.User.FindFirst("Correct_Code").ToString();
+                var userCode = userValidation.userCode;
+                var userID = userValidation.ID;
 
-            if (userCode == null)
-            {
-                ViewData["labelValidator"] = "Rellene este campo";
-                return View();
+                if (userCode == null)
+                {
+                    ViewData["labelValidator"] = "Rellene este campo";
+                    return View();
+                }
+                else if ("Correct_Code: " + userCode == correctCode)
+                {
+
+                    return Redirect("/Access/ChangePassword?success=" + userID);
+                }
+                else
+                {
+                    ViewData["labelValidator"] = "El código es incorrecto.";
+                    return View();
+                }
             }
-            else if ("Correct_Code: " + userCode == correctCode)
+            catch (Exception)
             {
-                
-                return Redirect("/Access/ChangePassword?success=" + userID);
+                return RedirectToAction("LogIn", "Access");
             }
-            else
-            {
-                ViewData["labelValidator"] = "El código es incorrecto.";
-                return View();
-            }
+            
             
 
         }
         [Route("/")]
         public IActionResult LandingPage()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+            
         }
 
         //USAR REFERENCIAS Models y Data
@@ -171,55 +244,57 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> LogIn(UserLoginModel LogInData)
         {
 
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            if (LogInData.Email == null || LogInData.Password == null)
-            { 
-                if (LogInData.Password == null && LogInData.Email != null)
-                {
-                    ViewData["LoginErrorEmail"] = null;
-                    ViewData["LoginError"] = "Ingrese una contraseña";
-                    return View();
-                }
-                else if (LogInData.Password != null && LogInData.Email == null)
-                {
-
-                    ViewData["LoginErrorEmail"] = "Ingrese un correo electrónico";
-                    ViewData["LoginError"] = null;
-                    return View();
-                }
-                else
-                {
-                    ViewData["LoginErrorEmail"] = "Ingrese un correo electrónico";
-                    ViewData["LoginError"] = "Ingrese una contraseña";
-                    return View();
-                }
-            }
-            else if (LogInData.Email != null && LogInData.Password != null)
+            try
             {
-                var LogInVerify = (UserLoggedModel)(await _accessServices.LogIn(LogInData)).Data;
-                
-                if (LogInVerify != null)
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                if (LogInData.Email == null || LogInData.Password == null)
                 {
-                    HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
-                    HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
-                    HttpContext.Session.SetString("Name", LogInVerify.Nombre);
-                    HttpContext.Session.SetString("Role", LogInVerify.Rol);
-                    HttpContext.Session.SetString("Role_Id", LogInVerify.Role_ID.ToString());
-                    HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
-                    HttpContext.Session.SetString("Token", LogInVerify.Token);
-
-                    if (LogInVerify.Rol == "Administrador" && LogInVerify.PartnerID != null)
+                    if (LogInData.Password == null && LogInData.Email != null)
                     {
+                        ViewData["LoginErrorEmail"] = null;
+                        ViewData["LoginError"] = "Ingrese una contraseña";
+                        return View();
+                    }
+                    else if (LogInData.Password != null && LogInData.Email == null)
+                    {
+
+                        ViewData["LoginErrorEmail"] = "Ingrese un correo electrónico";
+                        ViewData["LoginError"] = null;
+                        return View();
+                    }
+                    else
+                    {
+                        ViewData["LoginErrorEmail"] = "Ingrese un correo electrónico";
+                        ViewData["LoginError"] = "Ingrese una contraseña";
+                        return View();
+                    }
+                }
+                else if (LogInData.Email != null && LogInData.Password != null)
+                {
+                    var LogInVerify = (UserLoggedModel)(await _accessServices.LogIn(LogInData)).Data;
+
+                    if (LogInVerify != null)
+                    {
+                        HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
+                        HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
+                        HttpContext.Session.SetString("Name", LogInVerify.Nombre);
+                        HttpContext.Session.SetString("Role", LogInVerify.Rol);
+                        HttpContext.Session.SetString("Role_Id", LogInVerify.Role_ID.ToString());
                         HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
-                    }
-                    if (LogInVerify.Rol != "Cliente" && LogInVerify.Partner != null)
-                    {
-                        HttpContext.Session.SetString("Partner", LogInVerify.Partner);
-                    }
+                        HttpContext.Session.SetString("Token", LogInVerify.Token);
 
-                    //2.- CONFIGURACION DE LA AUTENTICACION
-                    #region AUTENTICACTION
-                    var claims = new List<Claim>
+                        if (LogInVerify.Rol == "Administrador" && LogInVerify.PartnerID != null)
+                        {
+                            HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
+                        }
+                        if (LogInVerify.Rol != "Cliente" && LogInVerify.Partner != null)
+                        {
+                            HttpContext.Session.SetString("Partner", LogInVerify.Partner);
+                        }
+
+                        //2.- CONFIGURACION DE LA AUTENTICACION
+                        #region AUTENTICACTION
+                        var claims = new List<Claim>
                     {
                     new Claim("User_Id", LogInVerify.ID.ToString()),
                     new Claim("User_Name", LogInVerify.Nombre),
@@ -229,41 +304,47 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     new Claim(ClaimTypes.Role,LogInVerify.Rol)
                     };
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    #endregion
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        #endregion
 
-                    switch (LogInVerify.Rol)
+                        switch (LogInVerify.Rol)
+                        {
+                            case "Administrador":
+                                return RedirectToAction(actionName: "adminDashboard", controllerName: "Home");
+                            case "Cliente":
+                                return RedirectToAction(actionName: "Index", controllerName: "ClientHome");
+                            case "Moderador de Hotel":
+                                return RedirectToAction(actionName: "HotelDashboard", controllerName: "DashBoardHotelHome");
+                            case "Moderador de Restaurante":
+                                return RedirectToAction(actionName: "restaurantDashboard", controllerName: "Home");
+                            case "Moderador de Agencia Turistica":
+                                return RedirectToAction(actionName: "Index", controllerName: "Home");
+                            case "Moderador de Transporte":
+                                return RedirectToAction(actionName: "Index", controllerName: "DashBoardTransportsHome");
+                            case "Moderador de Actividades":
+                                return RedirectToAction(actionName: "activitiesDashboard", controllerName: "Home");
+                            default:
+                                return RedirectToAction(actionName: "Index", controllerName: "Home");
+                        }
+                    }
+                    else
                     {
-                        case "Administrador":
-                            return RedirectToAction(actionName: "adminDashboard", controllerName: "Home");
-                        case "Cliente":
-                            return RedirectToAction(actionName: "Index", controllerName: "ClientHome");
-                        case "Moderador de Hotel":
-                            return RedirectToAction(actionName: "HotelDashboard", controllerName: "DashBoardHotelHome");
-                        case "Moderador de Restaurante":
-                            return RedirectToAction(actionName: "restaurantDashboard", controllerName: "Home");
-                        case "Moderador de Agencia Turistica":
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
-                        case "Moderador de Transporte":
-                            return RedirectToAction(actionName: "Index", controllerName: "DashBoardTransportsHome");
-                        case "Moderador de Actividades":
-                            return RedirectToAction(actionName: "activitiesDashboard", controllerName: "Home");
-                        default:
-                            return RedirectToAction(actionName: "Index", controllerName: "Home");
+                        ViewData["LoginError"] = "El correo electronico y/o contraseña son incorrectos";
+                        return View();
                     }
                 }
                 else
                 {
-                    ViewData["LoginError"] = "El correo electronico y/o contraseña son incorrectos";
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("LogIn", "Access");
             }
+            
 
         }
 
@@ -272,21 +353,39 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public ServiceResult ClaimReading(string key)
         {
             ServiceResult result = new ServiceResult();
-            var customClaim = HttpContext.User.FindFirst(key);
-            result.Data = customClaim == null || customClaim.Value == null ? "" : customClaim.Value;
-            result.Success = true;
-            result.Type = ServiceResultType.Success;
-            return result;
+            try
+            {
+                
+                var customClaim = HttpContext.User.FindFirst(key);
+                result.Data = customClaim == null || customClaim.Value == null ? "" : customClaim.Value;
+                result.Success = true;
+                result.Type = ServiceResultType.Success;
+                return result;
+            }
+            catch (Exception)
+            {
+                result.Type = ServiceResultType.Error;
+                result.Success = false;
+                return result;
+            }
+            
         }
 
         public async Task<IActionResult> LogOut()
         {
-            //3.- CONFIGURACION DE LA AUTENTICACION
-            #region AUTENTICACTION
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            #endregion
+            try 
+            {
+                //3.- CONFIGURACION DE LA AUTENTICACION
+                #region AUTENTICACTION
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                #endregion
 
-            return RedirectToAction("LogIn");
+                return RedirectToAction("LogIn");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
         }
     }
 }

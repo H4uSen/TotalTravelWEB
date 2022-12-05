@@ -4,141 +4,135 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@try
-{
-    <div id="frmCreateUser">
-        <div class="container card">
-            <div class="ui basic segment">
-                <div class="ui icon attached message">
-                    <i class="icon archive"></i>
-                    <div class="content">
-                        <div class="header text-capitalize">
-                            Detalles
-                        </div>
+<div id="frmCreateUser">
+    <div class="container card">
+        <div class="ui basic segment">
+            <div class="ui icon attached message">
+                <i class="icon archive"></i>
+                <div class="content">
+                    <div class="header text-capitalize">
+                        Detalles
+                    </div>
 
-                    </div>
-                    <div class="right floated content" style="text-align: end;">
-                        <a class="ui left labeled icon button" href="@Url.Action("Index", "Reservation")">
-                            Regresar
-                            <i class="left arrow icon"></i>
-                        </a>
-                    </div>
                 </div>
-                <div class="ui form attached fluid segment">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col">
-                                <div class="three fields">
-                                    <div class="field">
-                                        <label>Descripcion de paquete</label>
-                                        @Html.DisplayFor(model => model.DescripcionPaquete)
-                                    </div>
-                                    <div class="field">
-                                        <label>Numero de personas</label>
-                                        @Html.DisplayFor(model => model.NumeroPersonas)
-                                    </div>
-                                    <div class="field">
-                                        <label>Cantidad de Pagos</label>
-                                        @Html.DisplayFor(model => model.CantidadPagos)
-                                    </div>
+                <div class="right floated content" style="text-align: end;">
+                    <a class="ui left labeled icon button" href="@Url.Action("Index", "Reservation")">
+                        Regresar
+                        <i class="left arrow icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <div class="four fields">
+                                <div class="field">
+                                    <label>Descripcion de paquete</label>
+                                    @Html.DisplayFor(model => model.DescripcionPaquete)
                                 </div>
-                                <div class="three fields">
-                                    <div class="field">
-                                        <label>Duracion del Paquete</label>
-                                        @Html.DisplayFor(model => model.DurecionPaquete)
-                                    </div>
-                                    <div class="field">
-                                        <label>Precio</label>
-                                        @Html.DisplayFor(model => model.precio)
-                                    </div>
-                                    <div class="field">
-                                        <label>Fecha_Entrada</label>
-                                        @Html.DisplayFor(model => model.Fecha_Entrada)
-                                    </div>
+                                <div class="field">
+                                    <label>Numero de personas</label>
+                                    @Html.DisplayFor(model => model.NumeroPersonas)
                                 </div>
-                                <div class="three fields">
-                                    <div class="field">
-                                        <label>Fecha_Salida</label>
-                                        @Html.DisplayFor(model => model.Fecha_Salida)
-                                    </div>
-                                    <div class="field">
-                                        <label>Nombre del Hotel</label>
-                                        @Html.DisplayFor(model => model.Nombre_Hotel)
-                                    </div>
+                                <div class="field">
+                                    <label>Cantidad de Pagos</label>
+                                    @Html.DisplayFor(model => model.CantidadPagos)
+                                </div>
+                                <div class="field">
+                                    <label>Duracion del Paquete</label>
+                                    @Html.DisplayFor(model => model.DurecionPaquete)
+                                </div>
+                            </div>
+                            <div class="four fields">
 
+                                <div class="field">
+                                    <label>Precio</label>
+                                    @Html.DisplayFor(model => model.precio)
                                 </div>
-                                <hr />
-                                <div class="four fields">
-                                    <div class="field">
-                                        <label>Nombre del Cliente</label>
-                                        @Html.DisplayFor(model => model.Nombrecompleto)
-                                    </div>
-                                    <div class="field">
-                                        <label>DNI</label>
-                                        @Html.DisplayFor(model => model.DNI)
-                                    </div>
-                                    <div class="field">
-                                        <label>Email</label>
-                                        @Html.DisplayFor(model => model.Email)
-                                    </div>
-                                    <div class="field">
-                                        <label>Telefono</label>
-                                        @Html.DisplayFor(model => model.Telefono)
-                                    </div>
+                                <div class="field">
+                                    <label>Fecha_Entrada</label>
+                                    @Html.DisplayFor(model => model.Fecha_Entrada)
+                                </div>
+                                <div class="field">
+                                    <label>Fecha_Salida</label>
+                                    @Html.DisplayFor(model => model.Fecha_Salida)
+                                </div>
+                                <div class="field">
+                                    <label>Nombre del Hotel</label>
+                                    @Html.DisplayFor(model => model.Nombre_Hotel)
+                                </div>
+                            </div>
+                            @*<div class="three fields">
+                                
+                              
+                            </div>*@
+                            <hr />
+                            <div class="four fields">
+                                <div class="field">
+                                    <label>Nombre del Cliente</label>
+                                    @Html.DisplayFor(model => model.Nombrecompleto)
+                                </div>
+                                <div class="field">
+                                    <label>DNI</label>
+                                    @Html.DisplayFor(model => model.DNI)
+                                </div>
+                                <div class="field">
+                                    <label>Email</label>
+                                    @Html.DisplayFor(model => model.Email)
+                                </div>
+                                <div class="field">
+                                    <label>Telefono</label>
+                                    @Html.DisplayFor(model => model.Telefono)
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <br />
-
-                    <h3 class="ui horizontal divider header">
-                        <i class="folder open icon"></i>
-                        Auditoría
-                    </h3>
-
-                    <table class="ui compact selectable celled table" id="tabla">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Usuario Creación
-                                </th>
-                                <th>
-                                    Fecha Creación
-                                </th>
-                                <th>
-                                    Usuario Modifica
-                                </th>
-                                <th>
-                                    Fecha Modifica
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(model => model.UsuarioCrea)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => model.FechaCreacion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => model.UsuarioModifica)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => model.FechaModifica)
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
+            <br />
+
+            <h3 class="ui horizontal divider header">
+                <i class="folder open icon"></i>
+                Auditoría
+            </h3>
+
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario Creación
+                        </th>
+                        <th>
+                            Fecha Creación
+                        </th>
+                        <th>
+                            Usuario Modifica
+                        </th>
+                        <th>
+                            Fecha Modifica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioCrea)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaCreacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioModifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.FechaModifica)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-}
-catch (Exception)
-{
-    <script>location.assign("@Url.Action("Error", "Home")");</script>
-}
+</div>
 
 @section HighlightTile{
     <script>

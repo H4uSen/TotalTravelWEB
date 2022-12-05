@@ -71,11 +71,12 @@
     }
 </style>
 <body>
-    <input type="button" class="boton" value="< Regresar" onClick="history.go(-1);">
-    <div class="login-page" >
-       
+    @*<input type="button" class="boton" value="< Regresar" onClick="history.go(-1);">*@
+    <a class="boton" href="@Url.Action("LandingPage","Access")">< Regresar</a>
+    <div class="login-page">
+
         <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
-            
+
             <div class="card shadow-sm w-75 rounded overflow-hidden bg-none "
                  style="align-items: center;align-content: flex-start">
                 <div class="card-body p-0">
@@ -98,7 +99,7 @@
                                         <h3>Iniciar Sesión</h3>
                                     </div>
                                     <h4>Correo electrónico:</h4>
-                                    <input  asp-for="Email" type="email" class="form-control" placeholder="Correo electrónico" />
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="Correo electrónico" />
                                     <label class="labelvalidator" id="labelvalidatorEmail"></label>
                                     <h4>Contraseña:</h4>
                                     <input asp-for="Password" type="password" class="form-control mb-1" placeholder="Contraseña" />

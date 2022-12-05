@@ -319,6 +319,33 @@ $('#City_ID').change(function () {
 
 });
 
+function FindGetValue(Get_KeyName = "") {
+    var Get_KeyValue = null;
+
+    // get url search content after "?" 
+    //example: www.url?get_var=5
+    //return : get_var=5
+    var url_query = location.search.substring(1);
+
+    //split vars and get in array
+    var gets_vars = url_query.split("&");
+
+    for (var i = 0; i < gets_vars.length; i++) {
+        //divide la key from the value in item
+        var var_key = gets_vars[i].split("=");
+
+        // if key is equal to query key return value key
+        if (var_key[0] == Get_KeyName) {
+            //get value key
+            Get_KeyValue = var_key[1];
+            break;
+        }
+    }
+
+    //return value key
+    return Get_KeyValue;
+}
+
 function registerUser() {
 
 
@@ -439,7 +466,14 @@ function registerUser() {
             var response = uploadFile("https://apitotaltravel.azurewebsites.net/API/Users/Insert", data, "POST");
 
             if (response.data.codeStatus > 0) {
-                window.location.href = '/Access/LogIn';
+                
+                var id_paque = FindGetValue("id_paquete");
+                if (id_paque != null) {
+                    window.location.href = `/BuyDefaults/defaultPackages?id_paquete=${id_paque}`;
+                }
+                else {
+                    window.location.href = '/Access/LogIn';
+                }
 
 
             } else {
