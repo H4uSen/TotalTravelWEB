@@ -20,12 +20,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try {
             var token = HttpContext.User.FindFirst("Token").Value;
             var list = await _hotelsService.HotelsList(token);
 
-
-
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

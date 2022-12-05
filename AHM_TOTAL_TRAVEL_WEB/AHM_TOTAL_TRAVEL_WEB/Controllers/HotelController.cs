@@ -62,6 +62,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try 
+            {
             //string token = HttpContext.User.FindFirst("Token").Value;
 
             var country = await _generalService.CountriesList();
@@ -81,11 +83,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(HotelViewModel hotel)
         {
+            try
+            {
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -99,12 +108,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try
+            {
             string token = HttpContext.User.FindFirst("Token").Value;
             var item = new HotelListViewModel();
             IEnumerable<HotelListViewModel> model = null;
@@ -145,6 +161,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Part_ID = new SelectList(data_Partners, "ID", "Nombre");
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         //[HttpPost]
@@ -168,6 +189,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(HotelViewModel hotel, int id)
         {
+            try
+            {
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -183,16 +206,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-
+            try
+            {
             string token = HttpContext.User.FindFirst("Token").Value;
             var hotel = (HotelListViewModel)(await _hotelService.HotelFind(id, token)).Data;
             ViewData["HotelFolder"] = $"Hotels/Hotel-{id}/Place/Hotel_Images-{id}";
 
             return View(hotel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

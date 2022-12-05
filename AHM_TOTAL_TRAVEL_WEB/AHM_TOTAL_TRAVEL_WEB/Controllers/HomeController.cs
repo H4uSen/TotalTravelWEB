@@ -44,9 +44,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> adminDashboard()
         {
-
-            //general lists
-            string token = HttpContext.User.FindFirst("Token").Value;
+            try
+            {
+                //general lists
+                string token = HttpContext.User.FindFirst("Token").Value;
             IEnumerable<PartnersListViewModel> partners =
                 (IEnumerable<PartnersListViewModel>)(await _generalServices.PartnersList()).Data;
 
@@ -113,10 +114,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             };
 
             return View(model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> restaurantDashboard()
         {
+            try
+            {
             string token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _AccessService.AccountFind(id, token)).Data;
@@ -171,10 +179,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 }
             }
             return View(detail);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> activitiesDashboard()
         {
+            try 
+            { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _AccessService.AccountFind(id, token)).Data;
@@ -212,6 +227,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                (IEnumerable<ReservationExtraActivitiesListViewModel>)(await _ReservationService.ExtraActivitiesReservationList(token)).Data;
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public IActionResult Privacy()

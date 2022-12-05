@@ -72,6 +72,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try
+            {
             var model = new List<HotelListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
@@ -85,12 +87,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
         [HttpPost]
         public async Task<IActionResult> Create(HotelsActivitiesViewModel package)
         {
-
+            try
+            {
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -103,12 +111,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Delete(HotelsActivitiesViewModel actividad, int id)
         {
+            try
+            { 
             if (ModelState.IsValid)
             {
                 actividad.HoAc_UsuarioModifica = 1;
@@ -129,13 +144,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
+            try
+            {
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (HotelsActivitiesListViewModel)(await _hotelService.HotelsActivitiesFind(id, token)).Data;
             return View(detalle);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

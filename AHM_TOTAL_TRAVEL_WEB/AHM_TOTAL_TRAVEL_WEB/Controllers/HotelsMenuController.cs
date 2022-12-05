@@ -23,23 +23,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            try { 
-            var id = HttpContext.Session.GetInt32("PartnerID");
-            var rol = HttpContext.Session.GetString("Role");
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var type = await _hotelService.HotelsList(token);
+            try {
+                var id = HttpContext.Session.GetInt32("PartnerID");
+                var rol = HttpContext.Session.GetString("Role");
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var type = await _hotelService.HotelsList(token);
 
                 var hotel = await _hotelService.HotelsList(token);
                 IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
                 ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
                 var type2 = await _restaurantServices.TypeMenusList();
-            IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
-            ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
+                IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
+                ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
 
-            var model = new List<HotelsMenuListViewModel>();
-            var list = await _hotelService.HotelsMenuList(token);
-            IEnumerable<HotelsMenuListViewModel> lista = (IEnumerable<HotelsMenuListViewModel>)list.Data;
+                var model = new List<HotelsMenuListViewModel>();
+                var list = await _hotelService.HotelsMenuList(token);
+                IEnumerable<HotelsMenuListViewModel> lista = (IEnumerable<HotelsMenuListViewModel>)list.Data;
 
                 if (string.IsNullOrEmpty(id.ToString()))
                 {
@@ -71,47 +71,88 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var idd = HttpContext.Session.GetInt32("PartnerID");
-            var model = new List<HotelListViewModel>();
-
-            var Hotel = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
-
-            var list2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(idd)).ToList();
-            ViewBag.Hote_ID = new SelectList(list2, "ID", "Hotel");
-
-
-            var type2 = await _restaurantServices.TypeMenusList();
-            IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
-            ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
-
-            var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)type2.Data).CodeStatus;
-            if (l > 0)
+            try
             {
-                return Redirect("~/HotelsMenu?success=true");
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var idd = HttpContext.Session.GetInt32("PartnerID");
+                var model = new List<HotelListViewModel>();
+
+                var Hotel = await _hotelService.HotelsList(token);
+                IEnumerable<HotelListViewModel> data_Hotel = (IEnumerable<HotelListViewModel>)Hotel.Data;
+
+                var list2 = data_Hotel.Where(c => c.ID_Partner == Convert.ToInt32(idd)).ToList();
+                ViewBag.Hote_ID = new SelectList(list2, "ID", "Hotel");
+
+
+                var type2 = await _restaurantServices.TypeMenusList();
+                IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
+                ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
+
+                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)type2.Data).CodeStatus;
+                if (l > 0)
+                {
+                    return Redirect("~/HotelsMenu?success=true");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(HotelsMenuViewModel actividad)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            actividad.HoMe_UsuarioCreacion = 1;
-            RequestStatus response = (RequestStatus)(await _hotelService.HotelsMenuCreate(actividad, token)).Data;
-            if (response.CodeStatus != 0)
+            try
             {
-                return RedirectToAction("Index");
+                string token = HttpContext.User.FindFirst("Token").Value;
+                actividad.HoMe_UsuarioCreacion = 1;
+                RequestStatus response = (RequestStatus)(await _hotelService.HotelsMenuCreate(actividad, token)).Data;
+                if (response.CodeStatus != 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+
+                    ViewData["Error"] = response.MessageStatus;
+                    IEnumerable<HotelListViewModel> model = null;
+                    var type = await _hotelService.HotelsList(token);
+                    IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
+                    ViewBag.Hote_ID = new SelectList(data_type, "ID", "Descripcion");
+
+                    var type2 = await _restaurantServices.TypeMenusList();
+                    IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
+                    ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
+                    return View();
+                };
             }
-            else
+            catch (Exception)
             {
-                
-                ViewData["Error"] = response.MessageStatus;
-                IEnumerable<HotelListViewModel> model = null;
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var item = new HotelsMenuViewModel();
+                IEnumerable<HotelsMenuListViewModel> model = null;
+                var list = await _hotelService.HotelsMenuList(token);
+                IEnumerable<HotelsMenuListViewModel> data = (IEnumerable<HotelsMenuListViewModel>)list.Data;
+                var element = data.Where(x => x.ID == id).ToList()[0];
+                item.HoMe_Descripcion = element.Menu;
+                item.HoMe_Precio = element.Precio;
+
+
+                IEnumerable<HotelListViewModel> model2 = null;
                 var type = await _hotelService.HotelsList(token);
                 IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
                 ViewBag.Hote_ID = new SelectList(data_type, "ID", "Descripcion");
@@ -119,99 +160,91 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var type2 = await _restaurantServices.TypeMenusList();
                 IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
                 ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
-                return View();
-            };
 
-
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var item = new HotelsMenuViewModel();
-            IEnumerable<HotelsMenuListViewModel> model = null;
-            var list = await _hotelService.HotelsMenuList(token);
-            IEnumerable<HotelsMenuListViewModel> data = (IEnumerable<HotelsMenuListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == id).ToList()[0];
-            item.HoMe_Descripcion = element.Menu;
-            item.HoMe_Precio = element.Precio;
-
-            
-            IEnumerable<HotelListViewModel> model2 = null;
-            var type = await _hotelService.HotelsList(token);
-            IEnumerable<HotelListViewModel> data_type = (IEnumerable<HotelListViewModel>)type.Data;
-            ViewBag.Hote_ID = new SelectList(data_type, "ID", "Descripcion");
-
-            var type2 = await _restaurantServices.TypeMenusList();
-            IEnumerable<TypeMenusListViewModel> data_type2 = (IEnumerable<TypeMenusListViewModel>)type2.Data;
-            ViewBag.Time_ID = new SelectList(data_type2, "ID", "descripcion");
-
-
-
-
-            return View(item);
+                return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(HotelsMenuViewModel actividad, int id)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.HoMe_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                var lista = await _hotelService.HotelsMenuUpdate(actividad, id, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/HotelsMenu?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    actividad.HoMe_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                    var lista = await _hotelService.HotelsMenuUpdate(actividad, id, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/HotelsMenu?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
-
         }
         [HttpPost]
         public async Task<IActionResult> Delete(HotelsMenuViewModel actividad, int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                actividad.HoMe_UsuarioModifica = 1;
-
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = await _hotelService.HotelsMenuDelete(actividad, id, token);
-
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/HotelsMenu?success=true");
+                    actividad.HoMe_UsuarioModifica = 1;
+
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = await _hotelService.HotelsMenuDelete(actividad, id, token);
+
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/HotelsMenu?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var detalle = (HotelsMenuListViewModel)(await _hotelService.HotelsMenuFind(id, token)).Data;
-            return View(detalle);
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var detalle = (HotelsMenuListViewModel)(await _hotelService.HotelsMenuFind(id, token)).Data;
+                return View(detalle);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
-
-
     }
 }
