@@ -20,8 +20,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var list = await _generalServices.CountriesList();
+            try { 
+            
+                var list = await _generalServices.CountriesList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
 
         [HttpGet]
@@ -30,9 +38,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create(CountriesViewModel actividad)
         {
+            try { 
 
             if (ModelState.IsValid)
             {
@@ -54,12 +64,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
 
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             CountriesListViewModel CountryRequest = 
                 (CountriesListViewModel)(await _generalServices.CountriesFind(id, token)).Data;
@@ -81,13 +98,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Pais_ID"] = CountryRequest.ID;
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
 
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(CountriesViewModel country)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -115,10 +137,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 ViewData["Pais_ID"] = CountryRequest.ID;
                 return View(CountryRequest);
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
 
         }
         public async Task<IActionResult> Delete(CountriesViewModel DePa, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 DePa.Pais_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
@@ -132,13 +161,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (CountriesListViewModel)(await _generalServices.CountriesFind(id, token)).Data;
 
             return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
     }
 }

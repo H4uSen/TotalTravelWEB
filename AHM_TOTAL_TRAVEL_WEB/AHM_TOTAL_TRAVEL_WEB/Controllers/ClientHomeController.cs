@@ -22,10 +22,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var model = new List<DefaultPackagesListViewModel>();
-            var list = await _saleServices.DefaultPackagesList(token);
-            return View(list.Data);
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var model = new List<DefaultPackagesListViewModel>();
+                var list = await _saleServices.DefaultPackagesList(token);
+                return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

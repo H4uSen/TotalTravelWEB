@@ -21,12 +21,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-
-
-
-            var token = HttpContext.User.FindFirst("Token").Value;
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
             var list = await _generalService.CitiesList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
@@ -38,8 +42,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CityViewModel  city)
         {
-
-            if (ModelState.IsValid)
+            try
+            {
+                if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 city.ciud_UsuarioCreacion = 1;
@@ -57,12 +62,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int City_ID)
         {
+            try {     
             string token = HttpContext.User.FindFirst("Token").Value;
             // get current city data
             CityListViewModel requestCity = 
@@ -76,11 +87,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["City_ID"] = City_ID;
 
             return View(requestCity);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(CityViewModel city)
         {
+            try {            
 
             if (ModelState.IsValid)
             {
@@ -94,18 +111,27 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
         }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+    }
 
-
+}
 
         public async Task<IActionResult> Details(string id)
         {
+            try {            
             string token = HttpContext.User.FindFirst("Token").Value;
             var city = (CityListViewModel)(await _generalService.CityFind(id, token)).Data;
 
             return View(city);
         }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+    }
+}
     }
 
 }
