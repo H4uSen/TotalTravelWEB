@@ -34,75 +34,80 @@
     </style>
 </head>
 <body>
+    @try
+    {
+        <div class="login-page">
 
+            <div class="container card">
+                <div class="ui basic segment">
 
-    <div class="login-page">
+                    <div class="ui icon attached message">
 
-        <div class="container card">
-            <div class="ui basic segment">
-
-                <div class="ui icon attached message">
-
-                    <center class="content">
-                        <div class="header">
-                            <u> Reporte de clientes</u>
-                        </div>
-                    </center>
-                    <p></p>
+                        <center class="content">
+                            <div class="header">
+                                <u> Reporte de clientes</u>
+                            </div>
+                        </center>
+                        <p></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
-            <table id="grdRooms" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
-                        <th>Nombre</th>
-                        <th>Tipo de transporte</th>
-                        <th>Socio</th>
-                        <th>Ciudad</th>
-                        <th>Colonia</th>
-                        <th>Calle</th>
-                        <th>Avenida</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr data-value="@item.ID" data-hotel="@item.Nombre">
-                            <td></td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipoTransporte)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombrePartner)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ciudad)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Colonia)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Calle)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Avenida)
-                            </td>
+            <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
+                <table id="grdRooms" class="display ui compact selectable celled table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
+                            <th>Nombre</th>
+                            <th>Tipo de transporte</th>
+                            <th>Socio</th>
+                            <th>Ciudad</th>
+                            <th>Colonia</th>
+                            <th>Calle</th>
+                            <th>Avenida</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
 
-    </div>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-value="@item.ID" data-hotel="@item.Nombre">
+                                <td></td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TipoTransporte)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombrePartner)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ciudad)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Colonia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Calle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Avenida)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    }
+    catch (Exception)
+    {
+        <script>location.assign("@Url.Action("Error", "Home")");</script>
+    }
     <!-- JavaScript files-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

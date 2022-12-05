@@ -5,35 +5,41 @@
 }
 <br>
 <br>
-<div id="frmClientReports" class="container ui segment">
-  
+@try
+{
+    <div id="frmClientReports" class="container ui segment">
 
-    <div class="ui floating dropdown labeled search icon button" id="cbbSexo">
-        <i class="filter icon"></i>
-        <span class="text">Filtrar por sexo</span>
-        <div class="menu">
-            <div class="header">
-                <i class="tags icon"></i> Filter by tag
+
+        <div class="ui floating dropdown labeled search icon button" id="cbbSexo">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por sexo</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+                <div class="item" data-value="Femenino">Femenino</div>
+                <div class="item" data-value="Masculino">Masculino</div>
             </div>
-            <div class="item" data-value="0">Todos</div>
-            <div class="item" data-value="Femenino">Femenino</div>
-            <div class="item" data-value="Masculino">Masculino</div>
+        </div>
+
+        <input type="text" name="txtEdad" id="txtEdad" />
+
+
+
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_client(true)">FILTRAR REPORTE</button>
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_client(false)">TRAER TODOS</button>
+        <a href="@Url.Action("ClientsReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ClientsReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+        <div class="ui segment">
+            <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
         </div>
     </div>
-
-    <input type="text" name="txtEdad" id="txtEdad" />
-
-
-
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_client(true)">FILTRAR REPORTE</button>
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_client(false)">TRAER TODOS</button>
-    <a href="@Url.Action("ClientsReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ClientsReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
-
-    <div class="ui segment">
-        <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
-    </div>
-</div>
-
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 @section Scripts{
 
     <script>
@@ -49,7 +55,7 @@
                     user_name: Client_User_Name
 
                 };
-                query.parameters.role_ID = 2 ;
+                query.parameters.role_ID = 2;
                 if (parameter) {
 
 
@@ -69,7 +75,7 @@
                             query.parameters.edad = edad;
                         }
                         else {
-                           iziToastAlert("formato incorrecto. Seria 21-30", "", "error");
+                            iziToastAlert("formato incorrecto. Seria 21-30", "", "error");
                         }
                     }
                 }

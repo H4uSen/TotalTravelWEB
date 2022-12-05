@@ -2,107 +2,115 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-   
+
+
 }
 
-<div class="container card">
-    <div class="ui basic segment">
+@try
+{
+    <div class="container card">
+        <div class="ui basic segment">
 
-        <div class="ui icon attached message">
-            <i class="icon dollar sign"></i>
-            <div class="content">
-                <div class="header">
-                    Registros de pago
+            <div class="ui icon attached message">
+                <i class="icon dollar sign"></i>
+                <div class="content">
+                    <div class="header">
+                        Registros de pago
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <div class="ui grid mb-3">
-            <div class="eight wide column">
+            <br>
+            <div class="ui grid mb-3">
                 <div class="eight wide column">
-                    <button id="createPayments" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                    <div class="eight wide column">
+                        <button id="createPayments" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                    </div>
                 </div>
             </div>
+
+
+            <table id="grdPaymentRegist" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
+                <thead>
+                    <tr>
+                        <th>
+                            # de Factura
+                        </th>
+                        <th>
+                            Monto Pagado
+                        </th>
+                        <th>
+                            Forma de pago
+                        </th>
+                        <th>
+                            Fecha y hora de pago
+                        </th>
+                        <th>
+                            Reservacion
+                        </th>
+                        <th>
+                            Cliente
+                        </th>
+                        <th width="200px">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr data-value="@item.ID" data-hotel="@item.ID">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                L. @Html.DisplayFor(modelItem => item.MontoPago)
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Id_TipoPago == 1)
+                                    {
+
+
+                                        <i class="credit card icon"></i>
+                                    }
+                                    else if (item.Id_TipoPago == 2)
+                                    {
+
+                                        <i class="money bill"></i>
+                                    }
+                                    else if (item.Id_TipoPago == 3)
+                                    {
+
+                                        <i class="paypal icon"></i>
+
+                                    }
+                                }
+                                @Html.DisplayFor(modelItem => item.TipoPago)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaPago)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.descripcion_paquete)
+                            </td>
+                            <td>
+                                @string.Concat(item.Nombre, " ", item.Apellido)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details","RegistrationPayments",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-
-
-        <table id="grdPaymentRegist" class="display ui compact selectable celled table" style="width:100%; margin-top:30px;">
-            <thead>
-                <tr>
-                    <th>
-                        # de Factura
-                    </th>
-                    <th>
-                        Monto Pagado
-                    </th>
-                    <th>
-                        Forma de pago
-                    </th>
-                    <th>
-                        Fecha y hora de pago
-                    </th>
-                    <th>
-                        Reservacion
-                    </th>
-                    <th>
-                        Cliente
-                    </th>
-                    <th width="200px">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in Model)
-                {
-                <tr data-value="@item.ID" data-hotel="@item.ID">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID)
-                    </td>
-                    <td>
-                        L. @Html.DisplayFor(modelItem => item.MontoPago)
-                    </td>
-                    <td>
-                        @{
-                            if (item.Id_TipoPago == 1)
-                            {
-
-
-                                <i class="credit card icon"></i>
-                            }
-                            else if (item.Id_TipoPago == 2)
-                            {
-
-                                <i class="money bill"></i>
-                            }
-                            else if (item.Id_TipoPago == 3)
-                            {
-
-                                <i class="paypal icon"></i>
-
-                            }
-                        }
-                        @Html.DisplayFor(modelItem => item.TipoPago)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.fechaPago)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripcion_paquete)
-                    </td>
-                    <td>
-                        @string.Concat(item.Nombre, " ", item.Apellido)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Details","RegistrationPayments",new {  id=item.ID})" class="ui large icon button"><i class="bi bi-info-circle fa-lg icon-crud"></i></a>
-
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
     </div>
-</div>
+}
+catch (Exception)
+{
+<script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
 <div class="ui modal longer" id="modalCreate">
     <i class="close icon"></i>
@@ -223,7 +231,7 @@
     <script src="~/js/RegistrationPayments/Index.js"></script>
     <script src="~/js/RegistrationPayments/Payments.js"></script>
 
-<script>
+    <script>
         const params = new URLSearchParams(window.location.search);
         const izziSuccess = params.get("success");
 
@@ -240,19 +248,19 @@
 
 
         };
-        
-</script>
+
+    </script>
 }
 @section HighlightTile{
-<script>
+    <script>
 
-    $("#SalesModule").addClass("active");
-    $("#SalesModule").addClass("expandedList");
-    $("#SalesModule").prop("aria-expanded");
-    $("#SalesModule").attr("aria-expanded", "true");
+        $("#SalesModule").addClass("active");
+        $("#SalesModule").addClass("expandedList");
+        $("#SalesModule").prop("aria-expanded");
+        $("#SalesModule").attr("aria-expanded", "true");
 
-    $("#Sale_Schema").addClass("show");
+        $("#Sale_Schema").addClass("show");
 
-    $("#RegistrationPaymentsTile").addClass("activeTile");
-</script>
+        $("#RegistrationPaymentsTile").addClass("activeTile");
+    </script>
 }

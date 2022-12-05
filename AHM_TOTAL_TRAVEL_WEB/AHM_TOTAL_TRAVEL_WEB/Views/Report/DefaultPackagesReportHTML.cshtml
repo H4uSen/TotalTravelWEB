@@ -34,73 +34,77 @@
         }
     </style>
 </head>
-        <body>
+<body>
+    @try
+    {
+        <div class="login-page">
+            <div class="container card">
+                <div class="ui basic segment">
 
-            <div class="login-page">
-                <div class="container card">
-                    <div class="ui basic segment">
+                    <div class="ui icon attached message">
 
-                        <div class="ui icon attached message">
-
-                            <center class="content">
-                                <div class="header">
-                                    <u> Reporte de paquetes</u>
-                               </div>
-                            </center>
-                            <p></p>
-                        </div>
+                        <center class="content">
+                            <div class="header">
+                                <u> Reporte de paquetes</u>
+                            </div>
+                        </center>
+                        <p></p>
                     </div>
                 </div>
-
-
-                <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
-                    <table id="grdRooms" class="display ui compact selectable celled table" style="width:100%;">
-                        <thead>
-                            <tr>
-                                <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
-                                <th>Descripcion Hotel</th>
-                                <th>Descripcion Paquete</th>
-                                <th>Duracion Paquete</th>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Restaurante</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach (var item in Model)
-                            {
-                                <tr data-value="@item.Id" data-hotel="@item.Nombre">
-                                    <td></td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Descripcion_Hotel)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Descripcion_Paquete)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Duracion_Paquete)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Nombre)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.precio)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Restaurante)
-                                    </td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
             </div>
 
+
+            <div class="container d-flex align-items-center justify-content-md-center position-relative py-5 p-lg-5">
+                <table id="grdRooms" class="display ui compact selectable celled table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="dt-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 37px;"></th>
+                            <th>Descripcion Hotel</th>
+                            <th>Descripcion Paquete</th>
+                            <th>Duracion Paquete</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Restaurante</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr data-value="@item.Id" data-hotel="@item.Nombre">
+                                <td></td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion_Hotel)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion_Paquete)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Duracion_Paquete)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.precio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Restaurante)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+            }
+            catch (Exception)
+            {
+        <script>location.assign("@Url.Action("Error", "Home")");</script>}
 
 
     <!-- JavaScript files-->
@@ -111,5 +115,5 @@
     <script src="../assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    </body>
+</body>
 </html>

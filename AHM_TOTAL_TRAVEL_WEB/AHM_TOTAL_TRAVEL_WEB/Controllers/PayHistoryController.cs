@@ -27,22 +27,30 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var id = HttpContext.User.FindFirst("User_Id").Value;
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _reservationService.ReservationList(token);
-            IEnumerable<ReservationListViewModel> lista = (IEnumerable<ReservationListViewModel>)list.Data;
-            var element = lista.ToList()[0];
-
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                return View(lista);
-            }
-            else
-            {
-                var list2 = lista.Where(c => c.Id_Cliente == Convert.ToInt32(id)).ToList();
-                return View(list2);
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var list = await _reservationService.ReservationList(token);
+                IEnumerable<ReservationListViewModel> lista = (IEnumerable<ReservationListViewModel>)list.Data;
+                var element = lista.ToList()[0];
 
+                if (string.IsNullOrEmpty(id))
+                {
+                    return View(lista);
+                }
+                else
+                {
+                    var list2 = lista.Where(c => c.Id_Cliente == Convert.ToInt32(id)).ToList();
+                    return View(list2);
+
+                }
             }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
         }
     }
 }

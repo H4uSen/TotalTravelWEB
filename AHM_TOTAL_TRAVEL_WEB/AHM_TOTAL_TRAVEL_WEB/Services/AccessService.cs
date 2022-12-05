@@ -397,6 +397,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
             }
 
         }
+
+        public async Task<ServiceResult> DeleteRoles(RolViewModel roles, int id, string token)
+        {
+            var Result = new ServiceResult();
+            try
+            {
+                var response = await _api.Delete<RolViewModel, RequestStatus>(req =>
+                {
+                    req.Path = $"/API/Roles/Delete?id=" + id + "&mod=" + roles.Role_UsuarioModifica;
+                    req.Content = null;
+                },
+                token
+                );
+                if (!response.Success)
+                {
+                    return Result.FromApi(response);
+                }
+                else
+                {
+                    return Result.Ok(response.Data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(Helpers.GetMessage(ex));
+                throw;
+            }
+
+        }
+
         #endregion
 
         #region Permisos

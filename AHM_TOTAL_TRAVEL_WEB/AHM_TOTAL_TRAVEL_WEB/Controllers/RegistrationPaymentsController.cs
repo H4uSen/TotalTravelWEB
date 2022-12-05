@@ -57,7 +57,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return RedirectToAction("Index", "Reservation");
+            try
+            {
+                return RedirectToAction("Index", "Reservation");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
