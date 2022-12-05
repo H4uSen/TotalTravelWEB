@@ -1,13 +1,120 @@
-﻿var packagesList = ajaxRequest(urlAPI+"/API/DefaultPackages/List");
-var ActivitiesList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
-var DetailsTransportationList = ajaxRequest(urlAPI+"/API/DetailsTransportation/List");
-var CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
-var Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
-//var HotelsList = ajaxRequest(urlAPI + "/API/Hotels/List");
-//var RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
-//var HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
+﻿const packagesList = ajaxRequest(urlAPI+"/API/DefaultPackages/List");
+const ActivitiesList = ajaxRequest(urlAPI+"/API/ActivitiesExtra/List");
+const DetailsTransportationList = ajaxRequest(urlAPI+"/API/DetailsTransportation/List");
+const CitiesList = ajaxRequest(urlAPI+"/API/Cities/List");
+const Reservacion = ajaxRequest(urlAPI+"/API/Reservation/List");
+const HotelsList = ajaxRequest(urlAPI + "/API/Hotels/List");
+var RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
+var HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
 
 $('.ui.dropdown').dropdown();
+
+function ObtenerDetalles(id) {
+    $("#frmMenu_container #frmPackages .ui.grid").hide();
+
+    const listapaquetes = packagesList.data;
+    const paquetes = listapaquetes.filter(package => package.id == id);
+                
+    const paquete = paquetes[0];
+    const place = CitiesList.data.filter(x => x.id == paquete.ciudad_ID)[0];
+    const precio = parseFloat(paquete.precio);
+    const images = paquete.image_URL.split(",");
+    const duracion = `${paquete.duracion_Paquete} días y ${parseInt(paquete.duracion_Paquete) == 1 ? 1 : parseInt(paquete.duracion_Paquete) - 1} noches`;
+
+    const Cardpaquete = `<h4 class="ui left floated header">
+            <i class="tasks icon"></i> PAQUETE
+        </h4>
+        <div class="ui clearing divider"></div>
+        <div class="ui items">
+        <div class="item">
+            <div class="image">
+                <img src="${images[0]}">
+            </div>
+            <div class="content" style="width: inherit;">
+                <h2>${paquete.nombre}</h2>
+                <h3 class="description">${paquete.descripcion_Paquete}</h3>
+                <div class="extra">
+                    <p>
+                        - Para ${paquete.cantidad_de_personas} personas<br>
+                        - Duración: ${duracion}<br>
+                        - Precio: L ${precio}<br>
+                    </p>
+                    <div class="ui label">
+                        <i class="map marker icon"></i>
+                        ${place.ciudad.toUpperCase()}, ${place.pais.toUpperCase()}
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>`;
+
+    const listahoteles = HotelsList.data;
+    const hoteles = listahoteles.filter(hotel => hotel.id == paquete.iD_Hotel);
+    const hotel = hoteles[0];
+    const hotelimages = hotel.image_URL.split(",");
+
+    const Cardhotel = `<h4 class="ui left floated header">
+        <i class="building icon"></i> HOTEL
+    </h4>
+    <div class="ui clearing divider"></div>
+    <div class="ui items">
+        <div class="item">
+            <div class="image">
+                <img src="${hotelimages[0]}">
+            </div>
+            <div class="content" style="width: inherit;">
+                <h2>${hotel.hotel}</h2>
+                <h3 class="description">${hotel.descripcion}</h3>
+                <div class="extra">
+                    <div class="ui label">
+                        <i class="map marker icon"></i>
+                        ${hotel.calle} Calle, ${hotel.avenida} Avenida, Ciudad de ${hotel.ciudad}, ${hotel.pais}
+                    </div>
+                </div>
+            </div>
+            <br>   
+        </div>
+    </div>`;
+
+    const listarestaurantes = RestaurantList.data;
+    const restaurantes = listarestaurantes.filter(restaurant => restaurant.id == paquete.iD_Restaurante);
+    const restaurante = restaurantes[0];
+    const restauranteimages = restaurante.image_URL.split(",");
+    const ciudades = CitiesList.data.filter(x => x.id == restaurante.ciudadID)[0];
+
+    const Cardrestaurante = `<h4 class="ui left floated header">
+        <i class="food icon"></i> RESTAURANTE
+    </h4>
+    <div class="ui clearing divider"></div>
+    <div class="ui items">
+        <div class="item">
+            <div class="image">
+                <img src="${restauranteimages[0]}">
+            </div>
+            <div class="content" style="width: inherit;">
+                <h2>${restaurante.restaurante}</h2>
+                <h3 class="description">${restaurante.partner}</h3>
+                <div class="extra">
+                    <div class="ui label">
+                        <i class="map marker icon"></i>
+                        ${restaurante.calle} Calle, ${restaurante.avenida} Avenida, Ciudad de ${restaurante.ciudad}, ${ciudades.pais}
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>`;
+
+    const listaActividades = RestaurantList.data;
+    const restaurantes = listaActividades.filter(actividad => actividad.id == paquete.iD_Restaurante);
+    const restaurante = restaurantes[0];
+    const restauranteimages = restaurante.image_URL.split(",");
+
+    $("#frmMenu_container #frmPackages .ui.items").append(Cardpaquete, Cardhotel, Cardrestaurante);
+
+    $("#frmMenu_container #frmPackages .ui.items").show();
+}
 
 const fill_data = {
 
@@ -28,12 +135,12 @@ const fill_data = {
             var package = packagesList.data;
             if (id_ciudad_destino != null) {
                 package = packagesList.data.filter(x => x.ciudad_ID == id_ciudad_destino);
-                console.log(package);
+                //console.log(package);
             }
 
             $("#frmMenu_container #frmPackages .ui.grid").empty();
-            $("#frmMenu_container #frmPackages .ui.items").hide();
             $("#frmMenu_container #frmPackages .ui.items").empty();
+            $("#frmMenu_container #frmPackages .ui.items").hide();
 
             if (package != 0) {
                 for (var i = 0; i < package.length; i++) {
@@ -71,56 +178,8 @@ const fill_data = {
                     $("#frmMenu_container #frmPackages .ui.grid").append(card);
                 }
 
-                //function ObtenerDetalles(id) {
-                //    $("#frmMenu_container #frmPackages .ui.grid").hide();
-                //    $("#frmMenu_container #frmPackages .ui.items").append(`<div class="item activity_item">
-                //        <div class="image">
-                //            ${carousel}
-                //        </div>
-                //        <div class="content" style="padding-right: 10em;">
-                //            <h3 style="font-size: 0.90rem;">
-                //                <b class="blue_text">${item.actividad}</b>
-                //            </h3>
-                //            <b>${item.partner}</b>
-                //            <div class="description" style="font-size: 0.88rem;">
-                //                ${item.descripcion}
-                //            </div>
-                //            <div class="extra">
-                //                <h3 class="ui green header" style="font-size: 0.877rem;">L ${parseFloat(item.precio).toFixed(2)} por persona</h3>
-                //            </div>
-                //        </div>
-                //        <div class="content left floated activitiesExtra_form_content">
-                //            <div class="fields">
-
-                //                <div class="field">
-                //                    <label>No. de personas</label>
-                //                    <div class="field">
-                //                        <div class="ui right labeled input ExtraActivity_contador">
-                //                            <div class="ui icon button label minus_button">
-                //                                <i class="minus icon"></i>
-                //                            </div>
-                //                            <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
-                //                                <div class="ui icon button label plus_button">
-                //                                    <i class="plus icon"></i>
-                //                                </div>
-                //                            </div>
-                //                        </div>
-                //                    </div>
-
-                //                    <div class="field required">
-                //                        <label>Fecha reservacion</label>
-                //                        <div class="ui calendar activities_fecha">
-                //                            <div class="ui input left icon">
-                //                                <i class="calendar icon"></i>
-                //                                <input type="text" placeholder="Fecha de reservacion" readonly>
-                //                            </div>
-                //                        </div>
-                //                </div>
-                //            </div>
-                //        </div>`);
-                //    $("#frmMenu_container #frmPackages .ui.items").show();
-                //}
-
+                    $("#frmMenu_container #frmPackages .ui.items").show();
+                
                 $(".package_button_trigger").click(function (_this_button) {
 
                     var selected = $(_this_button.target).attr("data-selected");
@@ -555,7 +614,7 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
         reservation.reHo_FechaEntrada = $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
         reservation.reHo_FechaSalida = $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
 
-        console.log(reservation);
+        //console.log(reservation);
 
         var response = ajaxRequest(urlAPI+"/API/Reservation/Insert", reservation, "POST");
         //console.log(response);
@@ -694,7 +753,7 @@ const getDetails = {
 
             $("#btnFinalizar").off('click');
             $("#btnFinalizar").on('click', function () {
-                console.log("click");
+                //console.log("click");
                 FinalizarCompra(Packages.data[0], Activities.data, transports.data, total_price);
             });
 
