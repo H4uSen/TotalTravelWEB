@@ -1,6 +1,6 @@
 ﻿
 // ----------------------------------- GENERAL VARIABLES ------------------------------------
-    const urlAPI = "https://apitotaltravel.azurewebsites.net";
+    const urlAPI = "https://totaltravelapi.azurewebsites.net/";
     const sessionData = JSON.parse(document.getElementById("sessionData").innerHTML);
 
     $("input[type=text]").prop("autocomplete", "off");
