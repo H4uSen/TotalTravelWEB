@@ -44,12 +44,11 @@
 <br>
 <br>
 <div class="container">
-    <div class="ui attached segment">
-        <div class="fields">
+    <div class="ui equal width form segment">
+        <div class="two fields">
             <div class="field">
                 <label>Ciudad de origen:</label>
                 <select id="Origen" class="ui dropdown search" asp-items="ViewBag.ciudadesResidencia">
-                    <option value="0" selected>Todos</option>
                 </select>
             </div>
             <div class="field">
@@ -75,6 +74,7 @@
 
             <div id="frmPackages">
                 <div class="ui grid stackable three columns"></div>
+                <div class="ui divided items"></div>
             </div>
 
             <div id="frmTransports">
