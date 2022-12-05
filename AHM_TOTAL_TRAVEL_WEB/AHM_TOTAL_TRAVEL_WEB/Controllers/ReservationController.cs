@@ -502,15 +502,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         public async Task<IActionResult> PersonalizePackages(RouteValuesModel routeValues)
         {
             string token = HttpContext.User.FindFirst("Token").Value;
+            ViewBag.RouteValues = routeValues;
             int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
-            if (routeValues.IsRedirect && routeValues.Command == "Reservation")
-            { 
-                ViewBag.RouteValues = routeValues;
-            }
-            if (routeValues.IsRedirect && routeValues.Command == "Update")
-            {
-                ViewBag.RouteValues = routeValues;
-            }
             
 
             var UserData = (UserListViewModel)(await _accessService.UsersFind(User_Id, token)).Data;

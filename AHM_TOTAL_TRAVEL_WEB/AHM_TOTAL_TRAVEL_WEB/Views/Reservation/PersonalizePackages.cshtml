@@ -25,12 +25,15 @@
 <div class="container" id="frmCreatePackage">
     
     <!-- General Forma Data -->
-        @{
+    @{
+
         RouteValuesModel routesValues = ViewBag.RouteValues;
-        if (routesValues.IsSuccess.Equals(true) && routesValues.Command == "Update")
-        {
-            <input id="UserID" type="number" value=@routesValues.userID style="display:none" />
-        }
+        if (routesValues != null) { 
+            if (routesValues.IsSuccess.Equals(true) && routesValues.Command == "Update")
+            {
+                <input id="UserID" type="number" value=@routesValues.userID style="display:none" />
+            }
+        }    
     }
     <div class="ui equal width form">
         <div class="fields">
