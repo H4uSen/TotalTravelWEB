@@ -12,6 +12,8 @@ const ActvExtraList = ajaxRequest(urlAPI +"/API/ActivitiesExtra/List");
 
 var CantidadActvHotel = 0;
 var CantidadActvExtra = 0;
+var daysReserved = 0;
+var hasSelectedDate = false;
 var updPaquID = 0;
 
 
@@ -53,6 +55,7 @@ $(document).ready(function () {
 
 
 
+
 //Hides details for Default packages
 $("#frmDefaultPackagesDetails").hide();
 
@@ -86,7 +89,6 @@ $(document).on('change', '#ddlCiudades', function () {
 });
 
 
-
 //Change the data of the user depending on the selected DNI
 $("#Usua_ID").change(function () {
     const Users = UsersList.data;
@@ -117,6 +119,8 @@ $("#ddlPaises").change((_this) => {
 let paqueteDuracion = 7;
 //Details of the Default packages card 
 $("#Paqu_ID").change(function () {
+    hasSelectedDate = false;
+    daysReserved = 0;
     const DefaultPackages = DefaultPackagesList.data;
     const Hotels = HotelsList.data;
 
@@ -210,8 +214,15 @@ $("#Paqu_ID").change(function () {
     });
 
     $("#listHotelsExtraActivities").empty();
-    
+
+    $('#dateRangePicker').on('apply.daterangepicker', function (ev, picker) {
+        daysReserved = picker.endDate.diff(picker.startDate, "days");
+        hasSelectedDate = true;
+        console.log("Hola");
+    });
 });
+
+
 //------------------------------------ACTIVIDADES EXTRAS
 //Fill the activities extra form
 function ActvExtraForm() {
@@ -242,14 +253,14 @@ function ActvExtraForm() {
 <div class="four fields " id="extraActivitiesID${CantidadActvExtra}">
     <div class="field">
         <label>Actividades en <span id="lblZone"></span></label>
-        <select class="ui dropdown" name="ddlextraActivities_${CantidadActvExtra}"  id="ddlextraActivities_${CantidadActvExtra}" >
+        <select class="ui dropdown" name="ddlextraActivities_${CantidadActvExtra}" onchange="calculatePriceOfActvExtra(${CantidadActvExtra})" id="ddlextraActivities_${CantidadActvExtra}" >
 
         </select>
                                                 
     </div>
     <div class="field">
         <label>Cantidad de personas</label>
-        <input type="number" min="1" max="100" onchange="calculatePriceOfActvExtra(${CantidadActvExtra})" name="extraActivitiesAmount_${CantidadActvExtra}" id="extraActivitiesAmount_${CantidadActvExtra}" placeholder="Cantidad de personas">
+        <input type="number" min="1" max="100" value="1" onchange="calculatePriceOfActvExtra(${CantidadActvExtra})" name="extraActivitiesAmount_${CantidadActvExtra}" id="extraActivitiesAmount_${CantidadActvExtra}" placeholder="Cantidad de personas">
     </div>
     <div class="field ">
         <label>Total</label>
@@ -277,8 +288,16 @@ function ActvExtraForm() {
 };
 //Calculates the price of the activities of the zone
 function calculatePriceOfActvExtra(inputID) {
-    const ExtraActv = ajaxRequest(urlAPI +"/API/ActivitiesExtra/Find?id=" + $("#ddlextraActivities_" + inputID).val(), SendToken = true);
     const CantPersonasHtl = $("#extraActivitiesAmount_" + inputID).val();
+    if (CantPersonasHtl < 1) {
+        $("#extraActivitiesAmount_" + inputID).val("1");
+        iziToast.warning({
+            title: 'Atención',
+            message: 'El mínimo de personas es 1',
+        });
+        return;
+    }
+    const ExtraActv = ajaxRequest(urlAPI +"/API/ActivitiesExtra/Find?id=" + $("#ddlextraActivities_" + inputID).val(), SendToken = true);
     const data = ExtraActv.data;
     $("#extraActivitiesPrice_" + inputID).val(data.precio * parseInt( CantPersonasHtl));
 };
@@ -342,14 +361,14 @@ function hotelActvExtraForm() {
 <div class="four fields " id="hotelsExtraActivitiesID${CantidadActvHotel}">
     <div class="field">
         <label>Actividades en el hotel</label>
-        <select class="ui dropdown" name="ddlhotelsExtraActivities_${CantidadActvHotel}" id="ddlhotelsExtraActivities_${CantidadActvHotel}" runat="server">
+        <select class="ui dropdown" name="ddlhotelsExtraActivities_${CantidadActvHotel}" onchange="calculatePriceOfActvHotels(${CantidadActvHotel})" id="ddlhotelsExtraActivities_${CantidadActvHotel}" runat="server">
 
         </select>
 
     </div>
     <div class="field">
         <label>Cantidad de personas</label>
-        <input type="number" min="1" max="100" onchange="calculatePriceOfActvHotels(${CantidadActvHotel})" name="hotelsExtraActivitiesAmount_${CantidadActvHotel}" id="hotelsExtraActivitiesAmount_${CantidadActvHotel}" placeholder="Cantidad de personas" runat="server">
+        <input type="number" min="1" max="100" value="1" onchange="calculatePriceOfActvHotels(${CantidadActvHotel})" name="hotelsExtraActivitiesAmount_${CantidadActvHotel}" id="hotelsExtraActivitiesAmount_${CantidadActvHotel}" placeholder="Cantidad de personas" runat="server">
     </div>
     <div class="field hotelsExtraActivitiesPrice">
         <label>Total</label>
@@ -379,9 +398,19 @@ function hotelActvExtraForm() {
 
 //Calculates the price of the activities of the hotel
 function calculatePriceOfActvHotels(inputID) {
+    const CantPersonas = $("#hotelsExtraActivitiesAmount_" + inputID).val();
+    if (CantPersonas < 1) {
+        $("#hotelsExtraActivitiesAmount_" + inputID).val("1");
+        iziToast.warning({
+            title: 'Atención',
+            message: 'El mínimo de personas es 1',
+        });
+        return;
+    }
+
     var ID = $("#ddlhotelsExtraActivities_" + inputID).val();
     const HtlExtraActv = ajaxRequest(urlAPI +"/API/HotelsActivities/Find?id=" + ID, SendToken=true);
-    const CantPersonas = $("#hotelsExtraActivitiesAmount_" + inputID).val();
+    
     $("#hotelsExtraActivitiesPrice_" + inputID).val(HtlExtraActv.data.precio * CantPersonas);
 };
 
@@ -470,7 +499,17 @@ $("#ddlTipoPaquete").change(function () {
         $("#frmDefaultPackages").show();
         $("#frmReservData").show();
 
-        
+
+        if (command == "Create") {
+            $("#CrearPersonalizado").val(false);
+            $("#CrearPersonalizado").prop("checked", false);
+            $("#CrearPersonalizado").attr("checked", false);
+        } else if (command == "Update") {
+            $("#EditarPersonalizado").val(false);
+            $("#EditarPersonalizado").prop("checked", false);
+            $("#EditarPersonalizado").attr("checked", false);
+        }
+        $("#btnCustomPack").css("display", "none");
        
     }
     else if ($("#ddlTipoPaquete").val() == 1) {
@@ -497,9 +536,10 @@ $("#ddlTipoPaquete").change(function () {
             
         }
         else {
-            $("#frmCreateReserv").submit();
+            $("#btnCustomPack").css("display", "flex");
         }
         
+
         
     }
     else if ($("#ddlTipoPaquete").val() == "") {
@@ -508,6 +548,9 @@ $("#ddlTipoPaquete").change(function () {
     }
 });
 
+function personalizeRedirection() {
+    $("#frmCreateReserv").submit();
+}
 
 
 $("#Paqu_ID").change(function () {
@@ -560,8 +603,19 @@ function FillCities(Country_Id) {
 
 
 
+
 // Create reservation
 function createReservation() {
+
+    if ($("#ddlTipoPaquete").val() == 1) {
+        iziToast.warning({
+            title: 'No es posible crear la reservación',
+            message: 'Presione "Continuar" para añadir los detalles a la reservación',
+        });
+    }
+    
+
+
     var reservation = new FormData();
 
     const reservationValidateArray = [
@@ -577,7 +631,26 @@ function createReservation() {
     ];
 
     const reservationValidate = ValidateForm(reservationValidateArray);
-
+    if ($("#Paqu_ID").val() != "") {
+        if (hasSelectedDate == false) {
+            iziToast.warning({
+                title: 'No es posible crear la reservación',
+                message: 'Seleccione la fecha de entrada y la fecha de salida',
+            });
+            return;
+        } else {
+            var expectedDays = parseInt($("#txtDefaultPackageDuracion").text());
+            console.log(expectedDays, " - ", daysReserved)
+            if (expectedDays < daysReserved) {
+                iziToast.warning({
+                    title: 'No es posible crear la reservación',
+                    message: `Su reservación debe de ser de ${expectedDays} días, seleccione esa cantidad en el calendario`,
+                });
+                return;
+            }
+        }
+    }
+    
 
     // create reservation model
     if (reservationValidate) {

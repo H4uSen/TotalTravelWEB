@@ -296,11 +296,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public async Task<ServiceResult> ActivitiesExtrasFind(string id, string token)
         {
             var Result = new ServiceResult();
-            var cuenta = new ActivitiesListViewModel();
+            var cuenta = new ActivitiesExtrasListViewModel();
 
             try
             {
-                var response = await _api.Get<ActivitiesListViewModel, ActivitiesListViewModel>(req => {
+                var response = await _api.Get<ActivitiesExtrasListViewModel, ActivitiesExtrasListViewModel>(req => {
                     req.Path = $"/API/ActivitiesExtra/Find?id=" + id;
                     req.Content = cuenta;
                 },

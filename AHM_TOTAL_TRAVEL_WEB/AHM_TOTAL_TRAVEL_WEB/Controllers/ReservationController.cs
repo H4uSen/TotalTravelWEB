@@ -110,10 +110,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirstValue("User_Id");
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
-
-
+            var fechaEntrada = DateTime.Parse(form["datefilter"].ToString().Split("-")[0].Replace("/", "-").Trim().Split("-").Reverse().Aggregate((a, b) => a + "-" + b));
+            DefaultPackagesViewModel Package = (DefaultPackagesViewModel)(await _saleServices.DefaultPackagesFind(reservation.Paqu_ID.GetValueOrDefault().ToString(), token)).Data;
             
-
+            //Extra activities of the hotel
             int amountHtelActvities = form.Keys.Count(x => x.Contains("ddlhotelsExtraActivities_"));
             var ExtraHtelActivities = form.Keys.Where(x => x.Contains("ddlhotelsExtraActivities_")).ToList();
             var ExtraHtelActivitiesAmount = form.Keys.Where(x => x.Contains("hotelsExtraActivitiesAmount_")).ToList();
@@ -147,7 +147,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 
             }
 
-            int amountExtraActivities = form.Keys.Count(x => x.Contains("ddlextraActivities_"));
+                //Extra activities of the zone
+                int amountExtraActivities = form.Keys.Count(x => x.Contains("ddlextraActivities_"));
             var ExtraActivities = form.Keys.Where(x => x.Contains("ddlextraActivities_")).ToList();
             var ExtraActivitiesAmount = form.Keys.Where(x => x.Contains("extraActivitiesAmount_")).ToList();
             var ExtraActivitiesPrice = form.Keys.Where(x => x.Contains("extraActivitiesPrice_")).ToList();
@@ -179,7 +180,26 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 }
                 
             }
+            //Adding the extra activities of the package
+            List<DefaultPackagesDetailsListViewModel> xtraActvPack = (List<DefaultPackagesDetailsListViewModel>)(await _saleServices.DefaultPackagesDetailsList()).Data;
+            List<DefaultPackagesDetailsListViewModel> filteredXtraActvPack = xtraActvPack.Where(x => x.PaqueteID == reservation.Paqu_ID).ToList();
+            if (filteredXtraActvPack.Count() > 0) {
+                foreach (var actv in filteredXtraActvPack)
+                {
+                    ReservacionesActividadesExtras extraActivity = new ReservacionesActividadesExtras();
+                    extraActivity.AcEx_ID = actv.ActividadID;
+                    extraActivity.ReAE_Cantidad = Package.paqu_CantPersonas;
+                    extraActivity.ReAE_Precio = actv.Precio;
+                    extraActivity.ReAE_FechaReservacion = fechaEntrada;
+                    extraActivity.ReAE_HoraReservacion = "1200";
 
+                    totalActvExtra += extraActivity.ReAE_Precio.GetValueOrDefault(0) * extraActivity.ReAE_Cantidad.GetValueOrDefault(0);
+                    reservation.ActividadesExtras.Add(extraActivity);
+                }
+            }
+
+
+            //Reservation data
             reservation.Usua_ID = int.Parse(form["Usua_ID"].ToString());
             reservation.Resv_esPersonalizado = (form["ddlTipoPaquete"].ToString() == "1") ? true : false;
             reservation.Resv_Precio = decimal.Parse(form["txtDefaultPackagePrice"].ToString()) + totalActvExtra + totalActvHtel;
@@ -194,7 +214,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 routeValues.IsSuccess = true;
                 routeValues.responseID = result.Id;
-                routeValues.Command = "Default";
+                routeValues.Command = "Create";
                 return RedirectToAction("Index", "Reservation", routeValues);
             }
             else
@@ -260,8 +280,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 }
                     
 
-
-
                 decimal totalActvExtra = 0;
                 decimal totalActvHtel = 0;
 
@@ -284,7 +302,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         {
                             var key = ExtraActivities[i];
                             var value = form[key];
-                            ActivitiesListViewModel actv = (ActivitiesListViewModel)(await _activitiesServices.ActivitiesExtrasFind(value, token)).Data;
+                            ActivitiesExtrasListViewModel actv = (ActivitiesExtrasListViewModel)(await _activitiesServices.ActivitiesExtrasFind(value, token)).Data;
                             
                             ReservacionesActividadesExtras extraActivity = new ReservacionesActividadesExtras();
                             extraActivity.AcEx_ID = int.Parse(value.ToString());
@@ -311,24 +329,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var ExtraActivitiesPriceUpdt = form.Keys.Where(x => x.Contains("extraActivitiesPriceUpdt_")).ToList();
                 var ExtraActivitiesUpdtDel = form.Keys.Where(x => x.Contains("extraActivitiesUpdtDel_")).ToList();
                 
+
+                //Update of activities
                 reservationData.ActividadesExtras = new List<ReservacionesActividadesExtras>();
                 if (!amountExtraActivitiesUpdt.Equals(0))
                 {
                     try
                     {
+                        
                         for (int i = 0; i < amountExtraActivitiesUpdt; i++)
                         {
                             var key = ExtraActivitiesUpdt[i];
                             var value = form[key];
 
-                            if (ExtraActivitiesUpdtDel.Count != 0) {
-                                if (Boolean.Parse(form[ExtraActivitiesUpdtDel[i]]) == true)
-                                {
-                                    continue;
-                                }
-                            }
 
-                            ActivitiesListViewModel actv = (ActivitiesListViewModel)(await _activitiesServices.ActivitiesFind(value, token)).Data;
+
+                            ActivitiesExtrasListViewModel actv = (ActivitiesExtrasListViewModel)(await _activitiesServices.ActivitiesExtrasFind(value, token)).Data;
 
                             ReservacionesActividadesExtras extraActivity = new ReservacionesActividadesExtras();
                             extraActivity.AcEx_ID = int.Parse(value.ToString());
@@ -400,12 +416,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                         {
                             var key = ExtraHtelActivitiesUpdt[i];
                             var value = form[key];
-                            if (ExtraHtelActivitiesDelUpdt.Count != 0) {
-                                if (Boolean.Parse(form[ExtraHtelActivitiesDelUpdt[i]]) == true)
-                                {
-                                    continue;
-                                }
-                            }
                             
                             
                             HotelsActivitiesListViewModel actv = (HotelsActivitiesListViewModel)(await _hotelsService.HotelsActivitiesFind(value, token)).Data;
@@ -447,11 +457,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 reservationData.Resv_ConfirmacionRestaurante = reservation.ConfirmacionRestaurante;
                 reservationData.Resv_ConfirmacionTrans = reservation.ConfirmacionTransporte;
                 reservationData.Resv_ConfirmacionActividades = reservation.ConfirmacionActividades;
+                reservationData.Resv_UsuarioCreacion = UserID;
                 reservationData.Resv_UsuarioModifica = UserID;
                 //Extra data in case it's a custom reservation
 
-
-
+                
                 #endregion
 
                 ServiceResult result = await _reservationService.ReservationUpdate(reservationData,id, token);

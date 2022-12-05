@@ -1217,10 +1217,9 @@ function FinalizarCompra(reservationDetail) {
                 Algunos campos o aspectos son invalidos 
             </div>
             <ul class="list">`;
-
+    const cantidadDePagos = $("#txtCantidadPagos").val();
+    const metodoPago = $("#cbbFormaPago").find(".item.selected").eq(0).attr("data-value");
     if (command != "Update") {
-        const cantidadDePagos = $("#txtCantidadPagos").val();
-        const metodoPago = $("#cbbFormaPago").find(".item.selected").eq(0).attr("data-value");
         if (cantidadDePagos <= 0) {
             errorDiv += `<li>Campo requerido: Cantidad de pagos/cuotas</li>`;
             detailSuccess = false;

@@ -324,22 +324,31 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var command = FindGetValue("Command")
-    var isSuccess = FindGetValue("isSuccess")
-    var responseID = FindGetValue("responseID")
-    if (command == "Personalize" && isSuccess == true) {
-        iziToast.success({
-            title: 'Éxito',
-            message: 'Reservación ingresada exitosamente',
-        });
-        $('input[type="search"]').val(responseID.toString()).keyup();
-    } else if (command == "Update" && isSuccess == true) {
-        iziToast.success({
-            title: 'Éxito',
-            message: 'Reservación editada exitosamente',
-        });
-        $('input[type="search"]').val(responseID.toString()).keyup();
-    }
+    setTimeout(function () {
+        var command = FindGetValue("Command")
+        var isSuccess = FindGetValue("isSuccess")
+        var responseID = FindGetValue("responseID")
+        if (command == "Personalize" && isSuccess == "true") {
+            iziToast.success({
+                title: 'Éxito',
+                message: 'Reservación ingresada exitosamente',
+            });
+            $('input[type="search"]').val(responseID.toString()).keyup();
+        } else if (command == "Update" && isSuccess == "true") {
+            iziToast.success({
+                title: 'Éxito',
+                message: 'Reservación editada exitosamente',
+            });
+            $('input[type="search"]').val(responseID.toString()).keyup();
+        } else if (command == "Create" && isSuccess == "true") {
+            iziToast.success({
+                title: 'Éxito',
+                message: 'Reservación creada exitosamente',
+            });
+            $('input[type="search"]').val(responseID.toString()).keyup();
+        }
+    },1000)
+    
     
 });
 

@@ -64,7 +64,7 @@
                                 <select class="ui search dropdown" minlength="13" maxlength="13" asp-for="Usua_ID" autofocus runat="server">
                                     <option value="">Ingrese un DNI</option>
                                 </select>
-                                <a href="#" id="newUserLink"><small>Nuevo cliente? click aqui</small></a>
+                                <a href="#" id="newUserLink"><small>¨¿Nuevo cliente? click aqui</small></a>
                                 </div>
                             
                                 <!--First name-->
@@ -107,6 +107,9 @@
                                     <option value="1">Personalizado</option>
                                     <option value="2">Nuestras ofertas</option>
                                 </select>
+                            </div>
+                            <div class="field" id="btnCustomPack" style="display: none;align-content: flex-end;align-items: flex-end;">
+                                <div class="ui btn-edit text-white button" tabindex="0" onclick="personalizeRedirection()">Continuar</div>
                             </div>
                         </div>
                     
@@ -199,7 +202,8 @@
                                                         <div class="header">Descripción:</div>
                                                         <div class="description">
                                                                 <p id="txtDefaultPackageDesc"></p>
-                                                                Duración: <span id="txtDefaultPackageDuracion"></span> días
+                                                                <p>Duración: <strong><span id="txtDefaultPackageDuracion"></span> días</strong></p>
+                                                                <p>Cantidad de personas: <strong><span id="txtDefaultPackagePersonas"></span></strong></p>
                                                         </div>
                                                       </div>
                                                     </div>
@@ -279,7 +283,8 @@
                                 </div>
                                 <br>
                             </div>
-                            <!--Add or edit a restaurant-->
+                            
+                            @*<!--Add or edit a restaurant-->
                             <div id="frmRestaurants" style="margin-bottom:20px">
                                 <div class="ui segment">
                                     <h3 class="ui block header">
@@ -304,7 +309,7 @@
 
                                 </div>
                                 <br>
-                            </div>
+                            </div>*@
                         </div>
                         @{
                             if (ViewBag.RouteValues.Command == "Update")

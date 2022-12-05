@@ -33,6 +33,8 @@ $(document).ready(function () {
                     format: 'DD/MM/YYYY'
                 }
             });
+            daysReserved = parseInt( reservationData.reservacionDetalle.durecionPaquete);
+            hasSelectedDate = true
 
             if (reservationData.actividadesExtras.length > 0) {
                 $("#btnShowExtraActivities").click();
@@ -189,7 +191,7 @@ function updtActvExtraForm(actvID, cantidad, precio) {
     <input id="extraActivitiesUpdtDel_${actvID}" name="extraActivitiesUpdtDel_${actvID}" type="checkbox" style="display:none" />
     <div class="field">
         <label>Actividades en <span class="lblZone"></span></label>
-        <select class="ui dropdown" name="ddlextraActivitiesUpdt_${actvID}"  id="ddlextraActivitiesUpdt_${actvID}" >
+        <select class="ui dropdown" name="ddlextraActivitiesUpdt_${actvID}" onchange="calculatePriceOfActvExtraUpdt(${actvID})" id="ddlextraActivitiesUpdt_${actvID}" >
 
         </select>
                                                
@@ -243,10 +245,11 @@ function calculatePriceOfActvExtraUpdt(inputID) {
 };
 //Delete an input for an activity extra of the zone
 function deleteExtraActivitiesUpdt(inputID) {
-    $("#extraActivitiesUpdtDel_"+inputID).val(true);
-    $("#extraActivitiesUpdtDel_" + inputID).prop("checked", true);
-    $("#extraActivitiesUpdtDel_" + inputID).attr("checked", true);
-    $("#extraActivitiesUpdtID" + inputID).css("display", "none");
+    $("#extraActivitiesUpdtID" + inputID).empty();
+    //$("#extraActivitiesUpdtDel_"+inputID).val(true);
+    //$("#extraActivitiesUpdtDel_" + inputID).prop("checked", true);
+    //$("#extraActivitiesUpdtDel_" + inputID).attr("checked", true);
+    //$("#extraActivitiesUpdtID" + inputID).css("display", "none");
 };
 
 
@@ -279,7 +282,7 @@ function updtActvHtelForm(actvID, cantidad, precio, htelID) {
     <input id="htelActivitiesUpdtDel_${actvID}" name="htelActivitiesUpdtDel_${actvID}" type="checkbox" style="display:none" />
     <div class="field">
         <label>Actividades</label>
-        <select class="ui dropdown" name="ddlhtelActivitiesUpdt_${actvID}"  id="ddlhtelActivitiesUpdt_${actvID}" >
+        <select class="ui dropdown" name="ddlhtelActivitiesUpdt_${actvID}" onchange="calculatePriceOfHtelActvUpdt(${actvID})" id="ddlhtelActivitiesUpdt_${actvID}" >
 
         </select>
                                                
@@ -331,10 +334,11 @@ function calculatePriceOfHtelActvUpdt(inputID) {
 };
 //Delete an input for an activity extra of the hotel
 function deleteHtelActivitiesUpdt(inputID) {
-    $("#htelActivitiesUpdtDel_" + inputID).val(true);
-    $("#htelActivitiesUpdtDel_" + inputID).prop("checked", true);
-    $("#htelActivitiesUpdtDel_" + inputID).attr("checked", true);
-    $("#htelActivitiesUpdtID" + inputID).css("display", "none");
+    $("#htelActivitiesUpdtID" + inputID).empty();
+    //$("#htelActivitiesUpdtDel_" + inputID).val(true);
+    //$("#htelActivitiesUpdtDel_" + inputID).prop("checked", true);
+    //$("#htelActivitiesUpdtDel_" + inputID).attr("checked", true);
+    //$("#htelActivitiesUpdtID" + inputID).css("display", "none");
 };
 
 $(document).ready(function () {
