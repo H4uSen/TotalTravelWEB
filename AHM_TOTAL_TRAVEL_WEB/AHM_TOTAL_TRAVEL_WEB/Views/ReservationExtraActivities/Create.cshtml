@@ -5,86 +5,91 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div id="frmcreatereservationactividadesextra">
-    <div class="container card">
-        <div class="ui basic segment">
-            <div class="ui icon attached message">
-                <i class="fa-sharp fa-solid fa-a"></i>
-                <div class="content">
-                    <div class="header text-capitalize">
-                        Crear Actividad Extra
-                    </div>
-                </div>
-                <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
-                        Regresar
-                        <i class="left arrow icon"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- formulario-->
-            <form asp-action="Create" asp-controller="ReservationExtraActivities" id="CreateReservationActividadExtra">
-
-                <div class="ui form attached fluid segment">
+@try
+{
+    <div id="frmcreatereservationactividadesextra">
+        <div class="container card">
+            <div class="ui basic segment">
+                <div class="ui icon attached message">
+                    <i class="fa-sharp fa-solid fa-a"></i>
                     <div class="content">
-
-                        <div class="field">
-                            <div class="two fields">
-                                <div class="required field">
-                                    <label class="ui label">cliente</label>
-                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
-                                        <option value="">Seleccione un cliente</option>
-                                    </select>
-                                </div>
-                                <div class="required field">
-                                    <label>Cantidad</label>
-                                    <input id="ReAE_Cantidad" name="ReAE_Cantidad" placeholder="Cantidad" />
-                                </div>
-
-
-                            </div>
+                        <div class="header text-capitalize">
+                            Crear Actividad Extra
                         </div>
-
-                        <div class="field">
-                            <div class="two fields">
-                                <div class="required field">
-                                    <label class="ui label">Actividad</label>
-                                    <select id="AcEx_ID" name="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
-                                        <option value="">Selecciona actividad</option>
-                                    </select>
-                                </div>
-                                <div class="required field">
-                                    <label>Fecha Reservacion</label>
-                                    <input id="ReAE_FechaReservacion" name="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <div class="required field">
-                                <label>Hora Reservacion</label>
-                                <input id="ReAE_HoraReservacion" name="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
-                            </div>
-
-                        </div>
-
-
-                        <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
-
-                        <input type="button" value="Crear" id="btnCreateReservationActivityExtra" class="btn btn-purple ui positive button" />
-                        <a type="button" href="@Url.Action("Index", "ReservationExtraActivities")" class="ui button mb-3 ms-3">Cancelar</a>
-
+                    </div>
+                    <div class="right floated content" style="text-align: end;">
+                        <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationExtraActivities")">
+                            Regresar
+                            <i class="left arrow icon"></i>
+                        </a>
                     </div>
                 </div>
 
-            </form>
-            <!-- fin formulario-->
+                <!-- formulario-->
+                <form asp-action="Create" asp-controller="ReservationExtraActivities" id="CreateReservationActividadExtra">
+
+                    <div class="ui form attached fluid segment">
+                        <div class="content">
+
+                            <div class="field">
+                                <div class="two fields">
+                                    <div class="required field">
+                                        <label class="ui label">cliente</label>
+                                        <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
+                                            <option value="">Seleccione un cliente</option>
+                                        </select>
+                                    </div>
+                                    <div class="required field">
+                                        <label>Cantidad</label>
+                                        <input id="ReAE_Cantidad" name="ReAE_Cantidad" placeholder="Cantidad" />
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="two fields">
+                                    <div class="required field">
+                                        <label class="ui label">Actividad</label>
+                                        <select id="AcEx_ID" name="AcEx_ID" class="ui dropdown search" asp-items="ViewBag.AcEx_ID">
+                                            <option value="">Selecciona actividad</option>
+                                        </select>
+                                    </div>
+                                    <div class="required field">
+                                        <label>Fecha Reservacion</label>
+                                        <input id="ReAE_FechaReservacion" name="ReAE_FechaReservacion" placeholder="Fecha Reservacion" type="date" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="required field">
+                                    <label>Hora Reservacion</label>
+                                    <input id="ReAE_HoraReservacion" name="ReAE_HoraReservacion" placeholder="Hora Reservacion" />
+                                </div>
+
+                            </div>
+
+
+                            <span style="color: darkred; font-size: 16px;" class="labelvalidator" id="labelvalidatorError"></span>
+
+                            <input type="button" value="Crear" id="btnCreateReservationActivityExtra" class="btn btn-purple ui positive button" />
+                            <a type="button" href="@Url.Action("Index", "ReservationExtraActivities")" class="ui button mb-3 ms-3">Cancelar</a>
+
+                        </div>
+                    </div>
+
+                </form>
+                <!-- fin formulario-->
+            </div>
         </div>
     </div>
-</div>
-
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 @section Scripts{
     <script src="~/js/ReservationActivitiesExtrasJS/CreateReservacionActividadesExtras.js"></script>
 }

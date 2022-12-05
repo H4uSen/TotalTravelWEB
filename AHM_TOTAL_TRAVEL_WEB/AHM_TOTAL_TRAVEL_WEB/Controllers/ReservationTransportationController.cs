@@ -24,55 +24,75 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var model = new List<ReservationTransportationListViewModel>();
-            var list = await _reservationService.transportationReservationList( token);
-            return View(list.Data);
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var model = new List<ReservationTransportationListViewModel>();
+                var list = await _reservationService.transportationReservationList( token);
+                return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new List<ReservationExtraActivitiesViewModel>();
-            string token = HttpContext.User.FindFirst("Token").Value;
+            try
+            {
+                var model = new List<ReservationExtraActivitiesViewModel>();
+                string token = HttpContext.User.FindFirst("Token").Value;
 
-            var reservacion = await _reservationService.ReservationList(token);
-            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
-            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
+                var reservacion = await _reservationService.ReservationList(token);
+                List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+                data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
    
-            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
+                ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto");
 
-            var transporte = await _transportService.TransportDetailsList(token);
-            IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
-            ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte");
+                var transporte = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
+                ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte");
 
-            return View();
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationTransportationViewModel  reservationTransportation)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                reservationTransportation.ReTr_UsuarioCreacion = 1;
-                var list = await _reservationService.transportationReservationCreate(reservationTransportation, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/ReservationTransportation?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    reservationTransportation.ReTr_UsuarioCreacion = 1;
+                    var list = await _reservationService.transportationReservationCreate(reservationTransportation, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/ReservationTransportation?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
 
         }
@@ -80,60 +100,73 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
 
-            var item = new ReservationTransportationViewModel();
-            IEnumerable<ReservationTransportationListViewModel> model = null;
-            var list = await _reservationService.transportationReservationList(token);
-            IEnumerable<ReservationTransportationListViewModel> data = (IEnumerable<ReservationTransportationListViewModel>)list.Data;
-            var element = data.Where(x => x.Id == id).ToList()[0];
-            item.Resv_ID = element.Reservacion;
-            item.Detr_ID = element.ID_detalle_Transporte;
-            item.ReTr_CantidadAsientos = element.Asientos;
-            item.ReTr_Cancelado = element.Cancelado;
-            item.ReTr_FechaCancelado = element.Fecha_Cancelado;
-            item.Resv_ID = element.Reservacion;
-            item.Detr_ID = element.ID_detalle_Transporte;
-
-
-            var transporte = await _transportService.TransportDetailsList(token);
-            IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
-            ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte", element.ID_detalle_Transporte);
+                var item = new ReservationTransportationViewModel();
+                IEnumerable<ReservationTransportationListViewModel> model = null;
+                var list = await _reservationService.transportationReservationList(token);
+                IEnumerable<ReservationTransportationListViewModel> data = (IEnumerable<ReservationTransportationListViewModel>)list.Data;
+                var element = data.Where(x => x.Id == id).ToList()[0];
+                item.Resv_ID = element.Reservacion;
+                item.Detr_ID = element.ID_detalle_Transporte;
+                item.ReTr_CantidadAsientos = element.Asientos;
+                item.ReTr_Cancelado = element.Cancelado;
+                item.ReTr_FechaCancelado = element.Fecha_Cancelado;
+                item.Resv_ID = element.Reservacion;
+                item.Detr_ID = element.ID_detalle_Transporte;
 
 
-
-            var reservacion = await _reservationService.ReservationList(token);
-            List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
-            data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
-            ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto", element.Reservacion);
+                var transporte = await _transportService.TransportDetailsList(token);
+                IEnumerable<TransportDetailsListViewModel> data_transporte = (IEnumerable<TransportDetailsListViewModel>)transporte.Data;
+                ViewBag.Detr_ID = new SelectList(data_transporte, "ID", "Tipo_Transporte", element.ID_detalle_Transporte);
 
 
-            return View(item);
+
+                var reservacion = await _reservationService.ReservationList(token);
+                List<ReservationListViewModel> data_reservacion = (List<ReservationListViewModel>)reservacion.Data;
+                data_reservacion.ForEach(item => { item.NombreCompleto = string.Concat(item.Nombre, " ", item.Apellido); });
+                ViewBag.Resv_ID = new SelectList(data_reservacion, "ID", "NombreCompleto", element.Reservacion);
+
+
+                return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(ReservationTransportationViewModel  reservationTransportation, int id)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                reservationTransportation.ReTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
-                var lista = await _reservationService.transportationReservationUpdate(reservationTransportation, id, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
-                if (l > 0)
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/ReservationTransportation?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    reservationTransportation.ReTr_UsuarioModifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                    var lista = await _reservationService.transportationReservationUpdate(reservationTransportation, id, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)lista.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/ReservationTransportation?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
 
         }
@@ -141,29 +174,43 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(ReservationTransportationViewModel transporte, int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                ServiceResult result = new ServiceResult();
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                transporte.ReTr_UsuarioModifica = int.Parse(idd);
+                if (ModelState.IsValid)
+                {
+                    ServiceResult result = new ServiceResult();
+                    var idd = HttpContext.User.FindFirst("User_Id").Value;
+                    transporte.ReTr_UsuarioModifica = int.Parse(idd);
 
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = (RequestStatus)(await _reservationService.TransportReservationDelete(transporte, id, token)).Data;
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = (RequestStatus)(await _reservationService.TransportReservationDelete(transporte, id, token)).Data;
 
-                return Ok(list.CodeStatus);
+                    return Ok(list.CodeStatus);
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception)
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            string token = HttpContext.User.FindFirst("Token").Value;
-            var transporte = (ReservationTransportationListViewModel)(await _reservationService.TransportReservationFind(id, token)).Data;
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var transporte = (ReservationTransportationListViewModel)(await _reservationService.TransportReservationFind(id, token)).Data;
 
-            return View(transporte);
+                return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
     }

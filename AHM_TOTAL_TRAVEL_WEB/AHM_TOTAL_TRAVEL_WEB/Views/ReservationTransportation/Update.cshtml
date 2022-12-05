@@ -5,75 +5,81 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="frmCreateUser">
-    <div class="container card">
-        <div class="ui basic segment">
-            <div class="ui icon attached message">
-                <i class="bus icon"></i>
-                <div class="content">
-                    <div class="header text-capitalize">
-                        Editar
-                    </div>
-                    <p>Editar Reservacion Restaurante</p>
-                </div>
-                <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
-                        Regresar
-                        <i class="left arrow icon"></i>
-                    </a>
-                </div>
-            </div>
-            <form asp-action="Update" id="FrmReservationTransporte">
-                <div class="ui form attached fluid segment">
+@try
+{
+    <div id="frmCreateUser">
+        <div class="container card">
+            <div class="ui basic segment">
+                <div class="ui icon attached message">
+                    <i class="bus icon"></i>
                     <div class="content">
-                        <div class="two fields">
-                            <div class="required field">
-                                <label>cliente</label>
-                                <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID" asp-for="Resv_ID">
-                                    <option value="">Seleccione una Reservacion</option>
-                                </select>
-                            </div>
-                            <div class="required field">
-                                <label>Transporte</label>
-                                <select id="Detr_ID" name="Detr_ID" class="ui dropdown search" asp-items="ViewBag.Detr_ID" asp-for="Detr_ID">
-                                    <option value="">Seleccione un Restaurante</option>
-                                </select>
-                            </div>
-
+                        <div class="header text-capitalize">
+                            Editar
                         </div>
-                        <div class="two fields">
+                        <p>Editar Reservacion Restaurante</p>
+                    </div>
+                    <div class="right floated content" style="text-align: end;">
+                        <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
+                            Regresar
+                            <i class="left arrow icon"></i>
+                        </a>
+                    </div>
+                </div>
+                <form asp-action="Update" id="FrmReservationTransporte">
+                    <div class="ui form attached fluid segment">
+                        <div class="content">
+                            <div class="two fields">
+                                <div class="required field">
+                                    <label>cliente</label>
+                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID" asp-for="Resv_ID">
+                                        <option value="">Seleccione una Reservacion</option>
+                                    </select>
+                                </div>
+                                <div class="required field">
+                                    <label>Transporte</label>
+                                    <select id="Detr_ID" name="Detr_ID" class="ui dropdown search" asp-items="ViewBag.Detr_ID" asp-for="Detr_ID">
+                                        <option value="">Seleccione un Restaurante</option>
+                                    </select>
+                                </div>
 
-                            <div class="required field">
-                                <label>Cantidad Asientos</label>
-                                <input asp-for="ReTr_CantidadAsientos" id="ReTr_CantidadAsientos" />
                             </div>
-                            <div class="required field">
-                                <label>Fecha Cancelado</label>
-                                <input asp-for="ReTr_FechaCancelado" id="ReTr_FechaCancelado" type="date" />
+                            <div class="two fields">
+
+                                <div class="required field">
+                                    <label>Cantidad Asientos</label>
+                                    <input asp-for="ReTr_CantidadAsientos" id="ReTr_CantidadAsientos" />
+                                </div>
+                                <div class="required field">
+                                    <label>Fecha Cancelado</label>
+                                    <input asp-for="ReTr_FechaCancelado" id="ReTr_FechaCancelado" type="date" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="ui segment">
-                            <div class="grouped fields">
-                                <div class="field">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" value="false" id="ReTr_Cancelado" name="ReTr_Cancelado" tabindex="0" class="hidden">
-                                        <label>Cancelado</label>
+                            <div class="ui segment">
+                                <div class="grouped fields">
+                                    <div class="field">
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" value="false" id="ReTr_Cancelado" name="ReTr_Cancelado" tabindex="0" class="hidden">
+                                            <label>Cancelado</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
+                            <button class="ui button btn-edit text-white" id="btnGuardar">Guardar</button>
+                            <a type="button" href="@Url.Action("Index", "ReservationTransportation")" class="ui button mb-3 ms-3">Cancelar</a>
+
                         </div>
-
-
-                        <button class="ui button btn-edit text-white" id="btnGuardar">Guardar</button>
-                        <a type="button" href="@Url.Action("Index", "ReservationTransportation")" class="ui button mb-3 ms-3">Cancelar</a>
-
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
 @section Scripts{
 

@@ -195,7 +195,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             catch (Exception)
             {
-
                 return RedirectToAction("Error", "Home");
             }
 

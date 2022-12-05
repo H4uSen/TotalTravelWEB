@@ -5,191 +5,198 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container card">
-    <div class="ui basic segment">
+@try
+{
+    <div class="container card">
+        <div class="ui basic segment">
 
-        <div class="ui icon attached message">
-            <i class="file alternate icon"></i>
-            <div class="content">
-                <div class="header">
-                    Reservaciones Detalles
+            <div class="ui icon attached message">
+                <i class="file alternate icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Reservaciones Detalles
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <div class="ui grid">
-            <div class="eight wide column">
-                <button id="createReservationDetails" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
-            </div>
-            <div class="eight wide column">
-                <div class="ui icon input" style="float:right;">
-                    <input type="text" placeholder="Buscar..." id="txtSearch">
-                    <i class="search icon"></i>
+            <br>
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <button id="createReservationDetails" class="ui small btn-edit text-white labeled icon button"><i class="plus icon"></i>Nuevo</button>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui icon input" style="float:right;">
+                        <input type="text" placeholder="Buscar..." id="txtSearch">
+                        <i class="search icon"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <style>
-            table thead tr th {
-                background-color: #2b2b2b;
-                color: white;
-            }
-        </style>
-
-        <table class="ui compact selectable celled table" id="tabla">
-            <thead>
-                <tr>
-                    <th>
-                        Habitación
-                    </th>
-                    <th>
-                        Descripción
-                    </th>
-                    <th>
-                        Categoría
-                    </th>
-                    <th>
-                        Hotel
-                    </th>
-                    <th>
-                        Precio Habitación
-                    </th>
-                    <th>
-                        Fecha Entrada
-                    </th>
-                    <th>
-                        Fecha Salida
-                    </th>
-                    <th>
-                        Precio Reservación Hotel
-                    </th>
-
-                    <th width="200px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre_Habitacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion_Habitacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Categoria_Habitacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hotel)
-                    </td>
-                    <td>
-                        L @Html.DisplayFor(modelItem => item.Precio_Habitacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha_Entrada)
-                        @*@ViewData["Fechahotel1"]*@
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha_Salida)
-                        @*@ViewData["Fechahotel2"]*@
-                    </td>
-                    <td>
-                        L @Html.DisplayFor(modelItem => item.Precio_ReservacionHotel)
-                    </td>
-
-                    <td>
-                        <button class="ui large icon btn-edit button" id="UpdateBottomReDe" onclick="editar(@item.ID)">
-                            <i class="pencil alternate icon icon-crud"></i>
-                        </button>
-                        <button class="ui large icon btn-delete button" onclick="DeleteReDe(@item.ID)">
-                            <i class="trash alternate icon icon-crud"></i>
-                        </button>
-                        <a class="ui large icon button" href="@Url.Action("Details", "ReservationDetails", new { id=item.ID })">
-                            <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                        </a>
-                    </td>
-                </tr>
+            <style>
+                table thead tr th {
+                    background-color: #2b2b2b;
+                    color: white;
                 }
-            </tbody>
-        </table><br>
+            </style>
 
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
+                    <tr>
+                        <th>
+                            Habitación
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Categoría
+                        </th>
+                        <th>
+                            Hotel
+                        </th>
+                        <th>
+                            Precio Habitación
+                        </th>
+                        <th>
+                            Fecha Entrada
+                        </th>
+                        <th>
+                            Fecha Salida
+                        </th>
+                        <th>
+                            Precio Reservación Hotel
+                        </th>
+
+                        <th width="200px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre_Habitacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion_Habitacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Categoria_Habitacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hotel)
+                            </td>
+                            <td>
+                                L @Html.DisplayFor(modelItem => item.Precio_Habitacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha_Entrada)
+                                @*@ViewData["Fechahotel1"]*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha_Salida)
+                                @*@ViewData["Fechahotel2"]*@
+                            </td>
+                            <td>
+                                L @Html.DisplayFor(modelItem => item.Precio_ReservacionHotel)
+                            </td>
+
+                            <td>
+                                <button class="ui large icon btn-edit button" id="UpdateBottomReDe" onclick="editar(@item.ID)">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </button>
+                                <button class="ui large icon btn-delete button" onclick="DeleteReDe(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </button>
+                                <a class="ui large icon button" href="@Url.Action("Details", "ReservationDetails", new { id=item.ID })">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table><br>
+
+        </div>
     </div>
-</div>
-<br>
+    <br>
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
 @*<div class="ui modal longer" id="modalCreate">
-    <div class="header">
-        Ingresa una Colonia
-    </div>
-    <form asp-action="Create" asp-controller="Suburbs" id="createSuburbsForm">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <div class="required field">
-                    <div class="two fields">
-                        <div class="required field">
-                            <label class="ui label">Colonia</label>
-                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+        <div class="header">
+            Ingresa una Colonia
+        </div>
+        <form asp-action="Create" asp-controller="Suburbs" id="createSuburbsForm">
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <div class="required field">
+                        <div class="two fields">
+                            <div class="required field">
+                                <label class="ui label">Colonia</label>
+                                <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">País</label>
+                                <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                    <option value="">Seleccione un país</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="required field">
-                            <label class="ui label">País</label>
-                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
-                                <option value="">Seleccione un país</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="one field">
-                        <div class="required field">
-                            <label class="ui label">Ciudad</label>
-                            <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                        <div class="one field">
+                            <div class="required field">
+                                <label class="ui label">Ciudad</label>
+                                <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
+        <div class="actions">
+            <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
+            <button class="ui button" id="close">Cancelar</button>
         </div>
-    </form>
-    <div class="actions">
-        <button class="ui button btn-purple text-white" id="send" onclick="validar()">Guardar</button>
-        <button class="ui button" id="close">Cancelar</button>
-    </div>
-</div>*@
+    </div>*@
 
 @*<div class="ui modal longer" id="modalUpdate">
-    <div class="header">
-        Actualiza una Colonia
-    </div>
-    <form asp-action="Update" asp-controller="Suburbs" id="updateSuburbsForm">
-        <div class="ui form attached fluid segment">
-            <div class="content">
-                <input id="Colo_ID" name="Colo_ID" style="visibility:hidden" />
-                <div class="required field">
-                    <div class="two fields">
-                        <div class="required field">
-                            <label class="ui label">Colonia</label>
-                            <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+        <div class="header">
+            Actualiza una Colonia
+        </div>
+        <form asp-action="Update" asp-controller="Suburbs" id="updateSuburbsForm">
+            <div class="ui form attached fluid segment">
+                <div class="content">
+                    <input id="Colo_ID" name="Colo_ID" style="visibility:hidden" />
+                    <div class="required field">
+                        <div class="two fields">
+                            <div class="required field">
+                                <label class="ui label">Colonia</label>
+                                <input id="Colonia" placeholder="Ingrese una colonia" name="Colo_Descripcion" />
+                            </div>
+                            <div class="required field">
+                                <label class="ui label">País</label>
+                                <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
+                                    <option value="">Seleccione un país</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="required field">
-                            <label class="ui label">País</label>
-                            <select id="Count_ID" class="ui dropdown search" asp-items="ViewBag.Count_ID">
-                                <option value="">Seleccione un país</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="one field">
-                        <div class="required field">
-                            <label class="ui label">Ciudad</label>
-                            <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                        <div class="one field">
+                            <div class="required field">
+                                <label class="ui label">Ciudad</label>
+                                <select id="City_ID" name="Ciud_ID" class="ui dropdown search"><option value="">Seleccione una ciudad</option></select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
+        <div class="actions">
+            <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
+            <button class="ui button" id="close">Cancelar</button>
         </div>
-    </form>
-    <div class="actions">
-        <button class="ui button btn-purple text-white" id="send" onclick="actualizar()">Guardar</button>
-        <button class="ui button" id="close">Cancelar</button>
-    </div>
-</div>*@
+    </div>*@
 
 @section HighlightTile{
     <script>
