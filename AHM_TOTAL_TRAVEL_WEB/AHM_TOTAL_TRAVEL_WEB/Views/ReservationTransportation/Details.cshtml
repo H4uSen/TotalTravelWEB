@@ -5,112 +5,116 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div id="frmCreateUser">
-    <div class="container card">
-        <div class="ui basic segment">
-            <div class="ui icon attached message">
-                <i class="bus icon"></i>
-                <div class="content">
-                    <div class="header text-capitalize">
-                        Detalles Reservacion Transporte
+@try
+{
+    <div id="frmCreateUser">
+        <div class="container card">
+            <div class="ui basic segment">
+                <div class="ui icon attached message">
+                    <i class="bus icon"></i>
+                    <div class="content">
+                        <div class="header text-capitalize">
+                            Detalles Reservacion Transporte
+                        </div>
+                    </div>
+                    <div class="right floated content" style="text-align: end;">
+                        <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
+                            Regresar
+                            <i class="left arrow icon"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
-                        Regresar
-                        <i class="left arrow icon"></i>
-                    </a>
+                <div class="ui form attached fluid segment">
+                    <div class="content">
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Capacidad</label>
+                                    @Html.DisplayFor(model => model.Capacidad)
+
+                                </div>
+                                <div class="field">
+                                    <label>Precio</label>
+                                    @Html.DisplayFor(model => model.Precio)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>cliente</label>
+                                    @Html.DisplayFor(model => model.Reservacion)
+
+                                </div>
+                                <div class="field">
+                                    <label>Asientos</label>
+                                    @Html.DisplayFor(model => model.Asientos)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Cancelado</label>
+                                    @Html.DisplayFor(model => model.Cancelado)
+
+                                </div>
+                                <div class="field">
+                                    <label>Fecha Cancelado</label>
+                                    @Html.DisplayFor(model => model.Fecha_Cancelado)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <br />
+
+                <h3 class="ui horizontal divider header">
+                    <i class="folder open icon"></i>
+                    Auditoría
+                </h3>
+
+                <table class="ui compact selectable celled table" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>
+                                Usuario Creación
+                            </th>
+                            <th>
+                                Fecha Creación
+                            </th>
+                            <th>
+                                Usuario modifica
+                            </th>
+                            <th>
+                                Fecha modifica
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => model.Usuario_Creacion)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Fecha_Creacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Usuario_Modifica)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Fecha_Modifica)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="ui form attached fluid segment">
-                <div class="content">
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Capacidad</label>
-                                @Html.DisplayFor(model => model.Capacidad)
-
-                            </div>
-                            <div class="field">
-                                <label>Precio</label>
-                                @Html.DisplayFor(model => model.Precio)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>cliente</label>
-                                @Html.DisplayFor(model => model.Reservacion)
-
-                            </div>
-                            <div class="field">
-                                <label>Asientos</label>
-                                @Html.DisplayFor(model => model.Asientos)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Cancelado</label>
-                                @Html.DisplayFor(model => model.Cancelado)
-
-                            </div>
-                            <div class="field">
-                                <label>Fecha Cancelado</label>
-                                @Html.DisplayFor(model => model.Fecha_Cancelado)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br />
-
-            <h3 class="ui horizontal divider header">
-                <i class="folder open icon"></i>
-                Auditoría
-            </h3>
-
-            <table class="ui compact selectable celled table" id="tabla">
-                <thead>
-                    <tr>
-                        <th>
-                            Usuario Creación
-                        </th>
-                        <th>
-                            Fecha Creación
-                        </th>
-                        <th>
-                            Usuario modifica
-                        </th>
-                        <th>
-                            Fecha modifica
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => model.Usuario_Creacion)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(model => model.Fecha_Creacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Usuario_Modifica)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Fecha_Modifica)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
-</div>
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
-
-   

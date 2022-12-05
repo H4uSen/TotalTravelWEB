@@ -5,98 +5,104 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="frmCreateUser">
-    <div class="container card">
-        <div class="ui basic segment">
-            <div class="ui icon attached message">
-                <i class="bus icon"></i>
-                <div class="content">
-                    <div class="header text-capitalize">
-                        Crear Reservacion Transporte
-                    </div>
-                </div>
-                <div class="right floated content" style="text-align: end;">
-                    <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
-                        Regresar
-                        <i class="left arrow icon"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- formulario-->
-            <form asp-action="Create" asp-controller="ReservationTransportation" id="CreateReservationTransporte">
-
-                <div class="ui form attached fluid segment">
+@try
+{
+    <div id="frmCreateUser">
+        <div class="container card">
+            <div class="ui basic segment">
+                <div class="ui icon attached message">
+                    <i class="bus icon"></i>
                     <div class="content">
-
-                        <div class="field">
-                            <div class=" two fields">
-                                <div class="required field">
-                                    <label class="ui label">Tipo de Transporte</label>
-                                    <select id="Detr_ID" name="Detr_ID" class="ui dropdown search" asp-items="ViewBag.Detr_ID">
-                                        <option value="">Seleccione un transporte</option>
-                                    </select>
-                                </div>
-                                <div class="required field">
-                                    <label class="ui label">Cliente</label>
-                                    <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
-                                        <option value="">Seleccione un cliente</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="header text-capitalize">
+                            Crear Reservacion Transporte
                         </div>
-                        <div class="field">
-                            <div class="two fields">
-                                <div class="required field">
-                                    <label class="ui label">Cantidad asientos</label>
-                                    <input id="ReTr_CantidadAsientos" name="ReTr_CantidadAsientos" placeholder="Cantidad Asientos" />
-                                </div>
-                                <div class="field">
-                                    <div class="required field">
-                                        <label class="ui label">Fecha cancelado</label>
-                                        <input id="ReTr_FechaCancelado" name="ReTr_FechaCancelado" placeholder="Fecha Cancelado" type="date" />
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="ui segment">
-                            <div class="grouped fields">
-                                <div class="field">
-                                    <div class="ui toggle checkbox">
-                                        <input type="checkbox" value="No" id="ReTr_Cancelado" name="ReTr_Cancelado" tabindex="0" class="hidden">
-                                        <label>Cancelado</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-                        <span class="labelvalidator" id="labelvalidatorError"></span>
-
-                        <input type="button" value="Guardar" id="btnCreateReservationTransporte" class="btn btn-purple ui positive button" />
-                        <a type="button" href="@Url.Action("Index", "ReservationTransportation")" class="ui button mb-3 ms-3">Cancelar</a>
-
+                    </div>
+                    <div class="right floated content" style="text-align: end;">
+                        <a class="ui left labeled icon button" href="@Url.Action("Index", "ReservationTransportation")">
+                            Regresar
+                            <i class="left arrow icon"></i>
+                        </a>
                     </div>
                 </div>
 
-            </form>
-            <!-- fin formulario-->
+                <!-- formulario-->
+                <form asp-action="Create" asp-controller="ReservationTransportation" id="CreateReservationTransporte">
+
+                    <div class="ui form attached fluid segment">
+                        <div class="content">
+
+                            <div class="field">
+                                <div class=" two fields">
+                                    <div class="required field">
+                                        <label class="ui label">Tipo de Transporte</label>
+                                        <select id="Detr_ID" name="Detr_ID" class="ui dropdown search" asp-items="ViewBag.Detr_ID">
+                                            <option value="">Seleccione un transporte</option>
+                                        </select>
+                                    </div>
+                                    <div class="required field">
+                                        <label class="ui label">Cliente</label>
+                                        <select id="Resv_ID" name="Resv_ID" class="ui dropdown search" asp-items="ViewBag.Resv_ID">
+                                            <option value="">Seleccione un cliente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="two fields">
+                                    <div class="required field">
+                                        <label class="ui label">Cantidad asientos</label>
+                                        <input id="ReTr_CantidadAsientos" name="ReTr_CantidadAsientos" placeholder="Cantidad Asientos" />
+                                    </div>
+                                    <div class="field">
+                                        <div class="required field">
+                                            <label class="ui label">Fecha cancelado</label>
+                                            <input id="ReTr_FechaCancelado" name="ReTr_FechaCancelado" placeholder="Fecha Cancelado" type="date" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="ui segment">
+                                <div class="grouped fields">
+                                    <div class="field">
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" value="No" id="ReTr_Cancelado" name="ReTr_Cancelado" tabindex="0" class="hidden">
+                                            <label>Cancelado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <span class="labelvalidator" id="labelvalidatorError"></span>
+
+                            <input type="button" value="Guardar" id="btnCreateReservationTransporte" class="btn btn-purple ui positive button" />
+                            <a type="button" href="@Url.Action("Index", "ReservationTransportation")" class="ui button mb-3 ms-3">Cancelar</a>
+
+                        </div>
+                    </div>
+
+                </form>
+                <!-- fin formulario-->
+            </div>
         </div>
     </div>
-</div>
-
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
 @section Scripts{
     <script>
-    $('.ui.checkbox').checkbox();
+        $('.ui.checkbox').checkbox();
     </script>
     <script src="~/js/ReservacionTransporte/Create.js"></script>
 }
