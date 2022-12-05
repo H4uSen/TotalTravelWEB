@@ -213,6 +213,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             try
             {
+                if (reservationData.CrearUsuario)
+                    return RedirectToAction("Create", "Users", new RouteValuesModel { BackController = "Reservation", BackAction = "Update", IsRedirect = true });
+
                 var token = HttpContext.User.FindFirstValue("Token");
                 int UserID = int.Parse(HttpContext.User.FindFirstValue("User_Id"));
 
