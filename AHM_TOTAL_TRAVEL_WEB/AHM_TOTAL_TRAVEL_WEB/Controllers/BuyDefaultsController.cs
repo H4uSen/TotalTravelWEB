@@ -29,6 +29,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var token = HttpContext.User.FindFirst("Token").Value;
             int User_Id = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
 
@@ -43,11 +44,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Destinos = new SelectList(ciudades, "ID", "Ciudad");
             ViewBag.CiudadesOrigen = new SelectList(ciudades, "ID", "Ciudad", direccion.ID_Ciudad);
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
 
         //[HttpGet]
         public async Task<IActionResult> Compra(string id)
-        {
+        { try { 
             var token = HttpContext.User.FindFirst("Token").Value;
             var paquete = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
             var iduser = HttpContext.User.FindFirst("User_Id").Value;
@@ -61,22 +68,42 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["noches"] = int.Parse(paquete.Duracion_Paquete) - 1;
 
             return View(paquete);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
         public async Task<IActionResult> Details(string id)
-        {
+        { 
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
 
             ViewData["noches"] = int.Parse(detalle.Duracion_Paquete) - 1;
 
             return View(detalle);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
 
         public async Task<IActionResult> Transport()
         {
+            try { 
             //string token = HttpContext.User.FindFirst("Token").Value;
             var list = await _transportService.TransportList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -87,16 +114,19 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<int> Create(ReservationViewModel reservation)
         {
+      
             var token = HttpContext.User.FindFirst("Token").Value;
             string UserID = HttpContext.User.FindFirst("User_Id").Value;
             reservation.Resv_UsuarioCreacion = int.Parse(UserID);
             var result = (RequestStatus)(await _reservationService.ReservationCreate(reservation, token)).Data;
 
             return result.CodeStatus;
+       
         }
 
         public async Task<IActionResult> defaultPackages(string? id_paquete)
         {
+            try { 
             var ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
             foreach (var item in ciudades)
                 item.Ciudad = $"{item.Pais}, {item.Ciudad}";
@@ -119,6 +149,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.MetodosPagos = new SelectList(tiposPagos, "ID", "Descripcion");
             
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
         }
     }
 }
