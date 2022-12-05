@@ -27,9 +27,8 @@ $(document).ready(async function () {
 
 function editar(id) {
     var response = ajaxRequest(urlAPI + "/API/Rooms/Find?id=" + id);
-
-    if (response.code == 200) {
-        console.log(response.data);
+    console.log(response.data);
+    if (response.code == 200) {     
         $("#id").val(id);
         $("#Habi_Nombre").val(response.data.habitacion);
         $("#CaHa_ID").val(response.data.categoriaHabitacionID);
@@ -37,6 +36,10 @@ function editar(id) {
         $("#Habi_camas").val(response.data.camas);
         $("#Habi_Precio").val(response.data.precio);
         $("#Habi_Descripcion").val(response.data.descripcion);
+        $("#Habi_balcon").prop("checked", response.data.balcon);
+        console.log(response.data.balcon);
+        $("#Habi_wifi").prop("checked", response.data.wifi);
+        console.log(response.data.wifi);
   
         RoomsFolder = response.data.id;
         idHotel = response.data.iD_Hotel;
