@@ -16,13 +16,13 @@ function ObtenerDetalles(id) {
     $("#frmMenu_container #frmPackages #actividades").empty();
 
     //Info paquete
-    const listapaquetes = packagesList.data;
-    const paquetes = listapaquetes.filter(package => package.id == id);
+    const listaPaquetes = packagesList.data;
+    const paquetes = listaPaquetes.filter(package => package.id == id);
                 
     const paquete = paquetes[0];
     const place = CitiesList.data.filter(x => x.id == paquete.ciudad_ID)[0];
     const precio = parseFloat(paquete.precio);
-    const images = paquete.image_URL.split(",");
+    const imagesPackage = paquete.image_URL.split(",");
     const duracion = `${paquete.duracion_Paquete} días y ${parseInt(paquete.duracion_Paquete) == 1 ? 1 : parseInt(paquete.duracion_Paquete) - 1} noches`;
 
     const Cardpaquete = `<h4 class="ui left floated header">
@@ -30,123 +30,169 @@ function ObtenerDetalles(id) {
         </h4>
         <div class="ui clearing divider"></div>
         <div class="ui items">
-        <div class="item">
-            <div class="image">
-                <img src="${images[0]}">
-            </div>
-            <div class="content" style="width: inherit;">
-                <h2>${paquete.nombre}</h2>
-                <h3 class="description">${paquete.descripcion_Paquete}</h3>
-                <div class="extra">
-                    <p>
-                        - Para ${paquete.cantidad_de_personas} personas<br>
-                        - Duración: ${duracion}<br>
-                        - Precio: L ${precio}<br>
-                    </p>
-                    <div class="ui label">
-                        <i class="map marker icon"></i>
-                        ${place.ciudad.toUpperCase()}, ${place.pais.toUpperCase()}
+            <div class="item">
+                <div class="image">
+                    <img src="${imagesPackage[0]}">
+                </div>
+                <div class="content" style="width: inherit;">
+                    <h2>${paquete.nombre}</h2>
+                    <h3 class="description">${paquete.descripcion_Paquete}</h3>
+                    <div class="extra">
+                        <p>
+                            - Para ${paquete.cantidad_de_personas} personas<br>
+                            - Duración: ${duracion}<br>
+                            - Precio: L ${precio}<br>
+                        </p>
+                        <div class="ui label">
+                            <i class="map marker icon"></i>
+                            ${place.ciudad.toUpperCase()}, ${place.pais.toUpperCase()}
+                        </div>
                     </div>
                 </div>
+                <br>
             </div>
-            <br>
-        </div>
-    </div>`;
+        </div>`;
 
     //info hotel
     const listahoteles = HotelsList.data;
     const hoteles = listahoteles.filter(hotel => hotel.id == paquete.iD_Hotel);
-    const hotel = hoteles[0];
-    const hotelimages = hotel.image_URL.split(",");
+    var Cardhotel;
+    if (hoteles.length > 0) {
+        const hotel = hoteles[0];
+        const hotelimages = hotel.image_URL.split(",");
 
-    const Cardhotel = `<h4 class="ui left floated header">
-        <i class="building icon"></i> HOTEL
-    </h4>
-    <div class="ui clearing divider"></div>
-    <div class="ui items">
-        <div class="item">
-            <div class="image">
-                <img src="${hotelimages[0]}">
-            </div>
-            <div class="content" style="width: inherit;">
-                <h2>${hotel.hotel}</h2>
-                <h3 class="description">${hotel.descripcion}</h3>
-                <div class="extra">
-                    <div class="ui label">
-                        <i class="map marker icon"></i>
-                        ${hotel.calle} Calle, ${hotel.avenida} Avenida, Ciudad de ${hotel.ciudad}, ${hotel.pais}
+        Cardhotel = `<h4 class="ui left floated header">
+            <i class="building icon"></i> HOTEL
+        </h4>
+        <div class="ui clearing divider"></div>
+        <div class="ui items">
+            <div class="item">
+                <div class="image">
+                    <img src="${hotelimages[0]}">
+                </div>
+                <div class="content" style="width: inherit;">
+                    <h2>${hotel.hotel}</h2>
+                    <h3 class="description">${hotel.descripcion}</h3>
+                    <div class="extra">
+                        <div class="ui label">
+                            <i class="map marker icon"></i>
+                            ${hotel.calle} Calle, ${hotel.avenida} Avenida, Ciudad de ${hotel.ciudad}, ${hotel.pais}
+                        </div>
                     </div>
                 </div>
+                <br>   
             </div>
-            <br>   
-        </div>
-    </div>`;
+        </div>`;
+    }
+    else {
+        Cardhotel = `<h4 class="ui left floated header">
+            <i class="building icon"></i> HOTEL
+        </h4>
+        <div class="ui clearing divider"></div>
+        <div class="ui items">
+            <div class="item">
+                El paquete no tiene incluido un hotel
+                <br>   
+            </div>
+        </div>`;
+    }
 
     //info restaurante
     const listarestaurantes = RestaurantList.data;
     const restaurantes = listarestaurantes.filter(restaurant => restaurant.id == paquete.iD_Restaurante);
-    const restaurante = restaurantes[0];
-    const restauranteimages = restaurante.image_URL.split(",");
-    const ciudades = CitiesList.data.filter(x => x.id == restaurante.ciudadID)[0];
+    var Cardrestaurante;
+    if (restaurantes.length > 0) {
+        const restaurante = restaurantes[0];
+        const restauranteimages = restaurante.image_URL.split(",");
+        const ciudades = CitiesList.data.filter(x => x.id == restaurante.ciudadID)[0];
 
-    const Cardrestaurante = `<h4 class="ui left floated header">
-        <i class="food icon"></i> RESTAURANTE
-    </h4>
-    <div class="ui clearing divider"></div>
-    <div class="ui items">
-        <div class="item">
-            <div class="image">
-                <img src="${restauranteimages[0]}">
-            </div>
-            <div class="content" style="width: inherit;">
-                <h2>${restaurante.restaurante}</h2>
-                <h3 class="description">${restaurante.partner}</h3>
-                <div class="extra">
-                    <div class="ui label">
-                        <i class="map marker icon"></i>
-                        ${restaurante.calle} Calle, ${restaurante.avenida} Avenida, Ciudad de ${restaurante.ciudad}, ${ciudades.pais}
+        Cardrestaurante = `<h4 class="ui left floated header">
+            <i class="food icon"></i> RESTAURANTE
+        </h4>
+        <div class="ui clearing divider"></div>
+        <div class="ui items">
+            <div class="item">
+                <div class="image">
+                    <img src="${restauranteimages[0]}">
+                </div>
+                <div class="content" style="width: inherit;">
+                    <h2>${restaurante.restaurante}</h2>
+                    <h3 class="description">${restaurante.partner}</h3>
+                    <div class="extra">
+                        <div class="ui label">
+                            <i class="map marker icon"></i>
+                            ${restaurante.calle} Calle, ${restaurante.avenida} Avenida, Ciudad de ${restaurante.ciudad}, ${ciudades.pais}
+                        </div>
                     </div>
                 </div>
+                <br>
             </div>
-            <br>
-        </div>
-    </div>`;
+        </div>`;
+    }
+    else {
+        Cardrestaurante = `<h4 class="ui left floated header">
+            <i class="food icon"></i> RESTAURANTE
+        </h4>
+        <div class="ui clearing divider"></div>
+        <div class="ui items">
+            <div class="item">
+                El paquete no tiene incluido un restaurante
+                <br>   
+            </div>
+        </div>`;
+    }
 
     //info actividades
     const listactividades = ActivitiesList.data;
     const actividades = listactividades.filter(activity => activity.paqueteID == paquete.id);
+
+    //console.log(actividades);
+    var CardActividades;
 
     const HeaderActivities = `<h4 class="ui left floated header">
         <i class="bicycle icon"></i> ACTIVIDADES
     </h4>
     <div class="ui clearing divider"></div>`;
 
-    for (var i = 0; i < actividades.length; i++) {
-        const actividad = actividades[i];
-        //const listhotelactivities = HotelsActivitiesList.data;
-        //const infoactividad = listhotelactivities.filter(info => info.id == actividad.actividadID);
-        //console.log(infoactividad);
-        //const actividadimages = infoactividad.image_URL.split(",");
-        const precio = parseFloat(actividad.precio);
-        var CardActividades = `<div class="ui items">
-            <div class="item">
-                <div class="image">
-
-                </div>
-                <div class="content" style="width: inherit;">
-                    <h2>${actividad.descripcion_actividad}</h2>
-                    <div class="extra">
-                        <p>
-                            - Para ${actividad.cantidad} personas<br>
-                            - Precio: L ${precio}<br>
-                        </p>
+    if (actividades.length > 0) {
+        for (var i = 0; i < actividades.length; i++) {
+            const actividad = actividades[i];
+            const listhotelactivities = HotelsActivitiesList.data;
+            const actividadInfo = listhotelactivities.filter(info => info.iD_Actividad == actividad.actividadID);
+            const infoactividad = actividadInfo[0];
+            const actividadimages = infoactividad.image_URL.split(",");
+            const precio = parseFloat(actividad.precio);
+            CardActividades = `<div class="ui items">
+                <div class="item">
+                    <div class="image">
+                        <img src="${actividadimages[0]}">
                     </div>
+                    <div class="content" style="width: inherit;">
+                        <h2>${infoactividad.actividad}</h2>
+                        <h3 class="description">${infoactividad.descripcion}</h3>
+                        <div class="extra">
+                            <p>
+                                - Para ${actividad.cantidad} persona(s)<br>
+                                - Precio: L ${precio}<br>
+                            </p>
+                        </div>
+                    </div>
+                    <br>
                 </div>
-                <br>
+            </div>`;
+            $("#frmPackages #actividades").append(CardActividades);
+        }
+    }
+    else {
+        CardActividades = `<div class="ui items">
+            <div class="item">
+                El paquete no tiene incluido actividades
+                <br>   
             </div>
         </div>`;
         $("#frmPackages #actividades").append(CardActividades);
     }
+
 
     $("#frmPackages #actividades").append(`<hr><div class="ui items">
         <button class="ui button" id="regresars">
