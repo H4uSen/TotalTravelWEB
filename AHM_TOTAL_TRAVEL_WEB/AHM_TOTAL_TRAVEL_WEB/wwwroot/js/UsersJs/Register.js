@@ -481,7 +481,7 @@ function registerUser() {
                     ManualValidateForm(true,$("#txtDni").parents(".field").eq(0), "El DNI ya existe.");
                 } else if (response.data.messageStatus == "El EMAIL ya existe.") {
                     ManualValidateForm(true,$("#txtEmail").parents(".field").eq(0), "El correo electrónico ya existe.");
-                   // $("#labelvalidatorError").html("El correo electrónico ya existe.");
+                    // $("#labelvalidatorError").html("El correo electrónico ya existe.");
                 }
                 else {
                    // $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");

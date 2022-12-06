@@ -363,7 +363,6 @@ function fillMain(id_ciudad_salida, id_ciudad_destino){
     steps.step_1();
 }
 
-
 //--------------------------------- FILL FUNCTIONS ------------------------------------------
 function fillHotels(id_ciudad){
 
@@ -573,14 +572,10 @@ function fillRooms(id_hotel) {
                 `<div class="item">
                     <div class="content">
                         <div class="ui negative message">
-                            <i class="close icon"></i>
                             <div class="header">
-                                No hay habitaciones disponibles en este hotel
+                                No hay habitaciones disponibles para este hotel
                             </div>
                         </div>
-                        <a class="ui left floated button" href="javascript: steps.step_0() ">
-                            <i class="left chevron icon"></i> VOLVER
-                        </a>
                     </div>
                 </div>`);
         }
