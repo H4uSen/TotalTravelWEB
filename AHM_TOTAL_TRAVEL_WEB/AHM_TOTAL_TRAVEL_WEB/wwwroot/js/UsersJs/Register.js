@@ -469,7 +469,19 @@ function registerUser() {
                 
                 var id_paque = FindGetValue("id_paquete");
                 if (id_paque != null) {
-                    window.location.href = `/BuyDefaults/defaultPackages?id_paquete=${id_paque}`;
+                    const LogInData = {
+                        email: $('#txtEmail').val(),
+                        password: $('#txtPassword2').val()
+                    };
+
+
+                    var response = ajaxRequest("/Access/ManualLogIn", LogInData, "POST");
+
+                    console.log(response);
+                    
+                    if (response == 1) {
+                        window.location.href = `/BuyDefaults/defaultPackages?id_paquete=${id_paque}`;
+                    }
                 }
                 else {
                     window.location.href = '/Access/LogIn';
