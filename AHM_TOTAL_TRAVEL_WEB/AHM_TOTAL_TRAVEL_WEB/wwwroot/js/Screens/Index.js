@@ -13,7 +13,6 @@ $(document).ready(function () {
         language: {
             "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
         },
-        /*Aqui se ingresa el numero de columnas que tiene la tabla
         columns: [
             {},
             {},
@@ -47,7 +46,7 @@ $(document).ready(function () {
                 text: '<i class="file csv icon"></i> Exportar como CSV',
                 className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
             },
-        ]*/
+        ]
     });
 
     $("#grdModulos").DataTable({
@@ -55,7 +54,7 @@ $(document).ready(function () {
         language: {
             "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
         },
-        /*Aqui se ingresa el numero de columnas que tiene la tabla
+
         columns: [
             {},
             {}
@@ -86,7 +85,7 @@ $(document).ready(function () {
                 text: '<i class="file csv icon"></i> Exportar como CSV',
                 className: "btn-primary ui small btn-grey text-purple icon ui button mb-2"
             },
-        ]*/
+        ]
     });
 });
 
