@@ -63,7 +63,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Cantidad de Personas</label>
-                                    <input id="CantPers" value="@Model.paqu_CantPersonas"  placeholder="Cantidad de personas para el paquete" type="number" min="1" class="form-control" />
+                                    <input id="CantPers" value="@Model.paqu_CantPersonas" placeholder="Cantidad de personas para el paquete" type="number" min="1" class="form-control" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Hotel</label>
@@ -85,6 +85,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="required field">
+                                    <label class="ui label">Habitacion</label>
+                                    <select id="Habi_ID" class="ui dropdown search">
+                                        <option value="">Seleccione una habitacion</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="two fields">
                                 <div class="required field" id="restau" hidden>
                                     <label class="ui label">Restaurante</label>
                                     <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
@@ -93,7 +104,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="ui grid three column stackable mt-4">
 
                             <div class="column">

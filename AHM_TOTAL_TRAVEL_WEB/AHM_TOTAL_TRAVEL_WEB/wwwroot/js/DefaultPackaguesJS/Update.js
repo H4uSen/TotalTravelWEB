@@ -1,4 +1,6 @@
-﻿var imagesArray = [];
+﻿const RoomsList = ajaxRequest(urlAPI + "/API/Rooms/List");
+
+var imagesArray = [];
 var imagesArrayPure = [];
 $('.ui.dropdown').dropdown();
 $(document).ready(async function () {
@@ -32,7 +34,33 @@ async function GetImage() {
     }
 }
 //FIN
+$('#hote_ID').change(function () {
 
+    if (RoomsList.code == 200) {
+        var hote_ID = $('#hote_ID').val();
+        var habitaciones = RoomsList.data;
+        habitaciones = jQuery.grep(habitaciones, function (habi, i) {
+            return habi.hotelID == hote_ID;
+        });
+        const dropdownData = {
+            dropdown: $("#Habi_ID"),
+            items: {
+                list: habitaciones,
+                valueData: "id",
+                textData: "habitacion"
+            },
+            placeholder: {
+                empty: "No se encontraron habitaciones disponibles",
+                default: "Seleccione un hotel",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#Habi_ID").dropdown();
+
+    }
+});
 $("#File").change(async function () {
     $("#DefaultPackageCarouselHeader").hide();
 

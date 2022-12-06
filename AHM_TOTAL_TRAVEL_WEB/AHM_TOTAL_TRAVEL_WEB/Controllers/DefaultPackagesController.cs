@@ -43,6 +43,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
             ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel");
 
+            var habi = await _HotelsService.RoomsList(token);
+            IEnumerable<RoomsListViewModel> data_habi = (IEnumerable<RoomsListViewModel>)habi.Data;
+            ViewBag.habi_ID = new SelectList(data_habi, "ID", "Habitacion");
+                 
             var rest = await _RestaurantService.RestaurantsList(token);
             IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;
             ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante");
@@ -88,7 +92,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var item = new DefaultPackagesViewModel();
-            var Items = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id.ToString(), token)).Data;
+            var Items = (DefaultPackagesViewModel)(await _saleServices.DefaultPackagesFind(id.ToString(), token)).Data;
             var list = await _saleServices.DefaultPackagesList(token);
             IEnumerable<DefaultPackagesListViewModel> data = (IEnumerable<DefaultPackagesListViewModel>)list.Data;
             var element = data.Where(x => x.Id == id).ToList()[0];
@@ -105,11 +109,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<HotelListViewModel> data_hotel = (IEnumerable<HotelListViewModel>)hotel.Data;
             ViewBag.hote_ID = new SelectList(data_hotel, "ID", "Hotel",element.ID_Hotel);
 
+            var habi = await _HotelsService.RoomsList(token);
+            IEnumerable<RoomsListViewModel> data_habi = (IEnumerable<RoomsListViewModel>)habi.Data;
+            ViewBag.habi_ID = new SelectList(data_habi, "ID", "Habitacion");
+
             var rest = await _RestaurantService.RestaurantsList(token);
             IEnumerable<RestaurantListViewModel> data_restaurant = (IEnumerable<RestaurantListViewModel>)rest.Data;                             
             ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante",element.ID_Restaurante);
 
-            ViewData["PackageFolder"] = $"DefaultPackage/DefaultPackage-{Items.Id}/Place";
+            ViewData["PackageFolder"] = $"DefaultPackage/DefaultPackage-{Items.paqu_ID}/Place";
             ViewData["Descripcion"] = element.Descripcion_Paquete;
             ViewData["Duracion"] = element.Duracion_Paquete;
             ViewData["Nombre"] = element.Nombre;
