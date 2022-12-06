@@ -1,6 +1,7 @@
 ﻿const HotelsActvList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
 const DefaultPackagesList = ajaxRequest(urlAPI + "/API/DefaultPackages/List");
 const DefaultPackagesDetailsList = ajaxRequest(urlAPI + "/API/DefaultPackagesDetails/List");
+const RoomsList = ajaxRequest(urlAPI + "/API/Rooms/List");
 
 $('.ui.dropdown').dropdown();
 var imagesArray = [];
@@ -17,6 +18,35 @@ $("#File").change(async function () {
     LoadImage();
 
 });
+
+$('#hote_ID').change(function () {
+
+    if (RoomsList.code == 200) {
+        var hote_ID = $('#hote_ID').val();
+        var habitaciones = RoomsList.data;
+        habitaciones = jQuery.grep(habitaciones, function (habi, i) {
+            return habi.hotelID == hote_ID;
+        });
+        const dropdownData = {
+            dropdown: $("#Habi_ID"),
+            items: {
+                list: habitaciones,
+                valueData: "id",
+                textData: "habitacion"
+            },
+            placeholder: {
+                empty: "No se encontraron habitaciones disponibles",
+                default: "Seleccione un hotel",
+            },
+            semantic: true
+        }
+
+        FillDropDown(dropdownData);
+        $("#Habi_ID").dropdown();
+     
+    }
+});
+
 function LoadImage() {
 
     var PartnersCarousel = `<div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" id="DefaultPackageCarousel" data-auto="false"></div>`;
