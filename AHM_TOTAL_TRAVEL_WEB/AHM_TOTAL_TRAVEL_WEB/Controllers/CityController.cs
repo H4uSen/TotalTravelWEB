@@ -24,8 +24,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             try
             {
                 var token = HttpContext.User.FindFirst("Token").Value;
-            var list = await _generalService.CitiesList();
-            return View(list.Data);
+                var list = await _generalService.CitiesList();
+                var paises = await _generalService.CountriesList();
+                IEnumerable<CountriesListViewModel> data_paises = (IEnumerable<CountriesListViewModel>)paises.Data;
+                ViewBag.pais_ID = new SelectList(data_paises, "ID", "Pais");
+                return View(list.Data);
             }
             catch (Exception)
             {
@@ -36,6 +39,8 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+        
+
             return View();
         }
 
@@ -49,6 +54,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 string token = HttpContext.User.FindFirst("Token").Value;
                 city.ciud_UsuarioCreacion = 1;
                 var list = await _generalService.CitiesCreate(city, token);
+
                 if (list.Success)
                 {
                     return RedirectToAction("Index");
