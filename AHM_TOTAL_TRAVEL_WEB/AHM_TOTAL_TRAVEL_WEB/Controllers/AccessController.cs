@@ -225,6 +225,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             
 
         }
+
         [Route("/")]
         public IActionResult LandingPage()
         {
@@ -237,6 +238,55 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return RedirectToAction("LogIn", "Access");
             }
             
+        }
+
+        [HttpPost]
+        public async Task<object> ManualLogIn([FromBody]UserLoginModel LogInData)
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var LogInVerify = (UserLoggedModel)(await _accessServices.LogIn(LogInData)).Data;
+
+            if (LogInVerify != null)
+            {
+                HttpContext.Session.SetInt32("UserID", LogInVerify.ID);
+                HttpContext.Session.SetString("ImgUrl", LogInVerify.Image_URL);
+                HttpContext.Session.SetString("Name", LogInVerify.Nombre);
+                HttpContext.Session.SetString("Role", LogInVerify.Rol);
+                HttpContext.Session.SetString("Role_Id", LogInVerify.Role_ID.ToString());
+                HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
+                HttpContext.Session.SetString("Token", LogInVerify.Token);
+
+                if (LogInVerify.Rol == "Administrador" && LogInVerify.PartnerID != null)
+                {
+                    HttpContext.Session.SetInt32("PartnerID", LogInVerify.PartnerID.GetValueOrDefault());
+                }
+                if (LogInVerify.Rol != "Cliente" && LogInVerify.Partner != null)
+                {
+                    HttpContext.Session.SetString("Partner", LogInVerify.Partner);
+                }
+
+                //2.- CONFIGURACION DE LA AUTENTICACION
+                #region AUTENTICACTION
+                var claims = new List<Claim>
+                    {
+                    new Claim("User_Id", LogInVerify.ID.ToString()),
+                    new Claim("User_Name", LogInVerify.Nombre),
+                    new Claim("Token", LogInVerify.Token),
+                    new Claim("Role_Id", LogInVerify.Role_ID.ToString()),
+                    new Claim("Partner_Id", LogInVerify.PartnerID.ToString()),
+                    new Claim(ClaimTypes.Role,LogInVerify.Rol)
+                    };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                #endregion
+
+                return 1;
+            }
+            else
+                return LogInData;
+      
         }
 
         //USAR REFERENCIAS Models y Data

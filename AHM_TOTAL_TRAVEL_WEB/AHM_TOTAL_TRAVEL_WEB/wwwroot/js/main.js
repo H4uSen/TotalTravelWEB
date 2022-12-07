@@ -27,6 +27,29 @@ function fillProfileImage(User_ID) {
     $("#user_image").prop("src", user_data.data.image_URL);
 }
 
+function highlightTile() {
+    var urlPart = $(location).attr('href').split("/")[3];
+
+    if ($(`a[href='/${urlPart}/Index']`).length) {
+        var tileItem = $(`a[href='/${urlPart}/Index']`);
+        var tileLinkID = tileItem.parent().parent().attr("id")
+
+        $(`#${tileLinkID.replace("_container", "")}`).click()
+
+        tileItem.addClass("activeTile");
+    } else {
+        var urlPart2 = $(location).attr('href').split("/")[4];
+        var tileItem = $(`a[href='/${urlPart}/${urlPart2}']`);
+        var tileLinkID = tileItem.parent().parent().attr("id")
+
+        $(`#${tileLinkID.replace("_container", "")}`).click()
+
+        tileItem.addClass("activeTile");
+    }
+
+}
+
+
 function fillMenu(rol_id){
 
     const RestrictionsList = ajaxRequest(urlAPI + "/API/RolePermissions/List");

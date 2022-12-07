@@ -337,8 +337,8 @@ function hotelActvExtraForm() {
     const Hotels = HotelsList.data;
 
     const DefaultPackagesDetails = DefaultPackagesDetailsList.data;
-    var PackageID = $("#Paqu_ID").val();
     var htelActvExtra = [];
+    const PackageID = $("#Paqu_ID").val();
     if (PackageID != "") {
 
         const DefaultPackage = DefaultPackages.filter(function (Package) {
