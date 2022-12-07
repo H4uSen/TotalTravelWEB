@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -57,31 +58,63 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DefaultPackagesViewModel actividad)
+        public async Task<IActionResult> Create(DefaultPackagesViewModel actividad, IFormCollection form)
         {
-            if (actividad.rest_ID == 0)
-            {
-                actividad.rest_ID = null;
-            }
-            actividad.paqu_UsuarioCreacion = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
-            if (ModelState.IsValid)
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;              
-                var list = await _saleServices.DefaultPackagesCreate(actividad, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+
+                if (actividad.paqu_ID > 0)
                 {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                RoomsPackagesViewModel rooms = new RoomsPackagesViewModel();
+                rooms.habi_Id = actividad.habi_Id;
+                rooms.paqu_Id = actividad.paqu_ID;
+                rooms.paHa_UsuarioCreacion = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
+                var list = await _saleServices.RoomsPackagesCreate(rooms, token);
+
+                //Extra activities of the hotel
+                int amountHtelActvities = form.Keys.Count(x => x.Contains("ddlhotelsExtraActivities_"));
+                    var ExtraHtelActivities = form.Keys.Where(x => x.Contains("ddlhotelsExtraActivities_")).ToList();
+                    var ExtraHtelActivitiesAmount = form.Keys.Where(x => x.Contains("hotelsExtraActivitiesAmount_")).ToList();
+                    var ExtraHtelActivitiesPrice = form.Keys.Where(x => x.Contains("hotelsExtraActivitiesPrice_")).ToList();
+                    if (!amountHtelActvities.Equals(0))
+                    {
+                        try
+                        {  
+                        var id = HttpContext.User.FindFirst("User_Id").Value;
+                        ServiceResult responseActivities = null;
+                        var listResponse = responseActivities;
+                            for (int i = 0; i < amountHtelActvities; i++)
+                            {
+                            DefaultPackagesDetailsViewModel package = new DefaultPackagesDetailsViewModel();
+                            package.Paqu_ID = actividad.paqu_ID;
+                            package.Actv_ID = Convert.ToInt32(form[ExtraHtelActivities[i]].ToString());
+                            package.PaDe_Cantidad = Convert.ToInt32(form[ExtraHtelActivitiesAmount[i]].ToString());
+                            package.PaDe_Precio = Convert.ToInt32(form[ExtraHtelActivitiesPrice[i]].ToString());
+                            package.PaDe_UsuarioCreacion = int.Parse(id);
+                            listResponse = await _saleServices.DefaultPackagesDetailsCreate(package, token);
+
+                             }
+                            if (listResponse.Success)
+                            {
+                             return Redirect("/DefaultPackages?success=true");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+
+                            throw e;
+                        }
+
+                    }
+
+
+
+
                     return Redirect("~/DefaultPackages?success=true");
                 }
                 else
                 {
                     return View();
                 }
-            }
-            else
-            {
-                return View();
-            }
 
         }
 

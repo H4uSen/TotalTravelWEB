@@ -62,11 +62,11 @@
                                 @{
                                     if (item.Id_Paquete != null)
                                     {
-                                        <span>@Html.DisplayFor(modelItem => item.NombrePaquete)</span>
+                                            <span>@Html.DisplayFor(modelItem => item.NombrePaquete)</span>
                                     }
                                     else
                                     {
-                                        <span>Personalizado</span>
+                                            <span>Personalizado</span>
                                     }
                                 }
 
@@ -75,12 +75,12 @@
                                 @{
                                     if (item.ConfirmacionPago == true)
                                     {
-                                        <span class="ui green label">Realizado</span>
+                                            <span class="ui green label">Realizado</span>
 
                                     }
                                     else
                                     {
-                                        <span class="ui blue label">Pendiente</span>
+                                            <span class="ui blue label">Pendiente</span>
 
                                     }
 
@@ -140,11 +140,11 @@
                                 @{
                                     if (item.Id_Paquete != null)
                                     {
-                                                            <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
+                                                                <span>@Html.DisplayFor(modelItem => item.DescripcionPaquete)</span>
                                     }
                                     else
                                     {
-                                                        <span>Personalizado</span>
+                                                            <span>Personalizado</span>
                                     }
                                 }
 
@@ -153,12 +153,12 @@
                                 @{
                                     if (item.ConfirmacionPago == true)
                                     {
-                                                        <span class="ui green label">Realizado</span>
+                                                            <span class="ui green label">Realizado</span>
 
                                     }
                                     else
                                     {
-                                                        <span class="ui blue label">Pendiente</span>
+                                                            <span class="ui blue label">Pendiente</span>
 
                                     }
 
@@ -299,13 +299,6 @@ catch (Exception)
 @section HighlightTile{
     <script>
 
-        $("#ReservationModule").addClass("active");
-        $("#ReservationModule").addClass("expandedList");
-        $("#ReservationModule").prop("aria-expanded");
-        $("#ReservationModule").attr("aria-expanded", "true");
-
-        $("#Reservation_Schema").addClass("show");
-
-        $("#ReservationTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
