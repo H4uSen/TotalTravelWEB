@@ -91,7 +91,7 @@
                                         <option value="">Seleccione una habitacion</option>
                                     </select>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="field">
@@ -140,6 +140,27 @@
                             </div>
 
                         </div>
+
+                        <div class="two fields">
+                            <!--Add extra activities of the Hotel-->
+                            <div class="field">
+                                <div class="ui toggle button" id="btnShowExtraHotelActivities">+ Añadir actividades del hotel</div>
+                            </div>
+                        </div>
+                        <div id="frmAddExtraHotelsActivities" style="margin-bottom:20px">
+                            <div class="ui segment">
+                                <h3 class="ui block header">
+                                    Selecciona algunas actividades para realizar en el hotel
+                                </h3>
+                                <div class="ui btn-edit text-white button" tabindex="0" id="btnHotelExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                <div class="ui form " id="listHotelsExtraActivities">
+
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
+
                         <span class="labelvalidator" id="labelvalidatorError"></span>
 
                         <input type="button" value="Guardar" onclick="updateDefaultPackages()" class="btn btn-edit ui positive button" />

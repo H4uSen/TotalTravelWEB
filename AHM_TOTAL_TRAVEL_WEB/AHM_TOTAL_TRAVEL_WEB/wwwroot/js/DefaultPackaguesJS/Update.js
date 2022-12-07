@@ -1,4 +1,14 @@
 ﻿const RoomsList = ajaxRequest(urlAPI + "/API/Rooms/List");
+const DefaultPackagesDetailsList = ajaxRequest(urlAPI + "/API/DefaultPackagesDetails/List");
+const HotelsActivities = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
+
+var paqueteID = $(location).attr('href').split("/")[5];
+var defaultData = DefaultPackagesDetailsList.data;
+var ListActivities = defaultData.filter(x => x.paqueteID == paqueteID);
+
+ListActivities.forEach(element => {
+    updtActvHtelForm(element.id, element.cantidad, element.precio, $("#hote_ID").val());
+});
 
 var imagesArray = [];
 var imagesArrayPure = [];
@@ -182,3 +192,92 @@ function updateDefaultPackages() {
 
 
 }
+
+//------------------------------------ACTIVIDADES EXTRAS HOTEL
+
+
+//Fill the hotel activities extra form
+function updtActvHtelForm(actvID, cantidad, precio, htelID) {
+    //const Hotels = HotelsList.data;
+
+    //const DefaultPackagesDetails = DefaultPackagesDetailsList.data;
+    //const PackageID = $("#Paqu_ID").val();
+
+    //const DefaultPackage = DefaultPackages.filter(function (Package) {
+    //    return Package.id == PackageID
+    //});
+
+    //const Hotel = Hotels.filter((x) => { return x.id == DefaultPackage[0].iD_Hotel })
+
+    //const DefaultPackageAct = DefaultPackagesDetails.filter(function (PackageDetails) {
+    //    return PackageDetails.paqueteID == PackageID
+    //});
+
+    //const package = DefaultPackage[0];
+    //Activities Extras in the hotel
+
+    const htelActvExtra = HotelsActivities.data.filter((x) => { return x.iD_Hotel == htelID });
+
+    $("#listHotelsExtraActivities").append(`
+<div class="four fields " id="htelActivitiesUpdtID${actvID}">
+    <input id="htelActivitiesUpdtID_${actvID}" name="htelActivitiesUpdtID_${actvID}" type="number" value=${actvID} style="display:none" />
+    <input id="htelActivitiesUpdtDel_${actvID}" name="htelActivitiesUpdtDel_${actvID}" type="checkbox" style="display:none" />
+    <div class="field">
+        <label>Actividades</label>
+        <select class="ui dropdown" name="ddlhtelActivitiesUpdt_${actvID}" onchange="calculatePriceOfHtelActvUpdt(${actvID})" id="ddlhtelActivitiesUpdt_${actvID}" >
+
+        </select>
+                                               
+    </div>
+    <div class="field">
+        <label>Cantidad de personas</label>
+        <input type="number" min="1" max="100" onchange="calculatePriceOfHtelActvUpdt(${actvID})" value="${cantidad}" name="htelActivitiesAmountUpdt_${actvID}" id="htelActivitiesAmountUpdt_${actvID}" placeholder="Cantidad de personas">
+    </div>
+    <div class="field">
+        <label>Total</label>
+        <div class="ui right labeled input">
+            <label for="htelActivitiesPriceUpdt_${actvID}" class="ui label">L</label>
+            <input type="number" dir="rtl" name="htelActivitiesPriceUpdt_${actvID}" value="${precio}" id="htelActivitiesPriceUpdt_${actvID}" placeholder="0.00" readonly>
+            <div class="ui basic label">.00</div>
+        </div>
+
+    </div>
+    <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
+        <label></label>
+        <div class="ui btn-edit text-white button" tabindex="0" onclick="deleteHtelActivitiesUpdt(${actvID})" id="btndeleteHtelActivities">- Eliminar actividad</div>
+    </div>
+</div>
+
+`);
+    if (htelActvExtra.length > 0) {
+        //Fill the hotel extra activities
+        $('#ddlhtelActivitiesUpdt_' + actvID).append('<option value="">' + "Seleccione una actividad" + '</option>');
+        for (var j = 0; j < htelActvExtra.length; j++) {
+            $('#ddlhtelActivitiesUpdt_' + actvID).append('<option data-value="' + htelActvExtra[j].id + '" value="' + htelActvExtra[j].iD_Actividad + '">' + htelActvExtra[j].actividad + ' L ' + htelActvExtra[j].precio + ' c/u' + '</option>');
+        };
+    }
+    else {
+        $('#ddlhtelActivitiesUpdt_' + actvID).append('<option value="">' + "No hay actividades disponibles actualmente" + '</option>');
+    }
+    $('.ui.dropdown').dropdown();
+
+};
+//Calculates the price of the activities of the hotel
+function calculatePriceOfHtelActvUpdt(inputID) {
+    const HtelActv = ajaxRequest(urlAPI + "/API/HotelsActivities/Find?Id=" + $("#ddlhotelsExtraActivities_" + inputID + ' option:selected').attr("data-value"), SendToken = true);
+    const CantPersonasResv = $(`#htelActivitiesAmountUpdt_${inputID}`).val();
+    const data = HtelActv.data;
+    const total = data.precio * parseInt(CantPersonasResv);
+    const selector = "#htelActivitiesPriceUpdt_" + inputID;
+    $(selector).val(total);
+    //$(`input[name="extraActivitiesPriceUpdt_${inputID}"]`).val(total);
+    //$("#extraActivitiesPriceUpdt_" + inputID).val(total);
+};
+//Delete an input for an activity extra of the hotel
+function deleteHtelActivitiesUpdt(inputID) {
+    $("#htelActivitiesUpdtID" + inputID).empty();
+    //$("#htelActivitiesUpdtDel_" + inputID).val(true);
+    //$("#htelActivitiesUpdtDel_" + inputID).prop("checked", true);
+    //$("#htelActivitiesUpdtDel_" + inputID).attr("checked", true);
+    //$("#htelActivitiesUpdtID" + inputID).css("display", "none");
+};
