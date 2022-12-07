@@ -2,6 +2,8 @@
 const DefaultPackagesList = ajaxRequest(urlAPI + "/API/DefaultPackages/List");
 const DefaultPackagesDetailsList = ajaxRequest(urlAPI + "/API/DefaultPackagesDetails/List");
 const RoomsList = ajaxRequest(urlAPI + "/API/Rooms/List");
+$("#frmAddExtraHotelsActivities").hide();
+$("#paqu_ID").hide();
 
 $('.ui.dropdown').dropdown();
 var imagesArray = [];
@@ -121,7 +123,9 @@ function createDefaultPackages() {
 
             var response = uploadFile(urlAPI+"/API/DefaultPackages/Insert", data, "POST");
             if (response.data.codeStatus > 0) {
-                window.location.href = '/DefaultPackages?success=true';
+                $("#paqu_ID").val(response.data.codeStatus);
+                $("#frmCreateDefaultPackagues").submit();
+                //window.location.href = '/DefaultPackages?success=true';
             } else {
 
                 $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
@@ -143,9 +147,10 @@ function createDefaultPackages() {
 
         var response = uploadFile(urlAPI+"/API/DefaultPackages/Insert", data, "POST");
         if (response.data.codeStatus > 0) {
-            window.location.href = '/DefaultPackages?success=true';
+            $("#paqu_ID").val(response.data.codeStatus);
+            $("#frmCreateDefaultPackagues").submit();
+            //window.location.href = '/DefaultPackages?success=true';
         } else {
-
             $("#labelvalidatorError").html("Ha ocurrido un error, intentelo de nuevo.");
         }
     }

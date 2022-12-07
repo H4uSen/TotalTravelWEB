@@ -25,7 +25,7 @@
             </div>
 
             <!-- formulario-->
-           <form asp-action="Create" id="frmCreateDefaultPackagues">
+           <form asp-action="Create" id="frmCreateDefaultPackagues" method="post">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
@@ -34,6 +34,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Nombre</label>
+                                    <input id="paqu_ID" name="paqu_ID" />
                                     <input id="Nombre" placeholder="Nombre del paquete" class="form-control" />
 
                                 </div>
@@ -88,7 +89,7 @@
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Habitacion</label>
-                                    <select id="Habi_ID" class="ui dropdown search">
+                                    <select id="Habi_ID" name="habi_Id" class="ui dropdown search">
                                         <option value="">Seleccione una habitacion</option>
                                     </select>
                                 </div>
