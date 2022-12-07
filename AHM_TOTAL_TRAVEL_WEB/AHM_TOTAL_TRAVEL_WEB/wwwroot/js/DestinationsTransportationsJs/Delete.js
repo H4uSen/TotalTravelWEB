@@ -44,10 +44,6 @@ $(document).ready(function () {
         ]
     });
 });
-$("#tabla").paginationTdA({
-    elemPerPage: 10
-});
-
 function DeleteDsTr(id) {
     const capsula1 = () => {
         var response = ajaxRequest("DestinationsTransportations/Delete?id=" + id, null, "POST");

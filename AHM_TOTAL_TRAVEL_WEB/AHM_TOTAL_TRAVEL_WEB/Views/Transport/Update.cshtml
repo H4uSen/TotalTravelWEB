@@ -140,14 +140,7 @@
 
 @section HighlightTile{
     <script>
-        $("#TransportModule").addClass("active");
-        $("#TransportModule").addClass("expandedList");
-        $("#TransportModule").prop("aria-expanded");
-        $("#TransportModule").attr("aria-expanded", "true");
-
-        $("#Transport_Schema").addClass("show");
-
-        $("#TransportTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
 
@@ -163,10 +156,6 @@
     </script>
 
     <script src="~/js/TransportJs/Update.js"></script>
-
-    <script>
-        $("#menu_item_125").addClass("activeTile");
-    </script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
