@@ -376,8 +376,6 @@ function hotelActvExtraForm() {
         <input type="number" min="1" max="100" value="1" onchange="calculatePriceOfActvHotels(${CantidadActvHotel})" name="hotelsExtraActivitiesAmount_${CantidadActvHotel}" id="hotelsExtraActivitiesAmount_${CantidadActvHotel}" placeholder="Cantidad de personas" runat="server">
     </div>
     <div class="field hotelsExtraActivitiesPrice">
-        <label>Total</label>
-        <input type="number" dir="rtl" name="hotelsExtraActivitiesPrice_${CantidadActvHotel}" id="hotelsExtraActivitiesPrice_${CantidadActvHotel}" placeholder="0.00" readonly runat="server">
         
         <label>Total</label>
         <div class="ui right labeled input">
