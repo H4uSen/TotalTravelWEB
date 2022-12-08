@@ -134,6 +134,68 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                return BadRequest(e.Message);
             }
         }
+        #endregion // // 
+
+        #region PAQUETES_PREDETERMINADOS_PHP
+        public async Task<IActionResult> IndexPaquetesPredeterminadosReport()
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Paquetes = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
+                ViewBag.TipoSocios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<IActionResult> DefaultPackagesReportXLS(int ReportTiype, string filtertype, string filtervalue)
+        {
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
+                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
+
+                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Paquetespredeterminadosreporst.rdlc";
+                LocalReport localReport = new LocalReport(path);
+
+
+                DataTable dt = new DataTable("Grid");
+                dt.Columns.AddRange(new DataColumn[6]{
+                            new DataColumn("Nombre"),
+                            new DataColumn("Descripcion_Paquete"),
+                            new DataColumn("Duracion_Paquete"),
+                            new DataColumn("precio"),
+                            new DataColumn("Hotel"),
+                            new DataColumn("Restaurante")
+                          });
+                var tra = from tran in data.ToList() select tran;
+
+                foreach (var tran in tra)
+                {
+                    dt.Rows.Add(tran.Nombre, tran.Descripcion_Paquete, tran.Duracion_Paquete, tran.precio, tran.Hotel, tran.Restaurante);
+                }
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        wb.SaveAs(stream);
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "paquetepredeterminadoReport.xls");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         #endregion
 
         #region SOCIOS_PHP
@@ -201,6 +263,70 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
         #endregion
 
+        #region TIPO_PAGOS_PHP
+
+        public async Task<IActionResult> IndexTipoPagoReport()
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Usuario = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+                ViewBag.TipoPago = (IEnumerable<TipeofpayListViewModel>)(await _saleService.PaymentTypesList()).Data;
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<IActionResult> RecordPaymentReportXLS(int ReportTiype, string filtertype, string filtervalue)
+        {
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
+                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
+
+                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RegistrospagosReporst.rdlc";
+                LocalReport localReport = new LocalReport(path);
+
+                DataTable dt = new DataTable("Grid");
+                dt.Columns.AddRange(new DataColumn[8]{
+                            new DataColumn("Nombre_Completo"),
+                            new DataColumn("DNI"),
+                            new DataColumn("Telefono"),
+                            new DataColumn("nombre_paquete"),
+                            new DataColumn("precio_paquete"),
+                            new DataColumn("MontoPago"),
+                            new DataColumn("fechaPago"),
+                            new DataColumn("TipoPago")});
+                var tra = from tran in data.ToList() select tran;
+
+                foreach (var tran in tra)
+                {
+                    dt.Rows.Add(tran.Nombre_Completo, tran.DNI, tran.Telefono, tran.nombre_paquete, tran.precio_paquete, tran.MontoPago, tran.fechaPago, tran.TipoPago);
+                }
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        wb.SaveAs(stream);
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tipopagoReport.xls");
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        #endregion  
+
         #region RESERVACIONES_PHP
 
         public async Task<IActionResult> IndexReservacionesReport()
@@ -208,9 +334,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             try
             {
             var token = HttpContext.User.FindFirst("Token").Value;
-            ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
-            ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
-            ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+                ViewBag.Usuario = (IEnumerable<UserListViewModel>)(await _accessService.UsersList(token)).Data;
+                ViewBag.Paquete = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
+                ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
+                ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
 
             return View();
             }
@@ -256,6 +383,127 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                     {
                         wb.SaveAs(stream);
                         return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "reservationReport.xls");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        #endregion
+
+        #region RESTAURANTES_PHP
+
+        public async Task<IActionResult> IndexRestaurantesReport()
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Restaurantes = (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
+                ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+        public async Task<IActionResult> RestauranteReportXLS(int ReportTiype, string filtertype, string filtervalue)
+        {
+            try
+            {
+                string token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                var data = (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
+                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
+
+                //crea y asigna direccion url de ubicacion de archivo .rdlc
+                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RestaurantesReport.rdlc";
+                LocalReport localReport = new LocalReport(path);
+
+                DataTable dt = new DataTable("Grid");
+                dt.Columns.AddRange(new DataColumn[3]{
+                            new DataColumn("Partner"),
+                            new DataColumn("Restaurante"),
+                            new DataColumn("Direccion")});
+                var tra = from tran in data.ToList() select tran;
+
+                foreach (var tran in tra)
+                {
+                    dt.Rows.Add(tran.Partner, tran.Restaurante, "Col." + tran.Colonia + "," + tran.Calle + "Calle" + "Ave." + tran.Avenida);
+                }
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        wb.SaveAs(stream);
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "restaurantReport.xls");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        #endregion
+
+        #region TRANSPORTE_PHP
+
+        public async Task<IActionResult> IndexTransporteReport()
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Transporte = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+                ViewBag.Tipotransporte = (IEnumerable<TypesTransportListViewModel>)(await _transportService.TypesTransportList()).Data;
+                ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<IActionResult> TransportReportXLS(int ReportTiype, string filtertype, string filtervalue)
+        {
+            try
+            {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
+                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
+
+                //crea y asigna direccion url de ubicacion de archivo .rdlc
+                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransporteReport.rdlc";
+                LocalReport localReport = new LocalReport(path);
+
+                DataTable dt = new DataTable("Grid");
+                dt.Columns.AddRange(new DataColumn[4]{
+                            new DataColumn("Tipo_Transporte"),
+                            new DataColumn("NombrePartner"),
+                            new DataColumn("Ciudad"),
+                            new DataColumn("Direccion")});
+                var tra = from tran in data.ToList() select tran;
+
+                foreach (var tran in tra)
+                {
+                    dt.Rows.Add(tran.TipoTransporte, tran.NombrePartner, tran.Ciudad, "Col." + tran.Colonia + "," + tran.Calle + "Calle" + "Ave." + tran.Avenida);
+                }
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        wb.SaveAs(stream);
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "transporReport.xls");
                     }
                 }
             }
@@ -330,67 +578,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             catch (Exception e)
             {
 
-                return BadRequest(e.Message);
-            }
-        }
-        #endregion
-
-        #region RESTAURANTES_PHP
-
-        public async Task<IActionResult> IndexRestaurantesReport()
-        {
-            try
-            {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
-            ViewBag.Hoteles = (IEnumerable<HotelListViewModel>)(await _hotelsService.HotelsList(token)).Data;
-            ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
-
-            return View();
-            }
-            catch (Exception)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        /////////////////////////////////////////////////////////////////////////////////////////
-        public async Task<IActionResult> RestauranteReportXLS(int ReportTiype, string filtertype, string filtervalue)
-        {
-            try
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                var data = (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
-                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
-
-                //crea y asigna direccion url de ubicacion de archivo .rdlc
-                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RestaurantesReport.rdlc";
-                LocalReport localReport = new LocalReport(path);
-
-                DataTable dt = new DataTable("Grid");
-                dt.Columns.AddRange(new DataColumn[3]{
-                            new DataColumn("Partner"),
-                            new DataColumn("Restaurante"),
-                            new DataColumn("Direccion")});
-                var tra = from tran in data.ToList() select tran;
-
-                foreach (var tran in tra)
-                {
-                    dt.Rows.Add(tran.Partner, tran.Restaurante,  "Col." + tran.Colonia + "," + tran.Calle + "Calle" + "Ave." + tran.Avenida);
-                }
-                using (XLWorkbook wb = new XLWorkbook())
-                {
-                    wb.Worksheets.Add(dt);
-                    using (MemoryStream stream = new MemoryStream())
-                    {
-                        wb.SaveAs(stream);
-                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "restaurantReport.xls");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
                 return BadRequest(e.Message);
             }
         }
@@ -676,54 +863,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         /////////////////////////////////////////////////////////////////////////////////////////
 
 
-        public async Task<IActionResult> TransportReportXLS(int ReportTiype, string filtertype, string filtervalue)
-            {
-            try
-            {
-                var token = HttpContext.User.FindFirst("Token").Value;
-                string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                var data = (IEnumerable<TransportListViewModel>)(await _transportService.TransportList()).Data;
-                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
 
-
-
-                //crea y asigna direccion url de ubicacion de archivo .rdlc
-                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\TransporteReport.rdlc";              
-                LocalReport localReport = new LocalReport(path);
-
-                
-                    DataTable dt = new DataTable("Grid");
-                    dt.Columns.AddRange(new DataColumn[4]{
-                            new DataColumn("Tipo_Transporte"),
-                            new DataColumn("NombrePartner"),
-                            new DataColumn("Ciudad"),
-                            new DataColumn("Direccion")});
-                    var tra = from tran in data.ToList() select tran;
-
-                    foreach (var tran in tra)
-                    {
-                        dt.Rows.Add(tran.TipoTransporte, tran.NombrePartner, tran.Ciudad, "Col." + tran.Colonia + "," + tran.Calle + "Calle" + "Ave." + tran.Avenida);
-                    }
-                    using (XLWorkbook wb = new XLWorkbook())
-                    {
-                        wb.Worksheets.Add(dt);
-                        using (MemoryStream stream = new MemoryStream())
-                        {
-                            wb.SaveAs(stream);
-                            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "transporReport.xls");
-                        }
-                    }
-                
-
-              
-            }
-            catch (Exception e)
-            {
-
-                return BadRequest(e.Message);
-            }
-
-        }
 
         #endregion
 
@@ -795,74 +935,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         /////////////////////////////////////////////////////////////////////////////////////////
 
-        public async Task<IActionResult> RecordPaymentReportXLS(int ReportTiype, string filtertype, string filtervalue)
-        {
-            try
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                var data = (IEnumerable<PaymentRecordListViewModel>)(await _saleService.PaymentRecordsList()).Data;
-                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
-
-                /* switch (filtertype)
-                 {
-                     case "Id_cliente":
-                         data = data.Where(x => x.Id_Cliente == Convert.ToInt32(filtervalue)).ToList();
-                         break;
-
-                     case "fecha":
-                         DateTime fecha = DateTime.Parse(filtervalue);
-                         data = data.Where(x => x.fechaPago == fecha).ToList();
-                         break;
-
-                     case "TipoPaquete":
-                         data = data.Where(x => x.Id_Paquete == Convert.ToInt32(filtervalue)).ToList();
-                         break;
-                     case "TipoPago":
-                         data = data.Where(x => x.Id_TipoPago == Convert.ToInt32(filtervalue)).ToList();
-                         break;
-                     default:
-                         break;
-                 }*/
-                //crea y asigna direccion url de ubicacion de archivo .rdlc
-                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\RegistrospagosReporst.rdlc";
-                LocalReport localReport = new LocalReport(path);
-
-                    DataTable dt = new DataTable("Grid");
-                    dt.Columns.AddRange(new DataColumn[8]{
-                            new DataColumn("Nombre_Completo"),
-                            new DataColumn("DNI"),
-                            new DataColumn("Telefono"),
-                            new DataColumn("nombre_paquete"),
-                            new DataColumn("precio_paquete"),
-                            new DataColumn("MontoPago"),
-                            new DataColumn("fechaPago"),
-                            new DataColumn("TipoPago")});
-                    var tra = from tran in data.ToList() select tran;
-
-                    foreach (var tran in tra)
-                    {
-                        dt.Rows.Add(tran.Nombre_Completo, tran.DNI, tran.Telefono, tran.nombre_paquete, tran.precio_paquete, tran.MontoPago, tran.fechaPago, tran.TipoPago);
-                    }
-                    using (XLWorkbook wb = new XLWorkbook())
-                    {
-                        wb.Worksheets.Add(dt);
-                        using (MemoryStream stream = new MemoryStream())
-                        {
-                            wb.SaveAs(stream);
-                            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tipopagoReport.xls");
-
-                        }
-                    }
-            }
-            catch (Exception e)
-            {
-
-                return BadRequest(e.Message);
-            }
-            
-            
-        }
+     
 
         #endregion
 
@@ -902,68 +975,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         /////////////////////////////////////////////////////////////////////////////////////////
 
-        public async Task<IActionResult> DefaultPackagesReportXLS(int ReportTiype, string filtertype, string filtervalue)
-        {
-            try
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                var data = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
-                var print_user = ((UserListViewModel)(await _accessService.UsersFind(int.Parse(UserID), token)).Data).Nombre;
-
-                /*  switch (filtertype)
-                  {
-                      case "id_hotel":
-                          data = data.Where(x => x.ID_Hotel == Convert.ToInt32(filtervalue)).ToList();
-                          break;
-                      case "id_restaurante":
-                          data = data.Where(x => x.ID_Restaurante == Convert.ToInt32(filtervalue)).ToList();
-                          break;
-                      case "TipoPaquete":
-                          data = data.Where(x => x.Id == Convert.ToInt32(filtervalue)).ToList();
-                          break;
-                      default:
-                          break;
-
-                  }
-                */
-                //crea y asigna direccion url de ubicacion de archivo .rdlc
-                var path = $"{this._webHostEnvironment.WebRootPath}\\Report\\Paquetespredeterminadosreporst.rdlc";
-                LocalReport localReport = new LocalReport(path);
-
-               
-                    DataTable dt = new DataTable("Grid");
-                    dt.Columns.AddRange(new DataColumn[6]{
-                            new DataColumn("Nombre"),
-                            new DataColumn("Descripcion_Paquete"),
-                            new DataColumn("Duracion_Paquete"),
-                            new DataColumn("precio"),
-                            new DataColumn("Hotel"),
-                            new DataColumn("Restaurante")
-                          });
-                    var tra = from tran in data.ToList() select tran;
-
-                    foreach (var tran in tra)
-                    {
-                        dt.Rows.Add(tran.Nombre, tran.Descripcion_Paquete, tran.Duracion_Paquete, tran.precio, tran.Hotel, tran.Restaurante);
-                    }
-                    using (XLWorkbook wb = new XLWorkbook())
-                    {
-                        wb.Worksheets.Add(dt);
-                        using (MemoryStream stream = new MemoryStream())
-                        {
-                            wb.SaveAs(stream);
-                            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "paquetepredeterminadoReport.xls");
-
-                        }
-                    }
-            }
-            catch (Exception e)
-            {
-
-                return BadRequest(e.Message);
-            }
-        }
+     
         #endregion
     }
 }
