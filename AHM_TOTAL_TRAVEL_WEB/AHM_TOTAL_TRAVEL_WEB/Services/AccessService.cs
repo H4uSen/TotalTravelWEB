@@ -51,7 +51,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
 
                 var routeToAccess = httpContext.Request.Path;
                 string controller = routeToAccess.ToString().Split("/")[1];
-                string action = routeToAccess.ToString().Split("/")[2];
+                string action = routeToAccess.ToString();
+                List<string> hola = routeToAccess.ToString().Split("/").ToList();
+                int urlLength = action.Split("/").Length;
+                if (urlLength > 2)
+                {
+                    //action = action.Split("/")[2];
+                    action = "Index";
+                }
+                else {
+                    action = "Index";
+                }
 
                 // Check if the user has access based on the result of the HasAccess method in the MyService service
                 bool result = requirement.HasAccess = _accessService.valiadateRestriction(controller, action, rolID, token.ToString()).Result;

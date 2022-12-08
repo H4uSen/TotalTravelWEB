@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
+    [Authorize(Policy ="MyPolicy")]
     public class RegistrationPaymentsController : Controller
     {
         private readonly SaleServices _saleServices;
