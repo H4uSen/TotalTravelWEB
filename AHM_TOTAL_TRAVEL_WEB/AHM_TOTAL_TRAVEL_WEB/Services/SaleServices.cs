@@ -139,11 +139,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         public async Task<ServiceResult> DefaultPackagesFind(string id, string token)
         {
             var Result = new ServiceResult();
-            var cuenta = new DefaultPackagesViewModel();
+            var cuenta = new DefaultPackagesListViewModel();
 
             try
             {
-                var response = await _api.Get<DefaultPackagesViewModel, DefaultPackagesViewModel>(req => {
+                var response = await _api.Get<DefaultPackagesListViewModel, DefaultPackagesListViewModel>(req => {
                     req.Path = $"/API/DefaultPackages/Find?id=" + id;
                     req.Content = cuenta;
                 },

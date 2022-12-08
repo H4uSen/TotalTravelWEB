@@ -22,7 +22,8 @@ $("#File").change(async function () {
 });
 
 $('#hote_ID').change(function () {
-
+    $("#habit").removeAttr('hidden');
+    $("#habit").show();
     if (RoomsList.code == 200) {
         var hote_ID = $('#hote_ID').val();
         var habitaciones = RoomsList.data;
@@ -47,6 +48,8 @@ $('#hote_ID').change(function () {
         $("#Habi_ID").dropdown();
      
     }
+    $("#listHotelsExtraActivities").empty();
+    hotelActvExtraForm()
 });
 
 function LoadImage() {
@@ -180,7 +183,7 @@ function hotelActvExtraForm() {
     </div>
     <div class="field">
         <label>Cantidad de personas</label>
-        <input type="number" min="1" max="100" value="1" onchange="calculatePriceOfActvHotels(${CantidadActvHotel})" name="hotelsExtraActivitiesAmount_${CantidadActvHotel}" id="hotelsExtraActivitiesAmount_${CantidadActvHotel}" placeholder="Cantidad de personas" runat="server">
+        <input type="number" min="1" max="100" value="1" onkeyup="calculatePriceOfActvHotels(${CantidadActvHotel})" name="hotelsExtraActivitiesAmount_${CantidadActvHotel}" id="hotelsExtraActivitiesAmount_${CantidadActvHotel}" placeholder="Cantidad de personas" runat="server">
     </div>
     <div class="field hotelsExtraActivitiesPrice">
         <label>Total</label>
@@ -210,21 +213,15 @@ function hotelActvExtraForm() {
 
 //Calculates the price of the activities of the hotel
 function calculatePriceOfActvHotels(inputID) {
+    campoNumerico7 = document.getElementById('hotelsExtraActivitiesAmount_' + inputID);
+    vali()
     const CantPersonas = $("#hotelsExtraActivitiesAmount_" + inputID).val();
-    if (CantPersonas < 1) {
-        $("#hotelsExtraActivitiesAmount_" + inputID).val("1");
-        iziToast.warning({
-            title: 'Atención',
-            message: 'El mínimo de personas es 1',
-        });
-        return;
-    }
+  
 
     //var ID = $("#ddlhotelsExtraActivities_" + inputID).val();
 
     var ID = $("#ddlhotelsExtraActivities_" + inputID + ' option:selected').attr("data-value");
     const HtlExtraActv = ajaxRequest(urlAPI + "/API/HotelsActivities/Find?id=" + ID, SendToken = true);
-    console.log(HtlExtraActv.data);
     $("#hotelsExtraActivitiesPrice_" + inputID).val(HtlExtraActv.data.precio * CantPersonas);
 };
 
@@ -257,3 +254,30 @@ $("#btnHotelExtraActivities").click(function () {
 function deleteHotelExtraActivities(inputID) {
     $("#hotelsExtraActivitiesID" + inputID).remove();
 };
+
+function vali() {
+    campoNumerico7.addEventListener('keydown', function (evento) {
+        const teclaPresionada = evento.key;
+        const teclaPresionadaEsUnNumero =
+            Number.isInteger(parseInt(teclaPresionada));
+
+        const sePresionoUnaTeclaNoAdmitida =
+            teclaPresionada != 'ArrowDown' &&
+            teclaPresionada != 'ArrowUp' &&
+            teclaPresionada != 'ArrowLeft' &&
+            teclaPresionada != 'ArrowRight' &&
+            teclaPresionada != 'Backspace' &&
+            teclaPresionada != 'Delete' &&
+            teclaPresionada != 'Enter' &&
+            teclaPresionada != 'Space' &&
+            !teclaPresionadaEsUnNumero;
+        const comienzaPorCero =
+            campoNumerico7.value.length === 0 &&
+            teclaPresionada == 0;
+
+        if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+            evento.preventDefault();
+        }
+
+    });
+}

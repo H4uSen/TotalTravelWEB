@@ -16,6 +16,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Models
         public decimal? paqu_Precio { get; set; }
         public int? paqu_CantPersonas { get; set; }
         public int habi_Id { get; set; }
+        public int RoPa_ID { get; set; }
     }
     public class DefaultPackagesListViewModel
     {
