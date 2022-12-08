@@ -71,19 +71,19 @@ catch (Exception)
                 if (parameter) {
                     if ($("#cbbuser .item.selected").length > 0 && $("#cbbuser .item.selected").attr("data-value") != 0) {
                         var id_User = $("#cbbuser .item.selected").attr("data-value");
-                        query.parameters.ID = parseInt(id_User);
+                        query.parameters.id_Cliente = parseInt(id_User);
                     }
                     else {
 
-                        delete query.parameters["ID"];
+                        delete query.parameters["id_Cliente"];
                     }
                     if ($("#cbbtipoPago .item.selected").length > 0 && $("#cbbtipoPago .item.selected").attr("data-value") != 0) {
                         var id_tipopago = $("#cbbtipoPago .item.selected").attr("data-value");
-                        query.parameters.id = parseInt(id_tipopago);
+                        query.parameters.id_TipoPago = parseInt(id_tipopago);
                     }
                     else {
 
-                        delete query.parameters["id"];
+                        delete query.parameters["id_TipoPago"];
                     }
            
                 }
