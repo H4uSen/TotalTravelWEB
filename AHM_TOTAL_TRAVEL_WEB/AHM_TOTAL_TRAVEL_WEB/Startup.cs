@@ -17,6 +17,11 @@ using Microsoft.Extensions.Options;
 using System.IO;
 using Rotativa;
 using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Authorization;
+using static AHM_TOTAL_TRAVEL_WEB.Services.AccessService;
 
 namespace AHM_TOTAL_TRAVEL_WEB
 {
@@ -61,14 +66,28 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 option.LoginPath = "/Access/LogIn";
                 option.AccessDeniedPath = "/Home/Error401";
             });
+
+            // Add the MyService service to the DI container
+            services.AddSingleton<AccessService>();
+
+            // Add the IHttpContextAccessor service to the DI container
+            services.AddHttpContextAccessor();
+
             services.AddAuthorization(options => {
-                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
-                options.AddPolicy("Client", policy => policy.RequireClaim(ClaimTypes.Role, "Cliente"));
-                options.AddPolicy("Hotel", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Hotel"));
-                options.AddPolicy("Transport", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Transporte"));
-                options.AddPolicy("Restaurant", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Restaurante"));
+                //options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
+                //options.AddPolicy("Client", policy => policy.RequireClaim(ClaimTypes.Role, "Cliente"));
+                //options.AddPolicy("Hotel", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Hotel"));
+                //options.AddPolicy("Transport", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Transporte"));
+                //options.AddPolicy("Restaurant", policy => policy.RequireClaim(ClaimTypes.Role, "Moderador de Restaurante"));
+                options.AddPolicy("MyPolicy", policy =>
+                {
+                    policy.AddRequirements(new MyRequirement());
+                });
             });
-            
+
+            // Add the MyHandler class as a singleton service
+            services.AddSingleton<IAuthorizationHandler, MyHandler>();
+
             services.AddControllersWithViews()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
@@ -101,9 +120,12 @@ namespace AHM_TOTAL_TRAVEL_WEB
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseSession();
+            app.UseRouting();
             
             app.Use(async (context, next) =>
             {
+                
                 await next();
 
                 switch (context.Response.StatusCode)
@@ -139,20 +161,57 @@ namespace AHM_TOTAL_TRAVEL_WEB
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            
 
-            app.UseSession();
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseRequestLocalization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.Use(async (context, next) =>
+            {
+                if (context.Session.GetString("token") == null)
+                {
+                    context.Response.Redirect("/");
+                    return;
+                }
+
+                await next.Invoke();
+            }); 
+            
+            //app.Use(async (context, next) =>
+            //{
+            //    string token = context.Session.GetString("Token");
+            //    if (token != null)
+            //    {
+            //        int rolID = int.Parse(context.Session.GetString("Role_Id"));
+
+            //        var routeToAccess = context.Request.Path;
+            //        string controller = routeToAccess.ToString().Split("/")[1];
+            //        string action = routeToAccess.ToString().Split("/")[2];
+                                       
+
+            //        bool result = accessService.valiadateRestriction(controller, action, rolID, token.ToString()).Result;
+
+            //        if (!result) {
+            //            context.Request.Path = "/Home/Error401";
+            //            await next();
+            //        }
+
+            //    }
+            //    await next.Invoke();
+
+
+            //});
+
             RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Exchange.WebServices.Data;
 using System;
@@ -18,6 +19,55 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
         {
             _api = api;
         }
+
+        #region Security
+        public class MyRequirement : IAuthorizationRequirement
+        {
+            public bool HasAccess { get; set; }
+        }
+
+        public class MyHandler : AuthorizationHandler<MyRequirement>
+        {
+
+            private readonly AccessService _accessService;
+            private readonly IHttpContextAccessor _httpContextAccessor;
+
+            public MyHandler(AccessService accessService, IHttpContextAccessor httpContextAccessor)
+            {
+                _accessService = accessService;
+                _httpContextAccessor = httpContextAccessor;
+            }
+
+            protected override System.Threading.Tasks.Task HandleRequirementAsync(
+                AuthorizationHandlerContext context,
+                MyRequirement requirement
+
+            )
+            {
+                var httpContext = _httpContextAccessor.HttpContext;
+
+                string token = httpContext.Session.GetString("Token");
+                int rolID = int.Parse(httpContext.Session.GetString("Role_Id"));
+
+                var routeToAccess = httpContext.Request.Path;
+                string controller = routeToAccess.ToString().Split("/")[1];
+                string action = routeToAccess.ToString().Split("/")[2];
+
+                // Check if the user has access based on the result of the HasAccess method in the MyService service
+                bool result = requirement.HasAccess = _accessService.valiadateRestriction(controller, action, rolID, token.ToString()).Result;
+
+                // If the user has access, mark the requirement as satisfied and return
+                if (requirement.HasAccess)
+                {
+                    context.Succeed(requirement);
+                    return System.Threading.Tasks.Task.CompletedTask;
+                }
+
+                // If the user does not have access, return without marking the requirement as satisfied
+                return System.Threading.Tasks.Task.CompletedTask;
+            }
+        }
+        #endregion
 
         #region Access
         public async Task<ServiceResult> LogIn(UserLoginModel LogInData)

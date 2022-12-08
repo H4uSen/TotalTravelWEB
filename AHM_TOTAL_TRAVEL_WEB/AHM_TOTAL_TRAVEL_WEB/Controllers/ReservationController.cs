@@ -1,7 +1,9 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using AngleSharp.Html;
+using AspNetCore.Report.ReportService2010_;
 using Irony.Parsing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -19,6 +21,7 @@ using static AHM_TOTAL_TRAVEL_WEB.Models.ReservationViewModel;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
+    [Authorize(Policy = "MyPolicy")]
     public class ReservationController : Controller
     {
         private readonly ReservationService _reservationService;
@@ -40,6 +43,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
+     
         public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try { 
@@ -60,6 +64,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
+     
         public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
             try { 

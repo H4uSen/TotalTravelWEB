@@ -271,7 +271,7 @@ function AddDropDownItem(DropDown, item = { value: 0, text: "" }) {
 $('#Count_ID').change(function () {
 
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Cities/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Cities/List");
     if (response.code == 200) {
         var Count_ID = $('#Count_ID').val();
         var cities = response.data;
@@ -296,7 +296,7 @@ $('#Count_ID').change(function () {
 $('#City_ID').change(function () {
 
 
-    var response = ajaxRequest("https://totaltravelapi.azurewebsites.net/API/Suburbs/List");
+    var response = ajaxRequest("https://apitotaltravel.azurewebsites.net/API/Suburbs/List");
     if (response.code == 200) {
 
         var City_ID = $('#City_ID').val();

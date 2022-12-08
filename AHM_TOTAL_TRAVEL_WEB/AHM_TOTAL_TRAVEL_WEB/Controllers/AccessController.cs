@@ -1,6 +1,7 @@
 ﻿using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using AHM_TOTAL_TRAVEL_WEB.WebAPI;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
@@ -27,7 +29,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _generalService = generalService;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string Command)
         {
             try
             {
@@ -291,7 +293,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         //USAR REFERENCIAS Models y Data
         [HttpPost]
-        public async Task<IActionResult> LogIn(UserLoginModel LogInData)
+        public async Task<IActionResult> LogIn(UserLoginModel LogInData, string Command)
         {
 
             try
@@ -429,8 +431,9 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 #region AUTENTICACTION
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 #endregion
-
-                return RedirectToAction("LogIn");
+                RouteValuesModel valuesModel = new RouteValuesModel();
+                valuesModel.Command = "endSession";
+                return RedirectToAction("LogIn", new { Command="endSession" });
             }
             catch (Exception)
             {
