@@ -5,98 +5,89 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container card">
-    <div class="ui basic segment">
+    <div class="container card">
+        <div class="ui basic segment">
 
-        <div class="ui icon attached message">
-            <i class="building icon"></i>
-            <div class="content">
-                <div class="header">
-                    Hoteles
+            <div class="ui icon attached message">
+                <i class="building icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Hoteles
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <div class="ui grid">
-            <div class="eight wide column">
-                <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create", "Hotel")">
-                    <i class="plus icon"></i> Nuevo
-                </a>
+            <br>
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <a class="ui small btn-edit text-white labeled icon button" href="@Url.Action("Create", "Hotel")">
+                        <i class="plus icon"></i> Nuevo
+                    </a>
+                </div>
             </div>
-        </div>
-        <br />
-        <table class="ui compact selectable celled table" id="tabla">
-            <thead>
-                <tr>
-                    <th>
-                        Hotel
-                    </th>
-                    <th>
-                        Descripción
-                    </th>
-                    <th>
-                        Dirección
-                    </th>
-                    <th>
-                        Socio
-                    </th>
-                    <th width="300px">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    var partner = string.IsNullOrEmpty(item.Partners) ? "No hay socios afiliados" : item.Partners;
+            <br />
+            <table class="ui compact selectable celled table" id="tabla">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hotel)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            Ciudad de @item.Ciudad,Colonia @(item.Colonia),Calle @(item.Calle), Avenida @(item.Avenida)
-                        </td>
-                        <td>
-                            @partner
-                        </td>
-                        <td>
-                            <a class="ui large icon btn-edit button" href="@Url.Action("Update", "Hotel", new { id=item.ID })">
-                                <i class="pencil alternate icon icon-crud"></i>
-                            </a>
-                            <a class="ui large icon btn-delete button" onclick="DeleteHoteles(@item.ID)">
-                                <i class="trash alternate icon icon-crud"></i>
-                            </a>
-                            <a class="ui large icon button" href="@Url.Action("Details", "Hotel", new { id=item.ID })">
-                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                            </a>
-                        </td>
+                        <th>
+                            Hotel
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Dirección
+                        </th>
+                        <th>
+                            Socio
+                        </th>
+                        <th width="300px">Acciones</th>
                     </tr>
-                }
-            </tbody>
-        </table><br>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var partner = string.IsNullOrEmpty(item.Partners) ? "No hay socios afiliados" : item.Partners;
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hotel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                Ciudad de @item.Ciudad,Colonia @(item.Colonia),Calle @(item.Calle), Avenida @(item.Avenida)
+                            </td>
+                            <td>
+                                @partner
+                            </td>
+                            <td>
+                                <a class="ui large icon btn-edit button" href="@Url.Action("Update", "Hotel", new { id=item.ID })">
+                                    <i class="pencil alternate icon icon-crud"></i>
+                                </a>
+                                <a class="ui large icon btn-delete button" onclick="DeleteHoteles(@item.ID)">
+                                    <i class="trash alternate icon icon-crud"></i>
+                                </a>
+                                <a class="ui large icon button" href="@Url.Action("Details", "Hotel", new { id=item.ID })">
+                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table><br>
 
+        </div>
     </div>
-</div>
 
-
-    @section HighlightTile{
+@section HighlightTile{
     <script>
-
-        $("#HotelModule").addClass("active");
-        $("#HotelModule").addClass("expandedList");
-        $("#HotelModule").prop("aria-expanded");
-        $("#HotelModule").attr("aria-expanded", "true");
-
-        $("#Hotels_Schema").addClass("show");
-
-        $("#HotelsTile").addClass("activeTile");
+        highlightTile();
     </script>
-    }
+}
 
 @section Scripts{
-<script src="~/js/HotelJs/Index.js"></script>
+    <script src="~/js/HotelJs/Index.js"></script>
     <script>
 
         const update_success = FindGetValue("update_success");

@@ -29,7 +29,6 @@
                     <h2 class="section-title">Actividades</h2>
                     <hr>
                     <ol class="circle-list" id="actividades">
-                        
                     </ol>
 
 
@@ -47,7 +46,7 @@
                 <div class="col-md-4 wow fadeInUp">
                     <h2 class="section-title">Hotel</h2>
                     <figure class="team-image" id="imagenh">
-                        
+
                     </figure>
                     <p>@Html.DisplayFor(model => model.Hotel)</p>
                     <p>@Html.DisplayFor(model => model.Descripcion_Hotel)</p>
@@ -62,8 +61,8 @@
                     <p>Descripcion Restaurante</p>
 
                 </div>
-                <div class="col-md-4 wow fadeInUp" data-wow-delay=".4s">                  
-                    <a  class="boxed-link" href="@Url.Action("Compra", "BuyDefaults", new { id=Model.Id })">Hacer Reserva</a>
+                <div class="col-md-4 wow fadeInUp" data-wow-delay=".4s">
+                    <a class="boxed-link" href="@Url.Action("Compra", "BuyDefaults", new { id=Model.Id })">Hacer Reserva</a>
 
                 </div>
             </div>
@@ -88,3 +87,8 @@
 
 }
 
+@section HighlightTile{
+    <script>
+        highlightTile();
+    </script>
+}

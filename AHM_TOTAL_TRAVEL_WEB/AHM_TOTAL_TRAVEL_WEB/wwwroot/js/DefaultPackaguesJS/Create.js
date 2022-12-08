@@ -164,9 +164,9 @@ function hotelActvExtraForm() {
     var htelActvExtra = [];
     if ($("#hote_ID").val() != 0) {
         //Activities Extras in the hotel
-        htelActvExtra = HotelsActvList.data.filter((x) => { return x.iD_Hotel == $("#hote_ID").val()});
+        htelActvExtra = HotelsActvList.data.filter((x) => { return x.iD_Hotel == $("#hote_ID").val() });
     }
-        
+
 
 
     $("#listHotelsExtraActivities").append(`
@@ -197,7 +197,7 @@ function hotelActvExtraForm() {
         //Fill the extrac activities in the hotel
         $('#ddlhotelsExtraActivities_' + CantidadActvHotel).append('<option value="">' + "Seleccione una actividad" + '</option>');
         for (var j = 0; j < htelActvExtra.length; j++) {
-            $('#ddlhotelsExtraActivities_' + CantidadActvHotel).append('<option value="' + htelActvExtra[j].id + '">' + htelActvExtra[j].actividad + ' L ' + htelActvExtra[j].precio + ' c/u' + '</option>');
+            $('#ddlhotelsExtraActivities_' + CantidadActvHotel).append('<option data-value="' + htelActvExtra[j].id + '" value="' + htelActvExtra[j].iD_Actividad + '">' + htelActvExtra[j].actividad + ' L ' + htelActvExtra[j].precio + ' c/u' + '</option>');
         };
 
     } else {
@@ -220,9 +220,11 @@ function calculatePriceOfActvHotels(inputID) {
         return;
     }
 
-    var ID = $("#ddlhotelsExtraActivities_" + inputID).val();
-    const HtlExtraActv = ajaxRequest(urlAPI + "/API/HotelsActivities/Find?id=" + ID, SendToken = true);
+    //var ID = $("#ddlhotelsExtraActivities_" + inputID).val();
 
+    var ID = $("#ddlhotelsExtraActivities_" + inputID + ' option:selected').attr("data-value");
+    const HtlExtraActv = ajaxRequest(urlAPI + "/API/HotelsActivities/Find?id=" + ID, SendToken = true);
+    console.log(HtlExtraActv.data);
     $("#hotelsExtraActivitiesPrice_" + inputID).val(HtlExtraActv.data.precio * CantPersonas);
 };
 

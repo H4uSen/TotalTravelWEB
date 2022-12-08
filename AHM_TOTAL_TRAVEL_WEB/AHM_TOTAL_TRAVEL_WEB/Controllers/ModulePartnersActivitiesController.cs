@@ -25,9 +25,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _activitiesService = activitiesService;
             _mapper = mapper;
         }
-
+        
         public async Task<IActionResult> Index()
         {
+            try {
             var token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
@@ -40,10 +41,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.TiAc_ID = new SelectList(data_TypeActivities, "ID", "Descripcion");
 
             return View();
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Info()
         {
+            try {
             var token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
@@ -55,24 +62,35 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["PartnerID"] = partner.ID;
 
             return View(partner);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(ActivitiesExtrasViewModel Actividades, int id)
         {
-            if (ModelState.IsValid)
-            {
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                Actividades.AcEx_UsuarioModifica = int.Parse(idd);
+            try {
+                if (ModelState.IsValid)
+                {
+                    var idd = HttpContext.User.FindFirst("User_Id").Value;
+                    Actividades.AcEx_UsuarioModifica = int.Parse(idd);
 
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = (RequestStatus)(await _activitiesService.ActivitiesExtraDelete(Actividades, id, token)).Data;
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = (RequestStatus)(await _activitiesService.ActivitiesExtraDelete(Actividades, id, token)).Data;
 
-                return Ok(list.CodeStatus);
+                    return Ok(list.CodeStatus);
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -168,84 +186,105 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTypeActivities(TypesActivitiesViewModel typeActividad)
         {
-
-            if (ModelState.IsValid)
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                typeActividad.TiAc_UsuarioCreacion = Convert.ToInt32(UserID);
-                var list = await _activitiesService.TypesActivitiesCreate(typeActividad, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+            try {
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/ModulePartnersActivities?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                    typeActividad.TiAc_UsuarioCreacion = Convert.ToInt32(UserID);
+                    var list = await _activitiesService.TypesActivitiesCreate(typeActividad, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/ModulePartnersActivities?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
-
         }
 
         [HttpGet]
         public async Task<IActionResult> Reservations()
         {
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var id = HttpContext.User.FindFirst("User_Id").Value;
-            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+            try {
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-            var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
-            ViewData["PartnerImage"] = partner.Image_Url;
-            ViewData["PartnerID"] = partner.ID;
+                var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
+                ViewData["PartnerImage"] = partner.Image_Url;
+                ViewData["PartnerID"] = partner.ID;
 
-            return View();
+                return View();
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdatePartner()
         {
-            var model1 = new List<PartnerTypeListViewModel>();
-            var token = HttpContext.User.FindFirst("Token").Value;
-            var id = HttpContext.User.FindFirst("User_Id").Value;
-            var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
+            try {
+                var model1 = new List<PartnerTypeListViewModel>();
+                var token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
 
-            var item = new PartnersViewModel();
-            var list = await _generalService.PartnersList();
-            IEnumerable<PartnersListViewModel> data = (IEnumerable<PartnersListViewModel>)list.Data;
-            var element = data.Where(x => x.ID == cuenta.PartnerID).ToList()[0];
-            item.Part_ID = element.ID;
-            item.Part_Email = element.Email;
-            item.Part_Nombre = element.Nombre;
-            item.Part_Telefono = element.Telefono;
-            item.TiPart_Id = element.TipoPartner_Id;
-            var partners = await _generalService.PartnerTypeList();
-            IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
-            ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion", element.TipoPartner_Id);
-            ViewData["PartnersFolder"] = $"UsersProfilePics/Partner-{element.ID}";
-            ViewData["partnersID"] = element.ID;
+                var item = new PartnersViewModel();
+                var list = await _generalService.PartnersList();
+                IEnumerable<PartnersListViewModel> data = (IEnumerable<PartnersListViewModel>)list.Data;
+                var element = data.Where(x => x.ID == cuenta.PartnerID).ToList()[0];
+                item.Part_ID = element.ID;
+                item.Part_Email = element.Email;
+                item.Part_Nombre = element.Nombre;
+                item.Part_Telefono = element.Telefono;
+                item.TiPart_Id = element.TipoPartner_Id;
+                var partners = await _generalService.PartnerTypeList();
+                IEnumerable<PartnerTypeListViewModel> data_Partners = (IEnumerable<PartnerTypeListViewModel>)partners.Data;
+                ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion", element.TipoPartner_Id);
+                ViewData["PartnersFolder"] = $"UsersProfilePics/Partner-{element.ID}";
+                ViewData["partnersID"] = element.ID;
             
-            return View(item);
-
+                return View(item);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdatePartner(PartnersViewModel actividad)
         {
-            if (ModelState.IsValid)
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                actividad.Part_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
-                var list = await _generalService.PartnersUpdate(actividad, token);
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid)
+                {
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    actividad.Part_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
+                    var list = await _generalService.PartnersUpdate(actividad, token);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
     }

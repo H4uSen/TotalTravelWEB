@@ -12,6 +12,7 @@
             text-align: left;
             background-color: #e2e8f0;
         }
+
         .ui.search.dropdown {
             min-width: 0 !important;
             width: 100% !important;
@@ -305,7 +306,7 @@
 @section Scripts{
 
     <script>
-        $("#Cuenta").addClass("active");
+            highlightTile();
 
         const Ciud_ID = "@ViewData["Ciudad"]";
         const Pais_ID = "@ViewData["Pais"]";
@@ -313,30 +314,30 @@
 
     </script>
 
-    <script src="~/js/UsersJs/UsersAccount.js"></script>
+        <script src="~/js/UsersJs/UsersAccount.js"></script>
 
-    <script>
+        <script>
 
-        const success = FindGetValue("success");
+            const success = FindGetValue("success");
 
-        if (success) {
-            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
-        }
+            if (success) {
+                iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+            }
 
-        $('.ui.dropdown').dropdown();
-        $('#formedit').hide();
+            $('.ui.dropdown').dropdown();
+            $('#formedit').hide();
 
         $("#editar").click(() => {
-            $("#info").transition('slide down');
+                $("#info").transition('slide down');
             $('#editar').hide();
             $("#formedit").transition('slide up');
         });
 
         $("#cancelar").click(() => {
-            $("#info").transition('slide up');
+                $("#info").transition('slide up');
             $('#editar').show();
             $("#formedit").transition('slide down');
         });
 
-    </script>
+        </script>
 }
