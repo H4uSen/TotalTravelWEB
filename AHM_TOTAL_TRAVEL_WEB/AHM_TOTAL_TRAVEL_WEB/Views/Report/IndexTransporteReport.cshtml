@@ -10,7 +10,7 @@
     <div id="frmTransportReports" class="container ui segment">
         <div class="ui floating dropdown labeled search icon button" id="cbbtransporte">
             <i class="filter icon"></i>
-            <span class="text">Filtrar por ciudad</span>
+            <span class="text">Filtrar por transporte</span>
             <div class="menu">
                 <div class="header">
                     <i class="tags icon"></i> Filter by tag
@@ -85,27 +85,27 @@ catch (Exception)
                 if (parameter) {
                     if ($("#cbbtransporte .item.selected").length > 0 && $("#cbbtransporte .item.selected").attr("data-value") != 0) {
                         var id_transporte = $("#cbbtransporte .item.selected").attr("data-value");
-                        query.parameters.id_transporte = parseInt(id_transporte);
+                        query.parameters.id = parseInt(id_transporte);
                     }
                     else {
 
-                        delete query.parameters["id_Transporte"];
+                        delete query.parameters["id"];
                     }
                     if ($("#cbbTipotransporte .item.selected").length > 0 && $("#cbbTipotransporte .item.selected").attr("data-value") != 0) {
                         var id_tipotransporte = $("#cbbTipotransporte .item.selected").attr("data-value");
-                        query.parameters.id_tipotransporte = parseInt(id_tipotransporte);
+                        query.parameters.tipoTransporteID = parseInt(id_tipotransporte);
                     }
                     else {
 
-                        delete query.parameters["id_tipotransporte"];
+                        delete query.parameters["tipoTransporteID"];
                     }
                     if ($("#cbbPartners .item.selected").length > 0 && $("#cbbPartners .item.selected").attr("data-value") != 0) {
                         var id_socios = $("#cbbPartners .item.selected").attr("data-value");
-                        query.parameters.iD_Partner = parseInt(id_socios);
+                        query.parameters.partnerID = parseInt(id_socios);
                     }
                     else {
 
-                        delete query.parameters["iD_Partner"];
+                        delete query.parameters["partnerID"];
                     }
                    
                 }

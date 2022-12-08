@@ -7,63 +7,80 @@
 <br>
 @try
 {
-    <div id="frmPaquetesPrdeterminadosReports" class="container ui segment">
-        <div class="ui floating dropdown labeled search icon button" id="cbbCities">
-            <i class="filter icon"></i>
-            <span class="text">Filtrar por ciudad</span>
-            <div class="menu">
-                <div class="header">
-                    <i class="tags icon"></i> Filter by tag
-                </div>
-                <div class="item" data-value="0">Todos</div>
-
-                @foreach (CityListViewModel item in ViewBag.Ciudades)
-                {
-                    <div class="item" data-value="@item.ID">@item.Ciudad</div>
-                }
+<div id="frmPaquetesPrdeterminadosReports" class="container ui segment">
+    <div class="ui floating dropdown labeled search icon button" id="cbbCities">
+        <i class="filter icon"></i>
+        <span class="text">Filtrar por ciudad</span>
+        <div class="menu">
+            <div class="header">
+                <i class="tags icon"></i> Filter by tag
             </div>
-        </div>
+            <div class="item" data-value="0">Todos</div>
 
-        <div class="ui floating dropdown labeled search icon button" id="cbbHotels">
-            <i class="filter icon"></i>
-            <span class="text">Filtrar por hotel</span>
-            <div class="menu">
-                <div class="header">
-                    <i class="tags icon"></i> Filter by tag
-                </div>
-                <div class="item" data-value="0">Todos</div>
-
-                @foreach (HotelListViewModel item in ViewBag.Hoteles)
-                {
-                    <div class="item" data-value="@item.ID">@item.Hotel</div>
-                }
-            </div>
-        </div>
-
-        <div class="ui floating dropdown labeled search icon button" id="cbbPartners">
-            <i class="filter icon"></i>
-            <span class="text">Filtrar por partner</span>
-            <div class="menu">
-                <div class="header">
-                    <i class="tags icon"></i> Filter by tag
-                </div>
-                <div class="item" data-value="0">Todos</div>
-
-                @foreach (PartnersListViewModel item in ViewBag.Socios)
-                {
-                    <div class="item" data-value="@item.ID">@item.Nombre</div>
-                }
-            </div>
-        </div>
-
-        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_paquetes(true)">FILTRAR REPORTE</button>
-        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_paquetes(false)">TRAER TODOS</button>
-        <a href="@Url.Action("DefaultPackagesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "DefaultPackagesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
-
-        <div class="ui segment">
-            <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
+            @foreach (CityListViewModel item in ViewBag.Ciudades)
+            {
+                <div class="item" data-value="@item.ID">@item.Ciudad</div>
+            }
         </div>
     </div>
+
+    <div class="ui floating dropdown labeled search icon button" id="cbbPaquetes">
+        <i class="filter icon"></i>
+        <span class="text">Filtrar por paquetes</span>
+        <div class="menu">
+            <div class="header">
+                <i class="tags icon"></i> Filter by tag
+            </div>
+            <div class="item" data-value="0">Todos</div>
+
+            @foreach (DefaultPackagesListViewModel item in ViewBag.Paquetes)
+            {
+                <div class="item" data-value="@item.Id">@item.Nombre</div>
+            }
+        </div>
+    </div>
+
+    <div class="ui floating dropdown labeled search icon button" id="cbbPartners">
+        <i class="filter icon"></i>
+        <span class="text">Filtrar por partner</span>
+        <div class="menu">
+            <div class="header">
+                <i class="tags icon"></i> Filter by tag
+            </div>
+            <div class="item" data-value="0">Todos</div>
+
+            @foreach (PartnersListViewModel item in ViewBag.Socios)
+            {
+                <div class="item" data-value="@item.ID">@item.Nombre</div>
+            }
+        </div>
+    </div>
+
+    <div class="ui floating dropdown labeled search icon button" id="cbbrestaurant">
+        <i class="filter icon"></i>
+        <span class="text">Filtrar por restaurante</span>
+        <div class="menu">
+            <div class="header">
+                <i class="tags icon"></i> Filter by tag
+            </div>
+            <div class="item" data-value="0">Todos</div>
+
+            @foreach (RestaurantListViewModel item in ViewBag.Restaurantes)
+            {
+                <div class="item" data-value="@item.ID">@item.Restaurante</div>
+            }
+        </div>
+    </div>
+
+
+    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_paquetes(true)">FILTRAR REPORTE</button>
+    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_paquetes(false)">TRAER TODOS</button>
+    <a href="@Url.Action("DefaultPackagesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "DefaultPackagesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+    <div class="ui segment">
+        <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
+    </div>
+</div>
 }
 catch (Exception)
 {
@@ -91,13 +108,13 @@ catch (Exception)
 
                         delete query.parameters["ciudadID"];
                     }
-                    if ($("#cbbHotels .item.selected").length > 0 && $("#cbbHotels .item.selected").attr("data-value") != 0) {
-                        var id_hotel = $("#cbbHotels .item.selected").attr("data-value");
-                        query.parameters.id = parseInt(id_hotel);
+                    if ($("#cbbPaquetes .item.selected").length > 0 && $("#cbbPaquetes .item.selected").attr("data-value") != 0) {
+                        var id_paquetes = $("#cbbPaquetes .item.selected").attr("data-value");
+                        query.parameters.id = parseInt(id_paquetes);
                     }
                     else {
 
-                        delete query.parameters["id"];
+                        delete query.parameters["iD"];
                     }
                     if ($("#cbbPartners .item.selected").length > 0 && $("#cbbPartners .item.selected").attr("data-value") != 0) {
                         var id_socios = $("#cbbPartners .item.selected").attr("data-value");
@@ -106,6 +123,14 @@ catch (Exception)
                     else {
 
                         delete query.parameters["iD_Partner"];
+                    }
+                    if ($("#cbbrestaurant .item.selected").length > 0 && $("#cbbrestaurant .item.selected").attr("data-value") != 0) {
+                        var id_restaurante = $("#cbbrestaurant .item.selected").attr("data-value");
+                        query.parameters.id = parseInt(id_restaurante);
+                    }
+                    else {
+
+                        delete query.parameters["id"];
                     }
                 }
                 $('#frmPaquetesPrdeterminadosReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Paquetes_predeterminados_report_pdf.php?query=${JSON.stringify(query)}`);

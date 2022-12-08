@@ -142,8 +142,10 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             try
             {
                 var token = HttpContext.User.FindFirst("Token").Value;
+                ViewBag.Ciudades = (IEnumerable<CityListViewModel>)(await _generalService.CitiesList()).Data;
                 ViewBag.Paquetes = (IEnumerable<DefaultPackagesListViewModel>)(await _saleService.DefaultPackagesList(token)).Data;
-                ViewBag.TipoSocios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+                ViewBag.Socios = (IEnumerable<PartnersListViewModel>)(await _generalService.PartnersList()).Data;
+                ViewBag.Restaurantes = (IEnumerable<RestaurantListViewModel>)(await _restaurantService.RestaurantsList(token)).Data;
 
                 return View();
             }
