@@ -13,8 +13,8 @@
                 <div class="content">
                     <div class="header text-capitalize">
                         Detalles
-                    </div>               
-                </div>                
+                    </div>
+                </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Countries")">
                         Regresar
@@ -22,7 +22,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="field">
@@ -46,11 +46,11 @@
                                 @Html.DisplayFor(model => model.ISO)
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <br />
-            
+
             <h3 class="ui horizontal divider header">
                 <i class="folder open icon"></i>
                 Auditoría
@@ -95,9 +95,7 @@
 </div>
 @section HighlightTile{
     <script>
-        $("#GeneralModule").addClass("active");
-        $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+        highlightTile();
     </script>
 }
 

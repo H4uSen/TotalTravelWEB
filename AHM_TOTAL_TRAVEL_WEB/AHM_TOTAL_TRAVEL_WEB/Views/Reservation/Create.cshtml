@@ -16,11 +16,11 @@
                     @{
                         if (ViewBag.RouteValues.Command == "Update")
                         {
-                                <p>Actualiza una reservación</p>
+                            <p>Actualiza una reservación</p>
                         }
                         else
                         {
-                                <p>Crea una nueva reservación</p>
+                            <p>Crea una nueva reservación</p>
                         }
                     }
                 </div>
@@ -28,17 +28,20 @@
 
             <!-- form-->
             @{
-                var action ="";
-                if (ViewBag.RouteValues.Command == "Update"){ 
-                    action = "Update"; }
-                else {
-                   action = "Create";
+                var action = "";
+                if (ViewBag.RouteValues.Command == "Update")
+                {
+                    action = "Update";
+                }
+                else
+                {
+                    action = "Create";
                 }
             }
-            
+
             <form asp-action="@action" asp-controller="Reservation" method="post" id="frmCreateReserv">
-            <div class="ui form attached fluid segment">
-                <div class="content">
+                <div class="ui form attached fluid segment">
+                    <div class="content">
                         <input asp-for="CrearUsuario" type="checkbox" style="display:none" />
                         <input asp-for="CrearPersonalizado" type="checkbox" style="display:none" />
                         <input asp-for="EditarPersonalizado" type="checkbox" style="display:none" />
@@ -46,27 +49,27 @@
                             RouteValuesModel routesValues = ViewBag.RouteValues;
                             if (routesValues.IsSuccess.Equals(true) && routesValues.Command == "userResponse")
                             {
-                                    <input id="createdUserID" type="number" value=@routesValues.responseID style="display:none" />
+                                <input id="createdUserID" type="number" value=@routesValues.responseID style="display:none" />
                             }
                         }
 
-                    <!-- client data section -->
-                    <div class="field">
-                        <h3 class="ui block header">
-                            Datos generales del cliente
-                        </h3>
-                        
-                        <div class="three fields required">
-                            <!--DNI-->
-                            
-                            <div class="field">
-                                <label>DNI</label>
-                                <select class="ui search dropdown" minlength="13" maxlength="13" asp-for="Usua_ID" autofocus runat="server">
-                                    <option value="">Ingrese un DNI</option>
-                                </select>
-                                <a href="#" id="newUserLink"><small>¨¿Nuevo cliente? click aqui</small></a>
+                        <!-- client data section -->
+                        <div class="field">
+                            <h3 class="ui block header">
+                                Datos generales del cliente
+                            </h3>
+
+                            <div class="three fields required">
+                                <!--DNI-->
+
+                                <div class="field">
+                                    <label>DNI</label>
+                                    <select class="ui search dropdown" minlength="13" maxlength="13" asp-for="Usua_ID" autofocus runat="server">
+                                        <option value="">Ingrese un DNI</option>
+                                    </select>
+                                    <a href="#" id="newUserLink"><small>¨¿Nuevo cliente? click aqui</small></a>
                                 </div>
-                            
+
                                 <!--First name-->
                                 <div class="field">
                                     <label>Nombre</label>
@@ -75,7 +78,7 @@
                                 <!--Last name-->
                                 <div class="field">
                                     <label>Apellido</label>
-                                    <input type="text" id="txtApellido"  placeholder="Apellido" readonly >
+                                    <input type="text" id="txtApellido" placeholder="Apellido" readonly>
                                 </div>
                             </div>
                         </div>
@@ -112,57 +115,57 @@
                                 <div class="ui btn-edit text-white button" tabindex="0" onclick="personalizeRedirection()">Continuar</div>
                             </div>
                         </div>
-                    
+
                         <!-- General data of the reservation -->
                         <div id="frmReservData" style="display:none">
-                            <div class="field" >
-                            
-                                    <h3 class="ui block header">
-                                        Datos generales de la reservación
-                                    </h3>
+                            <div class="field">
 
-                                    <div class="three fields required">
-                                        <!--Amount of people-->
-                                        <div class="field">
-                                            <label>Cantidad de personas</label>
-                                            <input type="number" min="1" max="100" asp-for="Resv_NumeroPersonas" placeholder="Cantidad de personas">
-                                        </div>
-                                        <!--Amount of payments-->
-                                        <div class="field">
-                                            <label>Cantidad de cuotas</label>
-                                            <select class="ui search dropdown" asp-for="Resv_CantidadPagos">
-                                                <option value="">Selecciona la cantidad de coutas</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                            </select>
-                                        </div>
+                                <h3 class="ui block header">
+                                    Datos generales de la reservación
+                                </h3>
 
+                                <div class="three fields required">
+                                    <!--Amount of people-->
+                                    <div class="field">
+                                        <label>Cantidad de personas</label>
+                                        <input type="number" min="1" max="100" asp-for="Resv_NumeroPersonas" placeholder="Cantidad de personas">
                                     </div>
-                                    <div class="three fields required">
-                                        <!--Filter by countries-->
-                                        <div class="field">
-                                            <label>Paises</label>
-                                            <select class="ui search selection dropdown" id="ddlPaises" name="ddlPaises" autocomplete="off" runat="server">
-                                                <option value="">Seleccione un país de destino </option>
-                                            </select>
-                                        </div>
-                                        <!--Filter by cities-->
-                                        <div class="field">
-                                            <label>Ciudades</label>
-                                            <select class="ui search dropdown" id="ddlCiudades" name="ddlCiudades" runat="server">
-                                                <option value="">Seleccione una ciudad de destino</option>
-                                            </select>
-                                        </div>
-
+                                    <!--Amount of payments-->
+                                    <div class="field">
+                                        <label>Cantidad de cuotas</label>
+                                        <select class="ui search dropdown" asp-for="Resv_CantidadPagos">
+                                            <option value="">Selecciona la cantidad de coutas</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
                                     </div>
+
+                                </div>
+                                <div class="three fields required">
+                                    <!--Filter by countries-->
+                                    <div class="field">
+                                        <label>Paises</label>
+                                        <select class="ui search selection dropdown" id="ddlPaises" name="ddlPaises" autocomplete="off" runat="server">
+                                            <option value="">Seleccione un país de destino </option>
+                                        </select>
+                                    </div>
+                                    <!--Filter by cities-->
+                                    <div class="field">
+                                        <label>Ciudades</label>
+                                        <select class="ui search dropdown" id="ddlCiudades" name="ddlCiudades" runat="server">
+                                            <option value="">Seleccione una ciudad de destino</option>
+                                        </select>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                         <!-- Default packages selection -->
-                        <div id="frmDefaultPackages" style="margin-bottom:20px;" >
+                        <div id="frmDefaultPackages" style="margin-bottom:20px;">
                             <h3 class="ui block header">
                                 Selecciona alguno de nuestros paquetes para poder ver sus detalles
                             </h3>
@@ -170,7 +173,7 @@
                                 <div class="three fields required">
                                     <!--Select a package-->
                                     <div class="field">
-                                        
+
                                         <label>Nuestros paquetes</label>
                                         <select class="ui search selection dropdown" id="Paqu_ID" name="Paqu_ID">
                                             <option value="">Selecciona paquete</option>
@@ -180,11 +183,11 @@
                                         <label>Fecha de Entrada - Salida</label>
                                         <input type="text" id="dateRangePicker" name="datefilter" value="" />
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                            
-                            
+
+
                             <!-- Default package details-->
                             <div id="frmDefaultPackagesDetails">
                                 <div class="ui segment">
@@ -193,19 +196,19 @@
                                         <div class="ui very relaxed items">
                                             <div class="item">
                                                 <div class="image" style="width:300px">
-                                                    <img id="imgDefaultPackage" src="" >
+                                                    <img id="imgDefaultPackage" src="">
                                                 </div>
                                                 <div class="content">
-                                                    
+
                                                     <div class="ui card" style="width: auto;">
-                                                      <div class="content">
-                                                        <div class="header">Descripción:</div>
-                                                        <div class="description">
+                                                        <div class="content">
+                                                            <div class="header">Descripción:</div>
+                                                            <div class="description">
                                                                 <p id="txtDefaultPackageDesc"></p>
                                                                 <p>Duración: <strong><span id="txtDefaultPackageDuracion"></span> días</strong></p>
                                                                 <p>Cantidad de personas: <strong><span id="txtDefaultPackagePersonas"></span></strong></p>
+                                                            </div>
                                                         </div>
-                                                      </div>
                                                     </div>
 
                                                     <div class="ui list">
@@ -221,20 +224,20 @@
                                                             <div class="header">Actividades incluidas</div>
                                                             <div class="description">
                                                                 <div class="ui middle aligned divided list" id="txtDefaultPackagesActividades">
-                                                          
+
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
 
                                                 </div>
                                                 <div class="content">
                                                     <h2 style="text-align: center;">
-                                                        Precio: L. <span  id="lblDefaultPackagePrice" style="font-size: inherit;"></span>
-                                                        <input type="number" name="txtDefaultPackagePrice" id="txtDefaultPackagePrice" style="display:none" runat="server"/>
+                                                        Precio: L. <span id="lblDefaultPackagePrice" style="font-size: inherit;"></span>
+                                                        <input type="number" name="txtDefaultPackagePrice" id="txtDefaultPackagePrice" style="display:none" runat="server" />
                                                     </h2>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -261,11 +264,11 @@
                                     <h3 class="ui block header">
                                         Selecciona algunas actividades para realizar en el hotel
                                     </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0"  id="btnHotelExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
+                                    <div class="ui btn-edit text-white button" tabindex="0" id="btnHotelExtraActivities" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="ui form " id="listHotelsExtraActivities">
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                                 <br>
                             </div>
@@ -277,104 +280,81 @@
                                     </h3>
                                     <div class="ui btn-edit text-white button" tabindex="0" id="btnExtraActv" style="margin: 10px 0px">+ Añadir una actividad</div>
                                     <div class="ui form " id="listExtraActivities">
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                                 <br>
                             </div>
-                            
+
                             @*<!--Add or edit a restaurant-->
-                            <div id="frmRestaurants" style="margin-bottom:20px">
-                                <div class="ui segment">
-                                    <h3 class="ui block header">
-                                        Selecciona algún restaurante para realizar la reservación
-                                    </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0" id="btnAddRestaurants" style="margin: 10px 0px">+ Añadir un restaurante</div>
-                                    <div class="ui form " id="listRestaurants">
-                                    </div>
+                                <div id="frmRestaurants" style="margin-bottom:20px">
+                                    <div class="ui segment">
+                                        <h3 class="ui block header">
+                                            Selecciona algún restaurante para realizar la reservación
+                                        </h3>
+                                        <div class="ui btn-edit text-white button" tabindex="0" id="btnAddRestaurants" style="margin: 10px 0px">+ Añadir un restaurante</div>
+                                        <div class="ui form " id="listRestaurants">
+                                        </div>
 
-                                </div>
-                                <br>
-                            </div>
-                            <!--Add or edit a transport-->
-                            <div id="frmTransports" style="margin-bottom:20px">
-                                <div class="ui segment">
-                                    <h3 class="ui block header">
-                                        Selecciona algunas actividades para realizar en el hotel
-                                    </h3>
-                                    <div class="ui btn-edit text-white button" tabindex="0" id="btnTransport" style="margin: 10px 0px">+ Añadir un transporte</div>
-                                    <div class="ui form " id="listTransport">
                                     </div>
-
+                                    <br>
                                 </div>
-                                <br>
-                            </div>*@
+                                <!--Add or edit a transport-->
+                                <div id="frmTransports" style="margin-bottom:20px">
+                                    <div class="ui segment">
+                                        <h3 class="ui block header">
+                                            Selecciona algunas actividades para realizar en el hotel
+                                        </h3>
+                                        <div class="ui btn-edit text-white button" tabindex="0" id="btnTransport" style="margin: 10px 0px">+ Añadir un transporte</div>
+                                        <div class="ui form " id="listTransport">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                </div>*@
                         </div>
                         @{
                             if (ViewBag.RouteValues.Command == "Update")
                             {
-                                        <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()">Actualizar reservación</div>
-                                        <div class="ui button" onclick="goBack()" tabindex="0">Cancelar</div>
+                                <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()">Actualizar reservación</div>
+                                <div class="ui button" onclick="goBack()" tabindex="0">Cancelar</div>
                             }
                             else
                             {
-                                        <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear reservación</div>
-                                        <div class="ui button" onclick="goBack()" tabindex="0">Cancelar</div>
+                                <div class="ui btn-edit text-white button" tabindex="0" onclick="createReservation()" id="btnCreateReservation">Crear reservación</div>
+                                <div class="ui button" onclick="goBack()" tabindex="0">Cancelar</div>
                             }
                         }
-                        
-                        
+
+
                     </div>
                 </div>
             </form>
-                <div class="ui negative attached message" id="msgErrorForm">
-                    <div class="header">
-                        Ha ocurrido un error al intentar ejecutar la petición
-                    </div>
-                    <p></p>
+            <div class="ui negative attached message" id="msgErrorForm">
+                <div class="header">
+                    Ha ocurrido un error al intentar ejecutar la petición
                 </div>
-                <!-- fin formulario-->
+                <p></p>
             </div>
+            <!-- fin formulario-->
         </div>
     </div>
-    @section Scripts{
-        <script src="~/js/ReservationJS/Create.js"></script>
-        @{
-            if (ViewBag.RouteValues.Command == "Update")
-            {
-    <script src="~/js/ReservationJS/Update2.js"></script>
-            }
+</div>
+@section Scripts{
+    <script src="~/js/ReservationJS/Create.js"></script>
+    @{
+        if (ViewBag.RouteValues.Command == "Update")
+        {
+            <script src="~/js/ReservationJS/Update2.js"></script>
         }
-
     }
-        @section HighlightTile{
-        <script>
-            $('#newUserLink').on("click",function(){
-                $("#CrearUsuario").val(true);
-                $("#CrearUsuario").prop("checked",true);
-                $("#CrearUsuario").attr("checked",true);
-                $("#frmCreateReserv").submit();
-            });
 
-            $("#ReservationModule").addClass("active");
-            $("#ReservationModule").addClass("expandedList");
-            $("#ReservationModule").prop("aria-expanded");
-            $("#ReservationModule").attr("aria-expanded", "true");
+}
+@section HighlightTile{
+    <script>
+        highlightTile();
+    </script>
+}
 
-            $("#Reservation_Schema").addClass("show");
-
-            $("#ReservationTile").addClass("activeTile");
-
-
-        $("#ddlTipoPaquete").change(function () {
-             if ($("#ddlTipoPaquete").val() == 1) {
-                $("#frmDefaultPackages").hide();
-             }
-        });
-        
-
-        </script>
-    }
-    
 

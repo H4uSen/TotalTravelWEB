@@ -24,7 +24,7 @@
             </div>
 
             <!-- formulario-->
-           <form asp-action="Update" asp-controller="DefaultPackages" id="frmUpdateDefaultPackagues">
+            <form asp-action="Update" asp-controller="DefaultPackages" id="frmUpdateDefaultPackagues">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
@@ -174,12 +174,12 @@
         </div>
     </div>
 </div>
-@section Scripts{   
+@section Scripts{
     <script>
         var PackageFolder = '@ViewData["PackageFolder"]';
         var PaqueteID = '@ViewData["ID"]';
 
-       
+
         if ($("#rest_ID").val() == 0) {
             $("#restau").hide();
             $("#checkResta").removeAttr("checked");
@@ -207,14 +207,6 @@
 
 @section HighlightTile{
     <script>
-
-        $("#SalesModule").addClass("active");
-        $("#SalesModule").addClass("expandedList");
-        $("#SalesModule").prop("aria-expanded");
-        $("#SalesModule").attr("aria-expanded", "true");
-
-        $("#Sale_Schema").addClass("show");
-
-        $("#DefaultPackagesTile").addClass("activeTile");
+        highlightTile();
     </script>
 }

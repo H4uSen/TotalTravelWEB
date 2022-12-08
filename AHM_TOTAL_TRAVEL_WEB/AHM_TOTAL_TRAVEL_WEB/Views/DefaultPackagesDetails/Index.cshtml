@@ -114,7 +114,7 @@
                         <div class="field">
                             <label>Precio</label>
                             <input id="Precio" name="PaDe_Precio" placeholder="Precio de la actividad hotel" />
-                        </div> 
+                        </div>
                         <div class="field">
                             <label>Cantidad</label>
                             <input id="Cantidad" name="PaDe_Cantidad" placeholder="Agrege cantidad de personas" />
@@ -156,7 +156,7 @@
                                 <option value="">Seleccione el tipo de Actividad</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                     <input id="PaDe_ID" name="PaDe_ID" hidden />
                     <div class="two fields">
                         <div class="field">
@@ -247,20 +247,11 @@
         };
     </script>
 }
-    @section HighlightTile{
+@section HighlightTile{
     <script>
-
-        $("#SalesModule").addClass("active");
-        $("#SalesModule").addClass("expandedList");
-        $("#SalesModule").prop("aria-expanded");
-        $("#SalesModule").attr("aria-expanded", "true");
-
-        $("#Sale_Schema").addClass("show");
-
-        $("#DefaultPackagesDetailsTile").addClass("activeTile");
+        highlightTile();
     </script>
-    }
-
+}
 
 
 

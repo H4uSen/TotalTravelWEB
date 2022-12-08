@@ -54,11 +54,11 @@
                             <div class="three fields">
                                 <div class="required field">
                                     <label class="ui label">Capacidad</label>
-                                    <input type="number" id="Habi_capacidad" placeholder="Capacidad" min="1"  oninput="this.value = Math.abs(this.value)" />
+                                    <input type="number" id="Habi_capacidad" placeholder="Capacidad" min="1" oninput="this.value = Math.abs(this.value)" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Cama</label>
-                                    <input type="number" id="Habi_camas" placeholder="Cama" min="1"  oninput="this.value = Math.abs(this.value)"/>
+                                    <input type="number" id="Habi_camas" placeholder="Cama" min="1" oninput="this.value = Math.abs(this.value)" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
@@ -155,13 +155,6 @@
 
 @section HighlightTile{
     <script>
-        $("#HotelModule").addClass("active");
-        $("#HotelModule").addClass("expandedList");
-        $("#HotelModule").prop("aria-expanded");
-        $("#HotelModule").attr("aria-expanded", "true");
-
-        $("#Hotels_Schema").addClass("show");
-
-        $("#RoomsTile").addClass("activeTile");
+        highlightTile();
     </script>
 }

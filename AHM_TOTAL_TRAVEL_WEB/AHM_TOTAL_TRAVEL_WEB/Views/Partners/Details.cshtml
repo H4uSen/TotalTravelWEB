@@ -15,8 +15,8 @@
                     <div class="header text-capitalize">
                         Detalles
                     </div>
-                    
-                </div>                
+
+                </div>
                 <div class="right floated content" style="text-align: end;">
                     <a class="ui left labeled icon button" href="@Url.Action("Index", "Partners")">
                         Regresar
@@ -27,7 +27,7 @@
             <div class="ui form attached fluid segment">
                 <div class="content">
                     <div class="row">
-                        <div class="col">                         
+                        <div class="col">
                             <div class="field">
                                 <label>Nombre</label>
                                 @Html.DisplayFor(model => model.Nombre)
@@ -43,7 +43,7 @@
                             <div class="field">
                                 <label>Tipo de Socio</label>
                                 @Html.DisplayFor(model => model.TipoPartner)
-                            </div>                             
+                            </div>
                         </div>
                         <div class="col">
                             <div class="field">
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <br />
-            
+
             <h3 class="ui horizontal divider header">
                 <i class="folder open icon"></i>
                 Auditoría
@@ -101,8 +101,6 @@
 
 @section HighlightTile{
     <script>
-        $("#GeneralModule").addClass("active");
-        $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
+        highlightTile();
     </script>
 }

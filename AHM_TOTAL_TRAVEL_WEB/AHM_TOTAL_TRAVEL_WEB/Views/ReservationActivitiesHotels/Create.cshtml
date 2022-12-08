@@ -91,14 +91,7 @@
 
 @section HighlightTile{
     <script>
-        $("#ReservationModule").addClass("active");
-        $("#ReservationModule").addClass("expandedList");
-        $("#ReservationModule").prop("aria-expanded");
-        $("#ReservationModule").attr("aria-expanded", "true");
-
-        $("#Reservation_Schema").addClass("show");
-
-        $("#ReservationActivitiesHotelsTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
 @*<div class="row">
@@ -172,5 +165,5 @@
     </div>*@
 
 @*@section Scripts {*@
-    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+@*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 <!--}-->

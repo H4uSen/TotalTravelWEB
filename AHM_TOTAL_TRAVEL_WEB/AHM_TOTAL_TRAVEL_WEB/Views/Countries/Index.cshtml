@@ -93,7 +93,7 @@
                         </div>
                         <div class="required field">
                             <label class="ui label">Código</label>
-                            <input name="Pais_Codigo" id="Pais_Codigo" min="1" type="number"  class="form-control" />
+                            <input name="Pais_Codigo" id="Pais_Codigo" min="1" type="number" class="form-control" />
 
                         </div>
                     </div>
@@ -146,15 +146,7 @@
 }
 @section HighlightTile{
     <script>
-        $("#GeneralModule").addClass("active");
-        $("#GeneralModule").addClass("expandedList");
-        $("#GeneralModule").prop("aria-expanded");
-        $("#GeneralModule").attr("aria-expanded", "true");
-
-        $("#General_Schema").addClass("show");
-
-        $("#CitiesTile").addClass("activeTile");
-    </script>        
+        highlightTile();
+    </script>
 }
-
 

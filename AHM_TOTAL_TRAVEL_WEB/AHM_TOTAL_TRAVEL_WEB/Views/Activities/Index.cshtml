@@ -143,19 +143,19 @@
 @section Scripts{
     <script src="~/js/ActivitiesExtraJs/Create.js"></script>
     <script src="~/js/ActivitiesExtraJs/Update.js"></script>
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const izziSuccess = params.get("success");
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const izziSuccess = params.get("success");
 
-    if (izziSuccess == "true") {
-        iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
-    }
-    //const update_success = FindGetValue("update_success");
+        if (izziSuccess == "true") {
+            iziToastAlert(title = "Proceso completado", message = "La acción se ha completado exitosamente.", type = "success");
+        }
+        //const update_success = FindGetValue("update_success");
 
-    //if (update_success) {
-    //    iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
-    //}
-</script>
+        //if (update_success) {
+        //    iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        //}
+    </script>
     <script>
         // ----------------------------------- EVENTS ------------------------------------
         $(document).ready(function () {
@@ -205,7 +205,7 @@
 
         //------------------------------------Funciones------------------------
 
-       
+
 
         function DeleteActividad(id) {
             const capsula1 = () => {
@@ -215,21 +215,13 @@
 
 
             sweetAlertconfirm("Estas Seguro de Eliminar el Registro Seleccionado?", "Este registro se borrara permanentemente", "warning", capsula1);
-            
+
         };
     </script>
 }
 
-    @section HighlightTile{
+@section HighlightTile{
     <script>
-
-        $("#ActivitiesModule").addClass("active");
-        $("#ActivitiesModule").addClass("expandedList");
-        $("#ActivitiesModule").prop("aria-expanded");
-        $("#ActivitiesModule").attr("aria-expanded", "true");
-
-        $("#Activity_Schema").addClass("show");
-
-        $("#ActivitiesTile").addClass("activeTile");
+        highlightTile();
     </script>
-    }
+}

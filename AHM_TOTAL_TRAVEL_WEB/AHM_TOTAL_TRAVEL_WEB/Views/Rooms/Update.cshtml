@@ -54,16 +54,16 @@
                             <div class="three fields">
                                 <div class="required field">
                                     <label class="ui label">Capacidad</label>
-                                    <input type="number" min="1"  oninput="this.value = Math.abs(this.value)" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
+                                    <input type="number" min="1" oninput="this.value = Math.abs(this.value)" id="Habi_capacidad" value="@Model.Capacidad" placeholder="Capacidad" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Cama</label>
-                                    <input type="number" min="1"  oninput="this.value = Math.abs(this.value)" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
+                                    <input type="number" min="1" oninput="this.value = Math.abs(this.value)" id="Habi_camas" value="@Model.Camas" placeholder="Cama" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Precio</label>
                                     <div class="ui right labeled input">
-                                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio" id="Habi_Precio"  value="@Model.Precio">
+                                        <input type="number" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Precio" id="Habi_Precio" value="@Model.Precio">
                                         <div class="ui basic label">.00</div>
                                     </div>
                                 </div>
@@ -161,15 +161,7 @@
 
 }
 @section HighlightTile{
-
     <script>
-        $("#HotelModule").addClass("active");
-        $("#HotelModule").addClass("expandedList");
-        $("#HotelModule").prop("aria-expanded");
-        $("#HotelModule").attr("aria-expanded", "true");
-
-        $("#Hotels_Schema").addClass("show");
-
-        $("#RoomsTile").addClass("activeTile");
+        highlightTile();
     </script>
 }

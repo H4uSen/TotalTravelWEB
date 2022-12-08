@@ -353,12 +353,16 @@
 }
 catch (Exception)
 {
-<script>location.assign("@Url.Action("Error", "Home")");</script>
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
 }
 @section Scripts{
     <script src="~/js/PayHistory/Information.js"></script>
 
 }
-
+@section HighlightTile{
+    <script>
+        highlightTile();
+    </script>
+}
 
 
