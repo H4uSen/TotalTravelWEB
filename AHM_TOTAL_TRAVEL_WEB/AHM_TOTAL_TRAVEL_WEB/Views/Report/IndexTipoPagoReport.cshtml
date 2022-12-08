@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "IndexTipoPago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br>
+<br>
+@try
+{
+    <div id="frmTipoPagoReports" class="container ui segment">
+        <div class="ui floating dropdown labeled search icon button" id="cbbuser">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por nombre</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+
+                @foreach (UserListViewModel item in ViewBag.Usuario)
+                {
+                    <div class="item" data-value="@item.ID">@item.Nombrecompleto</div>
+                }
+            </div>
+        </div>
+
+        <div class="ui floating dropdown labeled search icon button" id="cbbtipoPago">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por tipo de pago</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+
+                @foreach (TipeofpayListViewModel item in ViewBag.TipoPago)
+                {
+                    <div class="item" data-value="@item.ID">@item.Descripcion</div>
+                }
+            </div>
+        </div>
+
+
+
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_tipopago(true)">FILTRAR REPORTE</button>
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_tipopago(false)">TRAER TODOS</button>
+        <a href="@Url.Action("RecordPaymentReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "RecordPaymentReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+        <div class="ui segment">
+            <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
+        </div>
+    </div>
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
+@section Scripts{
+
+    <script>
+        $(".ui.dropdown").dropdown();
+    </script>
+
+    <script>
+        const REPORTS_FUNCTIONS = {
+            getReport_tipopago: function (parameter = false) {
+                var query = {
+                    parameters: {},
+                    user_name: Client_User_Name
+                };
+                if (parameter) {
+                    if ($("#cbbuser .item.selected").length > 0 && $("#cbbuser .item.selected").attr("data-value") != 0) {
+                        var id_User = $("#cbbuser .item.selected").attr("data-value");
+                        query.parameters.id_Cliente = parseInt(id_User);
+                    }
+                    else {
+
+                        delete query.parameters["id_Cliente"];
+                    }
+                    if ($("#cbbtipoPago .item.selected").length > 0 && $("#cbbtipoPago .item.selected").attr("data-value") != 0) {
+                        var id_tipopago = $("#cbbtipoPago .item.selected").attr("data-value");
+                        query.parameters.id_TipoPago = parseInt(id_tipopago);
+                    }
+                    else {
+
+                        delete query.parameters["id_TipoPago"];
+                    }
+           
+                }
+                $('#frmTipoPagoReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Registros_pagos_report_pdf.php?query=${JSON.stringify(query)}`);
+            },
+        }
+        REPORTS_FUNCTIONS.getReport_tipopago(false);
+    </script>
+}

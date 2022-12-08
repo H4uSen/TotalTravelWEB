@@ -7,6 +7,7 @@ const HotelsList = ajaxRequest(urlAPI + "/API/Hotels/List");
 const RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
 const ActivitiesList = ajaxRequest(urlAPI + "/API/DefaultPackagesDetails/List");
 const HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
+var MenusList = ajaxRequest(urlAPI + "/API/Menus/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -41,7 +42,7 @@ function ObtenerDetalles(id) {
                         <p>
                             - Para ${paquete.cantidad_de_personas} personas<br>
                             - Duración: ${duracion}<br>
-                            - Precio: L ${precio}<br>
+                            - Precio: L ${precio.toFixed(2)}<br>
                         </p>
                         <div class="ui label">
                             <i class="map marker icon"></i>
@@ -79,28 +80,21 @@ function ObtenerDetalles(id) {
                     </div>
                 </div>
             </div>
-            <div class="content left floated">
-                <br>
-                <button class="ui right floated btn-edit text-white button" data-value="${hotel.id}">
-                    Ver habitaciones
-                    <i class="right chevron icon"></i>
-                </button>
-                <br>
-            </div>
         </div>
         <br>`;
     }
     else {
-        Cardhotel = `<h4 class="ui left floated header">
-            <i class="building icon"></i> HOTEL
-        </h4>
-        <div class="ui clearing divider"></div>
-        <div class="ui items">
-            <div class="item">
-                El paquete no tiene incluido un hotel
-                <br>   
-            </div>
-        </div>`;
+        Cardhotel = ``;
+        //Cardhotel = `<h4 class="ui left floated header">
+        //    <i class="building icon"></i> HOTEL
+        //</h4>
+        //<div class="ui clearing divider"></div>
+        //<div class="ui items">
+        //    <div class="item">
+        //        El paquete no tiene incluido un hotel
+        //        <br>   
+        //    </div>
+        //</div>`;
     }
 
     //info restaurante
@@ -130,13 +124,6 @@ function ObtenerDetalles(id) {
                             ${restaurante.calle} Calle, ${restaurante.avenida} Avenida, Ciudad de ${restaurante.ciudad}, ${ciudades.pais}
                         </div>
                     </div>
-                </div>
-                <div class="content left floated">
-                    <br>
-                    <button class="ui right floated btn-edit text-white button" data-value="${restaurante.id}">
-                        Ver menú
-                        <i class="right chevron icon"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -224,9 +211,10 @@ const fill_data = {
                                         <br>
                                         <h6 style="font-weight:bold;">- Capacidad máxima de ${item.cantidad_de_personas} personas</h6>
                                         <h6>- Destino: ${item.ciudad}</h6>
-                                        <h6>- Precio: L ${item.precio}</h6>
+                                        <h6>- Precio: L ${parseFloat(item.precio).toFixed(2)}</h6>
                                         <br>
-                                    </div><br>
+                                    </div>
+                                    <br>
                                     <button class="ui right floated btn-edit text-white button package_button_trigger" data-value="${item.id}" data-selected="false">
                                         RESERVAR <i class="right chevron icon"></i>
                                     </button>
@@ -381,7 +369,7 @@ const fill_data = {
                 $(".activity_trigger_button").click(function (_this) {
                     var container = $(_this.target).parents(".activitiesExtra_form_content").eq(0);
                     if ($(container).find(".activities_fecha input").eq(0).val() == 0) {
-                        iziToastAlert("Fecha de reservación requerida!", "", "error");
+                        iziToastAlert("¡Fecha de reservación requerida!", "", "error");
                     }
                     else {
                         const id_actividad = $(_this.target).attr("data-value");
@@ -486,7 +474,9 @@ const fill_data = {
                 const images = element.image_URL.split(",");
 
                 const ciudadSalida = CitiesList.data.filter(item => item.id == id_ciudad_salida)[0];
-                var destino = "No especificado";
+                //console.log(element);
+                const ciudaddDestino = CitiesList.data.filter(item => item.id == element.ciudad_Llegada_ID)[0];
+                var destino = `${ciudaddDestino.pais}, ${ciudaddDestino.ciudad}`;
 
                 if (id_ciudad_llegada != null) {
                     ciudadDestino = CitiesList.data.filter(item => item.id == id_ciudad_llegada)[0];
@@ -574,7 +564,7 @@ const fill_data = {
                 var container = $(_this.target).parents(".transport_form_content").eq(0);
                 const selected = $(_this.target).attr("data-selected");
                 if ($(container).find(".transport_fecha input").eq(0).val() == 0) {
-                    iziToastAlert("Fecha de transporte requerida!", "", "error");
+                    iziToastAlert("¡Fecha de transporte requerida!", "", "error");
                 }
                 else {
                     //set default
@@ -638,7 +628,7 @@ function CancelarReservacion(idRT) {
     var SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
 
     if (SendEmail.code == 200) {
-        window.location.href = '/BuyDefaults/Index?success=true';
+        window.location.href = '/BuyDefaults/defaultPackages?success=true';
     }
     else {
         console.log(status.message)
@@ -651,40 +641,45 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
 
     const Restaurant = getDetails.getRestaurant();
 
-    const reservationValidateArray = [
-        { validateMessage: "Campo requerido ", Jqueryinput: $("#dateRangePicker") },
-        { validateMessage: "Campo requerido ", Jqueryinput: $("#personas") },
-        { validateMessage: "Campo requerido ", Jqueryinput: $("#txtCantidadPagos") },
-    ];
+    if (Restaurant.success == false) {
+        iziToastAlert(Restaurant.message, "", "error");
+    }
+    else {
+        const reservationValidateArray = [
+            { validateMessage: "Campo requerido ", Jqueryinput: $("#dateRangePicker") },
+            { validateMessage: "Campo requerido ", Jqueryinput: $("#personas") },
+            { validateMessage: "Campo requerido ", Jqueryinput: $("#txtCantidadPagos") },
+        ];
 
-    const reservationValidate = ValidateForm(reservationValidateArray);
+        const reservationValidate = ValidateForm(reservationValidateArray);
 
-    // create reservation model
-    if (reservationValidate) {
+        // create reservation model
+        if (reservationValidate) {
 
-        reservation.restaurantes = Restaurant.data;
-        reservation.resv_esPersonalizado = false;
-        reservation.actividadesExtras = actividades;
-        reservation.reservacionTransportes = transportes;
-        reservation.paqu_ID = parseInt(paquetes.id);
-        reservation.hote_ID = parseInt(paquetes.iD_Hotel);
-        reservation.resv_UsuarioCreacion = Client_User_ID;
-        reservation.resv_CantidadPagos = parseInt($("#frmCreateReservation #txtCantidadPagos").val());
-        reservation.resv_NumeroPersonas = parseInt($("#frmCreateReservation #personas").val());
-        reservation.tipoPago = parseInt($("#frmCreateReservation #cbbFormaPago").val());
-        reservation.resv_Precio = parseFloat(total);
-        reservation.usua_ID = Client_User_ID;
-        reservation.reHo_FechaEntrada = $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
-        reservation.reHo_FechaSalida = $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
+            reservation.restaurantes = Restaurant.data;
+            reservation.resv_esPersonalizado = false;
+            reservation.actividadesExtras = actividades;
+            reservation.reservacionTransportes = transportes;
+            reservation.paqu_ID = parseInt(paquetes.id);
+            reservation.hote_ID = parseInt(paquetes.iD_Hotel);
+            reservation.resv_UsuarioCreacion = Client_User_ID;
+            reservation.resv_CantidadPagos = parseInt($("#frmCreateReservation #txtCantidadPagos").val());
+            reservation.resv_NumeroPersonas = parseInt($("#frmCreateReservation #personas").val());
+            reservation.tipoPago = parseInt($("#frmCreateReservation #cbbFormaPago").val());
+            reservation.resv_Precio = parseFloat(total);
+            reservation.usua_ID = Client_User_ID;
+            reservation.reHo_FechaEntrada = $("#frmCreateReservation #dateRangePicker").val().split('-')[0].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
+            reservation.reHo_FechaSalida = $("#frmCreateReservation #dateRangePicker").val().split('-')[1].replaceAll('/', '-').trim().split("-").reverse().join("-");//.concat("T00:00:00"));
 
-        //console.log(reservation);
+            //console.log(reservation);
 
-        var response = ajaxRequest(urlAPI+"/API/Reservation/Insert", reservation, "POST");
-        //console.log(response);
-        var idres;
-        if (response.code == 200) {
-            idres = parseInt(response.data.codeStatus);
-            CancelarReservacion(idres);
+            var response = ajaxRequest(urlAPI+"/API/Reservation/Insert", reservation, "POST");
+            //console.log(response);
+            var idres;
+            if (response.code == 200) {
+                idres = parseInt(response.data.codeStatus);
+                CancelarReservacion(idres);
+            }
         }
     }
 }
@@ -772,6 +767,12 @@ const getDetails = {
 
             // crea desgloce final
 
+            $("#frmCreateReservation #cantidadPersonas").append(`
+                <label class="form-label">Número de Personas</label><label class="text-danger">*</label>
+                <input class="form-control" type="number" min="1" max="${parseInt(Packages.data[0].cantidad_de_personas)}" id="personas">
+                <br>`
+            );
+
             $("#frmBreakdownDetail #detallesPaquete").empty();
 
             const listarestaurantes = RestaurantList.data;
@@ -783,7 +784,7 @@ const getDetails = {
                 const ciudades = CitiesList.data.filter(x => x.id == restaurante.ciudadID)[0];
 
                 reservarRestaurante = `<h4 class="ui left floated header">
-                    <i class="food icon"></i> RESTAURANTE
+                    <i class="food icon"></i> Restaurante
                 </h4>
                 <div class="item PackageRestaurant_item" data-value="${restaurante.id}">
                     <div class="image">
@@ -822,7 +823,7 @@ const getDetails = {
                                 <div class="ui calendar PackageRestaurant_fecha">
                                     <div class="ui input left icon">
                                         <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Fecha de reservación" readonly>
+                                        <input type="text" placeholder="Fecha de reservación" readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -913,15 +914,12 @@ const getDetails = {
         const form = $(restaurantItem).find(".PackageRestaurant_formContent");
         const id_restaurant = $(restaurantItem).attr("data-value");
         var datetime = $(form).find(".PackageRestaurant_fecha input").val();
-        console.log($(form).find(".PackageRestaurant_fecha input"));
 
         if (datetime == 0) {
-            console.log(datetime);
             response.message = "¡Fecha de restaurante requerida!";
         }
         else {
             response.success = true;
-            //console.log(datetime);
             datetime = new Date(datetime).toISOString();
 
             const hora = datetime.split("T")[1].split(":");
@@ -1192,6 +1190,10 @@ $("#navbar_packages #pay_item").click(function (_this) {
         $("#frmDetails").show();
         getDetails.getDetails_main();
     }
+});
+
+$(".menu_trigger_button").click(function () {
+    $('#mdlMenus').modal('show');
 });
 
 $("#navbar_packages .menu_item").click(function (_this) {

@@ -24,15 +24,11 @@
                                 </svg>
                             </div>
                             <div class="mx-3">
-                                <h6 class="h4 fw-light text-gray-600 mb-3">AGENCIAS DE<br>HOTELERIA</h6>
+                                <h6 class="h4 fw-light text-gray-600 mb-3">AGENCIAS DE<br>HOTELERÍA</h6>
                             </div>
                             <div class="number" style="padding-right: 30px;">
                                 <strong class="text-lg">@ViewData["agencias_hotel_count"]</strong>
                             </div>
-                            <button class="ui right labeled icon button btn-purple text-white">
-                                <i class="right arrow icon"></i>
-                                GO
-                            </button>
                         </div>
                     </div>
                     <!-- Item -->
@@ -49,10 +45,6 @@
                             <div class="number" style="padding-right: 30px;">
                                 <strong class="text-lg">@ViewData["agencias_transportes_count"]</strong>
                             </div>
-                            <button class="ui right labeled icon button btn-purple text-white">
-                                <i class="right arrow icon"></i>
-                                GO
-                            </button>
                         </div>
                     </div>
                     <!-- Item -->
@@ -69,10 +61,6 @@
                             <div class="number" style="padding-right: 30px;">
                                 <strong class="text-lg">@ViewData["agencias_turismo_count"]</strong>
                             </div>
-                            <button class="ui right labeled icon button btn-purple text-white">
-                                <i class="right arrow icon"></i>
-                                GO
-                            </button>
                         </div>
                     </div>
 
@@ -200,6 +188,7 @@
 
     @section Scripts{
         <script>
+            highlightTile();
             var modelo = @Html.Raw(Json.Serialize(Model));
         </script>
         <script src="~/js/adminDashboard/functions.js"></script>

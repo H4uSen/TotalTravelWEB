@@ -1,38 +1,39 @@
 ﻿
 @{
-    ViewData["Title"] = "IndexReservacionesReport";
+    ViewData["Title"] = "IndexPaquetesPredeterminados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br>
 <br>
 @try
 {
-<div id="frmReservacionesReports" class="container ui segment">
-    <div class="ui floating dropdown labeled search icon button" id="cbbCliente">
+<div id="frmPaquetesPrdeterminadosReports" class="container ui segment">
+    <div class="ui floating dropdown labeled search icon button" id="cbbCities">
         <i class="filter icon"></i>
-        <span class="text">Filtrar por cliente</span>
+        <span class="text">Filtrar por ciudad</span>
         <div class="menu">
             <div class="header">
                 <i class="tags icon"></i> Filter by tag
             </div>
             <div class="item" data-value="0">Todos</div>
 
-            @foreach (UserListViewModel item in ViewBag.Usuario)
+            @foreach (CityListViewModel item in ViewBag.Ciudades)
             {
-                <div class="item" data-value="@item.ID">@item.Nombrecompleto</div>
+                <div class="item" data-value="@item.ID">@item.Ciudad</div>
             }
         </div>
     </div>
+
     <div class="ui floating dropdown labeled search icon button" id="cbbPaquetes">
         <i class="filter icon"></i>
-        <span class="text">Filtrar por paquete</span>
+        <span class="text">Filtrar por paquetes</span>
         <div class="menu">
             <div class="header">
                 <i class="tags icon"></i> Filter by tag
             </div>
             <div class="item" data-value="0">Todos</div>
 
-            @foreach (DefaultPackagesListViewModel item in ViewBag.Paquete)
+            @foreach (DefaultPackagesListViewModel item in ViewBag.Paquetes)
             {
                 <div class="item" data-value="@item.Id">@item.Nombre</div>
             }
@@ -55,25 +56,26 @@
         </div>
     </div>
 
-    <div class="ui floating dropdown labeled search icon button" id="cbbPartners">
+    <div class="ui floating dropdown labeled search icon button" id="cbbrestaurant">
         <i class="filter icon"></i>
-        <span class="text">Filtrar por partner</span>
+        <span class="text">Filtrar por restaurante</span>
         <div class="menu">
             <div class="header">
                 <i class="tags icon"></i> Filter by tag
             </div>
             <div class="item" data-value="0">Todos</div>
 
-            @foreach (PartnersListViewModel item in ViewBag.Socios)
+            @foreach (RestaurantListViewModel item in ViewBag.Restaurantes)
             {
-                <div class="item" data-value="@item.ID">@item.Nombre</div>
+                <div class="item" data-value="@item.ID">@item.Restaurante</div>
             }
         </div>
     </div>
 
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(true)">FILTRAR REPORTE</button>
-    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_reservacion(false)">TRAER TODOS</button>
-    <a href="@Url.Action("ReservacionesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 6, HTMLFile = "ReservacionesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_paquetes(true)">FILTRAR REPORTE</button>
+    <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_paquetes(false)">TRAER TODOS</button>
+    <a href="@Url.Action("DefaultPackagesReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "DefaultPackagesReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
 
     <div class="ui segment">
         <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
@@ -92,23 +94,23 @@ catch (Exception)
 
     <script>
         const REPORTS_FUNCTIONS = {
-            getReport_reservacion: function (parameter = false) {
+            getReport_paquetes: function (parameter = false) {
                 var query = {
                     parameters: {},
-                    user_name: Client_User_Name  
+                    user_name: Client_User_Name
                 };
                 if (parameter) {
-                    if ($("#cbbCliente .item.selected").length > 0 && $("#cbbCliente .item.selected").attr("data-value") != 0) {
-                        var id_cliente = $("#cbbCliente .item.selected").attr("data-value");
-                        query.parameters.id = parseInt(id_cliente);
+                    if ($("#cbbCities .item.selected").length > 0 && $("#cbbCities .item.selected").attr("data-value") != 0) {
+                        var id_ciudad = $("#cbbCities .item.selected").attr("data-value");
+                        query.parameters.ciudad_ID = parseInt(id_ciudad);
                     }
                     else {
 
-                        delete query.parameters["id"];
+                        delete query.parameters["ciudad_ID"];
                     }
                     if ($("#cbbPaquetes .item.selected").length > 0 && $("#cbbPaquetes .item.selected").attr("data-value") != 0) {
                         var id_paquetes = $("#cbbPaquetes .item.selected").attr("data-value");
-                        query.parameters.id_paquetes = parseInt(id_paquetes);
+                        query.parameters.id = parseInt(id_paquetes);
                     }
                     else {
 
@@ -116,30 +118,24 @@ catch (Exception)
                     }
                     if ($("#cbbHotels .item.selected").length > 0 && $("#cbbHotels .item.selected").attr("data-value") != 0) {
                         var id_hotel = $("#cbbHotels .item.selected").attr("data-value");
-                        query.parameters.id = parseInt(id_hotel);
+                        query.parameters.iD_Hotel = parseInt(id_hotel);
                     }
                     else {
 
-                        delete query.parameters["id"];
+                        delete query.parameters["iD_Hotel"];
                     }
-                    if ($("#cbbPartners .item.selected").length > 0 && $("#cbbPartners .item.selected").attr("data-value") != 0) {
-                        var id_socios = $("#cbbPartners .item.selected").attr("data-value");
-                        query.parameters.iD_Partner = parseInt(id_socios);
+                    if ($("#cbbrestaurant .item.selected").length > 0 && $("#cbbrestaurant .item.selected").attr("data-value") != 0) {
+                        var id_restaurante = $("#cbbrestaurant .item.selected").attr("data-value");
+                        query.parameters.iD_Restaurante = parseInt(id_restaurante);
                     }
                     else {
 
-                        delete query.parameters["id"];
+                        delete query.parameters["iD_Restaurante"];
                     }
                 }
-                $('#frmReservacionesReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Reservation_report_pdf.php?query=${JSON.stringify(query)}`);
+                $('#frmPaquetesPrdeterminadosReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Paquetes_predeterminados_report_pdf.php?query=${JSON.stringify(query)}`);
             },
         }
-        REPORTS_FUNCTIONS.getReport_reservacion(false);
-    </script>
-} 
-
-@section HighlightTile{
-    <script>
-        highlightTile();
+        REPORTS_FUNCTIONS.getReport_paquetes(false);
     </script>
 }

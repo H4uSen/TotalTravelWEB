@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "IndexRestaurantesReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br>
+<br>
+@try
+{
+    <div id="frmrestauranteReports" class="container ui segment">
+        <div class="ui floating dropdown labeled search icon button" id="cbbrestaurant">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por restaurante</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+
+                @foreach (RestaurantListViewModel item in ViewBag.Restaurantes)
+                {
+                    <div class="item" data-value="@item.ID">@item.Restaurante</div>
+                }
+            </div>
+        </div>
+
+
+        <div class="ui floating dropdown labeled search icon button" id="cbbPartners">
+            <i class="filter icon"></i>
+            <span class="text">Filtrar por partner</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i> Filter by tag
+                </div>
+                <div class="item" data-value="0">Todos</div>
+
+                @foreach (PartnersListViewModel item in ViewBag.Socios)
+                {
+                    <div class="item" data-value="@item.ID">@item.Nombre</div>
+                }
+            </div>
+        </div>
+
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_restaurant(true)">FILTRAR REPORTE</button>
+        <button class="ui positive button" onclick="REPORTS_FUNCTIONS.getReport_restaurant(false)">TRAER TODOS</button>
+        <a href="@Url.Action("RestauranteReportXLS", "Report", new ReportCreationModel{DataSourceIndex= 2, HTMLFile = "RestauranteReportXLS"} )" class="ui button icon">Excel <i class="file excel icon"></i> </a>
+
+        <div class="ui segment">
+            <iframe id="ifrReport" src="" frameborder="0" width="100%" height="680px"></iframe>
+        </div>
+    </div>
+}
+catch (Exception)
+{
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
+@section Scripts{
+
+    <script>
+        $(".ui.dropdown").dropdown();
+    </script>
+
+    <script>
+        const REPORTS_FUNCTIONS = {
+            getReport_restaurant: function (parameter = false) {
+                var query = {
+                    parameters: {},
+                    user_name: Client_User_Name
+                };
+                if (parameter) {
+                    if ($("#cbbrestaurant .item.selected").length > 0 && $("#cbbrestaurant .item.selected").attr("data-value") != 0) {
+                        var id_restaurante = $("#cbbrestaurant .item.selected").attr("data-value");
+                        query.parameters.id = parseInt(id_restaurante);
+                    }
+                    else {
+
+                        delete query.parameters["id"];
+                    }
+                  
+                    if ($("#cbbPartners .item.selected").length > 0 && $("#cbbPartners .item.selected").attr("data-value") != 0) {
+                        var id_socios = $("#cbbPartners .item.selected").attr("data-value");
+                        query.parameters.iD_Partner = parseInt(id_socios);
+                    }
+                    else {
+
+                        delete query.parameters["iD_Partner"];
+                    }
+                }
+                $('#frmrestauranteReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Restaurant_report_pdf.php?query=${JSON.stringify(query)}`);
+
+            },
+
+        }
+        REPORTS_FUNCTIONS.getReport_restaurant(false);
+    </script>
+}
