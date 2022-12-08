@@ -7,6 +7,7 @@ const HotelsList = ajaxRequest(urlAPI + "/API/Hotels/List");
 const RestaurantList = ajaxRequest(urlAPI + "/API/Restaurants/List");
 const ActivitiesList = ajaxRequest(urlAPI + "/API/DefaultPackagesDetails/List");
 const HotelsActivitiesList = ajaxRequest(urlAPI + "/API/HotelsActivities/List");
+var MenusList = ajaxRequest(urlAPI + "/API/Menus/List");
 
 $('.ui.dropdown').dropdown();
 
@@ -41,7 +42,7 @@ function ObtenerDetalles(id) {
                         <p>
                             - Para ${paquete.cantidad_de_personas} personas<br>
                             - Duración: ${duracion}<br>
-                            - Precio: L ${precio}<br>
+                            - Precio: L ${precio.toFixed(2)}<br>
                         </p>
                         <div class="ui label">
                             <i class="map marker icon"></i>
@@ -79,28 +80,21 @@ function ObtenerDetalles(id) {
                     </div>
                 </div>
             </div>
-            <div class="content left floated">
-                <br>
-                <button class="ui right floated btn-edit text-white button" data-value="${hotel.id}">
-                    Ver habitaciones
-                    <i class="right chevron icon"></i>
-                </button>
-                <br>
-            </div>
         </div>
         <br>`;
     }
     else {
-        Cardhotel = `<h4 class="ui left floated header">
-            <i class="building icon"></i> HOTEL
-        </h4>
-        <div class="ui clearing divider"></div>
-        <div class="ui items">
-            <div class="item">
-                El paquete no tiene incluido un hotel
-                <br>   
-            </div>
-        </div>`;
+        Cardhotel = ``;
+        //Cardhotel = `<h4 class="ui left floated header">
+        //    <i class="building icon"></i> HOTEL
+        //</h4>
+        //<div class="ui clearing divider"></div>
+        //<div class="ui items">
+        //    <div class="item">
+        //        El paquete no tiene incluido un hotel
+        //        <br>   
+        //    </div>
+        //</div>`;
     }
 
     //info restaurante
@@ -130,13 +124,6 @@ function ObtenerDetalles(id) {
                             ${restaurante.calle} Calle, ${restaurante.avenida} Avenida, Ciudad de ${restaurante.ciudad}, ${ciudades.pais}
                         </div>
                     </div>
-                </div>
-                <div class="content left floated">
-                    <br>
-                    <button class="ui right floated btn-edit text-white button" data-value="${restaurante.id}">
-                        Ver menú
-                        <i class="right chevron icon"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -224,9 +211,10 @@ const fill_data = {
                                         <br>
                                         <h6 style="font-weight:bold;">- Capacidad máxima de ${item.cantidad_de_personas} personas</h6>
                                         <h6>- Destino: ${item.ciudad}</h6>
-                                        <h6>- Precio: L ${item.precio}</h6>
+                                        <h6>- Precio: L ${parseFloat(item.precio).toFixed(2)}</h6>
                                         <br>
-                                    </div><br>
+                                    </div>
+                                    <br>
                                     <button class="ui right floated btn-edit text-white button package_button_trigger" data-value="${item.id}" data-selected="false">
                                         RESERVAR <i class="right chevron icon"></i>
                                     </button>
@@ -381,7 +369,7 @@ const fill_data = {
                 $(".activity_trigger_button").click(function (_this) {
                     var container = $(_this.target).parents(".activitiesExtra_form_content").eq(0);
                     if ($(container).find(".activities_fecha input").eq(0).val() == 0) {
-                        iziToastAlert("Fecha de reservación requerida!", "", "error");
+                        iziToastAlert("¡Fecha de reservación requerida!", "", "error");
                     }
                     else {
                         const id_actividad = $(_this.target).attr("data-value");
@@ -486,7 +474,9 @@ const fill_data = {
                 const images = element.image_URL.split(",");
 
                 const ciudadSalida = CitiesList.data.filter(item => item.id == id_ciudad_salida)[0];
-                var destino = "No especificado";
+                //console.log(element);
+                const ciudaddDestino = CitiesList.data.filter(item => item.id == element.ciudad_Llegada_ID)[0];
+                var destino = `${ciudaddDestino.pais}, ${ciudaddDestino.ciudad}`;
 
                 if (id_ciudad_llegada != null) {
                     ciudadDestino = CitiesList.data.filter(item => item.id == id_ciudad_llegada)[0];
@@ -574,7 +564,7 @@ const fill_data = {
                 var container = $(_this.target).parents(".transport_form_content").eq(0);
                 const selected = $(_this.target).attr("data-selected");
                 if ($(container).find(".transport_fecha input").eq(0).val() == 0) {
-                    iziToastAlert("Fecha de transporte requerida!", "", "error");
+                    iziToastAlert("¡Fecha de transporte requerida!", "", "error");
                 }
                 else {
                     //set default
@@ -638,7 +628,7 @@ function CancelarReservacion(idRT) {
     var SendEmail = ajaxRequest(urlAPI+"/API/Login/ReservationConfirmed", Email, "POST");
 
     if (SendEmail.code == 200) {
-        window.location.href = '/BuyDefaults/Index?success=true';
+        window.location.href = '/BuyDefaults/defaultPackages?success=true';
     }
     else {
         console.log(status.message)
@@ -1192,6 +1182,10 @@ $("#navbar_packages #pay_item").click(function (_this) {
         $("#frmDetails").show();
         getDetails.getDetails_main();
     }
+});
+
+$(".menu_trigger_button").click(function () {
+    $('#mdlMenus').modal('show');
 });
 
 $("#navbar_packages .menu_item").click(function (_this) {

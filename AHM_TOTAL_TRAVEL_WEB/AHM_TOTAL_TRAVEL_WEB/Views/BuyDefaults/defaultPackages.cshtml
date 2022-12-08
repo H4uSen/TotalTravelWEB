@@ -69,17 +69,14 @@
             <a class="item menu_item" data-target="#frmTransports">TRANSPORTES</a>
             <a class="item menu_item" data-target="#frmActivities">ACTIVIDADES EXTRAS</a>
             <a class="item disabled" id="pay_item" data-target="#frmDetails">FINALIZAR MI COMPRA</a>
-            <!--
-            <div class="right menu">
-                <a class="ui item">Logout</a>
-            </div>-->
         </div>
         <div class="ui segment" id="frmMenu_container">
 
             <div class="ui grid one columns">
                 <div class="column" id="frmPackages">
                     <div class="ui grid stackable three columns"></div>
-                    <div class="ui divided items" id="infopaquete"></div>             
+                    <div class="ui divided items" id="infopaquete"></div>
+
                 </div>
             </div>
 
@@ -115,7 +112,6 @@
                             <i class="list icon"></i> Información de paquete
                         </h4>
                         <div class="ui clearing divider"></div>
-
                         <div class="ui grid two stackable columns"></div>
                     </div>
 
@@ -194,11 +190,11 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-md-12">
-                                <label class="form-label" for="exampleInputEmail1">E-mail</label><label class="text-danger">*</label>
-                                <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" readonly value="@ViewData["Correo"]">
-                                <div class="form-text" id="emailHelp">El correo de confirmación se enviará a esta dirección.</div>
-                                <br>
-                            </div>*@
+                                                    <label class="form-label" for="exampleInputEmail1">E-mail</label><label class="text-danger">*</label>
+                                                    <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" readonly value="@ViewData["Correo"]">
+                                                    <div class="form-text" id="emailHelp">El correo de confirmación se enviará a esta dirección.</div>
+                                                    <br>
+                                                </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +212,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -224,6 +219,15 @@
 @section Scripts{
     <script src="~/js/BuyDefaults/DefaultPackagesJS.js"></script>
     @*<script src="~/js/BuyDefaults/Reserva.js"></script>*@
+    <script>
+        /*highlightTile();*/
+        const success = FindGetValue("success");
+
+        if (success) {
+            iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
+        }
+    </script>
+    
 }
 
 
