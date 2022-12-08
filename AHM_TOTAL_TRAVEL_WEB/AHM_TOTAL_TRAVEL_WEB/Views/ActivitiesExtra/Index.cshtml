@@ -31,55 +31,55 @@
             }
         </style>
         <table id="grdActividadesExtra" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Partner)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Actividad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th width="300px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Partner)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Actividad)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Precio)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Descripcion)
-                        </th>
-                        <th width="300px"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Partner)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Actividad)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Precio)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descripcion)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Partner)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Actividad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
 
-                            <td>
-                                <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
-                                @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
-                                <button class="ui large icon btn-delete button" onclick="DeleteActiExtra('@item.ID')">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </button>
-                                <a href="@Url.Action("Details","ActivitiesExtra",new {  id=item.ID})" class="ui large icon button">
-                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <br>
+                        <td>
+                            <a href="@Url.Action("Update","ActivitiesExtra",new {  id=item.ID})" class="ui large icon btn-edit button"><i class="pencil alternate icon  icon-crud"></i></a>
+                            @*<a href="@Url.Action("DeleteView","Activities",new {  id=item.ID})" class="ui large icon negative button"><i class="trash alternate icon"></i></a>*@
+                            <button class="ui large icon btn-delete button" onclick="DeleteActiExtra('@item.ID')">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a href="@Url.Action("Details","ActivitiesExtra",new {  id=item.ID})" class="ui large icon button">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br>
 
     </div>
 </div>
@@ -150,16 +150,8 @@
     </script>
 }
 
-    @section HighlightTile{
+@section HighlightTile{
     <script>
-
-        $("#ActivitiesModule").addClass("active");
-        $("#ActivitiesModule").addClass("expandedList");
-        $("#ActivitiesModule").prop("aria-expanded");
-        $("#ActivitiesModule").attr("aria-expanded", "true");
-
-        $("#Activity_Schema").addClass("show");
-
-        $("#ActivitiesExtraTile").addClass("activeTile");
+        highlightTile();
     </script>
-    }
+}

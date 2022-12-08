@@ -23,6 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var token = HttpContext.User.FindFirst("Token").Value;
             var list = await _reservationService.ReservationList(token);
@@ -38,6 +39,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 var list2 = lista.Where(c => c.Id_Cliente == Convert.ToInt32(id)).ToList();
                 return View(list2);
 
+            }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
             }
         }
     }

@@ -124,23 +124,16 @@
 
 @section HighlightTile{
 
-    <script src="~/js/PaymentTypes/Update.js"></script>
-    <script src="~/js/PaymentTypes/Create.js"></script>
+
     <script>
-        $("#SalesModule").addClass("active");
-        $("#SalesModule").addClass("expandedList");
-        $("#SalesModule").prop("aria-expanded");
-        $("#SalesModule").attr("aria-expanded", "true");
-
-        $("#Sale_Schema").addClass("show");
-
-        $("#TipeofpayTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
 
 @section Scripts{
 
-
+    <script src="~/js/PaymentTypes/Update.js"></script>
+    <script src="~/js/PaymentTypes/Create.js"></script>
     <script>
         function validar() {
             const userValidateArray = [

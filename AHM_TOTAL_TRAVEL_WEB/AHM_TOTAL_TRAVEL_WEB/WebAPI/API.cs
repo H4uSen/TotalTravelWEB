@@ -34,7 +34,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.WebAPI
 
             _httpContext = httpContext;
             _appSettings = appSettings.Value;
-            _client.BaseAddress = new Uri("https://totaltravelapi.azurewebsites.net/");
+            _client.BaseAddress = new Uri("https://apitotaltravel.azurewebsites.net");
             _client.Timeout = TimeSpan.FromSeconds(10);
         }
 

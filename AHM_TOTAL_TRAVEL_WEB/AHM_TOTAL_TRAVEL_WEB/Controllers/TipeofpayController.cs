@@ -21,20 +21,32 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var model = new List<TipeofpayViewModel>();
             var list = await _saleServices.PaymentTypesList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public IActionResult Create()
         {
+            try { 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TipeofpayViewModel payment)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -47,12 +59,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             var item = new TipeofpayViewModel();
             var list = await _saleServices.PaymentTypesList();
             IEnumerable<TipeofpayListViewModel> data = (IEnumerable<TipeofpayListViewModel>)list.Data;
@@ -62,11 +79,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.TiPa_Descripcion = element.Descripcion;
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(TipeofpayViewModel payment)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -79,10 +102,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Delete(TipeofpayViewModel pay, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -98,14 +127,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var payment = (TipeofpayListViewModel)(await _saleServices.PaymentTypesFind(id, token)).Data;
 
             return View(payment);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
     }

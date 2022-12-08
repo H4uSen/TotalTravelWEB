@@ -24,6 +24,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         //[HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var Rol = await _accessService.RolesList(token);
             IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
@@ -31,6 +32,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
             var list = await _generalServices.PartnerTypeList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         //[HttpGet]
@@ -47,7 +53,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PartnerTypeViewModel TipoPartner)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -59,12 +65,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var Rol = await _accessService.RolesList(token);
             IEnumerable<RolListViewModel> data_rol = (IEnumerable<RolListViewModel>)Rol.Data;
@@ -83,13 +94,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             return View(item);
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(PartnerTypeViewModel TipoPartner)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -103,12 +118,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
@@ -121,14 +141,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (PartnerTypeListViewModel)(await _generalServices.PartnerTypeFind(id, token)).Data;
 
             return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

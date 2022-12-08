@@ -22,14 +22,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var list = await _restaurantServices.MenusList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
+            try { 
             var model = new List<MenusViewModel>();
             ViewData["Token"] = HttpContext.User.FindFirst("Token").Value;
             ViewData["UserID"] = HttpContext.User.FindFirst("User_Id").Value;
@@ -44,10 +50,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.TiMe_ID = new SelectList(data_TypeMenus, "ID", "descripcion");
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Delete(MenusViewModel Menus, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -63,21 +75,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (MenusListViewModel)(await _restaurantServices.MenusFind(id, token)).Data;
             ViewData["MenusFolder"] = $"Restaurants/Restaurant-{detalle.ID_Restaurante}/Food";
             ViewData["MenusImage"] = detalle.Image_Url;
             ViewData["MenuID"] = id;
             return View(detalle);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             ViewData["Token"] = HttpContext.User.FindFirst("Token").Value;
             ViewData["UserID"] = HttpContext.User.FindFirst("User_Id").Value;
 
@@ -108,6 +132,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

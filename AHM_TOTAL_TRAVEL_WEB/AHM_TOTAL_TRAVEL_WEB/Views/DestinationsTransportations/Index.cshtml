@@ -127,7 +127,7 @@
     <form asp-action="Update" asp-controller="DestinationsTransportations" id="updateDestinationsTransportationsForm">
         <div class="ui form attached fluid segment">
             <div class="content">
-                <input id="DsTr_ID" name="DsTr_ID" />
+                <input id="DsTr_ID" name="DsTr_ID" hidden/>
                 <div class="required field">
                     <div class="two fields">
                         <div class="required field">
@@ -164,18 +164,7 @@
 
 @section HighlightTile{
     <script>
-        $(document).ready(function () {
-            $("#DsTr_ID").hide();
-        });
-
-        $("#TransportModule").addClass("active");
-        $("#TransportModule").addClass("expandedList");
-        $("#TransportModule").prop("aria-expanded");
-        $("#TransportModule").attr("aria-expanded", "true");
-
-        $("#Transport_Schema").addClass("show");
-
-        $("#DestinationsTransportationsTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
 

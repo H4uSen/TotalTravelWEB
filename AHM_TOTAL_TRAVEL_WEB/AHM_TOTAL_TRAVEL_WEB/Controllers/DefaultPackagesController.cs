@@ -26,16 +26,23 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var model = new List<DefaultPackagesListViewModel>();
             var list = await _saleServices.DefaultPackagesList(token);
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try { 
             var model = new List<RestaurantListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
@@ -53,6 +60,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.rest_ID = new SelectList(data_restaurant, "ID", "Restaurante");
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
 
         }
@@ -60,6 +72,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DefaultPackagesViewModel actividad, IFormCollection form)
         {
+            try { 
 
                 if (actividad.paqu_ID > 0)
                 {
@@ -115,13 +128,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 {
                     return View();
                 }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
 
             var item = new DefaultPackagesViewModel();
@@ -160,13 +177,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["ID"] = element.Id;
 
             return View(item);
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(DefaultPackagesViewModel actividad)
         {
-
+            try { 
             if (actividad.rest_ID == 0)
             {
                 actividad.rest_ID = null;
@@ -190,10 +211,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Delete(DefaultPackagesViewModel DePa, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 DePa.paqu_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
@@ -207,13 +233,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (DefaultPackagesListViewModel)(await _saleServices.DefaultPackagesFind(id, token)).Data;
             ViewData["PackageFolder"] = $"DefaultPackage/DefaultPackage-{transporte.Id}/Place";
             return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
+
     }
 }

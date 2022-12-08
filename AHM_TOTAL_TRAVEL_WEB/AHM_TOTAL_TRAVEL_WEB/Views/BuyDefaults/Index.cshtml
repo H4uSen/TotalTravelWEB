@@ -32,9 +32,11 @@
         line-height: 24px;
         color: #818c8d;
     }
-    .ma{
-        margin:20px;
+
+    .ma {
+        margin: 20px;
     }
+
     .con {
         background-color: white;
         border-radius: 10px
@@ -57,33 +59,33 @@
             <div class="filterable-items" id="paquetesContainer">
                 <br />
                 @*@foreach (var item in Model)
-            {
+                    {
 
-                <div class="filterable-item south-america ">
-                    <article class="offer-item">
-                        <figure class="featured-image">
-                            <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
-                        </figure>
-                        <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
+                        <div class="filterable-item south-america ">
+                            <article class="offer-item">
+                                <figure class="featured-image">
+                                    <img src="~/assets/dummy/offer-thumbnail-1.jpg" alt="">
+                                </figure>
+                                <h2 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Nombre)</a></h2>
 
-                        <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
-                        <div class="price">
-                            <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
-                            <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
+                                <p>@Html.DisplayFor(modelItem => item.Descripcion_Paquete)</p>
+                                <div class="price">
+                                    <strong>@Html.DisplayFor(modelItem => item.precio) LPS</strong>
+                                    <small>/<a class="bot" href="@Url.Action("Details","BuyDefaults", new { id=item.Id })">Ver detalles</a></small>
 
+                                </div>
+                            </article>
                         </div>
-                    </article>
-                </div>
 
-            }*@
+                    }*@
             </div>
 
             @*<div class="pagination wow fadeInUp">
-            <span class="page-numbers current">1</span>
-            <a href="#" class="page-numbers">2</a>
-            <a href="#" class="page-numbers">3</a>
-            <a href="#" class="page-numbers">4</a>
-        </div>*@
+                    <span class="page-numbers current">1</span>
+                    <a href="#" class="page-numbers">2</a>
+                    <a href="#" class="page-numbers">3</a>
+                    <a href="#" class="page-numbers">4</a>
+                </div>*@
 
         </div>
 
@@ -103,5 +105,10 @@
             iziToastAlert("Proceso completado", "La acción se ha completado exitosamente.", "success")
         }
 
+    </script>
+}
+@section HighlightTile{
+    <script>
+        highlightTile();
     </script>
 }

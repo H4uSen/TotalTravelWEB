@@ -49,7 +49,7 @@
                             <div class="two fields">
                                 <div class="required field">
                                     <label class="ui label">Teléfono</label>
-                                    <input asp-for="Part_Telefono" id="Telefono" placeholder="Telefono" type="text" />
+                                    <input asp-for="Part_Telefono" id="Telefono" placeholder="Telefono" min="1" type="number" />
                                 </div>
                                 <div class="required field">
                                     <label class="ui label">Tipo de socio</label>
@@ -91,7 +91,7 @@
                         </div>
 
                         <input type="button" value="Guardar" onclick="updatePartners()" class="btn btn-edit ui positive button" />
-                        <a type="button" href="@Url.Action("Index", "Partners")" class="ui button mb-3 ms-3">Cancelar</a>
+                        <a type="button" href="@Url.Action("Index", "ModulePartnersActivities")" class="ui button mb-3 ms-3">Cancelar</a>
 
                     </div>
                 </div>
@@ -103,7 +103,6 @@
 </div>
 @section Scripts{
     <script>
-        $('.ui.checkbox').checkbox();
         const campoNumerico = document.getElementById('Telefono');
 
         campoNumerico.addEventListener('keydown', function (evento) {
@@ -139,6 +138,6 @@
 }
 @section HighlightTile{
     <script>
-        $("#menu_item_62").addClass("activeTile");
+        highlightTile();
     </script>
 }

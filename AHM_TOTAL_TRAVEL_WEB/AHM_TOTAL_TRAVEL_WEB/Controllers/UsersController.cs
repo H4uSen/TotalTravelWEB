@@ -26,19 +26,32 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             IEnumerable<UserListViewModel> UserList = (IEnumerable<UserListViewModel>)(await _AccessService.UsersList(token)).Data;
             return View(UserList);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Update()
         {
+            try { 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
+            try { 
             IEnumerable<CountriesListViewModel> listCounties = (IEnumerable<CountriesListViewModel>)(await _GeneralServices.CountriesList()).Data;
             IEnumerable<PartnerTypeListViewModel> listPartnersType = (IEnumerable<PartnerTypeListViewModel>)(await _GeneralServices.PartnerTypeList()).Data;
             ViewBag.Counties = new SelectList(listCounties, "ID", "Pais");
@@ -47,6 +60,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Action = routeValues.BackAction;
             ViewBag.isRedirected = routeValues.IsRedirect;
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
@@ -68,16 +86,22 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int User_Id)
         {
-
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             int user_modify = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
             var response = (RequestStatus)(await _AccessService.DeleteUser(User_Id, user_modify, token)).Data;
 
             return Ok(response.CodeStatus);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(int User_Id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var response = (UserListViewModel)(await _AccessService.UsersFind(User_Id, token)).Data;
             var AddressData = (AddressListViewModel)(await _GeneralServices.AddressFind(response.DireccionID.ToString(),token)).Data;
@@ -89,6 +113,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
             return View(response);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

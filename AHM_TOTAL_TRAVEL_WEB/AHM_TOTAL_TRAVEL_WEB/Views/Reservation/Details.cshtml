@@ -64,9 +64,9 @@
                                 </div>
                             </div>
                             @*<div class="three fields">
-                                
-                              
-                            </div>*@
+
+
+                                </div>*@
                             <hr />
                             <div class="four fields">
                                 <div class="field">
@@ -87,263 +87,260 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
+                <br />
+
+                <h3 class="ui horizontal divider header">
+                    <i class="folder open icon"></i>
+                    Auditoría
+                </h3>
+
+                <table class="ui compact selectable celled table" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>
+                                Usuario Creación
+                            </th>
+                            <th>
+                                Fecha Creación
+                            </th>
+                            <th>
+                                Usuario Modifica
+                            </th>
+                            <th>
+                                Fecha Modifica
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => model.UsuarioCrea)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.FechaCreacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.UsuarioModifica)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.FechaModifica)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <br />
-
-            <h3 class="ui horizontal divider header">
-                <i class="folder open icon"></i>
-                Auditoría
-            </h3>
-
-            <table class="ui compact selectable celled table" id="tabla">
-                <thead>
-                    <tr>
-                        <th>
-                            Usuario Creación
-                        </th>
-                        <th>
-                            Fecha Creación
-                        </th>
-                        <th>
-                            Usuario Modifica
-                        </th>
-                        <th>
-                            Fecha Modifica
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => model.UsuarioCrea)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.FechaCreacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.UsuarioModifica)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.FechaModifica)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
-</div>
 
-@section HighlightTile{
-    <script>
-        $("#GeneralModule").addClass("active");
-        $("#General_Schema").addClass("show");
-        $("#GeneralModule").addClass("expandedList")
-    </script>
-}
+    @section HighlightTile{
+        <script>
+            highlightTile();
+        </script>
+    }
 
+    @*<h1>Details</h1>
 
-@*<h1>Details</h1>
-
-    <div>
-        <h4>ReservationListViewModel</h4>
-        <hr />
-        <dl class="row">
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ID)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ID)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.NumeroPersonas)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.NumeroPersonas)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.CantidadPagos)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.CantidadPagos)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Id_Paquete)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Id_Paquete)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.DescripcionPaquete)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.DescripcionPaquete)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.DurecionPaquete)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.DurecionPaquete)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.precio)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.precio)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ReservacionHotelID)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ReservacionHotelID)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Fecha_Entrada)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Fecha_Entrada)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Fecha_Salida)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Fecha_Salida)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Hotel_ID)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Hotel_ID)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Nombre_Hotel)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Nombre_Hotel)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.PartnerID)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.PartnerID)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Id_Cliente)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Id_Cliente)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Nombre)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Nombre)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Apellido)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Apellido)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Nombrecompleto)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Nombrecompleto)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.DNI)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.DNI)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Telefono)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Telefono)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ConfirmacionHotel)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ConfirmacionHotel)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ConfirmacionRestaurante)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ConfirmacionRestaurante)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ConfirmacionTransporte)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ConfirmacionTransporte)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ConfirmacionPago)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ConfirmacionPago)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Id_UsuarioCrea)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Id_UsuarioCrea)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UsuarioCrea)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UsuarioCrea)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.FechaCreacion)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Id_UsuarioModifica)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Id_UsuarioModifica)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UsuarioModifica)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UsuarioModifica)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.FechaModifica)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.FechaModifica)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.NombreCompleto)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.NombreCompleto)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.AmountOfPayments)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.AmountOfPayments)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>*@
+        <div>
+            <h4>ReservationListViewModel</h4>
+            <hr />
+            <dl class="row">
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.ID)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.ID)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.NumeroPersonas)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.NumeroPersonas)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.CantidadPagos)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.CantidadPagos)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Id_Paquete)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Id_Paquete)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.DescripcionPaquete)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.DescripcionPaquete)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.DurecionPaquete)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.DurecionPaquete)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.precio)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.precio)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.ReservacionHotelID)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.ReservacionHotelID)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Fecha_Entrada)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Fecha_Entrada)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Fecha_Salida)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Fecha_Salida)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Hotel_ID)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Hotel_ID)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Nombre_Hotel)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Nombre_Hotel)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.PartnerID)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.PartnerID)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Id_Cliente)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Id_Cliente)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Apellido)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Nombrecompleto)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Nombrecompleto)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.DNI)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.DNI)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Telefono)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.ConfirmacionHotel)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.ConfirmacionHotel)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.ConfirmacionRestaurante)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.ConfirmacionRestaurante)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.ConfirmacionTransporte)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.ConfirmacionTransporte)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.ConfirmacionPago)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.ConfirmacionPago)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Id_UsuarioCrea)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Id_UsuarioCrea)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.UsuarioCrea)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.UsuarioCrea)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.FechaCreacion)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.FechaCreacion)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Id_UsuarioModifica)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Id_UsuarioModifica)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.UsuarioModifica)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.UsuarioModifica)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.FechaModifica)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.FechaModifica)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.NombreCompleto)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.NombreCompleto)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.AmountOfPayments)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.AmountOfPayments)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+            <a asp-action="Index">Back to List</a>
+        </div>*@

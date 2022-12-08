@@ -78,18 +78,6 @@
     </div>
 </div>
 
-@section HighlightTile{
-    <script>
-        $("#TransportModule").addClass("active");
-        $("#TransportModule").addClass("expandedList");
-        $("#TransportModule").prop("aria-expanded");
-        $("#TransportModule").attr("aria-expanded", "true");
-
-        $("#Transport_Schema").addClass("show");
-
-        $("#TransportTile").addClass("activeTile");
-    </script>
-}
 
 @section Scripts{
 
@@ -160,8 +148,9 @@
             sweetAlertconfirm("¿Seguro de eliminar este registro?", "Este registro se borrará permanentemente.", "warning", capsula1);
         };
     </script>
+}
+@section HighlightTile{
     <script>
-        $("#menu_item_125").addClass("activeTile");
+        highlightTile();
     </script>
-
 }

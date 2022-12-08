@@ -22,6 +22,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var model = new List<DefaultPackagesDetailsListViewModel>();
             var list = await _saleServices.DefaultPackagesDetailsList();
 
@@ -37,10 +38,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             IEnumerable<ActivitiesListViewModel> data_act = (IEnumerable<ActivitiesListViewModel>)ac.Data;
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try { 
             var model = new List<DefaultPackagesListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
@@ -54,12 +61,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Actv_ID = new SelectList(data_act, "ID", "Descripcion");
 
             return View();
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Create(DefaultPackagesDetailsViewModel package)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -72,11 +83,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             var item = new DefaultPackagesDetailsViewModel();
             var list = await _saleServices.DefaultPackagesDetailsList();
             IEnumerable<DefaultPackagesDetailsListViewModel> data = (IEnumerable<DefaultPackagesDetailsListViewModel>)list.Data;
@@ -88,11 +105,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.PaDe_Cantidad = element.Cantidad;
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(DefaultPackagesDetailsViewModel ppd)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -105,11 +128,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(DefaultPackagesDetailsViewModel transporte, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 transporte.PaDe_UsuarioModifica = 1;
@@ -123,13 +152,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (DefaultPackagesDetailsListViewModel)(await _saleServices.DefaultPackagesDetailsFind(id, token)).Data;
             return View(detalle);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
     }

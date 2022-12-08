@@ -64,25 +64,31 @@ function ObtenerDetalles(id) {
         Cardhotel = `<h4 class="ui left floated header">
             <i class="building icon"></i> HOTEL
         </h4>
-        <div class="ui clearing divider"></div>
-        <div class="ui items">
-            <div class="item">
-                <div class="image">
-                    <img src="${hotelimages[0]}">
-                </div>
-                <div class="content" style="width: inherit;">
-                    <h2>${hotel.hotel}</h2>
-                    <h3 class="description">${hotel.descripcion}</h3>
-                    <div class="extra">
-                        <div class="ui label">
-                            <i class="map marker icon"></i>
-                            ${hotel.calle} Calle, ${hotel.avenida} Avenida, Ciudad de ${hotel.ciudad}, ${hotel.pais}
-                        </div>
+        <div class="item">
+            <div class="image">
+                <img src="${hotelimages[0]}">
+            </div>
+            <div class="content" style="width: auto;">
+                <a class="header">${hotel.hotel }</a>
+                <h3 class="description">
+                    ${hotel.descripcion}
+                </h3>
+                <div class="extra">
+                    <div class="ui label">
+                        <i class="map marker icon"></i> ${hotel.calle} Calle, ${hotel.avenida} Avenida, Ciudad de ${hotel.ciudad}, ${hotel.pais}
                     </div>
                 </div>
-                <br>   
             </div>
-        </div>`;
+            <div class="content left floated">
+                <br>
+                <button class="ui right floated btn-edit text-white button" data-value="${hotel.id}">
+                    Ver habitaciones
+                    <i class="right chevron icon"></i>
+                </button>
+                <br>
+            </div>
+        </div>
+        <br>`;
     }
     else {
         Cardhotel = `<h4 class="ui left floated header">
@@ -115,7 +121,7 @@ function ObtenerDetalles(id) {
                 <div class="image">
                     <img src="${restauranteimages[0]}">
                 </div>
-                <div class="content" style="width: inherit;">
+                <div class="content" style="width: auto;">
                     <h2>${restaurante.restaurante}</h2>
                     <h3 class="description">${restaurante.partner}</h3>
                     <div class="extra">
@@ -125,90 +131,49 @@ function ObtenerDetalles(id) {
                         </div>
                     </div>
                 </div>
-                <br>
-            </div>
-        </div>`;
-    }
-    else {
-        Cardrestaurante = `<h4 class="ui left floated header">
-            <i class="food icon"></i> RESTAURANTE
-        </h4>
-        <div class="ui clearing divider"></div>
-        <div class="ui items">
-            <div class="item">
-                El paquete no tiene incluido un restaurante
-                <br>   
-            </div>
-        </div>`;
-    }
-
-    //info actividades
-    const listactividades = ActivitiesList.data;
-    const actividades = listactividades.filter(activity => activity.paqueteID == paquete.id);
-
-    //console.log(actividades);
-    var CardActividades;
-
-    const HeaderActivities = `<h4 class="ui left floated header">
-        <i class="bicycle icon"></i> ACTIVIDADES
-    </h4>
-    <div class="ui clearing divider"></div>`;
-
-    if (actividades.length > 0) {
-        for (var i = 0; i < actividades.length; i++) {
-            const actividad = actividades[i];
-            const listhotelactivities = HotelsActivitiesList.data;
-            const actividadInfo = listhotelactivities.filter(info => info.iD_Actividad == actividad.actividadID);
-            const infoactividad = actividadInfo[0];
-            const actividadimages = infoactividad.image_URL.split(",");
-            const precio = parseFloat(actividad.precio);
-            CardActividades = `<div class="ui items">
-                <div class="item">
-                    <div class="image">
-                        <img src="${actividadimages[0]}">
-                    </div>
-                    <div class="content" style="width: inherit;">
-                        <h2>${infoactividad.actividad}</h2>
-                        <h3 class="description">${infoactividad.descripcion}</h3>
-                        <div class="extra">
-                            <p>
-                                - Para ${actividad.cantidad} persona(s)<br>
-                                - Precio: L ${precio}<br>
-                            </p>
-                        </div>
-                    </div>
+                <div class="content left floated">
                     <br>
+                    <button class="ui right floated btn-edit text-white button" data-value="${restaurante.id}">
+                        Ver menú
+                        <i class="right chevron icon"></i>
+                    </button>
                 </div>
-            </div>`;
-            $("#frmPackages #actividades").append(CardActividades);
-        }
+            </div>
+        </div>
+        <br>`;
     }
     else {
-        CardActividades = `<div class="ui items">
-            <div class="item">
-                El paquete no tiene incluido actividades
-                <br>   
-            </div>
-        </div>`;
-        $("#frmPackages #actividades").append(CardActividades);
+        Cardrestaurante = ``;
+        //Cardrestaurante = `<h4 class="ui left floated header">
+        //    <i class="food icon"></i> RESTAURANTE
+        //</h4>
+        //<div class="ui clearing divider"></div>
+        //<div class="ui items">
+        //    <div class="item">
+        //            <div class="content">
+        //                <div class="ui negative message">
+        //                    <div class="header">
+        //                        El paquete no incluye restaurante.
+        //                    </div>
+        //                </div>
+        //            </div>
+        //        </div>
+        //</div>`;
     }
 
-
-    $("#frmPackages #actividades").append(`<hr><div class="ui items">
+    const regresars =`<hr><div class="ui items">
         <button class="ui button" id="regresars">
             <i class="angle left icon"></i>
             REGRESAR
         </button>
-    </div>`);
+    </div>`;
 
-    $("#frmMenu_container #frmPackages #infopaquete").append(Cardpaquete, Cardhotel, Cardrestaurante, HeaderActivities);
+    $("#frmMenu_container #frmPackages #infopaquete").append(Cardpaquete, Cardhotel, Cardrestaurante, regresars);
 
     $("#frmMenu_container #frmPackages #infopaquete").show();
-    $("#frmMenu_container #frmPackages #actividades").show();
 
     $("#regresars").click(() => {
         $("#frmMenu_container #frmPackages #infopaquete").hide();
-        $("#frmMenu_container #frmPackages #actividades").hide();
         $("#frmMenu_container #frmPackages .ui.grid").show();
     });
 }
@@ -392,7 +357,7 @@ const fill_data = {
                                 </div>
 
                                 <br>
-                                <button class="ui right floated primary button activity_trigger_button" data-selected="false" data-value="${item.id}">
+                                <button class="ui right floated btn-edit text-white button activity_trigger_button" data-selected="false" data-value="${item.id}">
                                     RESERVAR
                                     <i class="right chevron icon"></i>
                                 </button>
@@ -423,14 +388,14 @@ const fill_data = {
 
                         if ($(_this.target).attr("data-selected") == "true") {
 
-                            $(_this.target).addClass("primary").removeClass("positive");
+                            $(_this.target).addClass("btn-edit").removeClass("positive");
                             $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
                             $(_this.target).attr("data-selected", "false");
 
                         }
                         else {
 
-                            $(_this.target).addClass("positive").removeClass("primary");
+                            $(_this.target).addClass("positive").removeClass("btn-edit");
                             $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');;
                             $(_this.target).attr("data-selected", "true");
 
@@ -445,7 +410,7 @@ const fill_data = {
                     <div class="content">
                         <div class="ui negative message">
                             <div class="header">
-                                No hay actividades turisticas disponibles en esta ciudad
+                                No hay actividades turísticas disponibles en esta ciudad
                             </div>
                         </div>
                     </div>
@@ -535,63 +500,61 @@ const fill_data = {
 
                 const card =
                     `<div class="item transport_item">
-                    <div class="image">
-                        <img src="${urlAPI}/Images/${images[0]}">
-                    </div>
-                    <div class="content" style="width: inherit;">
-                        <a class="header">${element.parter}</a>
-                        <div class="description">
-                            <h4 class="ui blue header">
-                                <i class="calendar check icon"></i>
-                                Hora de salida: ${hora_salida}
-                            </h4>
+                        <div class="image">
+                            <img src="${urlAPI}/Images/${images[0]}">
                         </div>
-                        <div class="extra">
-                            <div class="ui label">
-                                <i class="map marker icon"></i> ${ciudadSalida.pais}, ${ciudadSalida.ciudad}
+                        <div class="content" style="width: inherit;">
+                            <a class="header">${element.parter}</a>
+                            <div class="description">
+                                <h4 class="ui blue header">
+                                    <i class="calendar check icon"></i>
+                                    Hora de salida: ${hora_salida}
+                                </h4>
                             </div>
-                            <div class="ui label">
-                                <i class="map marker alternate icon"></i> ${destino}
+                            <div class="extra">
+                                <div class="ui label">
+                                    <i class="map marker icon"></i> ${ciudadSalida.pais}, ${ciudadSalida.ciudad}
+                                </div>
+                                <div class="ui label">
+                                    <i class="map marker alternate icon"></i> ${destino}
+                                </div>
+                                <h3 class="ui green header">L ${parseFloat(element.precio).toFixed(2)} por asiento</h3>
                             </div>
-                            <h3 class="ui green header">L ${parseFloat(element.precio).toFixed(2)} por asiento</h3>
                         </div>
-                    </div>
-                    <div class="content left floated transport_form_content">
-                        <br>
-                        <div class="fields">
-                            <div class="field">
-                                <label>No. de personas</label>
-                                <div class="ui right labeled input transport_contador">
-                                    <div class="ui icon button label minus_button">
-                                        <i class="minus icon"></i>
+                        <div class="content left floated transport_form_content">
+                            <br>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>No. de personas</label>
+                                    <div class="ui right labeled input transport_contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" type="number" value="1"
+                                                style="text-align: center;" readonly>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
                                     </div>
-                                    <input class="count_input" type="number" value="1"
-                                            style="text-align: center;" readonly>
-                                    <div class="ui icon button label plus_button">
-                                        <i class="plus icon"></i>
+                                </div>
+                                <div class="field required">
+                                    <label>Fecha reservacion</label>
+                                    <div class="ui calendar transport_fecha">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Fecha de reservacion" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="field required">
-                                <label>Fecha reservacion</label>
-                                <div class="ui calendar transport_fecha">
-                                    <div class="ui input left icon">
-                                        <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Fecha de reservacion" readonly>
-                                    </div>
-                                </div>
-                            </div>
+                            <br>
+                            <button class="ui right floated btn-edit text-white button transport_trigger_button"
+                                    data-selected="false" data-value="${element.id}">
+                                RESERVAR
+                                <i class="right chevron icon"></i>
+                            </button>
                         </div>
-
-                        <br>
-                        <button class="ui right floated primary button transport_trigger_button"
-                                data-selected="false" data-value="${element.id}">
-                            RESERVAR
-                            <i class="right chevron icon"></i>
-                        </button>
-                    </div>
-                </div>`;
+                    </div>`;
 
                 switch (element.tipo_Transporte_ID) {
                     case 1:
@@ -615,19 +578,19 @@ const fill_data = {
                 }
                 else {
                     //set default
-                    $("button.transport_trigger_button").addClass("primary").removeClass("positive");
+                    $("button.transport_trigger_button").addClass("btn-edit").removeClass("positive");
                     $("button.transport_trigger_button").attr("data-selected", "false");
                     $("button.transport_trigger_button").html('RESERVAR <i class="right chevron icon"></i>');
 
                     if (selected == "true") {
 
                         $(_this.target).attr("data-selected", "false");
-                        $(_this.target).addClass("primary").removeClass("positive");
+                        $(_this.target).addClass("btn-edit").removeClass("positive");
                         $(_this.target).html('RESERVAR <i class="right chevron icon"></i>');
                     } else {
 
                         $(_this.target).attr("data-selected", "true");
-                        $(_this.target).removeClass("primary").addClass("positive");
+                        $(_this.target).removeClass("btn-edit").addClass("positive");
                         $(_this.target).html('RESERVADO <i class="right chevron icon"></i>');
                     }
                 }
@@ -686,6 +649,8 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
 
     var reservation = ReservationCreateViewModel.reservacion;
 
+    const Restaurant = getDetails.getRestaurant();
+
     const reservationValidateArray = [
         { validateMessage: "Campo requerido ", Jqueryinput: $("#dateRangePicker") },
         { validateMessage: "Campo requerido ", Jqueryinput: $("#personas") },
@@ -697,6 +662,7 @@ function FinalizarCompra(paquetes, actividades, transportes, total) {
     // create reservation model
     if (reservationValidate) {
 
+        reservation.restaurantes = Restaurant.data;
         reservation.resv_esPersonalizado = false;
         reservation.actividadesExtras = actividades;
         reservation.reservacionTransportes = transportes;
@@ -806,6 +772,77 @@ const getDetails = {
 
             // crea desgloce final
 
+            $("#frmBreakdownDetail #detallesPaquete").empty();
+
+            const listarestaurantes = RestaurantList.data;
+            const restaurantes = listarestaurantes.filter(restaurant => restaurant.id == Packages.data[0].iD_Restaurante);
+            var reservarRestaurante;
+            if (restaurantes.length > 0) {
+                const restaurante = restaurantes[0];
+                const restauranteimages = restaurante.image_URL.split(",");
+                const ciudades = CitiesList.data.filter(x => x.id == restaurante.ciudadID)[0];
+
+                reservarRestaurante = `<h4 class="ui left floated header">
+                    <i class="food icon"></i> RESTAURANTE
+                </h4>
+                <div class="item PackageRestaurant_item" data-value="${restaurante.id}">
+                    <div class="image">
+                        <img src="${restauranteimages[0]}">
+                    </div>
+                    <div class="content" style="width: auto;">
+                        <h2>${restaurante.restaurante}</h2>
+                        <h3 class="description">${restaurante.partner}</h3>
+                        <div class="extra">
+                            <div class="ui label">
+                                <i class="map marker icon"></i>
+                                ${restaurante.calle} Calle, ${restaurante.avenida} Avenida, Ciudad de ${restaurante.ciudad}, ${ciudades.pais}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content left floated PackageRestaurant_formContent">
+                        <br>
+                        <div class="fields">
+                            <div class="field">
+                                <label>No. de personas</label>
+                                <div class="field">
+                                    <div class="ui right labeled input PackageRestaurant_contador">
+                                        <div class="ui icon button label minus_button">
+                                            <i class="minus icon"></i>
+                                        </div>
+                                        <input class="count_input" type="number" value="1" style="text-align: center;" readonly>
+                                        <div class="ui icon button label plus_button">
+                                            <i class="plus icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required">
+                                <label>Fecha reservacion</label>
+                                <div class="ui calendar PackageRestaurant_fecha">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Fecha de reservación" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>`;
+                $("#frmBreakdownDetail #detallesPaquete").append(reservarRestaurante);
+
+                createContador($(".PackageRestaurant_contador"));
+                $('.PackageRestaurant_fecha').calendar({
+                    //type: 'date',
+                    popupOptions: {
+                        position: 'bottom right',
+                        lastResort: 'bottom right',
+                        hideOnScroll: false
+                    }
+                });
+            }
+
             const total_price = Activities.subtotal + transports.subtotal + Packages.subtotal;
             $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).empty();
             $("#frmBreakdownDetail #grdBreakdown").find(".column").eq(1).append(
@@ -846,11 +883,10 @@ const getDetails = {
                     </div>
                 </div>
                 `
-            );
+            );                      
 
             $("#btnFinalizar").off('click');
             $("#btnFinalizar").on('click', function () {
-                //console.log("click");
                 FinalizarCompra(Packages.data[0], Activities.data, transports.data, total_price);
             });
 
@@ -863,6 +899,42 @@ const getDetails = {
                 </div>`
             )
         }
+    },
+
+    getRestaurant: function () {
+        var response = {
+            success: false,
+            message: "",
+            data: []
+        };
+
+        const restaurantItem = $(".PackageRestaurant_item");
+
+        const form = $(restaurantItem).find(".PackageRestaurant_formContent");
+        const id_restaurant = $(restaurantItem).attr("data-value");
+        var datetime = $(form).find(".PackageRestaurant_fecha input").val();
+        console.log($(form).find(".PackageRestaurant_fecha input"));
+
+        if (datetime == 0) {
+            console.log(datetime);
+            response.message = "¡Fecha de restaurante requerida!";
+        }
+        else {
+            response.success = true;
+            //console.log(datetime);
+            datetime = new Date(datetime).toISOString();
+
+            const hora = datetime.split("T")[1].split(":");
+            
+            const model = {
+                "resv_ID": 0,
+                "rest_ID": parseInt(id_restaurant),
+                "reRe_FechaReservacion": datetime.split("T")[0],
+                "reRe_HoraReservacion": hora[0] + hora[1]
+            }
+            response.data.push(model);
+        }
+        return response;
     },
 
     getPackages: function () {
@@ -879,7 +951,7 @@ const getDetails = {
         const place = CitiesList.data.filter(x => x.id == package.ciudad_ID)[0];
         response.subtotal = parseFloat(package.precio);
         const duracion =
-            `${package.duracion_Paquete} dias y ${parseInt(package.duracion_Paquete) == 1 ? 1 : parseInt(package.duracion_Paquete) - 1} noches`;
+            `${package.duracion_Paquete} días y ${parseInt(package.duracion_Paquete) == 1 ? 1 : parseInt(package.duracion_Paquete) - 1} noches`;
 
         const images = package.image_URL.split(",");
         const card =
@@ -946,13 +1018,16 @@ const getDetails = {
             const id_activity = $(item).attr("data-value");
             const activity = activities.filter(x => x.id == id_activity)[0];
 
+            const datetime = new Date($(container).find(".activities_fecha input").val()).toISOString();
+            const hora = datetime.split("T")[1].split(":");
+
             const model = {
                 "acEx_ID": activity.id,
                 "reAE_ID": 0,
                 "reAE_Precio": activity.precio,
                 "reAE_Cantidad": parseInt($(container).find(".ExtraActivity_contador input").val()),
-                "reAE_FechaReservacion": new Date($(container).find(".activities_fecha input").val()).toISOString(),
-                "reAE_HoraReservacion": "string"
+                "reAE_FechaReservacion": new Date(datetime.split("T")[0]).toISOString(),
+                "reAE_HoraReservacion": hora[0] + hora[1]
             };
             const subtotal = parseInt(model.reAE_Cantidad) * parseFloat(activity.precio);
 

@@ -30,6 +30,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> Index()
         {
+            try {
             var token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
@@ -46,10 +47,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.TiMe_ID = new SelectList(data_TypeMenus, "ID", "descripcion");
 
             return View();
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Info()
         {
+            try {
             var token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
@@ -73,31 +80,43 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["DireccionExacta"] = $"Calle {direccion.Calle}, Avenida {direccion.Avenida}, Colonia {direccion.Colonia}, Ciudad de {direccion.Ciudad}, {direccion.Pais}";
 
             return View(element);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Delete(MenusViewModel Menus, int id)
         {
-            if (ModelState.IsValid)
-            {
-                var idd = HttpContext.User.FindFirst("User_Id").Value;
-                Menus.Menu_UsuarioModifica = int.Parse(idd);
+            try {
+                if (ModelState.IsValid)
+                {
+                    var idd = HttpContext.User.FindFirst("User_Id").Value;
+                    Menus.Menu_UsuarioModifica = int.Parse(idd);
 
-                string token = HttpContext.User.FindFirst("Token").Value;
-                var list = (RequestStatus)(await _restaurantService.MenusDelete(Menus, id, token)).Data;
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    var list = (RequestStatus)(await _restaurantService.MenusDelete(Menus, id, token)).Data;
 
-                return Ok(list.CodeStatus);
+                    return Ok(list.CodeStatus);
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Reservations()
         {
+            try {
             var token = HttpContext.User.FindFirst("Token").Value;
             var id = HttpContext.User.FindFirst("User_Id").Value;
             var cuenta = (UserListViewModel)(await _accessService.AccountFind(id, token)).Data;
@@ -110,6 +129,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["PartnerID"] = cuenta.PartnerID;
 
             return View();
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
@@ -177,25 +201,31 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTypeMenu(TypeMenusViewModel typeMenus)
         {
-            if (ModelState.IsValid)
-            {
-                string token = HttpContext.User.FindFirst("Token").Value;
-                string UserID = HttpContext.User.FindFirst("User_Id").Value;
-                typeMenus.Time_UsuarioCreacion = Convert.ToInt32(UserID);
-                var list = await _restaurantService.typeMenusCreate(typeMenus, token);
-                var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
-                if (l > 0)
+            try {
+                if (ModelState.IsValid)
                 {
-                    return Redirect("~/ModuleRestaurants?success=true");
+                    string token = HttpContext.User.FindFirst("Token").Value;
+                    string UserID = HttpContext.User.FindFirst("User_Id").Value;
+                    typeMenus.Time_UsuarioCreacion = Convert.ToInt32(UserID);
+                    var list = await _restaurantService.typeMenusCreate(typeMenus, token);
+                    var l = ((AHM_TOTAL_TRAVEL_WEB.Models.RequestStatus)list.Data).CodeStatus;
+                    if (l > 0)
+                    {
+                        return Redirect("~/ModuleRestaurants?success=true");
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
                 }
             }
-            else
+            catch
             {
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
     }

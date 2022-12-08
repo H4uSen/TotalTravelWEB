@@ -33,59 +33,59 @@
             }
         </style>
         <table id="grdPartners" class="display ui compact selectable celled table" style="width:100%;">
-                <thead>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        Teléfono
+                    </th>
+                    <th>
+                        Tipo de Socio
+                    </th>
+                    <th width="300px">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Nombre)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Email)
-                        </th>
-                        <th>
-                            Teléfono
-                        </th>
-                        <th>
-                            Tipo de Socio
-                        </th>
-                        <th width="300px">Acciones</th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPartner)
+                        </td>
+
+                        <td>
+                            <a class="ui large icon btn-edit button" href="@Url.Action("Update","Partners", new { id=item.ID })">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <button class="ui large icon btn-delete button" onclick="DeletePartners(@item.ID)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details","Partners", new { id=item.ID })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Telefono)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipoPartner)
-                            </td>
-
-                            <td>
-                                <a class="ui large icon btn-edit button" href="@Url.Action("Update","Partners", new { id=item.ID })">
-                                    <i class="pencil alternate icon icon-crud"></i>
-                                </a>
-                                <button class="ui large icon btn-delete button" onclick="DeletePartners(@item.ID)">
-                                    <i class="trash alternate icon icon-crud"></i>
-                                </button>
-                                <a class="ui large icon button" href="@Url.Action("Details","Partners", new { id=item.ID })">
-                                    <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                                </a>
-
-                            </td>
-                        </tr>
-                    }
+                }
 
 
-                </tbody>
-            </table>
-            <br>
+            </tbody>
+        </table>
+        <br>
 
     </div>
 </div>
@@ -121,7 +121,7 @@
                         text: '<i class= "file pdf icon"></i> Exportar como PDF',
                         className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                         exportOptions: {
-                            columns: [0, 1, 2, 3 ,4]
+                            columns: [0, 1, 2, 3, 4]
                         }
                     },
                     {
@@ -129,7 +129,7 @@
                         text: '<i class="file excel icon"></i> Exportar a excel',
                         className: "btn-primary ui small btn-grey text-purple icon ui button mb-2",
                         exportOptions: {
-                            columns: [0, 1, 2, 3 ,4]
+                            columns: [0, 1, 2, 3, 4]
                         }
                     },
                     {
@@ -164,14 +164,6 @@
 }
 @section HighlightTile{
     <script>
-
-        $("#GeneralModule").addClass("active");
-        $("#GeneralModule").addClass("expandedList");
-        $("#GeneralModule").prop("aria-expanded");
-        $("#GeneralModule").attr("aria-expanded", "true");
-
-        $("#General_Schema").addClass("show");
-
-        $("#PartnersTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
