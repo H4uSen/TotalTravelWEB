@@ -1,25 +1,25 @@
 ﻿
 @{
-    ViewData["Title"] = "IndexHoteles";
+    ViewData["Title"] = "IndexRestaurantesReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br>
 <br>
 @try
 {
-    <div id="frmHotelsReports" class="container ui segment">
+    <div id="frmrestauranteReports" class="container ui segment">
         <div class="ui floating dropdown labeled search icon button" id="cbbrestaurant">
             <i class="filter icon"></i>
-            <span class="text">Filtrar por ciudad</span>
+            <span class="text">Filtrar por restaurante</span>
             <div class="menu">
                 <div class="header">
                     <i class="tags icon"></i> Filter by tag
                 </div>
                 <div class="item" data-value="0">Todos</div>
 
-                @foreach (CityListViewModel item in ViewBag.Ciudades)
+                @foreach (RestaurantListViewModel item in ViewBag.Restaurantes)
                 {
-                    <div class="item" data-value="@item.ID">@item.Ciudad</div>
+                    <div class="item" data-value="@item.ID">@item.Restaurante</div>
                 }
             </div>
         </div>
@@ -86,8 +86,10 @@ catch (Exception)
                         delete query.parameters["iD_Partner"];
                     }
                 }
-                $('#frmHotelsReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Restaurant_report_pdf.php?query=${JSON.stringify(query)}`);
+                $('#frmrestauranteReports #ifrReport').attr('src', `https://totaltravelfileservices.yourgreatbusinesscenter.com/PDFs/Restaurant_report_pdf.php?query=${JSON.stringify(query)}`);
+
             },
+
         }
         REPORTS_FUNCTIONS.getReport_restaurant(false);
     </script>
