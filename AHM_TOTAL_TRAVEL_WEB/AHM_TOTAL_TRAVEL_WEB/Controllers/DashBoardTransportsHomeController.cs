@@ -10,10 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
+    [Authorize(Policy = "MyPolicy")]
     public class DashBoardTransportsHomeController : Controller
     {
         private readonly TransportService _transportService;

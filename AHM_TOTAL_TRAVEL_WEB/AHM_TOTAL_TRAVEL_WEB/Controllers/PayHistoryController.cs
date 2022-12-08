@@ -11,9 +11,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AHM_TOTAL_TRAVEL_WEB.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
+    [Authorize(Policy = "MyPolicy")]
     public class PayHistoryController :Controller
     {
         private readonly ReservationService _reservationService;

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
+    [Authorize(Policy = "MyPolicy")]
     public class CategoriesRoomsController : Controller
     {
         HotelsService _hotelsServices;

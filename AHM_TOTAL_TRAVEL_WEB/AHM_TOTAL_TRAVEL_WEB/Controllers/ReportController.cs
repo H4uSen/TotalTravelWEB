@@ -24,11 +24,13 @@ using Rotativa.Options;
 using System.Web.WebPages;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 //using System.Web.Mvc;
 //using Microsoft.Reporting.WinForms;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
+    [Authorize(Policy = "MyPolicy")]
     public class ReportController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

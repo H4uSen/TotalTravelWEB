@@ -11,7 +11,7 @@ using AHM_TOTAL_TRAVEL_WEB.Services;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "MyPolicy")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "MyPolicy")]
     public class DashBoardHotelHomeController : Controller
     {
         private readonly AccessService _AccessService;
