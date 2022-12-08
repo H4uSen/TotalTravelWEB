@@ -42,15 +42,15 @@
                         <div class="three fields">
                             <div class="required field">
                                 <label class="ui label">DNI</label>
-                                <input type="text" id="txtDNI" name="txtDNI" placeholder="DNI" runat="server">
+                                <input type="text" id="txtDNI" name="txtDNI" placeholder="DNI">
                             </div>
                             <div class="required field">
                                 <label class="ui label">Nombres</label>
-                                    <input type="text" id="txtNombre" name="txtNombre" placeholder="Nombres" runat="server">
+                                    <input type="text" id="txtNombre" name="txtNombre" placeholder="Nombres">
                             </div>
                             <div class="required field">
                                 <label class="ui label">Apellidos</label>
-                                    <input type="text" id="txtApellido" name="txtApellido" placeholder="Apellidos" runat="server">
+                                    <input type="text" id="txtApellido" name="txtApellido" placeholder="Apellidos">
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     <div class="three fields">
                         <div class="required field">
                             <label class="ui label">Teléfono</label>
-                                <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono" runat="server">
+                                <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono">
                         </div>
                         <div class="required field">
                             <label class="ui label">Fecha de nacimiento</label>
@@ -66,7 +66,7 @@
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
                                         <input type="text" placeholder="Fecha de nacimiento" name="txtFechaNacimiento"
-                                               id="txtFechaNacimiento" runat="server">
+                                               id="txtFechaNacimiento">
                                 </div>
                             </div>
                         </div>
@@ -76,13 +76,13 @@
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" value="M" name="rbGenero" runat="server">
+                                        <input type="radio" id="rbGenero" value="M" name="rbGenero">
                                         <label>Masculino</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" id="rbGenero" value="F" name="rbGenero" runat="server">
+                                        <input type="radio" id="rbGenero" value="F" name="rbGenero">
                                         <label>Femenino</label>
                                     </div>
                                 </div>
@@ -96,19 +96,19 @@
                         <div class="three fields">
                             <div class="required field">
                                 <label class="ui label">Pais</label>
-                                    <select class="ui search dropdown" id="cbbPaises" name="cbbPaises" runat="server" asp-items="ViewBag.Counties">
+                                <select class="ui search dropdown" id="cbbPaises" name="cbbPaises" asp-items="ViewBag.Counties">
                                     <option value="">Selecciona el país</option>
                                 </select>
                             </div>
                             <div class="required field">
                                 <label class="ui label">Ciudad</label>
-                                <select class="ui search dropdown" id="cbbCiudades" name="cbbCiudades" runat="server">
+                                <select class="ui search dropdown" id="cbbCiudades" name="cbbCiudades">
                                     <option value="">Selecciona la ciudad</option>
                                 </select>
                             </div>
                             <div class="required field">
                                 <label class="ui label">Colonia</label>
-                                <select class="ui search dropdown" id="cbbColonias" name="cbbColonias" runat="server"> 
+                                <select class="ui search dropdown" id="cbbColonias" name="cbbColonias"> 
                                     <option value="">Selecciona la colonia</option>
                                 </select>
                             </div>
@@ -122,7 +122,7 @@
                                         <div class="ui label">
                                             Calle
                                         </div>
-                                            <input type="text" id="txtCalle" name="txtCalle" runat="server">
+                                            <input type="text" id="txtCalle" name="txtCalle">
                                     </div>
                                 </div>
                                 <div class="required field">
@@ -131,7 +131,7 @@
                                         <div class="ui label">
                                             Avenida
                                         </div>
-                                            <input type="text" id="txtAvenida" name="txtAvenida" runat="server">
+                                            <input type="text" id="txtAvenida" name="txtAvenida">
                                     </div>
                                 </div>
                             </div>
@@ -145,17 +145,17 @@
 
                             <div class="required field">
                                 <label class="ui label">Correo electrónico</label>
-                                <input type="email" id="txtEmail" placeholder="Correo electrónico" name="txtEmail" runat="server">
+                                <input type="email" id="txtEmail" placeholder="Correo electrónico" name="txtEmail">
                             </div>
                             <div class="required field">
                                 <label class="ui label">Contraseña</label>
                                 <input type="password" id="txtPassword"
-                                           placeholder="Contraseña" name="txtPassword" runat="server">
+                                           placeholder="Contraseña" name="txtPassword">
                             </div>
                             <div class="field">
                                     <label class="ui label">Confirmar contraseña</label>
                                     <input type="password" id="txtPasswordConfirm" name="txtPasswordConfirm"
-                                           placeholder="Confirmar contraseña" runat="server">
+                                           placeholder="Confirmar contraseña">
                             </div>
                         </div>
                     </div>

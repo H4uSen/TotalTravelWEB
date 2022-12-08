@@ -200,7 +200,6 @@ function CreateUser() {
         { validateMessage: "Ingrese la fecha de nacimiento", Jqueryinput: $("#frmCreateUser #txtFechaNacimiento") },
         { validateMessage: "Ingrese la contraseña", Jqueryinput: $("#frmCreateUser #txtPassword") },
         { validateMessage: "Ingrese el correo electrónico", Jqueryinput: $("#frmCreateUser #txtEmail") },
-        { validateMessage: "Seleccione el sexo", Jqueryinput: $('#frmCreateUser input[name="rbGenero"]'), check: true },
         { validateMessage: "Seleccione un país", Jqueryinput: $('#frmCreateUser #cbbPaises') },
         { validateMessage: "Seleccione una ciudad", Jqueryinput: $('#frmCreateUser #cbbCiudades') },
         { validateMessage: "Seleccione una colonia", Jqueryinput: $('#frmCreateUser #cbbColonias') },
@@ -210,123 +209,115 @@ function CreateUser() {
 
     const userValidate = ValidateForm(userValidateArray);
 
-    const passwordCallback = () => {
-        var validate = false;
-
-        if ($('#frmCreateUser #txtPassword').val() === $('#frmCreateUser #txtPasswordConfirm').val()) {
-            validate = true;
-        }
-
-        return validate;
-    };
-
-    const passwordValidate = ManualValidateForm(
-        passwordCallback,
-        $('#frmCreateUser #txtPasswordConfirm').parents(".field")[0],
+    const validatePassword = $('#frmCreateUser #txtPassword').val() === $('#frmCreateUser #txtPasswordConfirm').val() ? false : true;
+    ManualValidateForm(
+        validatePassword,
+        $('#frmCreateUser #txtPasswordConfirm').parents(".field").eq(0),
         "Contraseñas no coinciden"
     );
 
-    if (userValidate) {
-        if (passwordValidate) {
-            alert("success");
-        }
+    const validateGender = $('#frmCreateUser input[name="rbGenero"]:checked').length > 0 ? false : true;
+    ManualValidateForm(
+        validateGender,
+        $('#frmCreateUser input[name="rbGenero"]').eq(0).parents(".checkButton_container").eq(0),
+        "Seleccione un sexo"
+    );
 
-    } else {
+    if (userValidate && !validatePassword && !validateGender) {
+        console.log("userValidate");
 
         //verify rol
-        if ($("#checkAdmin").prop("checked")) {
-            var isRedirected = $("#cbIsRedirected").val();
-            if (isRedirected == "true") {
+        var isRedirected = $("#cbIsRedirected").val();
+        if (isRedirected == "true") {
+            // get partner id
+            user.append("role_ID", 2);
+            Role_success = true;
+
+        } else if ($("#checkAdmin").prop("checked")) {
+            user.append("role_ID", 1);
+            Role_success = true;
+        }
+        else if ($("#checkPartner").prop("checked")) {
+
+            if ($("#checkExistingPartner").prop("checked")) {
+
                 // get partner id
-                user.append("role_ID", 2);
+                user.append("part_ID", parseInt($("#frmSelectPartner #cbbPartners").val()));
+
+                const PartnerRole = jQuery.grep(PartnerList.data, function (item, i) {
+                    return item.id == parseInt($("#frmSelectPartner #cbbPartners").val());
+                });
+
+                user.append("role_ID", PartnerRole[0].rol_Id);
                 Role_success = true;
-
-            } else if ($("#checkAdmin").prop("checked")) {
-                user.append("role_ID", 1);
-                Role_success = true;
-            }
-            else if ($("#checkPartner").prop("checked")) {
-
-                if ($("#checkExistingPartner").prop("checked")) {
-
-                    // get partner id
-                    user.append("part_ID", parseInt($("#frmSelectPartner #cbbPartners").val()));
-
-                    const PartnerRole = jQuery.grep(PartnerList.data, function (item, i) {
-                        return item.id == parseInt($("#frmSelectPartner #cbbPartners").val());
-                    });
-
-                    user.append("role_ID", PartnerRole[0].rol_Id);
-                    Role_success = true;
-
-                } else {
-
-                    //create new partner
-                    var CreatePartnerStatus = CreatePartner();
-                    if (CreatePartnerStatus.success == true) {
-                        user.append("part_ID", CreatePartnerStatus.part_ID);
-                        user.append("role_ID", CreatePartnerStatus.role_ID);
-                        Role_success = true;
-                    }
-                }
 
             } else {
-                $("#msgErrorForm").show();
-                $("#msgErrorForm p").html("Required field: 'Super User Role' ");
+
+                //create new partner
+                var CreatePartnerStatus = CreatePartner();
+                if (CreatePartnerStatus.success == true) {
+                    user.append("part_ID", CreatePartnerStatus.part_ID);
+                    user.append("role_ID", CreatePartnerStatus.role_ID);
+                    Role_success = true;
+                }
             }
 
-            // create address
-            if (Role_success) {
+        } else {
+            $("#msgErrorForm").show();
+            $("#msgErrorForm p").html("Required field: 'Super User Role' ");
+        }
 
-                var CreateUserDirectionStatus = CreateUserDirection();
-                if (CreateUserDirectionStatus.success == true) {
-                    user.append("dire_ID", CreateUserDirectionStatus.dire_ID);
-                    Address_success = true;
-                }
+        // create address
+        if (Role_success) {
 
-            }
-
-            // create user
-            if (Address_success) {
-
-                user.append("usua_DNI", $("#frmCreateUser #txtDNI").val());
-                user.append("usua_Nombre", $("#frmCreateUser #txtNombre").val());
-                user.append("usua_Apellido", $("#frmCreateUser #txtApellido").val());
-                user.append("usua_Telefono", $("#frmCreateUser #txtTelefono").val());
-                user.append("usua_FechaNaci", new Date($("#frmCreateUser #txtFechaNacimiento").val()).toISOString());
-                user.append("usua_Sexo", $('input:radio[name=rbGenero]:checked').val());
-                user.append("usua_Email", $("#frmCreateUser #txtEmail").val());
-                user.append("usua_Password", $("#frmCreateUser #txtPassword").val());
-                user.append("usua_Url", null);
-                user.append("usua_UsuarioCreacion", Client_User_ID);
-
-                const UserInsertStatus = uploadFile(
-                    urlAPI + "/API/Users/Insert",
-                    user, "POST"
-                );
-
-                if (UserInsertStatus.code == 200) {
-                    user.usua_ID = UserInsertStatus.data.codeStatus;
-                    iziToastAlert(
-                        "!User Created Successfully! ", "", "success"
-                    );
-                    var isRedirected = $("#cbIsRedirected").val();
-                    if (isRedirected == "true") {
-                        $("#txtUserID").val(UserInsertStatus.data.codeStatus);
-                        $("#createUserForm").submit();
-                    }
-                    else {
-                        location.assign("Index");
-                    }
-                }
-                else {
-                    $("#msgErrorForm").show();
-                    $("#msgErrorForm p").html(UserInsertStatus.message);
-                }
+            var CreateUserDirectionStatus = CreateUserDirection();
+            if (CreateUserDirectionStatus.success == true) {
+                user.append("dire_ID", CreateUserDirectionStatus.dire_ID);
+                Address_success = true;
             }
 
         }
+
+        // create user
+        if (Address_success) {
+
+            user.append("usua_DNI", $("#frmCreateUser #txtDNI").val());
+            user.append("usua_Nombre", $("#frmCreateUser #txtNombre").val());
+            user.append("usua_Apellido", $("#frmCreateUser #txtApellido").val());
+            user.append("usua_Telefono", $("#frmCreateUser #txtTelefono").val());
+            user.append("usua_FechaNaci", new Date($("#frmCreateUser #txtFechaNacimiento").val()).toISOString());
+            user.append("usua_Sexo", $('input:radio[name=rbGenero]:checked').val());
+            user.append("usua_Email", $("#frmCreateUser #txtEmail").val());
+            user.append("usua_Password", $("#frmCreateUser #txtPassword").val());
+            user.append("usua_Url", null);
+            user.append("usua_UsuarioCreacion", Client_User_ID);
+
+            const UserInsertStatus = uploadFile(
+                urlAPI + "/API/Users/Insert",
+                user, "POST"
+            );
+
+            if (UserInsertStatus.code == 200) {
+                user.usua_ID = UserInsertStatus.data.codeStatus;
+                iziToastAlert(
+                    "!User Created Successfully! ", "", "success"
+                );
+                var isRedirected = $("#cbIsRedirected").val();
+                if (isRedirected == "true") {
+                    $("#txtUserID").val(UserInsertStatus.data.codeStatus);
+                    $("#createUserForm").submit();
+                }
+                else {
+                    location.assign("Index");
+                }
+            }
+            else {
+                $("#msgErrorForm").show();
+                $("#msgErrorForm p").html(UserInsertStatus.message);
+            }
+        }
     }
+}
 
 
     function CreatePartner() {
@@ -411,5 +402,3 @@ function CreateUser() {
 
         return data;
     }
-
-}
