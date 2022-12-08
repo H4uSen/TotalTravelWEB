@@ -19,24 +19,36 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var model = new List<TypeMenusListViewModel>();
             var list = await _restaurantServices.TypeMenusList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
+            try { 
             var model = new List<TypeMenusViewModel>();
             ViewData["Token"] = HttpContext.User.FindFirst("Token").Value;
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TypeMenusViewModel typeMenus)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -50,11 +62,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             var item = new TypeMenusViewModel();
             var list = await _restaurantServices.TypeMenusList();
             IEnumerable<TypeMenusListViewModel> data = (IEnumerable<TypeMenusListViewModel>)list.Data;
@@ -64,11 +82,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             item.Time_Descripcion = element.descripcion;
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(TypeMenusViewModel TypeMenus)
         {
+            try {
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -81,11 +105,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(TypeMenusViewModel TypeMenus, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -101,13 +131,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var detalle = (TypeMenusListViewModel)(await _restaurantServices.TypeMenusFind(id, token)).Data;
             return View(detalle);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
     }

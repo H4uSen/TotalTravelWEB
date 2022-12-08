@@ -22,14 +22,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var model = new List<PartnersListViewModel>();
             var list = await _generalServices.PartnersList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try { 
             var model = new List<PartnerTypeListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
@@ -39,12 +46,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.TiPart_Id = new SelectList(data_Partners, "ID", "Descripcion");
 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(PartnersViewModel actividad)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -56,12 +68,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             var model1 = new List<PartnerTypeListViewModel>();
             string token = HttpContext.User.FindFirst("Token").Value;
 
@@ -91,13 +108,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //ViewBag.Est_ID = new SelectList(data_Establecimiento, "ID", "Descripcion", element.EstablecimientoID);
 
             return View(item);
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(PartnersViewModel actividad)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -109,10 +130,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Delete(PartnersViewModel DePa, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 DePa.Part_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
@@ -126,13 +152,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (PartnersListViewModel)(await _generalServices.PartnersFind(id, token)).Data;
 
             return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
     }

@@ -24,14 +24,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             IEnumerable<RolListViewModel> RolesList = (IEnumerable<RolListViewModel>)(await _AccessService.RolesList(token)).Data;
             return View(RolesList);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(RolViewModel roles)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -45,11 +52,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(RolViewModel roles)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -63,11 +76,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(RolViewModel roles, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -82,6 +101,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             else
             {
                 return View();
+            }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
             }
         }
     }

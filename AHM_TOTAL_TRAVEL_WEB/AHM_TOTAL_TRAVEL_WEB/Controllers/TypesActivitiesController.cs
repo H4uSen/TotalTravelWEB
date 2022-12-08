@@ -20,21 +20,33 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var model = new List<TypesActivitiesListViewModel>();
             var list = await _activitiesServices.TypesActivitiesList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            try { 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TypesActivitiesViewModel actividad)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -54,13 +66,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-
+            try { 
             var item = new TypesActivitiesViewModel();
             IEnumerable<TypesActivitiesListViewModel> model = null;
             var list = await _activitiesServices.TypesActivitiesList();
@@ -76,13 +93,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //ViewBag.Est_ID = new SelectList(data_Establecimiento, "ID", "Descripcion", element.EstablecimientoID);
 
             return View(item);
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(TypesActivitiesViewModel actividad)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -102,10 +123,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Delete(TypesActivitiesViewModel DePa, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 DePa.TiAc_UsuarioModifica = Convert.ToInt32(HttpContext.User.FindFirst("User_Id").Value);
@@ -119,13 +145,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (TypesActivitiesListViewModel)(await _activitiesServices.TypesActivitiesFind(id, token)).Data;
 
             return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

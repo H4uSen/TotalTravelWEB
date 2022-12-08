@@ -23,6 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             ScreenPermissionsViewModel screenPermissions = new ScreenPermissionsViewModel();
             string token = HttpContext.User.FindFirst("Token").Value;
             var ModulesList = (IEnumerable<ModulesListViewModel>)(await _AccessService.ModulesList(token)).Data;
@@ -37,11 +38,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             screenPermissions.Modulos = ModulesList;
 
             return View(screenPermissions);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(PermissionsViewModel model)
         {
+            try {
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -55,10 +62,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Delete(PermissionsViewModel Screen, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -74,12 +87,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         [HttpPost]
         public async Task<IActionResult> DeleteModule(ModulesViewModel module, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -94,6 +113,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             else
             {
                 return View();
+            }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
             }
         }
 

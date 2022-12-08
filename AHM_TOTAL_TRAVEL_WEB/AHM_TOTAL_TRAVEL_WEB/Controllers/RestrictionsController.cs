@@ -18,10 +18,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             IEnumerable<RolListViewModel> RolesList = (IEnumerable<RolListViewModel>)(await _AccessService.RolesList(token)).Data;
             return View(RolesList);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

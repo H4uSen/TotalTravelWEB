@@ -21,6 +21,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try { 
             var token = HttpContext.User.FindFirst("Token").Value;
             var city = await _generalService.CitiesList();
             IEnumerable<CityListViewModel> data_City = (IEnumerable<CityListViewModel>)city.Data;
@@ -31,18 +32,29 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewBag.Count_ID = new SelectList(data_Country, "ID", "Pais");
             var list = await _generalService.SuburbsList();
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            try { 
             return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(SuburbsViewModel colonia)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -63,11 +75,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var item = new SuburbsViewModel();
             var list = await _generalService.SuburbsList();
@@ -83,11 +101,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             ViewData["Ciudad"] = element.CiudadID;
 
             return View(item);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(SuburbsViewModel colonia)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -108,11 +132,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(SuburbsViewModel colonia, int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 ServiceResult result = new ServiceResult();
@@ -128,14 +158,25 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var colonia = (SuburbsListViewModel)(await _generalService.SuburbsFind(id, token)).Data;
 
             return View(colonia);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

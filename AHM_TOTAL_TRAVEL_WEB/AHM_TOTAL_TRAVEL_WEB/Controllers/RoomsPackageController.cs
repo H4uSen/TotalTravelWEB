@@ -23,6 +23,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> Index()
         {
+            try { 
             var token = HttpContext.User.FindFirst("Token").Value;
 
             IEnumerable<DefaultPackagesListViewModel> model_Country = null;
@@ -33,12 +34,17 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             var model = new List<RoomsPackagesListViewModel>();
             var list = await _saleServices.RoomsPackagesList(token);
             return View(list.Data);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(RoomsPackagesViewModel rooms)
         {
-
+            try { 
             if (ModelState.IsValid)
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
@@ -50,7 +56,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
-
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         //[HttpGet]
@@ -79,6 +89,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            try { 
             if (ModelState.IsValid)
             {
                 int modifica = int.Parse(HttpContext.User.FindFirst("User_Id").Value);
@@ -91,13 +102,24 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return View();
             }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         public async Task<IActionResult> Details(string id)
         {
+            try { 
             string token = HttpContext.User.FindFirst("Token").Value;
             var transporte = (RoomsPackagesListViewModel)(await _saleServices.RoomsPackagesFind(id, token)).Data;
 
             return View(transporte);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
