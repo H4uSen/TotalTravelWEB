@@ -101,7 +101,8 @@
 }
 catch (Exception)
 {
-<script>location.assign("@Url.Action("Error", "Home")");</script>}
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 @section Scripts{
     <script>
         $(document).ready(function () {
@@ -137,5 +138,10 @@ catch (Exception)
                 ]
             });
         });
+    </script>
+}
+@section HighlightTile{
+    <script>
+        highlightTile();
     </script>
 }

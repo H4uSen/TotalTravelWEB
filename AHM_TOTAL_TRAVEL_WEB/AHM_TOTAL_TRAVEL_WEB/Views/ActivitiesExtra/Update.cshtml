@@ -140,7 +140,7 @@
     </div>
 </div>
 
-@section Scripts{ 
+@section Scripts{
     <script>
         const ID_ActvExtra = '@ViewData["ActivitiesExtra"]';
         const ID_Actv = '@ViewData["ActvID"]';
@@ -151,6 +151,11 @@
         const ciudID = '@ViewData["CiudadID"]';
         const coloID = '@ViewData["ColoID"]';
     </script>
-<script src="~/js/ActivitiesExtraJs/Update.js"></script>
+    <script src="~/js/ActivitiesExtraJs/Update.js"></script>
 
+}
+@section HighlightTile{
+    <script>
+        highlightTile();
+    </script>
 }

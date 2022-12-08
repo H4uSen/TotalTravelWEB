@@ -58,22 +58,14 @@
 }
 catch (Exception)
 {
-<script>location.assign("@Url.Action("Error", "Home")");</script>}
+    <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
 
 @section HighlightTile{
     <script>
-
-        $("#ReportModule").addClass("active");
-        $("#ReportModule").addClass("expandedList");
-        $("#ReportModule").prop("aria-expanded");
-        $("#ReportModule").attr("aria-expanded", "true");
-
-        $("#Report_Schema").addClass("show");
-
-        $("#ClientsReportTile").addClass("activeTile");
+        highlightTile();
     </script>
 }
-
 
 @section Scripts{
 

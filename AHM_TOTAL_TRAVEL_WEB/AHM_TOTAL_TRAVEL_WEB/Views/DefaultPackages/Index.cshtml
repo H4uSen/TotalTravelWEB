@@ -57,51 +57,52 @@
                 </tr>
             </thead>
             <tbody>
-           @foreach (var item in Model)
-            {
-                   
-            var Restau="";
-            if (String.IsNullOrEmpty(item.Restaurante))
-            {
-            Restau = "Sin Restaurante";
-            }
-            else {
-            Restau = item.Restaurante;
-            }
-                    
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion_Paquete)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duracion_Paquete)
-                </td>
-                <td>
-                    L @Html.DisplayFor(modelItem => item.precio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hotel)
-                </td>
-                <td>
-                    @Restau
-                </td>
+                @foreach (var item in Model)
+                {
 
-                <td>
-                    <a class="ui large icon btn-edit button" href="@Url.Action("Update","DefaultPackages", new { id=item.Id })">
-                        <i class="pencil alternate icon icon-crud"></i>
-                    </a>
-                    <button class="ui large icon btn-delete button" onclick="DeleteDefaultPackage(@item.Id)">
-                        <i class="trash alternate icon icon-crud"></i>
-                    </button>
-                    <a class="ui large icon button" href="@Url.Action("Details","DefaultPackages", new { id=item.Id })">
-                        <i class="bi bi-info-circle fa-lg icon-crud"></i>
-                    </a>
-                </td>
-            </tr>
-            }
+                    var Restau = "";
+                    if (String.IsNullOrEmpty(item.Restaurante))
+                    {
+                        Restau = "Sin Restaurante";
+                    }
+                    else
+                    {
+                        Restau = item.Restaurante;
+                    }
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion_Paquete)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duracion_Paquete)
+                        </td>
+                        <td>
+                            L @Html.DisplayFor(modelItem => item.precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hotel)
+                        </td>
+                        <td>
+                            @Restau
+                        </td>
+
+                        <td>
+                            <a class="ui large icon btn-edit button" href="@Url.Action("Update","DefaultPackages", new { id=item.Id })">
+                                <i class="pencil alternate icon icon-crud"></i>
+                            </a>
+                            <button class="ui large icon btn-delete button" onclick="DeleteDefaultPackage(@item.Id)">
+                                <i class="trash alternate icon icon-crud"></i>
+                            </button>
+                            <a class="ui large icon button" href="@Url.Action("Details","DefaultPackages", new { id=item.Id })">
+                                <i class="bi bi-info-circle fa-lg icon-crud"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table><br>
     </div>
@@ -168,16 +169,8 @@
 
     }
 </div>
-    @section HighlightTile{
-        <script>
-
-            $("#SalesModule").addClass("active");
-            $("#SalesModule").addClass("expandedList");
-            $("#SalesModule").prop("aria-expanded");
-            $("#SalesModule").attr("aria-expanded", "true");
-
-            $("#Sale_Schema").addClass("show");
-
-            $("#DefaultPackagesTile").addClass("activeTile");
-        </script>
-    }
+@section HighlightTile{
+    <script>
+        highlightTile();
+    </script>
+}

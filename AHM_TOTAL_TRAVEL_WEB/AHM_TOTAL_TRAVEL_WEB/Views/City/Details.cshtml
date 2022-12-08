@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-              
+
                 </div>
             </div>
             <br />
@@ -67,10 +67,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                         <td>
-                              @Html.DisplayFor(model => model.UsuarioCrea)
-                         </td>
-      
+                        <td>
+                            @Html.DisplayFor(model => model.UsuarioCrea)
+                        </td>
+
                         <td>
                             @Html.DisplayFor(model => model.FechaCrea)
                         </td>
@@ -87,4 +87,9 @@
     </div>
 </div>
 
-       
+
+@section HighlightTile{
+    <script>
+        highlightTile();
+    </script>
+}

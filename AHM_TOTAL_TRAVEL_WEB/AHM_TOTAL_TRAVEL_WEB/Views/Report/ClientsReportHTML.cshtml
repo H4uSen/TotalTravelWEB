@@ -116,7 +116,8 @@
     }
     catch (Exception)
     {
-<script>location.assign("@Url.Action("Error", "Home")");</script>}
+        <script>location.assign("@Url.Action("Error", "Home")");</script>
+}
     <!-- JavaScript files-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -124,6 +125,10 @@
     <script src="../assets/vendor/just-validate/js/just-validate.min.js"></script>
     <script src="../assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    @section HighlightTile{
+        <script>
+            highlightTile();
+        </script>
+    }
 </body>
 </html>

@@ -25,7 +25,7 @@
             </div>
 
             <!-- formulario-->
-           <form asp-action="Create" id="frmCreateDefaultPackagues" method="post">
+            <form asp-action="Create" id="frmCreateDefaultPackagues" method="post">
 
                 <div class="ui form attached fluid segment">
                     <div class="content">
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <div class="two fields">                          
+                            <div class="two fields">
                                 <div class="required field" id="restau" hidden>
                                     <label class="ui label">Restaurante</label>
                                     <select id="rest_ID" class="ui dropdown search" asp-items="ViewBag.rest_ID">
@@ -180,33 +180,25 @@
     </div>
 </div>
 @section Scripts{
-    <script>              
+    <script>
         $("#checkResta").change(function () {
             if ($("#checkResta").prop("checked") == true) {
                 $("#restau").removeAttr('hidden');
                 $("#restau").show();
                 SetDropDownPlaceholder($("#rest_ID"))
             }
-           else{
+            else {
                 $("#restau").hide();
                 SetDropDownPlaceholder($("#rest_ID"))
             }
         });
-              
+
     </script>
     <script src="~/js/DefaultPackaguesJS/Create.js"></script>
     <script src="~/js/DefaultPackaguesJS/Validaciones.js"></script>
 }
 @section HighlightTile{
     <script>
-
-        $("#SalesModule").addClass("active");
-        $("#SalesModule").addClass("expandedList");
-        $("#SalesModule").prop("aria-expanded");
-        $("#SalesModule").attr("aria-expanded", "true");
-
-        $("#Sale_Schema").addClass("show");
-
-        $("#DefaultPackagesTile").addClass("activeTile");
+        highlightTile();
     </script>
 }

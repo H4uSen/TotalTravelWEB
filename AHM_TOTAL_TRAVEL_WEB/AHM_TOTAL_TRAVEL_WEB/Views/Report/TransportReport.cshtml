@@ -63,23 +63,16 @@ catch (Exception)
 
 @section HighlightTile{
     <script>
-
-        $("#ReportModule").addClass("active");
-        $("#ReportModule").addClass("expandedList");
-        $("#ReportModule").prop("aria-expanded");
-        $("#ReportModule").attr("aria-expanded", "true");
-
-        $("#Report_Schema").addClass("show");
-
-        $("#ReportTile").addClass("activeTile");
+        highlightTile();
     </script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css" rel="stylesheet" type="text/css" />
 }
 
 
+
 @section Scripts{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css" rel="stylesheet" type="text/css" />
 
     <script>
         const action = "TransportReportPDF";
