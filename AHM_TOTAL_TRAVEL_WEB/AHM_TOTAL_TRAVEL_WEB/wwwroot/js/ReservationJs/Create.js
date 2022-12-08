@@ -263,8 +263,13 @@ function ActvExtraForm() {
         <input type="number" min="1" max="100" value="1" onchange="calculatePriceOfActvExtra(${CantidadActvExtra})" name="extraActivitiesAmount_${CantidadActvExtra}" id="extraActivitiesAmount_${CantidadActvExtra}" placeholder="Cantidad de personas">
     </div>
     <div class="field ">
+
         <label>Total</label>
-        <input type="number" dir="rtl" name="extraActivitiesPrice_${CantidadActvExtra}" id="extraActivitiesPrice_${CantidadActvExtra}" placeholder="0.00" readonly>
+        <div class="ui right labeled input">
+            <label for="extraActivitiesPrice_${CantidadActvExtra}" class="ui label">L</label>
+            <input type="number" dir="rtl" name="extraActivitiesPrice_${CantidadActvExtra}" id="extraActivitiesPrice_${CantidadActvExtra}" placeholder="0.00" readonly>
+            <div class="ui basic label">.00</div>
+        </div>
     </div>
     <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
         <label></label>
@@ -373,6 +378,13 @@ function hotelActvExtraForm() {
     <div class="field hotelsExtraActivitiesPrice">
         <label>Total</label>
         <input type="number" dir="rtl" name="hotelsExtraActivitiesPrice_${CantidadActvHotel}" id="hotelsExtraActivitiesPrice_${CantidadActvHotel}" placeholder="0.00" readonly runat="server">
+        
+        <label>Total</label>
+        <div class="ui right labeled input">
+            <label for="hotelsExtraActivitiesPrice_${CantidadActvHotel}" class="ui label">L</label>
+            <input type="number" dir="rtl" name="hotelsExtraActivitiesPrice_${CantidadActvHotel}" id="hotelsExtraActivitiesPrice_${CantidadActvHotel}" placeholder="0.00" readonly>
+            <div class="ui basic label">.00</div>
+        </div>
     </div>
     <div class="field" style="display: flex;align-content: center;justify-content: center;align-items: flex-end;">
         <label></label>
