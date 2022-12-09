@@ -20,11 +20,11 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
     {
 
         private ReservationService _reservationService;
-        private  HotelsService _hotelsService;
-        private  AccessService _accessService;
-        private  SaleServices _saleServices;
-        private  ActivitiesServices _activitiesServices;
-        private  GeneralService _GeneralService;
+        private HotelsService _hotelsService;
+        private AccessService _accessService;
+        private SaleServices _saleServices;
+        private ActivitiesServices _activitiesServices;
+        private GeneralService _GeneralService;
 
 
         [Test]
@@ -81,6 +81,45 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
 
             // Act
             var result = controller.Update(11, routeValues).Result;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IActionResult>(result);
+        }
+        [Test]
+        public void TestDelete(){
+            // Arrange
+            RouteValuesModel routeValues = new RouteValuesModel();
+            ReservationController controller = new ReservationController(
+                    _reservationService,
+                    _hotelsService,
+                    _accessService,
+                    _saleServices,
+                    _activitiesServices,
+                    _GeneralService);
+
+            // Act
+            var result = controller.Delete(0).Result;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IActionResult>(result);
+        }
+
+        [Test]
+        public void TestPersonalizePackages() {
+            // Arrange
+            RouteValuesModel routeValues = new RouteValuesModel();
+            ReservationController controller = new ReservationController(
+                    _reservationService,
+                    _hotelsService,
+                    _accessService,
+                    _saleServices,
+                    _activitiesServices,
+                    _GeneralService);
+
+            // Act
+            var result = controller.PersonalizePackages(routeValues).Result;
 
             // Assert
             Assert.IsNotNull(result);
