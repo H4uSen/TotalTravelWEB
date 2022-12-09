@@ -592,6 +592,20 @@
                 <i class="right arrow icon"></i>
                 SIGUIENTE PASO
             </button>
+            @{
+
+                
+                if (routesValues != null)
+                {
+                    if (routesValues.IsSuccess.Equals(true) && routesValues.Command == "Update")
+                    {
+                        <button class="ui right labeled red icon button" id="btnCancelarUPpdt" >
+                            <i class="right arrow icon"></i>
+                            CANCELAR
+                        </button>
+                    }
+                }
+            }
         </div>
         <br><br>
 

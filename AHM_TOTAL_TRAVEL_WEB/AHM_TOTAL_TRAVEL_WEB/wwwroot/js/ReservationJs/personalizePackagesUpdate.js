@@ -8,6 +8,10 @@
             message: "Ocurrió un error al cargar los datos de la reservación, intente resolverlo recargando la página",
         });
     } else {
+        $("#btnVolver").attr("href", "/Reservation/Index");
+        $("#btnCancelarUPpdt").click(function () {
+            window.location("/Reservation/Index");
+        })
         var reservationData = response.data;
 
         setTimeout(function () {
