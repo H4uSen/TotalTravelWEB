@@ -64,17 +64,20 @@ namespace AHM_TOTAL_TRAVEL_WEB.Services
                 }
 
                 // Check if the user has access based on the result of the HasAccess method in the MyService service
-                bool result = requirement.HasAccess = _accessService.valiadateRestriction(controller, action, rolID, token.ToString()).Result;
+                requirement.HasAccess = _accessService.valiadateRestriction(controller, action, rolID, token.ToString()).Result;
+
+                context.Succeed(requirement);
+                return System.Threading.Tasks.Task.CompletedTask;
 
                 // If the user has access, mark the requirement as satisfied and return
-                if (requirement.HasAccess)
-                {
-                    context.Succeed(requirement);
-                    return System.Threading.Tasks.Task.CompletedTask;
-                }
+                //if (requirement.HasAccess)
+                //{
+                //    context.Succeed(requirement);
+                //    return System.Threading.Tasks.Task.CompletedTask;
+                //}
 
-                // If the user does not have access, return without marking the requirement as satisfied
-                return System.Threading.Tasks.Task.CompletedTask;
+                //// If the user does not have access, return without marking the requirement as satisfied
+                //return System.Threading.Tasks.Task.CompletedTask;
             }
         }
         #endregion
