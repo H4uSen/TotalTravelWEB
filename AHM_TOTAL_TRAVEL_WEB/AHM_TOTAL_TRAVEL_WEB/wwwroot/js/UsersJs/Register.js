@@ -360,10 +360,11 @@ function registerUser() {
         { validateMessage: "Ingrese su correo electrónico", Jqueryinput: $("#txtEmail") },
         { validateMessage: "Ingrese una calle", Jqueryinput: $("#Calle") },
         { validateMessage: "Ingrese una avenidad", Jqueryinput: $("#Avenida") },
+        { validateMessage: "Seleccione un estado civil", Jqueryinput: $("#EsCi_Id") },
         { validateMessage: "Seleccione un país", Jqueryinput: $("#Count_ID") },
         { validateMessage: "Seleccione una ciudad", Jqueryinput: $("#City_ID") },
         { validateMessage: "Seleccione una ciudad", Jqueryinput: $("#Col_ID") },
-
+        
 
     ];
 
