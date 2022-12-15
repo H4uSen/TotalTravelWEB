@@ -233,7 +233,6 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 string token = HttpContext.User.FindFirst("Token").Value;
                 var transporte = (TransportListViewModel)(await _transportService.TransportFind(id, token)).Data;
-
                 return View(transporte);            
             }
             catch

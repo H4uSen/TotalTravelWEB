@@ -212,6 +212,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
         public async Task<IActionResult> Details(string id)
         {
             try
