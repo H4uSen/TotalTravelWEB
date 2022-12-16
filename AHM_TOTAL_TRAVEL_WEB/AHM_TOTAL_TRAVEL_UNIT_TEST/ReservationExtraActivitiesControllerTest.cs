@@ -1,4 +1,4 @@
-using AHM_TOTAL_TRAVEL_WEB.Controllers;
+﻿using AHM_TOTAL_TRAVEL_WEB.Controllers;
 using AHM_TOTAL_TRAVEL_WEB.Models;
 using AHM_TOTAL_TRAVEL_WEB.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,17 +7,19 @@ using NUnit.Framework;
 namespace AHM_TOTAL_TRAVEL_UNIT_TEST
 {
     [TestFixture]
-    public class CategoriesRoomsControllerTest
+    public class ReservationExtraActivitiesControllerTest
     {
-        HotelsService _hotelsServices;
+        ReservationService _reservationService;
+        ActivitiesServices _activitiesServices;
 
         [Test]
         public void TestIndex()
         {
             // Arrange
-            CategoriesRoomsController controller = new CategoriesRoomsController(
-                _hotelsServices
-                );
+            ReservationExtraActivitiesController controller = new ReservationExtraActivitiesController(
+                _reservationService,
+                _activitiesServices
+            );
 
             // Act
             var result = controller.Index().Result;
@@ -31,12 +33,13 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestCreate()
         {
             // Arrange
-            CategoriesRoomsController controller = new CategoriesRoomsController(
-                _hotelsServices
-                );
+            ReservationExtraActivitiesController controller = new ReservationExtraActivitiesController(
+                _reservationService,
+                _activitiesServices
+            );
 
             // Act
-            categoryroomsViewModel model = new categoryroomsViewModel();
+            ReservationExtraActivitiesViewModel model = new ReservationExtraActivitiesViewModel();
             var result = controller.Create(model).Result;
 
             // Assert
@@ -48,9 +51,10 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestUpdate()
         {
             // Arrange
-            CategoriesRoomsController controller = new CategoriesRoomsController(
-                _hotelsServices
-                );
+            ReservationExtraActivitiesController controller = new ReservationExtraActivitiesController(
+                _reservationService,
+                _activitiesServices
+            );
 
             // Act
             var result = controller.Update(2).Result;
@@ -64,14 +68,15 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDelete()
         {
             // Arrange
-            CategoriesRoomsController controller = new CategoriesRoomsController(
-                _hotelsServices
-                );
+            ReservationExtraActivitiesController controller = new ReservationExtraActivitiesController(
+                _reservationService,
+                _activitiesServices
+            );
 
             // Act
-            categoryroomsViewModel model = new categoryroomsViewModel();
-            model.CaHa_UsuarioModifica = 2;
-            var result = controller.Delete(model, 0).Result;
+            ReservationExtraActivitiesViewModel model = new ReservationExtraActivitiesViewModel();
+            model.ReAE_UsuarioModifica = 2;
+            var result = controller.Delete(1).Result;
 
             // Assert
             Assert.IsNotNull(result);
@@ -82,9 +87,10 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDetails()
         {
             // Arrange
-            CategoriesRoomsController controller = new CategoriesRoomsController(
-                _hotelsServices
-                );
+            ReservationExtraActivitiesController controller = new ReservationExtraActivitiesController(
+                _reservationService,
+                _activitiesServices
+            );
 
             // Act
             string id = "2";
