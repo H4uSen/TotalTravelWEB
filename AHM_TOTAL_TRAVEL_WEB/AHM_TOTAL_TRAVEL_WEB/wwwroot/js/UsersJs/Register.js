@@ -458,6 +458,7 @@ function registerUser() {
             data.append("part_ID", 0);
             data.append("usua_UsuarioCreacion", 1);
             data.append("file", null);
+            data.append("esCi_ID", $('#EsCi_Id').val())
             //for (let i = 0; i < $('#File').prop('files').length; i++) {
             //    const file = $('#File').prop('files')[i];
             //    images.push(file); //IFORMFILE
