@@ -17,18 +17,18 @@ using System.Text;
 namespace AHM_TOTAL_TRAVEL_UNIT_TEST
 {
     [TestFixture]
-    public class ActivitiesExtraControllerTest
+    public class RegistrationPaymentsControllerTest
     {
-        ActivitiesServices _activitiesServices;
-        GeneralService _generalService;
+        private readonly SaleServices _saleServices;
+        private readonly ReservationService _reservationServices;
 
         [Test]
         public void TestIndex()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            RegistrationPaymentsController controller = new RegistrationPaymentsController(
+                    _saleServices,
+                    _reservationServices);
 
             // Act
             var result = controller.Index().Result;
@@ -39,15 +39,31 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         }
 
         [Test]
+        public void TestIndexHistory()
+        {
+            // Arrange
+            RegistrationPaymentsController controller = new RegistrationPaymentsController(
+                    _saleServices,
+                    _reservationServices);
+
+            // Act
+            var result = controller.IndexHistory().Result;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IActionResult>(result);
+        }
+
+        [Test]
         public void TestGetCreate()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            RegistrationPaymentsController controller = new RegistrationPaymentsController(
+                    _saleServices,
+                    _reservationServices);
 
             // Act
-            var result = controller.Create().Result;
+            var result = controller.Create();
 
             // Assert
             Assert.IsNotNull(result);
@@ -58,12 +74,12 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestGetUpdate()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                     _activitiesServices,
-                     _generalService);
+            RegistrationPaymentsController controller = new RegistrationPaymentsController(
+                     _saleServices,
+                    _reservationServices);
 
             // Act
-            var result = controller.Update(2).Result;
+            var result = controller.Update("2").Result;
 
             // Assert
             Assert.IsNotNull(result);
@@ -74,29 +90,13 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDelete()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            RegistrationPaymentsController controller = new RegistrationPaymentsController(
+                    _saleServices,
+                    _reservationServices);
 
             // Act
-            ActivitiesExtrasViewModel model = new ActivitiesExtrasViewModel();
-            model.AcEx_UsuarioModifica = 2;
-            var result = controller.Delete(model, 0).Result;
+            var result = controller.Delete(0).Result;
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<IActionResult>(result);
-        }
-
-        [Test]
-        public void TestDetails()
-        {
-            // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
-            // Act
-            var result = controller.Details("0").Result;
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<IActionResult>(result);

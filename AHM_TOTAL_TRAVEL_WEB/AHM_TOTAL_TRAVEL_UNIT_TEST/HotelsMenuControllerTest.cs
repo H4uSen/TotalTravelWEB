@@ -17,18 +17,18 @@ using System.Text;
 namespace AHM_TOTAL_TRAVEL_UNIT_TEST
 {
     [TestFixture]
-    public class ActivitiesExtraControllerTest
+    public class HotelsMenuControllerTest
     {
-        ActivitiesServices _activitiesServices;
-        GeneralService _generalService;
+        private readonly HotelsService _hotelService;
+        private readonly RestaurantService _restaurantServices;
 
         [Test]
         public void TestIndex()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            HotelsMenuController controller = new HotelsMenuController(
+                    _hotelService,
+                    _restaurantServices);
 
             // Act
             var result = controller.Index().Result;
@@ -42,9 +42,9 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestGetCreate()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            HotelsMenuController controller = new HotelsMenuController(
+                    _hotelService,
+                    _restaurantServices);
 
             // Act
             var result = controller.Create().Result;
@@ -58,9 +58,9 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestGetUpdate()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                     _activitiesServices,
-                     _generalService);
+            HotelsMenuController controller = new HotelsMenuController(
+                     _hotelService,
+                    _restaurantServices);
 
             // Act
             var result = controller.Update(2).Result;
@@ -74,13 +74,13 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDelete()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            HotelsMenuController controller = new HotelsMenuController(
+                    _hotelService,
+                    _restaurantServices);
 
             // Act
-            ActivitiesExtrasViewModel model = new ActivitiesExtrasViewModel();
-            model.AcEx_UsuarioModifica = 2;
+            HotelsMenuViewModel model = new HotelsMenuViewModel();
+            model.HoMe_UsuarioModifica = 2;
             var result = controller.Delete(model, 0).Result;
 
             // Assert
@@ -92,9 +92,9 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDetails()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            HotelsMenuController controller = new HotelsMenuController(
+                    _hotelService,
+                    _restaurantServices);
             // Act
             var result = controller.Details("0").Result;
             // Assert

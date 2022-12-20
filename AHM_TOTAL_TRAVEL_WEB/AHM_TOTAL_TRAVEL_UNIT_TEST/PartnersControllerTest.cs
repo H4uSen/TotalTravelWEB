@@ -17,18 +17,16 @@ using System.Text;
 namespace AHM_TOTAL_TRAVEL_UNIT_TEST
 {
     [TestFixture]
-    public class ActivitiesExtraControllerTest
+    public class PartnersControllerTest
     {
-        ActivitiesServices _activitiesServices;
-        GeneralService _generalService;
+        GeneralService _generalServices;
 
         [Test]
         public void TestIndex()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            PartnersController controller = new PartnersController(
+                    _generalServices);
 
             // Act
             var result = controller.Index().Result;
@@ -42,9 +40,8 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestGetCreate()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            PartnersController controller = new PartnersController(
+                    _generalServices);
 
             // Act
             var result = controller.Create().Result;
@@ -58,9 +55,8 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestGetUpdate()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                     _activitiesServices,
-                     _generalService);
+            PartnersController controller = new PartnersController(
+                     _generalServices);
 
             // Act
             var result = controller.Update(2).Result;
@@ -74,13 +70,12 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDelete()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            PartnersController controller = new PartnersController(
+                    _generalServices);
 
             // Act
-            ActivitiesExtrasViewModel model = new ActivitiesExtrasViewModel();
-            model.AcEx_UsuarioModifica = 2;
+            PartnersViewModel model = new PartnersViewModel();
+            model.Part_UsuarioModifica = 2;
             var result = controller.Delete(model, 0).Result;
 
             // Assert
@@ -92,9 +87,8 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
         public void TestDetails()
         {
             // Arrange
-            ActivitiesExtraController controller = new ActivitiesExtraController(
-                    _activitiesServices,
-                    _generalService);
+            PartnersController controller = new PartnersController(
+                    _generalServices);
             // Act
             var result = controller.Details("0").Result;
             // Assert
