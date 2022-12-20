@@ -245,6 +245,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         [HttpPost]
         public async Task<object> ManualLogIn([FromBody]UserLoginModel LogInData)
         {
+            try { 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             var LogInVerify = (UserLoggedModel)(await _accessServices.LogIn(LogInData)).Data;
 
@@ -288,7 +289,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
             else
                 return LogInData;
-      
+            }
+            catch
+            {
+                return 0;
+            }
+
         }
 
         //USAR REFERENCIAS Models y Data
@@ -406,8 +412,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         {
             ServiceResult result = new ServiceResult();
             try
-            {
-                
+            {         
                 var customClaim = HttpContext.User.FindFirst(key);
                 result.Data = customClaim == null || customClaim.Value == null ? "" : customClaim.Value;
                 result.Success = true;
