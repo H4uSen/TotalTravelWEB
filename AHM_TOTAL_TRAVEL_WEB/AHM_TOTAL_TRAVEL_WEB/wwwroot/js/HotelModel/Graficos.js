@@ -157,7 +157,7 @@ function GraficaPastel3() {
         var objeto = {
             name: item.descripcion,
             y: 0,
-            idd: item.id
+            x: item.id
         }
         arrayhote.push(objeto);
     }
@@ -165,57 +165,58 @@ function GraficaPastel3() {
 
     for (var i = 0; i < arrayhote.length; i++) {
         const item = arrayhote[i];
-        var ResvHotFiltro = ResvHotList.filter(resva => resva.categoriaID == item.idd);
+        var ResvHotFiltro = ResvHotList.filter(resva => resva.categoriaID == item.x);
         item.y = ResvHotFiltro.length;
     }
     //Construccion del grafico
 
     Highcharts.chart('container3', {
-        lang: {
-            viewFullscreen: "Ver en pantalla completa",
-            printChart: "Imprimir grafico",
-            downloadPNG: "Descargar PNG",
-            downloadJPEG: "Descargar JPEG",
-            downloadPDF: "Descargar PDF",
-            downloadSVG: "Descargar SVG",
-            downloadCSV: "Descargar CSV",
-            downloadXLS: "Descargar XLS",
-            viewData: "Ver tabla",
-            hideData: "Esconder tabla",
-            exitFullscreen: "Salir de pantalla completa",
-        },
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 10,
-            plotShadow: false,
-            type: 'pie'
+            type: 'column'
         },
         title: {
-            text: 'Habitaciones más reservados'
+            text: 'Categorias de habitaciones más utilizadas'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad'
+            }
+        },
+        legend: {
+            enabled: false
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}% = {point.y:.1f}</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
+            pointFormat: ''
         },
         series: [{
             name: 'Cantidad',
-            colorByPoint: true,
-            data: arrayhote
+            data: arrayhote,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
         }]
     });
 
+
 }
+
