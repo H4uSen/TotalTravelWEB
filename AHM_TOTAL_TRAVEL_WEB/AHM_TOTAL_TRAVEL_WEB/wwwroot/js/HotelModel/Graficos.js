@@ -25,6 +25,17 @@ function GraficaPastel() {
     //Construccion del grafico
     
     Highcharts.chart('container', {
+        lang: {
+            viewFullscreen: "Ver en pantalla completa",
+            printChart: "Imprimir grafico",
+            downloadPNG: "Descargar PNG",
+            downloadJPEG: "Descargar JPEG",
+            downloadPDF: "Descargar PDF",
+            downloadSVG: "Descargar SVG",
+            downloadCSV: "Descargar CSV",
+            downloadXLS: "Descargar XLS",
+            viewDataTable: "Ver tabla",
+        },
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 10,
