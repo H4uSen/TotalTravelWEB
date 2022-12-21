@@ -328,10 +328,7 @@ function printDiv(id) {
             max-height: 300px !important;
         }
     </style>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>`
+    `
     ventana.document.write(objeto2)
     ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana   
     //ventana.document.close();  //cerramos el documento
