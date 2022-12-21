@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-0">
+                <div class="card mb-0" >
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div class="icon flex-shrink-0 bg-red"><i class="fas fa-tasks"></i></div>
@@ -122,11 +122,20 @@
             </div>
             <!-- Line Chart            -->
             <div class="col-lg-9 col-12">
-                <div class="card mb-0 h-100">
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                        <canvas id="monthSales" style="display: block; width: 458px; height: 229px;" width="458" height="229" class="chartjs-render-monitor"></canvas>
+                <div class="card mb-0 h-100" id="c1">
+                    <div class="card-body" id="content1">
+                        <!-- <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <canvas id="monthSales" style="display: block; width: 458px; height: 229px;" width="458" height="229" class="chartjs-render-monitor"></canvas>-->
                     </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c1 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
                 </div>
             </div>
         </div>
@@ -151,6 +160,48 @@
     </div>
 </section>
 -->
+<section>
+    <div class="row align-items-stretch" style="padding-top: 20px">
+
+        <!-- Line Chart -->
+        <div class="col-lg-6 col-12">
+            <div class="card mb-0" id="c2">
+                <div class="card-body" id="content2">
+                    <div id="container"></div>
+                </div>
+                <center>
+                    <div class="col-md-6">
+                        <button class="btn btn-light" onclick="printDiv('#c2 .card-body')">
+                            <span class="material-symbols-outlined">
+                                Imprimir
+                            </span>
+                        </button>
+                    </div>
+                </center>
+                <br />
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="card mb-0" id="c3">
+                <div class="card-body" id="content3">
+                    <div id="container3"></div>
+                </div>
+                <center>
+                    <div class="col-md-6">
+                        <button class="btn btn-light" onclick="printDiv('#c3 .card-body')">
+                            <span class="material-symbols-outlined">
+                                Imprimir
+                            </span>
+                        </button>
+                    </div>
+                </center>
+                <br />
+            </div>
+        </div>
+    </div>
+
+
+</section>
 
 <section class="pb-0">
     <div class="container-fluid">
