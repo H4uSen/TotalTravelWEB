@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @section CSS{
     <style>
         .highcharts-figure,
@@ -127,21 +128,20 @@
 
             <!-- Line Chart -->
             <div class="col-lg-9 col-12">
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class="">
-                                    <div id="container"></div>
-                                </div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class="">
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="lineCahrt" @*style="display: block; width: 458px; height: 229px;" width="458" height="229"*@ class="chartjs-render-monitor"></canvas>
+                <div class="card mb-0" id="c1">
+                    <div class="card-body" id="conten" style="justify-content:center">
+                        <div id="container"></div>
                     </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c1 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
                 </div>
             </div>
 
@@ -150,56 +150,43 @@
 
             <!-- Line Chart -->
             <div class="col-lg-6 col-12">
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class="">
-                                    <div id="container2"></div>
-                                </div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class="">
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="lineCahrt" @*style="display: block; width: 458px; height: 229px;" width="458" height="229"*@ class="chartjs-render-monitor"></canvas>
+                <div class="card mb-0" id="c2">
+                    <div class="card-body" id="conten2">
+                        <div id="container2"></div>
                     </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c2 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
                 </div>
             </div>
             <div class="col-lg-6 col-12">
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class="">
-                                    <div id="container3"></div>
-                                </div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class="">
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="lineCahrt" @*style="display: block; width: 458px; height: 229px;" width="458" height="229"*@ class="chartjs-render-monitor"></canvas>
+                <div class="card mb-0" id="c3">
+                    <div class="card-body" id="conten3">
+                        <div id="container3"></div>
                     </div>
-                </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c3 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>              
             </div>
-
         </div>
     </div>
 </section>
-
-
-
 @section scripts{
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script>
-    var UrlBase = 'http// ' + '@Context.Request.Host' + '@Context.Request.Path'
-    </script>
     <script src="~/js/HotelModel/Graficos.js"></script>
 }
 

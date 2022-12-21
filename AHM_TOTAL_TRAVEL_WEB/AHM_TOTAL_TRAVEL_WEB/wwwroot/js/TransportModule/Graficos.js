@@ -27,11 +27,19 @@ function GraficaPastel() {
 
     for (var i = 0; i < arraytransp2.length; i++) {
         const item = arraytransp2[i];
-        var ResvHotFiltro = ResvHotList.filter(resva => resva.tipo_Transporte == item.name);
+        var ResvHotFiltro = ResvHotList.filter(resva => resva.tipo_Transporte == item.precio);
+        for (ResvHotFiltro.le) {
+            const item2 = arraytransp2[i];
+
+        }
         item.y = ResvHotFiltro.length;
     }
     //Construccion del grafico
+    [
+       0 name: comayagua y: 0,
+       1 name: tegucigalpa y: 0,
 
+    ]
     Highcharts.chart('container', {
         chart: {
             plotBackgroundColor: null,
