@@ -64,7 +64,7 @@ function GraficaPastel() {
             showTable: true,
             buttons: {
                 contextButton: {
-                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV"]
+                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV", "separator", "viewData"]
                 }
             }
         },
@@ -153,7 +153,7 @@ function GraficaPastel2() {
             showTable: true,
             buttons: {
                 contextButton: {
-                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV"]
+                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV", "separator", "viewData"]
                 }
             }
         },
@@ -244,7 +244,7 @@ function GraficaPastel3() {
             showTable: true,
             buttons: {
                 contextButton: {
-                    menuItems: ["viewFullscreen", "separator", "downloadXLS","downloadCSV"]
+                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV", "separator","viewData"]
                 }
             }
         },
@@ -334,7 +334,7 @@ function printDiv(id) {
     //ventana.document.close();  //cerramos el documento
     ventana.print();  //imprimimos la ventana
     ventana.close();  //cerramos la ventana
-    location.reload();
+    
 }
 
 //function printDiv(id) {
