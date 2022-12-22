@@ -3,8 +3,9 @@ const Users = ajaxRequest(urlAPI + "/API/Users/List");
 
 $("document").ready(function () {
     GraficaPastelSexo();
-    GraficaBarras(0);
     GraficaPastelEstadoCivil();
+    GraficaBarras(0);
+    
 })
 
 /*
