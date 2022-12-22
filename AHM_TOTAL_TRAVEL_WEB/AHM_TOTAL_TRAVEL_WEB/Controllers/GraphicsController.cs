@@ -62,5 +62,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+        public IActionResult Restaurantes()
+        {
+            try
+            {
+                ViewData["Usuario"] = HttpContext.Request.Cookies["usuario"];
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }
