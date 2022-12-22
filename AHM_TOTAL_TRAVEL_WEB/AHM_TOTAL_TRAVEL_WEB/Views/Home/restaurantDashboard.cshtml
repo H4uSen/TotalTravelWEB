@@ -13,6 +13,56 @@
         #carta {
             max-height: 300px !important;
         }
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 320px;
+            max-width: 660px;
+            margin: 1em auto;
+        }
+
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #ebebeb;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+
+        #a {
+            text-decoration: none;
+        }
+
+        #carta {
+            max-height: 300px !important;
+        }
     </style>
 }
 
@@ -38,13 +88,50 @@
                         <p class="text-sm text-gray-500 mb-1">@ViewData["Direccion"]</p>
                         <p class="text-sm text-gray-500 mb-1">@ViewData["Partner"]</p>
                         @*<div class="row py-4 gy-3">
-                                <div class="col-4"><strong class="d-block lh-1">20</strong><small>Photos</small></div>
-                                <div class="col-4"><strong class="d-block lh-1">54</strong><small>Videos</small></div>
-                                <div class="col-4"><strong class="d-block lh-1">235</strong><small>Tasks</small></div>
-                            </div>*@
+                            <div class="col-4"><strong class="d-block lh-1">20</strong><small>Photos</small></div>
+                            <div class="col-4"><strong class="d-block lh-1">54</strong><small>Videos</small></div>
+                            <div class="col-4"><strong class="d-block lh-1">235</strong><small>Tasks</small></div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0">
+                    <div class="card-header position-relative">
+                        <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
+                    </div>
+                    <div class="card-body p-0 overflow-auto" id="carta">
+                        @foreach (var item in Model)
+                        {
+                            <div class="p-3 d-flex align-items-center">
+                                <div class="ms-3">
+                                    <a class="d-block" href="#" id="a">
+                                        <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
+                                    </a><small class="text-gray-500">@item.detalle.Partner_Nombre a las @item.detalle.Hora_Reservacion</small>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
                 <br />
+                <div class="card mb-0" id="c1">
+                    <div class="card-body" id="conten" style="justify-content:center">
+                        <div id="container"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c1 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+            <div class="col-lg-3 col-12">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -125,172 +212,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Line Chart -->
-            <div class="col-lg-9 col-12">
-                <div class="card mb-0">
-                    <div class="card-header position-relative">
-                        <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
-                    </div>
-                    <div class="card-body p-0 overflow-auto" id="carta">
-                        @foreach (var item in Model)
-                        {
-                            <div class="p-3 d-flex align-items-center">
-                                <div class="ms-3">
-                                    <a class="d-block" href="#" id="a">
-                                        <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
-                                    </a><small class="text-gray-500">@item.detalle.Partner_Nombre a las @item.detalle.Hora_Reservacion</small>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-                <br />
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class="">
-                                </div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class="">
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="lineCahrt" @*style="display: block; width: 458px; height: 229px;" width="458" height="229"*@ class="chartjs-render-monitor"></canvas>
-                    </div>
-                </div>
-            </div>
+            </div>         
         </div>
     </div>
 </section>
 
-<!--<section class="pb-0">
-    <div class="container-fluid">-->
-<!-- Project-->
-<!--<div class="card mb-3">
-            <div class="card-body p-3">
-                <div class="row gx-lg-5 gy-3">
-                    <div class="col-lg-6 border-lg-end">
-                        <div class="card mb-0" style="border: none; box-shadow: none;">
-                            <div class="card-body d-flex flex-column">
-                                <h3 class="mb-1">TOP 5 HOTELES MAS CONCURRIDOS</h3>
-                                <div class="ui divided items">
-                                    <div class="item">
-                                        <h2 class="align-middle" style="padding: 0 1em; color: #f5d671; font-weight: bold;"><br>#1</h2>
-                                        <div class="image">
-                                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                        </div>
-                                        <div class="content">
-                                            <h3><b>Hotel Name</b></h3>
-                                            <h5 class="blue_text">
-                                                <i class="map marker alternate blue icon"></i>
-                                                <b>San Pedro Sula, Honduras</b>
-                                            </h5>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <h2 class="align-middle" style="padding: 0 1em; color: #C0C0C0; font-weight: bold;"><br>#2</h2>
-                                        <div class="image">
-                                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                        </div>
-                                        <div class="content">
-                                            <h3><b>Hotel Name</b></h3>
-                                            <h5 class="blue_text">
-                                                <i class="map marker alternate blue icon"></i>
-                                                <b>San Pedro Sula, Honduras</b>
-                                            </h5>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <h2 class="align-middle" style="padding: 0 1em; color: #CD7F32; font-weight: bold;"><br>#3</h2>
-                                        <div class="image">
-                                            <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                                        </div>
-                                        <div class="content">
-                                            <h3><b>Hotel Name</b></h3>
-                                            <h5 class="blue_text">
-                                                <i class="map marker alternate blue icon"></i>
-                                                <b>San Pedro Sula, Honduras</b>
-                                            </h5>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card mb-0" style="border: none; box-shadow: none;">
-                            <div class="card-body d-flex flex-column">
-                                <h3 class="mb-1">TOP 5 ACTIVIDADES MAS CONCURRIDOS</h3>
-                                <div class="ui divided items">
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="content">
-                                            <h3><b>Activity Name</b></h3>
-                                            <div class="extra d-flex">
-                                                <b>Rating:</b>
-                                                <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>-->
 
 @section Scripts{
 

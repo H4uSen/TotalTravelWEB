@@ -4,104 +4,12 @@ const MenuTypesList = ajaxRequest(urlAPI + "/API/MenuTypes/List");
 const MenusList = ajaxRequest(urlAPI + "/API/Menus/List");
 
 $("document").ready(function () {
-    GraficaPastel();
     GraficaPastel2();
     GraficaPastel3();
 })
 
 var Restaurante = RestaurantList.data.filter(resva => resva.iD_Partner == parseInt(Client_Partner_ID))[0];
 var RestautanteID = parseInt(Restaurante.id);
-function GraficaPastel() {
-    var arrayhote = [
-        { name: "Enero", y: 0, x: "01" },
-        { name: "Febrero", y: 0, x: "02" },
-        { name: "Marzo", y: 0, x: "03" },
-        { name: "Abril", y: 0, x: "04" },
-        { name: "Mayo", y: 0, x: "06" },
-        { name: "Junio", y: 0, x: "07" },
-        { name: "Julio", y: 0, x: "08" },
-        { name: "Agosto", y: 0, x: "08" },
-        { name: "Septiembre", y: 0, x: "09" },
-        { name: "Octubre", y: 0, x: "10" },
-        { name: "Noviembre", y: 0, x: "11" },
-        { name: "Dicimebre", y: 0, x: "12" }
-    ];
-    var ResvHotList = reservationList.data.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
-
-    for (var i = 0; i < arrayhote.length; i++) {
-        const item = arrayhote[i];
-        var ResCant = 0;
-        var Fecha = item.x;
-        for (var j = 0; j < ResvHotList.length; j++) {
-            const item2 = ResvHotList[j];
-            var FechaResv = item2.fecha_Reservacion.toString().split('-')[1];
-            if (Fecha == FechaResv) {
-                ResCant += 1;
-            }        
-        }
-        item.y = ResCant;
-    }
-    //Construccion del grafico
-    Highcharts.chart('container', {
-        lang: {
-            viewFullscreen: "Ver en pantalla completa",
-            printChart: "Imprimir grafico",
-            downloadPNG: "Descargar PNG",
-            downloadJPEG: "Descargar JPEG",
-            downloadPDF: "Descargar PDF",
-            downloadSVG: "Descargar SVG",
-            downloadCSV: "Excel Tabla CSV",
-            downloadXLS: "Excel Tabla XLS",
-            viewData: "Ver tabla",
-            hideData: "Esconder tabla",
-            exitFullscreen: "Salir de pantalla completa",
-            exportData: {
-                categoryHeader: "Categoria"
-            }
-        },
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 10,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'Reservaciones por mes'
-        },
-        exporting: {
-            showTable: true,
-            buttons: {
-                contextButton: {
-                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV", "separator", "viewData"]
-                }
-            }
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}% = {point.y:.1f}</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            name: 'Cantidad',
-            colorByPoint: true,
-            data: arrayhote
-        }]
-    });
-
-}
 
 function GraficaPastel2() {
     var MenusTypes = MenuTypesList.data;
@@ -197,19 +105,19 @@ function GraficaPastel2() {
 const x = function (value, index) {
     return value.substring(0, index) + "," + value.substring(index);
 }
-function GraficaPastel3() {   
+function GraficaPastel3() {
     var arrayhote = [
-        { name: "01", y: 0}, { name: "02", y: 0 }, { name: "03", y: 0},
+        { name: "01", y: 0 }, { name: "02", y: 0 }, { name: "03", y: 0 },
         { name: "04", y: 0 }, { name: "05", y: 0 }, { name: "06", y: 0 },
-        { name: "07", y: 0 }, { name: "08", y: 0}, { name: "09", y: 0},
+        { name: "07", y: 0 }, { name: "08", y: 0 }, { name: "09", y: 0 },
         { name: "10", y: 0 }, { name: "11", y: 0 }, { name: "12", y: 0 },
         { name: "13", y: 0 }, { name: "14", y: 0 }, { name: "15", y: 0 },
         { name: "16", y: 0 }, { name: "17", y: 0 }, { name: "18", y: 0 },
-        { name: "19", y: 0 }, { name: "20", y: 0 }, {name: "21", y: 0 },
-        { name: "22", y: 0 },{ name: "23", y: 0 }, { name: "24", y: 0 },
+        { name: "19", y: 0 }, { name: "20", y: 0 }, { name: "21", y: 0 },
+        { name: "22", y: 0 }, { name: "23", y: 0 }, { name: "24", y: 0 },
     ];
     var ResvHotList = reservationList.data.filter(resva => resva.iD_Parter == parseInt(Client_Partner_ID));
-   
+
     for (var i = 0; i < arrayhote.length; i++) {
         const item = arrayhote[i];
         var ResCant = 0;
@@ -224,7 +132,7 @@ function GraficaPastel3() {
             catch
             {
                 var FechaResv = item2.fecha_Reservacion.toString().split('-')[1];
-            }           
+            }
             if (Hora == FechaResv) {
                 ResCant += 1;
             }
