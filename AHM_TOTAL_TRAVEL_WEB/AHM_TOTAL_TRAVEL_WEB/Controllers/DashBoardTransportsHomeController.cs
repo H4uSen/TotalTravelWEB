@@ -19,19 +19,51 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     {
         private readonly TransportService _transportService;
         private readonly GeneralService _generalService;
-        public DashBoardTransportsHomeController(TransportService transportService, GeneralService generalService)
+        private readonly AccessService _AccessService;
+        private readonly HotelsService _HotelsService;
+        public DashBoardTransportsHomeController(TransportService transportService, GeneralService generalService, HotelsService HotelsService, AccessService AccessService)
         {
             _transportService = transportService;
             _generalService = generalService;
+            _HotelsService = HotelsService;
+            _AccessService = AccessService;
+          
+
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
-              
+                string token = HttpContext.User.FindFirst("Token").Value;
+                var id = HttpContext.User.FindFirst("User_Id").Value;
+                var cuenta = (UserListViewModel)(await _AccessService.AccountFind(id, token)).Data;
+
+                var partner = (PartnersListViewModel)(await _generalService.PartnersFind(cuenta.PartnerID.ToString(), token)).Data;
+
+                IEnumerable<HotelListViewModel> hotel =
+                   (IEnumerable<HotelListViewModel>)(await _HotelsService.HotelsList(token)).Data;
+
+                IEnumerable<RoomsListViewModel> rooms =
+                   (IEnumerable<RoomsListViewModel>)(await _HotelsService.RoomsList(token)).Data;
+
+                IEnumerable<HotelsActivitiesListViewModel> Activities =
+                   (IEnumerable<HotelsActivitiesListViewModel>)(await _HotelsService.HotelsActivitiesList(token)).Data;
+
+                IEnumerable<HotelsMenuListViewModel> menus =
+                   (IEnumerable<HotelsMenuListViewModel>)(await _HotelsService.HotelsMenuList(token)).Data;
+
+                ViewData["Partner"] = cuenta.Partner;
+                ViewData["Direccion"] = "Calle " + cuenta.Calle + ", Avenida " + cuenta.Avenida + ", Colonia " + cuenta.Colonia;
+                ViewData["Imagen"] = partner.Image_Url;
+
+                ViewData["Hoteles"] = hotel.ToList().Count();
+                ViewData["Habitaciones"] = rooms.ToList().Count();
+                ViewData["Actividades"] = Activities.ToList().Count();
+                ViewData["menus"] = menus.ToList().Count();
+
                 return View();
             }
-            catch
+            catch (Exception)
             {
                 return RedirectToAction("Error", "Home");
             }
