@@ -1,5 +1,202 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿
+@{
+    ViewData["Title"] = "Gráficos del Restaurante";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section CSS{
+    <style>
+        #a {
+            text-decoration: none;
+        }
+
+        #carta {
+            max-height: 300px !important;
+        }
+
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 320px;
+            max-width: 660px;
+            margin: 1em auto;
+        }
+
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #ebebeb;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+
+        #a {
+            text-decoration: none;
+        }
+
+        #carta {
+            max-height: 300px !important;
+        }
+    </style>
+}
+
+@model IEnumerable<restaurantsDashboardDetail>
+
+<header class="bg-white shadow-sm px-4 py-3 z-index-20">
+    <div class="container-fluid px-0">
+        <h2 class="mb-0 p-1">Gráficos</h2>
+    </div>
+</header>
+
+<section class="pb-0">
+    <div class="container-fluid">
+        <div class="row align-items-stretch" style="padding-top: 20px">
+            <center>
+                <div class="col-lg-6 col-12">
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <select id="dbbFiltro" class="form-select form-select-lg" aria-label="Filtro:" width: 500px;>
+                                    <option selected disabled>Seleccione un filtro:</option>
+                                    <!--<option value="3">Three</option>-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c2">
+                    <div class="card-body" id="conten2">
+                        <div id="container2"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c2 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c3">
+                    <div class="card-body" id="conten3">
+                        <div id="container3"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c3 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-stretch" style="padding-top: 20px">
+
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c4">
+                    <div class="card-body" id="conten4">
+                        <div id="container4"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c4 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c5">
+                    <div class="card-body" id="conten5">
+                        <div id="container5"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c5 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-stretch" style="padding-top: 20px">
+
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c1">
+                    <div class="card-body" id="conten">
+                        <div id="container"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c1 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>      
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script src="~/js/HotelModel/GraficosAdmin.js"></script>
+}
+
+@section HighlightTile{
+    <script>
+        $("#menu_item_dashboard").addClass("activeTile");
+    </script>
+}
