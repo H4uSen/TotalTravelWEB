@@ -14,6 +14,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     public class RoomsPackageController : Controller
     {
         SaleServices _saleServices;
+        private object hotelsServices;
 
         public RoomsPackageController(SaleServices saleServices, HotelsService hotelsService, RestaurantService restaurantService)
         {
@@ -21,9 +22,15 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             //_HotelsService = hotelsService;
             //_RestaurantService = restaurantService;
         }
+
+        public RoomsPackageController(object hotelsServices)
+        {
+            this.hotelsServices = hotelsServices;
+        }
+
         [HttpGet]
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try { 
             var token = HttpContext.User.FindFirst("Token").Value;
@@ -41,6 +48,16 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        public object Create(RouteValuesModel routeValues)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Update(int v, RouteValuesModel routeValues)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]

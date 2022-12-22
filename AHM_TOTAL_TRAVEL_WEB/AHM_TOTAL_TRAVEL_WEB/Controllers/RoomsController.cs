@@ -22,7 +22,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
             try { 
             var id = HttpContext.Session.GetInt32("PartnerID");
@@ -98,6 +98,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
+        public object Delete(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(RoomsViewModel habitacion)
         {
@@ -130,7 +135,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id, RouteValuesModel routeValues)
         {
             try { 
             var idd = HttpContext.Session.GetInt32("PartnerID");

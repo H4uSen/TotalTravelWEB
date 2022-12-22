@@ -21,7 +21,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try { 
             var token = HttpContext.User.FindFirst("Token").Value;
@@ -42,7 +42,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
             try { 
             return View();
@@ -84,8 +84,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
+        public object Delete(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id, RouteValuesModel routeValues)
         {
             try { 
             string token = HttpContext.User.FindFirst("Token").Value;

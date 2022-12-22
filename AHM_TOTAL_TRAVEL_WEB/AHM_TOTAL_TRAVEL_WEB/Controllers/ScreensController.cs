@@ -15,14 +15,21 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
     {
         private readonly GeneralService _GeneralServices;
         private readonly AccessService _AccessService;
+        private AccessService accessService;
+
         public ScreensController(GeneralService GeneralService, AccessService AccessService)
         {
             _GeneralServices = GeneralService;
             _AccessService = AccessService;
         }
 
+        public ScreensController(AccessService accessService)
+        {
+            this.accessService = accessService;
+        }
+
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try { 
             ScreenPermissionsViewModel screenPermissions = new ScreenPermissionsViewModel();
@@ -46,8 +53,18 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
 
+        public object Update(int v, RouteValuesModel routeValues)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Create(RouteValuesModel routeValues)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Update(PermissionsViewModel model)
+        public async Task<IActionResult> Update(int v, PermissionsViewModel model)
         {
             try {
             if (ModelState.IsValid)
@@ -69,6 +86,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public object Delete(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Delete(PermissionsViewModel Screen, int id)
         {

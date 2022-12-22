@@ -21,7 +21,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _transportService = transportService;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try
             {
@@ -59,8 +59,14 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public object Update(int v, RouteValuesModel routeValues)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
             try
             {
@@ -79,6 +85,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        public object Delete(int v)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]

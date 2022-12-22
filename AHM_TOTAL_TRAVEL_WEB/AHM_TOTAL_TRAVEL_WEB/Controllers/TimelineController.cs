@@ -22,7 +22,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _hotelsService = hotelsService;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try { 
             var id = HttpContext.User.FindFirst("User_Id").Value;

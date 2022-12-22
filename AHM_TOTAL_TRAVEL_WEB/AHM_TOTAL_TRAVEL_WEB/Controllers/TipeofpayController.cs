@@ -20,7 +20,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _saleServices = saleServices;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try { 
             var model = new List<TipeofpayViewModel>();
@@ -33,7 +33,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             }
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(RouteValuesModel routeValues)
         {
             try { 
             return View();
@@ -68,7 +68,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id, RouteValuesModel routeValues)
         {
             try { 
             var item = new TipeofpayViewModel();
@@ -85,6 +85,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        public object Delete(int v)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]

@@ -21,7 +21,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RouteValuesModel routeValues)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(RouteValuesModel routeValues)
         {
         
 
@@ -78,8 +78,13 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
         }
 
+        public object Delete(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet]
-        public async Task<IActionResult> Update(int City_ID)
+        public async Task<IActionResult> Update(int City_ID, RouteValuesModel routeValues)
         {
             try {     
             string token = HttpContext.User.FindFirst("Token").Value;
@@ -100,6 +105,11 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             {
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        public object PersonalizePackages(RouteValuesModel routeValues)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]
