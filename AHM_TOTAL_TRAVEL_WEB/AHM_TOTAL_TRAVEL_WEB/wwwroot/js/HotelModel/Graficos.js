@@ -265,8 +265,6 @@ function GraficaPastel3() {
             }
         }]
     });
-
-
 }
 function printDiv(id) {
     var objeto = "";

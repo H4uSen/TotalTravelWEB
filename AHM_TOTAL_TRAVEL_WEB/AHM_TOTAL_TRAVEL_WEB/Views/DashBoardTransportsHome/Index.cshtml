@@ -123,11 +123,22 @@
         <div class="row align-items-stretch">
             <!-- Line Chart            -->
             <center>
-                <div class="col-lg-9 col-12">
-                    <div class="card mb-0 h-100">
-                        <div class="card-body">
-                            <div id="container"></div>
+                <!-- Line Chart -->
+                <div class="col-lg-6 col-12">
+                    <div class="card mb-0" id="c2">
+                        <div class="card-body" id="conten2">
+                            <div id="container2"></div>
                         </div>
+                        <center>
+                            <div class="col-md-12">
+                                <button class="btn btn-light" onclick="printDiv('#c2 .card-body')">
+                                    <span class="material-symbols-outlined">
+                                        Imprimir
+                                    </span>
+                                </button>
+                            </div>
+                        </center>
+                        <br />
                     </div>
                 </div>
             </center>
@@ -136,10 +147,7 @@
 </section>
 
 @section Scripts{
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  
 
     <script src="~/js/TransportModule/Graficos.js"></script>
 
