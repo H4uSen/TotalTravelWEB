@@ -2,198 +2,13 @@
 const Users = ajaxRequest(urlAPI + "/API/Users/List");
 
 $("document").ready(function () {
+    GraficaPastelSexo();
+    GraficaPastelEstadoCivil();
     GraficaBarras(0);
+
 })
 
-/*
-contructMonthSalesChart();
-fillHotelTop();
-fillActivitiesTop();
 
-function fillHotelTop() {
-
-    const colors = ["#D4AF37", "#C0C0C0", "#CD7F32"];
-    if (modelo.hotel_Top_3.length > 0) {
-        for (var i = 0; i < modelo.hotel_Top_3.length; i++) {
-            const item = modelo.hotel_Top_3[i];
-            const card =
-            `<div class="item">
-                <h2 class="align-middle" style="padding: 0 1em; color: ${colors[i]}; font-weight: bold;"><br>${i + 1}</h2>
-                <div class="image">
-                    <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2659/posts/32230/image/intro_trip-planner-logo-maker-with-airplane-clipart-2504i.jpg">
-                </div>
-                <div class="content">
-                    <h3><b>${item.hotel}</b></h3>
-                    <h5 class="blue_text">
-                        <i class="map marker alternate blue icon"></i>
-                        <b>${item.ciudad}</b>
-                    </h5>
-                    <div class="extra d-flex">
-                        <b>Rating:</b>
-                        <div class="ui huge star rating disabled" data-rating="5"><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i></div>
-                    </div>
-                </div>
-            </div>`;
-
-            $("#container_hotels_3").append(card);
-        }
-    }
-    else {
-        const item =
-            `<div class="item">
-                 <div class="content">
-                    <h1>NO DATA AVALIABLE</h1>
-                 </div>
-            </div>`;
-
-        $("#container_hotels_3").append(item);
-    }
-}
-
-function fillActivitiesTop() {
-
-    if (modelo.activities_top_5.length > 0) {
-
-        for (var i = 0; i < modelo.activities_top_5.length; i++) {
-
-            const item = modelo.activities_top_5[i];
-
-            if (item != null) {
-                const card =
-                    `<div class="item">
-                        <div class="content">
-
-                            <h3><b>${item.descripcion}</b></h3>
-                            <div class="extra d-flex">
-                                <b>Rating:</b>
-                                <div class="ui huge star rating disabled" data-rating="5">
-                                    <i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i><i class="star icon active"></i>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>`;
-
-                $("#container_activities_top_5").append(card);
-            }
-        }
-    }
-    else {
-        const item =
-            `<div class="item">
-                 <div class="content">
-                    <h1>NO DATA AVALIABLE</h1>
-                 </div>
-            </div>`;
-
-        $("#container_activities_top_5").append(item);
-    }
-}
-
-function contructMonthSalesChart() {//fecha_Entrada
-
-    const data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    if (reservationList.code == 200) {
-        $.each(reservationList.data, function (i, reservation) {
-
-            if (reservation.fecha_Entrada != null) {
-                const date = GetDateFormat({
-                    string_date: reservation.fecha_Entrada,
-                    hour_format: 12,
-                    date_format: "default"
-                });
-                const actual_month = parseInt(date.datetime_data.month - 1);
-                const actual_count = data[actual_month];
-
-                data[actual_month] = actual_count + 1;
-            }
-        });
-    }
-
-    const ctxAdmin = document.getElementById('monthSales').getContext('2d');
-    const months = [
-        "enero", "febrero", "marzo", "abril",
-        "mayo", "junio", "julio", "agosto",
-        "septiembre", "octubre", "noviembre", "diciembre"
-    ]
-    const myChart = new Chart(ctxAdmin, {
-        type: 'bar',
-        data: {
-            labels: months,
-            datasets: [{
-                label: `Total de Reservaciones 2022 (${reservationList.data.length} en total)`,
-                data: data,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 0.2)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    max: 50,
-                    min: 0,
-                    ticks: {
-                        stepSize: 0.5
-                    }
-                }
-            }
-        }
-    });
-}*/
-
-
-
-
-/*
-function contructUsersSalesChart() {//fecha_Entrada
-
-    const data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    if (reservationList.code == 200) {
-        $.each(reservationList.data, function (i, reservation) {
-
-            if (reservation.fecha_Entrada != null) {
-                const date = GetDateFormat({
-                    string_date: reservation.fecha_Entrada,
-                    hour_format: 12,
-                    date_format: "default"
-                });
-                const actual_month = parseInt(date.datetime_data.month);
-                const actual_count = data[actual_month];
-
-                data[actual_month - 1] = actual_count + 1;
-            }
-        });
-    }
-
-    const ctxAdmin = document.getElementById('monthSales').getContext('2d');
-    const months = [
-        "enero", "febrero", "marzo", "abril",
-        "mayo", "junio", "julio", "agosto",
-        "septiembre", "octubre", "noviembre", "diciembre"
-    ]
-    const myChart = new Chart(ctxAdmin, {
-        type: 'bar',
-        data: {
-            labels: months,
-            datasets: [{
-                label: `Total de Reservaciones 2022 (${reservationList.data.length} en total)`,
-                data: data,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 0.2)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-*/
 
 $("#dbbFiltro").change(function () {
     GraficaBarras($("#dbbFiltro").val());
@@ -319,10 +134,10 @@ function GraficaBarras(id) {
         case "2":
 
             var arrayReservEstadoCivil = [
-                { name: "Soltero(a)", y: 0},
-                { name: "Casado(a)", y: 0},
-                { name: "Viudo(a)", y: 0},
-                { name: "Divorciado(a)", y: 0},
+                { name: "Soltero(a)", y: 0 },
+                { name: "Casado(a)", y: 0 },
+                { name: "Viudo(a)", y: 0 },
+                { name: "Divorciado(a)", y: 0 },
                 { name: "Unión Libre", y: 0 }
             ];
 
@@ -544,7 +359,7 @@ function GraficaBarras(id) {
                 item.y = ResCant;
             }
 
-             //Construccion del grafico
+            //Construccion del grafico
             Highcharts.chart('container', {
                 lang: {
                     viewFullscreen: "Ver en pantalla completa",
@@ -610,6 +425,193 @@ function GraficaBarras(id) {
     }
 }
 
+function GraficaPastelSexo() {
+
+    var UsersList = Users.data;
+    var arrayUser = [];
+    for (var i = 0; i < UsersList.length; i++) {
+        const item = UsersList[i];
+        var objeto = {
+            name: item.sexo,
+            y: 0,
+        }
+        arrayUser.push(objeto);
+    }
+
+
+    let userMap = arrayUser.map(item => {
+        return [item.name, item]
+    });
+    var userMapArr = new Map(userMap); // Pares de clave y valor
+
+    let arrayUser2 = [...userMapArr.values()];
+
+
+    for (var i = 0; i < arrayUser2.length; i++) {
+        const item = arrayUser2[i];
+        var UserFiltro = UsersList.filter(x => x.sexo == item.name && x.role_ID == 2);
+        item.y = UserFiltro.length;
+    }
+
+
+    //Construccion del grafico
+    Highcharts.chart('container2', {
+        lang: {
+            viewFullscreen: "Ver en pantalla completa",
+            printChart: "Imprimir grafico",
+            downloadPNG: "Descargar PNG",
+            downloadJPEG: "Descargar JPEG",
+            downloadPDF: "Descargar PDF",
+            downloadSVG: "Descargar SVG",
+            downloadCSV: "Excel Tabla CSV",
+            downloadXLS: "Excel Tabla XLS",
+            viewData: "Ver tabla",
+            hideData: "Esconder tabla",
+            exitFullscreen: "Salir de pantalla completa",
+            exportData: {
+                categoryHeader: "Categoria"
+            }
+        },
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 10,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Clientes por sexo'
+        },
+        exporting: {
+            showTable: true,
+            buttons: {
+                contextButton: {
+                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV", "separator", "viewData"]
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}% = {point.y:.1f}</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Cantidad',
+            colorByPoint: true,
+            data: arrayUser2
+        }]
+    });
+
+}
+
+
+
+
+
+
+
+function GraficaPastelEstadoCivil() {
+
+    var UsersList = Users.data;
+    var arrayUser = [];
+    for (var i = 0; i < UsersList.length; i++) {
+        const item = UsersList[i];
+        var objeto = {
+            name: item.estadoCivil,
+            y: 0,
+        }
+        arrayUser.push(objeto);
+    }
+
+
+    let userMap = arrayUser.map(item => {
+        return [item.name, item]
+    });
+    var userMapArr = new Map(userMap); // Pares de clave y valor
+
+    let arrayUser2 = [...userMapArr.values()];
+
+
+    for (var i = 0; i < arrayUser2.length; i++) {
+        const item = arrayUser2[i];
+        var UserFiltro = UsersList.filter(x => x.estadoCivil == item.name && x.role_ID == 2);
+        item.y = UserFiltro.length;
+    }
+
+
+    //Construccion del grafico
+    Highcharts.chart('container3', {
+        lang: {
+            viewFullscreen: "Ver en pantalla completa",
+            printChart: "Imprimir grafico",
+            downloadPNG: "Descargar PNG",
+            downloadJPEG: "Descargar JPEG",
+            downloadPDF: "Descargar PDF",
+            downloadSVG: "Descargar SVG",
+            downloadCSV: "Excel Tabla CSV",
+            downloadXLS: "Excel Tabla XLS",
+            viewData: "Ver tabla",
+            hideData: "Esconder tabla",
+            exitFullscreen: "Salir de pantalla completa",
+            exportData: {
+                categoryHeader: "Categoria"
+            }
+        },
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 10,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Clientes por Estado Civil'
+        },
+        exporting: {
+            showTable: true,
+            buttons: {
+                contextButton: {
+                    menuItems: ["viewFullscreen", "separator", "downloadXLS", "downloadCSV", "separator", "viewData"]
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}% = {point.y:.1f}</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Cantidad',
+            colorByPoint: true,
+            data: arrayUser2
+        }]
+    });
+
+}
 
 
 function printDiv(id) {
@@ -680,6 +682,3 @@ function printDiv(id) {
     ventana.close();  //cerramos la ventana
 
 }
-
-
-
