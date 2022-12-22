@@ -24,7 +24,12 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
             _GeneralService = GeneralService;
           
         }
-   
+        public IActionResult ChartHotel()
+        {
+            return View();
+        }
+
+
         public async Task<IActionResult> HotelDashboard()
         {
             try { 
@@ -48,7 +53,7 @@ namespace AHM_TOTAL_TRAVEL_WEB.Controllers
 
                 ViewData["Partner"] = cuenta.Partner;
                 ViewData["Direccion"] = "Calle " + cuenta.Calle + ", Avenida " + cuenta.Avenida + ", Colonia " + cuenta.Colonia;
-                ViewData["Imagen"] = cuenta.Image_URL;
+                ViewData["Imagen"] = partner.Image_Url; 
 
                 ViewData["Hoteles"] = hotel.ToList().Count();
                 ViewData["Habitaciones"] = rooms.ToList().Count();

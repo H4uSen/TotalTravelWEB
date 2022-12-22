@@ -79,7 +79,27 @@
                         <p class="text-sm text-gray-500 mb-1">@ViewData["Direccion"]</p>
                     </div>
                 </div>
-                <br />
+            </div>
+
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c1">
+                    <div class="card-body" id="conten" style="justify-content:center">
+                        <div id="container"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c1 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+            <div class="col-lg-3 col-12">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -125,104 +145,7 @@
                     </div>
                 </div>
             </div>
-           
-            <!-- Line Chart -->
-            <div class="col-lg-9 col-12">
-                <div class="card mb-0" id="c1">
-                    <div class="card-body" id="conten" style="justify-content:center">
-                        <div id="container"></div>
-                    </div>
-                    <center>
-                        <div class="col-md-6">
-                            <button class="btn btn-light" onclick="printDiv('#c1 .card-body')">
-                                <span class="material-symbols-outlined">
-                                    Imprimir
-                                </span>
-                            </button>
-                        </div>
-                    </center>
-                    <br />
-                </div>
-            </div>
-
-        </div>
-        <br />
-        <div class="row align-items-stretch" style="padding-top: 20px">
-
-            <!-- Line Chart -->
-            <div class="col-lg-6 col-12">
-                <div class="card mb-0" id="c2">
-                    <div class="card-body" id="conten2">
-                        <div id="container2"></div>
-                    </div>
-                    <center>
-                        <div class="col-md-6">
-                            <button class="btn btn-light" onclick="printDiv('#c2 .card-body')">
-                                <span class="material-symbols-outlined">
-                                    Imprimir
-                                </span>
-                            </button>
-                        </div>
-                    </center>
-                    <br />
-                </div>
-            </div>
-            <div class="col-lg-6 col-12">
-                <div class="card mb-0" id="c3">
-                    <div class="card-body" id="conten3">
-                        <div id="container3"></div>
-                    </div>
-                    <center>
-                        <div class="col-md-6">
-                            <button class="btn btn-light" onclick="printDiv('#c3 .card-body')">
-                                <span class="material-symbols-outlined">
-                                    Imprimir
-                                </span>
-                            </button>
-                        </div>
-                    </center>
-                    <br />
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-stretch" style="padding-top: 20px">
-
-            <!-- Line Chart -->
-            <div class="col-lg-6 col-12">
-                <div class="card mb-0" id="c4">
-                    <div class="card-body" id="conten4">
-                        <div id="container4"></div>
-                    </div>
-                    <center>
-                        <div class="col-md-6">
-                            <button class="btn btn-light" onclick="printDiv('#c4 .card-body')">
-                                <span class="material-symbols-outlined">
-                                    Imprimir
-                                </span>
-                            </button>
-                        </div>
-                    </center>
-                    <br />
-                </div>
-            </div>
-            <div class="col-lg-6 col-12">
-                <div class="card mb-0" id="c5">
-                    <div class="card-body" id="conten5">
-                        <div id="container5"></div>
-                    </div>
-                    <center>
-                        <div class="col-md-6">
-                            <button class="btn btn-light" onclick="printDiv('#c5 .card-body')">
-                                <span class="material-symbols-outlined">
-                                    Imprimir
-                                </span>
-                            </button>
-                        </div>
-                    </center>
-                    <br />
-                </div>
-            </div>
-        </div>
+        </div>       
     </div>
 </section>
 @section scripts{
