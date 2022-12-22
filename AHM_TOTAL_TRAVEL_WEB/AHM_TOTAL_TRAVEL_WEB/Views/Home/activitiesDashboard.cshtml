@@ -86,7 +86,43 @@
                         <p class="text-sm text-gray-500 mb-1">@ViewData["Direccion"]</p>
                     </div>
                 </div>
-                <br />
+            </div>
+            <!-- Line Chart -->
+            @*<div class="card mb-0">
+            <div class="card-header position-relative">
+                <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
+            </div>
+            <div class="card-body p-0 overflow-auto" id="carta">
+                @foreach (var item in Model)
+                {
+                    <div class="p-3 d-flex align-items-center">
+                        <div class="ms-3">
+                            <a class="d-block" href="#" id="a">
+                                <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
+                            </a><small class="text-gray-500">@item.detalle.Fecha_Reservacion a las @item.detalle.Hora_Reservacion </small>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>*@
+            <div class="col-lg-6 col-12">
+                <div class="card mb-0" id="c2">
+                    <div class="card-body" id="conten2">
+                        <div id="container"></div>
+                    </div>
+                    <center>
+                        <div class="col-md-6">
+                            <button class="btn btn-light" onclick="printDiv('#c2 .card-body')">
+                                <span class="material-symbols-outlined">
+                                    Imprimir
+                                </span>
+                            </button>
+                        </div>
+                    </center>
+                    <br />
+                </div>
+            </div>
+            <div class="col-lg-3 col-12">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -165,42 +201,6 @@
                                 <small class="text-uppercase text-gray-500 small d-block lh-1">ACUÁTICO</small>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Line Chart -->
-            <div class="col-lg-9 col-12">
-                @*<div class="card mb-0">
-                <div class="card-header position-relative">
-                    <h2 class="h3 mb-0 d-flex align-items-center">Reservaciones pendientes</h2>
-                </div>
-                <div class="card-body p-0 overflow-auto" id="carta">
-                    @foreach (var item in Model)
-                    {
-                        <div class="p-3 d-flex align-items-center">
-                            <div class="ms-3">
-                                <a class="d-block" href="#" id="a">
-                                    <h3 class="h5 fw-normal text-dark mb-0">@item.reservacion.Nombrecompleto</h3>
-                                </a><small class="text-gray-500">@item.detalle.Fecha_Reservacion a las @item.detalle.Hora_Reservacion </small>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>*@
-                <br />
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class="">
-                                </div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class="">
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="lineCahrt" @*style="display: block; width: 458px; height: 229px;" width="458" height="229"*@ class="chartjs-render-monitor"></canvas>
                     </div>
                 </div>
             </div>
