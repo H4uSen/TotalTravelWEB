@@ -32,12 +32,7 @@ namespace AHM_TOTAL_TRAVEL_UNIT_TEST
             // Arrange
             RouteValuesModel routeValues = new RouteValuesModel();
             ReservationController controller = new ReservationController(
-                    _reservationService,
-                    _hotelsService,
-                    _accessService,
-                    _saleServices,
-                    _activitiesServices,
-                    _GeneralService);
+                    null,null,null,null,null,null);
 
             // Act
             var result = controller.Index(routeValues).Result;
